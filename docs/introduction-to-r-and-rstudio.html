@@ -62,6 +62,28 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
 <link rel="stylesheet" href="include/psyteachr.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/style.css">
@@ -86,7 +108,14 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 1</span> Introduction to R and RStudio</a></li></ul>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li class="book-part">Get Started in R</li>
+<li><a class="active" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R Basics</a></li>
+<li class="book-part">Exploring Data</li>
+<li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
+</ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/UEABIO/data-sci-v1">View book source <i class="fab fa-github"></i></a></p>
@@ -1227,15 +1256,67 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="index.html">Overview</a></div>
+<div class="next"><a href="r-basics.html"><span class="header-section-number">2</span> R Basics</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-r-and-rstudio"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="nav-link" href="#using-rstudio-cloud"><span class="header-section-number">1.1</span> Using RStudio Cloud</a></li>
+<li>
+<a class="nav-link" href="#getting-to-know-rstudio"><span class="header-section-number">1.2</span> Getting to know RStudio</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#consoles-vs.-scripts"><span class="header-section-number">1.2.1</span> Consoles vs. scripts</a></li>
+<li><a class="nav-link" href="#environment"><span class="header-section-number">1.2.2</span> Environment</a></li>
+<li><a class="nav-link" href="#plots-files-packages-help"><span class="header-section-number">1.2.3</span> Plots, files, packages, help</a></li>
+<li><a class="nav-link" href="#make-rstudio-your-own"><span class="header-section-number">1.2.4</span> Make RStudio your own</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#get-help"><span class="header-section-number">1.3</span> Get Help!</a></li>
+<li><a class="nav-link" href="#get-started"><span class="header-section-number">1.4</span> Get Started</a></li>
+<li>
+<a class="nav-link" href="#your-first-r-command"><span class="header-section-number">1.5</span> Your first R command</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#operators"><span class="header-section-number">1.5.1</span> Operators</a></li>
+<li><a class="nav-link" href="#typos"><span class="header-section-number">1.5.2</span> Typos</a></li>
+<li><a class="nav-link" href="#more-simple-arithmetic"><span class="header-section-number">1.5.3</span> More simple arithmetic</a></li>
+<li><a class="nav-link" href="#try-some-simple-maths"><span class="header-section-number">1.5.4</span> Try some simple maths</a></li>
+<li><a class="nav-link" href="#perform-some-combos"><span class="header-section-number">1.5.5</span> Perform some combos</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#true-or-false-data"><span class="header-section-number">1.6</span> "TRUE or FALSE" data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#assessing-mathematical-truths"><span class="header-section-number">1.6.1</span> Assessing mathematical truths</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#storing-outputs"><span class="header-section-number">1.7</span> Storing outputs</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#choosing-names"><span class="header-section-number">1.7.1</span> Choosing names</a></li></ul>
+</li>
+<li><a class="nav-link" href="#error"><span class="header-section-number">1.8</span> Error</a></li>
+<li>
+<a class="nav-link" href="#functions"><span class="header-section-number">1.9</span> Functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#storing-the-output-of-functions"><span class="header-section-number">1.9.1</span> Storing the output of functions</a></li>
+<li><a class="nav-link" href="#more-fun-with-functions"><span class="header-section-number">1.9.2</span> More fun with functions</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#packages"><span class="header-section-number">1.10</span> Packages</a></li>
+<li><a class="nav-link" href="#my-first-data-visualisation"><span class="header-section-number">1.11</span> My first data visualisation</a></li>
+<li>
+<a class="nav-link" href="#writing-scripts"><span class="header-section-number">1.12</span> Writing scripts</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#organising-scripts"><span class="header-section-number">1.12.1</span> Organising scripts</a></li>
+<li><a class="nav-link" href="#loading-packages"><span class="header-section-number">1.12.2</span> Loading packages</a></li>
+<li><a class="nav-link" href="#adding-more-code"><span class="header-section-number">1.12.3</span> Adding more code</a></li>
+<li><a class="nav-link" href="#running-your-script"><span class="header-section-number">1.12.4</span> Running your script</a></li>
+<li><a class="nav-link" href="#making-an-output"><span class="header-section-number">1.12.5</span> Making an output</a></li>
+<li><a class="nav-link" href="#saving-your-script"><span class="header-section-number">1.12.6</span> Saving your script</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#quitting"><span class="header-section-number">1.13</span> Quitting</a></li>
+<li>
+<a class="nav-link" href="#activity-1"><span class="header-section-number">1.14</span> Activity 1</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#complete-this-quiz"><span class="header-section-number">1.14.1</span> Complete this Quiz</a></li></ul>
+</li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          
+<li><a id="book-source" href="https://github.com/UEABIO/data-sci-v1/blob/main/book/01-intro-to-r.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/data-sci-v1/edit/main/book/01-intro-to-r.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

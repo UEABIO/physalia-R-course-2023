@@ -62,6 +62,28 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
 <link rel="stylesheet" href="include/psyteachr.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/style.css">
@@ -86,7 +108,14 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled"><li><a class="active" href="index.html">Overview</a></li></ul>
+        <ul class="book-toc list-unstyled">
+<li><a class="active" href="index.html">Overview</a></li>
+<li class="book-part">Get Started in R</li>
+<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R Basics</a></li>
+<li class="book-part">Exploring Data</li>
+<li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
+</ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/UEABIO/data-sci-v1">View book source <i class="fab fa-github"></i></a></p>
@@ -153,260 +182,6 @@ Figure 0.1: courtesy of Allison Horst
 
 
 
-<div id="using-rstudio-cloud" class="section level2" number="0.3">
-<h2>
-<span class="header-section-number">0.3</span> Using RStudio Cloud<a class="anchor" aria-label="anchor" href="#using-rstudio-cloud"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="getting-to-know-rstudio" class="section level2" number="0.4">
-<h2>
-<span class="header-section-number">0.4</span> Getting to know RStudio<a class="anchor" aria-label="anchor" href="#getting-to-know-rstudio"><i class="fas fa-link"></i></a>
-</h2>
-<div id="consoles-vs.-scripts" class="section level3" number="0.4.1">
-<h3>
-<span class="header-section-number">0.4.1</span> Consoles vs. scripts<a class="anchor" aria-label="anchor" href="#consoles-vs.-scripts"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="environment" class="section level3" number="0.4.2">
-<h3>
-<span class="header-section-number">0.4.2</span> Environment<a class="anchor" aria-label="anchor" href="#environment"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="plots-files-packages-help" class="section level3" number="0.4.3">
-<h3>
-<span class="header-section-number">0.4.3</span> Plots, files, packages, help<a class="anchor" aria-label="anchor" href="#plots-files-packages-help"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="make-rstudio-your-own" class="section level3" number="0.4.4">
-<h3>
-<span class="header-section-number">0.4.4</span> Make RStudio your own<a class="anchor" aria-label="anchor" href="#make-rstudio-your-own"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-</div>
-<div id="get-help" class="section level2" number="0.5">
-<h2>
-<span class="header-section-number">0.5</span> Get Help!<a class="anchor" aria-label="anchor" href="#get-help"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="get-started" class="section level2" number="0.6">
-<h2>
-<span class="header-section-number">0.6</span> Get Started<a class="anchor" aria-label="anchor" href="#get-started"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="your-first-r-command" class="section level2" number="0.7">
-<h2>
-<span class="header-section-number">0.7</span> Your first R command<a class="anchor" aria-label="anchor" href="#your-first-r-command"><i class="fas fa-link"></i></a>
-</h2>
-<div id="operators" class="section level3" number="0.7.1">
-<h3>
-<span class="header-section-number">0.7.1</span> Operators<a class="anchor" aria-label="anchor" href="#operators"><i class="fas fa-link"></i></a>
-</h3>
-<div id="arithmetic-operators" class="section level4" number="0.7.1.1">
-<h4>
-<span class="header-section-number">0.7.1.1</span> Arithmetic Operators<a class="anchor" aria-label="anchor" href="#arithmetic-operators"><i class="fas fa-link"></i></a>
-</h4>
-</div>
-<div id="logical-operators" class="section level4" number="0.7.1.2">
-<h4>
-<span class="header-section-number">0.7.1.2</span> Logical Operators<a class="anchor" aria-label="anchor" href="#logical-operators"><i class="fas fa-link"></i></a>
-</h4>
-</div>
-</div>
-<div id="typos" class="section level3" number="0.7.2">
-<h3>
-<span class="header-section-number">0.7.2</span> Typos<a class="anchor" aria-label="anchor" href="#typos"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="more-simple-arithmetic" class="section level3" number="0.7.3">
-<h3>
-<span class="header-section-number">0.7.3</span> More simple arithmetic<a class="anchor" aria-label="anchor" href="#more-simple-arithmetic"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="try-some-simple-maths" class="section level3" number="0.7.4">
-<h3>
-<span class="header-section-number">0.7.4</span> Try some simple maths<a class="anchor" aria-label="anchor" href="#try-some-simple-maths"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="perform-some-combos" class="section level3" number="0.7.5">
-<h3>
-<span class="header-section-number">0.7.5</span> Perform some combos<a class="anchor" aria-label="anchor" href="#perform-some-combos"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-</div>
-<div id="true-or-false-data" class="section level2" number="0.8">
-<h2>
-<span class="header-section-number">0.8</span> "TRUE or FALSE" data<a class="anchor" aria-label="anchor" href="#true-or-false-data"><i class="fas fa-link"></i></a>
-</h2>
-<div id="assessing-mathematical-truths" class="section level3" number="0.8.1">
-<h3>
-<span class="header-section-number">0.8.1</span> Assessing mathematical truths<a class="anchor" aria-label="anchor" href="#assessing-mathematical-truths"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-</div>
-<div id="storing-outputs" class="section level2" number="0.9">
-<h2>
-<span class="header-section-number">0.9</span> Storing outputs<a class="anchor" aria-label="anchor" href="#storing-outputs"><i class="fas fa-link"></i></a>
-</h2>
-<div id="choosing-names" class="section level3" number="0.9.1">
-<h3>
-<span class="header-section-number">0.9.1</span> Choosing names<a class="anchor" aria-label="anchor" href="#choosing-names"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-</div>
-<div id="error" class="section level2" number="0.10">
-<h2>
-<span class="header-section-number">0.10</span> Error<a class="anchor" aria-label="anchor" href="#error"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="functions" class="section level2" number="0.11">
-<h2>
-<span class="header-section-number">0.11</span> Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
-</h2>
-<div id="storing-the-output-of-functions" class="section level3" number="0.11.1">
-<h3>
-<span class="header-section-number">0.11.1</span> Storing the output of functions<a class="anchor" aria-label="anchor" href="#storing-the-output-of-functions"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="more-fun-with-functions" class="section level3" number="0.11.2">
-<h3>
-<span class="header-section-number">0.11.2</span> More fun with functions<a class="anchor" aria-label="anchor" href="#more-fun-with-functions"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-</div>
-<div id="packages" class="section level2" number="0.12">
-<h2>
-<span class="header-section-number">0.12</span> Packages<a class="anchor" aria-label="anchor" href="#packages"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="my-first-data-visualisation" class="section level2" number="0.13">
-<h2>
-<span class="header-section-number">0.13</span> My first data visualisation<a class="anchor" aria-label="anchor" href="#my-first-data-visualisation"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="writing-scripts" class="section level2" number="0.14">
-<h2>
-<span class="header-section-number">0.14</span> Writing scripts<a class="anchor" aria-label="anchor" href="#writing-scripts"><i class="fas fa-link"></i></a>
-</h2>
-<div id="organising-scripts" class="section level3" number="0.14.1">
-<h3>
-<span class="header-section-number">0.14.1</span> Organising scripts<a class="anchor" aria-label="anchor" href="#organising-scripts"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="loading-packages" class="section level3" number="0.14.2">
-<h3>
-<span class="header-section-number">0.14.2</span> Loading packages<a class="anchor" aria-label="anchor" href="#loading-packages"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="adding-more-code" class="section level3" number="0.14.3">
-<h3>
-<span class="header-section-number">0.14.3</span> Adding more code<a class="anchor" aria-label="anchor" href="#adding-more-code"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="running-your-script" class="section level3" number="0.14.4">
-<h3>
-<span class="header-section-number">0.14.4</span> Running your script<a class="anchor" aria-label="anchor" href="#running-your-script"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="making-an-output" class="section level3" number="0.14.5">
-<h3>
-<span class="header-section-number">0.14.5</span> Making an output<a class="anchor" aria-label="anchor" href="#making-an-output"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-<div id="saving-your-script" class="section level3" number="0.14.6">
-<h3>
-<span class="header-section-number">0.14.6</span> Saving your script<a class="anchor" aria-label="anchor" href="#saving-your-script"><i class="fas fa-link"></i></a>
-</h3>
-</div>
-</div>
-<div id="quitting" class="section level2" number="0.15">
-<h2>
-<span class="header-section-number">0.15</span> Quitting<a class="anchor" aria-label="anchor" href="#quitting"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="activity-1" class="section level2" number="0.16">
-<h2>
-<span class="header-section-number">0.16</span> Activity 1<a class="anchor" aria-label="anchor" href="#activity-1"><i class="fas fa-link"></i></a>
-</h2>
-<div id="complete-this-quiz" class="section level3" number="0.16.1">
-<h3>
-<span class="header-section-number">0.16.1</span> Complete this Quiz<a class="anchor" aria-label="anchor" href="#complete-this-quiz"><i class="fas fa-link"></i></a>
-</h3>
-
-</div>
-</div>
-<div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#overview">Overview</a></li>
-<li><a class="nav-link" href="#how-to-use-this-book"><span class="header-section-number">0.1</span> How to use this book</a></li>
-<li>
-<a class="nav-link" href="#course-structure"><span class="header-section-number">0.2</span> Course Structure</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#workshops"><span class="header-section-number">0.2.1</span> Workshops</a></li>
-<li><a class="nav-link" href="#lectures"><span class="header-section-number">0.2.2</span> Lectures</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#using-rstudio-cloud"><span class="header-section-number">0.3</span> Using RStudio Cloud</a></li>
-<li>
-<a class="nav-link" href="#getting-to-know-rstudio"><span class="header-section-number">0.4</span> Getting to know RStudio</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#consoles-vs.-scripts"><span class="header-section-number">0.4.1</span> Consoles vs. scripts</a></li>
-<li><a class="nav-link" href="#environment"><span class="header-section-number">0.4.2</span> Environment</a></li>
-<li><a class="nav-link" href="#plots-files-packages-help"><span class="header-section-number">0.4.3</span> Plots, files, packages, help</a></li>
-<li><a class="nav-link" href="#make-rstudio-your-own"><span class="header-section-number">0.4.4</span> Make RStudio your own</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#get-help"><span class="header-section-number">0.5</span> Get Help!</a></li>
-<li><a class="nav-link" href="#get-started"><span class="header-section-number">0.6</span> Get Started</a></li>
-<li>
-<a class="nav-link" href="#your-first-r-command"><span class="header-section-number">0.7</span> Your first R command</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#operators"><span class="header-section-number">0.7.1</span> Operators</a></li>
-<li><a class="nav-link" href="#typos"><span class="header-section-number">0.7.2</span> Typos</a></li>
-<li><a class="nav-link" href="#more-simple-arithmetic"><span class="header-section-number">0.7.3</span> More simple arithmetic</a></li>
-<li><a class="nav-link" href="#try-some-simple-maths"><span class="header-section-number">0.7.4</span> Try some simple maths</a></li>
-<li><a class="nav-link" href="#perform-some-combos"><span class="header-section-number">0.7.5</span> Perform some combos</a></li>
-</ul>
-</li>
-<li>
-<a class="nav-link" href="#true-or-false-data"><span class="header-section-number">0.8</span> "TRUE or FALSE" data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#assessing-mathematical-truths"><span class="header-section-number">0.8.1</span> Assessing mathematical truths</a></li></ul>
-</li>
-<li>
-<a class="nav-link" href="#storing-outputs"><span class="header-section-number">0.9</span> Storing outputs</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#choosing-names"><span class="header-section-number">0.9.1</span> Choosing names</a></li></ul>
-</li>
-<li><a class="nav-link" href="#error"><span class="header-section-number">0.10</span> Error</a></li>
-<li>
-<a class="nav-link" href="#functions"><span class="header-section-number">0.11</span> Functions</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#storing-the-output-of-functions"><span class="header-section-number">0.11.1</span> Storing the output of functions</a></li>
-<li><a class="nav-link" href="#more-fun-with-functions"><span class="header-section-number">0.11.2</span> More fun with functions</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#packages"><span class="header-section-number">0.12</span> Packages</a></li>
-<li><a class="nav-link" href="#my-first-data-visualisation"><span class="header-section-number">0.13</span> My first data visualisation</a></li>
-<li>
-<a class="nav-link" href="#writing-scripts"><span class="header-section-number">0.14</span> Writing scripts</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#organising-scripts"><span class="header-section-number">0.14.1</span> Organising scripts</a></li>
-<li><a class="nav-link" href="#loading-packages"><span class="header-section-number">0.14.2</span> Loading packages</a></li>
-<li><a class="nav-link" href="#adding-more-code"><span class="header-section-number">0.14.3</span> Adding more code</a></li>
-<li><a class="nav-link" href="#running-your-script"><span class="header-section-number">0.14.4</span> Running your script</a></li>
-<li><a class="nav-link" href="#making-an-output"><span class="header-section-number">0.14.5</span> Making an output</a></li>
-<li><a class="nav-link" href="#saving-your-script"><span class="header-section-number">0.14.6</span> Saving your script</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#quitting"><span class="header-section-number">0.15</span> Quitting</a></li>
-<li>
-<a class="nav-link" href="#activity-1"><span class="header-section-number">0.16</span> Activity 1</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#complete-this-quiz"><span class="header-section-number">0.16.1</span> Complete this Quiz</a></li></ul>
-</li>
-</ul>
-
-      <div class="book-extra">
-        <ul class="list-unstyled">
-          
-        </ul>
-</div>
-    </nav>
-</div>
-</div>
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -586,10 +361,33 @@ $( document ).ready(function() {
     license
   );
 });
-</script>
+</script><div class="chapter-nav">
+<div class="empty"></div>
+<div class="next"><a href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#overview">Overview</a></li>
+<li><a class="nav-link" href="#how-to-use-this-book"><span class="header-section-number">0.1</span> How to use this book</a></li>
+<li>
+<a class="nav-link" href="#course-structure"><span class="header-section-number">0.2</span> Course Structure</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#workshops"><span class="header-section-number">0.2.1</span> Workshops</a></li>
+<li><a class="nav-link" href="#lectures"><span class="header-section-number">0.2.2</span> Lectures</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/UEABIO/data-sci-v1/blob/main/book/index.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/data-sci-v1/edit/main/book/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
 
 </div>
- <!-- .container -->
+</div> <!-- .container -->
 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
@@ -602,6 +400,34 @@ $( document ).ready(function() {
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>
