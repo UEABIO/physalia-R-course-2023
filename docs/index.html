@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Overview | 5023Y</title>
+<meta name="author" content="Philip T. Leftwich">
+<meta name="description" content="This book ...">
+<meta name="generator" content="bookdown 0.34 with bs4_book()">
+<meta property="og:title" content="Overview | 5023Y">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ueabio.github.io/data-sci">
+<meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta property="og:description" content="This book ...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Overview | 5023Y">
+<meta name="twitter:description" content="This book ...">
+<meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6NP3MF25W3');
+    </script><script language="javascript"> 
+        function toggle(id) {
+            var ele = document.getElementById("toggleText" + id);
+            var text = document.getElementById("displayText" + id);
+            var buttonText = text.innerHTML.replace("Show ", "");
+            buttonText = buttonText.replace("Hide ", "");
+            if(ele.style.display == "block") {
+                ele.style.display = "none";
+                text.innerHTML = "Show " + buttonText;
+            } else {
+                ele.style.display = "block";
+                text.innerHTML = "Hide " + buttonText;
+            }
+        } 
+    </script><script language="javascript">
+        function openCode(evt, codeName, id) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent" + id);
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks" + id);
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(codeName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script><script language="javascript">
+        function hide(id){
+            document.getElementById(id).style.display = "none";
+        }
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="Data Science for Biologists">5023Y</a>:
+        <small class="text-muted">Data Science for Biologists</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled"><li><a class="active" href="index.html">Overview</a></li></ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/UEABIO/data-sci-v1">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="overview" class="section level1 unnumbered">
+<h1>Overview<a class="anchor" aria-label="anchor" href="#overview"><i class="fas fa-link"></i></a>
+</h1>
+<div class="small_right">
+<img src="images/logos/logo.png" alt="Data skills Logo">
+</div>
+<p>By the end of this book, you will be able to:</p>
+<ul>
+<li>Import data into R</li>
+<li>Manipulate and wrangle data into an appropriate format for analysis</li>
+<li>Calculate summaries of descriptive statistics</li>
+<li>Produce informative data visualisations</li>
+<li>Produce reports using R &amp; Markdown</li>
+<li>Use GitHub to develop version control and data reproducibility skills</li>
+<li>Use General and Generalized Linear Models to produce mean estimates, uncertainty intervals and statistical tests.</li>
+</ul>
+<div id="how-to-use-this-book" class="section level2" number="0.1">
+<h2>
+<span class="header-section-number">0.1</span> How to use this book<a class="anchor" aria-label="anchor" href="#how-to-use-this-book"><i class="fas fa-link"></i></a>
+</h2>
+<p>For many of the chapters, we will provide the code you need to use. You can copy and paste from the book, however, we strongly encourage you to type out the code by yourself. This will seem much slower and you will make errors, but you will learn much more quickly this way.</p>
+<p>Additionally, we also provide the solutions to many of the activities. No-one is going to check whether you tried to figure it out yourself rather than going straight to the solution but remember this: if you copy and paste without thinking, you will learn nothing.</p>
+<p>Finally, on occasion we will make updates to the book such as fixing typos and including additional detail or activities and as such this book should be considered a living document. Please <strong>tell me</strong> if you find any mistakes.</p>
+</div>
+<div id="course-structure" class="section level2" number="0.2">
+<h2>
+<span class="header-section-number">0.2</span> Course Structure<a class="anchor" aria-label="anchor" href="#course-structure"><i class="fas fa-link"></i></a>
+</h2>
+<p>We have:</p>
+<ul>
+<li>one lecture per week</li>
+<li>one workshop per week</li>
+</ul>
+<p>These are both timetabled in-person sessions, and you should check (Timetabler)[<a href="https://timetabler.uea.ac.uk/" class="uri">https://timetabler.uea.ac.uk/</a>] for up to-date information on scheduling. However, all lessons can be accessed remotely through Collaborate, and everything you need to complete workshops will be available on this site.</p>
+<p>If you feel unwell, or cannot attend a session in-person because you need to self-isolate then don’t worry you can access everything, and follow along in real time, or work at your own pace.</p>
+<p>Questions/issues/errors can all be posted on our (Yammer)[<a href="https://www.yammer.com/uea.ac.uk/" class="uri">https://www.yammer.com/uea.ac.uk/</a>] page.</p>
+<div id="workshops" class="section level3" number="0.2.1">
+<h3>
+<span class="header-section-number">0.2.1</span> Workshops<a class="anchor" aria-label="anchor" href="#workshops"><i class="fas fa-link"></i></a>
+</h3>
+<p>The workshops are the best way to learn, they teach you the practical skills you need to become an R wizard.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="images/wizard.png" alt="R wizards" width="80%"><p class="caption">
+Figure 0.1: courtesy of Allison Horst
+</p>
+</div>
+</div>
+<div id="lectures" class="section level3" number="0.2.2">
+<h3>
+<span class="header-section-number">0.2.2</span> Lectures<a class="anchor" aria-label="anchor" href="#lectures"><i class="fas fa-link"></i></a>
+</h3>
+<p>Lectures will be recorded, but Q&amp;A and interactions will be best achieved if you can attend in-person. If you have any worries or concerns about your ability to attend in-person teaching sessions please let me know.</p>
+
+</div>
+</div>
+</div>
+
+
+
+<div id="using-rstudio-cloud" class="section level2" number="0.3">
+<h2>
+<span class="header-section-number">0.3</span> Using RStudio Cloud<a class="anchor" aria-label="anchor" href="#using-rstudio-cloud"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="getting-to-know-rstudio" class="section level2" number="0.4">
+<h2>
+<span class="header-section-number">0.4</span> Getting to know RStudio<a class="anchor" aria-label="anchor" href="#getting-to-know-rstudio"><i class="fas fa-link"></i></a>
+</h2>
+<div id="consoles-vs.-scripts" class="section level3" number="0.4.1">
+<h3>
+<span class="header-section-number">0.4.1</span> Consoles vs. scripts<a class="anchor" aria-label="anchor" href="#consoles-vs.-scripts"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="environment" class="section level3" number="0.4.2">
+<h3>
+<span class="header-section-number">0.4.2</span> Environment<a class="anchor" aria-label="anchor" href="#environment"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="plots-files-packages-help" class="section level3" number="0.4.3">
+<h3>
+<span class="header-section-number">0.4.3</span> Plots, files, packages, help<a class="anchor" aria-label="anchor" href="#plots-files-packages-help"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="make-rstudio-your-own" class="section level3" number="0.4.4">
+<h3>
+<span class="header-section-number">0.4.4</span> Make RStudio your own<a class="anchor" aria-label="anchor" href="#make-rstudio-your-own"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="get-help" class="section level2" number="0.5">
+<h2>
+<span class="header-section-number">0.5</span> Get Help!<a class="anchor" aria-label="anchor" href="#get-help"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="get-started" class="section level2" number="0.6">
+<h2>
+<span class="header-section-number">0.6</span> Get Started<a class="anchor" aria-label="anchor" href="#get-started"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="your-first-r-command" class="section level2" number="0.7">
+<h2>
+<span class="header-section-number">0.7</span> Your first R command<a class="anchor" aria-label="anchor" href="#your-first-r-command"><i class="fas fa-link"></i></a>
+</h2>
+<div id="operators" class="section level3" number="0.7.1">
+<h3>
+<span class="header-section-number">0.7.1</span> Operators<a class="anchor" aria-label="anchor" href="#operators"><i class="fas fa-link"></i></a>
+</h3>
+<div id="arithmetic-operators" class="section level4" number="0.7.1.1">
+<h4>
+<span class="header-section-number">0.7.1.1</span> Arithmetic Operators<a class="anchor" aria-label="anchor" href="#arithmetic-operators"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+<div id="logical-operators" class="section level4" number="0.7.1.2">
+<h4>
+<span class="header-section-number">0.7.1.2</span> Logical Operators<a class="anchor" aria-label="anchor" href="#logical-operators"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+</div>
+<div id="typos" class="section level3" number="0.7.2">
+<h3>
+<span class="header-section-number">0.7.2</span> Typos<a class="anchor" aria-label="anchor" href="#typos"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="more-simple-arithmetic" class="section level3" number="0.7.3">
+<h3>
+<span class="header-section-number">0.7.3</span> More simple arithmetic<a class="anchor" aria-label="anchor" href="#more-simple-arithmetic"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="try-some-simple-maths" class="section level3" number="0.7.4">
+<h3>
+<span class="header-section-number">0.7.4</span> Try some simple maths<a class="anchor" aria-label="anchor" href="#try-some-simple-maths"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="perform-some-combos" class="section level3" number="0.7.5">
+<h3>
+<span class="header-section-number">0.7.5</span> Perform some combos<a class="anchor" aria-label="anchor" href="#perform-some-combos"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="true-or-false-data" class="section level2" number="0.8">
+<h2>
+<span class="header-section-number">0.8</span> "TRUE or FALSE" data<a class="anchor" aria-label="anchor" href="#true-or-false-data"><i class="fas fa-link"></i></a>
+</h2>
+<div id="assessing-mathematical-truths" class="section level3" number="0.8.1">
+<h3>
+<span class="header-section-number">0.8.1</span> Assessing mathematical truths<a class="anchor" aria-label="anchor" href="#assessing-mathematical-truths"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="storing-outputs" class="section level2" number="0.9">
+<h2>
+<span class="header-section-number">0.9</span> Storing outputs<a class="anchor" aria-label="anchor" href="#storing-outputs"><i class="fas fa-link"></i></a>
+</h2>
+<div id="choosing-names" class="section level3" number="0.9.1">
+<h3>
+<span class="header-section-number">0.9.1</span> Choosing names<a class="anchor" aria-label="anchor" href="#choosing-names"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="error" class="section level2" number="0.10">
+<h2>
+<span class="header-section-number">0.10</span> Error<a class="anchor" aria-label="anchor" href="#error"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="functions" class="section level2" number="0.11">
+<h2>
+<span class="header-section-number">0.11</span> Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
+</h2>
+<div id="storing-the-output-of-functions" class="section level3" number="0.11.1">
+<h3>
+<span class="header-section-number">0.11.1</span> Storing the output of functions<a class="anchor" aria-label="anchor" href="#storing-the-output-of-functions"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="more-fun-with-functions" class="section level3" number="0.11.2">
+<h3>
+<span class="header-section-number">0.11.2</span> More fun with functions<a class="anchor" aria-label="anchor" href="#more-fun-with-functions"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="packages" class="section level2" number="0.12">
+<h2>
+<span class="header-section-number">0.12</span> Packages<a class="anchor" aria-label="anchor" href="#packages"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="my-first-data-visualisation" class="section level2" number="0.13">
+<h2>
+<span class="header-section-number">0.13</span> My first data visualisation<a class="anchor" aria-label="anchor" href="#my-first-data-visualisation"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="writing-scripts" class="section level2" number="0.14">
+<h2>
+<span class="header-section-number">0.14</span> Writing scripts<a class="anchor" aria-label="anchor" href="#writing-scripts"><i class="fas fa-link"></i></a>
+</h2>
+<div id="organising-scripts" class="section level3" number="0.14.1">
+<h3>
+<span class="header-section-number">0.14.1</span> Organising scripts<a class="anchor" aria-label="anchor" href="#organising-scripts"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="loading-packages" class="section level3" number="0.14.2">
+<h3>
+<span class="header-section-number">0.14.2</span> Loading packages<a class="anchor" aria-label="anchor" href="#loading-packages"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="adding-more-code" class="section level3" number="0.14.3">
+<h3>
+<span class="header-section-number">0.14.3</span> Adding more code<a class="anchor" aria-label="anchor" href="#adding-more-code"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="running-your-script" class="section level3" number="0.14.4">
+<h3>
+<span class="header-section-number">0.14.4</span> Running your script<a class="anchor" aria-label="anchor" href="#running-your-script"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="making-an-output" class="section level3" number="0.14.5">
+<h3>
+<span class="header-section-number">0.14.5</span> Making an output<a class="anchor" aria-label="anchor" href="#making-an-output"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="saving-your-script" class="section level3" number="0.14.6">
+<h3>
+<span class="header-section-number">0.14.6</span> Saving your script<a class="anchor" aria-label="anchor" href="#saving-your-script"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="quitting" class="section level2" number="0.15">
+<h2>
+<span class="header-section-number">0.15</span> Quitting<a class="anchor" aria-label="anchor" href="#quitting"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="activity-1" class="section level2" number="0.16">
+<h2>
+<span class="header-section-number">0.16</span> Activity 1<a class="anchor" aria-label="anchor" href="#activity-1"><i class="fas fa-link"></i></a>
+</h2>
+<div id="complete-this-quiz" class="section level3" number="0.16.1">
+<h3>
+<span class="header-section-number">0.16.1</span> Complete this Quiz<a class="anchor" aria-label="anchor" href="#complete-this-quiz"><i class="fas fa-link"></i></a>
+</h3>
+
+</div>
+</div>
+<div class="chapter-nav">
+<div class="empty"></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#overview">Overview</a></li>
+<li><a class="nav-link" href="#how-to-use-this-book"><span class="header-section-number">0.1</span> How to use this book</a></li>
+<li>
+<a class="nav-link" href="#course-structure"><span class="header-section-number">0.2</span> Course Structure</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#workshops"><span class="header-section-number">0.2.1</span> Workshops</a></li>
+<li><a class="nav-link" href="#lectures"><span class="header-section-number">0.2.2</span> Lectures</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#using-rstudio-cloud"><span class="header-section-number">0.3</span> Using RStudio Cloud</a></li>
+<li>
+<a class="nav-link" href="#getting-to-know-rstudio"><span class="header-section-number">0.4</span> Getting to know RStudio</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#consoles-vs.-scripts"><span class="header-section-number">0.4.1</span> Consoles vs. scripts</a></li>
+<li><a class="nav-link" href="#environment"><span class="header-section-number">0.4.2</span> Environment</a></li>
+<li><a class="nav-link" href="#plots-files-packages-help"><span class="header-section-number">0.4.3</span> Plots, files, packages, help</a></li>
+<li><a class="nav-link" href="#make-rstudio-your-own"><span class="header-section-number">0.4.4</span> Make RStudio your own</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#get-help"><span class="header-section-number">0.5</span> Get Help!</a></li>
+<li><a class="nav-link" href="#get-started"><span class="header-section-number">0.6</span> Get Started</a></li>
+<li>
+<a class="nav-link" href="#your-first-r-command"><span class="header-section-number">0.7</span> Your first R command</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#operators"><span class="header-section-number">0.7.1</span> Operators</a></li>
+<li><a class="nav-link" href="#typos"><span class="header-section-number">0.7.2</span> Typos</a></li>
+<li><a class="nav-link" href="#more-simple-arithmetic"><span class="header-section-number">0.7.3</span> More simple arithmetic</a></li>
+<li><a class="nav-link" href="#try-some-simple-maths"><span class="header-section-number">0.7.4</span> Try some simple maths</a></li>
+<li><a class="nav-link" href="#perform-some-combos"><span class="header-section-number">0.7.5</span> Perform some combos</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#true-or-false-data"><span class="header-section-number">0.8</span> "TRUE or FALSE" data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#assessing-mathematical-truths"><span class="header-section-number">0.8.1</span> Assessing mathematical truths</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#storing-outputs"><span class="header-section-number">0.9</span> Storing outputs</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#choosing-names"><span class="header-section-number">0.9.1</span> Choosing names</a></li></ul>
+</li>
+<li><a class="nav-link" href="#error"><span class="header-section-number">0.10</span> Error</a></li>
+<li>
+<a class="nav-link" href="#functions"><span class="header-section-number">0.11</span> Functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#storing-the-output-of-functions"><span class="header-section-number">0.11.1</span> Storing the output of functions</a></li>
+<li><a class="nav-link" href="#more-fun-with-functions"><span class="header-section-number">0.11.2</span> More fun with functions</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#packages"><span class="header-section-number">0.12</span> Packages</a></li>
+<li><a class="nav-link" href="#my-first-data-visualisation"><span class="header-section-number">0.13</span> My first data visualisation</a></li>
+<li>
+<a class="nav-link" href="#writing-scripts"><span class="header-section-number">0.14</span> Writing scripts</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#organising-scripts"><span class="header-section-number">0.14.1</span> Organising scripts</a></li>
+<li><a class="nav-link" href="#loading-packages"><span class="header-section-number">0.14.2</span> Loading packages</a></li>
+<li><a class="nav-link" href="#adding-more-code"><span class="header-section-number">0.14.3</span> Adding more code</a></li>
+<li><a class="nav-link" href="#running-your-script"><span class="header-section-number">0.14.4</span> Running your script</a></li>
+<li><a class="nav-link" href="#making-an-output"><span class="header-section-number">0.14.5</span> Making an output</a></li>
+<li><a class="nav-link" href="#saving-your-script"><span class="header-section-number">0.14.6</span> Saving your script</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#quitting"><span class="header-section-number">0.15</span> Quitting</a></li>
+<li>
+<a class="nav-link" href="#activity-1"><span class="header-section-number">0.16</span> Activity 1</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#complete-this-quiz"><span class="header-section-number">0.16.1</span> Complete this Quiz</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+    
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+  
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+  
+  var cl = this.classList
+  
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+  
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+  
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+  
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+$( document ).ready(function() {
+  var cite = ' ';
+  var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
+
+  $("footer div.row div:eq(1) p").html(
+    license
+  );
+});
+</script>
+
+</div>
+ <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-19.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
