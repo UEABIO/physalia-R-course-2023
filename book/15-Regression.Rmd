@@ -137,7 +137,7 @@ plot(lmer3, "Random slope and intercept")
 
 
 
-```{r}
+```{r, fig.cap = "Fully Nested"}
 grViz("
 digraph boxes_and_circles {
 
@@ -147,17 +147,50 @@ digraph boxes_and_circles {
   # several 'node' statements
   node [shape = box,
         fontname = Helvetica]
-  A; B; C; D; E; F
-
-  node [shape = circle,
-        fixedsize = true,
-        width = 0.9] // sets as circles
-  1; 2; 3; 4; 5; 6; 7; 8
+  I; II; 1; 2; 3; 4; 5; 6
 
   # several 'edge' statements
-  A->1 B->2 B->3 B->4 C->A
-  1->D E->A 2->4 1->5 1->F
-  E->6 4->6 5->7 6->7 3->8
+  I->1 I ->2 I ->3
+  II ->4  II ->5 II ->6
+}
+")
+
+```
+```{r, fig.cap = "Fully Crossed"}
+grViz("
+digraph boxes_and_circles {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 10]
+
+  # several 'node' statements
+  node [shape = box,
+        fontname = Helvetica]
+  I; II; 1; 2; 3
+
+  # several 'edge' statements
+  I->1 I ->2 I ->3
+  II ->1  II ->2 II ->3
+}
+")
+
+```
+
+```{r, fig.cap = "Partially Nested/Crossed"}
+grViz("
+digraph boxes_and_circles {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 10]
+
+  # several 'node' statements
+  node [shape = box,
+        fontname = Helvetica]
+  I; II; 1; 2; 3; 4; 5 
+
+  # several 'edge' statements
+  I->1 I ->2 I ->3
+  II ->1  II ->4 II ->5
 }
 ")
 

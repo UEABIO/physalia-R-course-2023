@@ -190,21 +190,68 @@
 <span><span class="st">  # several 'node' statements</span></span>
 <span><span class="st">  node [shape = box,</span></span>
 <span><span class="st">        fontname = Helvetica]</span></span>
-<span><span class="st">  A; B; C; D; E; F</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">  node [shape = circle,</span></span>
-<span><span class="st">        fixedsize = true,</span></span>
-<span><span class="st">        width = 0.9] // sets as circles</span></span>
-<span><span class="st">  1; 2; 3; 4; 5; 6; 7; 8</span></span>
+<span><span class="st">  I; II; 1; 2; 3; 4; 5; 6</span></span>
 <span><span class="st"></span></span>
 <span><span class="st">  # several 'edge' statements</span></span>
-<span><span class="st">  A-&gt;1 B-&gt;2 B-&gt;3 B-&gt;4 C-&gt;A</span></span>
-<span><span class="st">  1-&gt;D E-&gt;A 2-&gt;4 1-&gt;5 1-&gt;F</span></span>
-<span><span class="st">  E-&gt;6 4-&gt;6 5-&gt;7 6-&gt;7 3-&gt;8</span></span>
+<span><span class="st">  I-&gt;1 I -&gt;2 I -&gt;3</span></span>
+<span><span class="st">  II -&gt;4  II -&gt;5 II -&gt;6</span></span>
 <span><span class="st">}</span></span>
 <span><span class="st">"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-10"></span>
 <div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-60e47007fa32436b2ab7" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-60e47007fa32436b2ab7">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  A; B; C; D; E; F\n\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.9] // sets as circles\n  1; 2; 3; 4; 5; 6; 7; 8\n\n  # several \"edge\" statements\n  A->1 B->2 B->3 B->4 C->A\n  1->D E->A 2->4 1->5 1->F\n  E->6 4->6 5->7 6->7 3->8\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-60e47007fa32436b2ab7">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+Figure 3.2: Fully Nested
+</p>
+</div>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">grViz</span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="st">digraph boxes_and_circles {</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">  # a 'graph' statement</span></span>
+<span><span class="st">  graph [overlap = true, fontsize = 10]</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">  # several 'node' statements</span></span>
+<span><span class="st">  node [shape = box,</span></span>
+<span><span class="st">        fontname = Helvetica]</span></span>
+<span><span class="st">  I; II; 1; 2; 3</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">  # several 'edge' statements</span></span>
+<span><span class="st">  I-&gt;1 I -&gt;2 I -&gt;3</span></span>
+<span><span class="st">  II -&gt;1  II -&gt;2 II -&gt;3</span></span>
+<span><span class="st">}</span></span>
+<span><span class="st">"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-11"></span>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0a09f2c65470bfad74ca" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-0a09f2c65470bfad74ca">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+Figure 5.1: Fully Crossed
+</p>
+</div>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">grViz</span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="st">digraph boxes_and_circles {</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">  # a 'graph' statement</span></span>
+<span><span class="st">  graph [overlap = true, fontsize = 10]</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">  # several 'node' statements</span></span>
+<span><span class="st">  node [shape = box,</span></span>
+<span><span class="st">        fontname = Helvetica]</span></span>
+<span><span class="st">  I; II; 1; 2; 3; 4; 5 </span></span>
+<span><span class="st"></span></span>
+<span><span class="st">  # several 'edge' statements</span></span>
+<span><span class="st">  I-&gt;1 I -&gt;2 I -&gt;3</span></span>
+<span><span class="st">  II -&gt;1  II -&gt;4 II -&gt;5</span></span>
+<span><span class="st">}</span></span>
+<span><span class="st">"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-12"></span>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-014c3a7c989613c322c9" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-014c3a7c989613c322c9">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+Figure 3.3: Partially Nested/Crossed
+</p>
+</div>
 </div>
 </div>
 <script>

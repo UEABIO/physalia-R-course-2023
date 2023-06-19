@@ -15,6 +15,7 @@ fig:img-kitteh
 fig:unnamed-chunk-6
 fig:unnamed-chunk-10
 fig:unnamed-chunk-12
+fig:unnamed-chunk-11
 how-to-use-this-book
 course-structure
 workshops
