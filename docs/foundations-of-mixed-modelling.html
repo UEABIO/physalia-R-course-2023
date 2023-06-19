@@ -119,12 +119,10 @@
 <li class="book-part">Mixed Models</li>
 <li><a class="" href="introduction.html"><span class="header-section-number">4</span> Introduction</a></li>
 <li><a class="active" href="foundations-of-mixed-modelling.html"><span class="header-section-number">5</span> Foundations of Mixed Modelling</a></li>
-<li><a class="" href="random-slopes.html"><span class="header-section-number">6</span> Random slopes</a></li>
-<li><a class="" href="random-intercept.html"><span class="header-section-number">7</span> Random intercept</a></li>
-<li><a class="" href="random-intercept-model.html"><span class="header-section-number">8</span> Random intercept model</a></li>
-<li><a class="" href="mixed-models-in-r.html"><span class="header-section-number">9</span> Mixed Models in R</a></li>
-<li><a class="" href="mixed-model-extensions.html"><span class="header-section-number">10</span> Mixed Model extensions</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">11</span> Summary</a></li>
+<li><a class="" href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></li>
+<li><a class="" href="mixed-models-in-r.html"><span class="header-section-number">7</span> Mixed Models in R</a></li>
+<li><a class="" href="mixed-model-extensions.html"><span class="header-section-number">8</span> Mixed Model extensions</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">9</span> Summary</a></li>
 </ul>
 
         <div class="book-extra">
@@ -184,6 +182,7 @@ Touch on the assumptions of mixed models</p>
 <code class="sourceCode R"><span><span class="va">plot_group</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">group</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 <div id="choosing-random-effects-crossed-or-nested" class="section level2" number="5.3">
 <h2>
@@ -196,26 +195,211 @@ Touch on the assumptions of mixed models</p>
 <p>Clutch Mass ∼ Foraging Rate + (1|Woodland/Female ID)+ (1|Year)</p>
 <p>Understanding whether your experimental/sampling design calls for nested or crossed random effects is not always straightforward, but it can help to visualise experimental design by drawing it (see Schielzeth &amp; Nakagawa, 2013 ; Fig. 1 ), or tabulating your observations by these grouping factors (e.g. with the ‘ table’ command in R) to identify how your data are distributed. We advocate that researchers always ensure that their levels of random effect grouping variables are uniquely labelled. For example, females are labelled 1 - n in each woodland, the model will try and pool variance for all females with the same code. Giving all females a unique code makes the nested structure of the data is implicit, and a model specified as ∼ (1| Woodland) + (1|FemaleID) would be identical to the model above.</p>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-10"></span>
+<span style="display:block;" id="fig:unnamed-chunk-11"></span>
 <div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-60e47007fa32436b2ab7" style="width:100%;height:480px;"></div>
 <script type="application/json" data-for="htmlwidget-60e47007fa32436b2ab7">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
-Figure 3.2: Fully Nested
-</p>
-</div>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-11"></span>
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0a09f2c65470bfad74ca" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-0a09f2c65470bfad74ca">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
-Figure 5.1: Fully Crossed
+Figure 5.1: Fully Nested
 </p>
 </div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:unnamed-chunk-12"></span>
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-014c3a7c989613c322c9" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-014c3a7c989613c322c9">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
-Figure 3.3: Partially Nested/Crossed
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0a09f2c65470bfad74ca" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-0a09f2c65470bfad74ca">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+Figure 3.3: Fully Crossed
 </p>
 </div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-13"></span>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-014c3a7c989613c322c9" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-014c3a7c989613c322c9">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+Figure 5.2: Partially Nested/Crossed
+</p>
+</div>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rand_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">ranef</span><span class="op">(</span><span class="va">lmer1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">grp</span>,</span>
+<span>         b0_hat <span class="op">=</span> <span class="va">condval</span>,</span>
+<span>         intercept_cond <span class="op">=</span> <span class="va">b0_hat</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmer1</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span>,</span>
+<span>         .keep <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data1</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lmer1</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>         fit.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lmer1</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">16</span>, col <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_violinhalf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">rand_dist</span>, </span>
+<span>                  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="va">intercept_cond</span><span class="op">)</span>, </span>
+<span>                  trim <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>                  width <span class="op">=</span> <span class="fl">4</span>, </span>
+<span>                  adjust <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>                  fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">fit.m</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">40</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Independent Variable"</span>, </span>
+<span>       y <span class="op">=</span> <span class="st">"Dependent Variable"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-14"></span>
+<img src="15-Regression_files/figure-html/unnamed-chunk-14-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%"><p class="caption">
+Figure 5.3: Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts
+</p>
+</div>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML ['lmerMod']
+## Formula: y ~ x + (x | group)
+##    Data: data
+## 
+## REML criterion at convergence: 7519.4
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.8846 -0.6930  0.0250  0.6579  3.3366 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr
+##  group    (Intercept) 352.1409 18.7654      
+##           x             0.4112  0.6412  0.62
+##  Residual             101.2134 10.0605      
+## Number of obs: 1000, groups:  group, 10
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)  21.6680     5.9688   3.630
+## x             2.1043     0.2321   9.067
+## 
+## Correlation of Fixed Effects:
+##   (Intr)
+## x 0.490</code></pre>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data.2</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit2.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lmer3</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>         fit2.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lmer3</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
+<span>         resid2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rand_dist2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">ranef</span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">grp</span>,</span>
+<span>          term <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"(Intercept)"</span> <span class="op">~</span> <span class="st">"b0_hat"</span>,</span>
+<span>                             <span class="va">term</span> <span class="op">==</span> <span class="st">"x"</span> <span class="op">~</span> <span class="st">"b1_hat"</span><span class="op">)</span>,</span>
+<span>            value <span class="op">=</span> <span class="va">condval</span>,</span>
+<span>         .keep <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="st">"group"</span>, names_from <span class="op">=</span> <span class="st">"term"</span>, values_from <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Intercept_cond <span class="op">=</span> <span class="va">b0_hat</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span>,</span>
+<span>         Slope_cond <span class="op">=</span> <span class="va">b1_hat</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pmain</span> <span class="op">&lt;-</span> <span class="va">rand_dist2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Intercept_cond</span>, y <span class="op">=</span> <span class="va">Slope_cond</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">group</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density_2d.html">geom_density2d</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">4</span>, col <span class="op">=</span> <span class="st">"grey"</span>, adjust <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">xdens</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rand_dist2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Intercept_cond</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, col <span class="op">=</span> <span class="cn">NA</span>, trim <span class="op">=</span> <span class="cn">FALSE</span>, adjust <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ydens</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rand_dist2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Slope_cond</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, col <span class="op">=</span> <span class="cn">NA</span>, trim <span class="op">=</span> <span class="cn">FALSE</span>, adjust <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">layout</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
+<span><span class="st">AAA#</span></span>
+<span><span class="st">BBBC</span></span>
+<span><span class="st">BBBC</span></span>
+<span><span class="st">BBBC"</span></span>
+<span></span>
+<span></span>
+<span><span class="va">inset</span> <span class="op">&lt;-</span> <span class="va">xdens</span><span class="op">+</span><span class="va">pmain</span><span class="op">+</span><span class="va">ydens</span> <span class="op">+</span><span class="fu">plot_layout</span><span class="op">(</span>design <span class="op">=</span> <span class="va">layout</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lmer1</span>, <span class="st">"Random intercept"</span><span class="op">)</span> <span class="op">+</span> <span class="va">inset</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Number_of_boots</span> <span class="op">&lt;-</span> <span class="fl">500</span></span></code></pre></div>
+<p>The number of columns for the dataframes will equal the number of fixed effect coefficients and random effect variances. We can extract these from the initial model. First we extract the coefficients, then transpose the table into wide format.</p>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract the fixed effect coefficients.</span></span>
+<span><span class="va">FE_df</span> <span class="op">&lt;-</span> <span class="fu">fixef</span><span class="op">(</span><span class="va">lmer1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Extract the random effects variance and residual variance</span></span>
+<span><span class="va">RE_df</span> <span class="op">&lt;-</span> <span class="fu">VarCorr</span><span class="op">(</span><span class="va">lmer1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="st">"Level"</span>, <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">vcov</span>, <span class="va">sdcor</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">vcov</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Next, we create empty dataframes to take our bootstraps.</p>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">BS_params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="va">Number_of_boots</span>, ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">FE_df</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">BS_params</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">FE_df</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">BS_var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="va">Number_of_boots</span>, ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">RE_df</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">BS_var</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">RE_df</span><span class="op">[</span><span class="st">"Level"</span>,<span class="op">]</span></span></code></pre></div>
+<p>In addition, we will be predicting marginal values from each model. So, we need to create a prediction dataframe with an empty column to store the predicted values. For this example, we only need to predict ŷ values for a handful of x values that represent the range of xs. I chose to use 10-quantiles because I want to be able to fit a non-linear confidence band later. If this was a non-linear fit, we might want even more prediction values.</p>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">BS_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">x</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                       iteration <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">Number_of_boots</span>,</span>
+<span>                       pred <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">Number_of_boots</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="va">BS_X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span><span class="va">data1</span>, prop <span class="op">=</span> <span class="fl">1</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">BS_lmer</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">lmer1</span><span class="op">@</span><span class="va">call</span><span class="op">$</span><span class="va">formula</span>,</span>
+<span>data <span class="op">=</span> <span class="va">BS_X</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">BS_params</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span> <span class="op">&lt;-</span> <span class="va">BS_lmer</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu">fixef</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">BS_var</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span> <span class="op">&lt;-</span> <span class="va">BS_lmer</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu">VarCorr</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">.</span><span class="op">$</span><span class="va">sdcor</span></span>
+<span></span>
+<span><span class="va">BS_pred</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">BS_pred</span><span class="op">$</span><span class="va">iteration</span> <span class="op">==</span> <span class="va">i</span><span class="op">)</span>,<span class="op">]</span><span class="op">$</span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">BS_lmer</span>,</span>
+<span>newdata <span class="op">=</span> <span class="va">BS_pred</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">BS_pred</span><span class="op">$</span><span class="va">iteration</span> <span class="op">==</span> <span class="va">i</span><span class="op">)</span>,<span class="op">]</span>,</span>
+<span>re.form <span class="op">=</span> <span class="op">~</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plot_1</span> <span class="op">&lt;-</span> <span class="va">BS_pred</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">pred</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">iteration</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, col <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data1</span>,</span>
+<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">fit.m</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="fl">36</span>, ymax <span class="op">=</span> <span class="fl">38</span>,</span>
+<span>                  xmin <span class="op">=</span> <span class="fl">6</span>, xmax <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>,</span>
+<span>              col <span class="op">=</span> <span class="st">"firebrick"</span>,</span>
+<span>              fill <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>              size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">plot_2</span> <span class="op">&lt;-</span> <span class="va">BS_pred</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">pred</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">iteration</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data1</span>,</span>
+<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">fit.m</span><span class="op">)</span>,</span>
+<span>              col <span class="op">=</span> <span class="st">"grey"</span>, </span>
+<span>              size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">8</span><span class="op">)</span>,</span>
+<span>                    ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">36</span>, <span class="fl">38</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="fl">36</span>, ymax <span class="op">=</span> <span class="fl">38</span>,</span>
+<span>                  xmin <span class="op">=</span> <span class="fl">6</span>, xmax <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>,</span>
+<span>              col <span class="op">=</span> <span class="st">"firebrick"</span>,</span>
+<span>              fill <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>              size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">plot_1</span> <span class="op">+</span> <span class="va">plot_2</span></span></code></pre></div>
+<div class="inline-figure">
+<img src="15-Regression_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;">
+## Random slopes</div>
+<p>random_slopes_intercept_model &lt;- lmer(dependent_var ~ independent_var + (independent_var | group), data = data)
+random_slopes_values &lt;- predict(random_slopes_model)</p>
+</div>
+<div id="random-intercept" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> Random intercept<a class="anchor" aria-label="anchor" href="#random-intercept"><i class="fas fa-link"></i></a>
+</h2>
 </div>
 </div>
 <script>
@@ -399,7 +583,7 @@ $( document ).ready(function() {
 });
 </script><div class="chapter-nav">
 <div class="prev"><a href="introduction.html"><span class="header-section-number">4</span> Introduction</a></div>
-<div class="next"><a href="random-slopes.html"><span class="header-section-number">6</span> Random slopes</a></div>
+<div class="next"><a href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -407,6 +591,7 @@ $( document ).ready(function() {
 <li><a class="nav-link" href="#why-use-mixed-models"><span class="header-section-number">5.1</span> Why use mixed models?</a></li>
 <li><a class="nav-link" href="#fixed-vs-random-effects"><span class="header-section-number">5.2</span> Fixed vs Random effects</a></li>
 <li><a class="nav-link" href="#choosing-random-effects-crossed-or-nested"><span class="header-section-number">5.3</span> Choosing random effects: crossed or nested?</a></li>
+<li><a class="nav-link" href="#random-intercept"><span class="header-section-number">5.4</span> Random intercept</a></li>
 </ul>
 
       <div class="book-extra">

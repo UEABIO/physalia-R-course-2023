@@ -16,6 +16,8 @@ fig:unnamed-chunk-6
 fig:unnamed-chunk-10
 fig:unnamed-chunk-12
 fig:unnamed-chunk-11
+fig:unnamed-chunk-13
+fig:unnamed-chunk-14
 how-to-use-this-book
 course-structure
 workshops
@@ -98,11 +100,10 @@ foundations-of-mixed-modelling
 why-use-mixed-models
 fixed-vs-random-effects
 choosing-random-effects-crossed-or-nested
-random-slopes
 random-intercept
 random-intercept-model
 nested-and-crossed-random-effects
-random-slopes-1
+random-slopes
 mixed-model-equations
 assumptions-of-a-mixed-model
 mixed-models-in-r
