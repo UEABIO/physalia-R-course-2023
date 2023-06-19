@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 5 Foundations of Mixed Modelling | 5023Y</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="5.1 Why use mixed models?   5.2 Fixed vs Random effects We can now join our random effect matrix to the full dataset and define our y values as \[yi = B0i + b0j + B1xi + b1xj + ε\]. data &lt;-...">
+<meta name="description" content="5.1 Why use mixed models? Briefly introduce mixed models and their applications Highlight the benefits of incorporating random effects and partial pooling  5.2 Fixed vs Random effects Explain the...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
 <meta property="og:title" content="Chapter 5 Foundations of Mixed Modelling | 5023Y">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/data-sci/foundations-of-mixed-modelling.html">
 <meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
-<meta property="og:description" content="5.1 Why use mixed models?   5.2 Fixed vs Random effects We can now join our random effect matrix to the full dataset and define our y values as \[yi = B0i + b0j + B1xi + b1xj + ε\]. data &lt;-...">
+<meta property="og:description" content="5.1 Why use mixed models? Briefly introduce mixed models and their applications Highlight the benefits of incorporating random effects and partial pooling  5.2 Fixed vs Random effects Explain the...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 5 Foundations of Mixed Modelling | 5023Y">
-<meta name="twitter:description" content="5.1 Why use mixed models?   5.2 Fixed vs Random effects We can now join our random effect matrix to the full dataset and define our y values as \[yi = B0i + b0j + B1xi + b1xj + ε\]. data &lt;-...">
+<meta name="twitter:description" content="5.1 Why use mixed models? Briefly introduce mixed models and their applications Highlight the benefits of incorporating random effects and partial pooling  5.2 Fixed vs Random effects Explain the...">
 <meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -140,11 +140,17 @@
 <h2>
 <span class="header-section-number">5.1</span> Why use mixed models?<a class="anchor" aria-label="anchor" href="#why-use-mixed-models"><i class="fas fa-link"></i></a>
 </h2>
+<p>Briefly introduce mixed models and their applications
+Highlight the benefits of incorporating random effects and partial pooling</p>
 </div>
 <div id="fixed-vs-random-effects" class="section level2" number="5.2">
 <h2>
 <span class="header-section-number">5.2</span> Fixed vs Random effects<a class="anchor" aria-label="anchor" href="#fixed-vs-random-effects"><i class="fas fa-link"></i></a>
 </h2>
+<p>Explain the difference between fixed and random effects
+Discuss the hierarchical structure of data and the need for mixed models
+Provide an overview of the linear mixed model equation
+Touch on the assumptions of mixed models</p>
 <p>We can now join our random effect matrix to the full dataset and define our y values as</p>
 <p><span class="math display">\[yi = B0i + b0j + B1xi + b1xj + ε\]</span>.</p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
@@ -159,10 +165,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">B0</span> <span class="op">+</span> <span class="va">b0</span> <span class="op">+</span> <span class="va">x</span> <span class="op">*</span> <span class="op">(</span><span class="va">B1</span> <span class="op">+</span> <span class="va">b1</span><span class="op">)</span> <span class="op">+</span> <span class="va">E</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">x</span>, <span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Color tagged by group</span></span>
 <span><span class="va">plot_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, </span>
 <span>                               y <span class="op">=</span> <span class="va">y</span>, </span>
@@ -176,27 +180,21 @@
 <span></span>
 <span><span class="va">plot_group</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_group</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">group</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">grViz</span><span class="op">(</span><span class="st">"</span></span>
-<span><span class="st">digraph boxes_and_circles {</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">  # a 'graph' statement</span></span>
-<span><span class="st">  graph [overlap = true, fontsize = 10]</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">  # several 'node' statements</span></span>
-<span><span class="st">  node [shape = box,</span></span>
-<span><span class="st">        fontname = Helvetica]</span></span>
-<span><span class="st">  I; II; 1; 2; 3; 4; 5; 6</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">  # several 'edge' statements</span></span>
-<span><span class="st">  I-&gt;1 I -&gt;2 I -&gt;3</span></span>
-<span><span class="st">  II -&gt;4  II -&gt;5 II -&gt;6</span></span>
-<span><span class="st">}</span></span>
-<span><span class="st">"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="choosing-random-effects-crossed-or-nested" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Choosing random effects: crossed or nested?<a class="anchor" aria-label="anchor" href="#choosing-random-effects-crossed-or-nested"><i class="fas fa-link"></i></a>
+</h2>
+<p>A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined by your experimental or sampling design ( Schielzeth &amp; Nakagawa, 2013 ). A simple example can illustrate the difference. Imagine a researcher was interested in understanding the factors affecting the clutch mass of a passerine bird. They have a study population spread across five separate woodlands, each containing 30 nest boxes. Every week during breeding they measure the foraging rate of females at feeders, and measure their subsequent clutch mass. Some females have multiple clutches in a season and contribute multiple data points.</p>
+<p>Here, female ID is said to be nested within woodland : each woodland contains multiple females unique to that woodland (that never move among woodlands). The nested random effect controls for the fact that (i) clutches from the same female are not independent, and (ii) females from the same woodland may have clutch masses more similar to one another than to females from other woodlands</p>
+<p>Clutch Mass ∼ Foraging Rate + (1|Woodland/Female ID)</p>
+<p>Now imagine that this is a long-term study, and the researcher returns every year for five years to continue with measurements. Here it is appropriate fit year as a crossed random effect because every woodland appears multiple times in every year of the dataset, and females that survive from one year to the next will also appear in multiple years.</p>
+<p>Clutch Mass ∼ Foraging Rate + (1|Woodland/Female ID)+ (1|Year)</p>
+<p>Understanding whether your experimental/sampling design calls for nested or crossed random effects is not always straightforward, but it can help to visualise experimental design by drawing it (see Schielzeth &amp; Nakagawa, 2013 ; Fig. 1 ), or tabulating your observations by these grouping factors (e.g. with the ‘ table’ command in R) to identify how your data are distributed. We advocate that researchers always ensure that their levels of random effect grouping variables are uniquely labelled. For example, females are labelled 1 - n in each woodland, the model will try and pool variance for all females with the same code. Giving all females a unique code makes the nested structure of the data is implicit, and a model specified as ∼ (1| Woodland) + (1|FemaleID) would be identical to the model above.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:unnamed-chunk-10"></span>
 <div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-60e47007fa32436b2ab7" style="width:100%;height:480px;"></div>
@@ -204,23 +202,6 @@
 Figure 3.2: Fully Nested
 </p>
 </div>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">grViz</span><span class="op">(</span><span class="st">"</span></span>
-<span><span class="st">digraph boxes_and_circles {</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">  # a 'graph' statement</span></span>
-<span><span class="st">  graph [overlap = true, fontsize = 10]</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">  # several 'node' statements</span></span>
-<span><span class="st">  node [shape = box,</span></span>
-<span><span class="st">        fontname = Helvetica]</span></span>
-<span><span class="st">  I; II; 1; 2; 3</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">  # several 'edge' statements</span></span>
-<span><span class="st">  I-&gt;1 I -&gt;2 I -&gt;3</span></span>
-<span><span class="st">  II -&gt;1  II -&gt;2 II -&gt;3</span></span>
-<span><span class="st">}</span></span>
-<span><span class="st">"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:unnamed-chunk-11"></span>
 <div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0a09f2c65470bfad74ca" style="width:100%;height:480px;"></div>
@@ -228,23 +209,6 @@ Figure 3.2: Fully Nested
 Figure 5.1: Fully Crossed
 </p>
 </div>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">grViz</span><span class="op">(</span><span class="st">"</span></span>
-<span><span class="st">digraph boxes_and_circles {</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">  # a 'graph' statement</span></span>
-<span><span class="st">  graph [overlap = true, fontsize = 10]</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">  # several 'node' statements</span></span>
-<span><span class="st">  node [shape = box,</span></span>
-<span><span class="st">        fontname = Helvetica]</span></span>
-<span><span class="st">  I; II; 1; 2; 3; 4; 5 </span></span>
-<span><span class="st"></span></span>
-<span><span class="st">  # several 'edge' statements</span></span>
-<span><span class="st">  I-&gt;1 I -&gt;2 I -&gt;3</span></span>
-<span><span class="st">  II -&gt;1  II -&gt;4 II -&gt;5</span></span>
-<span><span class="st">}</span></span>
-<span><span class="st">"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:unnamed-chunk-12"></span>
 <div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-014c3a7c989613c322c9" style="width:100%;height:480px;"></div>
@@ -442,6 +406,7 @@ $( document ).ready(function() {
 <li><a class="nav-link" href="#foundations-of-mixed-modelling"><span class="header-section-number">5</span> Foundations of Mixed Modelling</a></li>
 <li><a class="nav-link" href="#why-use-mixed-models"><span class="header-section-number">5.1</span> Why use mixed models?</a></li>
 <li><a class="nav-link" href="#fixed-vs-random-effects"><span class="header-section-number">5.2</span> Fixed vs Random effects</a></li>
+<li><a class="nav-link" href="#choosing-random-effects-crossed-or-nested"><span class="header-section-number">5.3</span> Choosing random effects: crossed or nested?</a></li>
 </ul>
 
       <div class="book-extra">

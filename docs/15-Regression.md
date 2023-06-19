@@ -9,11 +9,20 @@
 
 
 
+
 # Foundations of Mixed Modelling
 
 ## Why use mixed models?
 
+Briefly introduce mixed models and their applications
+Highlight the benefits of incorporating random effects and partial pooling
+
 ## Fixed vs Random effects
+
+Explain the difference between fixed and random effects
+Discuss the hierarchical structure of data and the need for mixed models
+Provide an overview of the linear mixed model equation
+Touch on the assumptions of mixed models
 
 
 
@@ -42,12 +51,8 @@ data <- expand.grid(group = as.factor(seq(1:10)),
 plot(data$x, data$y)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" />
 
-
-```r
-theme_set(theme_classic())
-```
 
 
 
@@ -81,27 +86,19 @@ plot_group+
 
 
 
+## Choosing random effects: crossed or nested?  
 
+A common issue that causes confusion is this issue of specifying random effects as either  ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined  by your experimental or sampling design (  Schielzeth & Nakagawa, 2013  ). A simple  example can illustrate the difference. Imagine a researcher was interested in understanding  the factors affecting the clutch mass of a passerine bird. They have a study population  spread across five separate woodlands, each containing 30 nest boxes. Every week during  breeding they measure the foraging rate of females at feeders, and measure their  subsequent clutch mass. Some females have multiple clutches in a season and contribute multiple data points. 
 
+Here, female ID is said to be  nested within woodland  : each woodland  contains multiple females unique to that woodland (that never move among woodlands).  The nested random effect controls for the fact that (i) clutches from the same female  are not independent, and (ii) females from the same woodland may have clutch masses  more similar to one another than to females from other woodlands  
 
-```r
-grViz("
-digraph boxes_and_circles {
+Clutch Mass  ∼  Foraging Rate + (1|Woodland/Female ID)  
 
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
+Now imagine that this is a long-term study, and the researcher returns every year for five  years to continue with measurements. Here it is appropriate fit year as a  crossed  random  effect because every woodland appears multiple times in every year of the dataset, and  females that survive from one year to the next will also appear in multiple years.  
 
-  # several 'node' statements
-  node [shape = box,
-        fontname = Helvetica]
-  I; II; 1; 2; 3; 4; 5; 6
+Clutch Mass  ∼  Foraging Rate + (1|Woodland/Female ID)+ (1|Year)  
 
-  # several 'edge' statements
-  I->1 I ->2 I ->3
-  II ->4  II ->5 II ->6
-}
-")
-```
+Understanding whether your experimental/sampling design calls for nested or crossed  random effects is not always straightforward, but it can help to visualise experimental  design by drawing it (see  Schielzeth & Nakagawa, 2013  ;  Fig. 1  ), or tabulating your  observations by these grouping factors (e.g. with the ‘  table’  command in R) to identify  how your data are distributed. We advocate that researchers always ensure that their levels  of random effect grouping variables are uniquely labelled. For example, females are  labelled 1  -  n  in each woodland, the model will try and pool variance for all females  with the same code. Giving all females a unique code makes the nested structure of the  data is implicit, and a model specified as  ∼  (1| Woodland) + (1|FemaleID) would be  identical to the model above. 
 
 <div class="figure" style="text-align: center">
 
@@ -112,26 +109,6 @@ digraph boxes_and_circles {
 
 <p class="caption">(\#fig:unnamed-chunk-10)Fully Nested</p>
 </div>
-
-```r
-grViz("
-digraph boxes_and_circles {
-
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
-
-  # several 'node' statements
-  node [shape = box,
-        fontname = Helvetica]
-  I; II; 1; 2; 3
-
-  # several 'edge' statements
-  I->1 I ->2 I ->3
-  II ->1  II ->2 II ->3
-}
-")
-```
-
 <div class="figure" style="text-align: center">
 
 ```{=html}
@@ -141,26 +118,6 @@ digraph boxes_and_circles {
 
 <p class="caption">(\#fig:unnamed-chunk-11)Fully Crossed</p>
 </div>
-
-
-```r
-grViz("
-digraph boxes_and_circles {
-
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
-
-  # several 'node' statements
-  node [shape = box,
-        fontname = Helvetica]
-  I; II; 1; 2; 3; 4; 5 
-
-  # several 'edge' statements
-  I->1 I ->2 I ->3
-  II ->1  II ->4 II ->5
-}
-")
-```
 
 <div class="figure" style="text-align: center">
 
@@ -190,11 +147,6 @@ ggplot(data, aes(x = independent_var, y = dependent_var, color = group, group = 
     theme_minimal()
 
 
-
-
-
-```
-
 ## Nested and crossed random effects
 
 ## Random slopes
@@ -202,6 +154,7 @@ ggplot(data, aes(x = independent_var, y = dependent_var, color = group, group = 
 ## Mixed model equations
 
 ## Assumptions of a mixed model
+
 
 # Mixed Models in R
 
@@ -217,6 +170,8 @@ ggplot(data, aes(x = independent_var, y = dependent_var, color = group, group = 
 
 
 # Summary
+
+## Troubleshooting
 
 ## Further Reading
 

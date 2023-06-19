@@ -97,6 +97,7 @@ introduction
 foundations-of-mixed-modelling
 why-use-mixed-models
 fixed-vs-random-effects
+choosing-random-effects-crossed-or-nested
 random-slopes
 random-intercept
 random-intercept-model
@@ -111,4 +112,5 @@ model-simplification
 interpretation
 mixed-model-extensions
 summary
+troubleshooting
 further-reading
