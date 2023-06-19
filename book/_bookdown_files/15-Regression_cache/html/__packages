@@ -1,4 +1,3 @@
-base
 extrafont
 tidyverse
 ggplot2
@@ -21,3 +20,7 @@ rstatix
 performance
 SemiPar
 patchwork
+lubridate
+Matrix
+lme4
+DiagrammeR
