@@ -244,11 +244,15 @@ BBBC"
 
 
 inset <- xdens+pmain+ydens +plot_layout(design = layout)
+
+inset
 ```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
-plot(lmer1, "Random intercept") + inset
+plot(lmer1, "Random intercept") + inset_element(inset, 0, 0.6, 0.4, 1)
 ```
 
 <img src="15-Regression_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" />
@@ -353,6 +357,8 @@ plot_1 + plot_2
 ```
 
 <img src="15-Regression_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
+
+
 ## Random slopes
 
 random_slopes_intercept_model <- lmer(dependent_var ~ independent_var + (independent_var | group), data = data)

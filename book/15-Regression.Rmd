@@ -297,10 +297,12 @@ BBBC"
 
 inset <- xdens+pmain+ydens +plot_layout(design = layout)
 
+inset
+
 ```
 
 ```{r}
-plot(lmer1, "Random intercept") + inset
+plot(lmer1, "Random intercept") + inset_element(inset, 0, 0.6, 0.4, 1)
 
 ```
 
@@ -401,6 +403,8 @@ plot_2 <- BS_pred %>%
 
 plot_1 + plot_2
 ```
+
+
 ## Random slopes
 
 random_slopes_intercept_model <- lmer(dependent_var ~ independent_var + (independent_var | group), data = data)

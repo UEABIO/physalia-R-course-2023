@@ -100,10 +100,11 @@ foundations-of-mixed-modelling
 why-use-mixed-models
 fixed-vs-random-effects
 choosing-random-effects-crossed-or-nested
+random-slopes
 random-intercept
 random-intercept-model
 nested-and-crossed-random-effects
-random-slopes
+random-slopes-1
 mixed-model-equations
 assumptions-of-a-mixed-model
 mixed-models-in-r
