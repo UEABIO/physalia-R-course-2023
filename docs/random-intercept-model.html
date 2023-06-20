@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 6 Random intercept model | 5023Y</title>
+<title>Chapter 5 Random intercept model | 5023Y</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="model_intercept &lt;- lmer(dependent_var ~ independent_var + (1 | group), data = data) random_intercept_values &lt;- predict(model_intercept) ggplot(data, aes(x = independent_var, y = dependent_var,...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 6 Random intercept model | 5023Y">
+<meta property="og:title" content="Chapter 5 Random intercept model | 5023Y">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/data-sci/random-intercept-model.html">
 <meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
 <meta property="og:description" content="model_intercept &lt;- lmer(dependent_var ~ independent_var + (1 | group), data = data) random_intercept_values &lt;- predict(model_intercept) ggplot(data, aes(x = independent_var, y = dependent_var,...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 6 Random intercept model | 5023Y">
+<meta name="twitter:title" content="Chapter 5 Random intercept model | 5023Y">
 <meta name="twitter:description" content="model_intercept &lt;- lmer(dependent_var ~ independent_var + (1 | group), data = data) random_intercept_values &lt;- predict(model_intercept) ggplot(data, aes(x = independent_var, y = dependent_var,...">
 <meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -117,12 +117,11 @@
 <li class="book-part">Exploring Data</li>
 <li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
 <li class="book-part">Mixed Models</li>
-<li><a class="" href="introduction.html"><span class="header-section-number">4</span> Introduction</a></li>
-<li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">5</span> Foundations of Mixed Modelling</a></li>
-<li><a class="active" href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></li>
-<li><a class="" href="mixed-models-in-r.html"><span class="header-section-number">7</span> Mixed Models in R</a></li>
-<li><a class="" href="mixed-model-extensions.html"><span class="header-section-number">8</span> Mixed Model extensions</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">9</span> Summary</a></li>
+<li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">4</span> Foundations of Mixed Modelling</a></li>
+<li><a class="active" href="random-intercept-model.html"><span class="header-section-number">5</span> Random intercept model</a></li>
+<li><a class="" href="mixed-models-in-r.html"><span class="header-section-number">6</span> Mixed Models in R</a></li>
+<li><a class="" href="mixed-model-extensions.html"><span class="header-section-number">7</span> Mixed Model extensions</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">8</span> Summary</a></li>
 </ul>
 
         <div class="book-extra">
@@ -130,9 +129,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="random-intercept-model" class="section level1" number="6">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="random-intercept-model" class="section level1" number="5">
 <h1>
-<span class="header-section-number">6</span> Random intercept model<a class="anchor" aria-label="anchor" href="#random-intercept-model"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5</span> Random intercept model<a class="anchor" aria-label="anchor" href="#random-intercept-model"><i class="fas fa-link"></i></a>
 </h1>
 <p>model_intercept &lt;- lmer(dependent_var ~ independent_var + (1 | group), data = data)
 random_intercept_values &lt;- predict(model_intercept)</p>
@@ -141,24 +140,24 @@ geom_point(position = position_jitter(width = 0.2), alpha = 0.6) +
 geom_line(aes(x = independent_var, y= random_intercept_values)) +
 labs(title = "Random Slopes", x = "Independent Variable", y = "Dependent Variable") +
 theme_minimal()</p>
-<div id="nested-and-crossed-random-effects" class="section level2" number="6.1">
+<div id="nested-and-crossed-random-effects" class="section level2" number="5.1">
 <h2>
-<span class="header-section-number">6.1</span> Nested and crossed random effects<a class="anchor" aria-label="anchor" href="#nested-and-crossed-random-effects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1</span> Nested and crossed random effects<a class="anchor" aria-label="anchor" href="#nested-and-crossed-random-effects"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="random-slopes-1" class="section level2" number="6.2">
+<div id="random-slopes-1" class="section level2" number="5.2">
 <h2>
-<span class="header-section-number">6.2</span> Random slopes<a class="anchor" aria-label="anchor" href="#random-slopes-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2</span> Random slopes<a class="anchor" aria-label="anchor" href="#random-slopes-1"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="mixed-model-equations" class="section level2" number="6.3">
+<div id="mixed-model-equations" class="section level2" number="5.3">
 <h2>
-<span class="header-section-number">6.3</span> Mixed model equations<a class="anchor" aria-label="anchor" href="#mixed-model-equations"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3</span> Mixed model equations<a class="anchor" aria-label="anchor" href="#mixed-model-equations"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="assumptions-of-a-mixed-model" class="section level2" number="6.4">
+<div id="assumptions-of-a-mixed-model" class="section level2" number="5.4">
 <h2>
-<span class="header-section-number">6.4</span> Assumptions of a mixed model<a class="anchor" aria-label="anchor" href="#assumptions-of-a-mixed-model"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.4</span> Assumptions of a mixed model<a class="anchor" aria-label="anchor" href="#assumptions-of-a-mixed-model"><i class="fas fa-link"></i></a>
 </h2>
 </div>
 </div>
@@ -342,16 +341,16 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="foundations-of-mixed-modelling.html"><span class="header-section-number">5</span> Foundations of Mixed Modelling</a></div>
-<div class="next"><a href="mixed-models-in-r.html"><span class="header-section-number">7</span> Mixed Models in R</a></div>
+<div class="prev"><a href="foundations-of-mixed-modelling.html"><span class="header-section-number">4</span> Foundations of Mixed Modelling</a></div>
+<div class="next"><a href="mixed-models-in-r.html"><span class="header-section-number">6</span> Mixed Models in R</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#random-intercept-model"><span class="header-section-number">6</span> Random intercept model</a></li>
-<li><a class="nav-link" href="#nested-and-crossed-random-effects"><span class="header-section-number">6.1</span> Nested and crossed random effects</a></li>
-<li><a class="nav-link" href="#random-slopes-1"><span class="header-section-number">6.2</span> Random slopes</a></li>
-<li><a class="nav-link" href="#mixed-model-equations"><span class="header-section-number">6.3</span> Mixed model equations</a></li>
-<li><a class="nav-link" href="#assumptions-of-a-mixed-model"><span class="header-section-number">6.4</span> Assumptions of a mixed model</a></li>
+<li><a class="nav-link" href="#random-intercept-model"><span class="header-section-number">5</span> Random intercept model</a></li>
+<li><a class="nav-link" href="#nested-and-crossed-random-effects"><span class="header-section-number">5.1</span> Nested and crossed random effects</a></li>
+<li><a class="nav-link" href="#random-slopes-1"><span class="header-section-number">5.2</span> Random slopes</a></li>
+<li><a class="nav-link" href="#mixed-model-equations"><span class="header-section-number">5.3</span> Mixed model equations</a></li>
+<li><a class="nav-link" href="#assumptions-of-a-mixed-model"><span class="header-section-number">5.4</span> Assumptions of a mixed model</a></li>
 </ul>
 
       <div class="book-extra">
@@ -369,7 +368,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-19.</p>
+    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

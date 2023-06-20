@@ -1,7 +1,7 @@
 --- 
 title: "5023Y"
 author: "Philip T. Leftwich"
-date: "2023-06-19"
+date: "2023-06-20"
 subtitle: Data Science for Biologists
 site: bookdown::bookdown_site
 documentclass: book
@@ -35,46 +35,29 @@ favicon: images/logos/favicon.ico
      alt="Data skills Logo" /></div>
 
 
-By the end of this book, you will be able to:
+Data are often complex and messy. 
 
-* Import data into R
-* Manipulate and wrangle data into an appropriate format for analysis
-* Calculate summaries of descriptive statistics
-* Produce informative data visualisations
-* Produce reports using R & Markdown
-* Use GitHub to develop version control and data reproducibility skills
-* Use General and Generalized Linear Models to produce mean estimates, uncertainty intervals and statistical tests. 
+We can have different grouping factors like where we collect the data, etc. Sample sizes may also leave something to be desired, especially if we try to fit complicated models with many parameters. On top of that, our data points might not be truly independent. For instance, there might be structure to our data.
 
-## How to use this book 
+This is why mixed models were developed, to deal with such messy data and to allow us to use all our data, even when we have low sample sizes, structured data and many covariates to fit. On top of all that, mixed models allow us to save degrees of freedom compared to running standard linear models! Sounds good.
 
-For many of the chapters, we will provide the code you need to use. You can copy and paste from the book, however, we strongly encourage you to type out the code by yourself. This will seem much slower and you will make errors, but you will learn much more quickly this way.
+Here we will cover the basics of linear mixed models, how to use them responsibly and interepret your findings effectively.
 
-Additionally, we also provide the solutions to many of the activities. No-one is going to check whether you tried to figure it out yourself rather than going straight to the solution but remember this: if you copy and paste without thinking, you will learn nothing. 
+If you are trying to “extend” your linear model, fear not: there are generalised linear mixed effects models, too.
 
-Finally, on occasion we will make updates to the book such as fixing typos and including additional detail or activities and as such this book should be considered a living document. Please **tell me** if you find any mistakes. 
+## Terminology
 
-## Course Structure
+Mixed-effects models are sometime referred to as hierarchical models, multi-level models, random effects models, and mixed-models. Regardless of the confusing vocabulary, it’s worth knowing that the terms all may be used to mean similar models.
 
-We have:
+Random effects are an important part of mixed-effects models. Random effects capture the variations that come from grouping or clustering of data. They are used in mixed models, which combine both fixed effects (relationships between variables) and random effects. This approach helps us account for correlations and dependencies within groups, making our models more realistic.
 
-* one lecture per week
-* one workshop per week
+In nature, we often see hierarchical structures, such as streams within a watershed or species within a family. Random effects can be useful in these situations and others where observations tend to be clustered. By using random effects, we can improve our ability to model the system accurately.
 
-These are both timetabled in-person sessions, and you should check (Timetabler)[https://timetabler.uea.ac.uk/] for up to-date information on scheduling. However, all lessons can be accessed remotely through Collaborate, and everything you need to complete workshops will be available on this site.
+The main purpose of applying random effects in mixed models is to capture more realistic patterns and uncertainties in the data. For example, we can account for correlations that arise from multiple observations within a group or when our observations lack complete independence.
 
-If you feel unwell, or cannot attend a session in-person because you need to self-isolate then don’t worry you can access everything, and follow along in real time, or work at your own pace.
+To sum it up, random effects and mixed models help us deal with situations where observations are not independent. They allow us to capture the complexities and dependencies within groups, improving the accuracy of our statistical models.
 
-Questions/issues/errors can all be posted on our (Yammer)[https://www.yammer.com/uea.ac.uk/] page.
+### Variance
 
-### Workshops
+To understand mixed- and random effects models, we need to understand random effects and to understand random effects, we need to understand variance. We often need to think more about where the variance in our system is showing up in our model or how our model handles the variance that we know will be there. Historically variance was seen as noise and distraction, and the objective was to remove or minimize all possible variance. Variance has often been seen as a nuisance parameter. However, there can be information in the variance. Variance is ubiquitous, but understanding what part of the system holds what proportions of the variance can benefit our understanding of the systems we seek to model. We should be familiar with the residual variance from our linear models, but might that residual variance be better attributed to within a group? Or between a group?
 
-The workshops are the best way to learn, they teach you the practical skills you need to become an R wizard. 
-
-<div class="figure" style="text-align: center">
-<img src="images/wizard.png" alt="R wizards" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-2)courtesy of Allison Horst</p>
-</div>
-
-### Lectures
-
-Lectures will be recorded, but Q&A and interactions will be best achieved if you can attend in-person. If you have any worries or concerns about your ability to attend in-person teaching sessions please let me know. 

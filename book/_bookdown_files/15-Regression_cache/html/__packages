@@ -25,3 +25,5 @@ Matrix
 lme4
 DiagrammeR
 see
+broom.mixed
+emmeans

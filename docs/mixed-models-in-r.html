@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 7 Mixed Models in R | 5023Y</title>
+<title>Chapter 6 Mixed Models in R | 5023Y</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="7.1 Demonstration   7.2 Model fitting   7.3 Model simplification   7.4 Interpretation   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
+<meta name="description" content="https://bodowinter.com/tutorial/bw_LME_tutorial.pdf  6.1 Demonstration   6.2 Model fitting   6.3 Model simplification   6.4 Interpretation   /* update total correct if #webex-total_correct exists...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 7 Mixed Models in R | 5023Y">
+<meta property="og:title" content="Chapter 6 Mixed Models in R | 5023Y">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/data-sci/mixed-models-in-r.html">
 <meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
-<meta property="og:description" content="7.1 Demonstration   7.2 Model fitting   7.3 Model simplification   7.4 Interpretation   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
+<meta property="og:description" content="https://bodowinter.com/tutorial/bw_LME_tutorial.pdf  6.1 Demonstration   6.2 Model fitting   6.3 Model simplification   6.4 Interpretation   /* update total correct if #webex-total_correct exists...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 7 Mixed Models in R | 5023Y">
-<meta name="twitter:description" content="7.1 Demonstration   7.2 Model fitting   7.3 Model simplification   7.4 Interpretation   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
+<meta name="twitter:title" content="Chapter 6 Mixed Models in R | 5023Y">
+<meta name="twitter:description" content="https://bodowinter.com/tutorial/bw_LME_tutorial.pdf  6.1 Demonstration   6.2 Model fitting   6.3 Model simplification   6.4 Interpretation   /* update total correct if #webex-total_correct exists...">
 <meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -117,12 +117,11 @@
 <li class="book-part">Exploring Data</li>
 <li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
 <li class="book-part">Mixed Models</li>
-<li><a class="" href="introduction.html"><span class="header-section-number">4</span> Introduction</a></li>
-<li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">5</span> Foundations of Mixed Modelling</a></li>
-<li><a class="" href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></li>
-<li><a class="active" href="mixed-models-in-r.html"><span class="header-section-number">7</span> Mixed Models in R</a></li>
-<li><a class="" href="mixed-model-extensions.html"><span class="header-section-number">8</span> Mixed Model extensions</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">9</span> Summary</a></li>
+<li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">4</span> Foundations of Mixed Modelling</a></li>
+<li><a class="" href="random-intercept-model.html"><span class="header-section-number">5</span> Random intercept model</a></li>
+<li><a class="active" href="mixed-models-in-r.html"><span class="header-section-number">6</span> Mixed Models in R</a></li>
+<li><a class="" href="mixed-model-extensions.html"><span class="header-section-number">7</span> Mixed Model extensions</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">8</span> Summary</a></li>
 </ul>
 
         <div class="book-extra">
@@ -130,28 +129,29 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="mixed-models-in-r" class="section level1" number="7">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="mixed-models-in-r" class="section level1" number="6">
 <h1>
-<span class="header-section-number">7</span> Mixed Models in R<a class="anchor" aria-label="anchor" href="#mixed-models-in-r"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6</span> Mixed Models in R<a class="anchor" aria-label="anchor" href="#mixed-models-in-r"><i class="fas fa-link"></i></a>
 </h1>
-<div id="demonstration" class="section level2" number="7.1">
+<p><a href="https://bodowinter.com/tutorial/bw_LME_tutorial.pdf" class="uri">https://bodowinter.com/tutorial/bw_LME_tutorial.pdf</a></p>
+<div id="demonstration" class="section level2" number="6.1">
 <h2>
-<span class="header-section-number">7.1</span> Demonstration<a class="anchor" aria-label="anchor" href="#demonstration"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.1</span> Demonstration<a class="anchor" aria-label="anchor" href="#demonstration"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="model-fitting" class="section level2" number="7.2">
+<div id="model-fitting" class="section level2" number="6.2">
 <h2>
-<span class="header-section-number">7.2</span> Model fitting<a class="anchor" aria-label="anchor" href="#model-fitting"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.2</span> Model fitting<a class="anchor" aria-label="anchor" href="#model-fitting"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="model-simplification" class="section level2" number="7.3">
+<div id="model-simplification" class="section level2" number="6.3">
 <h2>
-<span class="header-section-number">7.3</span> Model simplification<a class="anchor" aria-label="anchor" href="#model-simplification"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3</span> Model simplification<a class="anchor" aria-label="anchor" href="#model-simplification"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="interpretation" class="section level2" number="7.4">
+<div id="interpretation" class="section level2" number="6.4">
 <h2>
-<span class="header-section-number">7.4</span> Interpretation<a class="anchor" aria-label="anchor" href="#interpretation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4</span> Interpretation<a class="anchor" aria-label="anchor" href="#interpretation"><i class="fas fa-link"></i></a>
 </h2>
 </div>
 </div>
@@ -335,16 +335,16 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></div>
-<div class="next"><a href="mixed-model-extensions.html"><span class="header-section-number">8</span> Mixed Model extensions</a></div>
+<div class="prev"><a href="random-intercept-model.html"><span class="header-section-number">5</span> Random intercept model</a></div>
+<div class="next"><a href="mixed-model-extensions.html"><span class="header-section-number">7</span> Mixed Model extensions</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#mixed-models-in-r"><span class="header-section-number">7</span> Mixed Models in R</a></li>
-<li><a class="nav-link" href="#demonstration"><span class="header-section-number">7.1</span> Demonstration</a></li>
-<li><a class="nav-link" href="#model-fitting"><span class="header-section-number">7.2</span> Model fitting</a></li>
-<li><a class="nav-link" href="#model-simplification"><span class="header-section-number">7.3</span> Model simplification</a></li>
-<li><a class="nav-link" href="#interpretation"><span class="header-section-number">7.4</span> Interpretation</a></li>
+<li><a class="nav-link" href="#mixed-models-in-r"><span class="header-section-number">6</span> Mixed Models in R</a></li>
+<li><a class="nav-link" href="#demonstration"><span class="header-section-number">6.1</span> Demonstration</a></li>
+<li><a class="nav-link" href="#model-fitting"><span class="header-section-number">6.2</span> Model fitting</a></li>
+<li><a class="nav-link" href="#model-simplification"><span class="header-section-number">6.3</span> Model simplification</a></li>
+<li><a class="nav-link" href="#interpretation"><span class="header-section-number">6.4</span> Interpretation</a></li>
 </ul>
 
       <div class="book-extra">
@@ -362,7 +362,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-19.</p>
+    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
