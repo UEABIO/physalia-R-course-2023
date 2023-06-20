@@ -18,6 +18,8 @@ library(DiagrammeR)
 library(kableExtra)
 library(broom.mixed)
 library(emmeans)
+library(DHARMa)
+library(sjPlot)
 
  report_p <- function(p, digits = 3) {
      reported <- if_else(p < 0.001,
@@ -191,6 +193,7 @@ summary(additive_model)
 
 ```
 
+
 ### Multiple analysis approach
 
 ```{r, fig.cap = "Multiple independent analyses"}
@@ -200,6 +203,7 @@ plot_group+
   facet_wrap(~group)
 
 ```
+
 
 
 
@@ -235,7 +239,7 @@ We now want to know if an association between `y ~ x` exists after controlling f
 
 ```{r}
 
-plot <- function(model, title = "Data Coloured by Group"){
+plot_function2 <- function(model, title = "Data Coloured by Group"){
   
 data <- data %>% 
   mutate(fit.m = predict(model, re.form = NA),
@@ -254,7 +258,7 @@ data %>%
 # random intercept model
 mixed_model <- lmer(y ~ x + (1|group), data = data)
 
-plot(mixed_model, "Random intercept")
+plot_function2(mixed_model, "Random intercept")
 
 ```
 
@@ -311,6 +315,9 @@ bind_rows(pooled, no_pool, partial_pool) %>%
 
 ```
 
+
+### Plotting model predictions
+
 ```{r}
 basic_pred <- emmeans(basic_model, specs = ~  x, at = list(x = c(0, 2.5, 5, 7.5, 10))) %>% as_tibble()
 
@@ -346,9 +353,107 @@ pooled_plot /
 ```
 
 
+## `sjPlot`
+
+```{r}
+plot_model(mixed_model,type="pred",
+           terms=c("x", "group"),pred.type="re")
+
+```
+```{r}
+
+plot_model(mixed_model, terms = c("x", "group"), type = "re")
+
+plot_model(mixed_model, terms = c("x", "group"), type = "est")
+
+```
+
+
 ## Checking models
 
-## Choosing random effects: crossed or nested?  
+```{r}
+
+plot(mixed_model) 
+
+```
+
+```{r}
+
+qqnorm(resid(mixed_model))
+qqline(resid(mixed_model)) 
+
+```
+
+
+```{r, fig.cap = "Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts"}
+rand_dist <- as.data.frame(ranef(mixed_model)) %>% 
+  mutate(group = grp,
+         b0_hat = condval,
+         intercept_cond = b0_hat + summary(mixed_model)$coef[1,1],
+         .keep = "none")
+
+data1 <- data %>% 
+  mutate(fit.m = predict(mixed_model, re.form = NA),
+         fit.c = predict(mixed_model, re.form = NULL))
+
+data1 %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_point(pch = 16, col = "grey") +
+  geom_violinhalf(data = rand_dist, 
+                  aes(x = 0, y = intercept_cond), 
+                  trim = FALSE, 
+                  width = 4, 
+                  adjust = 2, 
+                  fill = NA)+
+  geom_line(aes(y = fit.m), linewidth = 2)  +
+  coord_cartesian(ylim = c(-40, 100))+
+  labs(x = "Independent Variable", 
+       y = "Dependent Variable")
+
+```
+
+
+
+
+
+```{r}
+
+performance::check_model(mixed_model)
+
+```
+
+```{r}
+
+resid.mm <- DHARMa::simulateResiduals(mixed_model)
+
+plot(resid.mm)
+
+```
+
+
+```{r}
+resid.mm <- DHARMa::simulateResiduals(mixed_model, refit = T)
+
+plot(resid.mm)
+
+```
+
+
+```{block, type = "warning"}
+
+When you have a lot of data, even minimal deviations from the expected distribution will become significant (this is discussed in the help/vignette for the DHARMa package). You will need to assess the distribution and decide if it is important for yourself.
+
+```
+
+
+## `lmerTest`
+
+## Quiz
+
+
+# Types of Random Effects
+
+## Crossed or Nested
 
 A common issue that causes confusion is this issue of specifying random effects as either  ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined  by your experimental or sampling design (  Schielzeth & Nakagawa, 2013  ). A simple  example can illustrate the difference. Imagine a researcher was interested in understanding  the factors affecting the clutch mass of a passerine bird. They have a study population  spread across five separate woodlands, each containing 30 nest boxes. Every week during  breeding they measure the foraging rate of females at feeders, and measure their  subsequent clutch mass. Some females have multiple clutches in a season and contribute multiple data points. 
 
@@ -426,7 +531,7 @@ digraph boxes_and_circles {
 ```
 
 
-## Different types of mixed models
+## Random slopes
 
 
 ```{r, include = FALSE}
@@ -439,7 +544,7 @@ data <- data %>%
 data %>%
   ggplot(aes(x = x, y = y, col = group)) +
   geom_point(pch = 16) +
-  geom_line(aes(y = fit.c, col = group), size = 2)  +
+  geom_line(aes(y = fit.c, col = group), linewidth = 2)  +
   coord_cartesian(ylim = c(-40, 100))+
   labs(title = title, 
        x = "Independent Variable", 
@@ -475,33 +580,6 @@ plot_function(lmer3, "Random slope and intercept")
 
 
 
-```{r, fig.cap = "Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts"}
-rand_dist <- as.data.frame(ranef(lmer1)) %>% 
-  mutate(group = grp,
-         b0_hat = condval,
-         intercept_cond = b0_hat + summary(lmer1)$coef[1,1],
-         .keep = "none")
-
-data1 <- data %>% 
-  mutate(fit.m = predict(lmer1, re.form = NA),
-         fit.c = predict(lmer1, re.form = NULL))
-
-data1 %>%
-  ggplot(aes(x = x, y = y)) +
-  geom_point(pch = 16, col = "grey") +
-  geom_violinhalf(data = rand_dist, 
-                  aes(x = 0, y = intercept_cond), 
-                  trim = FALSE, 
-                  width = 4, 
-                  adjust = 2, 
-                  fill = NA)+
-  geom_line(aes(y = fit.m), linewidth = 2)  +
-  coord_cartesian(ylim = c(-40, 100))+
-  labs(x = "Independent Variable", 
-       y = "Dependent Variable")
-
-```
-
 ```{r}
 summary(lmer3)
 
@@ -514,6 +592,12 @@ data.2 <- data %>%
          resid2 = resid(lmer3))
 
 ```
+
+
+## Model refining 
+
+## Random effect correlation
+
 
 ```{r}
 rand_dist2 <- as.data.frame(ranef(lmer3)) %>% 
@@ -691,25 +775,28 @@ ggplot(data, aes(x = independent_var, y = dependent_var, color = group, group = 
 ## Assumptions of a mixed model
 
 
-# Mixed Models in R
+# Worked Examples
 
 
 https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
 
-## Demonstration
 
-## Model fitting
+## Reporting
 
-## Model simplification
+## Tables
 
-## Interpretation
+## Figures
 
-# Mixed Model extensions
+## Write-ups
+
+
 
 
 # Summary
 
-## Troubleshooting
+## Mixed Model extensions
+
+## Practical problems
 
 ## Further Reading
 

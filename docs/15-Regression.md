@@ -259,6 +259,7 @@ summary(additive_model)
 ## F-statistic: 234.5 on 19 and 980 DF,  p-value: < 2.2e-16
 ```
 
+
 ### Multiple analysis approach
 
 
@@ -272,6 +273,7 @@ plot_group+
 <img src="15-Regression_files/figure-html/unnamed-chunk-14-1.png" alt="Multiple independent analyses" width="100%" />
 <p class="caption">(\#fig:unnamed-chunk-14)Multiple independent analyses</p>
 </div>
+
 
 
 
@@ -405,7 +407,7 @@ We now want to know if an association between `y ~ x` exists after controlling f
 
 
 ```r
-plot <- function(model, title = "Data Coloured by Group"){
+plot_function2 <- function(model, title = "Data Coloured by Group"){
   
 data <- data %>% 
   mutate(fit.m = predict(model, re.form = NA),
@@ -424,7 +426,7 @@ data %>%
 # random intercept model
 mixed_model <- lmer(y ~ x + (1|group), data = data)
 
-plot(mixed_model, "Random intercept")
+plot_function2(mixed_model, "Random intercept")
 ```
 
 <img src="15-Regression_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
@@ -559,6 +561,9 @@ bind_rows(pooled, no_pool, partial_pool) %>%
 </div>
 
 
+### Plotting model predictions
+
+
 ```r
 basic_pred <- emmeans(basic_model, specs = ~  x, at = list(x = c(0, 2.5, 5, 7.5, 10))) %>% as_tibble()
 
@@ -595,77 +600,58 @@ pooled_plot /
 <img src="15-Regression_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" />
 
 
+## `sjPlot`
+
+
+```r
+plot_model(mixed_model,type="pred",
+           terms=c("x", "group"),pred.type="re")
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+plot_model(mixed_model, terms = c("x", "group"), type = "re")
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+plot_model(mixed_model, terms = c("x", "group"), type = "est")
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-22-2.png" width="100%" style="display: block; margin: auto;" />
+
+
 ## Checking models
 
-## Choosing random effects: crossed or nested?  
 
-A common issue that causes confusion is this issue of specifying random effects as either  ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined  by your experimental or sampling design (  Schielzeth & Nakagawa, 2013  ). A simple  example can illustrate the difference. Imagine a researcher was interested in understanding  the factors affecting the clutch mass of a passerine bird. They have a study population  spread across five separate woodlands, each containing 30 nest boxes. Every week during  breeding they measure the foraging rate of females at feeders, and measure their  subsequent clutch mass. Some females have multiple clutches in a season and contribute multiple data points. 
-
-Here, female ID is said to be  nested within woodland  : each woodland  contains multiple females unique to that woodland (that never move among woodlands).  The nested random effect controls for the fact that (i) clutches from the same female  are not independent, and (ii) females from the same woodland may have clutch masses  more similar to one another than to females from other woodlands  
-
-Clutch Mass  ∼  Foraging Rate + (1|Woodland/Female ID)  
-
-Now imagine that this is a long-term study, and the researcher returns every year for five  years to continue with measurements. Here it is appropriate fit year as a  crossed  random  effect because every woodland appears multiple times in every year of the dataset, and  females that survive from one year to the next will also appear in multiple years.  
-
-Clutch Mass  ∼  Foraging Rate + (1|Woodland/Female ID)+ (1|Year)  
-
-Understanding whether your experimental/sampling design calls for nested or crossed  random effects is not always straightforward, but it can help to visualise experimental  design by drawing it (see  Schielzeth & Nakagawa, 2013  ;  Fig. 1  ), or tabulating your  observations by these grouping factors (e.g. with the ‘  table’  command in R) to identify  how your data are distributed. We advocate that researchers always ensure that their levels  of random effect grouping variables are uniquely labelled. For example, females are  labelled 1  -  n  in each woodland, the model will try and pool variance for all females  with the same code. Giving all females a unique code makes the nested structure of the  data is implicit, and a model specified as  ∼  (1| Woodland) + (1|FemaleID) would be  identical to the model above. 
-
-
-<div class="figure" style="text-align: center">
-
-```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2cd8ea1b8259b58e9e25" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-2cd8ea1b8259b58e9e25">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+```r
+plot(mixed_model) 
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-21)Fully Nested</p>
-</div>
+<img src="15-Regression_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-<div class="figure" style="text-align: center">
-
-```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7683ca4d1095f6b381d1" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-7683ca4d1095f6b381d1">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+```r
+qqnorm(resid(mixed_model))
+qqline(resid(mixed_model)) 
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-22)Fully Crossed</p>
-</div>
-
-
-<div class="figure" style="text-align: center">
-
-```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-21683da6e18bdeb0ce01" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-21683da6e18bdeb0ce01">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-```
-
-<p class="caption">(\#fig:unnamed-chunk-23)Partially Nested/Crossed</p>
-</div>
-
-
-## Different types of mixed models
-
-
-
-
-<img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
-
-
+<img src="15-Regression_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
 ```r
-rand_dist <- as.data.frame(ranef(lmer1)) %>% 
+rand_dist <- as.data.frame(ranef(mixed_model)) %>% 
   mutate(group = grp,
          b0_hat = condval,
-         intercept_cond = b0_hat + summary(lmer1)$coef[1,1],
+         intercept_cond = b0_hat + summary(mixed_model)$coef[1,1],
          .keep = "none")
 
 data1 <- data %>% 
-  mutate(fit.m = predict(lmer1, re.form = NA),
-         fit.c = predict(lmer1, re.form = NULL))
+  mutate(fit.m = predict(mixed_model, re.form = NA),
+         fit.c = predict(mixed_model, re.form = NULL))
 
 data1 %>%
   ggplot(aes(x = x, y = y)) +
@@ -683,9 +669,113 @@ data1 %>%
 ```
 
 <div class="figure" style="text-align: center">
-<img src="15-Regression_files/figure-html/unnamed-chunk-26-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-26)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
+<img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-25)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
 </div>
+
+
+
+
+
+
+```r
+performance::check_model(mixed_model)
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+resid.mm <- DHARMa::simulateResiduals(mixed_model)
+
+plot(resid.mm)
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+
+```r
+resid.mm <- DHARMa::simulateResiduals(mixed_model, refit = T)
+
+plot(resid.mm)
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+<div class="warning">
+<p>When you have a lot of data, even minimal deviations from the
+expected distribution will become significant (this is discussed in the
+help/vignette for the DHARMa package). You will need to assess the
+distribution and decide if it is important for yourself.</p>
+</div>
+
+
+## `lmerTest`
+
+## Quiz
+
+
+# Types of Random Effects
+
+## Crossed or Nested
+
+A common issue that causes confusion is this issue of specifying random effects as either  ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined  by your experimental or sampling design (  Schielzeth & Nakagawa, 2013  ). A simple  example can illustrate the difference. Imagine a researcher was interested in understanding  the factors affecting the clutch mass of a passerine bird. They have a study population  spread across five separate woodlands, each containing 30 nest boxes. Every week during  breeding they measure the foraging rate of females at feeders, and measure their  subsequent clutch mass. Some females have multiple clutches in a season and contribute multiple data points. 
+
+Here, female ID is said to be  nested within woodland  : each woodland  contains multiple females unique to that woodland (that never move among woodlands).  The nested random effect controls for the fact that (i) clutches from the same female  are not independent, and (ii) females from the same woodland may have clutch masses  more similar to one another than to females from other woodlands  
+
+Clutch Mass  ∼  Foraging Rate + (1|Woodland/Female ID)  
+
+Now imagine that this is a long-term study, and the researcher returns every year for five  years to continue with measurements. Here it is appropriate fit year as a  crossed  random  effect because every woodland appears multiple times in every year of the dataset, and  females that survive from one year to the next will also appear in multiple years.  
+
+Clutch Mass  ∼  Foraging Rate + (1|Woodland/Female ID)+ (1|Year)  
+
+Understanding whether your experimental/sampling design calls for nested or crossed  random effects is not always straightforward, but it can help to visualise experimental  design by drawing it (see  Schielzeth & Nakagawa, 2013  ;  Fig. 1  ), or tabulating your  observations by these grouping factors (e.g. with the ‘  table’  command in R) to identify  how your data are distributed. We advocate that researchers always ensure that their levels  of random effect grouping variables are uniquely labelled. For example, females are  labelled 1  -  n  in each woodland, the model will try and pool variance for all females  with the same code. Giving all females a unique code makes the nested structure of the  data is implicit, and a model specified as  ∼  (1| Woodland) + (1|FemaleID) would be  identical to the model above. 
+
+
+<div class="figure" style="text-align: center">
+
+```{=html}
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f3ae6eeea3060ca8df0e" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-f3ae6eeea3060ca8df0e">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+```
+
+<p class="caption">(\#fig:unnamed-chunk-30)Fully Nested</p>
+</div>
+
+
+<div class="figure" style="text-align: center">
+
+```{=html}
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e4e32719c7b1ac0a26ca" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-e4e32719c7b1ac0a26ca">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+```
+
+<p class="caption">(\#fig:unnamed-chunk-31)Fully Crossed</p>
+</div>
+
+
+<div class="figure" style="text-align: center">
+
+```{=html}
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b8a3562e011fa66c840a" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-b8a3562e011fa66c840a">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+```
+
+<p class="caption">(\#fig:unnamed-chunk-32)Partially Nested/Crossed</p>
+</div>
+
+
+## Random slopes
+
+
+
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-34-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+
 
 
 ```r
@@ -729,6 +819,12 @@ data.2 <- data %>%
 ```
 
 
+## Model refining 
+
+## Random effect correlation
+
+
+
 ```r
 rand_dist2 <- as.data.frame(ranef(lmer3)) %>% 
   mutate(group = grp,
@@ -767,7 +863,7 @@ inset <- xdens+pmain+ydens +plot_layout(design = layout)
 inset
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-37-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -777,7 +873,7 @@ inset
                     ylim = c(0, 120))) + inset_element(inset, 0, 0.6, 0.4, 1)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -906,25 +1002,28 @@ ggplot(data, aes(x = independent_var, y = dependent_var, color = group, group = 
 ## Assumptions of a mixed model
 
 
-# Mixed Models in R
+# Worked Examples
 
 
 https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
 
-## Demonstration
 
-## Model fitting
+## Reporting
 
-## Model simplification
+## Tables
 
-## Interpretation
+## Figures
 
-# Mixed Model extensions
+## Write-ups
+
+
 
 
 # Summary
 
-## Troubleshooting
+## Mixed Model extensions
+
+## Practical problems
 
 ## Further Reading
 
