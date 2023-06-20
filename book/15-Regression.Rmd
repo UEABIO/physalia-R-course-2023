@@ -399,8 +399,19 @@ plot_model(mixed_model,type="pred",
            show.data = T)+
   facet_wrap( ~ group)
 
+###
+
+data1 %>% 
+  ggplot(aes(x = x, y = y, colour = group)) +
+    geom_point(pch = 16) + 
+  geom_line(aes(y = fit.c))+ 
+  geom_line(aes(y = fit.m), colour = "grey",
+            linetype = "dashed")+
+  facet_wrap( ~ group)
 ```
 
+
+http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
 
 ```{r}
 
@@ -462,7 +473,9 @@ data1 %>%
 
 ```
 
+re.form = NA: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
 
+re.form = NULL: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
 
 ```{r}
 
@@ -739,7 +752,8 @@ downloadthis::download_link(
 ```{r}
 biodepth <- biodepth %>% 
   mutate(Mix = factor(Mix),
-         Diversity2 = log(Diversity, 2))
+         Diversity2 = log(Diversity, 2)) %>% 
+  drop_na()
 
 # set Mix as a factor
 # Set Diversity to log, base 2
@@ -766,7 +780,7 @@ To summarize:
 1 | Site/Mix: Nested random effect, with the random effect of Mix nested within the random effect of Site, assuming that the levels of Mix are nested within each level of Site.
 
 ```{r}
-bio.lmer2 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1|Block) + (1|Mix) + (1|Site:Mix), data = biodepth)
+bio.lmer2 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1|Block) + (1|Mix), data = biodepth)
 
 summary(bio.lmer2)
 
@@ -777,7 +791,7 @@ summary(bio.lmer2)
 
 ```{r}
 
-bio.lmer3 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1|Mix) + (1|Site:Mix), data = biodepth)
+bio.lmer3 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1|Mix), data = biodepth)
 
 anova(bio.lmer2, bio.lmer3)
 
@@ -791,21 +805,122 @@ ML and REML
 
 
 
+
+
 ```{r}
+nested_data <- biodepth %>% 
+    group_by(Site) %>% 
+    nest()
 
-bio.lmer4 <- lmer(Shoot2 ~ Diversity2 + (1|Site) + (1|Block) + (1|Mix) + (1|Site:Mix), data = biodepth)
-
-anova(bio.lmer2, bio.lmer4)
+models <- map(nested_data$data, ~ lm(Shoot2 ~ Diversity2, data = .)) %>% 
+    map(predict)
 
 ```
 
 
+```{r}
+
+biodepth.2 <- biodepth %>% 
+    mutate(fit.m = predict(bio.lmer2, re.form = NA),
+           fit.c = predict(bio.lmer2, re.form = ~(1+Diversity2|Site)),
+           fit.l = unlist(models))
+
+biodepth.2 %>% 
+    ggplot(aes(x = Diversity2, y = Shoot2, colour = Site)) +
+    geom_point(pch = 16) + 
+    geom_line(aes(y = fit.l), color = "black")+
+    geom_line(aes(y = fit.c))+ 
+    geom_line(aes(y = fit.m), colour = "grey",
+              linetype = "dashed")+
+    facet_wrap( ~ Site)+
+   coord_cartesian(ylim = c(0, 1200))+
+   theme(legend.position = "none")
+           
+           
+
+
+```
 
 # Worked Examples
 
 
 https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
 
+
+```{r}
+
+politeness <- read_csv("book/files/politeness_data.csv")
+
+politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +
+                            (1+attitude|scenario),
+                        data=politeness)
+
+
+```
+
+# Worked Examples - Dolphins
+
+```{r, eval = TRUE, echo = FALSE}
+downloadthis::download_link(
+  link = "https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/dolphins.csv",
+  button_label = "Download Dolphins data",
+  button_type = "success",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+```{r, echo = FALSE}
+
+dolphins <- read_csv("book/files/dolphins.csv") 
+
+dolphins$direction <- factor(dolphins$direction)
+
+dolphins <- drop_na(dolphins)
+
+```
+
+DOLPHIN FIXED EFFECTS
+
+```{r}
+dolphmod.1 <- lmer(vt ~ bodymass + direction + (direction|animal), data=dolphins)
+dolphmod.2 <- lmer(vt ~ bodymass + direction + (1|animal), data=dolphins)
+```
+
+```{r}
+dolphins.1 <- dolphins %>% 
+    mutate(fit.m = predict(dolphmod.2, re.form = NA),
+           fit.c = predict(dolphmod.2, re.form = NULL))
+```
+
+
+```{r}
+dolphins.1 %>%
+  ggplot(aes(x = bodymass, y = vt, group = direction)) +
+  geom_point(pch = 16, aes(colour = animal)) +
+  geom_line(aes(y = fit.m, 
+                linetype = direction), 
+            linewidth = 1)  +
+  labs(x = "Body Mass", 
+       y = "VT") 
+
+```
+
+
+```{r}
+plot_model(dolphmod.2,type="pred",
+           terms=c("bodymass", "direction"),
+           pred.type="fe",
+           show.data = T)
+
+plot_model(dolphmod.2,type="pred",
+           terms=c("bodymass", "direction", "animal"),
+           pred.type="re",
+           show.data = T)
+
+
+```
 
 ## Reporting
 
@@ -821,6 +936,25 @@ BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
 
 
 # Summary
+
+Here is a suggested workflow:
+
+Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main predictors and any potential interactions you hypothesize might exist. For example, if you have predictors A and B, you might start with a model like response ~ A + B + A:B.
+
+Assess fixed effects and interactions: Evaluate the significance, direction, and magnitude of the fixed effects coefficients. Look for interactions that show significant effects and consider their interpretation in the context of your research question. This step allows you to identify the key variables and interactions that are important in explaining the variation in the response variable.
+
+Model evaluation and refinement: Assess the goodness of fit of the fixed effects model using appropriate measures like AIC, BIC, or model deviance. Consider conducting model comparison to evaluate different models with alternative fixed effects structures. This process helps you refine the model and select the most appropriate combination of variables and interactions.
+
+Incorporate random effects: Once you have identified the significant fixed effects and relevant interactions, you can then consider the inclusion of random effects. Random effects capture the variation at different levels and can account for individual differences or clustering within groups. Evaluate the need for random intercepts, random slopes, or crossed random effects based on your research design and the nature of the data.
+
+Assess and compare models with random effects: Fit models with random effects and compare their fit to the fixed effects model. Consider appropriate measures such as likelihood ratio tests, AIC, or BIC for model comparison. Evaluate the significance and contribution of the random effects to the model.
+
+Validate and interpret the final model: Validate the final model by assessing assumptions, checking for influential observations, and performing sensitivity analysis. Interpret the estimated coefficients, including fixed effects and random effects, in the context of your research question. Report the results, including confidence intervals and p-values.
+
+By initially focusing on the fixed effects, you can establish the foundation of your model and identify the significant predictors and interactions. This step allows you to better understand the relationships in your data and guide the subsequent inclusion of random effects if appropriate.
+
+
+https://ademos.people.uic.edu/Chapter17.html#121_crossed__nested_designs
 
 ## Mixed Model extensions
 
