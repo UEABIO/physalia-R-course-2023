@@ -77,11 +77,11 @@ So random effects are usually grouping factors for which we are trying to contro
 
 3. Ecological Study: Imagine a research project investigating the effect of environmental factors on species abundance in different study sites. The study sites may be geographically dispersed, and a random effect can be included to account for the variation between study sites. The random effect captures the unexplained heterogeneity in species abundance across different sites, allowing for the examination of the effects of environmental variables while accounting for site-specific differences.
 
-The random effect $group_i$ is often assumed to follow a normal distribution with a mean of zero and a variance estimated during the model fitting process.
+The random effect $U_i$ is often assumed to follow a normal distribution with a mean of zero and a variance estimated during the model fitting process.
 
 $$Y_i = β_0 + U_j + ε_i$$
 
-<div class="info">
+<div class="warning">
 <p>In the book “Data analysis using regression and
 multilevel/hierarchical models” (<span
 class="citation">@gelman_hill_2006</span>). The authors examined five
@@ -109,7 +109,7 @@ must make the decision to treat a variable as fixed or random in a
 particular analysis.</p>
 </div>
 
-> When determining wht should be a fixed or random effect in your study, consider what are you trying to do? What are you trying to make predictions about? What is just variation (a.k.a “noise”) that you need to control for?
+> When determining what should be a fixed or random effect in your study, consider what are you trying to do? What are you trying to make predictions about? What is just variation (a.k.a “noise”) that you need to control for?
 
 <div class="warning">
 <p>More about random effects:</p>
@@ -195,7 +195,7 @@ data <- bind_rows(data, data.1) %>%
   mutate(y = B0 + b0 + x * (B1 + b1) + E)
 ```
 
-This section creates an additional dataset (data.1) with a specific group (group = 5) and a smaller number of observations (obs = 30) for testing purposes. This is then appended to the original dataset, we will see the effect of having a smaller group within our random effects when we discuss partial pooling and shrinkage later on. 
+This section creates an additional dataset (`data.1`) with a specific group (group = 5) and a smaller number of observations (obs = 30) for testing purposes. This is then appended to the original dataset, we will see the effect of having a smaller group within our random effects when we discuss partial pooling and shrinkage later on. 
 
 
 Now we have three variables to consider in our models: x, y and group (with five levels).
@@ -296,7 +296,7 @@ summary(basic_model)
 ## F-statistic: 81.62 on 1 and 428 DF,  p-value: < 2.2e-16
 ```
 
-Here we can see that the basic linear model has produced a statistically significant regression analysis (*t*~998~ = 11.24, *p* <0.001) with an R^2 of 0.11. There is a medium effect positive relationship between changes in x and y (Estimate = 2.765, S.E. = 0.25).
+Here we can see that the basic linear model has produced a statistically significant regression analysis (*t*~998~ = 11.24, *p* <0.001) with an $R^2$ of 0.11. There is a medium effect positive relationship between changes in x and y (Estimate = 2.765, S.E. = 0.25).
 
 We can see that clearly if we produce a simple plot of x against y: 
 
@@ -326,7 +326,8 @@ ggplot(data, aes(x = x,
 <img src="01-mixed-model_files/figure-html/unnamed-chunk-11-1.png" alt="Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables." width="100%" />
 <p class="caption">(\#fig:unnamed-chunk-11)Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables.</p>
 </div>
-The `check_model`  function from the `performance` package (@R-performance) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model. 
+
+The `check_model()`  function from the `performance` package (@R-performance) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model. 
 
 It enables you to identify potential issues, such as violations of assumptions, influential data points, or lack of fit, which can affect the interpretation and reliability of your model's results
 
@@ -380,6 +381,7 @@ plot_group
 ```
 
 <img src="01-mixed-model_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
+
 From the above plots, it confirms that our observations from within each of the ranges aren’t independent. We can’t ignore that: as we’re starting to see, it could lead to a completely erroneous conclusion.
 
 
@@ -777,7 +779,7 @@ We can use the `coef()` function to extract the estimates (strictly these are pr
 
 ESTIMATES VS PREDICTIONS
 http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
-BLUPS
+
 
 
 ```r
@@ -799,7 +801,7 @@ coef(mixed_model)
 
 This function produces our 'best linear unbiased predictions' (BLUPs) for the intercept and slope of the regression at each site. The predictions given here are different to those we would get if we ran individual models on each site, as BLUPs are a product of the compromise of complete-pooling and no-pooling models.  Now the predicted intercept is influenced by other sites leading to a process called 'shrinkage'. 
 
-Why are these called predictions and not estimates? Because we have estimated the variance at each site (at the bargain of using only a single degree of freedom for each random effect no matter how many levels!), and from here essentially borrowed information across sites, to improve the accuracy, to combine with the fixed effects. So in the strictest sense we are predicting relationships rather just through direct observation.
+Why are these called predictions and not estimates? Because we have estimated the variance at each site and from here essentially borrowed information across sites to improve the accuracy, to combine with the fixed effects. So in the strictest sense we are *predicting* relationships rather than through direct observation.
 
 This generous ability to make predictions is one of the main advantages of a mixed-model. 
 
@@ -980,9 +982,6 @@ plot_model(mixed_model,type="pred",
 <img src="01-mixed-model_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-BLUP - Hector book! 
-
-
 ## Checking model assumptions
 
 
@@ -1069,42 +1068,65 @@ distribution and decide if it is important for yourself.</p>
 
 ## Practice Questions
 
+1. In mixed-effects models, independent variables are also called: 
+
+<select class='webex-select'><option value='blank'></option><option value=''>Random Effects</option><option value='answer'>Fixed Effects</option><option value=''>Mediators</option><option value=''>Variance</option></select>
+
+2. A random effect is best described as?
+
+<div class='webex-radiogroup' id='radio_QEALJVAVDV'><label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value=""></input> <span>A variable that is noisier than other variables</span></label><label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value=""></input> <span>An effect that cannot be predicted based on group membership</span></label><label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value="answer"></input> <span>A variable where subgroups influence the outcome</span></label><label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value=""></input> <span>Choosing slope values with a random number generator</span></label></div>
+
+
+3. Which of the following is **not** an advantage of mixed-effects models?
+
+<div class='webex-radiogroup' id='radio_AHGRRGZVVS'><label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value=""></input> <span>They can cope with situations where individuals contribute different numbers of observations</span></label><label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value=""></input> <span>They can handle group-level differences in the outcome</span></label><label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value=""></input> <span>They can deal with variation due to different groups</span></label><label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value="answer"></input> <span>They are guaranteed to give significant results when ANOVAs do not</span></label></div>
+
+
+4. Mixed-effects models cope well with missing data because?
+
+<div class='webex-radiogroup' id='radio_OMCMUYFXDD'><label><input type="radio" autocomplete="off" name="radio_OMCMUYFXDD" value="answer"></input> <span>They can still estimate parameters even when some observations are missing</span></label><label><input type="radio" autocomplete="off" name="radio_OMCMUYFXDD" value=""></input> <span>They delete observations with missing data</span></label><label><input type="radio" autocomplete="off" name="radio_OMCMUYFXDD" value=""></input> <span>They set all values to 0</span></label></div>
+
+
 
 # Types of Random Effects
 
-## Is it a fixed or random effect?
+## How do I decide if it is a fixed or random effect?
 
-BAKER BOOK
+One of the most common questions in mixed-effects modelling is how to decide if an effect should be considered as fixed or random. This can be quite a complicated question, as we have touched upon briefly before the definition of a random effect is not universal. It is a considered process that can include the hypothesis or question you are asking. 
 
-MISSING DATA BAKER BOOK
+1 ) Are you directly interested in the effect in question. If the answer is yes it should be a fixed effect.
 
-## Crossed or Nested
+2) Is the variable continuous? If the answer is yes it should be a fixed effect.
+
+3) Does the variable have less than five levels? If ther answer is yes it should be a fixed effect.
+
+
+## Missing data
+
+An added bonus with mixed-effects models is that they cope well with missing values and situations where we have groups of different sizes. Because we assume that each group or cluster of a random effect has been drawn essentially at random from a larger population of groups, we estimate the properties of an underlying distribution. Critically, if some estimates are missing, or groups are unequal in size we still generate a sensible parameter estimate. 
+
+This can make mixed-effects models a good choice for analysis of data that relates to under-represented groups. 
+
+## Multiple random effects
 
 https://www.muscardinus.be/2017/07/lme4-random-effects/
 
+Previously we used `(1|group)` to fit our random effect. Whatever is on the right side of the `|` operator is a factor and referred to as a “grouping factor” for the term. 
 
-A common issue that causes confusion is this issue of specifying random effects as either  ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined  by your experimental or sampling design (  Schielzeth & Nakagawa, 2013  ). A simple  example can illustrate the difference. Imagine a researcher was interested in understanding  the factors affecting the clutch mass of a passerine bird. They have a study population  spread across five separate woodlands, each containing 30 nest boxes. Every week during  breeding they measure the foraging rate of females at feeders, and measure their  subsequent clutch mass. Some females have multiple clutches in a season and contribute multiple data points. 
+### Crossed or Nested
 
-Here, female ID is said to be  nested within woodland  : each woodland  contains multiple females unique to that woodland (that never move among woodlands).  The nested random effect controls for the fact that (i) clutches from the same female  are not independent, and (ii) females from the same woodland may have clutch masses  more similar to one another than to females from other woodlands  
+When we have more than one possible randome effect these can be **crossed** or **nested** - it depends on the relationship between the variables. Let’s have a look.
 
-Clutch Mass  ∼  Foraging Rate + (1|Woodland/Female ID)  
+A common issue that causes confusion is this issue of specifying random effects as either  ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined  by your experimental or sampling design. A simple  example can illustrate the difference. 
 
-Now imagine that this is a long-term study, and the researcher returns every year for five  years to continue with measurements. Here it is appropriate fit year as a  crossed  random  effect because every woodland appears multiple times in every year of the dataset, and  females that survive from one year to the next will also appear in multiple years.  
+#### 1. Crossed Random Effects:
 
-Clutch Mass  ∼  Foraging Rate + (1|Woodland/Female ID)+ (1|Year)  
-
-Understanding whether your experimental/sampling design calls for nested or crossed  random effects is not always straightforward, but it can help to visualise experimental  design by drawing it (see  Schielzeth & Nakagawa, 2013  ;  Fig. 1  ), or tabulating your  observations by these grouping factors (e.g. with the ‘  table’  command in R) to identify  how your data are distributed. We advocate that researchers always ensure that their levels  of random effect grouping variables are uniquely labelled. For example, females are  labelled 1  -  n  in each woodland, the model will try and pool variance for all females  with the same code. Giving all females a unique code makes the nested structure of the  data is implicit, and a model specified as  ∼  (1| Woodland) + (1|FemaleID) would be  identical to the model above. 
+Crossed random effects occur when the levels of two or more grouping variables are crossed or independent of each other. In this case, the grouping variables are unrelated, and each combination of levels is represented in the data.
 
 
-<div class="figure" style="text-align: center">
-
-```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-309c84006b49558015fb" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-309c84006b49558015fb">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+```r
+lmer(y ~ x + (1 | Group1) + (1 | ), data = dataset)
 ```
-
-<p class="caption">(\#fig:unnamed-chunk-38)Fully Nested</p>
-</div>
 
 
 <div class="figure" style="text-align: center">
@@ -1117,26 +1139,116 @@ Understanding whether your experimental/sampling design calls for nested or cros
 <p class="caption">(\#fig:unnamed-chunk-39)Fully Crossed</p>
 </div>
 
+> Example 1: Let's consider a study examining the academic performance of students from different schools and different cities. The grouping variables are "School" and "City". Each school can be located in multiple cities, and each city can have multiple schools. The random effects of "School" and "City" are crossed since the levels of these variables are independent of each other.
+
+`lmer(y ~ x + (1 | School) + (1 | City), data = dataset)`
+
+
+> Example 2: Imagine there is a long-term study on breeding success in passerine birds across multiple woodlands, and the researcher returns every year for five  years to carry out measurements. Here  "Year" is a  crossed  random  effect with "Woodland" as each Woodland can appear in multiple years of study.
+Imagine a researcher was interested in understanding  the factors affecting the clutch mass of a passerine bird. They have a study population  spread across five separate woodlands, each containing 30 nest boxes. Every week during  breeding they measure the foraging rate of females at feeders, and measure their  subsequent clutch mass. Some females have multiple clutches in a season and contribute multiple data points. 
+
+`lmer(y ~ x + (1 | Year) + (1 | Woodland), data = dataset)`
+
+#### 2. Nested Random Effects:
+
+Nested random effects occur when the levels of one grouping variable are completely nested within the levels of another grouping variable. In other words, the levels of one variable are uniquely and exclusively associated with specific levels of another variable.
 
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f9b59552fdce3ccc22cc" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-f9b59552fdce3ccc22cc">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-309c84006b49558015fb" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-309c84006b49558015fb">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-40)Partially Nested/Crossed</p>
+<p class="caption">(\#fig:unnamed-chunk-40)Fully Nested</p>
 </div>
+
+> Example 1. Consider a study on the job performance of employees within different departments of an organization. The grouping variables are "Employee" and "Department". Each employee belongs to one specific department, and no employee can be part of multiple departments. The random effects of "Employee" are nested within the random effects of "Department" since each employee is uniquely associated with a specific department.
+
+`lmer(y ~ x + (1 | Department/Employee), data = dataset)`
+
+> Example 2: In the same bird study female ID is said to be  nested within woodland : each woodland  contains multiple females unique to that woodland (that never move among woodlands).  The nested random effect controls for the fact that (i) clutches from the same female  are not independent, and (ii) females from the same woodland may have clutch masses  more similar to one another than to females from other woodlands 
+
+`lmer(y ~ x + (1 | Woodland/Female ID), data = dataset)`
+
+*or if we remember year*
+
+`lmer(y ~ x + (1 | Woodland/Female ID) + (1|Year), data = dataset)`
+
+
+For more on designing models around crossed and nested designs check out [this amazing nature paper](https://www.nature.com/articles/nmeth.3137) @krzywinski_2014
 
 
 ## Random slopes
 
+So far we have looked at random effects where each group has its own *intercept*. This means that we fit a regression line across all five groups, which has a constant slope but is allowed to shift up or down for each group. This is what is represented in panel B. 
+
+An alternative to the random intercepts model is the *random slopes* model, shown in panel C. In this model the slopes are permitted to vary, but the intercept is fixed across all groups. For our current data the random slopes model does a fair job as well. 
+
+Finally we can allow *both the intercepts and slope* to vary between groups, as shown in panel D. This captures both the shallower slope of some of our groups and the vertical offsets present. If you inspect the original data set we generated, you can see that the random effect for group was calculated as both a product of random distribution on the intercept and slope, so it is not surprising that here this model fits the data best. 
+
+This model will use more degrees of freedom than the other two, as these must be used to calculate variance for both intercept and slope.
 
 
+```r
+plot_function <- function(model, title = "Data Coloured by Group"){
+  
+data <- data %>% 
+  mutate(fit.m = predict(model, re.form = NA),
+         fit.c = predict(model, re.form = NULL))
+
+data %>%
+  ggplot(aes(x = x, y = y, col = group)) +
+  geom_point(pch = 16, alpha = 0.4) +
+  geom_line(aes(y = fit.c, col = group), linewidth = 1)  +
+  coord_cartesian(ylim = c(-40, 100))+
+  labs(title = title)+
+  theme_void()+
+  theme(legend.position ="none")
+}
+
+# random intercept model
+lmer1 <- lmer(y ~ x + (1|group), data = data)
+
+plot_function(lmer1, "Random intercept")
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+# Random slope model
+
+lmer2 <- lmer(y ~ x + (0 + x | group), data = data)
+
+plot_function(lmer2, "Random slope")
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-41-2.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+# Random slope and intercept model
+
+lmer3 <- lmer(y ~ x + (x | group), data = data)
+
+plot_function(lmer3, "Random slope and intercept")
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-41-3.png" width="100%" style="display: block; margin: auto;" />
 
 
 <img src="01-mixed-model_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" />
 
+Mixed-effects models are enormously flexible. The decision about whether to include random intercepts, random slopes, or both will depend heavily on your hypotheses. It is generally quite rare to see random slopes models only, and more commonly it will be a question of whether random intercepts or random intercepts *and* random slopes are necessary. 
+
+As the combine random slopes and intercept model requries more degrees of freedom, it may be the case that using likelihood ratio tests (LRT) are advisable to decide which model describes the data best (more on this later). 
+
+Because random intercepts models require fewer degrees of freedome, these may be easier to fit when data sets have fewer observations.
+
+
+
+## Random effect correlation
+
+Understanding Group Structure: The correlation of random effects provides insight into the inherent structure of the groups in the data. It reveals the degree of similarity or dissimilarity between the random effects associated with different groups. This information helps to uncover patterns of clustering or similarity among the groups, which can be crucial in understanding the underlying mechanisms or processes being studied.
 
 
 ```r
@@ -1177,77 +1289,204 @@ summary(lmer3)
 ```
 
 
-```r
-data.2 <- data %>% 
-  mutate(fit2.m = predict(lmer3, re.form = NA),
-         fit2.c = predict(lmer3, re.form = NULL),
-         resid2 = resid(lmer3))
-```
 
+## Model refining / Likelihood Ratio Tests
 
-## Random effect correlation
+## Likelihood Ratio tests
 
-Understanding Group Structure: The correlation of random effects provides insight into the inherent structure of the groups in the data. It reveals the degree of similarity or dissimilarity between the random effects associated with different groups. This information helps to uncover patterns of clustering or similarity among the groups, which can be crucial in understanding the underlying mechanisms or processes being studied.
+Once we have produce an initial model with a random effects structure, we may wish to perform model selection by comparing different nested models with varying random effects structures. It allows us to assess whether the inclusion of additional random effects or changes in the random effects structure significantly improve the model fit. By comparing the likelihood values of different nested models, we can determine which model provides a better fit to the data.
 
-Modeling Assumptions: The correlation of random effects is directly linked to the assumptions made about the covariance structure of the random effects in the model. By reporting the correlation, researchers can assess the validity of their modeling assumptions. Violations or deviations from the assumed correlation structure may indicate a need for alternative modeling approaches or further investigation into the nature of the group-level variability.
+Previously we looked at the random intercepts vs. random intercepts *and* slopes model and concluded that the latter looked like it fit the data best. 
+
+We can use a likelihood ratio test with the `anova()` function if we want to determine if the fit is significantly different to the simpler randome intercepts only model. 
 
 
 ```r
-rand_dist2 <- as.data.frame(ranef(lmer3)) %>% 
-  mutate(group = grp,
-          term = case_when(term == "(Intercept)" ~ "b0_hat",
-                             term == "x" ~ "b1_hat"),
-            value = condval,
-         .keep = "none") %>%
-  pivot_wider(id_cols = "group", names_from = "term", values_from = "value") %>%
-  mutate(Intercept_cond = b0_hat + summary(lmer3)$coef[1,1],
-         Slope_cond = b1_hat + summary(lmer3)$coef[2,1])
-
-pmain <- rand_dist2 %>%
-  ggplot(aes(x = Intercept_cond, y = Slope_cond)) +
-    geom_point(aes(col = group), size = 3) +
-    geom_density2d(bins = 4, col = "grey", adjust = 3)+
-  theme(legend.position = "none")
-
-xdens <- ggplot()+
-  geom_density(data = rand_dist2, aes(x = Intercept_cond), fill = "grey", col = NA, trim = FALSE, adjust = 2) +
-  theme_void()
-
-ydens <- ggplot()+
-  geom_density(data = rand_dist2, aes(x = Slope_cond), fill = "grey", col = NA, trim = FALSE, adjust = 2) +
-  coord_flip()+
-  theme_void()
-
-layout <- "
-AAA#
-BBBC
-BBBC
-BBBC"
-
-
-inset <- xdens+pmain+ydens +plot_layout(design = layout)
-
-inset
+anova(lmer1, lmer3)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" />
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> npar </th>
+   <th style="text-align:right;"> AIC </th>
+   <th style="text-align:right;"> BIC </th>
+   <th style="text-align:right;"> logLik </th>
+   <th style="text-align:right;"> deviance </th>
+   <th style="text-align:right;"> Chisq </th>
+   <th style="text-align:right;"> Df </th>
+   <th style="text-align:right;"> Pr(&gt;Chisq) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> lmer1 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 3236.091 </td>
+   <td style="text-align:right;"> 3252.347 </td>
+   <td style="text-align:right;"> -1614.046 </td>
+   <td style="text-align:right;"> 3228.091 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lmer3 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 3228.442 </td>
+   <td style="text-align:right;"> 3252.825 </td>
+   <td style="text-align:right;"> -1608.221 </td>
+   <td style="text-align:right;"> 3216.442 </td>
+   <td style="text-align:right;"> 11.64947 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0.0029536 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+
+<div class="warning">
+<p>There is a literature on the idea of model selection, that is, an
+automated (or sometimes manual) way of testing many versions of a model
+with a different subset of the predictors in an attempt to find the
+model that fits best. These are sometimes called “stepwise”
+procedures.</p>
+<p>Others argue this method has a number of flaws, including:</p>
+<ul>
+<li><p>Doing this is basically “p-value mining”, that is, running a lot
+of tests till you find a p-value you like.</p></li>
+<li><p>Your likelihood of making a false positive is very high.</p></li>
+<li><p>Adding/removing a new variable can have an effect on other
+predictors.</p></li>
+</ul>
+<p>Instead of doing model selection, you should use your knowledge of
+the data to select a subset of the variables which are either a) of
+importance to you, or b) theoretically influential on the outcome. Then
+you can fit a single model including all of this.</p>
+<p>However, I would argue that while the inclusion of random effects and
+their structure should have a clear rationale before implementation,
+adjustments to better understand the best type of random effects
+structure is perfectly reasonable.</p>
+</div>
+
+
+### Maximum Likelihood
+
+Frequentist fit used by LMM through lme4 / lmer is based on the **Maximum Likelihood principle**, where we maximize the likelihood $L(y)$ of observing the data $y$, which is equivalent to minimizing residuals of the model, the Ordinary Least Squares (OLS) approach.  It measures the probability of observing the data given a specific set of parameter values. 
+
+When we are attempting to optimise a model we can use the likelihood ratio test (LRT). Given two nested models, denoted as Model 1 and Model 2, the LRT compares the likelihood values of these models to assess whether the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1. The LRT statistic, denoted as $D$, is calculated as the difference between the log-likelihood values of Model 1 and Model 2, multiplied by 2:
+
+$$D = -2~*~(ln(L_1)-ln(L_2))$$
+
+Here $L_1$ represents the likelihood value of Model 1, and $L_2$ represents the likelihood value of Model 2. **The LRT statistic follows a chi-square ($\chi^2$) distribution** with degrees of freedom equal to the difference in the number of parameters between the two models.
+
+To determine the statistical significance of the LRT statistic, one can compare it to the critical value from the chi-square distribution with the appropriate degrees of freedom. If the LRT statistic exceeds the critical value, it indicates that the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1.
+
+ML estimation is often used to perform hypothesis tests, including the chi-square test. The chi-square test compares the observed data to the expected data predicted by a statistical model. It assesses the goodness-of-fit between the observed data and the model's predictions.
+
+### REML
+
+REML (Restricted Maximum Likelihood) estimation is a variant of ML estimation that addresses the issue of bias in the estimation of random effects in mixed effects models. In mixed effects models, random effects account for the variation at the group or individual level that is not explained by the fixed effects. However, the inclusion of random effects introduces a bias in the ML estimates, as they are influenced by the variability of the random effects. 
+
+REML estimation addresses this bias by optimizing the likelihood function conditional on the fixed effects only, effectively removing the influence of the random effects on the estimation. This approach provides unbiased estimates of the fixed effects and is especially useful when the primary interest lies in the fixed effects rather than the random effects.
+
+### ML vs. REML fitting
+
+Maximum Likelihood (ML) estimation is preferable when comparing nested models because it allows for the direct comparison of the likelihood values between different models. ML estimation provides a quantitative measure of how well a given model fits the observed data, based on the likelihood function.
+
+In this context, ML estimation is preferable because it allows for a formal statistical comparison between nested models. It provides a rigorous and objective way to assess whether the inclusion of additional parameters in the more complex model leads to a significantly better fit to the data compared to the simpler model. This approach ensures that model comparisons are based on sound statistical principles and helps in determining the most appropriate model for the given data.
+
+Older versions of model fitting packages like `lmer` used to require the manual switch between REML and ML when fitting models in order to switch between the objectives of assessing goodness-of-fit and interpreting estimates. But you will notice that when you perform an LRT with the `anova()` function it informs you the switch is being made automatically. 
 
 
 
+# Reporting Mixed Model results
+
+BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
+
+## Tables
+
+## Figures
+
+## Write-ups
+
+
+# Worked Example 1 - Dolphins
+
+
+```{=html}
+<a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/dolphins.csv">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download Dolphins data</button>
+</a>
+```
+
+
+
+DOLPHIN FIXED EFFECTS
+
+
+```r
+dolphmod.1 <- lmer(vt ~ bodymass + direction + (direction|animal), data=dolphins)
+dolphmod.2 <- lmer(vt ~ bodymass + direction + (1|animal), data=dolphins)
+```
+
+
+```r
+dolphins.1 <- dolphins %>% 
+    mutate(fit.m = predict(dolphmod.2, re.form = NA),
+           fit.c = predict(dolphmod.2, re.form = NULL))
+```
 
 
 
 ```r
-((plot_function(lmer1, "Random intercept")+theme_classic())+coord_cartesian(
-                    ylim = c(0, 120))) + inset_element(inset, 0.1, 0.6, 0.5, 1)
+dolphins.1 %>%
+  ggplot(aes(x = bodymass, y = vt, group = direction)) +
+  geom_point(pch = 16, aes(colour = animal)) +
+  geom_line(aes(y = fit.m, 
+                linetype = direction), 
+            linewidth = 1)  +
+  labs(x = "Body Mass", 
+       y = "VT") 
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-47-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-## Model refining
 
-SEE BELOW! 
+```r
+plot_model(dolphmod.2,type="pred",
+           terms=c("bodymass", "direction"),
+           pred.type="fe",
+           show.data = T)
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+plot_model(dolphmod.2,type="pred",
+           terms=c("bodymass", "direction", "animal"),
+           pred.type="re",
+           show.data = T)
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-51-2.png" width="100%" style="display: block; margin: auto;" />
+
+
+
+<div class='webex-solution'><button>Solution</button>
+
+
+WRITE-UP?
+
+
+</div>
+
 
 
 # Complex designs
@@ -1368,115 +1607,6 @@ summary(bio.lmer2)
 ```
 
 
-## Likelihood Ratio tests
-
-Once we have produce an initial model with a random effects structure, we may wish to perform model selection by comparing different nested models with varying random effects structures. It allows us to assess whether the inclusion of additional random effects or changes in the random effects structure significantly improve the model fit. By comparing the likelihood values of different nested models, we can determine which model provides a better fit to the data.
-
-<div class="warning">
-<p>There is a literature on the idea of model selection, that is, an
-automated (or sometimes manual) way of testing many versions of a model
-with a different subset of the predictors in an attempt to find the
-model that fits best. These are sometimes called “stepwise”
-procedures.</p>
-<p>Others argue this method has a number of flaws, including:</p>
-<ul>
-<li><p>Doing this is basically “p-value mining”, that is, running a lot
-of tests till you find a p-value you like.</p></li>
-<li><p>Your likelihood of making a false positive is very high.</p></li>
-<li><p>Adding/removing a new variable can have an effect on other
-predictors.</p></li>
-</ul>
-<p>Instead of doing model selection, you should use your knowledge of
-the data to select a subset of the variables which are either a) of
-importance to you, or b) theoretically influential on the outcome. Then
-you can fit a single model including all of this.</p>
-<p>However, I would argue that while the inclusion of random effects and
-their structure should have a clear rationale before implementation,
-adjustments to better understand the best type of random effects
-structure is perfectly reasonable.</p>
-</div>
-
-We can perform a Likelihood ratio test (LRT) with the `anova()` function:
-
-
-
-```r
-bio.lmer3 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1|Mix), data = biodepth)
-
-anova(bio.lmer2, bio.lmer3)
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> npar </th>
-   <th style="text-align:right;"> AIC </th>
-   <th style="text-align:right;"> BIC </th>
-   <th style="text-align:right;"> logLik </th>
-   <th style="text-align:right;"> deviance </th>
-   <th style="text-align:right;"> Chisq </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Pr(&gt;Chisq) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> bio.lmer3 </td>
-   <td style="text-align:right;"> 7 </td>
-   <td style="text-align:right;"> 6104.437 </td>
-   <td style="text-align:right;"> 6133.217 </td>
-   <td style="text-align:right;"> -3045.218 </td>
-   <td style="text-align:right;"> 6090.437 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> bio.lmer2 </td>
-   <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> 6105.697 </td>
-   <td style="text-align:right;"> 6138.589 </td>
-   <td style="text-align:right;"> -3044.849 </td>
-   <td style="text-align:right;"> 6089.697 </td>
-   <td style="text-align:right;"> 0.7395044 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.3898197 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-
-
-Frequentist fit used by LMM through lme4 / lmer is based on the **Maximum Likelihood principle**, where we maximize the likelihood $L(y)$ of observing the data $y$, which is equivalent to minimizing residuals of the model, the Ordinary Least Squares (OLS) approach.  It measures the probability of observing the data given a specific set of parameter values. 
-
-When we are attempting to optimise a model we can use the likelihood ratio test (LRT). Given two nested models, denoted as Model 1 and Model 2, the LRT compares the likelihood values of these models to assess whether the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1. The LRT statistic, denoted as $D$, is calculated as the difference between the log-likelihood values of Model 1 and Model 2, multiplied by 2:
-
-$$D = -2~*~(ln(L_1)-ln(L_2))$$
-
-Here $L_1$ represents the likelihood value of Model 1, and $L_2$ represents the likelihood value of Model 2. The LRT statistic follows a chi-square ($\chi^2$) distribution with degrees of freedom equal to the difference in the number of parameters between the two models.
-
-To determine the statistical significance of the LRT statistic, one can compare it to the critical value from the chi-square distribution with the appropriate degrees of freedom. If the LRT statistic exceeds the critical value, it indicates that the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1.
-
-ML estimation is often used to perform hypothesis tests, including the chi-square test. The chi-square test compares the observed data to the expected data predicted by a statistical model. It assesses the goodness-of-fit between the observed data and the model's predictions.
-
-### REML
-
-REML (Restricted Maximum Likelihood) estimation is a variant of ML estimation that addresses the issue of bias in the estimation of random effects in mixed effects models. In mixed effects models, random effects account for the variation at the group or individual level that is not explained by the fixed effects. However, the inclusion of random effects introduces a bias in the ML estimates, as they are influenced by the variability of the random effects. 
-
-REML estimation addresses this bias by optimizing the likelihood function conditional on the fixed effects only, effectively removing the influence of the random effects on the estimation. This approach provides unbiased estimates of the fixed effects and is especially useful when the primary interest lies in the fixed effects rather than the random effects.
-
-### ML vs. REML fitting
-
-Maximum Likelihood (ML) estimation is preferable when comparing nested models because it allows for the direct comparison of the likelihood values between different models. ML estimation provides a quantitative measure of how well a given model fits the observed data, based on the likelihood function.
-
-In this context, ML estimation is preferable because it allows for a formal statistical comparison between nested models. It provides a rigorous and objective way to assess whether the inclusion of additional parameters in the more complex model leads to a significantly better fit to the data compared to the simpler model. This approach ensures that model comparisons are based on sound statistical principles and helps in determining the most appropriate model for the given data.
-
-Older versions of model fitting packages like `lmer` used to require the manual switch between REML and ML when fitting models in order to switch between the objectives of assessing goodness-of-fit and interpreting estimates. But you will notice that when you perform an LRT with the `anova()` function it informs you the switch is being made automatically. 
-
 
 ### Model predictions
 
@@ -1510,22 +1640,11 @@ biodepth.2 %>%
    theme(legend.position = "none")
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-56-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;" />
 
+# Worked Example 2
 
-# Reporting Mixed Model results
-
-BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
-
-## Tables
-
-## Figures
-
-## Write-ups
-
-
-# Worked Example 1
-
+https://exeter-data-analytics.github.io/StatModelling/mixed-effects-models.html
 
 https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
 
@@ -1538,68 +1657,6 @@ politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +
                             (1+attitude|scenario),
                         data=politeness)
 ```
-
-# Worked Example 2 - Dolphins
-
-
-```{=html}
-<a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/dolphins.csv">
-<button class="btn btn-success"><i class="fa fa-save"></i> Download Dolphins data</button>
-</a>
-```
-
-
-
-DOLPHIN FIXED EFFECTS
-
-
-```r
-dolphmod.1 <- lmer(vt ~ bodymass + direction + (direction|animal), data=dolphins)
-dolphmod.2 <- lmer(vt ~ bodymass + direction + (1|animal), data=dolphins)
-```
-
-
-```r
-dolphins.1 <- dolphins %>% 
-    mutate(fit.m = predict(dolphmod.2, re.form = NA),
-           fit.c = predict(dolphmod.2, re.form = NULL))
-```
-
-
-
-```r
-dolphins.1 %>%
-  ggplot(aes(x = bodymass, y = vt, group = direction)) +
-  geom_point(pch = 16, aes(colour = animal)) +
-  geom_line(aes(y = fit.m, 
-                linetype = direction), 
-            linewidth = 1)  +
-  labs(x = "Body Mass", 
-       y = "VT") 
-```
-
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-
-```r
-plot_model(dolphmod.2,type="pred",
-           terms=c("bodymass", "direction"),
-           pred.type="fe",
-           show.data = T)
-```
-
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" />
-
-```r
-plot_model(dolphmod.2,type="pred",
-           terms=c("bodymass", "direction", "animal"),
-           pred.type="re",
-           show.data = T)
-```
-
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-63-2.png" width="100%" style="display: block; margin: auto;" />
-
 
 # Summary
 

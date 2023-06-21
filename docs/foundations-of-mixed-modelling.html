@@ -114,10 +114,10 @@
 <li class="book-part">Mixed Models</li>
 <li><a class="active" href="foundations-of-mixed-modelling.html"><span class="header-section-number">1</span> Foundations of Mixed Modelling</a></li>
 <li><a class="" href="types-of-random-effects.html"><span class="header-section-number">2</span> Types of Random Effects</a></li>
-<li><a class="" href="complex-designs.html"><span class="header-section-number">3</span> Complex designs</a></li>
-<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">4</span> Reporting Mixed Model results</a></li>
-<li><a class="" href="worked-example-1.html"><span class="header-section-number">5</span> Worked Example 1</a></li>
-<li><a class="" href="worked-example-2---dolphins.html"><span class="header-section-number">6</span> Worked Example 2 - Dolphins</a></li>
+<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">3</span> Reporting Mixed Model results</a></li>
+<li><a class="" href="worked-example-1---dolphins.html"><span class="header-section-number">4</span> Worked Example 1 - Dolphins</a></li>
+<li><a class="" href="complex-designs.html"><span class="header-section-number">5</span> Complex designs</a></li>
+<li><a class="" href="worked-example-2.html"><span class="header-section-number">6</span> Worked Example 2</a></li>
 <li><a class="" href="summary.html"><span class="header-section-number">7</span> Summary</a></li>
 </ul>
 
@@ -189,9 +189,9 @@
 <li><p>Social Network Analysis: Suppose a study examines the influence of peer groups on adolescent behavior. The study may collect data on individual behaviors within schools, where students are nested within classrooms. In this scenario, a random effect can be incorporated at the classroom level to account for the shared social environment within each classroom. The random effect captures the variability in behavior among classrooms that is not accounted for by the fixed effects, enabling the study to analyze the effects of individual-level and classroom-level factors simultaneously.</p></li>
 <li><p>Ecological Study: Imagine a research project investigating the effect of environmental factors on species abundance in different study sites. The study sites may be geographically dispersed, and a random effect can be included to account for the variation between study sites. The random effect captures the unexplained heterogeneity in species abundance across different sites, allowing for the examination of the effects of environmental variables while accounting for site-specific differences.</p></li>
 </ol>
-<p>The random effect <span class="math inline">\(group_i\)</span> is often assumed to follow a normal distribution with a mean of zero and a variance estimated during the model fitting process.</p>
+<p>The random effect <span class="math inline">\(U_i\)</span> is often assumed to follow a normal distribution with a mean of zero and a variance estimated during the model fitting process.</p>
 <p><span class="math display">\[Y_i = β_0 + U_j + ε_i\]</span></p>
-<div class="info">
+<div class="warning">
 <p>
 In the book “Data analysis using regression and
 multilevel/hierarchical models” (<span class="citation"><span class="citation">Gelman &amp; Hill (<a href="summary.html#ref-gelman_hill_2006" role="doc-biblioref">2006</a>)</span></span>). The authors examined five
@@ -242,7 +242,7 @@ particular analysis.
 </p>
 </div>
 <blockquote>
-<p>When determining wht should be a fixed or random effect in your study, consider what are you trying to do? What are you trying to make predictions about? What is just variation (a.k.a “noise”) that you need to control for?</p>
+<p>When determining what should be a fixed or random effect in your study, consider what are you trying to do? What are you trying to make predictions about? What is just variation (a.k.a “noise”) that you need to control for?</p>
 </blockquote>
 <div class="warning">
 <p>
@@ -327,7 +327,7 @@ number and we’re interested in an average.
 <span>         B1 <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>         E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">B0</span> <span class="op">+</span> <span class="va">b0</span> <span class="op">+</span> <span class="va">x</span> <span class="op">*</span> <span class="op">(</span><span class="va">B1</span> <span class="op">+</span> <span class="va">b1</span><span class="op">)</span> <span class="op">+</span> <span class="va">E</span><span class="op">)</span></span></code></pre></div>
-<p>This section creates an additional dataset (data.1) with a specific group (group = 5) and a smaller number of observations (obs = 30) for testing purposes. This is then appended to the original dataset, we will see the effect of having a smaller group within our random effects when we discuss partial pooling and shrinkage later on.</p>
+<p>This section creates an additional dataset (<code>data.1</code>) with a specific group (group = 5) and a smaller number of observations (obs = 30) for testing purposes. This is then appended to the original dataset, we will see the effect of having a smaller group within our random effects when we discuss partial pooling and shrinkage later on.</p>
 <p>Now we have three variables to consider in our models: x, y and group (with five levels).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -465,7 +465,7 @@ obs
 ## Residual standard error: 16.96 on 428 degrees of freedom
 ## Multiple R-squared:  0.1602, Adjusted R-squared:  0.1582 
 ## F-statistic: 81.62 on 1 and 428 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>Here we can see that the basic linear model has produced a statistically significant regression analysis (<em>t</em><sub>998</sub> = 11.24, <em>p</em> &lt;0.001) with an R^2 of 0.11. There is a medium effect positive relationship between changes in x and y (Estimate = 2.765, S.E. = 0.25).</p>
+<p>Here we can see that the basic linear model has produced a statistically significant regression analysis (<em>t</em><sub>998</sub> = 11.24, <em>p</em> &lt;0.001) with an <span class="math inline">\(R^2\)</span> of 0.11. There is a medium effect positive relationship between changes in x and y (Estimate = 2.765, S.E. = 0.25).</p>
 <p>We can see that clearly if we produce a simple plot of x against y:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">x</span>, <span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span></code></pre></div>
@@ -489,7 +489,7 @@ Figure 1.1: Simple scatter plot x against y
 Figure 1.2: Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables.
 </p>
 </div>
-<p>The <code>check_model</code> function from the <code>performance</code> package (<span class="citation">Lüdecke et al. (<a href="summary.html#ref-R-performance" role="doc-biblioref">2023</a>)</span>) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model.</p>
+<p>The <code>check_model()</code> function from the <code>performance</code> package (<span class="citation">Lüdecke et al. (<a href="summary.html#ref-R-performance" role="doc-biblioref">2023</a>)</span>) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model.</p>
 <p>It enables you to identify potential issues, such as violations of assumptions, influential data points, or lack of fit, which can affect the interpretation and reliability of your model's results</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">basic_model</span><span class="op">)</span></span></code></pre></div>
@@ -525,9 +525,8 @@ Figure 1.3: Linear model conducted on all data
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">plot_group</span></span></code></pre></div>
-<div class="inline-figure">
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;">
-From the above plots, it confirms that our observations from within each of the ranges aren’t independent. We can’t ignore that: as we’re starting to see, it could lead to a completely erroneous conclusion.</div>
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>From the above plots, it confirms that our observations from within each of the ranges aren’t independent. We can’t ignore that: as we’re starting to see, it could lead to a completely erroneous conclusion.</p>
 </div>
 <div id="multiple-analyses-approach" class="section level3" number="1.3.2">
 <h3>
@@ -988,8 +987,7 @@ Mixed Model/Partial Pool
 <p>But how do we do this?</p>
 <p>We can use the <code><a href="https://rdrr.io/r/stats/coef.html">coef()</a></code> function to extract the estimates (strictly these are predictions) for the random effects. This output has several components.</p>
 <p>ESTIMATES VS PREDICTIONS
-<a href="http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/" class="uri">http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/</a>
-BLUPS</p>
+<a href="http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/" class="uri">http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/</a></p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $group
@@ -1003,7 +1001,7 @@ BLUPS</p>
 ## attr(,"class")
 ## [1] "coef.mer"</code></pre>
 <p>This function produces our 'best linear unbiased predictions' (BLUPs) for the intercept and slope of the regression at each site. The predictions given here are different to those we would get if we ran individual models on each site, as BLUPs are a product of the compromise of complete-pooling and no-pooling models. Now the predicted intercept is influenced by other sites leading to a process called 'shrinkage'.</p>
-<p>Why are these called predictions and not estimates? Because we have estimated the variance at each site (at the bargain of using only a single degree of freedom for each random effect no matter how many levels!), and from here essentially borrowed information across sites, to improve the accuracy, to combine with the fixed effects. So in the strictest sense we are predicting relationships rather just through direct observation.</p>
+<p>Why are these called predictions and not estimates? Because we have estimated the variance at each site and from here essentially borrowed information across sites to improve the accuracy, to combine with the fixed effects. So in the strictest sense we are <em>predicting</em> relationships rather than through direct observation.</p>
 <p>This generous ability to make predictions is one of the main advantages of a mixed-model.</p>
 <p>The <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function has already provided the estimates of the fixed effects, but they can also be extracted with the <code>fixef()</code> function.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -1171,7 +1169,6 @@ Figure 1.5: Regression relationships from fixed-effects and mixed effects models
 <span>           show.data <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;"></div>
-<p>BLUP - Hector book!</p>
 </div>
 </div>
 <div id="checking-model-assumptions" class="section level2" number="1.6">
@@ -1237,6 +1234,32 @@ distribution and decide if it is important for yourself.
 <h2>
 <span class="header-section-number">1.7</span> Practice Questions<a class="anchor" aria-label="anchor" href="#practice-questions"><i class="fas fa-link"></i></a>
 </h2>
+<ol style="list-style-type: decimal">
+<li>In mixed-effects models, independent variables are also called:</li>
+</ol>
+<p><select class="webex-select"><option value="blank"></option>
+<option value="">Random Effects</option>
+<option value="answer">Fixed Effects</option>
+<option value="">Mediators</option>
+<option value="">Variance</option></select></p>
+<ol start="2" style="list-style-type: decimal">
+<li>A random effect is best described as?</li>
+</ol>
+<div id="radio_QEALJVAVDV" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value=""><span>A variable that is noisier than other variables</span></label><label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value=""><span>An effect that cannot be predicted based on group membership</span></label><label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value="answer"><span>A variable where subgroups influence the outcome</span></label><label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value=""><span>Choosing slope values with a random number generator</span></label>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Which of the following is <strong>not</strong> an advantage of mixed-effects models?</li>
+</ol>
+<div id="radio_AHGRRGZVVS" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value=""><span>They can cope with situations where individuals contribute different numbers of observations</span></label><label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value=""><span>They can handle group-level differences in the outcome</span></label><label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value=""><span>They can deal with variation due to different groups</span></label><label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value="answer"><span>They are guaranteed to give significant results when ANOVAs do not</span></label>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>Mixed-effects models cope well with missing data because?</li>
+</ol>
+<div id="radio_OMCMUYFXDD" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_OMCMUYFXDD" value="answer"><span>They can still estimate parameters even when some observations are missing</span></label><label><input type="radio" autocomplete="off" name="radio_OMCMUYFXDD" value=""><span>They delete observations with missing data</span></label><label><input type="radio" autocomplete="off" name="radio_OMCMUYFXDD" value=""><span>They set all values to 0</span></label>
+</div>
 </div>
 </div>
 <script>
