@@ -161,7 +161,6 @@ The code continues to `mutate` the dataset by adding additional variables:
 
 - Finally, y is created as the response variable using a linear model equation that includes the fixed effects (B0 and B1), random effects (b0 and b1), the predictor variable (x), and the error term (E).
 
-Now we have three variables to consider in our models: x, y and group.
 
 ```{r}
 data.1 <- expand.grid(group = as.factor(5),
@@ -179,6 +178,15 @@ data <- bind_rows(data, data.1) %>%
 ```
 
 This section creates an additional dataset (data.1) with a specific group (group = 5) and a smaller number of observations (obs = 30) for testing purposes. This is then appended to the original dataset, we will see the effect of having a smaller group within our random effects when we discuss partial pooling and shrinkage later on. 
+
+
+Now we have three variables to consider in our models: x, y and group (with five levels).
+
+```{r}
+data %>% 
+  select(x, y, group, obs) %>% 
+  head()
+```
 
 Now that we have a suitable simulated dataset, let's start modelling!
 
@@ -216,7 +224,7 @@ ggplot(data, aes(x = x,
   geom_smooth(method = "lm")
 
 ```
-The `check_model`  function (@R-performance) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model. 
+The `check_model`  function from the `performance` package (@R-performance) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model. 
 
 It enables you to identify potential issues, such as violations of assumptions, influential data points, or lack of fit, which can affect the interpretation and reliability of your model's results
 
@@ -285,7 +293,7 @@ Running separate linear models per group, also known as stratified analysis, can
 ```{r, fig.cap = "Scatter plot showing the relationship between the independent variable (x) and the dependent variable (y) colored by group. Each subplot represents a different group. The line represents the group-level linear regression smoothing."}
 
 # Plotting the relationship between x and y with group-level smoothing
-plot_group <- ggplot(data, aes(x = x, y = y, color = group, group = group)) +
+ggplot(data, aes(x = x, y = y, color = group, group = group)) +
   geom_point(alpha = 0.6) +  # Scatter plot of x and y with transparency
   labs(title = "Data Colored by Group", x = "Independent Variable", y = "Dependent Variable") +
   theme(legend.position = "none") +
@@ -293,6 +301,7 @@ plot_group <- ggplot(data, aes(x = x, y = y, color = group, group = group)) +
   facet_wrap(~group)  # Faceting the plot by group
 
 ```
+
 
 ```{r}
 
@@ -319,6 +328,8 @@ group_indexed_models <- filtered_models %>%
 # Modifying the p-values using a custom function report_p
 final_models <- group_indexed_models %>%
                 mutate(p.value = report_p(p.value))
+
+final_models
 
 ```
 
@@ -381,7 +392,7 @@ We now want to know if an association between `y ~ x` exists after controlling f
 
 This section will detail how to run mixed models with the `lmer` function in the R package `lmerTest` (@R-lmerTest). This builds on the older `lme4` (@R-lme4) package, and in particular add p-values that were not previously included. There are other R packages that can be used to run mixed-effects models including the `nlme` package (@R-nlme) and the `glmmTMB` package (@R-glmmTMB). Outside of R there are also other packages and software capable of running mixed-effects models, though arguably none is better supported than R software.
 
-
+`r hide("Plotting random intercepts")`
 ```{r, echo = FALSE}
 
 plot_function2 <- function(model, title = "Data Coloured by Group"){
@@ -406,6 +417,8 @@ plot_function2(mixed_model, "Random intercept")
 
 ```
 
+`r unhide()`
+
 
 ```{r}
 # random intercept model
@@ -420,11 +433,11 @@ Here our groups clearly explain a lot of variance
 
 ```
 
-244.5/(244.5 + 100.9) = 0.707 / 70.7%
+205/(205 + 101) = 0.669 / 66.9%
 
 ```
 
-So the differences between groups explain ~80% of the variance that’s “left over” after the variance explained by our fixed effects.
+So the differences between groups explain ~6% of the variance that’s “left over” *after* the variance explained by our fixed effects.
 
 
 ### Partial pooling
@@ -442,12 +455,12 @@ pooled <- basic_model %>%
 
 no_pool <- additive_model %>% 
   broom::tidy() %>% 
-  mutate(Approach = "No Pool", .before = 1) %>% 
+  mutate(Approach = "No Pooling", .before = 1) %>% 
   select(term, estimate, std.error, Approach)
 
 partial_pool <- mixed_model %>% 
   broom.mixed::tidy() %>% 
-  mutate(Approach = "Partial Pool", .before = 1) %>% 
+  mutate(Approach = "Mixed Model/Partial Pool", .before = 1) %>% 
   select(Approach, term, estimate, std.error)
 
 bind_rows(pooled, no_pool, partial_pool) %>% 
@@ -509,6 +522,7 @@ coef(mixed_model)
 fixef(mixed_model)
 
 ```
+
 
 ```{r}
 plot_model(mixed_model,type="pred",
@@ -591,9 +605,9 @@ data1 %>%
 
 ```
 
-re.form = NA: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
+`re.form = NA`: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
 
-re.form = NULL: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
+`re.form = NULL`: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
 
 ```{r}
 
@@ -722,12 +736,12 @@ data <- data %>%
 
 data %>%
   ggplot(aes(x = x, y = y, col = group)) +
-  geom_point(pch = 16) +
-  geom_line(aes(y = fit.c, col = group), linewidth = 2)  +
+  geom_point(pch = 16, alpha = 0.4) +
+  geom_line(aes(y = fit.c, col = group), linewidth = 1)  +
   coord_cartesian(ylim = c(-40, 100))+
-  labs(title = title, 
-       x = "Independent Variable", 
-       y = "Dependent Variable") 
+  labs(title = title)+
+  theme_void()+
+  theme(legend.position ="none")
 }
 
 # random intercept model
@@ -748,11 +762,15 @@ lmer3 <- lmer(y ~ x + (x | group), data = data)
 plot_function(lmer3, "Random slope and intercept")
 ```
 
+
 ```{r, echo = FALSE}
 
+plot_group <- plot_group+
+  theme_void()+
+    theme(legend.position ="none")
+
 (plot_group + plot_function(lmer1,  "Random intercept")) / 
-(plot_function(lmer2, "Random slope") + plot_function(lmer3, "Random slope and intercept")) +  
-  plot_layout(guides = 'collect')
+(plot_function(lmer2, "Random slope") + plot_function(lmer3, "Random slope and intercept")) 
 
 ```
 
@@ -822,7 +840,7 @@ inset <- xdens+(pmain+theme_void()+theme(legend.position = "none"))+ydens +plot_
 ```{r}
 
 (plot_function(lmer1, "Random intercept")+coord_cartesian(
-                    ylim = c(0, 120))) + inset_element(inset, 0, 0.6, 0.4, 1)
+                    ylim = c(0, 120))) + inset_element(inset, 0.1, 0.6, 0.5, 1)
 
 ```
 

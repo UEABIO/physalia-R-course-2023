@@ -151,7 +151,6 @@ The code continues to `mutate` the dataset by adding additional variables:
 
 - Finally, y is created as the response variable using a linear model equation that includes the fixed effects (B0 and B1), random effects (b0 and b1), the predictor variable (x), and the error term (E).
 
-Now we have three variables to consider in our models: x, y and group.
 
 
 ```r
@@ -169,6 +168,69 @@ data <- bind_rows(data, data.1) %>%
 ```
 
 This section creates an additional dataset (data.1) with a specific group (group = 5) and a smaller number of observations (obs = 30) for testing purposes. This is then appended to the original dataset, we will see the effect of having a smaller group within our random effects when we discuss partial pooling and shrinkage later on. 
+
+
+Now we have three variables to consider in our models: x, y and group (with five levels).
+
+
+```r
+data %>% 
+  select(x, y, group, obs) %>% 
+  head()
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> x </th>
+   <th style="text-align:right;"> y </th>
+   <th style="text-align:left;"> group </th>
+   <th style="text-align:left;"> obs </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 4.0584411 </td>
+   <td style="text-align:right;"> -0.5487802 </td>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7.2250893 </td>
+   <td style="text-align:right;"> 17.3260398 </td>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.5963383 </td>
+   <td style="text-align:right;"> 41.2256737 </td>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3.3034922 </td>
+   <td style="text-align:right;"> 16.0958571 </td>
+   <td style="text-align:left;"> 4 </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7.7676400 </td>
+   <td style="text-align:right;"> 32.0586590 </td>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 8.4045935 </td>
+   <td style="text-align:right;"> 50.1274193 </td>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
 
 Now that we have a suitable simulated dataset, let's start modelling!
 
@@ -216,8 +278,8 @@ plot(data$x, data$y)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="15-Regression_files/figure-html/unnamed-chunk-9-1.png" alt="Simple scatter plot x against y" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-9)Simple scatter plot x against y</p>
+<img src="15-Regression_files/figure-html/unnamed-chunk-10-1.png" alt="Simple scatter plot x against y" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-10)Simple scatter plot x against y</p>
 </div>
 
 Here if we use the function `geom_smooth()` on the scatter plot, the plot also includes a fitted regression line obtained using the "lm" method. This allows us to examine the overall trend and potential linear association between the variables.
@@ -233,10 +295,10 @@ ggplot(data, aes(x = x,
 ```
 
 <div class="figure" style="text-align: center">
-<img src="15-Regression_files/figure-html/unnamed-chunk-10-1.png" alt="Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-10)Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables.</p>
+<img src="15-Regression_files/figure-html/unnamed-chunk-11-1.png" alt="Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-11)Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables.</p>
 </div>
-The `check_model`  function (@R-performance) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model. 
+The `check_model`  function from the `performance` package (@R-performance) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model. 
 
 It enables you to identify potential issues, such as violations of assumptions, influential data points, or lack of fit, which can affect the interpretation and reliability of your model's results
 
@@ -245,7 +307,7 @@ It enables you to identify potential issues, such as violations of assumptions, 
 performance::check_model(basic_model)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
 
 Looking at the fit of our model we would be tempted to conclude that we have an accurate and robust model.
 
@@ -263,8 +325,8 @@ ggplot(data, aes(x = group,
 ```
 
 <div class="figure" style="text-align: center">
-<img src="15-Regression_files/figure-html/unnamed-chunk-12-1.png" alt="Linear model conducted on all data" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-12)Linear model conducted on all data</p>
+<img src="15-Regression_files/figure-html/unnamed-chunk-13-1.png" alt="Linear model conducted on all data" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-13)Linear model conducted on all data</p>
 </div>
 
 In this figure,  we colour tag the data points by group, this can be useful for determining if a mixed model is appropriate.
@@ -289,7 +351,7 @@ plot_group <- ggplot(data, aes(x = x,
 plot_group
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
 From the above plots, it confirms that our observations from within each of the ranges aren’t independent. We can’t ignore that: as we’re starting to see, it could lead to a completely erroneous conclusion.
 
 
@@ -312,13 +374,19 @@ Running separate linear models per group, also known as stratified analysis, can
 
 ```r
 # Plotting the relationship between x and y with group-level smoothing
-plot_group <- ggplot(data, aes(x = x, y = y, color = group, group = group)) +
+ggplot(data, aes(x = x, y = y, color = group, group = group)) +
   geom_point(alpha = 0.6) +  # Scatter plot of x and y with transparency
   labs(title = "Data Colored by Group", x = "Independent Variable", y = "Dependent Variable") +
   theme(legend.position = "none") +
   geom_smooth(method = "lm") +  # Group-level linear regression smoothing
   facet_wrap(~group)  # Faceting the plot by group
 ```
+
+<div class="figure" style="text-align: center">
+<img src="15-Regression_files/figure-html/unnamed-chunk-15-1.png" alt="Scatter plot showing the relationship between the independent variable (x) and the dependent variable (y) colored by group. Each subplot represents a different group. The line represents the group-level linear regression smoothing." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-15)Scatter plot showing the relationship between the independent variable (x) and the dependent variable (y) colored by group. Each subplot represents a different group. The line represents the group-level linear regression smoothing.</p>
+</div>
+
 
 
 ```r
@@ -345,7 +413,68 @@ group_indexed_models <- filtered_models %>%
 # Modifying the p-values using a custom function report_p
 final_models <- group_indexed_models %>%
                 mutate(p.value = report_p(p.value))
+
+final_models
 ```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> group </th>
+   <th style="text-align:left;"> term </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> std.error </th>
+   <th style="text-align:right;"> statistic </th>
+   <th style="text-align:left;"> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 3.0643940 </td>
+   <td style="text-align:right;"> 0.3620254 </td>
+   <td style="text-align:right;"> 8.4645823 </td>
+   <td style="text-align:left;"> p &lt; 0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 2.5162898 </td>
+   <td style="text-align:right;"> 0.3354848 </td>
+   <td style="text-align:right;"> 7.5004590 </td>
+   <td style="text-align:left;"> p &lt; 0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 1.3904720 </td>
+   <td style="text-align:right;"> 0.3192878 </td>
+   <td style="text-align:right;"> 4.3549169 </td>
+   <td style="text-align:left;"> p &lt; 0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 1.6856649 </td>
+   <td style="text-align:right;"> 0.3550511 </td>
+   <td style="text-align:right;"> 4.7476686 </td>
+   <td style="text-align:left;"> p &lt; 0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> -0.0755633 </td>
+   <td style="text-align:right;"> 0.6576868 </td>
+   <td style="text-align:right;"> -0.1148926 </td>
+   <td style="text-align:left;"> p= 0.909 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
 
 In the code above, the dataset data is first grouped by the variable 'group' using the `group_by` function, and then the data within each group is nested using the `nest` function. This results in a new dataset nested_data where each group's data is stored as a nested tibble.
 
@@ -439,7 +568,13 @@ We now want to know if an association between `y ~ x` exists after controlling f
 This section will detail how to run mixed models with the `lmer` function in the R package `lmerTest` (@R-lmerTest). This builds on the older `lme4` (@R-lme4) package, and in particular add p-values that were not previously included. There are other R packages that can be used to run mixed-effects models including the `nlme` package (@R-nlme) and the `glmmTMB` package (@R-glmmTMB). Outside of R there are also other packages and software capable of running mixed-effects models, though arguably none is better supported than R software.
 
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" />
+<div class='webex-solution'><button>Plotting random intercepts</button>
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+</div>
+
 
 
 
@@ -485,11 +620,11 @@ Here our groups clearly explain a lot of variance
 
 ```
 
-244.5/(244.5 + 100.9) = 0.707 / 70.7%
+205/(205 + 101) = 0.669 / 66.9%
 
 ```
 
-So the differences between groups explain ~80% of the variance that’s “left over” after the variance explained by our fixed effects.
+So the differences between groups explain ~6% of the variance that’s “left over” *after* the variance explained by our fixed effects.
 
 
 ### Partial pooling
@@ -507,12 +642,12 @@ pooled <- basic_model %>%
 
 no_pool <- additive_model %>% 
   broom::tidy() %>% 
-  mutate(Approach = "No Pool", .before = 1) %>% 
+  mutate(Approach = "No Pooling", .before = 1) %>% 
   select(term, estimate, std.error, Approach)
 
 partial_pool <- mixed_model %>% 
   broom.mixed::tidy() %>% 
-  mutate(Approach = "Partial Pool", .before = 1) %>% 
+  mutate(Approach = "Mixed Model/Partial Pool", .before = 1) %>% 
   select(Approach, term, estimate, std.error)
 
 bind_rows(pooled, no_pool, partial_pool) %>% 
@@ -547,25 +682,25 @@ bind_rows(pooled, no_pool, partial_pool) %>%
    <td style="text-align:left;"> (Intercept) </td>
    <td style="text-align:right;"> 6.812481 </td>
    <td style="text-align:right;"> 1.8881155 </td>
-   <td style="text-align:left;"> No Pool </td>
+   <td style="text-align:left;"> No Pooling </td>
   </tr>
   <tr>
    <td style="text-align:left;"> x </td>
    <td style="text-align:right;"> 3.064394 </td>
    <td style="text-align:right;"> 0.3378685 </td>
-   <td style="text-align:left;"> No Pool </td>
+   <td style="text-align:left;"> No Pooling </td>
   </tr>
   <tr>
    <td style="text-align:left;"> (Intercept) </td>
    <td style="text-align:right;"> 23.269187 </td>
    <td style="text-align:right;"> 6.4818211 </td>
-   <td style="text-align:left;"> Partial Pool </td>
+   <td style="text-align:left;"> Mixed Model/Partial Pool </td>
   </tr>
   <tr>
    <td style="text-align:left;"> x </td>
    <td style="text-align:right;"> 2.027065 </td>
    <td style="text-align:right;"> 0.1703423 </td>
-   <td style="text-align:left;"> Partial Pool </td>
+   <td style="text-align:left;"> Mixed Model/Partial Pool </td>
   </tr>
 </tbody>
 </table>
@@ -609,7 +744,7 @@ pooled_plot /
   partial_plot
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## `ggeffects`
@@ -644,6 +779,7 @@ fixef(mixed_model)
 ```
 
 
+
 ```r
 plot_model(mixed_model,type="pred",
            terms=c("x", "group"),
@@ -652,7 +788,7 @@ plot_model(mixed_model,type="pred",
   facet_wrap( ~ group)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 ###
@@ -670,7 +806,7 @@ data1 %>%
   facet_wrap( ~ group)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-23-2.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-24-2.png" width="100%" style="display: block; margin: auto;" />
 
 
 http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
@@ -680,13 +816,13 @@ http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-u
 plot_model(mixed_model, terms = c("x", "group"), type = "re")
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 plot_model(mixed_model, terms = c("x", "group"), type = "est")
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-24-2.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-25-2.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Checking models
@@ -696,7 +832,7 @@ plot_model(mixed_model, terms = c("x", "group"), type = "est")
 plot(mixed_model) 
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -704,7 +840,7 @@ qqnorm(resid(mixed_model))
 qqline(resid(mixed_model)) 
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -717,7 +853,7 @@ rand_dist <- as.data.frame(ranef(mixed_model)) %>%
 hist(rand_dist$b0_hat)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -738,20 +874,20 @@ data1 %>%
 ```
 
 <div class="figure" style="text-align: center">
-<img src="15-Regression_files/figure-html/unnamed-chunk-28-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-28)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
+<img src="15-Regression_files/figure-html/unnamed-chunk-29-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-29)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
 </div>
 
-re.form = NA: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
+`re.form = NA`: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
 
-re.form = NULL: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
+`re.form = NULL`: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
 
 
 ```r
 performance::check_model(mixed_model)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -761,7 +897,7 @@ resid.mm <- DHARMa::simulateResiduals(mixed_model)
 plot(resid.mm)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -804,33 +940,33 @@ Understanding whether your experimental/sampling design calls for nested or cros
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-bc3665074742ce309c84" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-bc3665074742ce309c84">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4742ce309c84006b4955" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-4742ce309c84006b4955">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-32)Fully Nested</p>
+<p class="caption">(\#fig:unnamed-chunk-33)Fully Nested</p>
 </div>
 
 
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-006b49558015fb63f5c0" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-006b49558015fb63f5c0">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8015fb63f5c0dd7c2786" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-8015fb63f5c0dd7c2786">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-33)Fully Crossed</p>
+<p class="caption">(\#fig:unnamed-chunk-34)Fully Crossed</p>
 </div>
 
 
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-dd7c2786b1d1c6f9b595" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-dd7c2786b1d1c6f9b595">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b1d1c6f9b59552fdce3c" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-b1d1c6f9b59552fdce3c">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-34)Partially Nested/Crossed</p>
+<p class="caption">(\#fig:unnamed-chunk-35)Partially Nested/Crossed</p>
 </div>
 
 
@@ -839,7 +975,8 @@ Understanding whether your experimental/sampling design calls for nested or cros
 
 
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" />
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-37-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -931,7 +1068,7 @@ inset <- xdens+pmain+ydens +plot_layout(design = layout)
 inset
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-40-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -940,10 +1077,10 @@ inset
 
 ```r
 (plot_function(lmer1, "Random intercept")+coord_cartesian(
-                    ylim = c(0, 120))) + inset_element(inset, 0, 0.6, 0.4, 1)
+                    ylim = c(0, 120))) + inset_element(inset, 0.1, 0.6, 0.5, 1)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Model refining
@@ -1177,7 +1314,7 @@ biodepth.2 %>%
    theme(legend.position = "none")
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" />
 
 # Worked Examples
 
@@ -1233,7 +1370,7 @@ dolphins.1 %>%
        y = "VT") 
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-56-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-57-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1244,7 +1381,7 @@ plot_model(dolphmod.2,type="pred",
            show.data = T)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-57-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 plot_model(dolphmod.2,type="pred",
@@ -1253,7 +1390,7 @@ plot_model(dolphmod.2,type="pred",
            show.data = T)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-57-2.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-58-2.png" width="100%" style="display: block; margin: auto;" />
 
 ## Reporting
 

@@ -274,7 +274,6 @@ number and we’re interested in an average.
 <li><p>E represents the error term, generated using <code>rnorm</code> with a mean of 0 and standard deviation of 10.</p></li>
 <li><p>Finally, y is created as the response variable using a linear model equation that includes the fixed effects (B0 and B1), random effects (b0 and b1), the predictor variable (x), and the error term (E).</p></li>
 </ul>
-<p>Now we have three variables to consider in our models: x, y and group.</p>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data.1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>,</span>
 <span>          obs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -288,6 +287,115 @@ number and we’re interested in an average.
 <span>         E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">B0</span> <span class="op">+</span> <span class="va">b0</span> <span class="op">+</span> <span class="va">x</span> <span class="op">*</span> <span class="op">(</span><span class="va">B1</span> <span class="op">+</span> <span class="va">b1</span><span class="op">)</span> <span class="op">+</span> <span class="va">E</span><span class="op">)</span></span></code></pre></div>
 <p>This section creates an additional dataset (data.1) with a specific group (group = 5) and a smaller number of observations (obs = 30) for testing purposes. This is then appended to the original dataset, we will see the effect of having a smaller group within our random effects when we discuss partial pooling and shrinkage later on.</p>
+<p>Now we have three variables to consider in our models: x, y and group (with five levels).</p>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">group</span>, <span class="va">obs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+y
+</th>
+<th style="text-align:left;">
+group
+</th>
+<th style="text-align:left;">
+obs
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+4.0584411
+</td>
+<td style="text-align:right;">
+-0.5487802
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7.2250893
+</td>
+<td style="text-align:right;">
+17.3260398
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.5963383
+</td>
+<td style="text-align:right;">
+41.2256737
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3.3034922
+</td>
+<td style="text-align:right;">
+16.0958571
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7.7676400
+</td>
+<td style="text-align:right;">
+32.0586590
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8.4045935
+</td>
+<td style="text-align:right;">
+50.1274193
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
 <p>Now that we have a suitable simulated dataset, let's start modelling!</p>
 <div id="all-in-one-model" class="section level3" number="4.3.1">
 <h3>
@@ -295,7 +403,7 @@ number and we’re interested in an average.
 </h3>
 <p>We will begin by highlighting the importance of considering data structure and hierarchy when building linear models. To illustrate this, we will delve into an example that showcases the consequences of ignoring the underlying data structure. We might naively construct a single linear model that ignores the group-level variation and treats all observations as independent. This oversimplified approach fails to account for the fact that observations within groups are more similar to each other due to shared characteristics.</p>
 <p><span class="math display">\[Y_i = \beta_0 + \beta_1X_i + \epsilon_i\]</span></p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">basic_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">basic_model</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -318,16 +426,16 @@ number and we’re interested in an average.
 ## F-statistic: 81.62 on 1 and 428 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Here we can see that the basic linear model has produced a statistically significant regression analysis (<em>t</em><sub>998</sub> = 11.24, <em>p</em> &lt;0.001) with an R^2 of 0.11. There is a medium effect positive relationship between changes in x and y (Estimate = 2.765, S.E. = 0.25).</p>
 <p>We can see that clearly if we produce a simple plot of x against y:</p>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">x</span>, <span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-9"></span>
-<img src="15-Regression_files/figure-html/unnamed-chunk-9-1.png" alt="Simple scatter plot x against y" width="100%"><p class="caption">
-Figure 4.1: Simple scatter plot x against y
+<span style="display:block;" id="fig:unnamed-chunk-10"></span>
+<img src="15-Regression_files/figure-html/unnamed-chunk-10-1.png" alt="Simple scatter plot x against y" width="100%"><p class="caption">
+Figure 3.2: Simple scatter plot x against y
 </p>
 </div>
 <p>Here if we use the function <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> on the scatter plot, the plot also includes a fitted regression line obtained using the "lm" method. This allows us to examine the overall trend and potential linear association between the variables.</p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, </span>
 <span>                 y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -335,35 +443,35 @@ Figure 4.1: Simple scatter plot x against y
 <span>       y <span class="op">=</span> <span class="st">"Dependent Variable"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-10"></span>
-<img src="15-Regression_files/figure-html/unnamed-chunk-10-1.png" alt="Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables." width="100%"><p class="caption">
-Figure 3.2: Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables.
+<span style="display:block;" id="fig:unnamed-chunk-11"></span>
+<img src="15-Regression_files/figure-html/unnamed-chunk-11-1.png" alt="Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables." width="100%"><p class="caption">
+Figure 4.1: Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables.
 </p>
 </div>
-<p>The <code>check_model</code> function (<span class="citation">Lüdecke et al. (<a href="summary.html#ref-R-performance" role="doc-biblioref">2023</a>)</span>) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model.</p>
+<p>The <code>check_model</code> function from the <code>performance</code> package (<span class="citation">Lüdecke et al. (<a href="summary.html#ref-R-performance" role="doc-biblioref">2023</a>)</span>) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model.</p>
 <p>It enables you to identify potential issues, such as violations of assumptions, influential data points, or lack of fit, which can affect the interpretation and reliability of your model's results</p>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">basic_model</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Looking at the fit of our model we would be tempted to conclude that we have an accurate and robust model.</p>
 <p>However, when data is hierarchically structured, such as individuals nested within groups, there is typically correlation or similarity among observations within the same group. By not accounting for this clustering effect, estimates derived from a single model can be biased and inefficient. The assumption of independence among observations is violated, leading to incorrect standard errors and inflated significance levels.</p>
 <p>From the figure below we can see the difference in median and range of x values within each of our groups:</p>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">group</span>, </span>
 <span>                 y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Groups"</span>, </span>
 <span>       y <span class="op">=</span> <span class="st">"Dependent Variable"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-12"></span>
-<img src="15-Regression_files/figure-html/unnamed-chunk-12-1.png" alt="Linear model conducted on all data" width="100%"><p class="caption">
-Figure 3.3: Linear model conducted on all data
+<span style="display:block;" id="fig:unnamed-chunk-13"></span>
+<img src="15-Regression_files/figure-html/unnamed-chunk-13-1.png" alt="Linear model conducted on all data" width="100%"><p class="caption">
+Figure 4.2: Linear model conducted on all data
 </p>
 </div>
 <p>In this figure, we colour tag the data points by group, this can be useful for determining if a mixed model is appropriate.</p>
 <p>Here's why:</p>
 <p>By colour-coding the data points based on the grouping variable, the plot allows you to visually assess the within-group and between-group variability. If there are noticeable differences in the data patterns or dispersion among the groups, it suggests that the data may have a hierarchical structure, where observations within the same group are more similar to each other than to observations in other groups.</p>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Color tagged by group</span></span>
 <span><span class="va">plot_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, </span>
 <span>                               y <span class="op">=</span> <span class="va">y</span>, </span>
@@ -377,7 +485,7 @@ Figure 3.3: Linear model conducted on all data
 <span></span>
 <span><span class="va">plot_group</span></span></code></pre></div>
 <div class="inline-figure">
-<img src="15-Regression_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;">
+<img src="15-Regression_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;">
 From the above plots, it confirms that our observations from within each of the ranges aren’t independent. We can’t ignore that: as we’re starting to see, it could lead to a completely erroneous conclusion.</div>
 </div>
 <div id="multiple-analyses-approach" class="section level3" number="4.3.2">
@@ -393,15 +501,21 @@ From the above plots, it confirms that our observations from within each of the 
 <li><p>Inconsistent estimates</p></li>
 <li><p>Limited ability to handle unbalanced/missing data</p></li>
 </ul>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plotting the relationship between x and y with group-level smoothing</span></span>
-<span><span class="va">plot_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">group</span>, group <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">group</span>, group <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Scatter plot of x and y with transparency</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Data Colored by Group"</span>, x <span class="op">=</span> <span class="st">"Independent Variable"</span>, y <span class="op">=</span> <span class="st">"Dependent Variable"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Group-level linear regression smoothing</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">group</span><span class="op">)</span>  <span class="co"># Faceting the plot by group</span></span></code></pre></div>
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-15"></span>
+<img src="15-Regression_files/figure-html/unnamed-chunk-15-1.png" alt="Scatter plot showing the relationship between the independent variable (x) and the dependent variable (y) colored by group. Each subplot represents a different group. The line represents the group-level linear regression smoothing." width="100%"><p class="caption">
+Figure 4.3: Scatter plot showing the relationship between the independent variable (x) and the dependent variable (y) colored by group. Each subplot represents a different group. The line represents the group-level linear regression smoothing.
+</p>
+</div>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Creating nested data by grouping the data by 'group'</span></span>
 <span><span class="va">nested_data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -424,7 +538,135 @@ From the above plots, it confirms that our observations from within each of the 
 <span></span>
 <span><span class="co"># Modifying the p-values using a custom function report_p</span></span>
 <span><span class="va">final_models</span> <span class="op">&lt;-</span> <span class="va">group_indexed_models</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>                <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p.value <span class="op">=</span> <span class="fu">report_p</span><span class="op">(</span><span class="va">p.value</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>                <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p.value <span class="op">=</span> <span class="fu">report_p</span><span class="op">(</span><span class="va">p.value</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">final_models</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:right;">
+group
+</th>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:left;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:right;">
+3.0643940
+</td>
+<td style="text-align:right;">
+0.3620254
+</td>
+<td style="text-align:right;">
+8.4645823
+</td>
+<td style="text-align:left;">
+p &lt; 0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:right;">
+2.5162898
+</td>
+<td style="text-align:right;">
+0.3354848
+</td>
+<td style="text-align:right;">
+7.5004590
+</td>
+<td style="text-align:left;">
+p &lt; 0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:right;">
+1.3904720
+</td>
+<td style="text-align:right;">
+0.3192878
+</td>
+<td style="text-align:right;">
+4.3549169
+</td>
+<td style="text-align:left;">
+p &lt; 0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:right;">
+1.6856649
+</td>
+<td style="text-align:right;">
+0.3550511
+</td>
+<td style="text-align:right;">
+4.7476686
+</td>
+<td style="text-align:left;">
+p &lt; 0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:right;">
+-0.0755633
+</td>
+<td style="text-align:right;">
+0.6576868
+</td>
+<td style="text-align:right;">
+-0.1148926
+</td>
+<td style="text-align:left;">
+p= 0.909
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
 <p>In the code above, the dataset data is first grouped by the variable 'group' using the <code>group_by</code> function, and then the data within each group is nested using the <code>nest</code> function. This results in a new dataset nested_data where each group's data is stored as a nested tibble.</p>
 <p>Next, a linear regression model (<code>lm</code>) is fit to each nested data group using the <code>map</code> function. The <code><a href="https://generics.r-lib.org/reference/tidy.html">broom::tidy</a></code> function is applied to each model using map to extract the model summary statistics, such as coefficients, p-values, and standard errors. The resulting models are stored in the models object.</p>
 <p>The <code>bind_rows</code> function is used to combine the model results into a single data frame called combined_models. The data frame is then filtered to include only the rows where the predictor is 'x' using the <code>filter</code> function, resulting in the filtered_models data frame.</p>
@@ -434,7 +676,7 @@ From the above plots, it confirms that our observations from within each of the 
 <button>
 report_p function
 </button>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span>,</span>
 <span>             <span class="st">"p &lt; 0.001"</span>,</span>
@@ -451,7 +693,7 @@ report_p function
 <p>Using a group level term with an interaction on x as a fixed effect means explicitly including the interaction term between x and the group as a predictor in the model equation. This approach assumes that the relationship between x and the outcome variable differs across groups and that these differences are constant and fixed. It implies that each group has a unique intercept (baseline level) and slope (effect size) for the relationship between x and the outcome variable. By treating the group level term as a fixed effect, the model estimates <em>specific parameter values for each group</em>.</p>
 <p>If we are not explicitly interested in the outcomes or differences for each individual group (but wish to account for them) - this may not be the best option as it can lead to <em>overfitting</em> and it uses a lot more degrees of freedom - impacting estimates and widening our confidence intervals. As with running multiple models above, there is limited ability to make inferences outside of observed groups, and it does not handle missing data or unbalanced designs well.</p>
 <p><span class="math display">\[Y_i = \beta_0 + \beta_1X_i + \beta_2.group_i+\beta_3(X_i.group_i)+\epsilon_i\]</span></p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">additive_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">*</span><span class="va">group</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">additive_model</span><span class="op">)</span></span></code></pre></div>
@@ -497,8 +739,13 @@ report_p function
 <span class="header-section-number">4.4.1</span> Running mixed effects models with lmerTest<a class="anchor" aria-label="anchor" href="#running-mixed-effects-models-with-lmertest"><i class="fas fa-link"></i></a>
 </h3>
 <p>This section will detail how to run mixed models with the <code>lmer</code> function in the R package <code>lmerTest</code> (<span class="citation">Kuznetsova et al. (<a href="summary.html#ref-R-lmerTest" role="doc-biblioref">2020</a>)</span>). This builds on the older <code>lme4</code> (<span class="citation">Bates et al. (<a href="summary.html#ref-R-lme4" role="doc-biblioref">2023</a>)</span>) package, and in particular add p-values that were not previously included. There are other R packages that can be used to run mixed-effects models including the <code>nlme</code> package (<span class="citation">Pinheiro et al. (<a href="summary.html#ref-R-nlme" role="doc-biblioref">2023</a>)</span>) and the <code>glmmTMB</code> package (<span class="citation">Brooks et al. (<a href="summary.html#ref-R-glmmTMB" role="doc-biblioref">2023</a>)</span>). Outside of R there are also other packages and software capable of running mixed-effects models, though arguably none is better supported than R software.</p>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<div class="webex-solution">
+<button>
+Plotting random intercepts
+</button>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># random intercept model</span></span>
 <span><span class="va">mixed_model</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">group</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span></span>
@@ -532,9 +779,9 @@ report_p function
 ## x -0.131</code></pre>
 <p>Here our groups clearly explain a lot of variance</p>
 <pre><code>
-244.5/(244.5 + 100.9) = 0.707 / 70.7%
+205/(205 + 101) = 0.669 / 66.9%
 </code></pre>
-<p>So the differences between groups explain ~80% of the variance that’s “left over” after the variance explained by our fixed effects.</p>
+<p>So the differences between groups explain ~6% of the variance that’s “left over” <em>after</em> the variance explained by our fixed effects.</p>
 </div>
 <div id="partial-pooling" class="section level3" number="4.4.2">
 <h3>
@@ -542,7 +789,7 @@ report_p function
 </h3>
 <p>It is worth noting that random effect estimates are a function of the group-level information and the overall (grand) mean of the random effect. Group levels with low sample size or poor information (i.e., no strong relationship) are more strongly influenced by the grand mean, which adds information to an otherwise poorly-estimated group. However, a group with a large sample size or strong information (i.e., a strong relationship) will have very little influence from the grand mean and largely reflect the information contained entirely within the group. This process is called partial pooling (as opposed to no pooling, where no effect is considered, or total pooling, where separate models are run for the different groups). Partial pooling results in the phenomenon known as shrinkage, which refers to the group-level estimates being shrunk toward the mean. What does all this mean? If you use a random effect, you should be prepared for your factor levels to have some influence from the overall mean of all levels. With a good, clear signal in each group, you won’t see much impact from the overall mean, but you will with small groups or those without much signal.</p>
 <p>COMPARE MODELS</p>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pooled</span> <span class="op">&lt;-</span> <span class="va">basic_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Approach <span class="op">=</span> <span class="st">"Pooled"</span>, .before <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -550,12 +797,12 @@ report_p function
 <span></span>
 <span><span class="va">no_pool</span> <span class="op">&lt;-</span> <span class="va">additive_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Approach <span class="op">=</span> <span class="st">"No Pool"</span>, .before <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Approach <span class="op">=</span> <span class="st">"No Pooling"</span>, .before <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">term</span>, <span class="va">estimate</span>, <span class="va">std.error</span>, <span class="va">Approach</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">partial_pool</span> <span class="op">&lt;-</span> <span class="va">mixed_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">broom.mixed</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Approach <span class="op">=</span> <span class="st">"Partial Pool"</span>, .before <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Approach <span class="op">=</span> <span class="st">"Mixed Model/Partial Pool"</span>, .before <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Approach</span>, <span class="va">term</span>, <span class="va">estimate</span>, <span class="va">std.error</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">pooled</span>, <span class="va">no_pool</span>, <span class="va">partial_pool</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -616,7 +863,7 @@ Pooled
 1.8881155
 </td>
 <td style="text-align:left;">
-No Pool
+No Pooling
 </td>
 </tr>
 <tr>
@@ -630,7 +877,7 @@ x
 0.3378685
 </td>
 <td style="text-align:left;">
-No Pool
+No Pooling
 </td>
 </tr>
 <tr>
@@ -644,7 +891,7 @@ No Pool
 6.4818211
 </td>
 <td style="text-align:left;">
-Partial Pool
+Mixed Model/Partial Pool
 </td>
 </tr>
 <tr>
@@ -658,7 +905,7 @@ x
 0.1703423
 </td>
 <td style="text-align:left;">
-Partial Pool
+Mixed Model/Partial Pool
 </td>
 </tr>
 </tbody>
@@ -669,7 +916,7 @@ Partial Pool
 <h3>
 <span class="header-section-number">4.4.3</span> Plotting model predictions<a class="anchor" aria-label="anchor" href="#plotting-model-predictions"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">basic_pred</span> <span class="op">&lt;-</span> <span class="fu">emmeans</span><span class="op">(</span><span class="va">basic_model</span>, specs <span class="op">=</span> <span class="op">~</span>  <span class="va">x</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2.5</span>, <span class="fl">5</span>, <span class="fl">7.5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mixed_pred</span> <span class="op">&lt;-</span> <span class="fu">emmeans</span><span class="op">(</span><span class="va">mixed_model</span>, specs <span class="op">=</span> <span class="op">~</span>  <span class="va">x</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2.5</span>, <span class="fl">5</span>, <span class="fl">7.5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -700,7 +947,7 @@ Partial Pool
 <span></span>
 <span><span class="va">pooled_plot</span> <span class="op">/</span></span>
 <span>  <span class="va">partial_plot</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 </div>
 <div id="ggeffects" class="section level2" number="4.5">
@@ -714,7 +961,7 @@ Partial Pool
 </h2>
 <p>SHRINKAGE!</p>
 <p>BLUP - Hector book!</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">fixef</span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
@@ -730,14 +977,14 @@ Partial Pool
 ## [1] "coef.mer"
 ## (Intercept)           x 
 ##   23.269187    2.027066</code></pre>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>,type<span class="op">=</span><span class="st">"pred"</span>,</span>
 <span>           terms<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>,</span>
 <span>           pred.type<span class="op">=</span><span class="st">"re"</span>,</span>
 <span>           show.data <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">###</span></span>
 <span></span>
 <span><span class="va">data1</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -751,27 +998,27 @@ Partial Pool
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">fit.m</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"grey"</span>,</span>
 <span>            linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-23-2.png" width="100%" style="display: block; margin: auto;"></div>
-<p><a href="http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/" class="uri">http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/</a></p>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"re"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"est"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-24-2.png" width="100%" style="display: block; margin: auto;"></div>
+<p><a href="http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/" class="uri">http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/</a></p>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"re"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"est"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-25-2.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 <div id="checking-models" class="section level2" number="4.7">
 <h2>
 <span class="header-section-number">4.7</span> Checking models<a class="anchor" aria-label="anchor" href="#checking-models"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span> </span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html">qqnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html">qqline</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html">qqnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html">qqline</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rand_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">ranef</span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">grp</span>,</span>
 <span>         b0_hat <span class="op">=</span> <span class="va">condval</span>,</span>
@@ -779,8 +1026,8 @@ Partial Pool
 <span>         .keep <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">rand_dist</span><span class="op">$</span><span class="va">b0_hat</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">16</span>, col <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -795,21 +1042,21 @@ Partial Pool
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Independent Variable"</span>, </span>
 <span>       y <span class="op">=</span> <span class="st">"Dependent Variable"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-28"></span>
-<img src="15-Regression_files/figure-html/unnamed-chunk-28-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%"><p class="caption">
-Figure 4.2: Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts
+<span style="display:block;" id="fig:unnamed-chunk-29"></span>
+<img src="15-Regression_files/figure-html/unnamed-chunk-29-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%"><p class="caption">
+Figure 4.4: Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts
 </p>
 </div>
-<p>re.form = NA: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.</p>
-<p>re.form = NULL: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.</p>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p><code>re.form = NA</code>: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.</p>
+<p><code>re.form = NULL</code>: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.</p>
 <div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">resid.mm</span> <span class="op">&lt;-</span> <span class="fu">DHARMa</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DHARMa/man/simulateResiduals.html">simulateResiduals</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">resid.mm</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="warning">
 <p>
 When you have a lot of data, even minimal deviations from the
