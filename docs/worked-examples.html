@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 7 Worked Examples | 5023Y</title>
+<title>Chapter 8 Worked Examples | 5023Y</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="https://bodowinter.com/tutorial/bw_LME_tutorial.pdf  7.1 Reporting   7.2 Tables   7.3 Figures   7.4 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct =...">
+<meta name="description" content='https://bodowinter.com/tutorial/bw_LME_tutorial.pdf politeness &lt;- read_csv("files/politeness_data.csv") politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +            ...'>
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 7 Worked Examples | 5023Y">
+<meta property="og:title" content="Chapter 8 Worked Examples | 5023Y">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/data-sci/worked-examples.html">
 <meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
-<meta property="og:description" content="https://bodowinter.com/tutorial/bw_LME_tutorial.pdf  7.1 Reporting   7.2 Tables   7.3 Figures   7.4 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct =...">
+<meta property="og:description" content='https://bodowinter.com/tutorial/bw_LME_tutorial.pdf politeness &lt;- read_csv("files/politeness_data.csv") politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +            ...'>
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 7 Worked Examples | 5023Y">
-<meta name="twitter:description" content="https://bodowinter.com/tutorial/bw_LME_tutorial.pdf  7.1 Reporting   7.2 Tables   7.3 Figures   7.4 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct =...">
+<meta name="twitter:title" content="Chapter 8 Worked Examples | 5023Y">
+<meta name="twitter:description" content='https://bodowinter.com/tutorial/bw_LME_tutorial.pdf politeness &lt;- read_csv("files/politeness_data.csv") politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +            ...'>
 <meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -120,8 +120,10 @@
 <li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">4</span> Foundations of Mixed Modelling</a></li>
 <li><a class="" href="types-of-random-effects.html"><span class="header-section-number">5</span> Types of Random Effects</a></li>
 <li><a class="" href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></li>
-<li><a class="active" href="worked-examples.html"><span class="header-section-number">7</span> Worked Examples</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">8</span> Summary</a></li>
+<li><a class="" href="biodepth-project.html"><span class="header-section-number">7</span> Biodepth project</a></li>
+<li><a class="active" href="worked-examples.html"><span class="header-section-number">8</span> Worked Examples</a></li>
+<li><a class="" href="worked-examples---dolphins.html"><span class="header-section-number">9</span> Worked Examples - Dolphins</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">10</span> Summary</a></li>
 </ul>
 
         <div class="book-extra">
@@ -129,31 +131,17 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="worked-examples" class="section level1" number="7">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="worked-examples" class="section level1" number="8">
 <h1>
-<span class="header-section-number">7</span> Worked Examples<a class="anchor" aria-label="anchor" href="#worked-examples"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8</span> Worked Examples<a class="anchor" aria-label="anchor" href="#worked-examples"><i class="fas fa-link"></i></a>
 </h1>
 <p><a href="https://bodowinter.com/tutorial/bw_LME_tutorial.pdf" class="uri">https://bodowinter.com/tutorial/bw_LME_tutorial.pdf</a></p>
-<div id="reporting" class="section level2" number="7.1">
-<h2>
-<span class="header-section-number">7.1</span> Reporting<a class="anchor" aria-label="anchor" href="#reporting"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="tables" class="section level2" number="7.2">
-<h2>
-<span class="header-section-number">7.2</span> Tables<a class="anchor" aria-label="anchor" href="#tables"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="figures" class="section level2" number="7.3">
-<h2>
-<span class="header-section-number">7.3</span> Figures<a class="anchor" aria-label="anchor" href="#figures"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="write-ups" class="section level2" number="7.4">
-<h2>
-<span class="header-section-number">7.4</span> Write-ups<a class="anchor" aria-label="anchor" href="#write-ups"><i class="fas fa-link"></i></a>
-</h2>
-</div>
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">politeness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"files/politeness_data.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">politeness.model.1</span> <span class="op">=</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">frequency</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">attitude</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="va">attitude</span><span class="op">|</span><span class="va">subject</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                            <span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="va">attitude</span><span class="op">|</span><span class="va">scenario</span><span class="op">)</span>,</span>
+<span>                        data<span class="op">=</span><span class="va">politeness</span><span class="op">)</span></span></code></pre></div>
 </div>
 <script>
 
@@ -335,17 +323,11 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></div>
-<div class="next"><a href="summary.html"><span class="header-section-number">8</span> Summary</a></div>
+<div class="prev"><a href="biodepth-project.html"><span class="header-section-number">7</span> Biodepth project</a></div>
+<div class="next"><a href="worked-examples---dolphins.html"><span class="header-section-number">9</span> Worked Examples - Dolphins</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#worked-examples"><span class="header-section-number">7</span> Worked Examples</a></li>
-<li><a class="nav-link" href="#reporting"><span class="header-section-number">7.1</span> Reporting</a></li>
-<li><a class="nav-link" href="#tables"><span class="header-section-number">7.2</span> Tables</a></li>
-<li><a class="nav-link" href="#figures"><span class="header-section-number">7.3</span> Figures</a></li>
-<li><a class="nav-link" href="#write-ups"><span class="header-section-number">7.4</span> Write-ups</a></li>
-</ul>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#worked-examples"><span class="header-section-number">8</span> Worked Examples</a></li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -362,7 +344,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-20.</p>
+    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

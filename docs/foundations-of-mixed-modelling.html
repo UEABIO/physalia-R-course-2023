@@ -120,8 +120,10 @@
 <li><a class="active" href="foundations-of-mixed-modelling.html"><span class="header-section-number">4</span> Foundations of Mixed Modelling</a></li>
 <li><a class="" href="types-of-random-effects.html"><span class="header-section-number">5</span> Types of Random Effects</a></li>
 <li><a class="" href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></li>
-<li><a class="" href="worked-examples.html"><span class="header-section-number">7</span> Worked Examples</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">8</span> Summary</a></li>
+<li><a class="" href="biodepth-project.html"><span class="header-section-number">7</span> Biodepth project</a></li>
+<li><a class="" href="worked-examples.html"><span class="header-section-number">8</span> Worked Examples</a></li>
+<li><a class="" href="worked-examples---dolphins.html"><span class="header-section-number">9</span> Worked Examples - Dolphins</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">10</span> Summary</a></li>
 </ul>
 
         <div class="book-extra">
@@ -240,6 +242,21 @@ Highlight the benefits of incorporating random effects and partial pooling</p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>                    obs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">rand_eff</span>,</span>
+<span>            by <span class="op">=</span> <span class="st">"group"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>         B0 <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>         B1 <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>         E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">B0</span> <span class="op">+</span> <span class="va">b0</span> <span class="op">+</span> <span class="va">x</span> <span class="op">*</span> <span class="op">(</span><span class="va">B1</span> <span class="op">+</span> <span class="va">b1</span><span class="op">)</span> <span class="op">+</span> <span class="va">E</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>                    obs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data.1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>,</span>
+<span>          obs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">data.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">rand_eff</span>,</span>
 <span>            by <span class="op">=</span> <span class="st">"group"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>,</span>
@@ -625,71 +642,57 @@ p &lt; 0.001
 <p><span class="math display">\[yi = B0i + b0j + B1xi + b1xj + ε\]</span>.</p>
 <p>We have a response variable, and we are attempting to explain part of the variation in test score through fitting an independent variable as a fixed effect. But the response variable has some residual variation (i.e. unexplained variation) associated with group. By using random effects, we are modeling that unexplained variation through variance.</p>
 <p>We now want to know if an association between <code>y ~ x</code> exists after controlling for the variation in group.</p>
+<div id="running-mixed-effects-models-with-lmertest" class="section level3" number="4.4.1">
+<h3>
+<span class="header-section-number">4.4.1</span> Running mixed effects models with lmerTest<a class="anchor" aria-label="anchor" href="#running-mixed-effects-models-with-lmertest"><i class="fas fa-link"></i></a>
+</h3>
+<p>This section will detail how to run mixed models with the <code>lmer</code> function in the R package <code>lmerTest</code> (<span class="citation">Kuznetsova et al. (<a href="summary.html#ref-R-lmerTest" role="doc-biblioref">2020</a>)</span>). This builds on the older <code>lme4</code> (<span class="citation">Bates et al. (<a href="summary.html#ref-R-lme4" role="doc-biblioref">2023</a>)</span>) package, and in particular add p-values that were not previously included. There are other R packages that can be used to run mixed-effects models including the <code>nlme</code> package (<span class="citation">Pinheiro et al. (<a href="summary.html#ref-R-nlme" role="doc-biblioref">2023</a>)</span>) and the <code>glmmTMB</code> package (<span class="citation">Brooks et al. (<a href="summary.html#ref-R-glmmTMB" role="doc-biblioref">2023</a>)</span>). Outside of R there are also other packages and software capable of running mixed-effects models, though arguably none is better supported than R software.</p>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plot_function2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">model</span>, <span class="va">title</span> <span class="op">=</span> <span class="st">"Data Coloured by Group"</span><span class="op">)</span><span class="op">{</span></span>
-<span>  </span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>         fit.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, col <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">16</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">fit.c</span>, col <span class="op">=</span> <span class="va">group</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">40</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">title</span>, </span>
-<span>       x <span class="op">=</span> <span class="st">"Independent Variable"</span>, </span>
-<span>       y <span class="op">=</span> <span class="st">"Dependent Variable"</span><span class="op">)</span> </span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="co"># random intercept model</span></span>
+<code class="sourceCode R"><span><span class="co"># random intercept model</span></span>
 <span><span class="va">mixed_model</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">group</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">plot_function2</span><span class="op">(</span><span class="va">mixed_model</span>, <span class="st">"Random intercept"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Linear mixed model fit by REML ['lmerMod']
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
 ## Formula: y ~ x + (1 | group)
 ##    Data: data
 ## 
-## REML criterion at convergence: 7539.7
+## REML criterion at convergence: 3224.4
 ## 
 ## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -2.6586 -0.6829  0.0135  0.6416  3.3384 
+##      Min       1Q   Median       3Q      Max 
+## -2.61968 -0.63654 -0.03584  0.66113  3.13597 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  group    (Intercept) 431.2    20.77   
-##  Residual             104.2    10.21   
-## Number of obs: 1000, groups:  group, 10
+##  group    (Intercept) 205      14.32   
+##  Residual             101      10.05   
+## Number of obs: 430, groups:  group, 5
 ## 
 ## Fixed effects:
-##             Estimate Std. Error t value
-## (Intercept)  21.9325     6.5990   3.324
-## x             2.0853     0.1144  18.224
+##             Estimate Std. Error       df t value Pr(&gt;|t|)    
+## (Intercept)  23.2692     6.4818   4.1570    3.59   0.0215 *  
+## x             2.0271     0.1703 424.0815   11.90   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Correlation of Fixed Effects:
 ##   (Intr)
-## x -0.086</code></pre>
+## x -0.131</code></pre>
 <p>Here our groups clearly explain a lot of variance</p>
 <pre><code>
-431.2/(431.2 + 104.2) = 0.805 / 80.5%
+244.5/(244.5 + 100.9) = 0.707 / 70.7%
 </code></pre>
 <p>So the differences between groups explain ~80% of the variance that’s “left over” after the variance explained by our fixed effects.</p>
-<div class="info">
-<p>
-p-values
-</p>
 </div>
-<div id="partial-pooling" class="section level3" number="4.4.1">
+<div id="partial-pooling" class="section level3" number="4.4.2">
 <h3>
-<span class="header-section-number">4.4.1</span> Partial pooling<a class="anchor" aria-label="anchor" href="#partial-pooling"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.2</span> Partial pooling<a class="anchor" aria-label="anchor" href="#partial-pooling"><i class="fas fa-link"></i></a>
 </h3>
 <p>It is worth noting that random effect estimates are a function of the group-level information and the overall (grand) mean of the random effect. Group levels with low sample size or poor information (i.e., no strong relationship) are more strongly influenced by the grand mean, which adds information to an otherwise poorly-estimated group. However, a group with a large sample size or strong information (i.e., a strong relationship) will have very little influence from the grand mean and largely reflect the information contained entirely within the group. This process is called partial pooling (as opposed to no pooling, where no effect is considered, or total pooling, where separate models are run for the different groups). Partial pooling results in the phenomenon known as shrinkage, which refers to the group-level estimates being shrunk toward the mean. What does all this mean? If you use a random effect, you should be prepared for your factor levels to have some influence from the overall mean of all levels. With a good, clear signal in each group, you won’t see much impact from the overall mean, but you will with small groups or those without much signal.</p>
 <p>COMPARE MODELS</p>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pooled</span> <span class="op">&lt;-</span> <span class="va">basic_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Approach <span class="op">=</span> <span class="st">"Pooled"</span>, .before <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -785,10 +788,10 @@ No Pool
 (Intercept)
 </td>
 <td style="text-align:right;">
-21.932467
+23.269187
 </td>
 <td style="text-align:right;">
-6.5989622
+6.4818211
 </td>
 <td style="text-align:left;">
 Partial Pool
@@ -799,10 +802,10 @@ Partial Pool
 x
 </td>
 <td style="text-align:right;">
-2.085348
+2.027065
 </td>
 <td style="text-align:right;">
-0.1144314
+0.1703423
 </td>
 <td style="text-align:left;">
 Partial Pool
@@ -812,11 +815,11 @@ Partial Pool
 </table></div>
 </div>
 </div>
-<div id="plotting-model-predictions" class="section level3" number="4.4.2">
+<div id="plotting-model-predictions" class="section level3" number="4.4.3">
 <h3>
-<span class="header-section-number">4.4.2</span> Plotting model predictions<a class="anchor" aria-label="anchor" href="#plotting-model-predictions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.3</span> Plotting model predictions<a class="anchor" aria-label="anchor" href="#plotting-model-predictions"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">basic_pred</span> <span class="op">&lt;-</span> <span class="fu">emmeans</span><span class="op">(</span><span class="va">basic_model</span>, specs <span class="op">=</span> <span class="op">~</span>  <span class="va">x</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2.5</span>, <span class="fl">5</span>, <span class="fl">7.5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mixed_pred</span> <span class="op">&lt;-</span> <span class="fu">emmeans</span><span class="op">(</span><span class="va">mixed_model</span>, specs <span class="op">=</span> <span class="op">~</span>  <span class="va">x</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2.5</span>, <span class="fl">5</span>, <span class="fl">7.5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -827,7 +830,7 @@ Partial Pool
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">emmean</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">basic_pred</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">lower.CL</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">0.5</span>, linetype <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"gray50"</span>, data <span class="op">=</span> <span class="va">basic_pred</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">upper.CL</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">0.5</span>, linetype <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"gray50"</span>, data <span class="op">=</span> <span class="va">basic_pred</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">70</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pooled model"</span>,</span>
 <span>       x <span class="op">=</span> <span class="st">"Independent Variable"</span>, </span>
 <span>       y <span class="op">=</span> <span class="st">"Dependent Variable"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -839,7 +842,7 @@ Partial Pool
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">emmean</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">basic_pred</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">lower.CL</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">0.5</span>, linetype <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"gray50"</span>, data <span class="op">=</span> <span class="va">mixed_pred</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">upper.CL</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">0.5</span>, linetype <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"gray50"</span>, data <span class="op">=</span> <span class="va">mixed_pred</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">70</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mixed model"</span>,</span>
 <span>       x <span class="op">=</span> <span class="st">"Independent Variable"</span>, </span>
 <span>       y <span class="op">=</span> <span class="st">"Dependent Variable"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -847,47 +850,88 @@ Partial Pool
 <span></span>
 <span><span class="va">pooled_plot</span> <span class="op">/</span></span>
 <span>  <span class="va">partial_plot</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 </div>
-<div id="sjplot" class="section level2" number="4.5">
+<div id="ggeffects" class="section level2" number="4.5">
 <h2>
-<span class="header-section-number">4.5</span> <code>sjPlot</code><a class="anchor" aria-label="anchor" href="#sjplot"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5</span> <code>ggeffects</code><a class="anchor" aria-label="anchor" href="#ggeffects"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>,type<span class="op">=</span><span class="st">"pred"</span>,</span>
-<span>           terms<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>,pred.type<span class="op">=</span><span class="st">"re"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="sjplot" class="section level2" number="4.6">
+<h2>
+<span class="header-section-number">4.6</span> <code>sjPlot</code><a class="anchor" aria-label="anchor" href="#sjplot"><i class="fas fa-link"></i></a>
+</h2>
+<p>SHRINKAGE!</p>
+<p>BLUP - Hector book!</p>
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">fixef</span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## $group
+##   (Intercept)        x
+## 1    11.82356 2.027066
+## 2    15.68146 2.027066
+## 3    47.94678 2.027066
+## 4    21.01028 2.027066
+## 5    19.88385 2.027066
+## 
+## attr(,"class")
+## [1] "coef.mer"
+## (Intercept)           x 
+##   23.269187    2.027066</code></pre>
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>,type<span class="op">=</span><span class="st">"pred"</span>,</span>
+<span>           terms<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>,</span>
+<span>           pred.type<span class="op">=</span><span class="st">"re"</span>,</span>
+<span>           show.data <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">###</span></span>
+<span></span>
+<span><span class="va">data1</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mixed_model</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>         fit.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mixed_model</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, colour <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">16</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">fit.c</span><span class="op">)</span><span class="op">)</span><span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">fit.m</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"grey"</span>,</span>
+<span>            linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-21-2.png" width="100%" style="display: block; margin: auto;"></div>
+<p><a href="http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/" class="uri">http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/</a></p>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"re"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"est"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-22-2.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
-<div id="checking-models" class="section level2" number="4.6">
+<div id="checking-models" class="section level2" number="4.7">
 <h2>
-<span class="header-section-number">4.6</span> Checking models<a class="anchor" aria-label="anchor" href="#checking-models"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.7</span> Checking models<a class="anchor" aria-label="anchor" href="#checking-models"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html">qqnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html">qqline</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rand_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">ranef</span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">grp</span>,</span>
 <span>         b0_hat <span class="op">=</span> <span class="va">condval</span>,</span>
 <span>         intercept_cond <span class="op">=</span> <span class="va">b0_hat</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span>,</span>
 <span>         .keep <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">data1</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mixed_model</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>         fit.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mixed_model</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">data1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">rand_dist</span><span class="op">$</span><span class="va">b0_hat</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">16</span>, col <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_violinhalf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">rand_dist</span>, </span>
@@ -901,21 +945,18 @@ Partial Pool
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Independent Variable"</span>, </span>
 <span>       y <span class="op">=</span> <span class="st">"Dependent Variable"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-25"></span>
-<img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%"><p class="caption">
+<span style="display:block;" id="fig:unnamed-chunk-26"></span>
+<img src="15-Regression_files/figure-html/unnamed-chunk-26-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%"><p class="caption">
 Figure 4.4: Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts
 </p>
 </div>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<p>re.form = NA: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.</p>
+<p>re.form = NULL: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.</p>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">resid.mm</span> <span class="op">&lt;-</span> <span class="fu">DHARMa</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DHARMa/man/simulateResiduals.html">simulateResiduals</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">resid.mm</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">resid.mm</span> <span class="op">&lt;-</span> <span class="fu">DHARMa</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DHARMa/man/simulateResiduals.html">simulateResiduals</a></span><span class="op">(</span><span class="va">mixed_model</span>, refit <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">resid.mm</span> <span class="op">&lt;-</span> <span class="fu">DHARMa</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DHARMa/man/simulateResiduals.html">simulateResiduals</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">resid.mm</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;"></div>
@@ -928,14 +969,9 @@ distribution and decide if it is important for yourself.
 </p>
 </div>
 </div>
-<div id="lmertest" class="section level2" number="4.7">
+<div id="practice-questions" class="section level2" number="4.8">
 <h2>
-<span class="header-section-number">4.7</span> <code>lmerTest</code><a class="anchor" aria-label="anchor" href="#lmertest"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="quiz" class="section level2" number="4.8">
-<h2>
-<span class="header-section-number">4.8</span> Quiz<a class="anchor" aria-label="anchor" href="#quiz"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.8</span> Practice Questions<a class="anchor" aria-label="anchor" href="#practice-questions"><i class="fas fa-link"></i></a>
 </h2>
 </div>
 </div>
@@ -1141,14 +1177,15 @@ $( document ).ready(function() {
 </li>
 <li>
 <a class="nav-link" href="#our-first-mixed-model"><span class="header-section-number">4.4</span> Our first mixed model</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#partial-pooling"><span class="header-section-number">4.4.1</span> Partial pooling</a></li>
-<li><a class="nav-link" href="#plotting-model-predictions"><span class="header-section-number">4.4.2</span> Plotting model predictions</a></li>
+<li><a class="nav-link" href="#running-mixed-effects-models-with-lmertest"><span class="header-section-number">4.4.1</span> Running mixed effects models with lmerTest</a></li>
+<li><a class="nav-link" href="#partial-pooling"><span class="header-section-number">4.4.2</span> Partial pooling</a></li>
+<li><a class="nav-link" href="#plotting-model-predictions"><span class="header-section-number">4.4.3</span> Plotting model predictions</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#sjplot"><span class="header-section-number">4.5</span> sjPlot</a></li>
-<li><a class="nav-link" href="#checking-models"><span class="header-section-number">4.6</span> Checking models</a></li>
-<li><a class="nav-link" href="#lmertest"><span class="header-section-number">4.7</span> lmerTest</a></li>
-<li><a class="nav-link" href="#quiz"><span class="header-section-number">4.8</span> Quiz</a></li>
+<li><a class="nav-link" href="#ggeffects"><span class="header-section-number">4.5</span> ggeffects</a></li>
+<li><a class="nav-link" href="#sjplot"><span class="header-section-number">4.6</span> sjPlot</a></li>
+<li><a class="nav-link" href="#checking-models"><span class="header-section-number">4.7</span> Checking models</a></li>
+<li><a class="nav-link" href="#practice-questions"><span class="header-section-number">4.8</span> Practice Questions</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1166,7 +1203,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-20.</p>
+    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

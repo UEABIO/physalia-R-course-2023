@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 5 Types of Random Effects | 5023Y</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="5.1 Crossed or Nested A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be...">
+<meta name="description" content="5.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  5.2 Crossed or Nested A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
 <meta property="og:title" content="Chapter 5 Types of Random Effects | 5023Y">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/data-sci/types-of-random-effects.html">
 <meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
-<meta property="og:description" content="5.1 Crossed or Nested A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be...">
+<meta property="og:description" content="5.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  5.2 Crossed or Nested A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 5 Types of Random Effects | 5023Y">
-<meta name="twitter:description" content="5.1 Crossed or Nested A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be...">
+<meta name="twitter:description" content="5.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  5.2 Crossed or Nested A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or...">
 <meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -120,8 +120,10 @@
 <li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">4</span> Foundations of Mixed Modelling</a></li>
 <li><a class="active" href="types-of-random-effects.html"><span class="header-section-number">5</span> Types of Random Effects</a></li>
 <li><a class="" href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></li>
-<li><a class="" href="worked-examples.html"><span class="header-section-number">7</span> Worked Examples</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">8</span> Summary</a></li>
+<li><a class="" href="biodepth-project.html"><span class="header-section-number">7</span> Biodepth project</a></li>
+<li><a class="" href="worked-examples.html"><span class="header-section-number">8</span> Worked Examples</a></li>
+<li><a class="" href="worked-examples---dolphins.html"><span class="header-section-number">9</span> Worked Examples - Dolphins</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">10</span> Summary</a></li>
 </ul>
 
         <div class="book-extra">
@@ -133,9 +135,16 @@
 <h1>
 <span class="header-section-number">5</span> Types of Random Effects<a class="anchor" aria-label="anchor" href="#types-of-random-effects"><i class="fas fa-link"></i></a>
 </h1>
-<div id="crossed-or-nested" class="section level2" number="5.1">
+<div id="is-it-a-fixed-or-random-effect" class="section level2" number="5.1">
 <h2>
-<span class="header-section-number">5.1</span> Crossed or Nested<a class="anchor" aria-label="anchor" href="#crossed-or-nested"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1</span> Is it a fixed or random effect?<a class="anchor" aria-label="anchor" href="#is-it-a-fixed-or-random-effect"><i class="fas fa-link"></i></a>
+</h2>
+<p>BAKER BOOK</p>
+<p>MISSING DATA BAKER BOOK</p>
+</div>
+<div id="crossed-or-nested" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Crossed or Nested<a class="anchor" aria-label="anchor" href="#crossed-or-nested"><i class="fas fa-link"></i></a>
 </h2>
 <p>A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined by your experimental or sampling design ( Schielzeth &amp; Nakagawa, 2013 ). A simple example can illustrate the difference. Imagine a researcher was interested in understanding the factors affecting the clutch mass of a passerine bird. They have a study population spread across five separate woodlands, each containing 30 nest boxes. Every week during breeding they measure the foraging rate of females at feeders, and measure their subsequent clutch mass. Some females have multiple clutches in a season and contribute multiple data points.</p>
 <p>Here, female ID is said to be nested within woodland : each woodland contains multiple females unique to that woodland (that never move among woodlands). The nested random effect controls for the fact that (i) clutches from the same female are not independent, and (ii) females from the same woodland may have clutch masses more similar to one another than to females from other woodlands</p>
@@ -165,12 +174,12 @@ Figure 5.3: Partially Nested/Crossed
 </p>
 </div>
 </div>
-<div id="random-slopes" class="section level2" number="5.2">
+<div id="random-slopes" class="section level2" number="5.3">
 <h2>
-<span class="header-section-number">5.2</span> Random slopes<a class="anchor" aria-label="anchor" href="#random-slopes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3</span> Random slopes<a class="anchor" aria-label="anchor" href="#random-slopes"><i class="fas fa-link"></i></a>
 </h2>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-34-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML ['lmerMod']
 ## Formula: y ~ x + (x | group)
@@ -197,22 +206,17 @@ Figure 5.3: Partially Nested/Crossed
 ## Correlation of Fixed Effects:
 ##   (Intr)
 ## x 0.490</code></pre>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data.2</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit2.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lmer3</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>         fit2.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lmer3</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
 <span>         resid2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="model-refining" class="section level2" number="5.3">
-<h2>
-<span class="header-section-number">5.3</span> Model refining<a class="anchor" aria-label="anchor" href="#model-refining"><i class="fas fa-link"></i></a>
-</h2>
-</div>
 <div id="random-effect-correlation" class="section level2" number="5.4">
 <h2>
 <span class="header-section-number">5.4</span> Random effect correlation<a class="anchor" aria-label="anchor" href="#random-effect-correlation"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rand_dist2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">ranef</span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">grp</span>,</span>
 <span>          term <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"(Intercept)"</span> <span class="op">~</span> <span class="st">"b0_hat"</span>,</span>
@@ -249,97 +253,26 @@ Figure 5.3: Partially Nested/Crossed
 <span></span>
 <span><span class="va">inset</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-37-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="fu">plot_function</span><span class="op">(</span><span class="va">lmer1</span>, <span class="st">"Random intercept"</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span></span>
 <span>                    ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">inset_element</span><span class="op">(</span><span class="va">inset</span>, <span class="fl">0</span>, <span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Number_of_boots</span> <span class="op">&lt;-</span> <span class="fl">500</span></span></code></pre></div>
-<p>The number of columns for the dataframes will equal the number of fixed effect coefficients and random effect variances. We can extract these from the initial model. First we extract the coefficients, then transpose the table into wide format.</p>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Extract the fixed effect coefficients.</span></span>
-<span><span class="va">FE_df</span> <span class="op">&lt;-</span> <span class="fu">fixef</span><span class="op">(</span><span class="va">lmer1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Extract the random effects variance and residual variance</span></span>
-<span><span class="va">RE_df</span> <span class="op">&lt;-</span> <span class="fu">VarCorr</span><span class="op">(</span><span class="va">lmer1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="st">"Level"</span>, <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">vcov</span>, <span class="va">sdcor</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">vcov</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Next, we create empty dataframes to take our bootstraps.</p>
-<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">BS_params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="va">Number_of_boots</span>, ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">FE_df</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">BS_params</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">FE_df</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">BS_var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="va">Number_of_boots</span>, ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">RE_df</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">BS_var</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">RE_df</span><span class="op">[</span><span class="st">"Level"</span>,<span class="op">]</span></span></code></pre></div>
-<p>In addition, we will be predicting marginal values from each model. So, we need to create a prediction dataframe with an empty column to store the predicted values. For this example, we only need to predict ŷ values for a handful of x values that represent the range of xs. I chose to use 10-quantiles because I want to be able to fit a non-linear confidence band later. If this was a non-linear fit, we might want even more prediction values.</p>
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">BS_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">x</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                       iteration <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">Number_of_boots</span>,</span>
-<span>                       pred <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">Number_of_boots</span><span class="op">)</span><span class="op">{</span></span>
-<span><span class="va">BS_X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span><span class="va">data1</span>, prop <span class="op">=</span> <span class="fl">1</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">BS_lmer</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">lmer1</span><span class="op">@</span><span class="va">call</span><span class="op">$</span><span class="va">formula</span>,</span>
-<span>data <span class="op">=</span> <span class="va">BS_X</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">BS_params</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span> <span class="op">&lt;-</span> <span class="va">BS_lmer</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu">fixef</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">BS_var</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span> <span class="op">&lt;-</span> <span class="va">BS_lmer</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu">VarCorr</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="va">.</span><span class="op">$</span><span class="va">sdcor</span></span>
-<span></span>
-<span><span class="va">BS_pred</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">BS_pred</span><span class="op">$</span><span class="va">iteration</span> <span class="op">==</span> <span class="va">i</span><span class="op">)</span>,<span class="op">]</span><span class="op">$</span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">BS_lmer</span>,</span>
-<span>newdata <span class="op">=</span> <span class="va">BS_pred</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">BS_pred</span><span class="op">$</span><span class="va">iteration</span> <span class="op">==</span> <span class="va">i</span><span class="op">)</span>,<span class="op">]</span>,</span>
-<span>re.form <span class="op">=</span> <span class="op">~</span><span class="fl">0</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plot_1</span> <span class="op">&lt;-</span> <span class="va">BS_pred</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">pred</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">iteration</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, col <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data1</span>,</span>
-<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">fit.m</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="fl">36</span>, ymax <span class="op">=</span> <span class="fl">38</span>,</span>
-<span>                  xmin <span class="op">=</span> <span class="fl">6</span>, xmax <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>,</span>
-<span>              col <span class="op">=</span> <span class="st">"firebrick"</span>,</span>
-<span>              fill <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>              size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="va">plot_2</span> <span class="op">&lt;-</span> <span class="va">BS_pred</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">pred</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">iteration</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data1</span>,</span>
-<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">fit.m</span><span class="op">)</span>,</span>
-<span>              col <span class="op">=</span> <span class="st">"grey"</span>, </span>
-<span>              size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">8</span><span class="op">)</span>,</span>
-<span>                    ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">36</span>, <span class="fl">38</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="fl">36</span>, ymax <span class="op">=</span> <span class="fl">38</span>,</span>
-<span>                  xmin <span class="op">=</span> <span class="fl">6</span>, xmax <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>,</span>
-<span>              col <span class="op">=</span> <span class="st">"firebrick"</span>,</span>
-<span>              fill <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>              size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="va">plot_1</span> <span class="op">+</span> <span class="va">plot_2</span></span></code></pre></div>
 </div>
-<div id="random-slopes-1" class="section level2" number="5.5">
+<div id="model-refining" class="section level2" number="5.5">
 <h2>
-<span class="header-section-number">5.5</span> Random slopes<a class="anchor" aria-label="anchor" href="#random-slopes-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.5</span> Model refining<a class="anchor" aria-label="anchor" href="#model-refining"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="random-slopes-1" class="section level2" number="5.6">
+<h2>
+<span class="header-section-number">5.6</span> Random slopes<a class="anchor" aria-label="anchor" href="#random-slopes-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>random_slopes_intercept_model &lt;- lmer(dependent_var ~ independent_var + (independent_var | group), data = data)
 random_slopes_values &lt;- predict(random_slopes_model)</p>
 </div>
-<div id="random-intercept" class="section level2" number="5.6">
+<div id="random-intercept" class="section level2" number="5.7">
 <h2>
-<span class="header-section-number">5.6</span> Random intercept<a class="anchor" aria-label="anchor" href="#random-intercept"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.7</span> Random intercept<a class="anchor" aria-label="anchor" href="#random-intercept"><i class="fas fa-link"></i></a>
 </h2>
 </div>
 </div>
@@ -529,12 +462,13 @@ $( document ).ready(function() {
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#types-of-random-effects"><span class="header-section-number">5</span> Types of Random Effects</a></li>
-<li><a class="nav-link" href="#crossed-or-nested"><span class="header-section-number">5.1</span> Crossed or Nested</a></li>
-<li><a class="nav-link" href="#random-slopes"><span class="header-section-number">5.2</span> Random slopes</a></li>
-<li><a class="nav-link" href="#model-refining"><span class="header-section-number">5.3</span> Model refining</a></li>
+<li><a class="nav-link" href="#is-it-a-fixed-or-random-effect"><span class="header-section-number">5.1</span> Is it a fixed or random effect?</a></li>
+<li><a class="nav-link" href="#crossed-or-nested"><span class="header-section-number">5.2</span> Crossed or Nested</a></li>
+<li><a class="nav-link" href="#random-slopes"><span class="header-section-number">5.3</span> Random slopes</a></li>
 <li><a class="nav-link" href="#random-effect-correlation"><span class="header-section-number">5.4</span> Random effect correlation</a></li>
-<li><a class="nav-link" href="#random-slopes-1"><span class="header-section-number">5.5</span> Random slopes</a></li>
-<li><a class="nav-link" href="#random-intercept"><span class="header-section-number">5.6</span> Random intercept</a></li>
+<li><a class="nav-link" href="#model-refining"><span class="header-section-number">5.5</span> Model refining</a></li>
+<li><a class="nav-link" href="#random-slopes-1"><span class="header-section-number">5.6</span> Random slopes</a></li>
+<li><a class="nav-link" href="#random-intercept"><span class="header-section-number">5.7</span> Random intercept</a></li>
 </ul>
 
       <div class="book-extra">
@@ -552,7 +486,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-20.</p>
+    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

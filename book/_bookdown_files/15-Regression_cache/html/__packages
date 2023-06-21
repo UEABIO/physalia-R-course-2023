@@ -29,3 +29,6 @@ broom.mixed
 emmeans
 DHARMa
 sjPlot
+lmerTest
+ggeffects
+MuMIn

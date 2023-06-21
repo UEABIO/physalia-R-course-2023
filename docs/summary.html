@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 8 Summary | 5023Y</title>
+<title>Chapter 10 Summary | 5023Y</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="8.1 Mixed Model extensions   8.2 Practical problems   8.3 Further Reading Linear model analyses can extend beyond testing differences of means in categorical groupings to test relationships with...">
+<meta name="description" content="Here is a suggested workflow: Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 8 Summary | 5023Y">
+<meta property="og:title" content="Chapter 10 Summary | 5023Y">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/data-sci/summary.html">
 <meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
-<meta property="og:description" content="8.1 Mixed Model extensions   8.2 Practical problems   8.3 Further Reading Linear model analyses can extend beyond testing differences of means in categorical groupings to test relationships with...">
+<meta property="og:description" content="Here is a suggested workflow: Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 8 Summary | 5023Y">
-<meta name="twitter:description" content="8.1 Mixed Model extensions   8.2 Practical problems   8.3 Further Reading Linear model analyses can extend beyond testing differences of means in categorical groupings to test relationships with...">
+<meta name="twitter:title" content="Chapter 10 Summary | 5023Y">
+<meta name="twitter:description" content="Here is a suggested workflow: Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main...">
 <meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -120,8 +120,10 @@
 <li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">4</span> Foundations of Mixed Modelling</a></li>
 <li><a class="" href="types-of-random-effects.html"><span class="header-section-number">5</span> Types of Random Effects</a></li>
 <li><a class="" href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></li>
-<li><a class="" href="worked-examples.html"><span class="header-section-number">7</span> Worked Examples</a></li>
-<li><a class="active" href="summary.html"><span class="header-section-number">8</span> Summary</a></li>
+<li><a class="" href="biodepth-project.html"><span class="header-section-number">7</span> Biodepth project</a></li>
+<li><a class="" href="worked-examples.html"><span class="header-section-number">8</span> Worked Examples</a></li>
+<li><a class="" href="worked-examples---dolphins.html"><span class="header-section-number">9</span> Worked Examples - Dolphins</a></li>
+<li><a class="active" href="summary.html"><span class="header-section-number">10</span> Summary</a></li>
 </ul>
 
         <div class="book-extra">
@@ -129,34 +131,58 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="summary" class="section level1" number="8">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="summary" class="section level1" number="10">
 <h1>
-<span class="header-section-number">8</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
 </h1>
-<div id="mixed-model-extensions" class="section level2" number="8.1">
+<p>Here is a suggested workflow:</p>
+<p>Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main predictors and any potential interactions you hypothesize might exist. For example, if you have predictors A and B, you might start with a model like response ~ A + B + A:B.</p>
+<p>Assess fixed effects and interactions: Evaluate the significance, direction, and magnitude of the fixed effects coefficients. Look for interactions that show significant effects and consider their interpretation in the context of your research question. This step allows you to identify the key variables and interactions that are important in explaining the variation in the response variable.</p>
+<p>Model evaluation and refinement: Assess the goodness of fit of the fixed effects model using appropriate measures like AIC, BIC, or model deviance. Consider conducting model comparison to evaluate different models with alternative fixed effects structures. This process helps you refine the model and select the most appropriate combination of variables and interactions.</p>
+<p>Incorporate random effects: Once you have identified the significant fixed effects and relevant interactions, you can then consider the inclusion of random effects. Random effects capture the variation at different levels and can account for individual differences or clustering within groups. Evaluate the need for random intercepts, random slopes, or crossed random effects based on your research design and the nature of the data.</p>
+<p>Assess and compare models with random effects: Fit models with random effects and compare their fit to the fixed effects model. Consider appropriate measures such as likelihood ratio tests, AIC, or BIC for model comparison. Evaluate the significance and contribution of the random effects to the model.</p>
+<p>Validate and interpret the final model: Validate the final model by assessing assumptions, checking for influential observations, and performing sensitivity analysis. Interpret the estimated coefficients, including fixed effects and random effects, in the context of your research question. Report the results, including confidence intervals and p-values.</p>
+<p>By initially focusing on the fixed effects, you can establish the foundation of your model and identify the significant predictors and interactions. This step allows you to better understand the relationships in your data and guide the subsequent inclusion of random effects if appropriate.</p>
+<p><a href="https://ademos.people.uic.edu/Chapter17.html#121_crossed__nested_designs" class="uri">https://ademos.people.uic.edu/Chapter17.html#121_crossed__nested_designs</a></p>
+<div id="mixed-model-extensions" class="section level2" number="10.1">
 <h2>
-<span class="header-section-number">8.1</span> Mixed Model extensions<a class="anchor" aria-label="anchor" href="#mixed-model-extensions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.1</span> Mixed Model extensions<a class="anchor" aria-label="anchor" href="#mixed-model-extensions"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="practical-problems" class="section level2" number="8.2">
+<div id="practical-problems" class="section level2" number="10.2">
 <h2>
-<span class="header-section-number">8.2</span> Practical problems<a class="anchor" aria-label="anchor" href="#practical-problems"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.2</span> Practical problems<a class="anchor" aria-label="anchor" href="#practical-problems"><i class="fas fa-link"></i></a>
 </h2>
+<p>MODEL CONVERGENCE - BAKER</p>
 </div>
-<div id="further-reading" class="section level2" number="8.3">
+<div id="further-reading" class="section level2" number="10.3">
 <h2>
-<span class="header-section-number">8.3</span> Further Reading<a class="anchor" aria-label="anchor" href="#further-reading"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.3</span> Further Reading<a class="anchor" aria-label="anchor" href="#further-reading"><i class="fas fa-link"></i></a>
 </h2>
+<ul>
+<li><p><a href="https://peerj.com/articles/4794/" class="uri">https://peerj.com/articles/4794/</a></p></li>
+<li><p><a href="https://link.springer.com/book/10.1007/978-0-387-87458-6" class="uri">https://link.springer.com/book/10.1007/978-0-387-87458-6</a></p></li>
+<li><p><a href="https://peerj.com/articles/9522/" class="uri">https://peerj.com/articles/9522/</a></p></li>
+</ul>
 <p>Linear model analyses can extend beyond testing differences of means in categorical groupings to test relationships with continuous variables. This is known as linear regression, where the relationship between the explanatory variable and response variable are modelled with the equation for a straight line. The intercept is the value of <em>y</em> when <em>x</em> = 0, often this isn't that useful, and we can use 'mean-centered' values if we wish to make the intercept more intuitive.
 As with all linear models, regression assumes that the unexplained variability around the regression line, is normally distributed and has constant variance.</p>
 <p>Once the regression has been fitted it is possible to predict values of <em>y</em> from values of <em>x</em>, the uncertainty around these predictions can be captured with confidence intervals.</p>
 
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-R-lme4" class="csl-entry">
+Bates, D., Maechler, M., Bolker, B., &amp; Walker, S. (2023). <em>lme4: Linear mixed-effects models using eigen and S4</em>. <a href="https://github.com/lme4/lme4/">https://github.com/lme4/lme4/</a>
+</div>
+<div id="ref-R-glmmTMB" class="csl-entry">
+Brooks, M., Bolker, B., Kristensen, K., Maechler, M., Magnusson, A., Skaug, H., Nielsen, A., Berg, C., &amp; van Bentham, K. (2023). <em>glmmTMB: Generalized linear mixed models using template model builder</em>. <a href="https://github.com/glmmTMB/glmmTMB">https://github.com/glmmTMB/glmmTMB</a>
+</div>
 <div id="ref-Antarctic" class="csl-entry">
 Gorman, K., Williams, T., &amp; Fraser, W. (2014). Ecological sexual dimorphism and environmental variability within a community of antarctic penguins (genus pygoscelis). <em>PLos One</em>, <em>9</em>(3), e90081. <a href="https://doi.org/10.1371/journal.pone.0090081">https://doi.org/10.1371/journal.pone.0090081</a>
 </div>
-<div id="ref-R-palmerpenguins" class="csl-entry">
-Horst, A., Hill, A., &amp; Gorman, K. (2022). <em>Palmerpenguins: Palmer archipelago (antarctica) penguin data</em>.
+<div id="ref-R-lmerTest" class="csl-entry">
+Kuznetsova, A., Bruun Brockhoff, P., &amp; Haubo Bojesen Christensen, R. (2020). <em>lmerTest: Tests in linear mixed effects models</em>. <a href="https://github.com/runehaubo/lmerTestR">https://github.com/runehaubo/lmerTestR</a>
+</div>
+<div id="ref-R-nlme" class="csl-entry">
+Pinheiro, J., Bates, D., &amp; R Core Team. (2023). <em>Nlme: Linear and nonlinear mixed effects models</em>. <a href="https://svn.r-project.org/R-packages/trunk/nlme/">https://svn.r-project.org/R-packages/trunk/nlme/</a>
 </div>
 </div>
 </div>
@@ -347,15 +373,15 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="worked-examples.html"><span class="header-section-number">7</span> Worked Examples</a></div>
+<div class="prev"><a href="worked-examples---dolphins.html"><span class="header-section-number">9</span> Worked Examples - Dolphins</a></div>
 <div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#summary"><span class="header-section-number">8</span> Summary</a></li>
-<li><a class="nav-link" href="#mixed-model-extensions"><span class="header-section-number">8.1</span> Mixed Model extensions</a></li>
-<li><a class="nav-link" href="#practical-problems"><span class="header-section-number">8.2</span> Practical problems</a></li>
-<li><a class="nav-link" href="#further-reading"><span class="header-section-number">8.3</span> Further Reading</a></li>
+<li><a class="nav-link" href="#summary"><span class="header-section-number">10</span> Summary</a></li>
+<li><a class="nav-link" href="#mixed-model-extensions"><span class="header-section-number">10.1</span> Mixed Model extensions</a></li>
+<li><a class="nav-link" href="#practical-problems"><span class="header-section-number">10.2</span> Practical problems</a></li>
+<li><a class="nav-link" href="#further-reading"><span class="header-section-number">10.3</span> Further Reading</a></li>
 </ul>
 
       <div class="book-extra">
@@ -373,7 +399,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-20.</p>
+    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

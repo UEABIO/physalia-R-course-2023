@@ -22,7 +22,7 @@ library(patchwork)
 library(DiagrammeR)
 library(kableExtra)
 library(broom.mixed)
-library(emmeans)
+library(ggeffects)
 library(DHARMa)
 library(sjPlot)
 library(MuMIn)
@@ -247,7 +247,6 @@ bind_rows(models) %>%
 ```
 
 
-
 ## Our first mixed model
 
 A mixed model is a good choice here: it will allow us to use all the data we have (higher sample size) and account for the correlations between data coming from the groups. We will also estimate fewer parameters and avoid problems with multiple comparisons that we would encounter while using separate regressions.
@@ -376,6 +375,9 @@ pooled_plot /
 ```
 
 
+## `ggeffects`
+
+
 ## `sjPlot`
 
 SHRINKAGE! 
@@ -388,8 +390,6 @@ coef(mixed_model)
 
 fixef(mixed_model)
 
-
-
 ```
 
 ```{r}
@@ -400,6 +400,10 @@ plot_model(mixed_model,type="pred",
   facet_wrap( ~ group)
 
 ###
+
+data1 <- data %>% 
+  mutate(fit.m = predict(mixed_model, re.form = NA),
+         fit.c = predict(mixed_model, re.form = NULL))
 
 data1 %>% 
   ggplot(aes(x = x, y = y, colour = group)) +
@@ -452,10 +456,6 @@ hist(rand_dist$b0_hat)
 
 ```{r, fig.cap = "Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts"}
 
-
-data1 <- data %>% 
-  mutate(fit.m = predict(mixed_model, re.form = NA),
-         fit.c = predict(mixed_model, re.form = NULL))
 
 data1 %>%
   ggplot(aes(x = x, y = y)) +
@@ -733,7 +733,7 @@ ggplot(data, aes(x = independent_var, y = dependent_var, color = group, group = 
 # Biodepth project
 
 ```{r, include = FALSE}
-biodepth <- read_tsv("book/files/Biodepth")
+biodepth <- read_tsv("files/Biodepth.txt")
 ```
 
 
@@ -849,7 +849,7 @@ https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
 
 ```{r}
 
-politeness <- read_csv("book/files/politeness_data.csv")
+politeness <- read_csv("files/politeness_data.csv")
 
 politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +
                             (1+attitude|scenario),
@@ -873,7 +873,7 @@ downloadthis::download_link(
 
 ```{r, echo = FALSE}
 
-dolphins <- read_csv("book/files/dolphins.csv") 
+dolphins <- read_csv("files/dolphins.csv") 
 
 dolphins$direction <- factor(dolphins$direction)
 

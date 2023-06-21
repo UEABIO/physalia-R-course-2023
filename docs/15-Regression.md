@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # (PART\*) Mixed Models {.unnumbered}
 
 # Foundations of Mixed Modelling
@@ -115,6 +120,21 @@ data <- expand.grid(group = as.factor(seq(1:10)),
          B1 = 2,
          E = rnorm(n = nrow(.), 0, 10)) %>%
   mutate(y = B0 + b0 + x * (B1 + b1) + E)
+
+data <- expand.grid(group = as.factor(seq(1:4)), 
+                    obs = as.factor(seq(1:100)))
+
+data.1 <- expand.grid(group = as.factor(5),
+          obs = as.factor(seq(1:30)))
+
+data <- bind_rows(data, data.1) %>% 
+  left_join(rand_eff,
+            by = "group") %>%
+  mutate(x = runif(n = nrow(.), 0, 10),
+         B0 = 20,
+         B1 = 2,
+         E = rnorm(n = nrow(.), 0, 10)) %>%
+  mutate(y = B0 + b0 + x * (B1 + b1) + E)
 ```
 
 One way to analyse this data would be to fit a linear model to all our data, ignoring the groups for now.
@@ -153,6 +173,7 @@ plot(data$x, data$y)
 ```
 
 <img src="15-Regression_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+
 
 
 ```r
@@ -392,7 +413,6 @@ bind_rows(models) %>%
 </div>
 
 
-
 ## Our first mixed model
 
 A mixed model is a good choice here: it will allow us to use all the data we have (higher sample size) and account for the correlations between data coming from the groups. We will also estimate fewer parameters and avoid problems with multiple comparisons that we would encounter while using separate regressions.
@@ -405,62 +425,50 @@ We have a response variable, and we are attempting to explain part of the variat
 
 We now want to know if an association between `y ~ x` exists after controlling for the variation in group.
 
+### Running mixed effects models with lmerTest
 
-```r
-plot_function2 <- function(model, title = "Data Coloured by Group"){
-  
-data <- data %>% 
-  mutate(fit.m = predict(model, re.form = NA),
-         fit.c = predict(model, re.form = NULL))
+This section will detail how to run mixed models with the `lmer` function in the R package `lmerTest` (@R-lmerTest). This builds on the older `lme4` (@R-lme4) package, and in particular add p-values that were not previously included. There are other R packages that can be used to run mixed-effects models including the `nlme` package (@R-nlme) and the `glmmTMB` package (@R-glmmTMB). Outside of R there are also other packages and software capable of running mixed-effects models, though arguably none is better supported than R software.
 
-data %>%
-  ggplot(aes(x = x, y = y, col = group)) +
-  geom_point(pch = 16, alpha = 0.6) +
-  geom_line(aes(y = fit.c, col = group), linewidth = 2)  +
-  coord_cartesian(ylim = c(-40, 100))+
-  labs(title = title, 
-       x = "Independent Variable", 
-       y = "Dependent Variable") 
-}
-
-# random intercept model
-mixed_model <- lmer(y ~ x + (1|group), data = data)
-
-plot_function2(mixed_model, "Random intercept")
-```
 
 <img src="15-Regression_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
 
 
+
 ```r
+# random intercept model
+mixed_model <- lmer(y ~ x + (1|group), data = data)
+
 summary(mixed_model)
 ```
 
 ```
-## Linear mixed model fit by REML ['lmerMod']
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
 ## Formula: y ~ x + (1 | group)
 ##    Data: data
 ## 
-## REML criterion at convergence: 7539.7
+## REML criterion at convergence: 3224.4
 ## 
 ## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -2.6586 -0.6829  0.0135  0.6416  3.3384 
+##      Min       1Q   Median       3Q      Max 
+## -2.61968 -0.63654 -0.03584  0.66113  3.13597 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  group    (Intercept) 431.2    20.77   
-##  Residual             104.2    10.21   
-## Number of obs: 1000, groups:  group, 10
+##  group    (Intercept) 205      14.32   
+##  Residual             101      10.05   
+## Number of obs: 430, groups:  group, 5
 ## 
 ## Fixed effects:
-##             Estimate Std. Error t value
-## (Intercept)  21.9325     6.5990   3.324
-## x             2.0853     0.1144  18.224
+##             Estimate Std. Error       df t value Pr(>|t|)    
+## (Intercept)  23.2692     6.4818   4.1570    3.59   0.0215 *  
+## x             2.0271     0.1703 424.0815   11.90   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Correlation of Fixed Effects:
 ##   (Intr)
-## x -0.086
+## x -0.131
 ```
 
 
@@ -468,16 +476,11 @@ Here our groups clearly explain a lot of variance
 
 ```
 
-431.2/(431.2 + 104.2) = 0.805 / 80.5%
+244.5/(244.5 + 100.9) = 0.707 / 70.7%
 
 ```
 
 So the differences between groups explain ~80% of the variance that’s “left over” after the variance explained by our fixed effects.
-
-
-<div class="info">
-<p>p-values</p>
-</div>
 
 
 ### Partial pooling
@@ -545,14 +548,14 @@ bind_rows(pooled, no_pool, partial_pool) %>%
   </tr>
   <tr>
    <td style="text-align:left;"> (Intercept) </td>
-   <td style="text-align:right;"> 21.932467 </td>
-   <td style="text-align:right;"> 6.5989622 </td>
+   <td style="text-align:right;"> 23.269187 </td>
+   <td style="text-align:right;"> 6.4818211 </td>
    <td style="text-align:left;"> Partial Pool </td>
   </tr>
   <tr>
    <td style="text-align:left;"> x </td>
-   <td style="text-align:right;"> 2.085348 </td>
-   <td style="text-align:right;"> 0.1144314 </td>
+   <td style="text-align:right;"> 2.027065 </td>
+   <td style="text-align:right;"> 0.1703423 </td>
    <td style="text-align:left;"> Partial Pool </td>
   </tr>
 </tbody>
@@ -575,7 +578,7 @@ pooled_plot <- data %>%
   geom_line(aes(x = x, y = emmean), linewidth = 1, data = basic_pred) +
   geom_line(aes(x = x, y = lower.CL), linewidth = 0.5, linetype = 2, col = "gray50", data = basic_pred) +
   geom_line(aes(x = x, y = upper.CL), linewidth = 0.5, linetype = 2, col = "gray50", data = basic_pred) +
-  coord_cartesian(ylim = c(0, 50))+
+  coord_cartesian(ylim = c(0, 70))+
   labs(title = "Pooled model",
        x = "Independent Variable", 
        y = "Dependent Variable") +
@@ -587,7 +590,7 @@ partial_plot <- data %>%
   geom_line(aes(x = x, y = emmean), linewidth = 1, data = basic_pred) +
   geom_line(aes(x = x, y = lower.CL), linewidth = 0.5, linetype = 2, col = "gray50", data = mixed_pred) +
   geom_line(aes(x = x, y = upper.CL), linewidth = 0.5, linetype = 2, col = "gray50", data = mixed_pred) +
-  coord_cartesian(ylim = c(0, 50))+
+  coord_cartesian(ylim = c(0, 70))+
   labs(title = "Mixed model",
        x = "Independent Variable", 
        y = "Dependent Variable") +
@@ -597,18 +600,72 @@ pooled_plot /
   partial_plot
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+## `ggeffects`
 
 
 ## `sjPlot`
 
+SHRINKAGE! 
+
+BLUP - Hector book! 
+
+
+```r
+coef(mixed_model)
+
+fixef(mixed_model)
+```
+
+```
+## $group
+##   (Intercept)        x
+## 1    11.82356 2.027066
+## 2    15.68146 2.027066
+## 3    47.94678 2.027066
+## 4    21.01028 2.027066
+## 5    19.88385 2.027066
+## 
+## attr(,"class")
+## [1] "coef.mer"
+## (Intercept)           x 
+##   23.269187    2.027066
+```
+
 
 ```r
 plot_model(mixed_model,type="pred",
-           terms=c("x", "group"),pred.type="re")
+           terms=c("x", "group"),
+           pred.type="re",
+           show.data = T)+
+  facet_wrap( ~ group)
 ```
 
 <img src="15-Regression_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+###
+
+data1 <- data %>% 
+  mutate(fit.m = predict(mixed_model, re.form = NA),
+         fit.c = predict(mixed_model, re.form = NULL))
+
+data1 %>% 
+  ggplot(aes(x = x, y = y, colour = group)) +
+    geom_point(pch = 16) + 
+  geom_line(aes(y = fit.c))+ 
+  geom_line(aes(y = fit.m), colour = "grey",
+            linetype = "dashed")+
+  facet_wrap( ~ group)
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-21-2.png" width="100%" style="display: block; margin: auto;" />
+
+
+http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
+
 
 ```r
 plot_model(mixed_model, terms = c("x", "group"), type = "re")
@@ -641,7 +698,6 @@ qqline(resid(mixed_model))
 <img src="15-Regression_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-
 ```r
 rand_dist <- as.data.frame(ranef(mixed_model)) %>% 
   mutate(group = grp,
@@ -649,10 +705,14 @@ rand_dist <- as.data.frame(ranef(mixed_model)) %>%
          intercept_cond = b0_hat + summary(mixed_model)$coef[1,1],
          .keep = "none")
 
-data1 <- data %>% 
-  mutate(fit.m = predict(mixed_model, re.form = NA),
-         fit.c = predict(mixed_model, re.form = NULL))
+hist(rand_dist$b0_hat)
+```
 
+<img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+
+```r
 data1 %>%
   ggplot(aes(x = x, y = y)) +
   geom_point(pch = 16, col = "grey") +
@@ -669,20 +729,21 @@ data1 %>%
 ```
 
 <div class="figure" style="text-align: center">
-<img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-25)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
+<img src="15-Regression_files/figure-html/unnamed-chunk-26-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-26)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
 </div>
 
+re.form = NA: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
 
-
-
+re.form = NULL: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
 
 
 ```r
 performance::check_model(mixed_model)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+
 
 
 ```r
@@ -691,17 +752,9 @@ resid.mm <- DHARMa::simulateResiduals(mixed_model)
 plot(resid.mm)
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-
-```r
-resid.mm <- DHARMa::simulateResiduals(mixed_model, refit = T)
-
-plot(resid.mm)
-```
-
 <img src="15-Regression_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+
+
 
 
 <div class="warning">
@@ -712,12 +765,17 @@ distribution and decide if it is important for yourself.</p>
 </div>
 
 
-## `lmerTest`
 
-## Quiz
+## Practice Questions
 
 
 # Types of Random Effects
+
+## Is it a fixed or random effect?
+
+BAKER BOOK
+
+MISSING DATA BAKER BOOK
 
 ## Crossed or Nested
 
@@ -776,8 +834,6 @@ Understanding whether your experimental/sampling design calls for nested or cros
 
 
 
-
-
 ```r
 summary(lmer3)
 ```
@@ -818,8 +874,6 @@ data.2 <- data %>%
          resid2 = resid(lmer3))
 ```
 
-
-## Model refining 
 
 ## Random effect correlation
 
@@ -868,6 +922,8 @@ inset
 
 
 
+
+
 ```r
 (plot_function(lmer1, "Random intercept")+coord_cartesian(
                     ylim = c(0, 120))) + inset_element(inset, 0, 0.6, 0.4, 1)
@@ -876,103 +932,7 @@ inset
 <img src="15-Regression_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-
-```r
-Number_of_boots <- 500
-```
-The number of columns for the dataframes will equal the number of fixed effect coefficients and random effect variances. We can extract these from the initial model. First we extract the coefficients, then transpose the table into wide format.
-
-
-```r
-# Extract the fixed effect coefficients.
-FE_df <- fixef(lmer1) %>% 
-  t() %>%
-  as.data.frame()
-
-# Extract the random effects variance and residual variance
-RE_df <- VarCorr(lmer1) %>%
-  as.data.frame() %>%
-  unite("Level", -c(vcov, sdcor)) %>%
-  select(-vcov) %>%
-  t() %>%
-  as.data.frame()
-```
-
-Next, we create empty dataframes to take our bootstraps.
-
-
-```r
-BS_params <- data.frame(matrix(nrow = Number_of_boots, ncol = ncol(FE_df)))
-colnames(BS_params) <- colnames(FE_df)
-
-BS_var <- data.frame(matrix(nrow = Number_of_boots, ncol = ncol(RE_df)))
-colnames(BS_var) <- RE_df["Level",]
-```
-
-In addition, we will be predicting marginal values from each model. So, we need to create a prediction dataframe with an empty column to store the predicted values. For this example, we only need to predict ŷ values for a handful of x values that represent the range of xs. I chose to use 10-quantiles because I want to be able to fit a non-linear confidence band later. If this was a non-linear fit, we might want even more prediction values.
-
-
-```r
-BS_pred <- expand.grid(x = quantile(data1$x, probs = seq(0, 1, length.out = 10)),
-                       iteration = 1:Number_of_boots,
-                       pred = NA)
-```
-
-
-
-```r
-for(i in 1:Number_of_boots){
-BS_X <- slice_sample(data1, prop = 1, replace = TRUE)
-BS_lmer <- lmer(formula = lmer1@call$formula,
-data = BS_X)
-
-BS_params[i,] <- BS_lmer %>%
-fixef() %>%
-t() %>%
-as.data.frame()
-
-BS_var[i,] <- BS_lmer %>%
-VarCorr() %>%
-as.data.frame() %>%
-.$sdcor
-
-BS_pred[which(BS_pred$iteration == i),]$pred <- predict(BS_lmer,
-newdata = BS_pred[which(BS_pred$iteration == i),],
-re.form = ~0)
-}
-```
-
-
-
-```r
-plot_1 <- BS_pred %>%
-    ggplot(aes(x = x, y = pred)) +
-    geom_line(aes(group = iteration), alpha = 0.1, col = "grey50") +
-    geom_line(data = data1,
-              aes(x = x, y = fit.m)) +
-    geom_rect(aes(ymin = 36, ymax = 38,
-                  xmin = 6, xmax = 8),
-              col = "firebrick",
-              fill = NA,
-              size = 2) 
-
-plot_2 <- BS_pred %>%
-    ggplot(aes(x = x, y = pred)) +
-    geom_line(aes(group = iteration), alpha = 0.1, col = "black") +
-    geom_line(data = data1,
-              aes(x = x, y = fit.m),
-              col = "grey", 
-              size = 2) +
-    coord_cartesian(xlim = c(6, 8),
-                    ylim = c(36, 38)) +
-    geom_rect(aes(ymin = 36, ymax = 38,
-                  xmin = 6, xmax = 8),
-              col = "firebrick",
-              fill = NA,
-              size = 2) 
-
-plot_1 + plot_2
-```
+## Model refining
 
 
 ## Random slopes
@@ -993,14 +953,217 @@ ggplot(data, aes(x = independent_var, y = dependent_var, color = group, group = 
     theme_minimal()
 
 
-## Nested and crossed random effects
+# Biodepth project
 
-## Random slopes
 
-## Mixed model equations
 
-## Assumptions of a mixed model
 
+
+```{=html}
+<a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/Biodepth">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download BIODEPTH data</button>
+</a>
+```
+
+
+
+```r
+biodepth <- biodepth %>% 
+  mutate(Mix = factor(Mix),
+         Diversity2 = log(Diversity, 2)) %>% 
+  drop_na()
+
+# set Mix as a factor
+# Set Diversity to log, base 2
+```
+
+
+
+```r
+bio.lmer1 <- lmer(Shoot2 ~ Diversity2 + (1|Site) + (1|Block) + (1|Mix), data = biodepth)
+
+summary(bio.lmer1)
+```
+
+```
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: Shoot2 ~ Diversity2 + (1 | Site) + (1 | Block) + (1 | Mix)
+##    Data: biodepth
+## 
+## REML criterion at convergence: 6082.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.2187 -0.5179 -0.1031  0.3941  3.1735 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Mix      (Intercept) 33665.3  183.48  
+##  Block    (Intercept)   383.2   19.57  
+##  Site     (Intercept) 30163.9  173.68  
+##  Residual             22039.8  148.46  
+## Number of obs: 451, groups:  Mix, 192; Block, 15; Site, 8
+## 
+## Fixed effects:
+##             Estimate Std. Error      df t value Pr(>|t|)    
+## (Intercept)  349.488     66.244   8.576   5.276 0.000598 ***
+## Diversity2    78.901     12.059 175.159   6.543 6.42e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##            (Intr)
+## Diversity2 -0.286
+```
+
+
+In the 1 | Site:Mix specification, the random effect is specified as a two-way crossed random effect. It means that the random effect varies independently for each combination of levels in the Site and Mix factors. The : operator represents the interaction or crossed effect between the two factors. This specification allows for correlations between random effects within each combination of Site and Mix.
+
+On the other hand, the 1 | Site/Mix specification represents a nested random effect structure. It suggests that the random effect of Mix is nested within the random effect of Site. This specification assumes that the levels of Mix are nested within each level of Site, meaning that each level of Site has its own set of random effects for the levels of Mix. The / operator denotes the nesting relationship.
+
+To summarize:
+
+1 | Site:Mix: Two-way crossed random effect, allowing for independent variation of random effects for each combination of levels in Site and Mix.
+1 | Site/Mix: Nested random effect, with the random effect of Mix nested within the random effect of Site, assuming that the levels of Mix are nested within each level of Site.
+
+
+```r
+bio.lmer2 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1|Block) + (1|Mix), data = biodepth)
+
+summary(bio.lmer2)
+```
+
+```
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: Shoot2 ~ Diversity2 + (Diversity2 | Site) + (1 | Block) + (1 |  
+##     Mix)
+##    Data: biodepth
+## 
+## REML criterion at convergence: 6072.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.1292 -0.5208 -0.1004  0.3739  3.2865 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr
+##  Mix      (Intercept) 31421.7  177.26       
+##  Block    (Intercept)   391.6   19.79       
+##  Site     (Intercept) 18930.9  137.59       
+##           Diversity2   1149.9   33.91   1.00
+##  Residual             21995.1  148.31       
+## Number of obs: 451, groups:  Mix, 192; Block, 15; Site, 8
+## 
+## Fixed effects:
+##             Estimate Std. Error      df t value Pr(>|t|)    
+## (Intercept)  346.070     54.362   8.734   6.366 0.000149 ***
+## Diversity2    79.181     16.855  11.289   4.698 0.000608 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##            (Intr)
+## Diversity2 0.399 
+## optimizer (nloptwrap) convergence code: 0 (OK)
+## boundary (singular) fit: see help('isSingular')
+```
+
+
+## Likelihood tests
+
+
+```r
+bio.lmer3 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1|Mix), data = biodepth)
+
+anova(bio.lmer2, bio.lmer3)
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> npar </th>
+   <th style="text-align:right;"> AIC </th>
+   <th style="text-align:right;"> BIC </th>
+   <th style="text-align:right;"> logLik </th>
+   <th style="text-align:right;"> deviance </th>
+   <th style="text-align:right;"> Chisq </th>
+   <th style="text-align:right;"> Df </th>
+   <th style="text-align:right;"> Pr(&gt;Chisq) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> bio.lmer3 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 6104.437 </td>
+   <td style="text-align:right;"> 6133.217 </td>
+   <td style="text-align:right;"> -3045.218 </td>
+   <td style="text-align:right;"> 6090.437 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bio.lmer2 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 6105.697 </td>
+   <td style="text-align:right;"> 6138.589 </td>
+   <td style="text-align:right;"> -3044.849 </td>
+   <td style="text-align:right;"> 6089.697 </td>
+   <td style="text-align:right;"> 0.7395044 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.3898197 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+
+<div class="info">
+<p>ML and REML</p>
+</div>
+
+
+
+
+
+
+```r
+nested_data <- biodepth %>% 
+    group_by(Site) %>% 
+    nest()
+
+models <- map(nested_data$data, ~ lm(Shoot2 ~ Diversity2, data = .)) %>% 
+    map(predict)
+```
+
+
+
+```r
+biodepth.2 <- biodepth %>% 
+    mutate(fit.m = predict(bio.lmer2, re.form = NA),
+           fit.c = predict(bio.lmer2, re.form = ~(1+Diversity2|Site)),
+           fit.l = unlist(models))
+
+biodepth.2 %>% 
+    ggplot(aes(x = Diversity2, y = Shoot2, colour = Site)) +
+    geom_point(pch = 16) + 
+    geom_line(aes(y = fit.l), color = "black")+
+    geom_line(aes(y = fit.c))+ 
+    geom_line(aes(y = fit.m), colour = "grey",
+              linetype = "dashed")+
+    facet_wrap( ~ Site)+
+   coord_cartesian(ylim = c(0, 1200))+
+   theme(legend.position = "none")
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" />
 
 # Worked Examples
 
@@ -1008,7 +1171,79 @@ ggplot(data, aes(x = independent_var, y = dependent_var, color = group, group = 
 https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
 
 
+
+```r
+politeness <- read_csv("files/politeness_data.csv")
+
+politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +
+                            (1+attitude|scenario),
+                        data=politeness)
+```
+
+# Worked Examples - Dolphins
+
+
+```{=html}
+<a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/dolphins.csv">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download Dolphins data</button>
+</a>
+```
+
+
+
+DOLPHIN FIXED EFFECTS
+
+
+```r
+dolphmod.1 <- lmer(vt ~ bodymass + direction + (direction|animal), data=dolphins)
+dolphmod.2 <- lmer(vt ~ bodymass + direction + (1|animal), data=dolphins)
+```
+
+
+```r
+dolphins.1 <- dolphins %>% 
+    mutate(fit.m = predict(dolphmod.2, re.form = NA),
+           fit.c = predict(dolphmod.2, re.form = NULL))
+```
+
+
+
+```r
+dolphins.1 %>%
+  ggplot(aes(x = bodymass, y = vt, group = direction)) +
+  geom_point(pch = 16, aes(colour = animal)) +
+  geom_line(aes(y = fit.m, 
+                linetype = direction), 
+            linewidth = 1)  +
+  labs(x = "Body Mass", 
+       y = "VT") 
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-54-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+
+```r
+plot_model(dolphmod.2,type="pred",
+           terms=c("bodymass", "direction"),
+           pred.type="fe",
+           show.data = T)
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-55-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+plot_model(dolphmod.2,type="pred",
+           terms=c("bodymass", "direction", "animal"),
+           pred.type="re",
+           show.data = T)
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-55-2.png" width="100%" style="display: block; margin: auto;" />
+
 ## Reporting
+
+BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
 
 ## Tables
 
@@ -1021,11 +1256,38 @@ https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
 
 # Summary
 
+Here is a suggested workflow:
+
+Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main predictors and any potential interactions you hypothesize might exist. For example, if you have predictors A and B, you might start with a model like response ~ A + B + A:B.
+
+Assess fixed effects and interactions: Evaluate the significance, direction, and magnitude of the fixed effects coefficients. Look for interactions that show significant effects and consider their interpretation in the context of your research question. This step allows you to identify the key variables and interactions that are important in explaining the variation in the response variable.
+
+Model evaluation and refinement: Assess the goodness of fit of the fixed effects model using appropriate measures like AIC, BIC, or model deviance. Consider conducting model comparison to evaluate different models with alternative fixed effects structures. This process helps you refine the model and select the most appropriate combination of variables and interactions.
+
+Incorporate random effects: Once you have identified the significant fixed effects and relevant interactions, you can then consider the inclusion of random effects. Random effects capture the variation at different levels and can account for individual differences or clustering within groups. Evaluate the need for random intercepts, random slopes, or crossed random effects based on your research design and the nature of the data.
+
+Assess and compare models with random effects: Fit models with random effects and compare their fit to the fixed effects model. Consider appropriate measures such as likelihood ratio tests, AIC, or BIC for model comparison. Evaluate the significance and contribution of the random effects to the model.
+
+Validate and interpret the final model: Validate the final model by assessing assumptions, checking for influential observations, and performing sensitivity analysis. Interpret the estimated coefficients, including fixed effects and random effects, in the context of your research question. Report the results, including confidence intervals and p-values.
+
+By initially focusing on the fixed effects, you can establish the foundation of your model and identify the significant predictors and interactions. This step allows you to better understand the relationships in your data and guide the subsequent inclusion of random effects if appropriate.
+
+
+https://ademos.people.uic.edu/Chapter17.html#121_crossed__nested_designs
+
 ## Mixed Model extensions
 
 ## Practical problems
 
+MODEL CONVERGENCE - BAKER
+
 ## Further Reading
+
+- https://peerj.com/articles/4794/
+
+- https://link.springer.com/book/10.1007/978-0-387-87458-6
+
+- https://peerj.com/articles/9522/
 
 
 
