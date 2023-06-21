@@ -631,7 +631,7 @@ So the differences between groups explain ~6% of the variance that’s “left o
 
 It is worth noting that random effect estimates are a function of the group-level information and the overall (grand) mean of the random effect. Group levels with low sample size or poor information (i.e., no strong relationship) are more strongly influenced by the grand mean, which adds information to an otherwise poorly-estimated group. However, a group with a large sample size or strong information (i.e., a strong relationship) will have very little influence from the grand mean and largely reflect the information contained entirely within the group. This process is called partial pooling (as opposed to no pooling, where no effect is considered, or total pooling, where separate models are run for the different groups). Partial pooling results in the phenomenon known as shrinkage, which refers to the group-level estimates being shrunk toward the mean. What does all this mean? If you use a random effect, you should be prepared for your factor levels to have some influence from the overall mean of all levels. With a good, clear signal in each group, you won’t see much impact from the overall mean, but you will with small groups or those without much signal.
 
-COMPARE MODELS
+Below we can take a look at the estimates and standard errors for three of our previously constructed models:
 
 
 ```r
@@ -707,8 +707,87 @@ bind_rows(pooled, no_pool, partial_pool) %>%
 
 </div>
 
+Pooling helps to improve the precision of the estimates by borrowing strength from the entire dataset. However, this can also lead to differences in the estimates and standard errors compared to models without pooling. 
 
-### Plotting model predictions
+- Pooled: in the pooled model the averaged estimates may not accurately reflect the true values within each group. As a result, the estimates in pooled models can be biased towards the average behavior across all groups. We can see this in the too small standard error of the intercept, underestimating the variance in our dataset. At the same time if there is substantial variability in the relationships between groups, the pooled estimates can be less precise. This increased variability across groups can contribute to larger standard errors of the difference (SED) for fixed effects in pooled models.
+
+- No pooling: This model is extremely precise with the smallest errors, however these estimates reflect conditions only for the first group in the model
+
+- Partial pooling/Mixed models: this model reflects the greater uncertainty of the Mean and SE of the intercept. However, the SED in a partial pooling model accounts for both the variability within groups and the uncertainty between groups. Compared to a no pooling approach, the SED in a partial pooling model tends to be smaller because it incorporates the pooled information, which reduces the overall uncertainty. This adjusted SED provides a more accurate measure of the uncertainty associated with the estimated differences between groups or fixed effects.
+
+## Plotting model outcomes
+
+ESTIMATES VS PREDICTIONS
+
+
+```r
+coef(mixed_model)
+
+fixef(mixed_model)
+```
+
+```
+## $group
+##   (Intercept)        x
+## 1    11.82356 2.027066
+## 2    15.68146 2.027066
+## 3    47.94678 2.027066
+## 4    21.01028 2.027066
+## 5    19.88385 2.027066
+## 
+## attr(,"class")
+## [1] "coef.mer"
+## (Intercept)           x 
+##   23.269187    2.027066
+```
+
+
+
+```r
+plot_model(mixed_model,type="pred",
+           terms=c("x", "group"),
+           pred.type="re",
+           show.data = T)+
+  facet_wrap( ~ group)
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+###
+
+data1 <- data %>% 
+  mutate(fit.m = predict(mixed_model, re.form = NA),
+         fit.c = predict(mixed_model, re.form = NULL))
+
+data1 %>% 
+  ggplot(aes(x = x, y = y, colour = group)) +
+    geom_point(pch = 16) + 
+  geom_line(aes(y = fit.c))+ 
+  geom_line(aes(y = fit.m), colour = "grey",
+            linetype = "dashed")+
+  facet_wrap( ~ group)
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-23-2.png" width="100%" style="display: block; margin: auto;" />
+
+
+http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
+
+
+```r
+plot_model(mixed_model, terms = c("x", "group"), type = "re")
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+plot_model(mixed_model, terms = c("x", "group"), type = "est")
+```
+
+<img src="15-Regression_files/figure-html/unnamed-chunk-24-2.png" width="100%" style="display: block; margin: auto;" />
+
+
 
 
 ```r
@@ -744,88 +823,20 @@ pooled_plot /
   partial_plot
 ```
 
-<img src="15-Regression_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-## `ggeffects`
+### `ggeffects`
 
 
-## `sjPlot`
+### `sjPlot`
 
 SHRINKAGE! 
 
 BLUP - Hector book! 
 
 
-```r
-coef(mixed_model)
-
-fixef(mixed_model)
-```
-
-```
-## $group
-##   (Intercept)        x
-## 1    11.82356 2.027066
-## 2    15.68146 2.027066
-## 3    47.94678 2.027066
-## 4    21.01028 2.027066
-## 5    19.88385 2.027066
-## 
-## attr(,"class")
-## [1] "coef.mer"
-## (Intercept)           x 
-##   23.269187    2.027066
-```
-
-
-
-```r
-plot_model(mixed_model,type="pred",
-           terms=c("x", "group"),
-           pred.type="re",
-           show.data = T)+
-  facet_wrap( ~ group)
-```
-
-<img src="15-Regression_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
-
-```r
-###
-
-data1 <- data %>% 
-  mutate(fit.m = predict(mixed_model, re.form = NA),
-         fit.c = predict(mixed_model, re.form = NULL))
-
-data1 %>% 
-  ggplot(aes(x = x, y = y, colour = group)) +
-    geom_point(pch = 16) + 
-  geom_line(aes(y = fit.c))+ 
-  geom_line(aes(y = fit.m), colour = "grey",
-            linetype = "dashed")+
-  facet_wrap( ~ group)
-```
-
-<img src="15-Regression_files/figure-html/unnamed-chunk-24-2.png" width="100%" style="display: block; margin: auto;" />
-
-
-http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
-
-
-```r
-plot_model(mixed_model, terms = c("x", "group"), type = "re")
-```
-
-<img src="15-Regression_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
-
-```r
-plot_model(mixed_model, terms = c("x", "group"), type = "est")
-```
-
-<img src="15-Regression_files/figure-html/unnamed-chunk-25-2.png" width="100%" style="display: block; margin: auto;" />
-
-
-## Checking models
+## Checking model assumptions
 
 
 ```r
@@ -900,8 +911,6 @@ plot(resid.mm)
 <img src="15-Regression_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-
-
 <div class="warning">
 <p>When you have a lot of data, even minimal deviations from the
 expected distribution will become significant (this is discussed in the
@@ -923,6 +932,9 @@ BAKER BOOK
 MISSING DATA BAKER BOOK
 
 ## Crossed or Nested
+
+https://www.muscardinus.be/2017/07/lme4-random-effects/
+
 
 A common issue that causes confusion is this issue of specifying random effects as either  ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined  by your experimental or sampling design (  Schielzeth & Nakagawa, 2013  ). A simple  example can illustrate the difference. Imagine a researcher was interested in understanding  the factors affecting the clutch mass of a passerine bird. They have a study population  spread across five separate woodlands, each containing 30 nest boxes. Every week during  breeding they measure the foraging rate of females at feeders, and measure their  subsequent clutch mass. Some females have multiple clutches in a season and contribute multiple data points. 
 
@@ -1076,7 +1088,7 @@ inset
 
 
 ```r
-(plot_function(lmer1, "Random intercept")+coord_cartesian(
+((plot_function(lmer1, "Random intercept")+theme_classic())+coord_cartesian(
                     ylim = c(0, 120))) + inset_element(inset, 0.1, 0.6, 0.5, 1)
 ```
 
@@ -1104,14 +1116,14 @@ ggplot(data, aes(x = independent_var, y = dependent_var, color = group, group = 
     theme_minimal()
 
 
-# Biodepth project
+# Complex designs
 
 
 
 
 
 ```{=html}
-<a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/Biodepth">
+<a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/Biodepth.txt">
 <button class="btn btn-success"><i class="fa fa-save"></i> Download BIODEPTH data</button>
 </a>
 ```
@@ -1316,7 +1328,19 @@ biodepth.2 %>%
 
 <img src="15-Regression_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" />
 
-# Worked Examples
+
+# Reporting Mixed Model results
+
+BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
+
+## Tables
+
+## Figures
+
+## Write-ups
+
+
+# Worked Example 1
 
 
 https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
@@ -1331,7 +1355,7 @@ politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +
                         data=politeness)
 ```
 
-# Worked Examples - Dolphins
+# Worked Example 2 - Dolphins
 
 
 ```{=html}
@@ -1391,18 +1415,6 @@ plot_model(dolphmod.2,type="pred",
 ```
 
 <img src="15-Regression_files/figure-html/unnamed-chunk-58-2.png" width="100%" style="display: block; margin: auto;" />
-
-## Reporting
-
-BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
-
-## Tables
-
-## Figures
-
-## Write-ups
-
-
 
 
 # Summary

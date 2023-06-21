@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 5 Types of Random Effects | 5023Y</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="5.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  5.2 Crossed or Nested A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or...">
+<meta name="description" content="5.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  5.2 Crossed or Nested https://www.muscardinus.be/2017/07/lme4-random-effects/ A common issue that causes confusion is this...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
 <meta property="og:title" content="Chapter 5 Types of Random Effects | 5023Y">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/data-sci/types-of-random-effects.html">
 <meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
-<meta property="og:description" content="5.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  5.2 Crossed or Nested A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or...">
+<meta property="og:description" content="5.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  5.2 Crossed or Nested https://www.muscardinus.be/2017/07/lme4-random-effects/ A common issue that causes confusion is this...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 5 Types of Random Effects | 5023Y">
-<meta name="twitter:description" content="5.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  5.2 Crossed or Nested A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or...">
+<meta name="twitter:description" content="5.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  5.2 Crossed or Nested https://www.muscardinus.be/2017/07/lme4-random-effects/ A common issue that causes confusion is this...">
 <meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -120,10 +120,11 @@
 <li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">4</span> Foundations of Mixed Modelling</a></li>
 <li><a class="active" href="types-of-random-effects.html"><span class="header-section-number">5</span> Types of Random Effects</a></li>
 <li><a class="" href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></li>
-<li><a class="" href="biodepth-project.html"><span class="header-section-number">7</span> Biodepth project</a></li>
-<li><a class="" href="worked-examples.html"><span class="header-section-number">8</span> Worked Examples</a></li>
-<li><a class="" href="worked-examples---dolphins.html"><span class="header-section-number">9</span> Worked Examples - Dolphins</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">10</span> Summary</a></li>
+<li><a class="" href="complex-designs.html"><span class="header-section-number">7</span> Complex designs</a></li>
+<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">8</span> Reporting Mixed Model results</a></li>
+<li><a class="" href="worked-example-1.html"><span class="header-section-number">9</span> Worked Example 1</a></li>
+<li><a class="" href="worked-example-2---dolphins.html"><span class="header-section-number">10</span> Worked Example 2 - Dolphins</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">11</span> Summary</a></li>
 </ul>
 
         <div class="book-extra">
@@ -146,6 +147,7 @@
 <h2>
 <span class="header-section-number">5.2</span> Crossed or Nested<a class="anchor" aria-label="anchor" href="#crossed-or-nested"><i class="fas fa-link"></i></a>
 </h2>
+<p><a href="https://www.muscardinus.be/2017/07/lme4-random-effects/" class="uri">https://www.muscardinus.be/2017/07/lme4-random-effects/</a></p>
 <p>A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined by your experimental or sampling design ( Schielzeth &amp; Nakagawa, 2013 ). A simple example can illustrate the difference. Imagine a researcher was interested in understanding the factors affecting the clutch mass of a passerine bird. They have a study population spread across five separate woodlands, each containing 30 nest boxes. Every week during breeding they measure the foraging rate of females at feeders, and measure their subsequent clutch mass. Some females have multiple clutches in a season and contribute multiple data points.</p>
 <p>Here, female ID is said to be nested within woodland : each woodland contains multiple females unique to that woodland (that never move among woodlands). The nested random effect controls for the fact that (i) clutches from the same female are not independent, and (ii) females from the same woodland may have clutch masses more similar to one another than to females from other woodlands</p>
 <p>Clutch Mass ∼ Foraging Rate + (1|Woodland/Female ID)</p>
@@ -259,7 +261,7 @@ Figure 5.3: Partially Nested/Crossed
 <span><span class="va">inset</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-40-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="fu">plot_function</span><span class="op">(</span><span class="va">lmer1</span>, <span class="st">"Random intercept"</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="op">(</span><span class="op">(</span><span class="fu">plot_function</span><span class="op">(</span><span class="va">lmer1</span>, <span class="st">"Random intercept"</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span></span>
 <span>                    ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">inset_element</span><span class="op">(</span><span class="va">inset</span>, <span class="fl">0.1</span>, <span class="fl">0.6</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>

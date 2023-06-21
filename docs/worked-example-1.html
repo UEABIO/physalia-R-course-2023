@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Overview | 5023Y</title>
+<title>Chapter 9 Worked Example 1 | 5023Y</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="This book ...">
+<meta name="description" content='https://bodowinter.com/tutorial/bw_LME_tutorial.pdf politeness &lt;- read_csv("files/politeness_data.csv") politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +            ...'>
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Overview | 5023Y">
+<meta property="og:title" content="Chapter 9 Worked Example 1 | 5023Y">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/data-sci">
+<meta property="og:url" content="https://ueabio.github.io/data-sci/worked-example-1.html">
 <meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
-<meta property="og:description" content="This book ...">
+<meta property="og:description" content='https://bodowinter.com/tutorial/bw_LME_tutorial.pdf politeness &lt;- read_csv("files/politeness_data.csv") politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +            ...'>
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Overview | 5023Y">
-<meta name="twitter:description" content="This book ...">
+<meta name="twitter:title" content="Chapter 9 Worked Example 1 | 5023Y">
+<meta name="twitter:description" content='https://bodowinter.com/tutorial/bw_LME_tutorial.pdf politeness &lt;- read_csv("files/politeness_data.csv") politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +            ...'>
 <meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -110,7 +110,7 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="active" href="index.html">Overview</a></li>
+<li><a class="" href="index.html">Overview</a></li>
 <li class="book-part">Get Started in R</li>
 <li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
 <li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R Basics</a></li>
@@ -122,7 +122,7 @@
 <li><a class="" href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></li>
 <li><a class="" href="complex-designs.html"><span class="header-section-number">7</span> Complex designs</a></li>
 <li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">8</span> Reporting Mixed Model results</a></li>
-<li><a class="" href="worked-example-1.html"><span class="header-section-number">9</span> Worked Example 1</a></li>
+<li><a class="active" href="worked-example-1.html"><span class="header-section-number">9</span> Worked Example 1</a></li>
 <li><a class="" href="worked-example-2---dolphins.html"><span class="header-section-number">10</span> Worked Example 2 - Dolphins</a></li>
 <li><a class="" href="summary.html"><span class="header-section-number">11</span> Summary</a></li>
 </ul>
@@ -132,38 +132,18 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="overview" class="section level1 unnumbered">
-<h1>Overview<a class="anchor" aria-label="anchor" href="#overview"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="worked-example-1" class="section level1" number="9">
+<h1>
+<span class="header-section-number">9</span> Worked Example 1<a class="anchor" aria-label="anchor" href="#worked-example-1"><i class="fas fa-link"></i></a>
 </h1>
-<div class="small_right">
-<img src="images/logos/logo.png" alt="Data skills Logo">
+<p><a href="https://bodowinter.com/tutorial/bw_LME_tutorial.pdf" class="uri">https://bodowinter.com/tutorial/bw_LME_tutorial.pdf</a></p>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">politeness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"files/politeness_data.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">politeness.model.1</span> <span class="op">=</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">frequency</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">attitude</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="va">attitude</span><span class="op">|</span><span class="va">subject</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                            <span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="va">attitude</span><span class="op">|</span><span class="va">scenario</span><span class="op">)</span>,</span>
+<span>                        data<span class="op">=</span><span class="va">politeness</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p>Data are often complex and messy.</p>
-<p>We can have different grouping factors like where we collect the data, etc. Sample sizes may also leave something to be desired, especially if we try to fit complicated models with many parameters. On top of that, our data points might not be truly independent. For instance, there might be structure to our data.</p>
-<p>This is why mixed models were developed, to deal with such messy data and to allow us to use all our data, even when we have low sample sizes, structured data and many covariates to fit. On top of all that, mixed models allow us to save degrees of freedom compared to running standard linear models! Sounds good.</p>
-<p>Here we will cover the basics of linear mixed models, how to use them responsibly and interepret your findings effectively.</p>
-<p>If you are trying to “extend” your linear model, fear not: there are generalised linear mixed effects models, too.</p>
-<div id="terminology" class="section level2" number="0.1">
-<h2>
-<span class="header-section-number">0.1</span> Terminology<a class="anchor" aria-label="anchor" href="#terminology"><i class="fas fa-link"></i></a>
-</h2>
-<p>Mixed-effects models are sometime referred to as hierarchical models, multi-level models, random effects models, and mixed-models. Regardless of the confusing vocabulary, it’s worth knowing that the terms all may be used to mean similar models.</p>
-<p>Random effects are an important part of mixed-effects models. Random effects capture the variations that come from grouping or clustering of data. They are used in mixed models, which combine both fixed effects (relationships between variables) and random effects. This approach helps us account for correlations and dependencies within groups, making our models more realistic.</p>
-<p>In nature, we often see hierarchical structures, such as streams within a watershed or species within a family. Random effects can be useful in these situations and others where observations tend to be clustered. By using random effects, we can improve our ability to model the system accurately.</p>
-<p>The main purpose of applying random effects in mixed models is to capture more realistic patterns and uncertainties in the data. For example, we can account for correlations that arise from multiple observations within a group or when our observations lack complete independence.</p>
-<p>To sum it up, random effects and mixed models help us deal with situations where observations are not independent. They allow us to capture the complexities and dependencies within groups, improving the accuracy of our statistical models.</p>
-<div id="variance" class="section level3" number="0.1.1">
-<h3>
-<span class="header-section-number">0.1.1</span> Variance<a class="anchor" aria-label="anchor" href="#variance"><i class="fas fa-link"></i></a>
-</h3>
-<p>To understand mixed- and random effects models, we need to understand random effects and to understand random effects, we need to understand variance. We often need to think more about where the variance in our system is showing up in our model or how our model handles the variance that we know will be there. Historically variance was seen as noise and distraction, and the objective was to remove or minimize all possible variance. Variance has often been seen as a nuisance parameter. However, there can be information in the variance. Variance is ubiquitous, but understanding what part of the system holds what proportions of the variance can benefit our understanding of the systems we seek to model. We should be familiar with the residual variance from our linear models, but might that residual variance be better attributed to within a group? Or between a group?</p>
-
-</div>
-</div>
-</div>
-
-
-
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -344,21 +324,16 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="empty"></div>
-<div class="next"><a href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></div>
+<div class="prev"><a href="reporting-mixed-model-results.html"><span class="header-section-number">8</span> Reporting Mixed Model results</a></div>
+<div class="next"><a href="worked-example-2---dolphins.html"><span class="header-section-number">10</span> Worked Example 2 - Dolphins</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#overview">Overview</a></li>
-<li>
-<a class="nav-link" href="#terminology"><span class="header-section-number">0.1</span> Terminology</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#variance"><span class="header-section-number">0.1.1</span> Variance</a></li></ul>
-</li>
-</ul>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#worked-example-1"><span class="header-section-number">9</span> Worked Example 1</a></li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/intro-mixed-models/blob/main/book/index.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/intro-mixed-models/edit/main/book/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/intro-mixed-models/blob/main/book/15-Regression.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/intro-mixed-models/edit/main/book/15-Regression.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
