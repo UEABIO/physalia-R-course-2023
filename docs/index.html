@@ -4,19 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Overview | 5023Y</title>
+<title>Overview | Mixed Models</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="This book ...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Overview | 5023Y">
+<meta property="og:title" content="Overview | Mixed Models">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/data-sci">
-<meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta property="og:url" content="https://ueabio.github.io/intro-mixed-models">
+<meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <meta property="og:description" content="This book ...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Overview | 5023Y">
+<meta name="twitter:title" content="Overview | Mixed Models">
 <meta name="twitter:description" content="This book ...">
-<meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -97,8 +97,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="Data Science for Biologists">5023Y</a>:
-        <small class="text-muted">Data Science for Biologists</small>
+        <a href="index.html" title="An introduction in R">Mixed Models</a>:
+        <small class="text-muted">An introduction in R</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -150,7 +150,12 @@
 <h3>
 <span class="header-section-number">0.1.1</span> Variance<a class="anchor" aria-label="anchor" href="#variance"><i class="fas fa-link"></i></a>
 </h3>
-<p>To understand mixed- and random effects models, we need to understand random effects and to understand random effects, we need to understand variance. We often need to think more about where the variance in our system is showing up in our model or how our model handles the variance that we know will be there. Historically variance was seen as noise and distraction, and the objective was to remove or minimize all possible variance. Variance has often been seen as a nuisance parameter. However, there can be information in the variance. Variance is ubiquitous, but understanding what part of the system holds what proportions of the variance can benefit our understanding of the systems we seek to model. We should be familiar with the residual variance from our linear models, but might that residual variance be better attributed to within a group? Or between a group?</p>
+<p>To understand mixed- and random effects models, we need to understand random effects and to understand random effects, we need to understand variance.</p>
+<blockquote>
+<p>Variance is a statistical measure that quantifies the spread or dispersion of a set of data points. It provides a measure of how much the values in a dataset deviate from the mean.</p>
+</blockquote>
+<p>To calculate the variance in a linear model (ordinary least squares), you first obtain the residuals, which are the differences between the observed response values and the predicted values. Then, you square each residual to eliminate the negative signs and calculate the sum of these squared residuals. Finally, you divide the sum by the degrees of freedom, which is the total number of observations minus the number of estimated coefficients in the model.</p>
+<p>o estimate the variance components in a linear mixed model, likelihood-based methods such as <a href="https://towardsdatascience.com/probability-concepts-explained-maximum-likelihood-estimation-c7b4342fdbb1">maximum likelihood estimation (MLE)</a> or restricted maximum likelihood estimation (REML) are commonly used. These methods optimize the likelihood function by adjusting the model parameters, including the variance components, to find the values that best fit the observed data.</p>
 
 </div>
 </div>
@@ -364,7 +369,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
+    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

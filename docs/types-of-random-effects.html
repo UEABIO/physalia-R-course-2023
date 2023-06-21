@@ -4,19 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 2 Types of Random Effects | 5023Y</title>
+<title>Chapter 2 Types of Random Effects | Mixed Models</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="2.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  2.2 Crossed or Nested https://www.muscardinus.be/2017/07/lme4-random-effects/ A common issue that causes confusion is this...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 2 Types of Random Effects | 5023Y">
+<meta property="og:title" content="Chapter 2 Types of Random Effects | Mixed Models">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/data-sci/types-of-random-effects.html">
-<meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta property="og:url" content="https://ueabio.github.io/intro-mixed-models/types-of-random-effects.html">
+<meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <meta property="og:description" content="2.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  2.2 Crossed or Nested https://www.muscardinus.be/2017/07/lme4-random-effects/ A common issue that causes confusion is this...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 2 Types of Random Effects | 5023Y">
+<meta name="twitter:title" content="Chapter 2 Types of Random Effects | Mixed Models">
 <meta name="twitter:description" content="2.1 Is it a fixed or random effect? BAKER BOOK MISSING DATA BAKER BOOK  2.2 Crossed or Nested https://www.muscardinus.be/2017/07/lme4-random-effects/ A common issue that causes confusion is this...">
-<meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -97,8 +97,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="Data Science for Biologists">5023Y</a>:
-        <small class="text-muted">Data Science for Biologists</small>
+        <a href="index.html" title="An introduction in R">Mixed Models</a>:
+        <small class="text-muted">An introduction in R</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -149,23 +149,23 @@
 <p>Clutch Mass ∼ Foraging Rate + (1|Woodland/Female ID)+ (1|Year)</p>
 <p>Understanding whether your experimental/sampling design calls for nested or crossed random effects is not always straightforward, but it can help to visualise experimental design by drawing it (see Schielzeth &amp; Nakagawa, 2013 ; Fig. 1 ), or tabulating your observations by these grouping factors (e.g. with the ‘ table’ command in R) to identify how your data are distributed. We advocate that researchers always ensure that their levels of random effect grouping variables are uniquely labelled. For example, females are labelled 1 - n in each woodland, the model will try and pool variance for all females with the same code. Giving all females a unique code makes the nested structure of the data is implicit, and a model specified as ∼ (1| Woodland) + (1|FemaleID) would be identical to the model above.</p>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-34"></span>
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4742ce309c84006b4955" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-4742ce309c84006b4955">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+<span style="display:block;" id="fig:unnamed-chunk-38"></span>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-309c84006b49558015fb" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-309c84006b49558015fb">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
 Figure 2.1: Fully Nested
 </p>
 </div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-35"></span>
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8015fb63f5c0dd7c2786" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-8015fb63f5c0dd7c2786">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+<span style="display:block;" id="fig:unnamed-chunk-39"></span>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-63f5c0dd7c2786b1d1c6" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-63f5c0dd7c2786b1d1c6">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
 Figure 2.2: Fully Crossed
 </p>
 </div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-36"></span>
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b1d1c6f9b59552fdce3c" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-b1d1c6f9b59552fdce3c">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+<span style="display:block;" id="fig:unnamed-chunk-40"></span>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f9b59552fdce3ccc22cc" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-f9b59552fdce3ccc22cc">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
 Figure 2.3: Partially Nested/Crossed
 </p>
 </div>
@@ -174,8 +174,8 @@ Figure 2.3: Partially Nested/Crossed
 <h2>
 <span class="header-section-number">2.3</span> Random slopes<a class="anchor" aria-label="anchor" href="#random-slopes"><i class="fas fa-link"></i></a>
 </h2>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 ## lmerModLmerTest]
@@ -207,7 +207,7 @@ Figure 2.3: Partially Nested/Crossed
 ## x -0.641
 ## optimizer (nloptwrap) convergence code: 0 (OK)
 ## Model failed to converge with max|grad| = 0.00241 (tol = 0.002, component 1)</code></pre>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data.2</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit2.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lmer3</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>         fit2.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lmer3</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
@@ -219,7 +219,7 @@ Figure 2.3: Partially Nested/Crossed
 </h2>
 <p>Understanding Group Structure: The correlation of random effects provides insight into the inherent structure of the groups in the data. It reveals the degree of similarity or dissimilarity between the random effects associated with different groups. This information helps to uncover patterns of clustering or similarity among the groups, which can be crucial in understanding the underlying mechanisms or processes being studied.</p>
 <p>Modeling Assumptions: The correlation of random effects is directly linked to the assumptions made about the covariance structure of the random effects in the model. By reporting the correlation, researchers can assess the validity of their modeling assumptions. Violations or deviations from the assumed correlation structure may indicate a need for alternative modeling approaches or further investigation into the nature of the group-level variability.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rand_dist2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">ranef</span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">grp</span>,</span>
 <span>          term <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"(Intercept)"</span> <span class="op">~</span> <span class="st">"b0_hat"</span>,</span>
@@ -255,11 +255,11 @@ Figure 2.3: Partially Nested/Crossed
 <span><span class="va">inset</span> <span class="op">&lt;-</span> <span class="va">xdens</span><span class="op">+</span><span class="va">pmain</span><span class="op">+</span><span class="va">ydens</span> <span class="op">+</span><span class="fu">plot_layout</span><span class="op">(</span>design <span class="op">=</span> <span class="va">layout</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">inset</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="op">(</span><span class="fu">plot_function</span><span class="op">(</span><span class="va">lmer1</span>, <span class="st">"Random intercept"</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span></span>
 <span>                    ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">inset_element</span><span class="op">(</span><span class="va">inset</span>, <span class="fl">0.1</span>, <span class="fl">0.6</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-47-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 <div id="model-refining" class="section level2" number="2.5">
 <h2>
@@ -476,7 +476,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
+    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

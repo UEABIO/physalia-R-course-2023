@@ -43,8 +43,13 @@ By including random effects, mixed models allow for the estimation of both withi
 
 In broad terms, fixed effects are variables that we expect will affect the dependent/response variable: they’re what you call explanatory variables in a standard linear regression. 
 
-
 Fixed effects are more common than random effects, at least in their use. Fixed effects estimate different levels with no relationship assumed between the levels. For example, in a model with a dependent variable of body length and a fixed effect for fish sex, you would get an estimate of mean body length for males and then an estimate for females separately. 
+
+We can consider this in terms of a very simple linear model, here the estimated intercept is the expected value of the outcome $y$ when the predictor $x$ has a value of 0. The estimated slope is the expected change in $y$ for a single unit change in $x$. These parameters are "fixed", meaning that each individual in the population has the same expected value for the intercept and slope. 
+
+The difference between the expected value and true value is called "residual error".
+
+$$Y_i = \beta_0 + \beta_1X_i + \epsilon_i$$
 
 #### Examples: 
 
@@ -60,7 +65,9 @@ Fixed effects are the default effects that we all learn as we begin to understan
 
 Random effects are less commonly used but perhaps more widely encountered in nature. Each level can be considered a random variable from an underlying process or distribution in a random effect. 
 
-On the other hand, random effects are usually grouping factors for which we are trying to control. They are always categorical, as you can’t force R to treat a continuous variable as a random effect. A lot of the time we are not specifically interested in their impact on the response variable, but we know that they might be influencing the patterns we see.
+A random effect is a parameter that is allowed to vary across groups or individuals. Random effects do not take a single fixed value, rather they follow a distribution (usually the normal distribution). Random effects can be added to a model to account for variation around an intercept or slope. Each individual or group then gets their own estimated random effect, representing an adjustment from the mean. 
+
+So random effects are usually grouping factors for which we are trying to control. They are always categorical, as you can’t force R to treat a continuous variable as a random effect. A lot of the time we are not specifically interested in their impact on the response variable, but we know that they might be influencing the patterns we see.
 
 #### Examples: 
 
@@ -70,15 +77,36 @@ On the other hand, random effects are usually grouping factors for which we are 
 
 3. Ecological Study: Imagine a research project investigating the effect of environmental factors on species abundance in different study sites. The study sites may be geographically dispersed, and a random effect can be included to account for the variation between study sites. The random effect captures the unexplained heterogeneity in species abundance across different sites, allowing for the examination of the effects of environmental variables while accounting for site-specific differences.
 
+The random effect $group_i$ is often assumed to follow a normal distribution with a mean of zero and a variance estimated during the model fitting process.
+
+$$Y_i = β_0 + U_j + ε_i$$
 
 <div class="info">
 <p>In the book “Data analysis using regression and
 multilevel/hierarchical models” (<span
 class="citation">@gelman_hill_2006</span>). The authors examined five
-definitions of fixed and random effects and found no definition that
-completely fit all circumstances. Thus it turns out fixed and random
-effects are not born but made. We make the decision to treat a variable
-as fixed or random in a particular analysis.</p>
+definitions of fixed and random effects and found no consistent
+agreement.</p>
+<ol style="list-style-type: decimal">
+<li><p>Fixed effects are constant across individuals, and random effects
+vary. For example, in a growth study, a model with random intercepts a_i
+and fixed slope b corresponds to parallel lines for different
+individuals i, or the model y_it = a_i + b t thus distinguish between
+fixed and random coefficients.</p></li>
+<li><p>Effects are fixed if they are interesting in themselves or random
+if there is interest in the underlying population.</p></li>
+<li><p>“When a sample exhausts the population, the corresponding
+variable is fixed; when the sample is a small (i.e., negligible) part of
+the population the corresponding variable is random.”</p></li>
+<li><p>“If an effect is assumed to be a realized value of a random
+variable, it is called a random effect.”</p></li>
+<li><p>Fixed effects are estimated using least squares (or, more
+generally, maximum likelihood) and random effects are estimated with
+shrinkage.</p></li>
+</ol>
+<p>Thus it turns out fixed and random effects are not born but made. We
+must make the decision to treat a variable as fixed or random in a
+particular analysis.</p>
 </div>
 
 > When determining wht should be a fixed or random effect in your study, consider what are you trying to do? What are you trying to make predictions about? What is just variation (a.k.a “noise”) that you need to control for?
@@ -553,10 +581,9 @@ summary(additive_model)
 
 A mixed model is a good choice here: it will allow us to use all the data we have (higher sample size) and account for the correlations between data coming from the groups. We will also estimate fewer parameters and avoid problems with multiple comparisons that we would encounter while using separate regressions.
 
-We can now join our random effect matrix to the full dataset and define our y values as 
+We can now join our random effect $U_j$ to the full dataset and define our y values as 
 
-$$Y_{ij} = \beta_0 + \beta_1X_{ij} + \gamma_{0i} + \gamma_{1i}X_{ij} + \epsilon_{ij}$$.
-
+$$Y_{ij} = β_0 + β_1*X_{ij} + U_j + ε_{ij}$$.
 
 
 We have a response variable, and we are attempting to explain part of the variation in test score through fitting an independent variable as a fixed effect. But the response variable has some residual variation (i.e. unexplained variation) associated with group. By using random effects, we are modeling that unexplained variation through variance.
@@ -569,6 +596,7 @@ This section will detail how to run mixed models with the `lmer` function in the
 
 
 <div class='webex-solution'><button>Plotting random intercepts</button>
+
 
 
 ```r
@@ -598,6 +626,8 @@ plot_function2(mixed_model, "Random intercept")
 
 
 <img src="01-mixed-model_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" />
+
+
 
 
 ```r
@@ -737,15 +767,21 @@ Pooling helps to improve the precision of the estimates by borrowing strength fr
 
 - Partial pooling/Mixed models: this model reflects the greater uncertainty of the Mean and SE of the intercept. However, the SED in a partial pooling model accounts for both the variability within groups and the uncertainty between groups. Compared to a no pooling approach, the SED in a partial pooling model tends to be smaller because it incorporates the pooled information, which reduces the overall uncertainty. This adjusted SED provides a more accurate measure of the uncertainty associated with the estimated differences between groups or fixed effects.
 
-## Plotting model outcomes
+## Variance and model outcomes
+
+One misconception about mixed-effects models is that we cannot produce estimates of the relationships for each group.
+
+But how do we do this? 
+
+We can use the `coef()` function to extract the estimates (strictly these are predictions) for the random effects. This output has several components. 
 
 ESTIMATES VS PREDICTIONS
+http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
+BLUPS
 
 
 ```r
 coef(mixed_model)
-
-fixef(mixed_model)
 ```
 
 ```
@@ -759,55 +795,125 @@ fixef(mixed_model)
 ## 
 ## attr(,"class")
 ## [1] "coef.mer"
+```
+
+This function produces our 'best linear unbiased predictions' (BLUPs) for the intercept and slope of the regression at each site. The predictions given here are different to those we would get if we ran individual models on each site, as BLUPs are a product of the compromise of complete-pooling and no-pooling models.  Now the predicted intercept is influenced by other sites leading to a process called 'shrinkage'. 
+
+Why are these called predictions and not estimates? Because we have estimated the variance at each site (at the bargain of using only a single degree of freedom for each random effect no matter how many levels!), and from here essentially borrowed information across sites, to improve the accuracy, to combine with the fixed effects. So in the strictest sense we are predicting relationships rather just through direct observation.
+
+This generous ability to make predictions is one of the main advantages of a mixed-model. 
+
+The `summary()` function has already provided the estimates of the fixed effects, but they can also be extracted with the `fixef()` function. 
+
+
+```r
+fixef(mixed_model)
+```
+
+```
 ## (Intercept)           x 
 ##   23.269187    2.027066
 ```
 
+We can also apply `anova()` to a single model to get an F-test for the fixed effect
 
 
 ```r
-plot_model(mixed_model,type="pred",
-           terms=c("x", "group"),
-           pred.type="re",
-           show.data = T)+
-  facet_wrap( ~ group)
+anova(mixed_model)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Sum Sq </th>
+   <th style="text-align:right;"> Mean Sq </th>
+   <th style="text-align:right;"> NumDF </th>
+   <th style="text-align:right;"> DenDF </th>
+   <th style="text-align:right;"> F value </th>
+   <th style="text-align:right;"> Pr(&gt;F) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 14303.23 </td>
+   <td style="text-align:right;"> 14303.23 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 424.0815 </td>
+   <td style="text-align:right;"> 141.6089 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+
+### Shrinkage in mixed models
+
+The graph below demonstrates the compromise between complete pooling and no pooling. It plots the overall regression line/mean (the fixed effects from the `lmer` model), the predicted slopes at each site from the mixed-effects model, and compares this to the estimates from each site (nested lm).  
+
+As you can see most of the groups show shrinkage, that is they deviate less from the overall mean, most obviously in group 5, where the sample size is deliberately reduced. Here you can see the predicted line is much closer to the overall regression line, reflecting the greater uncertainty. The slope is drawn towards the overall mean by shrinkage. 
+
 
 ```r
-###
+# Nesting the data by group
+nested_data <- data %>% 
+    group_by(group) %>% 
+    nest()
 
+# Fitting linear regression models and obtaining predictions for each group
+nested_models <- map(nested_data$data, ~ lm(y ~ x, data = .)) %>% 
+    map(predict)
+```
+
+
+
+```r
+# Creating a new dataframe and adding predictions from different models
 data1 <- data %>% 
   mutate(fit.m = predict(mixed_model, re.form = NA),
-         fit.c = predict(mixed_model, re.form = NULL))
+         fit.c = predict(mixed_model, re.form = NULL)) %>% 
+  arrange(group,obs) %>% 
+  mutate(fit.l = unlist(nested_models)) 
 
+# Creating a plot to visualize the predictions
 data1 %>% 
   ggplot(aes(x = x, y = y, colour = group)) +
     geom_point(pch = 16) + 
-  geom_line(aes(y = fit.c))+ 
-  geom_line(aes(y = fit.m), colour = "grey",
-            linetype = "dashed")+
-  facet_wrap( ~ group)
+  geom_line(aes(y = fit.l, linetype = "lm"), colour = "black")+
+  geom_line(aes(y = fit.c, linetype = "lmer"))+ 
+  geom_line(aes(y = fit.m, linetype = "Mean"), colour = "grey")+
+   scale_linetype_manual(name = "Model Type", 
+                        labels = c("Mean", "lmer", "lm"),
+                        values = c("dotdash", "solid", "dashed"))+
+  facet_wrap( ~ group)+
+  guides(colour = "none")
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-24-2.png" width="100%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-27-1.png" alt="Regression relationships from fixed-effects and mixed effects models, note shrinkage in group 5" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-27)Regression relationships from fixed-effects and mixed effects models, note shrinkage in group 5</p>
+</div>
 
 
-http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
+
 
 
 ```r
 plot_model(mixed_model, terms = c("x", "group"), type = "re")
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 plot_model(mixed_model, terms = c("x", "group"), type = "est")
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-25-2.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-28-2.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -845,7 +951,7 @@ pooled_plot /
   partial_plot
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ### `ggeffects`
@@ -862,7 +968,17 @@ With `type = random`: ggpredict will generate predictions that **incorporate bot
 
 ### `sjPlot`
 
-SHRINKAGE! 
+
+```r
+plot_model(mixed_model,type="pred",
+           terms=c("x", "group"),
+           pred.type="re",
+           show.data = T)+
+  facet_wrap( ~ group)
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
+
 
 BLUP - Hector book! 
 
@@ -874,7 +990,7 @@ BLUP - Hector book!
 plot(mixed_model) 
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -882,7 +998,7 @@ qqnorm(resid(mixed_model))
 qqline(resid(mixed_model)) 
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -895,7 +1011,7 @@ rand_dist <- as.data.frame(ranef(mixed_model)) %>%
 hist(rand_dist$b0_hat)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -916,8 +1032,8 @@ data1 %>%
 ```
 
 <div class="figure" style="text-align: center">
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-30-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-30)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-34-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-34)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
 </div>
 
 `re.form = NA`: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
@@ -929,7 +1045,7 @@ data1 %>%
 performance::check_model(mixed_model)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-35-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -939,7 +1055,7 @@ resid.mm <- DHARMa::simulateResiduals(mixed_model)
 plot(resid.mm)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 <div class="warning">
@@ -983,33 +1099,33 @@ Understanding whether your experimental/sampling design calls for nested or cros
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4742ce309c84006b4955" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-4742ce309c84006b4955">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-309c84006b49558015fb" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-309c84006b49558015fb">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-34)Fully Nested</p>
+<p class="caption">(\#fig:unnamed-chunk-38)Fully Nested</p>
 </div>
 
 
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8015fb63f5c0dd7c2786" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-8015fb63f5c0dd7c2786">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-63f5c0dd7c2786b1d1c6" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-63f5c0dd7c2786b1d1c6">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-35)Fully Crossed</p>
+<p class="caption">(\#fig:unnamed-chunk-39)Fully Crossed</p>
 </div>
 
 
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b1d1c6f9b59552fdce3c" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-b1d1c6f9b59552fdce3c">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f9b59552fdce3ccc22cc" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-f9b59552fdce3ccc22cc">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-36)Partially Nested/Crossed</p>
+<p class="caption">(\#fig:unnamed-chunk-40)Partially Nested/Crossed</p>
 </div>
 
 
@@ -1019,7 +1135,7 @@ Understanding whether your experimental/sampling design calls for nested or cros
 
 
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1114,7 +1230,7 @@ inset <- xdens+pmain+ydens +plot_layout(design = layout)
 inset
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1126,7 +1242,7 @@ inset
                     ylim = c(0, 120))) + inset_element(inset, 0.1, 0.6, 0.5, 1)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-47-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Model refining
@@ -1252,7 +1368,36 @@ summary(bio.lmer2)
 ```
 
 
-## Likelihood tests
+## Likelihood Ratio tests
+
+Once we have produce an initial model with a random effects structure, we may wish to perform model selection by comparing different nested models with varying random effects structures. It allows us to assess whether the inclusion of additional random effects or changes in the random effects structure significantly improve the model fit. By comparing the likelihood values of different nested models, we can determine which model provides a better fit to the data.
+
+<div class="warning">
+<p>There is a literature on the idea of model selection, that is, an
+automated (or sometimes manual) way of testing many versions of a model
+with a different subset of the predictors in an attempt to find the
+model that fits best. These are sometimes called “stepwise”
+procedures.</p>
+<p>Others argue this method has a number of flaws, including:</p>
+<ul>
+<li><p>Doing this is basically “p-value mining”, that is, running a lot
+of tests till you find a p-value you like.</p></li>
+<li><p>Your likelihood of making a false positive is very high.</p></li>
+<li><p>Adding/removing a new variable can have an effect on other
+predictors.</p></li>
+</ul>
+<p>Instead of doing model selection, you should use your knowledge of
+the data to select a subset of the variables which are either a) of
+importance to you, or b) theoretically influential on the outcome. Then
+you can fit a single model including all of this.</p>
+<p>However, I would argue that while the inclusion of random effects and
+their structure should have a clear rationale before implementation,
+adjustments to better understand the best type of random effects
+structure is perfectly reasonable.</p>
+</div>
+
+We can perform a Likelihood ratio test (LRT) with the `anova()` function:
+
 
 
 ```r
@@ -1306,25 +1451,34 @@ anova(bio.lmer2, bio.lmer3)
 </div>
 
 
-There is a literature on the idea of model selection, that is, an automated (or sometimes manual) way of testing many versions of a model with a different subset of the predictors in an attempt to find the model that fits best. These are sometimes called “stepwise” procedures.
+Frequentist fit used by LMM through lme4 / lmer is based on the **Maximum Likelihood principle**, where we maximize the likelihood $L(y)$ of observing the data $y$, which is equivalent to minimizing residuals of the model, the Ordinary Least Squares (OLS) approach.  It measures the probability of observing the data given a specific set of parameter values. 
 
-This method has a number of flaws, including
+When we are attempting to optimise a model we can use the likelihood ratio test (LRT). Given two nested models, denoted as Model 1 and Model 2, the LRT compares the likelihood values of these models to assess whether the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1. The LRT statistic, denoted as $D$, is calculated as the difference between the log-likelihood values of Model 1 and Model 2, multiplied by 2:
 
-Doing this is basically “p-value mining”, that is, running a lot of tests till you find a p-value you like.
-Your likelihood of making a false positive is very high.
-As we saw earlier, adding a new variable can have an effect on existing predictors.
-Instead of doing model selection, you should use your knowledge of the data to select a subset of the variables which are either a) of importance to you, b) theoretically influential on the outcome (e.g. demographic variables) or c) what others (reviewers) would think are influential on the outcome. Then you can fit a single model including all of this. The “subset” can be all predictors if the sample size is sufficient.
+$$D = -2~*~(ln(L_1)-ln(L_2))$$
 
-Note that adjustments to fix assumptions (e.g. transformations) or multicollinearity would not fall into the category of model selection and are fine to use.
+Here $L_1$ represents the likelihood value of Model 1, and $L_2$ represents the likelihood value of Model 2. The LRT statistic follows a chi-square ($\chi^2$) distribution with degrees of freedom equal to the difference in the number of parameters between the two models.
+
+To determine the statistical significance of the LRT statistic, one can compare it to the critical value from the chi-square distribution with the appropriate degrees of freedom. If the LRT statistic exceeds the critical value, it indicates that the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1.
+
+ML estimation is often used to perform hypothesis tests, including the chi-square test. The chi-square test compares the observed data to the expected data predicted by a statistical model. It assesses the goodness-of-fit between the observed data and the model's predictions.
+
+### REML
+
+REML (Restricted Maximum Likelihood) estimation is a variant of ML estimation that addresses the issue of bias in the estimation of random effects in mixed effects models. In mixed effects models, random effects account for the variation at the group or individual level that is not explained by the fixed effects. However, the inclusion of random effects introduces a bias in the ML estimates, as they are influenced by the variability of the random effects. 
+
+REML estimation addresses this bias by optimizing the likelihood function conditional on the fixed effects only, effectively removing the influence of the random effects on the estimation. This approach provides unbiased estimates of the fixed effects and is especially useful when the primary interest lies in the fixed effects rather than the random effects.
+
+### ML vs. REML fitting
+
+Maximum Likelihood (ML) estimation is preferable when comparing nested models because it allows for the direct comparison of the likelihood values between different models. ML estimation provides a quantitative measure of how well a given model fits the observed data, based on the likelihood function.
+
+In this context, ML estimation is preferable because it allows for a formal statistical comparison between nested models. It provides a rigorous and objective way to assess whether the inclusion of additional parameters in the more complex model leads to a significantly better fit to the data compared to the simpler model. This approach ensures that model comparisons are based on sound statistical principles and helps in determining the most appropriate model for the given data.
+
+Older versions of model fitting packages like `lmer` used to require the manual switch between REML and ML when fitting models in order to switch between the objectives of assessing goodness-of-fit and interpreting estimates. But you will notice that when you perform an LRT with the `anova()` function it informs you the switch is being made automatically. 
 
 
-<div class="info">
-<p>ML and REML</p>
-</div>
-
-
-
-
+### Model predictions
 
 
 ```r
@@ -1356,7 +1510,7 @@ biodepth.2 %>%
    theme(legend.position = "none")
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-52-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-56-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Reporting Mixed Model results
@@ -1424,7 +1578,7 @@ dolphins.1 %>%
        y = "VT") 
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1435,7 +1589,7 @@ plot_model(dolphmod.2,type="pred",
            show.data = T)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 plot_model(dolphmod.2,type="pred",
@@ -1444,7 +1598,7 @@ plot_model(dolphmod.2,type="pred",
            show.data = T)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-59-2.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-63-2.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Summary
@@ -1475,6 +1629,8 @@ https://ademos.people.uic.edu/Chapter17.html#121_crossed__nested_designs
 HARRISON?
 
 MODEL CONVERGENCE - BAKER
+
+BOUNDARY FIT
 
 lmer3 <- lmer(y ~ x + (x | group), data = data, control = lmerControl(optimizer ="Nelder_Mead"))
 

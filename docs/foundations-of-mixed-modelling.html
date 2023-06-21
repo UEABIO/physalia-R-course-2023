@@ -4,19 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 1 Foundations of Mixed Modelling | 5023Y</title>
+<title>Chapter 1 Foundations of Mixed Modelling | Mixed Models</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="1.1 What is a mixed model? Mixed models (also known as linear mixed models or hierarchical linear models) are statistical tests that build on the simpler tests of regression, t-tests and ANOVA....">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 1 Foundations of Mixed Modelling | 5023Y">
+<meta property="og:title" content="Chapter 1 Foundations of Mixed Modelling | Mixed Models">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/data-sci/foundations-of-mixed-modelling.html">
-<meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta property="og:url" content="https://ueabio.github.io/intro-mixed-models/foundations-of-mixed-modelling.html">
+<meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <meta property="og:description" content="1.1 What is a mixed model? Mixed models (also known as linear mixed models or hierarchical linear models) are statistical tests that build on the simpler tests of regression, t-tests and ANOVA....">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 1 Foundations of Mixed Modelling | 5023Y">
+<meta name="twitter:title" content="Chapter 1 Foundations of Mixed Modelling | Mixed Models">
 <meta name="twitter:description" content="1.1 What is a mixed model? Mixed models (also known as linear mixed models or hierarchical linear models) are statistical tests that build on the simpler tests of regression, t-tests and ANOVA....">
-<meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -97,8 +97,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="Data Science for Biologists">5023Y</a>:
-        <small class="text-muted">Data Science for Biologists</small>
+        <a href="index.html" title="An introduction in R">Mixed Models</a>:
+        <small class="text-muted">An introduction in R</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -158,6 +158,9 @@
 </h3>
 <p>In broad terms, fixed effects are variables that we expect will affect the dependent/response variable: they’re what you call explanatory variables in a standard linear regression.</p>
 <p>Fixed effects are more common than random effects, at least in their use. Fixed effects estimate different levels with no relationship assumed between the levels. For example, in a model with a dependent variable of body length and a fixed effect for fish sex, you would get an estimate of mean body length for males and then an estimate for females separately.</p>
+<p>We can consider this in terms of a very simple linear model, here the estimated intercept is the expected value of the outcome <span class="math inline">\(y\)</span> when the predictor <span class="math inline">\(x\)</span> has a value of 0. The estimated slope is the expected change in <span class="math inline">\(y\)</span> for a single unit change in <span class="math inline">\(x\)</span>. These parameters are "fixed", meaning that each individual in the population has the same expected value for the intercept and slope.</p>
+<p>The difference between the expected value and true value is called "residual error".</p>
+<p><span class="math display">\[Y_i = \beta_0 + \beta_1X_i + \epsilon_i\]</span></p>
 <div id="examples" class="section level4" number="1.2.1.1">
 <h4>
 <span class="header-section-number">1.2.1.1</span> Examples:<a class="anchor" aria-label="anchor" href="#examples"><i class="fas fa-link"></i></a>
@@ -175,7 +178,8 @@
 <span class="header-section-number">1.2.2</span> Random effects<a class="anchor" aria-label="anchor" href="#random-effects"><i class="fas fa-link"></i></a>
 </h3>
 <p>Random effects are less commonly used but perhaps more widely encountered in nature. Each level can be considered a random variable from an underlying process or distribution in a random effect.</p>
-<p>On the other hand, random effects are usually grouping factors for which we are trying to control. They are always categorical, as you can’t force R to treat a continuous variable as a random effect. A lot of the time we are not specifically interested in their impact on the response variable, but we know that they might be influencing the patterns we see.</p>
+<p>A random effect is a parameter that is allowed to vary across groups or individuals. Random effects do not take a single fixed value, rather they follow a distribution (usually the normal distribution). Random effects can be added to a model to account for variation around an intercept or slope. Each individual or group then gets their own estimated random effect, representing an adjustment from the mean.</p>
+<p>So random effects are usually grouping factors for which we are trying to control. They are always categorical, as you can’t force R to treat a continuous variable as a random effect. A lot of the time we are not specifically interested in their impact on the response variable, but we know that they might be influencing the patterns we see.</p>
 <div id="examples-1" class="section level4" number="1.2.2.1">
 <h4>
 <span class="header-section-number">1.2.2.1</span> Examples:<a class="anchor" aria-label="anchor" href="#examples-1"><i class="fas fa-link"></i></a>
@@ -185,14 +189,56 @@
 <li><p>Social Network Analysis: Suppose a study examines the influence of peer groups on adolescent behavior. The study may collect data on individual behaviors within schools, where students are nested within classrooms. In this scenario, a random effect can be incorporated at the classroom level to account for the shared social environment within each classroom. The random effect captures the variability in behavior among classrooms that is not accounted for by the fixed effects, enabling the study to analyze the effects of individual-level and classroom-level factors simultaneously.</p></li>
 <li><p>Ecological Study: Imagine a research project investigating the effect of environmental factors on species abundance in different study sites. The study sites may be geographically dispersed, and a random effect can be included to account for the variation between study sites. The random effect captures the unexplained heterogeneity in species abundance across different sites, allowing for the examination of the effects of environmental variables while accounting for site-specific differences.</p></li>
 </ol>
+<p>The random effect <span class="math inline">\(group_i\)</span> is often assumed to follow a normal distribution with a mean of zero and a variance estimated during the model fitting process.</p>
+<p><span class="math display">\[Y_i = β_0 + U_j + ε_i\]</span></p>
 <div class="info">
 <p>
 In the book “Data analysis using regression and
 multilevel/hierarchical models” (<span class="citation"><span class="citation">Gelman &amp; Hill (<a href="summary.html#ref-gelman_hill_2006" role="doc-biblioref">2006</a>)</span></span>). The authors examined five
-definitions of fixed and random effects and found no definition that
-completely fit all circumstances. Thus it turns out fixed and random
-effects are not born but made. We make the decision to treat a variable
-as fixed or random in a particular analysis.
+definitions of fixed and random effects and found no consistent
+agreement.
+</p>
+<ol style="list-style-type: decimal">
+<li>
+<p>
+Fixed effects are constant across individuals, and random effects
+vary. For example, in a growth study, a model with random intercepts a_i
+and fixed slope b corresponds to parallel lines for different
+individuals i, or the model y_it = a_i + b t thus distinguish between
+fixed and random coefficients.
+</p>
+</li>
+<li>
+<p>
+Effects are fixed if they are interesting in themselves or random
+if there is interest in the underlying population.
+</p>
+</li>
+<li>
+<p>
+“When a sample exhausts the population, the corresponding
+variable is fixed; when the sample is a small (i.e., negligible) part of
+the population the corresponding variable is random.”
+</p>
+</li>
+<li>
+<p>
+“If an effect is assumed to be a realized value of a random
+variable, it is called a random effect.”
+</p>
+</li>
+<li>
+<p>
+Fixed effects are estimated using least squares (or, more
+generally, maximum likelihood) and random effects are estimated with
+shrinkage.
+</p>
+</li>
+</ol>
+<p>
+Thus it turns out fixed and random effects are not born but made. We
+must make the decision to treat a variable as fixed or random in a
+particular analysis.
 </p>
 </div>
 <blockquote>
@@ -725,8 +771,8 @@ report_p function
 <span class="header-section-number">1.4</span> Our first mixed model<a class="anchor" aria-label="anchor" href="#our-first-mixed-model"><i class="fas fa-link"></i></a>
 </h2>
 <p>A mixed model is a good choice here: it will allow us to use all the data we have (higher sample size) and account for the correlations between data coming from the groups. We will also estimate fewer parameters and avoid problems with multiple comparisons that we would encounter while using separate regressions.</p>
-<p>We can now join our random effect matrix to the full dataset and define our y values as</p>
-<p><span class="math display">\[Y_{ij} = \beta_0 + \beta_1X_{ij} + \gamma_{0i} + \gamma_{1i}X_{ij} + \epsilon_{ij}\]</span>.</p>
+<p>We can now join our random effect <span class="math inline">\(U_j\)</span> to the full dataset and define our y values as</p>
+<p><span class="math display">\[Y_{ij} = β_0 + β_1*X_{ij} + U_j + ε_{ij}\]</span>.</p>
 <p>We have a response variable, and we are attempting to explain part of the variation in test score through fitting an independent variable as a fixed effect. But the response variable has some residual variation (i.e. unexplained variation) associated with group. By using random effects, we are modeling that unexplained variation through variance.</p>
 <p>We now want to know if an association between <code>y ~ x</code> exists after controlling for the variation in group.</p>
 <div id="running-mixed-effects-models-with-lmertest" class="section level3" number="1.4.1">
@@ -934,15 +980,18 @@ Mixed Model/Partial Pool
 </ul>
 </div>
 </div>
-<div id="plotting-model-outcomes" class="section level2" number="1.5">
+<div id="variance-and-model-outcomes" class="section level2" number="1.5">
 <h2>
-<span class="header-section-number">1.5</span> Plotting model outcomes<a class="anchor" aria-label="anchor" href="#plotting-model-outcomes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.5</span> Variance and model outcomes<a class="anchor" aria-label="anchor" href="#variance-and-model-outcomes"><i class="fas fa-link"></i></a>
 </h2>
-<p>ESTIMATES VS PREDICTIONS</p>
+<p>One misconception about mixed-effects models is that we cannot produce estimates of the relationships for each group.</p>
+<p>But how do we do this?</p>
+<p>We can use the <code><a href="https://rdrr.io/r/stats/coef.html">coef()</a></code> function to extract the estimates (strictly these are predictions) for the random effects. This output has several components.</p>
+<p>ESTIMATES VS PREDICTIONS
+<a href="http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/" class="uri">http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/</a>
+BLUPS</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">fixef</span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $group
 ##   (Intercept)        x
 ## 1    11.82356 2.027066
@@ -952,39 +1001,115 @@ Mixed Model/Partial Pool
 ## 5    19.88385 2.027066
 ## 
 ## attr(,"class")
-## [1] "coef.mer"
-## (Intercept)           x 
-##   23.269187    2.027066</code></pre>
+## [1] "coef.mer"</code></pre>
+<p>This function produces our 'best linear unbiased predictions' (BLUPs) for the intercept and slope of the regression at each site. The predictions given here are different to those we would get if we ran individual models on each site, as BLUPs are a product of the compromise of complete-pooling and no-pooling models. Now the predicted intercept is influenced by other sites leading to a process called 'shrinkage'.</p>
+<p>Why are these called predictions and not estimates? Because we have estimated the variance at each site (at the bargain of using only a single degree of freedom for each random effect no matter how many levels!), and from here essentially borrowed information across sites, to improve the accuracy, to combine with the fixed effects. So in the strictest sense we are predicting relationships rather just through direct observation.</p>
+<p>This generous ability to make predictions is one of the main advantages of a mixed-model.</p>
+<p>The <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function has already provided the estimates of the fixed effects, but they can also be extracted with the <code>fixef()</code> function.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>,type<span class="op">=</span><span class="st">"pred"</span>,</span>
-<span>           terms<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>,</span>
-<span>           pred.type<span class="op">=</span><span class="st">"re"</span>,</span>
-<span>           show.data <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">###</span></span>
+<code class="sourceCode R"><span><span class="fu">fixef</span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## (Intercept)           x 
+##   23.269187    2.027066</code></pre>
+<p>We can also apply <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> to a single model to get an F-test for the fixed effect</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Sum Sq
+</th>
+<th style="text-align:right;">
+Mean Sq
+</th>
+<th style="text-align:right;">
+NumDF
+</th>
+<th style="text-align:right;">
+DenDF
+</th>
+<th style="text-align:right;">
+F value
+</th>
+<th style="text-align:right;">
+Pr(&gt;F)
+</th>
+</tr></thead>
+<tbody><tr>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:right;">
+14303.23
+</td>
+<td style="text-align:right;">
+14303.23
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+424.0815
+</td>
+<td style="text-align:right;">
+141.6089
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<div id="shrinkage-in-mixed-models" class="section level3" number="1.5.1">
+<h3>
+<span class="header-section-number">1.5.1</span> Shrinkage in mixed models<a class="anchor" aria-label="anchor" href="#shrinkage-in-mixed-models"><i class="fas fa-link"></i></a>
+</h3>
+<p>The graph below demonstrates the compromise between complete pooling and no pooling. It plots the overall regression line/mean (the fixed effects from the <code>lmer</code> model), the predicted slopes at each site from the mixed-effects model, and compares this to the estimates from each site (nested lm).</p>
+<p>As you can see most of the groups show shrinkage, that is they deviate less from the overall mean, most obviously in group 5, where the sample size is deliberately reduced. Here you can see the predicted line is much closer to the overall regression line, reflecting the greater uncertainty. The slope is drawn towards the overall mean by shrinkage.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Nesting the data by group</span></span>
+<span><span class="va">nested_data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># Fitting linear regression models and obtaining predictions for each group</span></span>
+<span><span class="va">nested_models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">nested_data</span><span class="op">$</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">predict</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Creating a new dataframe and adding predictions from different models</span></span>
 <span><span class="va">data1</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mixed_model</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>         fit.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mixed_model</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span>
+<span>         fit.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mixed_model</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">group</span>,<span class="va">obs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit.l <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">nested_models</span><span class="op">)</span><span class="op">)</span> </span>
 <span></span>
+<span><span class="co"># Creating a plot to visualize the predictions</span></span>
 <span><span class="va">data1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, colour <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">16</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">fit.c</span><span class="op">)</span><span class="op">)</span><span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">fit.m</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"grey"</span>,</span>
-<span>            linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-24-2.png" width="100%" style="display: block; margin: auto;"></div>
-<p><a href="http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/" class="uri">http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/</a></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">fit.l</span>, linetype <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">fit.c</span>, linetype <span class="op">=</span> <span class="st">"lmer"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">fit.m</span>, linetype <span class="op">=</span> <span class="st">"Mean"</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span><span class="op">+</span></span>
+<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_linetype_manual</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Model Type"</span>, </span>
+<span>                        labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Mean"</span>, <span class="st">"lmer"</span>, <span class="st">"lm"</span><span class="op">)</span>,</span>
+<span>                        values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dotdash"</span>, <span class="st">"solid"</span>, <span class="st">"dashed"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">group</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-27"></span>
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-27-1.png" alt="Regression relationships from fixed-effects and mixed effects models, note shrinkage in group 5" width="100%"><p class="caption">
+Figure 1.5: Regression relationships from fixed-effects and mixed effects models, note shrinkage in group 5
+</p>
+</div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"re"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"est"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-25-2.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-28-2.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">basic_pred</span> <span class="op">&lt;-</span> <span class="fu">emmeans</span><span class="op">(</span><span class="va">basic_model</span>, specs <span class="op">=</span> <span class="op">~</span>  <span class="va">x</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2.5</span>, <span class="fl">5</span>, <span class="fl">7.5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mixed_pred</span> <span class="op">&lt;-</span> <span class="fu">emmeans</span><span class="op">(</span><span class="va">mixed_model</span>, specs <span class="op">=</span> <span class="op">~</span>  <span class="va">x</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2.5</span>, <span class="fl">5</span>, <span class="fl">7.5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1015,30 +1140,37 @@ Mixed Model/Partial Pool
 <span></span>
 <span><span class="va">pooled_plot</span> <span class="op">/</span></span>
 <span>  <span class="va">partial_plot</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div id="ggeffects" class="section level3" number="1.5.1">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="ggeffects" class="section level3" number="1.5.2">
 <h3>
-<span class="header-section-number">1.5.1</span> <code>ggeffects</code><a class="anchor" aria-label="anchor" href="#ggeffects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.5.2</span> <code>ggeffects</code><a class="anchor" aria-label="anchor" href="#ggeffects"><i class="fas fa-link"></i></a>
 </h3>
-<div id="ggpredict" class="section level4" number="1.5.1.1">
+<div id="ggpredict" class="section level4" number="1.5.2.1">
 <h4>
-<span class="header-section-number">1.5.1.1</span> <code>ggpredict</code><a class="anchor" aria-label="anchor" href="#ggpredict"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.5.2.1</span> <code>ggpredict</code><a class="anchor" aria-label="anchor" href="#ggpredict"><i class="fas fa-link"></i></a>
 </h4>
 <p>The argument <code>type = random</code> in the <code>ggpredict</code> function (from the ggeffects package <span class="citation">Lüdecke (<a href="summary.html#ref-R-ggeffects" role="doc-biblioref">2023</a>)</span>) is used to specify the type of predictions to be generated in the context of mixed effects models. The main difference between using <code>ggpredict</code> with and without <code>type = random</code> lies in the type of predictions produced:</p>
 <p>Without <code>type = random</code>: <code>ggpredict</code> will generate <strong>fixed-effects predictions</strong>. These predictions are based solely on the fixed effects of the model, ignoring any variability associated with the random effects. The resulting predictions represent the average or expected values of the response variable for specific combinations of predictor values, considering only the fixed components of the model.</p>
 <p>With <code>type = random</code>: ggpredict will generate predictions that <strong>incorporate both fixed and random effects</strong>. These predictions take into account the variability introduced by the random effects in the model. The resulting predictions reflect not only the average trend captured by the fixed effects but also the additional variability associated with the random effects at different levels of the grouping factor(s).</p>
 </div>
-<div id="ggemmeans" class="section level4" number="1.5.1.2">
+<div id="ggemmeans" class="section level4" number="1.5.2.2">
 <h4>
-<span class="header-section-number">1.5.1.2</span> <code>ggemmeans</code><a class="anchor" aria-label="anchor" href="#ggemmeans"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.5.2.2</span> <code>ggemmeans</code><a class="anchor" aria-label="anchor" href="#ggemmeans"><i class="fas fa-link"></i></a>
 </h4>
 </div>
 </div>
-<div id="sjplot" class="section level3" number="1.5.2">
+<div id="sjplot" class="section level3" number="1.5.3">
 <h3>
-<span class="header-section-number">1.5.2</span> <code>sjPlot</code><a class="anchor" aria-label="anchor" href="#sjplot"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.5.3</span> <code>sjPlot</code><a class="anchor" aria-label="anchor" href="#sjplot"><i class="fas fa-link"></i></a>
 </h3>
-<p>SHRINKAGE!</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>,type<span class="op">=</span><span class="st">"pred"</span>,</span>
+<span>           terms<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>,</span>
+<span>           pred.type<span class="op">=</span><span class="st">"re"</span>,</span>
+<span>           show.data <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>BLUP - Hector book!</p>
 </div>
 </div>
@@ -1046,14 +1178,14 @@ Mixed Model/Partial Pool
 <h2>
 <span class="header-section-number">1.6</span> Checking model assumptions<a class="anchor" aria-label="anchor" href="#checking-model-assumptions"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span> </span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html">qqnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html">qqline</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rand_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">ranef</span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">grp</span>,</span>
 <span>         b0_hat <span class="op">=</span> <span class="va">condval</span>,</span>
@@ -1061,8 +1193,8 @@ Mixed Model/Partial Pool
 <span>         .keep <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">rand_dist</span><span class="op">$</span><span class="va">b0_hat</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">16</span>, col <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1077,21 +1209,21 @@ Mixed Model/Partial Pool
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Independent Variable"</span>, </span>
 <span>       y <span class="op">=</span> <span class="st">"Dependent Variable"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-30"></span>
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-30-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%"><p class="caption">
-Figure 1.5: Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts
+<span style="display:block;" id="fig:unnamed-chunk-34"></span>
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-34-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%"><p class="caption">
+Figure 1.6: Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts
 </p>
 </div>
 <p><code>re.form = NA</code>: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.</p>
 <p><code>re.form = NULL</code>: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-35-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">resid.mm</span> <span class="op">&lt;-</span> <span class="fu">DHARMa</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DHARMa/man/simulateResiduals.html">simulateResiduals</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">resid.mm</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="warning">
 <p>
 When you have a lot of data, even minimal deviations from the
@@ -1314,9 +1446,10 @@ $( document ).ready(function() {
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#plotting-model-outcomes"><span class="header-section-number">1.5</span> Plotting model outcomes</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#ggeffects"><span class="header-section-number">1.5.1</span> ggeffects</a></li>
-<li><a class="nav-link" href="#sjplot"><span class="header-section-number">1.5.2</span> sjPlot</a></li>
+<a class="nav-link" href="#variance-and-model-outcomes"><span class="header-section-number">1.5</span> Variance and model outcomes</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#shrinkage-in-mixed-models"><span class="header-section-number">1.5.1</span> Shrinkage in mixed models</a></li>
+<li><a class="nav-link" href="#ggeffects"><span class="header-section-number">1.5.2</span> ggeffects</a></li>
+<li><a class="nav-link" href="#sjplot"><span class="header-section-number">1.5.3</span> sjPlot</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#checking-model-assumptions"><span class="header-section-number">1.6</span> Checking model assumptions</a></li>
@@ -1338,7 +1471,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
+    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

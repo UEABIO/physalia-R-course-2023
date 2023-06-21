@@ -1,8 +1,8 @@
 --- 
-title: "5023Y"
+title: "Mixed Models"
 author: "Philip T. Leftwich"
 date: "2023-06-21"
-subtitle: Data Science for Biologists
+subtitle: An introduction in R
 site: bookdown::bookdown_site
 documentclass: book
 bibliography:
@@ -13,8 +13,8 @@ csl: include/apa.csl
 link-citations: yes
 description: |
   This book ...
-url: https://ueabio.github.io/data-sci
-github-repo: UEABIO/data-sci
+url: https://ueabio.github.io/intro-mixed-models
+github-repo: UEABIO/intro-mixed-models
 cover-image: images/logos/twitter_card.png
 apple-touch-icon: images/logos/apple-touch-icon.png
 apple-touch-icon-size: 180
@@ -59,5 +59,11 @@ To sum it up, random effects and mixed models help us deal with situations where
 
 ### Variance
 
-To understand mixed- and random effects models, we need to understand random effects and to understand random effects, we need to understand variance. We often need to think more about where the variance in our system is showing up in our model or how our model handles the variance that we know will be there. Historically variance was seen as noise and distraction, and the objective was to remove or minimize all possible variance. Variance has often been seen as a nuisance parameter. However, there can be information in the variance. Variance is ubiquitous, but understanding what part of the system holds what proportions of the variance can benefit our understanding of the systems we seek to model. We should be familiar with the residual variance from our linear models, but might that residual variance be better attributed to within a group? Or between a group?
+To understand mixed- and random effects models, we need to understand random effects and to understand random effects, we need to understand variance. 
+
+> Variance is a statistical measure that quantifies the spread or dispersion of a set of data points. It provides a measure of how much the values in a dataset deviate from the mean.
+
+To calculate the variance in a linear model (ordinary least squares), you first obtain the residuals, which are the differences between the observed response values and the predicted values. Then, you square each residual to eliminate the negative signs and calculate the sum of these squared residuals. Finally, you divide the sum by the degrees of freedom, which is the total number of observations minus the number of estimated coefficients in the model.
+
+o estimate the variance components in a linear mixed model, likelihood-based methods such as [maximum likelihood estimation (MLE)](https://towardsdatascience.com/probability-concepts-explained-maximum-likelihood-estimation-c7b4342fdbb1) or restricted maximum likelihood estimation (REML) are commonly used. These methods optimize the likelihood function by adjusting the model parameters, including the variance components, to find the values that best fit the observed data. 
 

@@ -4,19 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 7 Summary | 5023Y</title>
+<title>Chapter 7 Summary | Mixed Models</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="Here is a suggested workflow: Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 7 Summary | 5023Y">
+<meta property="og:title" content="Chapter 7 Summary | Mixed Models">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/data-sci/summary.html">
-<meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta property="og:url" content="https://ueabio.github.io/intro-mixed-models/summary.html">
+<meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <meta property="og:description" content="Here is a suggested workflow: Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 7 Summary | 5023Y">
+<meta name="twitter:title" content="Chapter 7 Summary | Mixed Models">
 <meta name="twitter:description" content="Here is a suggested workflow: Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main...">
-<meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -97,8 +97,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="Data Science for Biologists">5023Y</a>:
-        <small class="text-muted">Data Science for Biologists</small>
+        <a href="index.html" title="An introduction in R">Mixed Models</a>:
+        <small class="text-muted">An introduction in R</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -150,6 +150,7 @@
 </h2>
 <p>HARRISON?</p>
 <p>MODEL CONVERGENCE - BAKER</p>
+<p>BOUNDARY FIT</p>
 <p>lmer3 &lt;- lmer(y ~ x + (x | group), data = data, control = lmerControl(optimizer ="Nelder_Mead"))</p>
 <p>CHECK THIS!</p>
 <p>With mixed models, the solution is arrived at iteratively, which means it can fail to converge for a number of reasons. Generally, failure to converge will be due to an issue with the data.</p>
@@ -416,7 +417,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
+    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

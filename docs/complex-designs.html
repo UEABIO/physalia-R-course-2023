@@ -4,19 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 3 Complex designs | 5023Y</title>
+<title>Chapter 3 Complex designs | Mixed Models</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="Download BIODEPTH data biodepth &lt;- biodepth %&gt;%  mutate(Mix = factor(Mix),     Diversity2 = log(Diversity, 2)) %&gt;%  drop_na() # set Mix as a factor # Set Diversity to log, base 2 bio.lmer1 &lt;-...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 3 Complex designs | 5023Y">
+<meta property="og:title" content="Chapter 3 Complex designs | Mixed Models">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/data-sci/complex-designs.html">
-<meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta property="og:url" content="https://ueabio.github.io/intro-mixed-models/complex-designs.html">
+<meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <meta property="og:description" content="Download BIODEPTH data biodepth &lt;- biodepth %&gt;%  mutate(Mix = factor(Mix),     Diversity2 = log(Diversity, 2)) %&gt;%  drop_na() # set Mix as a factor # Set Diversity to log, base 2 bio.lmer1 &lt;-...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 3 Complex designs | 5023Y">
+<meta name="twitter:title" content="Chapter 3 Complex designs | Mixed Models">
 <meta name="twitter:description" content="Download BIODEPTH data biodepth &lt;- biodepth %&gt;%  mutate(Mix = factor(Mix),     Diversity2 = log(Diversity, 2)) %&gt;%  drop_na() # set Mix as a factor # Set Diversity to log, base 2 bio.lmer1 &lt;-...">
-<meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -97,8 +97,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="Data Science for Biologists">5023Y</a>:
-        <small class="text-muted">Data Science for Biologists</small>
+        <a href="index.html" title="An introduction in R">Mixed Models</a>:
+        <small class="text-muted">An introduction in R</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -133,7 +133,7 @@
 <a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/Biodepth.txt">
 <button class="btn btn-success"><i class="fa fa-save"></i> Download BIODEPTH data</button>
 </a>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">biodepth</span> <span class="op">&lt;-</span> <span class="va">biodepth</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Mix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Mix</span><span class="op">)</span>,</span>
 <span>         Diversity2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">Diversity</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -141,7 +141,7 @@
 <span></span>
 <span><span class="co"># set Mix as a factor</span></span>
 <span><span class="co"># Set Diversity to log, base 2</span></span></code></pre></div>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bio.lmer1</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">Shoot2</span> <span class="op">~</span> <span class="va">Diversity2</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Site</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Block</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Mix</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">biodepth</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bio.lmer1</span><span class="op">)</span></span></code></pre></div>
@@ -179,7 +179,7 @@
 <p>To summarize:</p>
 <p>1 | Site:Mix: Two-way crossed random effect, allowing for independent variation of random effects for each combination of levels in Site and Mix.
 1 | Site/Mix: Nested random effect, with the random effect of Mix nested within the random effect of Site, assuming that the levels of Mix are nested within each level of Site.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bio.lmer2</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">Shoot2</span> <span class="op">~</span> <span class="va">Diversity2</span> <span class="op">+</span> <span class="op">(</span><span class="va">Diversity2</span><span class="op">|</span><span class="va">Site</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Block</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Mix</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">biodepth</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bio.lmer2</span><span class="op">)</span></span></code></pre></div>
@@ -216,11 +216,56 @@
 ## Diversity2 0.399 
 ## optimizer (nloptwrap) convergence code: 0 (OK)
 ## boundary (singular) fit: see help('isSingular')</code></pre>
-<div id="likelihood-tests" class="section level2" number="3.1">
+<div id="likelihood-ratio-tests" class="section level2" number="3.1">
 <h2>
-<span class="header-section-number">3.1</span> Likelihood tests<a class="anchor" aria-label="anchor" href="#likelihood-tests"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1</span> Likelihood Ratio tests<a class="anchor" aria-label="anchor" href="#likelihood-ratio-tests"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<p>Once we have produce an initial model with a random effects structure, we may wish to perform model selection by comparing different nested models with varying random effects structures. It allows us to assess whether the inclusion of additional random effects or changes in the random effects structure significantly improve the model fit. By comparing the likelihood values of different nested models, we can determine which model provides a better fit to the data.</p>
+<div class="warning">
+<p>
+There is a literature on the idea of model selection, that is, an
+automated (or sometimes manual) way of testing many versions of a model
+with a different subset of the predictors in an attempt to find the
+model that fits best. These are sometimes called “stepwise”
+procedures.
+</p>
+<p>
+Others argue this method has a number of flaws, including:
+</p>
+<ul>
+<li>
+<p>
+Doing this is basically “p-value mining”, that is, running a lot
+of tests till you find a p-value you like.
+</p>
+</li>
+<li>
+<p>
+Your likelihood of making a false positive is very high.
+</p>
+</li>
+<li>
+<p>
+Adding/removing a new variable can have an effect on other
+predictors.
+</p>
+</li>
+</ul>
+<p>
+Instead of doing model selection, you should use your knowledge of
+the data to select a subset of the variables which are either a) of
+importance to you, or b) theoretically influential on the outcome. Then
+you can fit a single model including all of this.
+</p>
+<p>
+However, I would argue that while the inclusion of random effects and
+their structure should have a clear rationale before implementation,
+adjustments to better understand the best type of random effects
+structure is perfectly reasonable.
+</p>
+</div>
+<p>We can perform a Likelihood ratio test (LRT) with the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function:</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bio.lmer3</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">Shoot2</span> <span class="op">~</span> <span class="va">Diversity2</span> <span class="op">+</span> <span class="op">(</span><span class="va">Diversity2</span><span class="op">|</span><span class="va">Site</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Mix</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">biodepth</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">bio.lmer2</span>, <span class="va">bio.lmer3</span><span class="op">)</span></span></code></pre></div>
@@ -316,26 +361,39 @@ bio.lmer2
 </tbody>
 </table></div>
 </div>
-<p>There is a literature on the idea of model selection, that is, an automated (or sometimes manual) way of testing many versions of a model with a different subset of the predictors in an attempt to find the model that fits best. These are sometimes called “stepwise” procedures.</p>
-<p>This method has a number of flaws, including</p>
-<p>Doing this is basically “p-value mining”, that is, running a lot of tests till you find a p-value you like.
-Your likelihood of making a false positive is very high.
-As we saw earlier, adding a new variable can have an effect on existing predictors.
-Instead of doing model selection, you should use your knowledge of the data to select a subset of the variables which are either a) of importance to you, b) theoretically influential on the outcome (e.g. demographic variables) or c) what others (reviewers) would think are influential on the outcome. Then you can fit a single model including all of this. The “subset” can be all predictors if the sample size is sufficient.</p>
-<p>Note that adjustments to fix assumptions (e.g. transformations) or multicollinearity would not fall into the category of model selection and are fine to use.</p>
-<div class="info">
-<p>
-ML and REML
-</p>
+<p>Frequentist fit used by LMM through lme4 / lmer is based on the <strong>Maximum Likelihood principle</strong>, where we maximize the likelihood <span class="math inline">\(L(y)\)</span> of observing the data <span class="math inline">\(y\)</span>, which is equivalent to minimizing residuals of the model, the Ordinary Least Squares (OLS) approach. It measures the probability of observing the data given a specific set of parameter values.</p>
+<p>When we are attempting to optimise a model we can use the likelihood ratio test (LRT). Given two nested models, denoted as Model 1 and Model 2, the LRT compares the likelihood values of these models to assess whether the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1. The LRT statistic, denoted as <span class="math inline">\(D\)</span>, is calculated as the difference between the log-likelihood values of Model 1 and Model 2, multiplied by 2:</p>
+<p><span class="math display">\[D = -2~*~(ln(L_1)-ln(L_2))\]</span></p>
+<p>Here <span class="math inline">\(L_1\)</span> represents the likelihood value of Model 1, and <span class="math inline">\(L_2\)</span> represents the likelihood value of Model 2. The LRT statistic follows a chi-square (<span class="math inline">\(\chi^2\)</span>) distribution with degrees of freedom equal to the difference in the number of parameters between the two models.</p>
+<p>To determine the statistical significance of the LRT statistic, one can compare it to the critical value from the chi-square distribution with the appropriate degrees of freedom. If the LRT statistic exceeds the critical value, it indicates that the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1.</p>
+<p>ML estimation is often used to perform hypothesis tests, including the chi-square test. The chi-square test compares the observed data to the expected data predicted by a statistical model. It assesses the goodness-of-fit between the observed data and the model's predictions.</p>
+<div id="reml" class="section level3" number="3.1.1">
+<h3>
+<span class="header-section-number">3.1.1</span> REML<a class="anchor" aria-label="anchor" href="#reml"><i class="fas fa-link"></i></a>
+</h3>
+<p>REML (Restricted Maximum Likelihood) estimation is a variant of ML estimation that addresses the issue of bias in the estimation of random effects in mixed effects models. In mixed effects models, random effects account for the variation at the group or individual level that is not explained by the fixed effects. However, the inclusion of random effects introduces a bias in the ML estimates, as they are influenced by the variability of the random effects.</p>
+<p>REML estimation addresses this bias by optimizing the likelihood function conditional on the fixed effects only, effectively removing the influence of the random effects on the estimation. This approach provides unbiased estimates of the fixed effects and is especially useful when the primary interest lies in the fixed effects rather than the random effects.</p>
 </div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div id="ml-vs.-reml-fitting" class="section level3" number="3.1.2">
+<h3>
+<span class="header-section-number">3.1.2</span> ML vs. REML fitting<a class="anchor" aria-label="anchor" href="#ml-vs.-reml-fitting"><i class="fas fa-link"></i></a>
+</h3>
+<p>Maximum Likelihood (ML) estimation is preferable when comparing nested models because it allows for the direct comparison of the likelihood values between different models. ML estimation provides a quantitative measure of how well a given model fits the observed data, based on the likelihood function.</p>
+<p>In this context, ML estimation is preferable because it allows for a formal statistical comparison between nested models. It provides a rigorous and objective way to assess whether the inclusion of additional parameters in the more complex model leads to a significantly better fit to the data compared to the simpler model. This approach ensures that model comparisons are based on sound statistical principles and helps in determining the most appropriate model for the given data.</p>
+<p>Older versions of model fitting packages like <code>lmer</code> used to require the manual switch between REML and ML when fitting models in order to switch between the objectives of assessing goodness-of-fit and interpreting estimates. But you will notice that when you perform an LRT with the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function it informs you the switch is being made automatically.</p>
+</div>
+<div id="model-predictions" class="section level3" number="3.1.3">
+<h3>
+<span class="header-section-number">3.1.3</span> Model predictions<a class="anchor" aria-label="anchor" href="#model-predictions"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nested_data</span> <span class="op">&lt;-</span> <span class="va">biodepth</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Site</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">nested_data</span><span class="op">$</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Shoot2</span> <span class="op">~</span> <span class="va">Diversity2</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">predict</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">biodepth.2</span> <span class="op">&lt;-</span> <span class="va">biodepth</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">bio.lmer2</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>           fit.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">bio.lmer2</span>, re.form <span class="op">=</span> <span class="op">~</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="va">Diversity2</span><span class="op">|</span><span class="va">Site</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -351,7 +409,8 @@ ML and REML
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">Site</span><span class="op">)</span><span class="op">+</span></span>
 <span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1200</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-52-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-56-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
 </div>
 </div>
 <script>
@@ -540,7 +599,13 @@ $( document ).ready(function() {
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#complex-designs"><span class="header-section-number">3</span> Complex designs</a></li>
-<li><a class="nav-link" href="#likelihood-tests"><span class="header-section-number">3.1</span> Likelihood tests</a></li>
+<li>
+<a class="nav-link" href="#likelihood-ratio-tests"><span class="header-section-number">3.1</span> Likelihood Ratio tests</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#reml"><span class="header-section-number">3.1.1</span> REML</a></li>
+<li><a class="nav-link" href="#ml-vs.-reml-fitting"><span class="header-section-number">3.1.2</span> ML vs. REML fitting</a></li>
+<li><a class="nav-link" href="#model-predictions"><span class="header-section-number">3.1.3</span> Model predictions</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -558,7 +623,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
+    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -2,10 +2,11 @@ fig:unnamed-chunk-10
 fig:unnamed-chunk-11
 fig:unnamed-chunk-13
 fig:unnamed-chunk-15
-fig:unnamed-chunk-30
+fig:unnamed-chunk-27
 fig:unnamed-chunk-34
-fig:unnamed-chunk-35
-fig:unnamed-chunk-36
+fig:unnamed-chunk-38
+fig:unnamed-chunk-39
+fig:unnamed-chunk-40
 terminology
 variance
 foundations-of-mixed-modelling
@@ -22,7 +23,8 @@ complex-model
 our-first-mixed-model
 running-mixed-effects-models-with-lmertest
 partial-pooling
-plotting-model-outcomes
+variance-and-model-outcomes
+shrinkage-in-mixed-models
 ggeffects
 ggpredict
 ggemmeans
@@ -36,7 +38,10 @@ random-slopes
 random-effect-correlation
 model-refining
 complex-designs
-likelihood-tests
+likelihood-ratio-tests
+reml
+ml-vs.-reml-fitting
+model-predictions
 reporting-mixed-model-results
 tables
 figures
