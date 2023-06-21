@@ -394,7 +394,7 @@ We now want to know if an association between `y ~ x` exists after controlling f
 This section will detail how to run mixed models with the `lmer` function in the R package `lmerTest` (@R-lmerTest). This builds on the older `lme4` (@R-lme4) package, and in particular add p-values that were not previously included. There are other R packages that can be used to run mixed-effects models including the `nlme` package (@R-nlme) and the `glmmTMB` package (@R-glmmTMB). Outside of R there are also other packages and software capable of running mixed-effects models, though arguably none is better supported than R software.
 
 `r hide("Plotting random intercepts")`
-```{r, echo = FALSE}
+```{r, eval = FALSE}
 
 plot_function2 <- function(model, title = "Data Coloured by Group"){
   
@@ -420,6 +420,29 @@ plot_function2(mixed_model, "Random intercept")
 
 `r unhide()`
 
+```{r, echo = FALSE}
+
+plot_function2 <- function(model, title = "Data Coloured by Group"){
+  
+data <- data %>% 
+  mutate(fit.m = predict(model, re.form = NA),
+         fit.c = predict(model, re.form = NULL))
+
+data %>%
+  ggplot(aes(x = x, y = y, col = group)) +
+  geom_point(pch = 16, alpha = 0.6) +
+  geom_line(aes(y = fit.c, col = group), linewidth = 2)  +
+  coord_cartesian(ylim = c(-40, 100))+
+  labs(title = title, 
+       x = "Independent Variable", 
+       y = "Dependent Variable") 
+}
+
+mixed_model <- lmer(y ~ x + (1|group), data = data)
+
+plot_function2(mixed_model, "Random intercept")
+
+```
 
 ```{r}
 # random intercept model
@@ -438,7 +461,7 @@ Here our groups clearly explain a lot of variance
 
 ```
 
-So the differences between groups explain ~6% of the variance that’s “left over” *after* the variance explained by our fixed effects.
+So the differences between groups explain ~67% of the variance that’s “left over” *after* the variance explained by our fixed effects.
 
 
 ### Partial pooling
@@ -873,15 +896,6 @@ inset <- xdens+(pmain+theme_void()+theme(legend.position = "none"))+ydens +plot_
 ## Model refining
 
 SEE BELOW! 
-
-## Random slopes
-
-random_slopes_intercept_model <- lmer(dependent_var ~ independent_var + (independent_var | group), data = data)
-random_slopes_values <- predict(random_slopes_model)
-
-## Random intercept
-
-
 
 
 # Complex designs

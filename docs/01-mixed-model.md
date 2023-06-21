@@ -570,12 +570,34 @@ This section will detail how to run mixed models with the `lmer` function in the
 
 <div class='webex-solution'><button>Plotting random intercepts</button>
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+plot_function2 <- function(model, title = "Data Coloured by Group"){
+  
+data <- data %>% 
+  mutate(fit.m = predict(model, re.form = NA),
+         fit.c = predict(model, re.form = NULL))
+
+data %>%
+  ggplot(aes(x = x, y = y, col = group)) +
+  geom_point(pch = 16, alpha = 0.6) +
+  geom_line(aes(y = fit.c, col = group), linewidth = 2)  +
+  coord_cartesian(ylim = c(-40, 100))+
+  labs(title = title, 
+       x = "Independent Variable", 
+       y = "Dependent Variable") 
+}
+
+mixed_model <- lmer(y ~ x + (1|group), data = data)
+
+plot_function2(mixed_model, "Random intercept")
+```
 
 
 </div>
 
 
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -624,7 +646,7 @@ Here our groups clearly explain a lot of variance
 
 ```
 
-So the differences between groups explain ~6% of the variance that’s “left over” *after* the variance explained by our fixed effects.
+So the differences between groups explain ~67% of the variance that’s “left over” *after* the variance explained by our fixed effects.
 
 
 ### Partial pooling
@@ -751,7 +773,7 @@ plot_model(mixed_model,type="pred",
   facet_wrap( ~ group)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 ###
@@ -769,7 +791,7 @@ data1 %>%
   facet_wrap( ~ group)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-23-2.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-24-2.png" width="100%" style="display: block; margin: auto;" />
 
 
 http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
@@ -779,13 +801,13 @@ http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-u
 plot_model(mixed_model, terms = c("x", "group"), type = "re")
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 plot_model(mixed_model, terms = c("x", "group"), type = "est")
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-24-2.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-25-2.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -823,7 +845,7 @@ pooled_plot /
   partial_plot
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ### `ggeffects`
@@ -852,7 +874,7 @@ BLUP - Hector book!
 plot(mixed_model) 
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -860,7 +882,7 @@ qqnorm(resid(mixed_model))
 qqline(resid(mixed_model)) 
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -873,7 +895,7 @@ rand_dist <- as.data.frame(ranef(mixed_model)) %>%
 hist(rand_dist$b0_hat)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -894,8 +916,8 @@ data1 %>%
 ```
 
 <div class="figure" style="text-align: center">
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-29-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-29)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-30-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-30)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
 </div>
 
 `re.form = NA`: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
@@ -907,7 +929,7 @@ data1 %>%
 performance::check_model(mixed_model)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -917,7 +939,7 @@ resid.mm <- DHARMa::simulateResiduals(mixed_model)
 plot(resid.mm)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 <div class="warning">
@@ -961,33 +983,33 @@ Understanding whether your experimental/sampling design calls for nested or cros
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-bc3665074742ce309c84" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-bc3665074742ce309c84">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4742ce309c84006b4955" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-4742ce309c84006b4955">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-33)Fully Nested</p>
+<p class="caption">(\#fig:unnamed-chunk-34)Fully Nested</p>
 </div>
 
 
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-006b49558015fb63f5c0" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-006b49558015fb63f5c0">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8015fb63f5c0dd7c2786" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-8015fb63f5c0dd7c2786">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-34)Fully Crossed</p>
+<p class="caption">(\#fig:unnamed-chunk-35)Fully Crossed</p>
 </div>
 
 
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-dd7c2786b1d1c6f9b595" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-dd7c2786b1d1c6f9b595">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b1d1c6f9b59552fdce3c" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-b1d1c6f9b59552fdce3c">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-35)Partially Nested/Crossed</p>
+<p class="caption">(\#fig:unnamed-chunk-36)Partially Nested/Crossed</p>
 </div>
 
 
@@ -997,7 +1019,7 @@ Understanding whether your experimental/sampling design calls for nested or cros
 
 
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-37-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1092,7 +1114,7 @@ inset <- xdens+pmain+ydens +plot_layout(design = layout)
 inset
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-40-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1104,21 +1126,12 @@ inset
                     ylim = c(0, 120))) + inset_element(inset, 0.1, 0.6, 0.5, 1)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Model refining
 
 SEE BELOW! 
-
-## Random slopes
-
-random_slopes_intercept_model <- lmer(dependent_var ~ independent_var + (independent_var | group), data = data)
-random_slopes_values <- predict(random_slopes_model)
-
-## Random intercept
-
-
 
 
 # Complex designs
@@ -1343,7 +1356,7 @@ biodepth.2 %>%
    theme(legend.position = "none")
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-52-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Reporting Mixed Model results
@@ -1411,7 +1424,7 @@ dolphins.1 %>%
        y = "VT") 
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-57-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1422,7 +1435,7 @@ plot_model(dolphmod.2,type="pred",
            show.data = T)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 plot_model(dolphmod.2,type="pred",
@@ -1431,7 +1444,7 @@ plot_model(dolphmod.2,type="pred",
            show.data = T)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-58-2.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-59-2.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Summary
