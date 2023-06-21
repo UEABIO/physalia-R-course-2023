@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 5 Complex designs | Mixed Models</title>
+<title>Chapter 5 Complex Designs | Mixed Models</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="Download BIODEPTH data biodepth &lt;- biodepth %&gt;%  mutate(Mix = factor(Mix),     Diversity2 = log(Diversity, 2)) %&gt;%  drop_na() # set Mix as a factor # Set Diversity to log, base 2 bio.lmer1 &lt;-...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 5 Complex designs | Mixed Models">
+<meta property="og:title" content="Chapter 5 Complex Designs | Mixed Models">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/intro-mixed-models/complex-designs.html">
 <meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <meta property="og:description" content="Download BIODEPTH data biodepth &lt;- biodepth %&gt;%  mutate(Mix = factor(Mix),     Diversity2 = log(Diversity, 2)) %&gt;%  drop_na() # set Mix as a factor # Set Diversity to log, base 2 bio.lmer1 &lt;-...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 5 Complex designs | Mixed Models">
+<meta name="twitter:title" content="Chapter 5 Complex Designs | Mixed Models">
 <meta name="twitter:description" content="Download BIODEPTH data biodepth &lt;- biodepth %&gt;%  mutate(Mix = factor(Mix),     Diversity2 = log(Diversity, 2)) %&gt;%  drop_na() # set Mix as a factor # Set Diversity to log, base 2 bio.lmer1 &lt;-...">
 <meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -114,9 +114,9 @@
 <li class="book-part">Mixed Models</li>
 <li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">1</span> Foundations of Mixed Modelling</a></li>
 <li><a class="" href="types-of-random-effects.html"><span class="header-section-number">2</span> Types of Random Effects</a></li>
-<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">3</span> Reporting Mixed Model results</a></li>
+<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">3</span> Reporting Mixed Model Results</a></li>
 <li><a class="" href="worked-example-1---dolphins.html"><span class="header-section-number">4</span> Worked Example 1 - Dolphins</a></li>
-<li><a class="active" href="complex-designs.html"><span class="header-section-number">5</span> Complex designs</a></li>
+<li><a class="active" href="complex-designs.html"><span class="header-section-number">5</span> Complex Designs</a></li>
 <li><a class="" href="worked-example-2.html"><span class="header-section-number">6</span> Worked Example 2</a></li>
 <li><a class="" href="summary.html"><span class="header-section-number">7</span> Summary</a></li>
 </ul>
@@ -128,12 +128,12 @@
 </div>
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="complex-designs" class="section level1" number="5">
 <h1>
-<span class="header-section-number">5</span> Complex designs<a class="anchor" aria-label="anchor" href="#complex-designs"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5</span> Complex Designs<a class="anchor" aria-label="anchor" href="#complex-designs"><i class="fas fa-link"></i></a>
 </h1>
 <a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/Biodepth.txt">
 <button class="btn btn-success"><i class="fa fa-save"></i> Download BIODEPTH data</button>
 </a>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">biodepth</span> <span class="op">&lt;-</span> <span class="va">biodepth</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Mix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Mix</span><span class="op">)</span>,</span>
 <span>         Diversity2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">Diversity</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -141,7 +141,7 @@
 <span></span>
 <span><span class="co"># set Mix as a factor</span></span>
 <span><span class="co"># Set Diversity to log, base 2</span></span></code></pre></div>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bio.lmer1</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">Shoot2</span> <span class="op">~</span> <span class="va">Diversity2</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Site</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Block</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Mix</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">biodepth</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bio.lmer1</span><span class="op">)</span></span></code></pre></div>
@@ -179,7 +179,7 @@
 <p>To summarize:</p>
 <p>1 | Site:Mix: Two-way crossed random effect, allowing for independent variation of random effects for each combination of levels in Site and Mix.
 1 | Site/Mix: Nested random effect, with the random effect of Mix nested within the random effect of Site, assuming that the levels of Mix are nested within each level of Site.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bio.lmer2</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">Shoot2</span> <span class="op">~</span> <span class="va">Diversity2</span> <span class="op">+</span> <span class="op">(</span><span class="va">Diversity2</span><span class="op">|</span><span class="va">Site</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Block</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Mix</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">biodepth</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bio.lmer2</span><span class="op">)</span></span></code></pre></div>
@@ -220,14 +220,14 @@
 <h3>
 <span class="header-section-number">5.0.1</span> Model predictions<a class="anchor" aria-label="anchor" href="#model-predictions"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nested_data</span> <span class="op">&lt;-</span> <span class="va">biodepth</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Site</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">nested_data</span><span class="op">$</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Shoot2</span> <span class="op">~</span> <span class="va">Diversity2</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">predict</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">biodepth.2</span> <span class="op">&lt;-</span> <span class="va">biodepth</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">bio.lmer2</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>           fit.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">bio.lmer2</span>, re.form <span class="op">=</span> <span class="op">~</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="va">Diversity2</span><span class="op">|</span><span class="va">Site</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -431,7 +431,7 @@ $( document ).ready(function() {
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav"><li>
-<a class="nav-link" href="#complex-designs"><span class="header-section-number">5</span> Complex designs</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#model-predictions"><span class="header-section-number">5.0.1</span> Model predictions</a></li></ul>
+<a class="nav-link" href="#complex-designs"><span class="header-section-number">5</span> Complex Designs</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#model-predictions"><span class="header-section-number">5.0.1</span> Model predictions</a></li></ul>
 </li></ul>
 
       <div class="book-extra">

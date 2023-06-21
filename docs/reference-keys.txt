@@ -4,8 +4,8 @@ fig:unnamed-chunk-13
 fig:unnamed-chunk-15
 fig:unnamed-chunk-27
 fig:unnamed-chunk-34
+fig:unnamed-chunk-38
 fig:unnamed-chunk-39
-fig:unnamed-chunk-40
 terminology
 variance
 foundations-of-mixed-modelling
@@ -40,7 +40,6 @@ nested-random-effects
 random-slopes
 random-effect-correlation
 model-refining-likelihood-ratio-tests
-likelihood-ratio-tests
 maximum-likelihood
 reml
 ml-vs.-reml-fitting

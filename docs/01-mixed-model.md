@@ -902,7 +902,9 @@ data1 %>%
 </div>
 
 
+`re.form = NA`: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
 
+`re.form = NULL`: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
 
 
 ```r
@@ -971,6 +973,8 @@ With `type = random`: ggpredict will generate predictions that **incorporate bot
 ### `sjPlot`
 
 
+
+
 ```r
 plot_model(mixed_model,type="pred",
            terms=c("x", "group"),
@@ -1035,9 +1039,6 @@ data1 %>%
 <p class="caption">(\#fig:unnamed-chunk-34)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
 </div>
 
-`re.form = NA`: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
-
-`re.form = NULL`: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
 
 
 ```r
@@ -1096,9 +1097,9 @@ One of the most common questions in mixed-effects modelling is how to decide if 
 
 1 ) Are you directly interested in the effect in question. If the answer is yes it should be a fixed effect.
 
-2) Is the variable continuous? If the answer is yes it should be a fixed effect.
+2 ) Is the variable continuous? If the answer is yes it should be a fixed effect.
 
-3) Does the variable have less than five levels? If ther answer is yes it should be a fixed effect.
+3 ) Does the variable have less than five levels? If ther answer is yes it should be a fixed effect.
 
 
 ## Missing data
@@ -1124,19 +1125,14 @@ A common issue that causes confusion is this issue of specifying random effects 
 Crossed random effects occur when the levels of two or more grouping variables are crossed or independent of each other. In this case, the grouping variables are unrelated, and each combination of levels is represented in the data.
 
 
-```r
-lmer(y ~ x + (1 | Group1) + (1 | ), data = dataset)
-```
-
-
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-63f5c0dd7c2786b1d1c6" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-63f5c0dd7c2786b1d1c6">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-24d2e389190f1dd1551a" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-24d2e389190f1dd1551a">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-39)Fully Crossed</p>
+<p class="caption">(\#fig:unnamed-chunk-38)Fully Crossed</p>
 </div>
 
 > Example 1: Let's consider a study examining the academic performance of students from different schools and different cities. The grouping variables are "School" and "City". Each school can be located in multiple cities, and each city can have multiple schools. The random effects of "School" and "City" are crossed since the levels of these variables are independent of each other.
@@ -1156,11 +1152,11 @@ Nested random effects occur when the levels of one grouping variable are complet
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-309c84006b49558015fb" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-309c84006b49558015fb">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-06de9eda58cd6c8b9398" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-06de9eda58cd6c8b9398">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-40)Fully Nested</p>
+<p class="caption">(\#fig:unnamed-chunk-39)Fully Nested</p>
 </div>
 
 > Example 1. Consider a study on the job performance of employees within different departments of an organization. The grouping variables are "Employee" and "Department". Each employee belongs to one specific department, and no employee can be part of multiple departments. The random effects of "Employee" are nested within the random effects of "Department" since each employee is uniquely associated with a specific department.
@@ -1171,7 +1167,7 @@ Nested random effects occur when the levels of one grouping variable are complet
 
 `lmer(y ~ x + (1 | Woodland/Female ID), data = dataset)`
 
-*or if we remember year*
+*or if we remember year we have a model with both crossed and nested random effects*
 
 `lmer(y ~ x + (1 | Woodland/Female ID) + (1|Year), data = dataset)`
 
@@ -1190,53 +1186,28 @@ Finally we can allow *both the intercepts and slope* to vary between groups, as 
 This model will use more degrees of freedom than the other two, as these must be used to calculate variance for both intercept and slope.
 
 
+
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
+
+
 ```r
-plot_function <- function(model, title = "Data Coloured by Group"){
-  
-data <- data %>% 
-  mutate(fit.m = predict(model, re.form = NA),
-         fit.c = predict(model, re.form = NULL))
-
-data %>%
-  ggplot(aes(x = x, y = y, col = group)) +
-  geom_point(pch = 16, alpha = 0.4) +
-  geom_line(aes(y = fit.c, col = group), linewidth = 1)  +
-  coord_cartesian(ylim = c(-40, 100))+
-  labs(title = title)+
-  theme_void()+
-  theme(legend.position ="none")
-}
-
 # random intercept model
 lmer1 <- lmer(y ~ x + (1|group), data = data)
 
 plot_function(lmer1, "Random intercept")
-```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
-
-```r
 # Random slope model
 
 lmer2 <- lmer(y ~ x + (0 + x | group), data = data)
 
 plot_function(lmer2, "Random slope")
-```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-41-2.png" width="100%" style="display: block; margin: auto;" />
-
-```r
 # Random slope and intercept model
 
 lmer3 <- lmer(y ~ x + (x | group), data = data)
-
-plot_function(lmer3, "Random slope and intercept")
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-41-3.png" width="100%" style="display: block; margin: auto;" />
-
-
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" />
 
 Mixed-effects models are enormously flexible. The decision about whether to include random intercepts, random slopes, or both will depend heavily on your hypotheses. It is generally quite rare to see random slopes models only, and more commonly it will be a question of whether random intercepts or random intercepts *and* random slopes are necessary. 
 
@@ -1291,8 +1262,6 @@ summary(lmer3)
 
 
 ## Model refining / Likelihood Ratio Tests
-
-## Likelihood Ratio tests
 
 Once we have produce an initial model with a random effects structure, we may wish to perform model selection by comparing different nested models with varying random effects structures. It allows us to assess whether the inclusion of additional random effects or changes in the random effects structure significantly improve the model fit. By comparing the likelihood values of different nested models, we can determine which model provides a better fit to the data.
 
@@ -1405,7 +1374,7 @@ Older versions of model fitting packages like `lmer` used to require the manual 
 
 
 
-# Reporting Mixed Model results
+# Reporting Mixed Model Results
 
 BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
 
@@ -1489,7 +1458,7 @@ WRITE-UP?
 
 
 
-# Complex designs
+# Complex Designs
 
 
 
@@ -1727,7 +1696,7 @@ Some suggested starter topics to continue your mixed-model journey!
 
 - [Mixed Effects Models and Extensions in Ecology with R](https://link.springer.com/book/10.1007/978-0-387-87458-6) @zuur_2009
 
-- [Perils and pitfalls of mixed-effects regression models in biology](https://peerj.com/articles/9522/)@silk_2020
+- [Perils and pitfalls of mixed-effects regression models in biology](https://peerj.com/articles/9522/) @silk_2020
 
 
 

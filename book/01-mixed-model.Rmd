@@ -608,7 +608,9 @@ data1 %>%
 ```
 
 
+`re.form = NA`: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
 
+`re.form = NULL`: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
 
 ```{r}
 
@@ -669,6 +671,8 @@ With `type = random`: ggpredict will generate predictions that **incorporate bot
 
 ### `sjPlot`
 
+
+
 ```{r}
 plot_model(mixed_model,type="pred",
            terms=c("x", "group"),
@@ -725,9 +729,6 @@ data1 %>%
 
 ```
 
-`re.form = NA`: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
-
-`re.form = NULL`: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
 
 ```{r}
 
@@ -780,9 +781,9 @@ One of the most common questions in mixed-effects modelling is how to decide if 
 
 1 ) Are you directly interested in the effect in question. If the answer is yes it should be a fixed effect.
 
-2) Is the variable continuous? If the answer is yes it should be a fixed effect.
+2 ) Is the variable continuous? If the answer is yes it should be a fixed effect.
 
-3) Does the variable have less than five levels? If ther answer is yes it should be a fixed effect.
+3 ) Does the variable have less than five levels? If ther answer is yes it should be a fixed effect.
 
 
 ## Missing data
@@ -806,12 +807,6 @@ A common issue that causes confusion is this issue of specifying random effects 
 #### 1. Crossed Random Effects:
 
 Crossed random effects occur when the levels of two or more grouping variables are crossed or independent of each other. In this case, the grouping variables are unrelated, and each combination of levels is represented in the data.
-
-```{r, eval = FALSE}
-
-lmer(y ~ x + (1 | Group1) + (1 | ), data = dataset)
-
-```
 
 
 ```{r, echo = FALSE, fig.cap = "Fully Crossed"}
@@ -876,7 +871,7 @@ digraph boxes_and_circles {
 
 `lmer(y ~ x + (1 | Woodland/Female ID), data = dataset)`
 
-*or if we remember year*
+*or if we remember year we have a model with both crossed and nested random effects*
 
 `lmer(y ~ x + (1 | Woodland/Female ID) + (1|Year), data = dataset)`
 
@@ -894,7 +889,7 @@ Finally we can allow *both the intercepts and slope* to vary between groups, as 
 
 This model will use more degrees of freedom than the other two, as these must be used to calculate variance for both intercept and slope.
 
-```{r}
+```{r, include = FALSE}
 plot_function <- function(model, title = "Data Coloured by Group"){
   
 data <- data %>% 
@@ -941,6 +936,26 @@ plot_group <- plot_group+
 
 ```
 
+```{r, eval = FALSE}
+
+# random intercept model
+lmer1 <- lmer(y ~ x + (1|group), data = data)
+
+plot_function(lmer1, "Random intercept")
+
+# Random slope model
+
+lmer2 <- lmer(y ~ x + (0 + x | group), data = data)
+
+plot_function(lmer2, "Random slope")
+
+# Random slope and intercept model
+
+lmer3 <- lmer(y ~ x + (x | group), data = data)
+
+```
+
+
 Mixed-effects models are enormously flexible. The decision about whether to include random intercepts, random slopes, or both will depend heavily on your hypotheses. It is generally quite rare to see random slopes models only, and more commonly it will be a question of whether random intercepts or random intercepts *and* random slopes are necessary. 
 
 As the combine random slopes and intercept model requries more degrees of freedom, it may be the case that using likelihood ratio tests (LRT) are advisable to decide which model describes the data best (more on this later). 
@@ -962,8 +977,6 @@ summary(lmer3)
 
 
 ## Model refining / Likelihood Ratio Tests
-
-## Likelihood Ratio tests
 
 Once we have produce an initial model with a random effects structure, we may wish to perform model selection by comparing different nested models with varying random effects structures. It allows us to assess whether the inclusion of additional random effects or changes in the random effects structure significantly improve the model fit. By comparing the likelihood values of different nested models, we can determine which model provides a better fit to the data.
 
@@ -1027,7 +1040,7 @@ Older versions of model fitting packages like `lmer` used to require the manual 
 
 
 
-# Reporting Mixed Model results
+# Reporting Mixed Model Results
 
 BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
 
@@ -1110,7 +1123,7 @@ WRITE-UP?
 `r unhide()`
 
 
-# Complex designs
+# Complex Designs
 
 ```{r, include = FALSE}
 biodepth <- read_tsv("files/Biodepth.txt")
@@ -1289,7 +1302,7 @@ Some suggested starter topics to continue your mixed-model journey!
 
 - [Mixed Effects Models and Extensions in Ecology with R](https://link.springer.com/book/10.1007/978-0-387-87458-6) @zuur_2009
 
-- [Perils and pitfalls of mixed-effects regression models in biology](https://peerj.com/articles/9522/)@silk_2020
+- [Perils and pitfalls of mixed-effects regression models in biology](https://peerj.com/articles/9522/) @silk_2020
 
 
 

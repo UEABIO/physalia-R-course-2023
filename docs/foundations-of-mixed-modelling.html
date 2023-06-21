@@ -114,9 +114,9 @@
 <li class="book-part">Mixed Models</li>
 <li><a class="active" href="foundations-of-mixed-modelling.html"><span class="header-section-number">1</span> Foundations of Mixed Modelling</a></li>
 <li><a class="" href="types-of-random-effects.html"><span class="header-section-number">2</span> Types of Random Effects</a></li>
-<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">3</span> Reporting Mixed Model results</a></li>
+<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">3</span> Reporting Mixed Model Results</a></li>
 <li><a class="" href="worked-example-1---dolphins.html"><span class="header-section-number">4</span> Worked Example 1 - Dolphins</a></li>
-<li><a class="" href="complex-designs.html"><span class="header-section-number">5</span> Complex designs</a></li>
+<li><a class="" href="complex-designs.html"><span class="header-section-number">5</span> Complex Designs</a></li>
 <li><a class="" href="worked-example-2.html"><span class="header-section-number">6</span> Worked Example 2</a></li>
 <li><a class="" href="summary.html"><span class="header-section-number">7</span> Summary</a></li>
 </ul>
@@ -1101,6 +1101,8 @@ x
 Figure 1.5: Regression relationships from fixed-effects and mixed effects models, note shrinkage in group 5
 </p>
 </div>
+<p><code>re.form = NA</code>: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.</p>
+<p><code>re.form = NULL</code>: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">mixed_model</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"group"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"re"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;"></div>
@@ -1211,8 +1213,6 @@ Figure 1.5: Regression relationships from fixed-effects and mixed effects models
 Figure 1.6: Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts
 </p>
 </div>
-<p><code>re.form = NA</code>: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.</p>
-<p><code>re.form = NULL</code>: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-35-1.png" width="100%" style="display: block; margin: auto;"></div>
