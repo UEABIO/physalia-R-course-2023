@@ -51,25 +51,32 @@ ii) mixed-effects models incorporate group and even individual-level differences
 iii) mixed-effects models cope well with missing data, unequal group sizes and repeated measurements
 
 
-
-
-
 ## Fixed vs Random effects
 
-Explain the difference between fixed and random effects
-Discuss the hierarchical structure of data and the need for mixed models
-Provide an overview of the linear mixed model equation
-Touch on the assumptions of mixed models
+Fixed effects and random effects are terms commonly used in mixed modeling, which is a statistical framework that combines both in order to analyze data. 
+
+In mixed modeling, the fixed effects are used to estimate the overall relationship between the predictors and the response variable, while the random effects account for the within-group variability and allow for the modeling of the individual differences or group-specific effects.
+
+The hierarchical structure of data refers to a data organization where observations are nested within higher-level groups or clusters. For example, students nested within classrooms, patients nested within hospitals, or employees nested within companies. This hierarchical structure introduces dependencies or correlations within the data, as observations within the same group tend to be more similar to each other than observations in different groups.
+
+The need for mixed models arises when we want to account for these dependencies and properly model the variability at different levels of the hierarchy. Traditional regression models, such as ordinary least squares (OLS), assume that the observations are independent of each other. However, when working with hierarchical data, this assumption is violated, and ignoring the hierarchical structure can lead to biased or inefficient estimates, incorrect standard errors, and misleading inference.
+
+By including random effects, mixed models allow for the estimation of both within-group and between-group variability. They provide a flexible framework for modeling the individual or group-specific effects and can capture the heterogeneity within and between groups. Additionally, mixed models can handle unbalanced or incomplete data, where some groups may have different numbers of observations.
 
 ### Fixed effects
 
 In broad terms, fixed effects are variables that we expect will affect the dependent/response variable: they’re what you call explanatory variables in a standard linear regression. 
 
-EXAMPLES:
 
-Fixed effects are more common than random effects, at least in their use (but not in reality). Fixed effects estimate different levels with no relationship assumed between the levels. For example, in a model with a fixed effect for fish sex, you would get an estimate for males and then an estimate for females separately. There is no assumed relationship between these two levels. This means we cannot infer what happens between the levels even when it may be obvious. Fixed effects also assume a common variance known as homoscedasticity. Should we find a reason that they differ, post hoc adjustments are needed to make pairwise comparisons of the different factor levels.
+Fixed effects are more common than random effects, at least in their use. Fixed effects estimate different levels with no relationship assumed between the levels. For example, in a model with a dependent variable of body length and a fixed effect for fish sex, you would get an estimate of mean body length for males and then an estimate for females separately. 
 
-Another example of a fixed effect is thinking about the fixed effect of a treatment drug on a health response. The predictor drug may be a fixed factor with 4 levels, representing 4 different drugs—a placebo, Drug A, Drug B, and Drug C. In this case, we might design an experiment that could be analyzed with an ANOVA. As we test for the effect of the different drug levels, we want them to be independent of each other—meaning the effect of Drug A compared to Drug B should only include information about those two groups. We don’t want information or even the assumption of non-independence to infiltrate the groups we want to compare. Again, 
+#### Examples: 
+
+1. Medical Research: In a clinical trial studying the effectiveness of different medications for treating a specific condition, the fixed effects could include categorical variables such as treatment group (e.g., medication A, medication B, placebo) or dosage level (e.g., low, medium, high). These fixed effects would capture the systematic differences in the response variable (e.g., symptom improvement) due to the specific treatment received.
+
+2. Education Research: Suppose a study examines the impact of teaching methods on student performance in different schools. The fixed effects in this case might include variables such as school type (e.g., public, private), curriculum approach (e.g., traditional, progressive), or classroom size. These fixed effects would help explain the differences in student achievement across schools, accounting for the systematic effects of these factors.
+
+3. Environmental Science: Imagine a study investigating the factors influencing bird species richness across different habitats. The fixed effects in this context could include variables such as habitat type (e.g., forest, grassland, wetland), habitat disturbance level (e.g., low, medium, high), or geographical region. These fixed effects would capture the systematic variations in bird species richness associated with the specific habitat characteristics.
 
 Fixed effects are the default effects that we all learn as we begin to understand statistical concepts, and fixed effects are the default effects in functions like `lm()` and `aov()`.
 
@@ -79,35 +86,40 @@ Random effects are less commonly used but perhaps more widely encountered in nat
 
 On the other hand, random effects are usually grouping factors for which we are trying to control. They are always categorical, as you can’t force R to treat a continuous variable as a random effect. A lot of the time we are not specifically interested in their impact on the response variable, but we know that they might be influencing the patterns we see.
 
-Additionally, the data for our random effect is just a sample of all the possibilities: with unlimited time and funding we might have sampled every mountain where dragons live, every school in the country, every chocolate in the box), but we usually tend to generalise results to a whole population based on representative sampling. We don’t care about estimating how much better pupils in school A have done compared to pupils in school B, but we know that their respective teachers might be a reason why their scores would be different, and we’d like to know how much variation is attributable to this when we predict scores for pupils in school Z.
+#### Examples: 
+
+1. Longitudinal Health Study: Consider a study tracking the blood pressure of individuals over multiple time points. In this case, a random effect can be included to account for the individual-specific variation in blood pressure. Each individual's blood pressure measurements over time would be treated as repeated measures within that individual, and the random effect would capture the variability between individuals that is not explained by the fixed effects. This random effect allows for modeling the inherent individual differences in blood pressure levels.
+
+2. Social Network Analysis: Suppose a study examines the influence of peer groups on adolescent behavior. The study may collect data on individual behaviors within schools, where students are nested within classrooms. In this scenario, a random effect can be incorporated at the classroom level to account for the shared social environment within each classroom. The random effect captures the variability in behavior among classrooms that is not accounted for by the fixed effects, enabling the study to analyze the effects of individual-level and classroom-level factors simultaneously.
+
+3. Ecological Study: Imagine a research project investigating the effect of environmental factors on species abundance in different study sites. The study sites may be geographically dispersed, and a random effect can be included to account for the variation between study sites. The random effect captures the unexplained heterogeneity in species abundance across different sites, allowing for the examination of the effects of environmental variables while accounting for site-specific differences.
+
 
 ```{block, type = "info"}
-In the book Data analysis using regression and multilevel/hierarchical models (Gelman and Hill 2006). The authors examined five definitions of fixed and random effects and found no definition that completely fit all circumstances. Thus it turns out fixed and random effects are not born but made. We make the decision to treat a variable as fixed or random in a particular analysis. 
+In the book "Data analysis using regression and multilevel/hierarchical models" (@gelman_hill_2006). The authors examined five definitions of fixed and random effects and found no definition that completely fit all circumstances. Thus it turns out fixed and random effects are not born but made. We make the decision to treat a variable as fixed or random in a particular analysis. 
 ```
 
-> What are you trying to do? What are you trying to make predictions about? What is just variation (a.k.a “noise”) that you need to control for?
+> When determining wht should be a fixed or random effect in your study, consider what are you trying to do? What are you trying to make predictions about? What is just variation (a.k.a “noise”) that you need to control for?
 
 ```{block, type = "warning"}
 More about random effects:
 
-Note that the golden rule is that you generally want your random effect to have at least five levels. So, for instance, if we wanted to control for the effects of dragon’s sex on intelligence, we would fit sex (a two level factor: male or female) as a fixed, not random, effect.
+Note that the golden rule is that you generally want your random effect to have at least five levels. So, for instance, if we wanted to control for the effects of fish sex on body length, we would fit sex (a two level factor: male or female) as a fixed, not random, effect.
 
 This is, put simply, because estimating variance on few data points is very imprecise. Mathematically you could, but you wouldn’t have a lot of confidence in it. If you only have two or three levels, the model will struggle to partition the variance - it will give you an output, but not necessarily one you can trust.
 
 Finally, keep in mind that the name random doesn’t have much to do with mathematical randomness. Yes, it’s confusing. Just think about them as the grouping variables for now. Strictly speaking it’s all about making our models representative of our questions and getting better estimates. Hopefully, our next few examples will help you make sense of how and why they’re used.
 
- There’s no firm rule as to what the minimum number of factor levels should be for random effect and really you can use any factor that has two or more levels. However it is commonly reported that you may want five or more factor levels for a random effect in order to really benefit from what the random effect can do. Another case in which you may not want to random effect is when you don’t want your factor levels to inform each other or you don’t assume that your factor levels come from a common distribution. As noted above, male and female is not only a factor with only two levels but oftentimes we want male and female information estimated separately and we’re not necessarily assuming that males and females come from a population of sexes in which there is an infinite number and we’re interested in an average.
+ There’s no firm rule as to what the minimum number of factor levels should be for random effect and really you can use any factor that has two or more levels. However it is commonly reported that you may want five or more factor levels for a random effect in order to really benefit from what the random effect can do (though some argue for even more, 10 levels). Another case in which you may not want to random effect is when you don’t want your factor levels to inform each other or you don’t assume that your factor levels come from a common distribution. As noted above, male and female is not only a factor with only two levels but oftentimes we want male and female information estimated separately and we’re not necessarily assuming that males and females come from a population of sexes in which there is an infinite number and we’re interested in an average.
 
 ```
 
 ## Why use mixed models?
 
-### All in one model
-
-Briefly introduce mixed models and their applications
-Highlight the benefits of incorporating random effects and partial pooling
+The provided code generates a dataset that is suitable for testing mixed models. Let's break down the code and annotate each step:
 
 ```{r, include = FALSE}
+
 # Generating a fake dataset with different means for each group
 set.seed(123)  # Setting seed for reproducibility
 
@@ -119,6 +131,8 @@ rand_eff <- data.frame(group = as.factor(seq(1:5)),
 
 
 ```
+
+This section creates a data frame called rand_eff containing random effects. It consists of five levels of a grouping variable (group), and for each level, it generates random effects (b0 and b1) using the `rnorm` function.
 
 ```{r}
 data <- expand.grid(group = as.factor(seq(1:10)), 
@@ -133,7 +147,23 @@ data <- expand.grid(group = as.factor(seq(1:10)),
 
 data <- expand.grid(group = as.factor(seq(1:4)), 
                     obs = as.factor(seq(1:100)))
+```
 
+This section creates the main dataset (data) for testing mixed models. It uses `expand.grid` to create a combination of levels for the grouping variable (group) and observation variable (obs). It then performs a `left join` with the rand_eff data frame, matching the group variable to incorporate the random effects for each group.
+
+The code continues to `mutate` the dataset by adding additional variables:
+
+- x is a random predictor variable generated using `runif` to have values between 0 and 10.
+
+- B0 and B1 represent fixed effects of the intercept and slope with predetermined values of 20 and 2, respectively.
+
+- E represents the error term, generated using `rnorm` with a mean of 0 and standard deviation of 10.
+
+- Finally, y is created as the response variable using a linear model equation that includes the fixed effects (B0 and B1), random effects (b0 and b1), the predictor variable (x), and the error term (E).
+
+Now we have three variables to consider in our models: x, y and group.
+
+```{r}
 data.1 <- expand.grid(group = as.factor(5),
           obs = as.factor(seq(1:30)))
 
@@ -148,21 +178,35 @@ data <- bind_rows(data, data.1) %>%
 
 ```
 
-One way to analyse this data would be to fit a linear model to all our data, ignoring the groups for now.
+This section creates an additional dataset (data.1) with a specific group (group = 5) and a smaller number of observations (obs = 30) for testing purposes. This is then appended to the original dataset, we will see the effect of having a smaller group within our random effects when we discuss partial pooling and shrinkage later on. 
+
+Now that we have a suitable simulated dataset, let's start modelling!
+
+### All in one model
+
+We will begin by highlighting the importance of considering data structure and hierarchy when building linear models. To illustrate this, we will delve into an example that showcases the consequences of ignoring the underlying data structure. We might naively construct a single linear model that ignores the group-level variation and treats all observations as independent. This oversimplified approach fails to account for the fact that observations within groups are more similar to each other due to shared characteristics.
+
+$$Y_i = \beta_0 + \beta_1X_i + \epsilon_i$$
+
 
 ```{r}
 basic_model <- lm(y ~ x, data = data)
 summary(basic_model)
 ```
 
+Here we can see that the basic linear model has produced a statistically significant regression analysis (*t*~998~ = 11.24, *p* <0.001) with an R^2 of 0.11. There is a medium effect positive relationship between changes in x and y (Estimate = 2.765, S.E. = 0.25).
 
-```{r}
+We can see that clearly if we produce a simple plot of x against y: 
+
+```{r, fig.cap = "Simple scatter plot x against y"}
+
 plot(data$x, data$y)
 
 ```      
 
+Here if we use the function `geom_smooth()` on the scatter plot, the plot also includes a fitted regression line obtained using the "lm" method. This allows us to examine the overall trend and potential linear association between the variables.
 
-```{r, fig.cap = "Linear model conducted on all data"}
+```{r, fig.cap = "Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables."}
 
 ggplot(data, aes(x = x, 
                  y = y)) +
@@ -172,11 +216,21 @@ ggplot(data, aes(x = x,
   geom_smooth(method = "lm")
 
 ```
+The `check_model`  function (@R-performance) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model. 
+
+It enables you to identify potential issues, such as violations of assumptions, influential data points, or lack of fit, which can affect the interpretation and reliability of your model's results
 
 ```{r}
+
 performance::check_model(basic_model)
 
 ```
+
+Looking at the fit of our model we would be tempted to conclude that we have an accurate and robust model.
+
+However, when data is hierarchically structured, such as individuals nested within groups, there is typically correlation or similarity among observations within the same group. By not accounting for this clustering effect, estimates derived from a single model can be biased and inefficient. The assumption of independence among observations is violated, leading to incorrect standard errors and inflated significance levels. 
+
+From the figure below we can see the difference in median and range of x values within each of our groups: 
 
 ```{r, fig.cap = "Linear model conducted on all data"}
 
@@ -188,7 +242,11 @@ ggplot(data, aes(x = group,
 
 ```
 
+In this figure,  we colour tag the data points by group, this can be useful for determining if a mixed model is appropriate.
 
+Here's why:
+
+By colour-coding the data points based on the grouping variable, the plot allows you to visually assess the within-group and between-group variability. If there are noticeable differences in the data patterns or dispersion among the groups, it suggests that the data may have a hierarchical structure, where observations within the same group are more similar to each other than to observations in other groups.
 
 ```{r}
 
@@ -207,7 +265,96 @@ plot_group
 ```
 From the above plots, it confirms that our observations from within each of the ranges aren’t independent. We can’t ignore that: as we’re starting to see, it could lead to a completely erroneous conclusion.
 
-### Additive model
+
+### Multiple analyses approach
+
+Running separate linear models per group, also known as stratified analysis, can be a feasible approach in certain situations. However, there are several drawbacks including
+
+- Increased complexity
+
+- Inability to draw direct conclusions on overall variability 
+
+- Reduced statistical power
+
+- Inflated Type 1 error risk
+
+- Inconsistent estimates
+
+- Limited ability to handle unbalanced/missing data
+
+```{r, fig.cap = "Scatter plot showing the relationship between the independent variable (x) and the dependent variable (y) colored by group. Each subplot represents a different group. The line represents the group-level linear regression smoothing."}
+
+# Plotting the relationship between x and y with group-level smoothing
+plot_group <- ggplot(data, aes(x = x, y = y, color = group, group = group)) +
+  geom_point(alpha = 0.6) +  # Scatter plot of x and y with transparency
+  labs(title = "Data Colored by Group", x = "Independent Variable", y = "Dependent Variable") +
+  theme(legend.position = "none") +
+  geom_smooth(method = "lm") +  # Group-level linear regression smoothing
+  facet_wrap(~group)  # Faceting the plot by group
+
+```
+
+```{r}
+
+# Creating nested data by grouping the data by 'group'
+nested_data <- data %>%
+  group_by(group) %>%
+  nest()
+
+# Fitting linear regression models to each nested data group
+models <- map(nested_data$data, ~ lm(y ~ x, data = .)) %>% 
+          map(broom::tidy)
+
+# Combining the model results into a single data frame
+combined_models <- bind_rows(models)
+
+# Filtering the rows to include only the 'x' predictor
+filtered_models <- combined_models %>%
+                   filter(term == "x")
+
+# Adding a column for the group index using rowid_to_column function
+group_indexed_models <- filtered_models %>%
+                        rowid_to_column("group")
+
+# Modifying the p-values using a custom function report_p
+final_models <- group_indexed_models %>%
+                mutate(p.value = report_p(p.value))
+
+```
+
+In the code above, the dataset data is first grouped by the variable 'group' using the `group_by` function, and then the data within each group is nested using the `nest` function. This results in a new dataset nested_data where each group's data is stored as a nested tibble.
+
+Next, a linear regression model (`lm`) is fit to each nested data group using the `map` function. The `broom::tidy` function is applied to each model using map to extract the model summary statistics, such as coefficients, p-values, and standard errors. The resulting models are stored in the models object.
+
+The `bind_rows` function is used to combine the model results into a single data frame called combined_models. The data frame is then filtered to include only the rows where the predictor is 'x' using the `filter` function, resulting in the filtered_models data frame.
+
+To add a column for the group index, the `rowid_to_column` function is applied to the filtered_models data frame, creating the group_indexed_models data frame with an additional column named 'group'.
+
+Finally, the p-values in the group_indexed_models data frame are modified using a custom function `report_p`
+
+`r hide("report_p function")`
+
+```{r, eval = FALSE}
+
+ report_p <- function(p, digits = 3) {
+     reported <- if_else(p < 0.001,
+             "p < 0.001",
+             paste("p=", round(p, digits)))
+     
+     return(reported)
+ }
+
+```
+
+`r unhide()`
+
+### Complex model
+
+Using a group level term with an interaction on x as a fixed effect means explicitly including the interaction term between x and the group as a predictor in the model equation. This approach assumes that the relationship between x and the outcome variable differs across groups and that these differences are constant and fixed. It implies that each group has a unique intercept (baseline level) and slope (effect size) for the relationship between x and the outcome variable. By treating the group level term as a fixed effect, the model estimates *specific parameter values for each group*.
+
+If we are not explicitly interested in the outcomes or differences for each individual group (but wish to account for them) - this may not be the best option as it can lead to *overfitting* and it uses a lot more degrees of freedom - impacting estimates and widening our confidence intervals. As with running multiple models above, there is limited ability to make inferences outside of observed groups, and it does not handle missing data or unbalanced designs well. 
+
+$$Y_i = \beta_0 + \beta_1X_i + \beta_2.group_i+\beta_3(X_i.group_i)+\epsilon_i$$
 
 ```{r}
 additive_model <- lm(y ~ x*group, data = data)
@@ -216,44 +363,15 @@ summary(additive_model)
 
 ```
 
-
-### Multiple analysis approach
-
-```{r, fig.cap = "Multiple independent analyses"}
-
-plot_group+
-  geom_smooth(method ="lm")+
-  facet_wrap(~group)
-
-```
-
-
-
-
-```{r}
-
-nested_data <- data %>% 
-  group_by(group) %>% 
-  nest()
-
-models <- map(nested_data$data, ~ lm(y ~ x, data = .)) %>% 
-          map(broom::tidy)
-
-bind_rows(models) %>% 
-  filter(term == "x") %>% 
-  rowid_to_column("group") %>% 
-  mutate(p.value = report_p(p.value))
-
-```
-
-
 ## Our first mixed model
 
 A mixed model is a good choice here: it will allow us to use all the data we have (higher sample size) and account for the correlations between data coming from the groups. We will also estimate fewer parameters and avoid problems with multiple comparisons that we would encounter while using separate regressions.
 
 We can now join our random effect matrix to the full dataset and define our y values as 
 
-$$yi = B0i + b0j + B1xi + b1xj + ε$$.
+$$Y_{ij} = \beta_0 + \beta_1X_{ij} + \gamma_{0i} + \gamma_{1i}X_{ij} + \epsilon_{ij}$$.
+
+
 
 We have a response variable, and we are attempting to explain part of the variation in test score through fitting an independent variable as a fixed effect. But the response variable has some residual variation (i.e. unexplained variation) associated with group. By using random effects, we are modeling that unexplained variation through variance.
 
