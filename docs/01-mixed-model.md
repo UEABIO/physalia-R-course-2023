@@ -7,35 +7,11 @@ editor_options:
 
 # Foundations of Mixed Modelling
 
-```{r, child='_setup.Rmd'}
-
-```
 
 
-```{r, include = FALSE}
-library(tidyverse)
-library(rstatix)
-library(performance)
-library(see)
-library(lmerTest)
-library(patchwork)
-library(DiagrammeR)
-library(kableExtra)
-library(broom.mixed)
-library(ggeffects)
-library(DHARMa)
-library(sjPlot)
-library(MuMIn)
 
- report_p <- function(p, digits = 3) {
-     reported <- if_else(p < 0.001,
-             "p < 0.001",
-             paste("p=", round(p, digits)))
-     
-     return(reported)
- }
 
-```
+
 
 
 ## What is a mixed model?
@@ -95,46 +71,60 @@ On the other hand, random effects are usually grouping factors for which we are 
 3. Ecological Study: Imagine a research project investigating the effect of environmental factors on species abundance in different study sites. The study sites may be geographically dispersed, and a random effect can be included to account for the variation between study sites. The random effect captures the unexplained heterogeneity in species abundance across different sites, allowing for the examination of the effects of environmental variables while accounting for site-specific differences.
 
 
-```{block, type = "info"}
-In the book "Data analysis using regression and multilevel/hierarchical models" (@gelman_hill_2006). The authors examined five definitions of fixed and random effects and found no definition that completely fit all circumstances. Thus it turns out fixed and random effects are not born but made. We make the decision to treat a variable as fixed or random in a particular analysis. 
-```
+<div class="info">
+<p>In the book “Data analysis using regression and
+multilevel/hierarchical models” (<span
+class="citation">@gelman_hill_2006</span>). The authors examined five
+definitions of fixed and random effects and found no definition that
+completely fit all circumstances. Thus it turns out fixed and random
+effects are not born but made. We make the decision to treat a variable
+as fixed or random in a particular analysis.</p>
+</div>
 
 > When determining wht should be a fixed or random effect in your study, consider what are you trying to do? What are you trying to make predictions about? What is just variation (a.k.a “noise”) that you need to control for?
 
-```{block, type = "warning"}
-More about random effects:
-
-Note that the golden rule is that you generally want your random effect to have at least five levels. So, for instance, if we wanted to control for the effects of fish sex on body length, we would fit sex (a two level factor: male or female) as a fixed, not random, effect.
-
-This is, put simply, because estimating variance on few data points is very imprecise. Mathematically you could, but you wouldn’t have a lot of confidence in it. If you only have two or three levels, the model will struggle to partition the variance - it will give you an output, but not necessarily one you can trust.
-
-Finally, keep in mind that the name random doesn’t have much to do with mathematical randomness. Yes, it’s confusing. Just think about them as the grouping variables for now. Strictly speaking it’s all about making our models representative of our questions and getting better estimates. Hopefully, our next few examples will help you make sense of how and why they’re used.
-
- There’s no firm rule as to what the minimum number of factor levels should be for random effect and really you can use any factor that has two or more levels. However it is commonly reported that you may want five or more factor levels for a random effect in order to really benefit from what the random effect can do (though some argue for even more, 10 levels). Another case in which you may not want to random effect is when you don’t want your factor levels to inform each other or you don’t assume that your factor levels come from a common distribution. As noted above, male and female is not only a factor with only two levels but oftentimes we want male and female information estimated separately and we’re not necessarily assuming that males and females come from a population of sexes in which there is an infinite number and we’re interested in an average.
-
-```
+<div class="warning">
+<p>More about random effects:</p>
+<p>Note that the golden rule is that you generally want your random
+effect to have at least five levels. So, for instance, if we wanted to
+control for the effects of fish sex on body length, we would fit sex (a
+two level factor: male or female) as a fixed, not random, effect.</p>
+<p>This is, put simply, because estimating variance on few data points
+is very imprecise. Mathematically you could, but you wouldn’t have a lot
+of confidence in it. If you only have two or three levels, the model
+will struggle to partition the variance - it will give you an output,
+but not necessarily one you can trust.</p>
+<p>Finally, keep in mind that the name random doesn’t have much to do
+with mathematical randomness. Yes, it’s confusing. Just think about them
+as the grouping variables for now. Strictly speaking it’s all about
+making our models representative of our questions and getting better
+estimates. Hopefully, our next few examples will help you make sense of
+how and why they’re used.</p>
+<p>There’s no firm rule as to what the minimum number of factor levels
+should be for random effect and really you can use any factor that has
+two or more levels. However it is commonly reported that you may want
+five or more factor levels for a random effect in order to really
+benefit from what the random effect can do (though some argue for even
+more, 10 levels). Another case in which you may not want to random
+effect is when you don’t want your factor levels to inform each other or
+you don’t assume that your factor levels come from a common
+distribution. As noted above, male and female is not only a factor with
+only two levels but oftentimes we want male and female information
+estimated separately and we’re not necessarily assuming that males and
+females come from a population of sexes in which there is an infinite
+number and we’re interested in an average.</p>
+</div>
 
 ## Why use mixed models?
 
 The provided code generates a dataset that is suitable for testing mixed models. Let's break down the code and annotate each step:
 
-```{r, include = FALSE}
 
-# Generating a fake dataset with different means for each group
-set.seed(123)  # Setting seed for reproducibility
-
-
-rand_eff <- data.frame(group = as.factor(seq(1:5)),
-            b0 = rnorm(5, mean = 0, sd = 20),
-            b1 = rnorm(5, 0, 0.5))
-
-
-
-```
 
 This section creates a data frame called rand_eff containing random effects. It consists of five levels of a grouping variable (group), and for each level, it generates random effects (b0 and b1) using the `rnorm` function.
 
-```{r}
+
+```r
 data <- expand.grid(group = as.factor(seq(1:10)), 
                     obs = as.factor(seq(1:100))) %>%
   left_join(rand_eff,
@@ -162,7 +152,8 @@ The code continues to `mutate` the dataset by adding additional variables:
 - Finally, y is created as the response variable using a linear model equation that includes the fixed effects (B0 and B1), random effects (b0 and b1), the predictor variable (x), and the error term (E).
 
 
-```{r}
+
+```r
 data.1 <- expand.grid(group = as.factor(5),
           obs = as.factor(seq(1:30)))
 
@@ -174,7 +165,6 @@ data <- bind_rows(data, data.1) %>%
          B1 = 2,
          E = rnorm(n = nrow(.), 0, 10)) %>%
   mutate(y = B0 + b0 + x * (B1 + b1) + E)
-
 ```
 
 This section creates an additional dataset (data.1) with a specific group (group = 5) and a smaller number of observations (obs = 30) for testing purposes. This is then appended to the original dataset, we will see the effect of having a smaller group within our random effects when we discuss partial pooling and shrinkage later on. 
@@ -182,11 +172,65 @@ This section creates an additional dataset (data.1) with a specific group (group
 
 Now we have three variables to consider in our models: x, y and group (with five levels).
 
-```{r}
+
+```r
 data %>% 
   select(x, y, group, obs) %>% 
   head()
 ```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> x </th>
+   <th style="text-align:right;"> y </th>
+   <th style="text-align:left;"> group </th>
+   <th style="text-align:left;"> obs </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 4.0584411 </td>
+   <td style="text-align:right;"> -0.5487802 </td>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7.2250893 </td>
+   <td style="text-align:right;"> 17.3260398 </td>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0.5963383 </td>
+   <td style="text-align:right;"> 41.2256737 </td>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3.3034922 </td>
+   <td style="text-align:right;"> 16.0958571 </td>
+   <td style="text-align:left;"> 4 </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7.7676400 </td>
+   <td style="text-align:right;"> 32.0586590 </td>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 8.4045935 </td>
+   <td style="text-align:right;"> 50.1274193 </td>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
 
 Now that we have a suitable simulated dataset, let's start modelling!
 
@@ -197,42 +241,73 @@ We will begin by highlighting the importance of considering data structure and h
 $$Y_i = \beta_0 + \beta_1X_i + \epsilon_i$$
 
 
-```{r}
+
+```r
 basic_model <- lm(y ~ x, data = data)
 summary(basic_model)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x, data = data)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -37.23 -12.11  -2.36  11.00  44.53 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  21.0546     1.6490  12.768   <2e-16 ***
+## x             2.5782     0.2854   9.034   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 16.96 on 428 degrees of freedom
+## Multiple R-squared:  0.1602,	Adjusted R-squared:  0.1582 
+## F-statistic: 81.62 on 1 and 428 DF,  p-value: < 2.2e-16
 ```
 
 Here we can see that the basic linear model has produced a statistically significant regression analysis (*t*~998~ = 11.24, *p* <0.001) with an R^2 of 0.11. There is a medium effect positive relationship between changes in x and y (Estimate = 2.765, S.E. = 0.25).
 
 We can see that clearly if we produce a simple plot of x against y: 
 
-```{r, fig.cap = "Simple scatter plot x against y"}
 
+```r
 plot(data$x, data$y)
+```
 
-```      
+<div class="figure" style="text-align: center">
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-10-1.png" alt="Simple scatter plot x against y" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-10)Simple scatter plot x against y</p>
+</div>
 
 Here if we use the function `geom_smooth()` on the scatter plot, the plot also includes a fitted regression line obtained using the "lm" method. This allows us to examine the overall trend and potential linear association between the variables.
 
-```{r, fig.cap = "Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables."}
 
+```r
 ggplot(data, aes(x = x, 
                  y = y)) +
   geom_point() +
   labs(x = "Independent Variable", 
        y = "Dependent Variable")+
   geom_smooth(method = "lm")
-
 ```
+
+<div class="figure" style="text-align: center">
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-11-1.png" alt="Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-11)Scatter plot displaying the relationship between the independent variable and the dependent variable. The points represent the observed data, while the fitted regression line represents the linear relationship between the variables. The plot helps visualize the trend and potential association between the variables.</p>
+</div>
 The `check_model`  function from the `performance` package (@R-performance) is used to evaluate the performance and diagnostic measures of a statistical model. It provides a comprehensive assessment of the model's fit, assumptions, and predictive capabilities. By calling this function, you can obtain a summary of various evaluation metrics and diagnostic plots for the specified model. 
 
 It enables you to identify potential issues, such as violations of assumptions, influential data points, or lack of fit, which can affect the interpretation and reliability of your model's results
 
-```{r}
 
+```r
 performance::check_model(basic_model)
-
 ```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
 
 Looking at the fit of our model we would be tempted to conclude that we have an accurate and robust model.
 
@@ -240,15 +315,19 @@ However, when data is hierarchically structured, such as individuals nested with
 
 From the figure below we can see the difference in median and range of x values within each of our groups: 
 
-```{r, fig.cap = "Linear model conducted on all data"}
 
+```r
 ggplot(data, aes(x = group, 
                  y = y)) +
   geom_boxplot() +
   labs(x = "Groups", 
        y = "Dependent Variable")
-
 ```
+
+<div class="figure" style="text-align: center">
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-13-1.png" alt="Linear model conducted on all data" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-13)Linear model conducted on all data</p>
+</div>
 
 In this figure,  we colour tag the data points by group, this can be useful for determining if a mixed model is appropriate.
 
@@ -256,8 +335,8 @@ Here's why:
 
 By colour-coding the data points based on the grouping variable, the plot allows you to visually assess the within-group and between-group variability. If there are noticeable differences in the data patterns or dispersion among the groups, it suggests that the data may have a hierarchical structure, where observations within the same group are more similar to each other than to observations in other groups.
 
-```{r}
 
+```r
 # Color tagged by group
 plot_group <- ggplot(data, aes(x = x, 
                                y = y, 
@@ -271,6 +350,8 @@ plot_group <- ggplot(data, aes(x = x,
 
 plot_group
 ```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
 From the above plots, it confirms that our observations from within each of the ranges aren’t independent. We can’t ignore that: as we’re starting to see, it could lead to a completely erroneous conclusion.
 
 
@@ -290,8 +371,8 @@ Running separate linear models per group, also known as stratified analysis, can
 
 - Limited ability to handle unbalanced/missing data
 
-```{r, fig.cap = "Scatter plot showing the relationship between the independent variable (x) and the dependent variable (y) colored by group. Each subplot represents a different group. The line represents the group-level linear regression smoothing."}
 
+```r
 # Plotting the relationship between x and y with group-level smoothing
 ggplot(data, aes(x = x, y = y, color = group, group = group)) +
   geom_point(alpha = 0.6) +  # Scatter plot of x and y with transparency
@@ -299,12 +380,16 @@ ggplot(data, aes(x = x, y = y, color = group, group = group)) +
   theme(legend.position = "none") +
   geom_smooth(method = "lm") +  # Group-level linear regression smoothing
   facet_wrap(~group)  # Faceting the plot by group
-
 ```
 
+<div class="figure" style="text-align: center">
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-15-1.png" alt="Scatter plot showing the relationship between the independent variable (x) and the dependent variable (y) colored by group. Each subplot represents a different group. The line represents the group-level linear regression smoothing." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-15)Scatter plot showing the relationship between the independent variable (x) and the dependent variable (y) colored by group. Each subplot represents a different group. The line represents the group-level linear regression smoothing.</p>
+</div>
 
-```{r}
 
+
+```r
 # Creating nested data by grouping the data by 'group'
 nested_data <- data %>%
   group_by(group) %>%
@@ -330,8 +415,66 @@ final_models <- group_indexed_models %>%
                 mutate(p.value = report_p(p.value))
 
 final_models
-
 ```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> group </th>
+   <th style="text-align:left;"> term </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> std.error </th>
+   <th style="text-align:right;"> statistic </th>
+   <th style="text-align:left;"> p.value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 3.0643940 </td>
+   <td style="text-align:right;"> 0.3620254 </td>
+   <td style="text-align:right;"> 8.4645823 </td>
+   <td style="text-align:left;"> p &lt; 0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 2.5162898 </td>
+   <td style="text-align:right;"> 0.3354848 </td>
+   <td style="text-align:right;"> 7.5004590 </td>
+   <td style="text-align:left;"> p &lt; 0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 1.3904720 </td>
+   <td style="text-align:right;"> 0.3192878 </td>
+   <td style="text-align:right;"> 4.3549169 </td>
+   <td style="text-align:left;"> p &lt; 0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 1.6856649 </td>
+   <td style="text-align:right;"> 0.3550511 </td>
+   <td style="text-align:right;"> 4.7476686 </td>
+   <td style="text-align:left;"> p &lt; 0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> -0.0755633 </td>
+   <td style="text-align:right;"> 0.6576868 </td>
+   <td style="text-align:right;"> -0.1148926 </td>
+   <td style="text-align:left;"> p= 0.909 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
 
 In the code above, the dataset data is first grouped by the variable 'group' using the `group_by` function, and then the data within each group is nested using the `nest` function. This results in a new dataset nested_data where each group's data is stored as a nested tibble.
 
@@ -343,10 +486,12 @@ To add a column for the group index, the `rowid_to_column` function is applied t
 
 Finally, the p-values in the group_indexed_models data frame are modified using a custom function `report_p`
 
-`r hide("report_p function")`
 
-```{r, eval = FALSE}
+<div class='webex-solution'><button>report_p function</button>
 
+
+
+```r
  report_p <- function(p, digits = 3) {
      reported <- if_else(p < 0.001,
              "p < 0.001",
@@ -354,10 +499,11 @@ Finally, the p-values in the group_indexed_models data frame are modified using 
      
      return(reported)
  }
-
 ```
 
-`r unhide()`
+
+</div>
+
 
 ### Complex model
 
@@ -367,11 +513,40 @@ If we are not explicitly interested in the outcomes or differences for each indi
 
 $$Y_i = \beta_0 + \beta_1X_i + \beta_2.group_i+\beta_3(X_i.group_i)+\epsilon_i$$
 
-```{r}
+
+```r
 additive_model <- lm(y ~ x*group, data = data)
 
 summary(additive_model)
+```
 
+```
+## 
+## Call:
+## lm(formula = y ~ x * group, data = data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -24.8614  -6.2579   0.2044   6.9342  28.5474 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   6.8125     1.8881   3.608 0.000346 ***
+## x             3.0644     0.3379   9.070  < 2e-16 ***
+## group2        6.4526     2.7289   2.365 0.018505 *  
+## group3       44.8356     2.8539  15.710  < 2e-16 ***
+## group4       15.8607     2.7184   5.835 1.08e-08 ***
+## group5       22.9090     4.0772   5.619 3.51e-08 ***
+## x:group2     -0.5481     0.4875  -1.124 0.261560    
+## x:group3     -1.6739     0.4781  -3.501 0.000513 ***
+## x:group4     -1.3787     0.4830  -2.855 0.004522 ** 
+## x:group5     -3.1400     0.7479  -4.198 3.28e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 9.801 on 420 degrees of freedom
+## Multiple R-squared:  0.7246,	Adjusted R-squared:  0.7187 
+## F-statistic: 122.8 on 9 and 420 DF,  p-value: < 2.2e-16
 ```
 
 ## Our first mixed model
@@ -392,40 +567,52 @@ We now want to know if an association between `y ~ x` exists after controlling f
 
 This section will detail how to run mixed models with the `lmer` function in the R package `lmerTest` (@R-lmerTest). This builds on the older `lme4` (@R-lme4) package, and in particular add p-values that were not previously included. There are other R packages that can be used to run mixed-effects models including the `nlme` package (@R-nlme) and the `glmmTMB` package (@R-glmmTMB). Outside of R there are also other packages and software capable of running mixed-effects models, though arguably none is better supported than R software.
 
-`r hide("Plotting random intercepts")`
-```{r, echo = FALSE}
 
-plot_function2 <- function(model, title = "Data Coloured by Group"){
-  
-data <- data %>% 
-  mutate(fit.m = predict(model, re.form = NA),
-         fit.c = predict(model, re.form = NULL))
+<div class='webex-solution'><button>Plotting random intercepts</button>
 
-data %>%
-  ggplot(aes(x = x, y = y, col = group)) +
-  geom_point(pch = 16, alpha = 0.6) +
-  geom_line(aes(y = fit.c, col = group), linewidth = 2)  +
-  coord_cartesian(ylim = c(-40, 100))+
-  labs(title = title, 
-       x = "Independent Variable", 
-       y = "Dependent Variable") 
-}
-
-mixed_model <- lmer(y ~ x + (1|group), data = data)
-
-plot_function2(mixed_model, "Random intercept")
-
-```
-
-`r unhide()`
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-```{r}
+</div>
+
+
+
+
+```r
 # random intercept model
 mixed_model <- lmer(y ~ x + (1|group), data = data)
 
 summary(mixed_model)
+```
 
+```
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: y ~ x + (1 | group)
+##    Data: data
+## 
+## REML criterion at convergence: 3224.4
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -2.61968 -0.63654 -0.03584  0.66113  3.13597 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  group    (Intercept) 205      14.32   
+##  Residual             101      10.05   
+## Number of obs: 430, groups:  group, 5
+## 
+## Fixed effects:
+##             Estimate Std. Error       df t value Pr(>|t|)    
+## (Intercept)  23.2692     6.4818   4.1570    3.59   0.0215 *  
+## x             2.0271     0.1703 424.0815   11.90   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##   (Intr)
+## x -0.131
 ```
 
 
@@ -446,8 +633,8 @@ It is worth noting that random effect estimates are a function of the group-leve
 
 Below we can take a look at the estimates and standard errors for three of our previously constructed models:
 
-```{r}
 
+```r
 pooled <- basic_model %>% 
   broom::tidy() %>% 
   mutate(Approach = "Pooled", .before = 1) %>% 
@@ -465,8 +652,60 @@ partial_pool <- mixed_model %>%
 
 bind_rows(pooled, no_pool, partial_pool) %>% 
   filter(term %in% c("x" , "(Intercept)") )
-
 ```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> term </th>
+   <th style="text-align:right;"> estimate </th>
+   <th style="text-align:right;"> std.error </th>
+   <th style="text-align:left;"> Approach </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> 21.054614 </td>
+   <td style="text-align:right;"> 1.6490185 </td>
+   <td style="text-align:left;"> Pooled </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 2.578217 </td>
+   <td style="text-align:right;"> 0.2853798 </td>
+   <td style="text-align:left;"> Pooled </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> 6.812481 </td>
+   <td style="text-align:right;"> 1.8881155 </td>
+   <td style="text-align:left;"> No Pooling </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 3.064394 </td>
+   <td style="text-align:right;"> 0.3378685 </td>
+   <td style="text-align:left;"> No Pooling </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:right;"> 23.269187 </td>
+   <td style="text-align:right;"> 6.4818211 </td>
+   <td style="text-align:left;"> Mixed Model/Partial Pool </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 2.027065 </td>
+   <td style="text-align:right;"> 0.1703423 </td>
+   <td style="text-align:left;"> Mixed Model/Partial Pool </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
 
 Pooling helps to improve the precision of the estimates by borrowing strength from the entire dataset. However, this can also lead to differences in the estimates and standard errors compared to models without pooling. 
 
@@ -480,22 +719,41 @@ Pooling helps to improve the precision of the estimates by borrowing strength fr
 
 ESTIMATES VS PREDICTIONS
 
-```{r}
 
+```r
 coef(mixed_model)
 
 fixef(mixed_model)
+```
 
+```
+## $group
+##   (Intercept)        x
+## 1    11.82356 2.027066
+## 2    15.68146 2.027066
+## 3    47.94678 2.027066
+## 4    21.01028 2.027066
+## 5    19.88385 2.027066
+## 
+## attr(,"class")
+## [1] "coef.mer"
+## (Intercept)           x 
+##   23.269187    2.027066
 ```
 
 
-```{r}
+
+```r
 plot_model(mixed_model,type="pred",
            terms=c("x", "group"),
            pred.type="re",
            show.data = T)+
   facet_wrap( ~ group)
+```
 
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
 ###
 
 data1 <- data %>% 
@@ -511,20 +769,28 @@ data1 %>%
   facet_wrap( ~ group)
 ```
 
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-23-2.png" width="100%" style="display: block; margin: auto;" />
+
 
 http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
 
-```{r}
 
+```r
 plot_model(mixed_model, terms = c("x", "group"), type = "re")
-
-plot_model(mixed_model, terms = c("x", "group"), type = "est")
-
 ```
 
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+plot_model(mixed_model, terms = c("x", "group"), type = "est")
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-24-2.png" width="100%" style="display: block; margin: auto;" />
 
 
-```{r}
+
+
+```r
 basic_pred <- emmeans(basic_model, specs = ~  x, at = list(x = c(0, 2.5, 5, 7.5, 10))) %>% as_tibble()
 
 mixed_pred <- emmeans(mixed_model, specs = ~  x, at = list(x = c(0, 2.5, 5, 7.5, 10))) %>% as_tibble()
@@ -555,12 +821,22 @@ partial_plot <- data %>%
 
 pooled_plot /
   partial_plot
-
 ```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ### `ggeffects`
 
+#### `ggpredict`
+
+The argument `type = random` in the `ggpredict` function (from the ggeffects package @R-ggeffects) is used to specify the type of predictions to be generated in the context of mixed effects models. The main difference between using `ggpredict` with and without `type = random` lies in the type of predictions produced:
+
+Without `type = random`: `ggpredict` will generate **fixed-effects predictions**. These predictions are based solely on the fixed effects of the model, ignoring any variability associated with the random effects. The resulting predictions represent the average or expected values of the response variable for specific combinations of predictor values, considering only the fixed components of the model.
+
+With `type = random`: ggpredict will generate predictions that **incorporate both fixed and random effects**. These predictions take into account the variability introduced by the random effects in the model. The resulting predictions reflect not only the average trend captured by the fixed effects but also the additional variability associated with the random effects at different levels of the grouping factor(s).
+
+#### `ggemmeans`
 
 ### `sjPlot`
 
@@ -571,21 +847,23 @@ BLUP - Hector book!
 
 ## Checking model assumptions
 
-```{r}
 
+```r
 plot(mixed_model) 
-
 ```
 
-```{r}
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
 
+
+```r
 qqnorm(resid(mixed_model))
 qqline(resid(mixed_model)) 
-
 ```
 
-```{r}
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
 
+
+```r
 rand_dist <- as.data.frame(ranef(mixed_model)) %>% 
   mutate(group = grp,
          b0_hat = condval,
@@ -593,13 +871,13 @@ rand_dist <- as.data.frame(ranef(mixed_model)) %>%
          .keep = "none")
 
 hist(rand_dist$b0_hat)
-
 ```
 
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
 
-```{r, fig.cap = "Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts"}
 
 
+```r
 data1 %>%
   ggplot(aes(x = x, y = y)) +
   geom_point(pch = 16, col = "grey") +
@@ -613,34 +891,41 @@ data1 %>%
   coord_cartesian(ylim = c(-40, 100))+
   labs(x = "Independent Variable", 
        y = "Dependent Variable")
-
 ```
+
+<div class="figure" style="text-align: center">
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-29-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-29)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
+</div>
 
 `re.form = NA`: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
 
 `re.form = NULL`: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
 
-```{r}
 
+```r
 performance::check_model(mixed_model)
-
 ```
 
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
 
-```{r}
 
+
+```r
 resid.mm <- DHARMa::simulateResiduals(mixed_model)
 
 plot(resid.mm)
-
 ```
 
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
 
-```{block, type = "warning"}
 
-When you have a lot of data, even minimal deviations from the expected distribution will become significant (this is discussed in the help/vignette for the DHARMa package). You will need to assess the distribution and decide if it is important for yourself.
-
-```
+<div class="warning">
+<p>When you have a lot of data, even minimal deviations from the
+expected distribution will become significant (this is discussed in the
+help/vignette for the DHARMa package). You will need to assess the
+distribution and decide if it is important for yourself.</p>
+</div>
 
 
 
@@ -673,138 +958,103 @@ Clutch Mass  ∼  Foraging Rate + (1|Woodland/Female ID)+ (1|Year)
 Understanding whether your experimental/sampling design calls for nested or crossed  random effects is not always straightforward, but it can help to visualise experimental  design by drawing it (see  Schielzeth & Nakagawa, 2013  ;  Fig. 1  ), or tabulating your  observations by these grouping factors (e.g. with the ‘  table’  command in R) to identify  how your data are distributed. We advocate that researchers always ensure that their levels  of random effect grouping variables are uniquely labelled. For example, females are  labelled 1  -  n  in each woodland, the model will try and pool variance for all females  with the same code. Giving all females a unique code makes the nested structure of the  data is implicit, and a model specified as  ∼  (1| Woodland) + (1|FemaleID) would be  identical to the model above. 
 
 
-```{r, echo = FALSE, fig.cap = "Fully Nested"}
-grViz("
-digraph boxes_and_circles {
+<div class="figure" style="text-align: center">
 
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
-
-  # several 'node' statements
-  node [shape = box,
-        fontname = Helvetica]
-  I; II; 1; 2; 3; 4; 5; 6
-
-  # several 'edge' statements
-  I->1 I ->2 I ->3
-  II ->4  II ->5 II ->6
-}
-")
-
+```{=html}
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-bc3665074742ce309c84" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-bc3665074742ce309c84">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
+<p class="caption">(\#fig:unnamed-chunk-33)Fully Nested</p>
+</div>
 
-```{r, echo = FALSE, fig.cap = "Fully Crossed"}
-grViz("
-digraph boxes_and_circles {
 
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
+<div class="figure" style="text-align: center">
 
-  # several 'node' statements
-  node [shape = box,
-        fontname = Helvetica]
-  I; II; 1; 2; 3
-
-  # several 'edge' statements
-  I->1 I ->2 I ->3
-  II ->1  II ->2 II ->3
-}
-")
-
+```{=html}
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-006b49558015fb63f5c0" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-006b49558015fb63f5c0">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
+<p class="caption">(\#fig:unnamed-chunk-34)Fully Crossed</p>
+</div>
 
-```{r, echo = FALSE, fig.cap = "Partially Nested/Crossed"}
-grViz("
-digraph boxes_and_circles {
 
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 10]
+<div class="figure" style="text-align: center">
 
-  # several 'node' statements
-  node [shape = box,
-        fontname = Helvetica]
-  I; II; 1; 2; 3; 4; 5 
-
-  # several 'edge' statements
-  I->1 I ->2 I ->3
-  II ->1  II ->4 II ->5
-}
-")
-
+```{=html}
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-dd7c2786b1d1c6f9b595" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-dd7c2786b1d1c6f9b595">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5 \n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->4 II ->5\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
+
+<p class="caption">(\#fig:unnamed-chunk-35)Partially Nested/Crossed</p>
+</div>
 
 
 ## Random slopes
 
 
-```{r, include = FALSE}
-plot_function <- function(model, title = "Data Coloured by Group"){
-  
-data <- data %>% 
-  mutate(fit.m = predict(model, re.form = NA),
-         fit.c = predict(model, re.form = NULL))
-
-data %>%
-  ggplot(aes(x = x, y = y, col = group)) +
-  geom_point(pch = 16, alpha = 0.4) +
-  geom_line(aes(y = fit.c, col = group), linewidth = 1)  +
-  coord_cartesian(ylim = c(-40, 100))+
-  labs(title = title)+
-  theme_void()+
-  theme(legend.position ="none")
-}
-
-# random intercept model
-lmer1 <- lmer(y ~ x + (1|group), data = data)
-
-plot_function(lmer1, "Random intercept")
-
-# Random slope model
-
-lmer2 <- lmer(y ~ x + (0 + x | group), data = data)
-
-plot_function(lmer2, "Random slope")
-
-# Random slope and intercept model
-
-lmer3 <- lmer(y ~ x + (x | group), data = data)
-
-plot_function(lmer3, "Random slope and intercept")
-```
 
 
-```{r, echo = FALSE}
 
-plot_group <- plot_group+
-  theme_void()+
-    theme(legend.position ="none")
-
-(plot_group + plot_function(lmer1,  "Random intercept")) / 
-(plot_function(lmer2, "Random slope") + plot_function(lmer3, "Random slope and intercept")) 
-
-```
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-37-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-```{r}
+
+```r
 summary(lmer3)
-
 ```
 
-```{r}
+```
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: y ~ x + (x | group)
+##    Data: data
+## 
+## REML criterion at convergence: 3211
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.5477 -0.6567  0.0042  0.7018  2.9428 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr 
+##  group    (Intercept) 294.2242 17.1530       
+##           x             0.9398  0.9694  -0.65
+##  Residual              96.2248  9.8094       
+## Number of obs: 430, groups:  group, 5
+## 
+## Fixed effects:
+##             Estimate Std. Error      df t value Pr(>|t|)  
+## (Intercept)  24.3285     7.7423  4.0342   3.142   0.0344 *
+## x             1.8297     0.4708  3.2059   3.887   0.0268 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##   (Intr)
+## x -0.641
+## optimizer (nloptwrap) convergence code: 0 (OK)
+## Model failed to converge with max|grad| = 0.00241 (tol = 0.002, component 1)
+```
+
+
+```r
 data.2 <- data %>% 
   mutate(fit2.m = predict(lmer3, re.form = NA),
          fit2.c = predict(lmer3, re.form = NULL),
          resid2 = resid(lmer3))
-
 ```
 
 
 ## Random effect correlation
 
+Understanding Group Structure: The correlation of random effects provides insight into the inherent structure of the groups in the data. It reveals the degree of similarity or dissimilarity between the random effects associated with different groups. This information helps to uncover patterns of clustering or similarity among the groups, which can be crucial in understanding the underlying mechanisms or processes being studied.
 
-```{r}
+Modeling Assumptions: The correlation of random effects is directly linked to the assumptions made about the covariance structure of the random effects in the model. By reporting the correlation, researchers can assess the validity of their modeling assumptions. Violations or deviations from the assumed correlation structure may indicate a need for alternative modeling approaches or further investigation into the nature of the group-level variability.
+
+
+```r
 rand_dist2 <- as.data.frame(ranef(lmer3)) %>% 
   mutate(group = grp,
           term = case_when(term == "(Intercept)" ~ "b0_hat",
@@ -840,25 +1090,26 @@ BBBC"
 inset <- xdens+pmain+ydens +plot_layout(design = layout)
 
 inset
-
 ```
 
-
-```{r, include = FALSE}
-inset <- xdens+(pmain+theme_void()+theme(legend.position = "none"))+ydens +plot_layout(design = layout)
-```
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-40-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-```{r}
 
+
+
+
+```r
 ((plot_function(lmer1, "Random intercept")+theme_classic())+coord_cartesian(
                     ylim = c(0, 120))) + inset_element(inset, 0.1, 0.6, 0.5, 1)
-
 ```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Model refining
 
+SEE BELOW! 
 
 ## Random slopes
 
@@ -867,37 +1118,24 @@ random_slopes_values <- predict(random_slopes_model)
 
 ## Random intercept
 
-# Random intercept model
-model_intercept <- lmer(dependent_var ~ independent_var + (1 | group), data = data)
-random_intercept_values <- predict(model_intercept)
 
-ggplot(data, aes(x = independent_var, y = dependent_var, color = group, group = group)) +
-    geom_point(position = position_jitter(width = 0.2), alpha = 0.6) +
-    geom_line(aes(x = independent_var, y= random_intercept_values)) +
-    labs(title = "Random Slopes", x = "Independent Variable", y = "Dependent Variable") +
-    theme_minimal()
 
 
 # Complex designs
 
-```{r, include = FALSE}
-biodepth <- read_tsv("files/Biodepth.txt")
+
+
+
+
+```{=html}
+<a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/Biodepth.txt">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download BIODEPTH data</button>
+</a>
 ```
 
 
-```{r, eval = TRUE, echo = FALSE}
-downloadthis::download_link(
-  link = "https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/Biodepth.txt",
-  button_label = "Download BIODEPTH data",
-  button_type = "success",
-  has_icon = TRUE,
-  icon = "fa fa-save",
-  self_contained = FALSE
-)
-```
 
-
-```{r}
+```r
 biodepth <- biodepth %>% 
   mutate(Mix = factor(Mix),
          Diversity2 = log(Diversity, 2)) %>% 
@@ -905,16 +1143,46 @@ biodepth <- biodepth %>%
 
 # set Mix as a factor
 # Set Diversity to log, base 2
-
 ```
 
 
-```{r}
 
+```r
 bio.lmer1 <- lmer(Shoot2 ~ Diversity2 + (1|Site) + (1|Block) + (1|Mix), data = biodepth)
 
 summary(bio.lmer1)
+```
 
+```
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: Shoot2 ~ Diversity2 + (1 | Site) + (1 | Block) + (1 | Mix)
+##    Data: biodepth
+## 
+## REML criterion at convergence: 6082.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.2187 -0.5179 -0.1031  0.3941  3.1735 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Mix      (Intercept) 33665.3  183.48  
+##  Block    (Intercept)   383.2   19.57  
+##  Site     (Intercept) 30163.9  173.68  
+##  Residual             22039.8  148.46  
+## Number of obs: 451, groups:  Mix, 192; Block, 15; Site, 8
+## 
+## Fixed effects:
+##             Estimate Std. Error      df t value Pr(>|t|)    
+## (Intercept)  349.488     66.244   8.576   5.276 0.000598 ***
+## Diversity2    78.901     12.059 175.159   6.543 6.42e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##            (Intr)
+## Diversity2 -0.286
 ```
 
 
@@ -927,47 +1195,137 @@ To summarize:
 1 | Site:Mix: Two-way crossed random effect, allowing for independent variation of random effects for each combination of levels in Site and Mix.
 1 | Site/Mix: Nested random effect, with the random effect of Mix nested within the random effect of Site, assuming that the levels of Mix are nested within each level of Site.
 
-```{r}
+
+```r
 bio.lmer2 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1|Block) + (1|Mix), data = biodepth)
 
 summary(bio.lmer2)
+```
 
+```
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: Shoot2 ~ Diversity2 + (Diversity2 | Site) + (1 | Block) + (1 |  
+##     Mix)
+##    Data: biodepth
+## 
+## REML criterion at convergence: 6072.6
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.1292 -0.5208 -0.1004  0.3739  3.2865 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr
+##  Mix      (Intercept) 31421.7  177.26       
+##  Block    (Intercept)   391.6   19.79       
+##  Site     (Intercept) 18930.9  137.59       
+##           Diversity2   1149.9   33.91   1.00
+##  Residual             21995.1  148.31       
+## Number of obs: 451, groups:  Mix, 192; Block, 15; Site, 8
+## 
+## Fixed effects:
+##             Estimate Std. Error      df t value Pr(>|t|)    
+## (Intercept)  346.070     54.362   8.734   6.366 0.000149 ***
+## Diversity2    79.181     16.855  11.289   4.698 0.000608 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##            (Intr)
+## Diversity2 0.399 
+## optimizer (nloptwrap) convergence code: 0 (OK)
+## boundary (singular) fit: see help('isSingular')
 ```
 
 
 ## Likelihood tests
 
-```{r}
 
+```r
 bio.lmer3 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1|Mix), data = biodepth)
 
 anova(bio.lmer2, bio.lmer3)
-
 ```
 
+<div class="kable-table">
 
-```{block, type = "info"}
-ML and REML
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> npar </th>
+   <th style="text-align:right;"> AIC </th>
+   <th style="text-align:right;"> BIC </th>
+   <th style="text-align:right;"> logLik </th>
+   <th style="text-align:right;"> deviance </th>
+   <th style="text-align:right;"> Chisq </th>
+   <th style="text-align:right;"> Df </th>
+   <th style="text-align:right;"> Pr(&gt;Chisq) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> bio.lmer3 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 6104.437 </td>
+   <td style="text-align:right;"> 6133.217 </td>
+   <td style="text-align:right;"> -3045.218 </td>
+   <td style="text-align:right;"> 6090.437 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bio.lmer2 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 6105.697 </td>
+   <td style="text-align:right;"> 6138.589 </td>
+   <td style="text-align:right;"> -3044.849 </td>
+   <td style="text-align:right;"> 6089.697 </td>
+   <td style="text-align:right;"> 0.7395044 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.3898197 </td>
+  </tr>
+</tbody>
+</table>
 
-```
+</div>
+
+
+There is a literature on the idea of model selection, that is, an automated (or sometimes manual) way of testing many versions of a model with a different subset of the predictors in an attempt to find the model that fits best. These are sometimes called “stepwise” procedures.
+
+This method has a number of flaws, including
+
+Doing this is basically “p-value mining”, that is, running a lot of tests till you find a p-value you like.
+Your likelihood of making a false positive is very high.
+As we saw earlier, adding a new variable can have an effect on existing predictors.
+Instead of doing model selection, you should use your knowledge of the data to select a subset of the variables which are either a) of importance to you, b) theoretically influential on the outcome (e.g. demographic variables) or c) what others (reviewers) would think are influential on the outcome. Then you can fit a single model including all of this. The “subset” can be all predictors if the sample size is sufficient.
+
+Note that adjustments to fix assumptions (e.g. transformations) or multicollinearity would not fall into the category of model selection and are fine to use.
+
+
+<div class="info">
+<p>ML and REML</p>
+</div>
 
 
 
 
 
-```{r}
+
+```r
 nested_data <- biodepth %>% 
     group_by(Site) %>% 
     nest()
 
 models <- map(nested_data$data, ~ lm(Shoot2 ~ Diversity2, data = .)) %>% 
     map(predict)
-
 ```
 
 
-```{r}
 
+```r
 biodepth.2 <- biodepth %>% 
     mutate(fit.m = predict(bio.lmer2, re.form = NA),
            fit.c = predict(bio.lmer2, re.form = ~(1+Diversity2|Site)),
@@ -983,11 +1341,9 @@ biodepth.2 %>%
     facet_wrap( ~ Site)+
    coord_cartesian(ylim = c(0, 1200))+
    theme(legend.position = "none")
-           
-           
-
-
 ```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Reporting Mixed Model results
@@ -1007,55 +1363,44 @@ BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
 https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
 
 
-```{r}
 
+```r
 politeness <- read_csv("files/politeness_data.csv")
 
 politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +
                             (1+attitude|scenario),
                         data=politeness)
-
-
 ```
 
 # Worked Example 2 - Dolphins
 
-```{r, eval = TRUE, echo = FALSE}
-downloadthis::download_link(
-  link = "https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/dolphins.csv",
-  button_label = "Download Dolphins data",
-  button_type = "success",
-  has_icon = TRUE,
-  icon = "fa fa-save",
-  self_contained = FALSE
-)
+
+```{=html}
+<a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/dolphins.csv">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download Dolphins data</button>
+</a>
 ```
 
-```{r, echo = FALSE}
 
-dolphins <- read_csv("files/dolphins.csv") 
-
-dolphins$direction <- factor(dolphins$direction)
-
-dolphins <- drop_na(dolphins)
-
-```
 
 DOLPHIN FIXED EFFECTS
 
-```{r}
+
+```r
 dolphmod.1 <- lmer(vt ~ bodymass + direction + (direction|animal), data=dolphins)
 dolphmod.2 <- lmer(vt ~ bodymass + direction + (1|animal), data=dolphins)
 ```
 
-```{r}
+
+```r
 dolphins.1 <- dolphins %>% 
     mutate(fit.m = predict(dolphmod.2, re.form = NA),
            fit.c = predict(dolphmod.2, re.form = NULL))
 ```
 
 
-```{r}
+
+```r
 dolphins.1 %>%
   ggplot(aes(x = bodymass, y = vt, group = direction)) +
   geom_point(pch = 16, aes(colour = animal)) +
@@ -1064,23 +1409,29 @@ dolphins.1 %>%
             linewidth = 1)  +
   labs(x = "Body Mass", 
        y = "VT") 
-
 ```
 
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-57-1.png" width="100%" style="display: block; margin: auto;" />
 
-```{r}
+
+
+```r
 plot_model(dolphmod.2,type="pred",
            terms=c("bodymass", "direction"),
            pred.type="fe",
            show.data = T)
+```
 
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
 plot_model(dolphmod.2,type="pred",
            terms=c("bodymass", "direction", "animal"),
            pred.type="re",
            show.data = T)
-
-
 ```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-58-2.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Summary
@@ -1108,19 +1459,49 @@ https://ademos.people.uic.edu/Chapter17.html#121_crossed__nested_designs
 
 ## Practical problems
 
+HARRISON?
+
 MODEL CONVERGENCE - BAKER
 
-## Further Reading
+lmer3 <- lmer(y ~ x + (x | group), data = data, control = lmerControl(optimizer ="Nelder_Mead"))
 
-- https://peerj.com/articles/4794/
 
-- https://link.springer.com/book/10.1007/978-0-387-87458-6
+CHECK THIS! 
 
-- https://peerj.com/articles/9522/
-
+With mixed models, the solution is arrived at iteratively, which means it can fail to converge for a number of reasons. Generally, failure to converge will be due to an issue with the data.
 
 
 Linear model analyses can extend beyond testing differences of means in categorical groupings to test relationships with continuous variables. This is known as linear regression, where the relationship between the explanatory variable and response variable are modelled with the equation for a straight line. The intercept is the value of *y* when *x* = 0, often this isn't that useful, and we can use 'mean-centered' values if we wish to make the intercept more intuitive. 
 As with all linear models, regression assumes that the unexplained variability around the regression line, is normally distributed and has constant variance. 
 
 Once the regression has been fitted it is possible to predict values of *y* from values of *x*, the uncertainty around these predictions can be captured with confidence intervals. 
+
+
+
+The first thing to try is scaling all your parameters:
+
+egen scaled_var = std(var)
+Dummy variables typically don’t need to be scaled, but can be. If scaling all your variables allows convergence, try different combinations of scaled and unscaled to figure out what variables are causing the problem. It’s typically (but not always) the variables which have the largest scale to begin with.
+
+Another potential convergence issue is extremely high correlation between predictors (including dummy variables). You should have already addressed this when considering multicollinearity, but if not, it can make convergence challenging.
+
+If the iteration keeps running (as opposed to ending and complaining about lack of convergence), try passing the option iterate(#) with a few “large” (“large” is relative to running time) numbers to tell the algorithm to stop after # iterations, regardless of convergence. (Recall that an iterative solution produces an answer at each iteration, it’s just not a consistent answer until you reach convergence.) You’re looking for two things:
+
+First, if there are any estimated standard errors that are extremely close to zero or exploding towards infinity, that predictor may be causing the issue. Try removing it.
+Second, if you try a few different max iterations (say 50, 100 and 200), and the estimated coefficients and standard errors are relatively constant, you may be running into a case where the model is converging to just beyond the tolerance which Stata uses, but for all intents and purposes is converged. Set iterate(#) to a high number and use that result.
+You can try use the “reml” optimizer, by passing the reml option. This optimizer can be a bit easier to converge, though may be slower.
+
+Finally, although it pains me to admit it, you should try running the model in different software such as R or SAS. Each software has slightly different algorithms it uses, and there are situations where one software will converge and another won’t
+
+## Further Reading
+
+Some suggested starter topics to continue your mixed-model journey! 
+
+- [A brief introduction to mixed effects modelling and multi-model inference in ecology](https://peerj.com/articles/4794/) @xav_2018
+
+- [Mixed Effects Models and Extensions in Ecology with R](https://link.springer.com/book/10.1007/978-0-387-87458-6) @zuur_2009
+
+- [Perils and pitfalls of mixed-effects regression models in biology](https://peerj.com/articles/9522/)@silk_2020
+
+
+
