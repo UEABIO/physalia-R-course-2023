@@ -67,3 +67,22 @@ To calculate the variance in a linear model (ordinary least squares), you first 
 
 o estimate the variance components in a linear mixed model, likelihood-based methods such as [maximum likelihood estimation (MLE)](https://towardsdatascience.com/probability-concepts-explained-maximum-likelihood-estimation-c7b4342fdbb1) or restricted maximum likelihood estimation (REML) are commonly used. These methods optimize the likelihood function by adjusting the model parameters, including the variance components, to find the values that best fit the observed data. 
 
+## Packages
+
+
+```r
+library(tidyverse)
+library(rstatix)
+library(performance)
+library(see)
+library(lmerTest)
+library(patchwork)
+library(broom.mixed)
+library(ggeffects)
+library(DHARMa)
+library(sjPlot)
+library(MuMIn)
+library(emmeans)
+library(report)
+library(MuMIn)
+```

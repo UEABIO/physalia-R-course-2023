@@ -10,6 +10,7 @@ fig:unnamed-chunk-54
 fig:unnamed-chunk-88
 terminology
 variance
+packages
 foundations-of-mixed-modelling
 what-is-a-mixed-model
 fixed-vs-random-effects
