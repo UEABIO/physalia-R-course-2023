@@ -4,8 +4,10 @@ fig:unnamed-chunk-13
 fig:unnamed-chunk-15
 fig:unnamed-chunk-27
 fig:unnamed-chunk-40
-fig:unnamed-chunk-52
+fig:unnamed-chunk-51
 fig:unnamed-chunk-53
+fig:unnamed-chunk-54
+fig:unnamed-chunk-88
 terminology
 variance
 foundations-of-mixed-modelling
@@ -33,7 +35,6 @@ dharma
 practice-questions
 worked-example-1---dolphins
 how-do-i-decide-if-it-is-a-fixed-or-random-effect
-missing-data
 dolphins
 multiple-random-effects
 crossed-or-nested
@@ -47,6 +48,7 @@ maximum-likelihood
 reml
 ml-vs.-reml-fitting
 worked-example-3---complex-designs
+the-data
 model-predictions
 reporting-mixed-model-results
 tables
@@ -57,3 +59,4 @@ summary
 mixed-model-extensions
 practical-problems
 further-reading
+references

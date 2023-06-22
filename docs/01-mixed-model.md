@@ -1168,14 +1168,11 @@ One of the most common questions in mixed-effects modelling is how to decide if 
 3 ) Does the variable have less than five levels? If ther answer is yes it should be a fixed effect.
 
 
-## Missing data
-
-An added bonus with mixed-effects models is that they cope well with missing values and situations where we have groups of different sizes. Because we assume that each group or cluster of a random effect has been drawn essentially at random from a larger population of groups, we estimate the properties of an underlying distribution. Critically, if some estimates are missing, or groups are unequal in size we still generate a sensible parameter estimate. 
-
-This can make mixed-effects models a good choice for analysis of data that relates to under-represented groups
-
-
 ## Dolphins
+
+This dataset was collected to measure resting lung function in 32 bottlenose dolphins. The main dependent variable was the tidal volume ($V_T$) measured in litres, as an index of lung capacity. 
+
+
 
 
 
@@ -1195,27 +1192,92 @@ This can make mixed-effects models a good choice for analysis of data that relat
 dolphins <- read_csv("dolphins.csv") 
 ```
 
-DOLPHIN FIXED EFFECTS
+
+Here we are interested in the relationship between ($V_T$) and body mass (kg), we have measurements which are taken on the breath *in* and the breath *out*, and each dolphin has been observed between one and four times.
+
+We need to determine our fixed effects, random effects and model structure:
+
+1) Body Mass <select class='webex-select'><option value='blank'></option><option value=''>Random Effect</option><option value='answer'>Fixed Effect</option></select>
+
+2) Direction <select class='webex-select'><option value='blank'></option><option value=''>Random Effect</option><option value='answer'>Fixed Effect</option></select>
+
+3) Animal 1) Body Mass <select class='webex-select'><option value='blank'></option><option value='answer'>Random Effect</option><option value=''>Fixed Effect</option></select>
+
+4) With the basic structure `y ~ x + z + (1|group)` what do you think this model should be?:
+
+`fitb(c("vt ~ bodymass + direction + (1|animal)", "vt ~  direction + bodymass + (1|animal)"), ignore_ws = TRUE, width = "20")`
+
+
+<div class='webex-solution'><button>Solution</button>
+
+
+1) We are clearly interested in the effect of body mass on ($V_T$) so this is a **fixed effect**.
+
+2) We may think that the relationship with ($V_T$) and body mass may be different on the in and out breath. We may not be *directly* interested in this, but it has fewer than fivel levels so this is a **fixed effect**. (outbreath coded as 1, inbreath coded as 2).
+
+3) Individual dolphins - if we averaged across measurements for each dolphin, our measurement precision would be different for each animal. If we include each data point, we would be double-counting some animals and our observations would not be independent. To account for the multiple observations we should treat animal as a **random effect**.
 
 
 ```r
-dolphmod.1 <- lmer(vt ~ bodymass + direction + (direction|animal), data=dolphins)
-dolphmod.2 <- lmer(vt ~ bodymass + direction + (1|animal), data=dolphins)
+dolphmod <- lmer(vt ~ bodymass + direction + (1|animal), data=dolphins)
+```
+
+
+</div>
+
+
+
+With our basic linear model in place - we should carry out model fit checks with `DHARMa` or `performance::check_model()`, but assuming this is a good fit we can look at interpretation:
+
+
+```r
+summary(dolphmod)
+```
+
+```
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: vt ~ bodymass + direction + (1 | animal)
+##    Data: dolphins
+## 
+## REML criterion at convergence: 387.4
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -2.30795 -0.51983  0.04156  0.62404  2.26396 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  animal   (Intercept) 1.039    1.019   
+##  Residual             1.158    1.076   
+## Number of obs: 112, groups:  animal, 31
+## 
+## Fixed effects:
+##              Estimate Std. Error        df t value Pr(>|t|)    
+## (Intercept)  2.226398   0.627115 28.758081   3.550  0.00135 ** 
+## bodymass     0.016782   0.003259 26.720390   5.150  2.1e-05 ***
+## direction2   1.114821   0.203389 77.414421   5.481  5.1e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##            (Intr) bdymss
+## bodymass   -0.927       
+## direction2 -0.162  0.000
 ```
 
 
 ```r
 dolphins.1 <- dolphins %>% 
-    mutate(fit.m = predict(dolphmod.2, re.form = NA),
-           fit.c = predict(dolphmod.2, re.form = NULL))
+    mutate(fit.m = predict(dolphmod, re.form = NA),
+           fit.c = predict(dolphmod, re.form = NULL))
 ```
-
 
 
 ```r
 dolphins.1 %>%
   ggplot(aes(x = bodymass, y = vt, group = direction)) +
-  geom_point(pch = 16, aes(colour = animal)) +
+  geom_point(pch = 16, aes(colour = direction)) +
   geom_line(aes(y = fit.m, 
                 linetype = direction), 
             linewidth = 1)  +
@@ -1223,34 +1285,32 @@ dolphins.1 %>%
        y = "VT") 
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-51-1.png" alt="Scatter plot of VT as a function of body mass for dolphins. Different directions of breath are represented by different colors. The solid lines indicate the marginal fitted values from our model." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-51)Scatter plot of VT as a function of body mass for dolphins. Different directions of breath are represented by different colors. The solid lines indicate the marginal fitted values from our model.</p>
+</div>
 
 
 
 ```r
-plot_model(dolphmod.2,type="pred",
+plot_model(dolphmod,type="pred",
            terms=c("bodymass", "direction"),
            pred.type="fe",
            show.data = T)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" />
-
-```r
-plot_model(dolphmod.2,type="pred",
-           terms=c("bodymass", "direction", "animal"),
-           pred.type="re",
-           show.data = T)
-```
-
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-51-2.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-52-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
-<div class='webex-solution'><button>Solution</button>
+<div class='webex-solution'><button>A brief summary</button>
 
 
-WRITE-UP?
+We fitted a linear mixed model (estimated using REML and nloptwrap optimizer) to predict ($V_T$) with bodymass(kg) and direction (in/out breath). 95% Confidence Intervals (CIs) and p-values were computed using a Wald t-distribution approximation. We included a random intercept effect of animal to account for repeated measurements (of between 1 to 4 observations) across a total of 32 bottlenosed dolphins. 
+
+We found that for every 1kg increase in bodymass, ($V_T$) increased by 0.02 litres (95% CI [0.01 - 0.02]), $t_{107}$ = 5.15, p < 0.001. The inbreath had on average a higher volume than the outbreath (1.11 litre difference [0.71 - 1.52]; $t_{107}$ = 5.48, p < 0.001).
+
+**Q.** This is not a perfect write-up, what else could we consider including?
 
 
 </div>
@@ -1259,8 +1319,6 @@ WRITE-UP?
 
 
 # Multiple random effects
-
-https://www.muscardinus.be/2017/07/lme4-random-effects/
 
 Previously we used `(1|group)` to fit our random effect. Whatever is on the right side of the `|` operator is a factor and referred to as a “grouping factor” for the term. 
 
@@ -1282,7 +1340,7 @@ Crossed random effects occur when the levels of two or more grouping variables a
 <script type="application/json" data-for="htmlwidget-d2e389190f1dd1551a06">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-52)Fully Crossed</p>
+<p class="caption">(\#fig:unnamed-chunk-53)Fully Crossed</p>
 </div>
 
 > Example 1: Let's consider a study examining the academic performance of students from different schools and different cities. The grouping variables are "School" and "City". Each school can be located in multiple cities, and each city can have multiple schools. The random effects of "School" and "City" are crossed since the levels of these variables are independent of each other.
@@ -1306,7 +1364,7 @@ Nested random effects occur when the levels of one grouping variable are complet
 <script type="application/json" data-for="htmlwidget-de9eda58cd6c8b9398b6">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-53)Fully Nested</p>
+<p class="caption">(\#fig:unnamed-chunk-54)Fully Nested</p>
 </div>
 
 > Example 1. Consider a study on the job performance of employees within different departments of an organization. The grouping variables are "Employee" and "Department". Each employee belongs to one specific department, and no employee can be part of multiple departments. The random effects of "Employee" are nested within the random effects of "Department" since each employee is uniquely associated with a specific department.
@@ -1476,7 +1534,7 @@ summary(rats_lmer.2)
 plot(ggpredict(rats_lmer.2, terms = c("Treatment")))
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1486,11 +1544,10 @@ plot(ggpredict(rats_lmer.2,
      add.data = TRUE)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" />
 
 # Types of Random Effects
 
- 
 ## Random slopes
 
 So far we have looked at random effects where each group has its own *intercept*. This means that we fit a regression line across all five groups, which has a constant slope but is allowed to shift up or down for each group. This is what is represented in panel B. 
@@ -1503,8 +1560,7 @@ This model will use more degrees of freedom than the other two, as these must be
 
 
 
-
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1524,12 +1580,32 @@ plot_function(lmer2, "Random slope")
 lmer3 <- lmer(y ~ x + (x | group), data = data)
 ```
 
-
 Mixed-effects models are enormously flexible. The decision about whether to include random intercepts, random slopes, or both will depend heavily on your hypotheses. It is generally quite rare to see random slopes models only, and more commonly it will be a question of whether random intercepts or random intercepts *and* random slopes are necessary. 
 
 As the combine random slopes and intercept model requries more degrees of freedom, it may be the case that using likelihood ratio tests (LRT) are advisable to decide which model describes the data best (more on this later). 
 
 Because random intercepts models require fewer degrees of freedome, these may be easier to fit when data sets have fewer observations.
+
+
+<div class="information">
+<p>In a random effects model, the random effects are assumed to be a
+random sample from a population of possible random effects. These random
+effects capture the variation between different groups or clusters in
+the data. The number of random effects is typically smaller than the
+total number of observations, as the random effects represent the
+distinct groups or clusters in the dataset.</p>
+<p>The degrees of freedom associated with the random effects in a linear
+mixed model reflect the number of independent groups or clusters in the
+data, rather than the number of individual observations. For example, if
+you have data from 100 individuals, but they belong to only 10 distinct
+groups, the random effects would have 10 degrees of freedom, not
+100.</p>
+<p>By using fewer degrees of freedom for the random effects, the model
+accounts for the fact that the group-level variation is estimated based
+on a smaller number of parameters. This approach helps prevent
+overfitting and provides a more appropriate estimation of the variance
+components associated with the random effects.</p>
+</div>
 
 
 
@@ -1654,6 +1730,18 @@ In this context, ML estimation is preferable because it allows for a formal stat
 
 # Worked Example 3 - Complex Designs
 
+This is definitely the most complicated experiment we will analyse in this workbook, as a result of the complex data hierarchy. 
+
+## The data
+
+The BIODEPTH (Biodiversity and Ecosystem Process in Terrestrial Herbaceous Ecosystems) project manipulated grassland plant diversity in field plots to simulate the impact of the loss of plant species on ecosystem processes here above ground yield. 
+
+There is a gradient of managed species diversity with five levels ranging from monoculture to an attempted maximum for each site. This was repeated at eight different grassland sites across seven countries. 
+
+Each level of diversity was repeated with different mixtures of plant species chosen at random, and this is designed to separate the features of diversity from the species composition. 
+
+Experiments were repeated in two blocks per site.
+
 
 
 
@@ -1675,6 +1763,109 @@ biodepth <- read_csv("files/Biodepth.csv")
 ```
 
 
+```r
+head(biodepth)
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Plot </th>
+   <th style="text-align:left;"> Site </th>
+   <th style="text-align:left;"> Block </th>
+   <th style="text-align:left;"> Mix </th>
+   <th style="text-align:right;"> Mix_Nested </th>
+   <th style="text-align:right;"> Diversity </th>
+   <th style="text-align:right;"> Shoot2 </th>
+   <th style="text-align:right;"> Shoot3 </th>
+   <th style="text-align:right;"> Diversity2 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B1P001 </td>
+   <td style="text-align:left;"> Germany </td>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:left;"> 5 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 463.75 </td>
+   <td style="text-align:right;"> 554.75 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B1P003 </td>
+   <td style="text-align:left;"> Germany </td>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:left;"> 15 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 674.55 </td>
+   <td style="text-align:right;"> 539.95 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B1P004 </td>
+   <td style="text-align:left;"> Germany </td>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:left;"> 7 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 563.40 </td>
+   <td style="text-align:right;"> 476.00 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B1P005 </td>
+   <td style="text-align:left;"> Germany </td>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:left;"> 16 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 567.10 </td>
+   <td style="text-align:right;"> 308.45 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B1P006 </td>
+   <td style="text-align:left;"> Germany </td>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:left;"> 8 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 378.20 </td>
+   <td style="text-align:right;"> 447.10 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B1P008 </td>
+   <td style="text-align:left;"> Germany </td>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:left;"> 13 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 889.15 </td>
+   <td style="text-align:right;"> 825.10 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+Important variables are:
+
+- `Shoot2` as one of the variables representing yield, our **response** or **dependent** variable. 
+
+- `Diversity2` Species richness indicator (on a log base 2 scale)
+
+- `Block`, `Site`, `Mix` are all random effects
+
+What follows is a complex design, but will hopefully outline the careful thought that must go into designing mixed-models 
+
+**Q. Discussion - what is wrong with this design?**
 
 
 ```r
@@ -1716,42 +1907,48 @@ summary(bio.lmer1)
 ```
 
 
-```r
-lmer(Shoot2 ~ Diversity2 + (Diversity2 | Site) + (1 | Site/Mix) + (1 | Block), data = biodepth)
-```
+<div class='webex-solution'><button>Solution</button>
 
-```
-## Linear mixed model fit by REML ['lmerModLmerTest']
-## Formula: Shoot2 ~ Diversity2 + (Diversity2 | Site) + (1 | Site/Mix) +  
-##     (1 | Block)
-##    Data: biodepth
-## REML criterion at convergence: 6051.383
-## Random effects:
-##  Groups   Name        Std.Dev. Corr
-##  Mix.Site (Intercept) 189.88       
-##  Block    (Intercept)  22.84       
-##  Site     (Intercept)   0.00       
-##  Site.1   (Intercept) 129.24       
-##           Diversity2   37.53   1.00
-##  Residual             129.26       
-## Number of obs: 451, groups:  Mix:Site, 227; Block, 15; Site, 8
-## Fixed Effects:
-## (Intercept)   Diversity2  
-##      347.01        79.08  
-## optimizer (nloptwrap) convergence code: 0 (OK) ; 0 optimizer warnings; 1 lme4 warnings
+
+Overall, the model assumes that the response variable "Shoot2" is influenced by the fixed effect "Diversity2" while accounting for the random effects due to the varying levels of "Site," "Block," and "Mix" within the data.
+
+It also suffers from the fact that the design may be nested or crossed, it is not explicit. Basically we know that each block exists only within each site, they should be nested. If each block has a unique code then this is ok, but if for example they are coded as Germany: A/B, Switzerland A/B etc... then we would need to make our design explicity e.g. Site/Block. 
+
+This model also does not allow for any random slopes, which we may wish to consider.
+
+
+</div>
+
+
+**Q. Discuss these two designs**
+
+
+```r
+bio.lmer1a <- lmer(Shoot2 ~ Diversity2 + (Diversity2 | Site) + (1 | Site/Mix) + (1 | Block), data = biodepth)
+
+#Site/Mix denotes that Mix is nested fully within Site
 ```
 
 
 
 ```r
 bio.lmer2 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1 | Site:Mix) + (1|Mix) + (1 | Block), data = biodepth)
+
+# Site:Mix denotes the random effect varies independently for each combination of levels in the Site and Mix factors
 ```
 
+
+
+<div class='webex-solution'><button>Solution</button>
+
+
+In the above designs we have produced a random slope and intercept for the effect of Site. This makes sense if we think that the way diversity affects yield may vary in a random site-specific manner. 
+
+What about the nesting or interaction of Site and Mix?
 
 In the 1 | Site/Mix specification represents a nested random effect structure. It suggests that the random effect of Mix is nested within the random effect of Site. This specification assumes that the levels of Mix are nested within each level of Site, meaning that each level of Site has its own set of random effects for the levels of Mix. The / operator denotes the nesting relationship.
 
 On the other hand 1 | Site:Mix specification, the random effect is specified as a two-way crossed random effect. It means that the random effect varies independently for each combination of levels in the Site and Mix factors. The : operator represents the interaction or crossed effect between the two factors. This specification allows for correlations between random effects within each combination of Site and Mix.
-
 
 To summarize:
 
@@ -1760,31 +1957,77 @@ To summarize:
 1 | Site/Mix: Nested random effect, with the random effect of Mix nested within the random effect of Site, assuming that the levels of Mix are completely nested within each level of Site.
 
 
+</div>
+
+
+
+
 ```r
-lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1 | Site:Mix) + (1|Mix), data = biodepth)
+bio.lmer3 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1 | Site:Mix) + (1|Mix), data = biodepth)
 ```
 
-```
-## Linear mixed model fit by REML ['lmerModLmerTest']
-## Formula: Shoot2 ~ Diversity2 + (Diversity2 | Site) + (1 | Site:Mix) +  
-##     (1 | Mix)
-##    Data: biodepth
-## REML criterion at convergence: 6046.992
-## Random effects:
-##  Groups   Name        Std.Dev. Corr
-##  Site:Mix (Intercept) 141.03       
-##  Mix      (Intercept) 125.96       
-##  Site     (Intercept) 132.11       
-##           Diversity2   36.78   1.00
-##  Residual             131.18       
-## Number of obs: 451, groups:  Site:Mix, 227; Mix, 192; Site, 8
-## Fixed Effects:
-## (Intercept)   Diversity2  
-##      346.21        79.32  
-## optimizer (nloptwrap) convergence code: 0 (OK) ; 0 optimizer warnings; 1 lme4 warnings
+
+```r
+anova(bio.lmer2, bio.lmer3)
 ```
 
-ANOVA
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> npar </th>
+   <th style="text-align:right;"> AIC </th>
+   <th style="text-align:right;"> BIC </th>
+   <th style="text-align:right;"> logLik </th>
+   <th style="text-align:right;"> deviance </th>
+   <th style="text-align:right;"> Chisq </th>
+   <th style="text-align:right;"> Df </th>
+   <th style="text-align:right;"> Pr(&gt;Chisq) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> bio.lmer3 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 6080.019 </td>
+   <td style="text-align:right;"> 6112.911 </td>
+   <td style="text-align:right;"> -3032.010 </td>
+   <td style="text-align:right;"> 6064.019 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bio.lmer2 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 6080.168 </td>
+   <td style="text-align:right;"> 6117.171 </td>
+   <td style="text-align:right;"> -3031.084 </td>
+   <td style="text-align:right;"> 6062.168 </td>
+   <td style="text-align:right;"> 1.851387 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.1736222 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+**Q. What does the LRT indicate about the effect of block on our model?**
+
+Should we remove it from our model? <select class='webex-select'><option value='blank'></option><option value=''>Yes</option><option value='answer'>No</option></select>
+
+
+<div class='webex-solution'><button>Solution</button>
+
+
+The LRT indicates that removing block from the design of our model does not produce a simpler model that explains significantly less variance. So in effect we could remove it. However, I would argue it also does not harm the model and it is part of our explicit design, so should be left in. 
+
+
+</div>
+
 
 ### Model predictions
 
@@ -1818,16 +2061,20 @@ biodepth.2 %>%
    theme(legend.position = "none")
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-78-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-82-1.png" width="100%" style="display: block; margin: auto;" />
+
+**Q. Can you observe the effect of partial pooling in this analysis?**
 
 
 # Reporting Mixed Model Results
 
 Once you get your model, you have to **present** it in an accurate, clear and attractive form.
 
-BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
+The `summary()` function provides us with some useful numbers such as the amount of variance left over after fitting our fixed effects that can be assigned to each of our random effects. It also provides information on how correlated our random effects are, which may be of interest in understanding the structure of our data as well.
 
-## Tables
+We can use it to check that the modelled random effect structure matches our data.
+
+It includes the coefficient estimates, t-statistics and p-values of our fixed effects
 
 
 ```r
@@ -1873,6 +2120,60 @@ summary(bio.lmer2)
 ## boundary (singular) fit: see help('isSingular')
 ```
 
+We can also produce an `anova()` type summary of our fixed effects
+
+
+```r
+anova(bio.lmer2)
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Sum Sq </th>
+   <th style="text-align:right;"> Mean Sq </th>
+   <th style="text-align:right;"> NumDF </th>
+   <th style="text-align:right;"> DenDF </th>
+   <th style="text-align:right;"> F value </th>
+   <th style="text-align:right;"> Pr(&gt;F) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Diversity2 </td>
+   <td style="text-align:right;"> 340561.5 </td>
+   <td style="text-align:right;"> 340561.5 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 9.288082 </td>
+   <td style="text-align:right;"> 20.33525 </td>
+   <td style="text-align:right;"> 0.0013567 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+We may also wish to report $R^2$ values from our model fit. This requires the `MuMIn` package (@r-MuMIn), though later we will see it can also be produced as part of the `report` package. 
+
+
+```r
+library(MuMIn)
+r.squaredGLMM(bio.lmer2)
+```
+
+```
+##            R2m       R2c
+## [1,] 0.1082987 0.8321128
+```
+
+This calculates two values the first $R^2_{m}$ is the marginal $R^2$ value, representing the proportion of variance explained by our fixed effects. The second $R^2_{c}$ is the conditional $R^2$, which is the proportion of variance explained by the full model, with both fixed and random effects. 
+
+## Tables
+
+There are a few packages for producing beautiful summary tables from regression models, but not all of them can handle mixed-effects models, the `sjPlot` @R-sjPlot package is one of the most robust and produces a simple HTML table detailing fixed and random effects, produces 95% confidence intervals for fixed effects and calculates those $R^2$ values for you:
 
 
 ```r
@@ -1963,23 +2264,40 @@ sjPlot::tab_model(bio.lmer2)
 
 ## Figures
 
+We have covered some of the packages that allow us to easily produce marginal and conditional fits, along with 95% confidence or prediction intervals: these will output `ggplot2` figures, allowing plenty of customisation for presentation
+
 
 ```r
 ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), type = "random") %>% 
 plot(., add.data = TRUE)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-81-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-87-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
-ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), 
-          type = "random") %>% 
+# Custom colors
+custom.col <- c("#000000", "#E69F00", "#56B4E9", "#009E73",
+                "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+# Create the plot with ggpredict and customization
+ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), type = "random") %>% 
   plot(., add.data = TRUE) + 
-  facet_wrap(~group)
+  facet_wrap(~ group) +
+  theme(legend.position = "none") +
+  scale_colour_manual(values = custom.col) +  # Custom line colors
+  scale_fill_manual(values = custom.col) +  # Custom fill colors
+  labs(y = "Yield", 
+       x = "Number of species",
+       title = "") +  # Axis and title labels
+  scale_x_continuous(breaks = c(0, 2, 4), 
+                     labels = c("2", "8", "32"))  # Specify x-axis breaks and labels
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-82-1.png" width="100%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-88-1.png" alt="Scatter plot of predicted yield as a function of the number of species for different sites and experimental groups. The plot showcases the predicted conditional fixed effects and random effects 95% prediction intervals." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-88)Scatter plot of predicted yield as a function of the number of species for different sites and experimental groups. The plot showcases the predicted conditional fixed effects and random effects 95% prediction intervals.</p>
+</div>
 
 ```r
 # Note ggpredict codes random effects as "groups" with a hidden label
@@ -2090,9 +2408,12 @@ report(mixed_model)
 
 # Worked Example 4
 
-https://exeter-data-analytics.github.io/StatModelling/mixed-effects-models.html
+A microbiologist wishes to know which of four growth media is best for rearing large populations of anthrax, quickly. However, this poorly funded scientist does not own a large enough incubator in which to grow lots of replicate populations. Instead he requests space in five different incubators owned by other, better-funded researchers. Each incubator just has space for four bottles of medium. Our scientist allocates each growth medium to one bottle per incubator at random, inoculates with anthrax then monitors population growth rate.
 
-https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
+<div><img src="images/bacCabinets.png" 
+     alt="Schematic for bacterial growth example" /></div>
+     
+The data are available here: 
 
 
 
@@ -2111,7 +2432,11 @@ https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
 bacteria <- readRDS("bacteria.rds")
 ```
 
-
+<div class="try">
+<p>Can you produce a suitable linear mixed model analysis for this data,
+to answer the question “Which of four growth media is best for rearing
+large populations of anthrax?”</p>
+</div>
 
 
 
@@ -2119,17 +2444,17 @@ bacteria <- readRDS("bacteria.rds")
 
 Here is a suggested workflow:
 
-Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main predictors and any potential interactions you hypothesize might exist. For example, if you have predictors A and B, you might start with a model like response ~ A + B + A:B.
+1. Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main predictors and any potential interactions you hypothesize might exist. For example, if you have predictors A and B, you might start with a model like response ~ A + B + A:B.
 
-Assess fixed effects and interactions: Evaluate the significance, direction, and magnitude of the fixed effects coefficients. Look for interactions that show significant effects and consider their interpretation in the context of your research question. This step allows you to identify the key variables and interactions that are important in explaining the variation in the response variable.
+2. Assess fixed effects and interactions: Evaluate the significance, direction, and magnitude of the fixed effects coefficients. Look for interactions that show significant effects and consider their interpretation in the context of your research question. This step allows you to identify the key variables and interactions that are important in explaining the variation in the response variable.
 
-Model evaluation and refinement: Assess the goodness of fit of the fixed effects model using appropriate measures like AIC, BIC, or model deviance. Consider conducting model comparison to evaluate different models with alternative fixed effects structures. This process helps you refine the model and select the most appropriate combination of variables and interactions.
+3. Model evaluation and refinement: Assess the goodness of fit of the fixed effects model using appropriate measures like AIC, BIC, or model deviance. Consider conducting model comparison to evaluate different models with alternative fixed effects structures. This process helps you refine the model and select the most appropriate combination of variables and interactions. *However - this should be no substitution for carefully considered hypotheses and experimental design*. 
 
-Incorporate random effects: Once you have identified the significant fixed effects and relevant interactions, you can then consider the inclusion of random effects. Random effects capture the variation at different levels and can account for individual differences or clustering within groups. Evaluate the need for random intercepts, random slopes, or crossed random effects based on your research design and the nature of the data.
+4. Incorporate random effects: Once you have identified the significant fixed effects and relevant interactions, you can then consider the inclusion of random effects. Random effects capture the variation at different levels and can account for individual differences or clustering within groups. Evaluate the need for random intercepts, random slopes, or crossed random effects based on your research design and the nature of the data.
 
-Assess and compare models with random effects: Fit models with random effects and compare their fit to the fixed effects model. Consider appropriate measures such as likelihood ratio tests, AIC, or BIC for model comparison. Evaluate the significance and contribution of the random effects to the model.
+5. Assess and compare models with random effects: Fit models with random effects and compare their fit to the fixed effects model. Consider appropriate measures such as likelihood ratio tests, AIC, or BIC for model comparison. Evaluate the contribution of the random effects to the model.*However - this should be no substitution for carefully considered hypotheses and experimental design*. And we have seen examples where we leave random effects in place despite LRT tests.
 
-Validate and interpret the final model: Validate the final model by assessing assumptions, checking for influential observations, and performing sensitivity analysis. Interpret the estimated coefficients, including fixed effects and random effects, in the context of your research question. Report the results, including confidence intervals and p-values.
+6. Validate and interpret the final model: Validate the final model by assessing assumptions, checking for influential observations, and performing sensitivity analysis. Interpret the estimated coefficients, including fixed effects and random effects, in the context of your research question. Report the results with figures, summary tables and carefully considered text summarising the analysis.
 
 By initially focusing on the fixed effects, you can establish the foundation of your model and identify the significant predictors and interactions. This step allows you to better understand the relationships in your data and guide the subsequent inclusion of random effects if appropriate.
 
@@ -2138,47 +2463,23 @@ https://ademos.people.uic.edu/Chapter17.html#121_crossed__nested_designs
 
 ## Mixed Model extensions
 
+
 ## Practical problems
 
-HARRISON?
+Below are two common issues or warnings you will likely encounter when fitting linear models:
 
-MODEL CONVERGENCE - BAKER
+- `boundary (singular) fit: see help('isSingular')`: Your model did fit, but it generated that warning because some of your random effects are very small, common with complex mixed-effect models. You can read more about this in [help page](https://rdrr.io/cran/lme4/man/isSingular.html)
 
-BOUNDARY FIT
+- Convergence warnings: Values for the mixed-effects models are determined using optimisation algorithms. Sometimes these algorithms fail to converge on a best parameter estimate, which will produce an error. There are several possible solutions:
 
-lmer3 <- lmer(y ~ x + (x | group), data = data, control = lmerControl(optimizer ="Nelder_Mead"))
+    - Normalise and rescale: Rescaling the variables can mitigate issues caused by the differences in scales or magnitudes of the predictors, which can affect the optimization process. You can rescale the fixed effects predictors by subtracting the mean and dividing by the standard deviation. This centers the variables around zero and scales them to have a standard deviation of 1. This can be done using the scale() function in R.
+    - Try alternative optimisation algorithms: e.g. `lmer3 <- lmer(y ~ x + (x | group), data = data, control = lmerControl(optimizer ="Nelder_Mead"))`
+    - Finally, although it pains me to admit it, you should try running the model using a different package - each has their own unique and slightly different optimisation protocols. 
 
-
-CHECK THIS! 
-
-With mixed models, the solution is arrived at iteratively, which means it can fail to converge for a number of reasons. Generally, failure to converge will be due to an issue with the data.
-
-
-Linear model analyses can extend beyond testing differences of means in categorical groupings to test relationships with continuous variables. This is known as linear regression, where the relationship between the explanatory variable and response variable are modelled with the equation for a straight line. The intercept is the value of *y* when *x* = 0, often this isn't that useful, and we can use 'mean-centered' values if we wish to make the intercept more intuitive. 
-As with all linear models, regression assumes that the unexplained variability around the regression line, is normally distributed and has constant variance. 
-
-Once the regression has been fitted it is possible to predict values of *y* from values of *x*, the uncertainty around these predictions can be captured with confidence intervals. 
-
-
-
-The first thing to try is scaling all your parameters:
-
-egen scaled_var = std(var)
-Dummy variables typically don’t need to be scaled, but can be. If scaling all your variables allows convergence, try different combinations of scaled and unscaled to figure out what variables are causing the problem. It’s typically (but not always) the variables which have the largest scale to begin with.
-
-Another potential convergence issue is extremely high correlation between predictors (including dummy variables). You should have already addressed this when considering multicollinearity, but if not, it can make convergence challenging.
-
-If the iteration keeps running (as opposed to ending and complaining about lack of convergence), try passing the option iterate(#) with a few “large” (“large” is relative to running time) numbers to tell the algorithm to stop after # iterations, regardless of convergence. (Recall that an iterative solution produces an answer at each iteration, it’s just not a consistent answer until you reach convergence.) You’re looking for two things:
-
-First, if there are any estimated standard errors that are extremely close to zero or exploding towards infinity, that predictor may be causing the issue. Try removing it.
-Second, if you try a few different max iterations (say 50, 100 and 200), and the estimated coefficients and standard errors are relatively constant, you may be running into a case where the model is converging to just beyond the tolerance which Stata uses, but for all intents and purposes is converged. Set iterate(#) to a high number and use that result.
-You can try use the “reml” optimizer, by passing the reml option. This optimizer can be a bit easier to converge, though may be slower.
-
-Finally, although it pains me to admit it, you should try running the model in different software such as R or SAS. Each software has slightly different algorithms it uses, and there are situations where one software will converge and another won’t
 
 ## Further Reading
 
-Some suggested starter topics to continue your mixed-model journey! 
+Some essential reading to continue your mixed-model journey! 
 
 - [A brief introduction to mixed effects modelling and multi-model inference in ecology](https://peerj.com/articles/4794/) @xav_2018
 
@@ -2186,5 +2487,5 @@ Some suggested starter topics to continue your mixed-model journey!
 
 - [Perils and pitfalls of mixed-effects regression models in biology](https://peerj.com/articles/9522/) @silk_2020
 
-
+## References
 

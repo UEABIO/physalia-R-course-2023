@@ -141,17 +141,11 @@
 <p>2 ) Is the variable continuous? If the answer is yes it should be a fixed effect.</p>
 <p>3 ) Does the variable have less than five levels? If ther answer is yes it should be a fixed effect.</p>
 </div>
-<div id="missing-data" class="section level2" number="2.2">
+<div id="dolphins" class="section level2" number="2.2">
 <h2>
-<span class="header-section-number">2.2</span> Missing data<a class="anchor" aria-label="anchor" href="#missing-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2</span> Dolphins<a class="anchor" aria-label="anchor" href="#dolphins"><i class="fas fa-link"></i></a>
 </h2>
-<p>An added bonus with mixed-effects models is that they cope well with missing values and situations where we have groups of different sizes. Because we assume that each group or cluster of a random effect has been drawn essentially at random from a larger population of groups, we estimate the properties of an underlying distribution. Critically, if some estimates are missing, or groups are unequal in size we still generate a sensible parameter estimate.</p>
-<p>This can make mixed-effects models a good choice for analysis of data that relates to under-represented groups</p>
-</div>
-<div id="dolphins" class="section level2" number="2.3">
-<h2>
-<span class="header-section-number">2.3</span> Dolphins<a class="anchor" aria-label="anchor" href="#dolphins"><i class="fas fa-link"></i></a>
-</h2>
+<p>This dataset was collected to measure resting lung function in 32 bottlenose dolphins. The main dependent variable was the tidal volume (<span class="math inline">\(V_T\)</span>) measured in litres, as an index of lung capacity.</p>
 <a onclick="fetch('data:text/csv;base64,YW5pbWFsO2JvZHltYXNzO3Z0O2RpcmVjdGlvbgpGMjk2OzEzNjszLDgyOzEKRjMwNjsxMzY7Myw1ODsxCkYyOTY7MTAxOzIsNzQ7MQpGMzA2OzEwMTsyLDMyOzEKRkIyMDk7MTU0OzcsMTA7MQpGQjI1NTs4MTs1LDAwOzEKRkIzMzsxOTU7NCw2ODsxCkZCMjU5OzEwMDs0LDg5OzEKRkIyOTI7MTI0OzQsNTk7MQpGQjI5NDs5NTszLDcwOzEKRkIyMjM7MTYwOzUsMTA7MQpGQjE3ODsyNDg7NiwyNDsxCkZCMTg4OzIyOTs1LDcwOzEKRkIyMDk7MTU0OzUsODE7MQpGQjI1NTs4MTsyLDc1OzEKRkIzMzsxOTU7NSw3MjsxCkZCMjU5OzEwMDsyLDM2OzEKRkIyOTI7MTI0OzMsMTk7MQpGQjI5NDs5NTszLDY5OzEKRkIyMjM7MTYwOzMsODE7MQpGQjE3ODsyNDg7NSwzODsxCkZCMTg4OzIyOTs0LDc0OzEKRkIyNTE7MTQ2OzMsOTU7MQpGQjI0NTsxMTA7NCw5NTsxCkZCMTMzOzE2NTs1LDEyOzEKRkIxOTk7MTQyOzQsMDc7MQpGQjE0NjsyNjY7Myw2MzsxCkZCMjU0OzI1MDs1LDUyOzEKRkIyNDU7MTEwOzQsMjQ7MQpGQjEzMzsxNjU7NCw4MDsxCkZCMTk5OzE0Mjs0LDQzOzEKRkIyNTc7NzM7NCw5MzsxCkZCMTkzOzE1NTs2LDI0OzEKRkIxNDY7MjY2OzYsNzQ7MQpGQjI1NDsyNTA7Nyw2MjsxCkZCMTk2OzI0ODs1LDk5OzEKRkIyNjg7MjI3OzQsNjA7MQpGQjI3NjsyOTE7NCw2MTsxCkZCMTQyOzI1Njs1LDI3OzEKRkIyMzc7MTkyOzgsNTE7MQpGQjE5NzsxNjc7Niw5ODsxCkZCMTc1OzE3MDs0LDIwOzEKRkIxMzM7MTY3OzYsMzY7MQpGQjI0MjsyNzY7MTAsNDQ7MQpGQjE2NDsyOTE7Nyw3MjsxCkZCMTg1OzE3Mjs0LDczOzEKRkIxOTY7MjQ4OzYsNTA7MQpGQjI3NjsyOTE7OSwzOTsxCkZCMTQyOzI1Njs2LDA2OzEKRkIyMzc7MTkyOzQsMTA7MQpGQjIzOTsxMTc7Miw0OTsxCkZCMjQxOzE1Nzs4LDA4OzEKRkIxMzM7MTY3OzQsNjM7MQpGQjI0MjsyNzY7OSw1MzsxCkZCMTY0OzI5MTs1LDUxOzEKRkIxODU7MTcyOzMsODg7MQpGMjk2OzEzNjs0LDg1OzIKRjMwNjsxMzY7NCw1OTsyCkYyOTY7MTAxOzMsNzM7MgpGMzA2OzEwMTszLDIzOzIKRkIyMDk7MTU0OzcsOTg7MgpGQjI1NTs4MTs1LDQ5OzIKRkIzMzsxOTU7NSw4MTsyCkZCMjU5OzEwMDs1LDU0OzIKRkIyOTI7MTI0OzUsMDg7MgpGQjI5NDs5NTs0LDQ5OzIKRkIyMjM7MTYwOzcsNDI7MgpGQjE3ODsyNDg7NywwODsyCkZCMTg4OzIyOTs2LDc3OzIKRkIyMDk7MTU0OzcsNTA7MgpGQjI1NTs4MTszLDM2OzIKRkIzMzsxOTU7Nyw0MDsyCkZCMjU5OzEwMDs0LDE3OzIKRkIyOTI7MTI0OzQsNjM7MgpGQjI5NDs5NTs0LDYwOzIKRkIyMjM7MTYwOzUsNjk7MgpGQjE3ODsyNDg7Niw2ODsyCkZCMTg4OzIyOTs2LDQ1OzIKRkIyNTE7MTQ2OzUsNjA7MgpGQjI0NTsxMTA7NSw0OTsyCkZCMTMzOzE2NTs2LDcxOzIKRkIxOTk7MTQyOzYsMDI7MgpGQjE0NjsyNjY7NCw5MzsyCkZCMjU0OzI1MDs3LDE0OzIKRkIyNDU7MTEwOzQsMTE7MgpGQjEzMzsxNjU7NiwwNDsyCkZCMTk5OzE0Mjs1LDI5OzIKRkIyNTc7NzM7Niw0NjsyCkZCMTkzOzE1NTs2LDgwOzIKRkIxNDY7MjY2OzgsOTM7MgpGQjI1NDsyNTA7OCw1MjsyCkZCMTk2OzI0ODs2LDk5OzIKRkIyNjg7MjI3OzUsNjA7MgpGQjI3NjsyOTE7NSw2MTsyCkZCMTQyOzI1Njs2LDI3OzIKRkIyMzc7MTkyOzksNTE7MgpGQjE5NzsxNjc7Nyw5ODsyCkZCMTc1OzE3MDs1LDIwOzIKRkIxMzM7MTY3OzcsMzY7MgpGQjI0MjsyNzY7MTEsNDQ7MgpGQjE2NDsyOTE7OCw3MjsyCkZCMTg1OzE3Mjs1LDczOzIKRkIxOTY7MjQ4OzcsNTA7MgpGQjI3NjsyOTE7MTAsMzk7MgpGQjE0MjsyNTY7NywwNjsyCkZCMjM3OzE5Mjs1LDEwOzIKRkIyMzk7MTE3OzMsNDk7MgpGQjI0MTsxNTc7OSwwODsyCkZCMTMzOzE2Nzs1LDYzOzIKRkIyNDI7Mjc2OzEwLDUzOzIKRkIxNjQ7MjkxOzYsNTE7MgpGQjE4NTsxNzI7NCw4ODsyCg==').then(res =&gt; res.blob()).then(blob =&gt; {
       const downloadURL = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -165,41 +159,97 @@
 </a>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dolphins</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"dolphins.csv"</span><span class="op">)</span> </span></code></pre></div>
-<p>DOLPHIN FIXED EFFECTS</p>
+<p>Here we are interested in the relationship between (<span class="math inline">\(V_T\)</span>) and body mass (kg), we have measurements which are taken on the breath <em>in</em> and the breath <em>out</em>, and each dolphin has been observed between one and four times.</p>
+<p>We need to determine our fixed effects, random effects and model structure:</p>
+<ol style="list-style-type: decimal">
+<li><p>Body Mass <select class="webex-select"><option value="blank"></option>
+<option value="">Random Effect</option>
+<option value="answer">Fixed Effect</option></select></p></li>
+<li><p>Direction <select class="webex-select"><option value="blank"></option>
+<option value="">Random Effect</option>
+<option value="answer">Fixed Effect</option></select></p></li>
+<li><p>Animal 1) Body Mass <select class="webex-select"><option value="blank"></option>
+<option value="answer">Random Effect</option>
+<option value="">Fixed Effect</option></select></p></li>
+<li><p>With the basic structure <code>y ~ x + z + (1|group)</code> what do you think this model should be?:</p></li>
+</ol>
+<p><code>fitb(c("vt ~ bodymass + direction + (1|animal)", "vt ~  direction + bodymass + (1|animal)"), ignore_ws = TRUE, width = "20")</code></p>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<ol style="list-style-type: decimal">
+<li><p>We are clearly interested in the effect of body mass on (<span class="math inline">\(V_T\)</span>) so this is a <strong>fixed effect</strong>.</p></li>
+<li><p>We may think that the relationship with (<span class="math inline">\(V_T\)</span>) and body mass may be different on the in and out breath. We may not be <em>directly</em> interested in this, but it has fewer than fivel levels so this is a <strong>fixed effect</strong>. (outbreath coded as 1, inbreath coded as 2).</p></li>
+<li><p>Individual dolphins - if we averaged across measurements for each dolphin, our measurement precision would be different for each animal. If we include each data point, we would be double-counting some animals and our observations would not be independent. To account for the multiple observations we should treat animal as a <strong>random effect</strong>.</p></li>
+</ol>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dolphmod.1</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">vt</span> <span class="op">~</span> <span class="va">bodymass</span> <span class="op">+</span> <span class="va">direction</span> <span class="op">+</span> <span class="op">(</span><span class="va">direction</span><span class="op">|</span><span class="va">animal</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dolphins</span><span class="op">)</span></span>
-<span><span class="va">dolphmod.2</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">vt</span> <span class="op">~</span> <span class="va">bodymass</span> <span class="op">+</span> <span class="va">direction</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">animal</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dolphins</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dolphmod</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">vt</span> <span class="op">~</span> <span class="va">bodymass</span> <span class="op">+</span> <span class="va">direction</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">animal</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dolphins</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>With our basic linear model in place - we should carry out model fit checks with <code>DHARMa</code> or <code><a href="https://easystats.github.io/performance/reference/check_model.html">performance::check_model()</a></code>, but assuming this is a good fit we can look at interpretation:</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dolphmod</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: vt ~ bodymass + direction + (1 | animal)
+##    Data: dolphins
+## 
+## REML criterion at convergence: 387.4
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -2.30795 -0.51983  0.04156  0.62404  2.26396 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  animal   (Intercept) 1.039    1.019   
+##  Residual             1.158    1.076   
+## Number of obs: 112, groups:  animal, 31
+## 
+## Fixed effects:
+##              Estimate Std. Error        df t value Pr(&gt;|t|)    
+## (Intercept)  2.226398   0.627115 28.758081   3.550  0.00135 ** 
+## bodymass     0.016782   0.003259 26.720390   5.150  2.1e-05 ***
+## direction2   1.114821   0.203389 77.414421   5.481  5.1e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##            (Intr) bdymss
+## bodymass   -0.927       
+## direction2 -0.162  0.000</code></pre>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dolphins.1</span> <span class="op">&lt;-</span> <span class="va">dolphins</span> <span class="op">%&gt;%</span> </span>
-<span>    <span class="fu">mutate</span><span class="op">(</span>fit.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">dolphmod.2</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>           fit.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">dolphmod.2</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<span>    <span class="fu">mutate</span><span class="op">(</span>fit.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">dolphmod</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>           fit.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">dolphmod</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dolphins.1</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">bodymass</span>, y <span class="op">=</span> <span class="va">vt</span>, group <span class="op">=</span> <span class="va">direction</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">16</span>, <span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="va">animal</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">16</span>, <span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="va">direction</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">fit.m</span>, </span>
 <span>                linetype <span class="op">=</span> <span class="va">direction</span><span class="op">)</span>, </span>
 <span>            linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Body Mass"</span>, </span>
 <span>       y <span class="op">=</span> <span class="st">"VT"</span><span class="op">)</span> </span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">dolphmod.2</span>,type<span class="op">=</span><span class="st">"pred"</span>,</span>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-51"></span>
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-51-1.png" alt="Scatter plot of VT as a function of body mass for dolphins. Different directions of breath are represented by different colors. The solid lines indicate the marginal fitted values from our model." width="100%"><p class="caption">
+Figure 2.1: Scatter plot of VT as a function of body mass for dolphins. Different directions of breath are represented by different colors. The solid lines indicate the marginal fitted values from our model.
+</p>
+</div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">dolphmod</span>,type<span class="op">=</span><span class="st">"pred"</span>,</span>
 <span>           terms<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bodymass"</span>, <span class="st">"direction"</span><span class="op">)</span>,</span>
 <span>           pred.type<span class="op">=</span><span class="st">"fe"</span>,</span>
 <span>           show.data <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/plot_model.html">plot_model</a></span><span class="op">(</span><span class="va">dolphmod.2</span>,type<span class="op">=</span><span class="st">"pred"</span>,</span>
-<span>           terms<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bodymass"</span>, <span class="st">"direction"</span>, <span class="st">"animal"</span><span class="op">)</span>,</span>
-<span>           pred.type<span class="op">=</span><span class="st">"re"</span>,</span>
-<span>           show.data <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-51-2.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-52-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="webex-solution">
 <button>
-Solution
+A brief summary
 </button>
-<p>WRITE-UP?</p>
+<p>We fitted a linear mixed model (estimated using REML and nloptwrap optimizer) to predict (<span class="math inline">\(V_T\)</span>) with bodymass(kg) and direction (in/out breath). 95% Confidence Intervals (CIs) and p-values were computed using a Wald t-distribution approximation. We included a random intercept effect of animal to account for repeated measurements (of between 1 to 4 observations) across a total of 32 bottlenosed dolphins.</p>
+<p>We found that for every 1kg increase in bodymass, (<span class="math inline">\(V_T\)</span>) increased by 0.02 litres (95% CI [0.01 - 0.02]), <span class="math inline">\(t_{107}\)</span> = 5.15, p &lt; 0.001. The inbreath had on average a higher volume than the outbreath (1.11 litre difference [0.71 - 1.52]; <span class="math inline">\(t_{107}\)</span> = 5.48, p &lt; 0.001).</p>
+<p><strong>Q.</strong> This is not a perfect write-up, what else could we consider including?</p>
 </div>
 </div>
 </div>
@@ -390,8 +440,7 @@ $( document ).ready(function() {
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#worked-example-1---dolphins"><span class="header-section-number">2</span> Worked Example 1 - Dolphins</a></li>
 <li><a class="nav-link" href="#how-do-i-decide-if-it-is-a-fixed-or-random-effect"><span class="header-section-number">2.1</span> How do I decide if it is a fixed or random effect?</a></li>
-<li><a class="nav-link" href="#missing-data"><span class="header-section-number">2.2</span> Missing data</a></li>
-<li><a class="nav-link" href="#dolphins"><span class="header-section-number">2.3</span> Dolphins</a></li>
+<li><a class="nav-link" href="#dolphins"><span class="header-section-number">2.2</span> Dolphins</a></li>
 </ul>
 
       <div class="book-extra">

@@ -140,8 +140,8 @@
 <p>An alternative to the random intercepts model is the <em>random slopes</em> model, shown in panel C. In this model the slopes are permitted to vary, but the intercept is fixed across all groups. For our current data the random slopes model does a fair job as well.</p>
 <p>Finally we can allow <em>both the intercepts and slope</em> to vary between groups, as shown in panel D. This captures both the shallower slope of some of our groups and the vertical offsets present. If you inspect the original data set we generated, you can see that the random effect for group was calculated as both a product of random distribution on the intercept and slope, so it is not surprising that here this model fits the data best.</p>
 <p>This model will use more degrees of freedom than the other two, as these must be used to calculate variance for both intercept and slope.</p>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># random intercept model</span></span>
 <span><span class="va">lmer1</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">group</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span></span>
@@ -159,6 +159,31 @@
 <p>Mixed-effects models are enormously flexible. The decision about whether to include random intercepts, random slopes, or both will depend heavily on your hypotheses. It is generally quite rare to see random slopes models only, and more commonly it will be a question of whether random intercepts or random intercepts <em>and</em> random slopes are necessary.</p>
 <p>As the combine random slopes and intercept model requries more degrees of freedom, it may be the case that using likelihood ratio tests (LRT) are advisable to decide which model describes the data best (more on this later).</p>
 <p>Because random intercepts models require fewer degrees of freedome, these may be easier to fit when data sets have fewer observations.</p>
+<div class="information">
+<p>
+In a random effects model, the random effects are assumed to be a
+random sample from a population of possible random effects. These random
+effects capture the variation between different groups or clusters in
+the data. The number of random effects is typically smaller than the
+total number of observations, as the random effects represent the
+distinct groups or clusters in the dataset.
+</p>
+<p>
+The degrees of freedom associated with the random effects in a linear
+mixed model reflect the number of independent groups or clusters in the
+data, rather than the number of individual observations. For example, if
+you have data from 100 individuals, but they belong to only 10 distinct
+groups, the random effects would have 10 degrees of freedom, not
+100.
+</p>
+<p>
+By using fewer degrees of freedom for the random effects, the model
+accounts for the fact that the group-level variation is estimated based
+on a smaller number of parameters. This approach helps prevent
+overfitting and provides a more appropriate estimation of the variance
+components associated with the random effects.
+</p>
+</div>
 </div>
 <div id="model-refining-likelihood-ratio-tests" class="section level2" number="5.2">
 <h2>
@@ -167,7 +192,7 @@
 <p>Once we have produce an initial model with a random effects structure, we may wish to perform model selection by comparing different nested models with varying random effects structures. It allows us to assess whether the inclusion of additional random effects or changes in the random effects structure significantly improve the model fit. By comparing the likelihood values of different nested models, we can determine which model provides a better fit to the data.</p>
 <p>Previously we looked at the random intercepts vs. random intercepts <em>and</em> slopes model and concluded that the latter looked like it fit the data best.</p>
 <p>We can use a likelihood ratio test with the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function if we want to determine if the fit is significantly different to the simpler randome intercepts only model.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">lmer1</span>, <span class="va">lmer3</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
 <div class="inline-table"><table class="table table-sm">

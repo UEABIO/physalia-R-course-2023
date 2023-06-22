@@ -133,12 +133,14 @@
 <span class="header-section-number">9</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
 </h1>
 <p>Here is a suggested workflow:</p>
-<p>Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main predictors and any potential interactions you hypothesize might exist. For example, if you have predictors A and B, you might start with a model like response ~ A + B + A:B.</p>
-<p>Assess fixed effects and interactions: Evaluate the significance, direction, and magnitude of the fixed effects coefficients. Look for interactions that show significant effects and consider their interpretation in the context of your research question. This step allows you to identify the key variables and interactions that are important in explaining the variation in the response variable.</p>
-<p>Model evaluation and refinement: Assess the goodness of fit of the fixed effects model using appropriate measures like AIC, BIC, or model deviance. Consider conducting model comparison to evaluate different models with alternative fixed effects structures. This process helps you refine the model and select the most appropriate combination of variables and interactions.</p>
-<p>Incorporate random effects: Once you have identified the significant fixed effects and relevant interactions, you can then consider the inclusion of random effects. Random effects capture the variation at different levels and can account for individual differences or clustering within groups. Evaluate the need for random intercepts, random slopes, or crossed random effects based on your research design and the nature of the data.</p>
-<p>Assess and compare models with random effects: Fit models with random effects and compare their fit to the fixed effects model. Consider appropriate measures such as likelihood ratio tests, AIC, or BIC for model comparison. Evaluate the significance and contribution of the random effects to the model.</p>
-<p>Validate and interpret the final model: Validate the final model by assessing assumptions, checking for influential observations, and performing sensitivity analysis. Interpret the estimated coefficients, including fixed effects and random effects, in the context of your research question. Report the results, including confidence intervals and p-values.</p>
+<ol style="list-style-type: decimal">
+<li><p>Start with a model containing only fixed effects: Begin by fitting a model with the fixed effects that are relevant to your research question. Include the main predictors and any potential interactions you hypothesize might exist. For example, if you have predictors A and B, you might start with a model like response ~ A + B + A:B.</p></li>
+<li><p>Assess fixed effects and interactions: Evaluate the significance, direction, and magnitude of the fixed effects coefficients. Look for interactions that show significant effects and consider their interpretation in the context of your research question. This step allows you to identify the key variables and interactions that are important in explaining the variation in the response variable.</p></li>
+<li><p>Model evaluation and refinement: Assess the goodness of fit of the fixed effects model using appropriate measures like AIC, BIC, or model deviance. Consider conducting model comparison to evaluate different models with alternative fixed effects structures. This process helps you refine the model and select the most appropriate combination of variables and interactions. <em>However - this should be no substitution for carefully considered hypotheses and experimental design</em>.</p></li>
+<li><p>Incorporate random effects: Once you have identified the significant fixed effects and relevant interactions, you can then consider the inclusion of random effects. Random effects capture the variation at different levels and can account for individual differences or clustering within groups. Evaluate the need for random intercepts, random slopes, or crossed random effects based on your research design and the nature of the data.</p></li>
+<li><p>Assess and compare models with random effects: Fit models with random effects and compare their fit to the fixed effects model. Consider appropriate measures such as likelihood ratio tests, AIC, or BIC for model comparison. Evaluate the contribution of the random effects to the model.<em>However - this should be no substitution for carefully considered hypotheses and experimental design</em>. And we have seen examples where we leave random effects in place despite LRT tests.</p></li>
+<li><p>Validate and interpret the final model: Validate the final model by assessing assumptions, checking for influential observations, and performing sensitivity analysis. Interpret the estimated coefficients, including fixed effects and random effects, in the context of your research question. Report the results with figures, summary tables and carefully considered text summarising the analysis.</p></li>
+</ol>
 <p>By initially focusing on the fixed effects, you can establish the foundation of your model and identify the significant predictors and interactions. This step allows you to better understand the relationships in your data and guide the subsequent inclusion of random effects if appropriate.</p>
 <p><a href="https://ademos.people.uic.edu/Chapter17.html#121_crossed__nested_designs" class="uri">https://ademos.people.uic.edu/Chapter17.html#121_crossed__nested_designs</a></p>
 <div id="mixed-model-extensions" class="section level2" number="9.1">
@@ -150,35 +152,36 @@
 <h2>
 <span class="header-section-number">9.2</span> Practical problems<a class="anchor" aria-label="anchor" href="#practical-problems"><i class="fas fa-link"></i></a>
 </h2>
-<p>HARRISON?</p>
-<p>MODEL CONVERGENCE - BAKER</p>
-<p>BOUNDARY FIT</p>
-<p>lmer3 &lt;- lmer(y ~ x + (x | group), data = data, control = lmerControl(optimizer ="Nelder_Mead"))</p>
-<p>CHECK THIS!</p>
-<p>With mixed models, the solution is arrived at iteratively, which means it can fail to converge for a number of reasons. Generally, failure to converge will be due to an issue with the data.</p>
-<p>Linear model analyses can extend beyond testing differences of means in categorical groupings to test relationships with continuous variables. This is known as linear regression, where the relationship between the explanatory variable and response variable are modelled with the equation for a straight line. The intercept is the value of <em>y</em> when <em>x</em> = 0, often this isn't that useful, and we can use 'mean-centered' values if we wish to make the intercept more intuitive.
-As with all linear models, regression assumes that the unexplained variability around the regression line, is normally distributed and has constant variance.</p>
-<p>Once the regression has been fitted it is possible to predict values of <em>y</em> from values of <em>x</em>, the uncertainty around these predictions can be captured with confidence intervals.</p>
-<p>The first thing to try is scaling all your parameters:</p>
-<p>egen scaled_var = std(var)
-Dummy variables typically don’t need to be scaled, but can be. If scaling all your variables allows convergence, try different combinations of scaled and unscaled to figure out what variables are causing the problem. It’s typically (but not always) the variables which have the largest scale to begin with.</p>
-<p>Another potential convergence issue is extremely high correlation between predictors (including dummy variables). You should have already addressed this when considering multicollinearity, but if not, it can make convergence challenging.</p>
-<p>If the iteration keeps running (as opposed to ending and complaining about lack of convergence), try passing the option iterate(#) with a few “large” (“large” is relative to running time) numbers to tell the algorithm to stop after # iterations, regardless of convergence. (Recall that an iterative solution produces an answer at each iteration, it’s just not a consistent answer until you reach convergence.) You’re looking for two things:</p>
-<p>First, if there are any estimated standard errors that are extremely close to zero or exploding towards infinity, that predictor may be causing the issue. Try removing it.
-Second, if you try a few different max iterations (say 50, 100 and 200), and the estimated coefficients and standard errors are relatively constant, you may be running into a case where the model is converging to just beyond the tolerance which Stata uses, but for all intents and purposes is converged. Set iterate(#) to a high number and use that result.
-You can try use the “reml” optimizer, by passing the reml option. This optimizer can be a bit easier to converge, though may be slower.</p>
-<p>Finally, although it pains me to admit it, you should try running the model in different software such as R or SAS. Each software has slightly different algorithms it uses, and there are situations where one software will converge and another won’t</p>
+<p>Below are two common issues or warnings you will likely encounter when fitting linear models:</p>
+<ul>
+<li><p><code>boundary (singular) fit: see help('isSingular')</code>: Your model did fit, but it generated that warning because some of your random effects are very small, common with complex mixed-effect models. You can read more about this in <a href="https://rdrr.io/cran/lme4/man/isSingular.html">help page</a></p></li>
+<li>
+<p>Convergence warnings: Values for the mixed-effects models are determined using optimisation algorithms. Sometimes these algorithms fail to converge on a best parameter estimate, which will produce an error. There are several possible solutions:</p>
+<ul>
+<li>Normalise and rescale: Rescaling the variables can mitigate issues caused by the differences in scales or magnitudes of the predictors, which can affect the optimization process. You can rescale the fixed effects predictors by subtracting the mean and dividing by the standard deviation. This centers the variables around zero and scales them to have a standard deviation of 1. This can be done using the scale() function in R.</li>
+<li>Try alternative optimisation algorithms: e.g. <code>lmer3 &lt;- lmer(y ~ x + (x | group), data = data, control = lmerControl(optimizer ="Nelder_Mead"))</code>
+</li>
+<li>Finally, although it pains me to admit it, you should try running the model using a different package - each has their own unique and slightly different optimisation protocols.</li>
+</ul>
+</li>
+</ul>
 </div>
 <div id="further-reading" class="section level2" number="9.3">
 <h2>
 <span class="header-section-number">9.3</span> Further Reading<a class="anchor" aria-label="anchor" href="#further-reading"><i class="fas fa-link"></i></a>
 </h2>
-<p>Some suggested starter topics to continue your mixed-model journey!</p>
+<p>Some essential reading to continue your mixed-model journey!</p>
 <ul>
 <li><p><a href="https://peerj.com/articles/4794/">A brief introduction to mixed effects modelling and multi-model inference in ecology</a> <span class="citation">Harrison et al. (<a href="summary.html#ref-xav_2018" role="doc-biblioref">2018</a>)</span></p></li>
 <li><p><a href="https://link.springer.com/book/10.1007/978-0-387-87458-6">Mixed Effects Models and Extensions in Ecology with R</a> <span class="citation">Zuur et al. (<a href="summary.html#ref-zuur_2009" role="doc-biblioref">2009</a>)</span></p></li>
 <li><p><a href="https://peerj.com/articles/9522/">Perils and pitfalls of mixed-effects regression models in biology</a> <span class="citation">Silk et al. (<a href="summary.html#ref-silk_2020" role="doc-biblioref">2020</a>)</span></p></li>
 </ul>
+</div>
+<div id="references" class="section level2" number="9.4">
+<h2>
+<span class="header-section-number">9.4</span> References<a class="anchor" aria-label="anchor" href="#references"><i class="fas fa-link"></i></a>
+</h2>
+
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-R-lme4" class="csl-entry">
 Bates, D., Maechler, M., Bolker, B., &amp; Walker, S. (2023). <em>lme4: Linear mixed-effects models using eigen and S4</em>. <a href="https://github.com/lme4/lme4/">https://github.com/lme4/lme4/</a>
@@ -414,6 +417,7 @@ $( document ).ready(function() {
 <li><a class="nav-link" href="#mixed-model-extensions"><span class="header-section-number">9.1</span> Mixed Model extensions</a></li>
 <li><a class="nav-link" href="#practical-problems"><span class="header-section-number">9.2</span> Practical problems</a></li>
 <li><a class="nav-link" href="#further-reading"><span class="header-section-number">9.3</span> Further Reading</a></li>
+<li><a class="nav-link" href="#references"><span class="header-section-number">9.4</span> References</a></li>
 </ul>
 
       <div class="book-extra">
