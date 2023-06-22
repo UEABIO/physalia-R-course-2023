@@ -4,24 +4,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 2 Types of Random Effects | Mixed Models</title>
+<title>Chapter 5 Types of Random Effects | Mixed Models</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="2.1 How do I decide if it is a fixed or random effect? One of the most common questions in mixed-effects modelling is how to decide if an effect should be considered as fixed or random. This can...">
+<meta name="description" content="5.1 Random slopes So far we have looked at random effects where each group has its own intercept. This means that we fit a regression line across all five groups, which has a constant slope but is...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 2 Types of Random Effects | Mixed Models">
+<meta property="og:title" content="Chapter 5 Types of Random Effects | Mixed Models">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/intro-mixed-models/types-of-random-effects.html">
 <meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
-<meta property="og:description" content="2.1 How do I decide if it is a fixed or random effect? One of the most common questions in mixed-effects modelling is how to decide if an effect should be considered as fixed or random. This can...">
+<meta property="og:description" content="5.1 Random slopes So far we have looked at random effects where each group has its own intercept. This means that we fit a regression line across all five groups, which has a constant slope but is...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 2 Types of Random Effects | Mixed Models">
-<meta name="twitter:description" content="2.1 How do I decide if it is a fixed or random effect? One of the most common questions in mixed-effects modelling is how to decide if an effect should be considered as fixed or random. This can...">
+<meta name="twitter:title" content="Chapter 5 Types of Random Effects | Mixed Models">
+<meta name="twitter:description" content="5.1 Random slopes So far we have looked at random effects where each group has its own intercept. This means that we fit a regression line across all five groups, which has a constant slope but is...">
 <meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="libs/grViz-binding-1.0.10/grViz.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.10/grViz.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -113,12 +113,14 @@
 <li><a class="" href="index.html">Overview</a></li>
 <li class="book-part">Mixed Models</li>
 <li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">1</span> Foundations of Mixed Modelling</a></li>
-<li><a class="active" href="types-of-random-effects.html"><span class="header-section-number">2</span> Types of Random Effects</a></li>
-<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">3</span> Reporting Mixed Model Results</a></li>
-<li><a class="" href="worked-example-1---dolphins.html"><span class="header-section-number">4</span> Worked Example 1 - Dolphins</a></li>
-<li><a class="" href="complex-designs.html"><span class="header-section-number">5</span> Complex Designs</a></li>
-<li><a class="" href="worked-example-2.html"><span class="header-section-number">6</span> Worked Example 2</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">7</span> Summary</a></li>
+<li><a class="" href="worked-example-1---dolphins.html"><span class="header-section-number">2</span> Worked Example 1 - Dolphins</a></li>
+<li><a class="" href="multiple-random-effects.html"><span class="header-section-number">3</span> Multiple random effects</a></li>
+<li><a class="" href="worked-example-2---nested-design.html"><span class="header-section-number">4</span> Worked Example 2 - Nested design</a></li>
+<li><a class="active" href="types-of-random-effects.html"><span class="header-section-number">5</span> Types of Random Effects</a></li>
+<li><a class="" href="worked-example-3---complex-designs.html"><span class="header-section-number">6</span> Worked Example 3 - Complex Designs</a></li>
+<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">7</span> Reporting Mixed Model Results</a></li>
+<li><a class="" href="worked-example-4.html"><span class="header-section-number">8</span> Worked Example 4</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">9</span> Summary</a></li>
 </ul>
 
         <div class="book-extra">
@@ -126,96 +128,20 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="types-of-random-effects" class="section level1" number="2">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="types-of-random-effects" class="section level1" number="5">
 <h1>
-<span class="header-section-number">2</span> Types of Random Effects<a class="anchor" aria-label="anchor" href="#types-of-random-effects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5</span> Types of Random Effects<a class="anchor" aria-label="anchor" href="#types-of-random-effects"><i class="fas fa-link"></i></a>
 </h1>
-<div id="how-do-i-decide-if-it-is-a-fixed-or-random-effect" class="section level2" number="2.1">
+<div id="random-slopes" class="section level2" number="5.1">
 <h2>
-<span class="header-section-number">2.1</span> How do I decide if it is a fixed or random effect?<a class="anchor" aria-label="anchor" href="#how-do-i-decide-if-it-is-a-fixed-or-random-effect"><i class="fas fa-link"></i></a>
-</h2>
-<p>One of the most common questions in mixed-effects modelling is how to decide if an effect should be considered as fixed or random. This can be quite a complicated question, as we have touched upon briefly before the definition of a random effect is not universal. It is a considered process that can include the hypothesis or question you are asking.</p>
-<p>1 ) Are you directly interested in the effect in question. If the answer is yes it should be a fixed effect.</p>
-<p>2 ) Is the variable continuous? If the answer is yes it should be a fixed effect.</p>
-<p>3 ) Does the variable have less than five levels? If ther answer is yes it should be a fixed effect.</p>
-</div>
-<div id="missing-data" class="section level2" number="2.2">
-<h2>
-<span class="header-section-number">2.2</span> Missing data<a class="anchor" aria-label="anchor" href="#missing-data"><i class="fas fa-link"></i></a>
-</h2>
-<p>An added bonus with mixed-effects models is that they cope well with missing values and situations where we have groups of different sizes. Because we assume that each group or cluster of a random effect has been drawn essentially at random from a larger population of groups, we estimate the properties of an underlying distribution. Critically, if some estimates are missing, or groups are unequal in size we still generate a sensible parameter estimate.</p>
-<p>This can make mixed-effects models a good choice for analysis of data that relates to under-represented groups.</p>
-</div>
-<div id="multiple-random-effects" class="section level2" number="2.3">
-<h2>
-<span class="header-section-number">2.3</span> Multiple random effects<a class="anchor" aria-label="anchor" href="#multiple-random-effects"><i class="fas fa-link"></i></a>
-</h2>
-<p><a href="https://www.muscardinus.be/2017/07/lme4-random-effects/" class="uri">https://www.muscardinus.be/2017/07/lme4-random-effects/</a></p>
-<p>Previously we used <code>(1|group)</code> to fit our random effect. Whatever is on the right side of the <code>|</code> operator is a factor and referred to as a “grouping factor” for the term.</p>
-<div id="crossed-or-nested" class="section level3" number="2.3.1">
-<h3>
-<span class="header-section-number">2.3.1</span> Crossed or Nested<a class="anchor" aria-label="anchor" href="#crossed-or-nested"><i class="fas fa-link"></i></a>
-</h3>
-<p>When we have more than one possible randome effect these can be <strong>crossed</strong> or <strong>nested</strong> - it depends on the relationship between the variables. Let’s have a look.</p>
-<p>A common issue that causes confusion is this issue of specifying random effects as either ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined by your experimental or sampling design. A simple example can illustrate the difference.</p>
-<div id="crossed-random-effects" class="section level4" number="2.3.1.1">
-<h4>
-<span class="header-section-number">2.3.1.1</span> 1. Crossed Random Effects:<a class="anchor" aria-label="anchor" href="#crossed-random-effects"><i class="fas fa-link"></i></a>
-</h4>
-<p>Crossed random effects occur when the levels of two or more grouping variables are crossed or independent of each other. In this case, the grouping variables are unrelated, and each combination of levels is represented in the data.</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-38"></span>
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-24d2e389190f1dd1551a" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-24d2e389190f1dd1551a">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
-Figure 2.1: Fully Crossed
-</p>
-</div>
-<blockquote>
-<p>Example 1: Let's consider a study examining the academic performance of students from different schools and different cities. The grouping variables are "School" and "City". Each school can be located in multiple cities, and each city can have multiple schools. The random effects of "School" and "City" are crossed since the levels of these variables are independent of each other.</p>
-</blockquote>
-<p><code>lmer(y ~ x + (1 | School) + (1 | City), data = dataset)</code></p>
-<blockquote>
-<p>Example 2: Imagine there is a long-term study on breeding success in passerine birds across multiple woodlands, and the researcher returns every year for five years to carry out measurements. Here "Year" is a crossed random effect with "Woodland" as each Woodland can appear in multiple years of study.
-Imagine a researcher was interested in understanding the factors affecting the clutch mass of a passerine bird. They have a study population spread across five separate woodlands, each containing 30 nest boxes. Every week during breeding they measure the foraging rate of females at feeders, and measure their subsequent clutch mass. Some females have multiple clutches in a season and contribute multiple data points.</p>
-</blockquote>
-<p><code>lmer(y ~ x + (1 | Year) + (1 | Woodland), data = dataset)</code></p>
-</div>
-<div id="nested-random-effects" class="section level4" number="2.3.1.2">
-<h4>
-<span class="header-section-number">2.3.1.2</span> 2. Nested Random Effects:<a class="anchor" aria-label="anchor" href="#nested-random-effects"><i class="fas fa-link"></i></a>
-</h4>
-<p>Nested random effects occur when the levels of one grouping variable are completely nested within the levels of another grouping variable. In other words, the levels of one variable are uniquely and exclusively associated with specific levels of another variable.</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-39"></span>
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-06de9eda58cd6c8b9398" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-06de9eda58cd6c8b9398">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
-Figure 2.2: Fully Nested
-</p>
-</div>
-<blockquote>
-<p>Example 1. Consider a study on the job performance of employees within different departments of an organization. The grouping variables are "Employee" and "Department". Each employee belongs to one specific department, and no employee can be part of multiple departments. The random effects of "Employee" are nested within the random effects of "Department" since each employee is uniquely associated with a specific department.</p>
-</blockquote>
-<p><code>lmer(y ~ x + (1 | Department/Employee), data = dataset)</code></p>
-<blockquote>
-<p>Example 2: In the same bird study female ID is said to be nested within woodland : each woodland contains multiple females unique to that woodland (that never move among woodlands). The nested random effect controls for the fact that (i) clutches from the same female are not independent, and (ii) females from the same woodland may have clutch masses more similar to one another than to females from other woodlands</p>
-</blockquote>
-<p><code>lmer(y ~ x + (1 | Woodland/Female ID), data = dataset)</code></p>
-<p><em>or if we remember year we have a model with both crossed and nested random effects</em></p>
-<p><code>lmer(y ~ x + (1 | Woodland/Female ID) + (1|Year), data = dataset)</code></p>
-<p>For more on designing models around crossed and nested designs check out <a href="https://www.nature.com/articles/nmeth.3137">this amazing nature paper</a> <span class="citation">Krzywinski et al. (<a href="summary.html#ref-krzywinski_2014" role="doc-biblioref">2014</a>)</span></p>
-</div>
-</div>
-</div>
-<div id="random-slopes" class="section level2" number="2.4">
-<h2>
-<span class="header-section-number">2.4</span> Random slopes<a class="anchor" aria-label="anchor" href="#random-slopes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1</span> Random slopes<a class="anchor" aria-label="anchor" href="#random-slopes"><i class="fas fa-link"></i></a>
 </h2>
 <p>So far we have looked at random effects where each group has its own <em>intercept</em>. This means that we fit a regression line across all five groups, which has a constant slope but is allowed to shift up or down for each group. This is what is represented in panel B.</p>
 <p>An alternative to the random intercepts model is the <em>random slopes</em> model, shown in panel C. In this model the slopes are permitted to vary, but the intercept is fixed across all groups. For our current data the random slopes model does a fair job as well.</p>
 <p>Finally we can allow <em>both the intercepts and slope</em> to vary between groups, as shown in panel D. This captures both the shallower slope of some of our groups and the vertical offsets present. If you inspect the original data set we generated, you can see that the random effect for group was calculated as both a product of random distribution on the intercept and slope, so it is not surprising that here this model fits the data best.</p>
 <p>This model will use more degrees of freedom than the other two, as these must be used to calculate variance for both intercept and slope.</p>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># random intercept model</span></span>
 <span><span class="va">lmer1</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">group</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span></span>
@@ -234,12 +160,12 @@ Figure 2.2: Fully Nested
 <p>As the combine random slopes and intercept model requries more degrees of freedom, it may be the case that using likelihood ratio tests (LRT) are advisable to decide which model describes the data best (more on this later).</p>
 <p>Because random intercepts models require fewer degrees of freedome, these may be easier to fit when data sets have fewer observations.</p>
 </div>
-<div id="random-effect-correlation" class="section level2" number="2.5">
+<div id="random-effect-correlation" class="section level2" number="5.2">
 <h2>
-<span class="header-section-number">2.5</span> Random effect correlation<a class="anchor" aria-label="anchor" href="#random-effect-correlation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2</span> Random effect correlation<a class="anchor" aria-label="anchor" href="#random-effect-correlation"><i class="fas fa-link"></i></a>
 </h2>
 <p>Understanding Group Structure: The correlation of random effects provides insight into the inherent structure of the groups in the data. It reveals the degree of similarity or dissimilarity between the random effects associated with different groups. This information helps to uncover patterns of clustering or similarity among the groups, which can be crucial in understanding the underlying mechanisms or processes being studied.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 ## lmerModLmerTest]
@@ -272,14 +198,14 @@ Figure 2.2: Fully Nested
 ## optimizer (nloptwrap) convergence code: 0 (OK)
 ## Model failed to converge with max|grad| = 0.00241 (tol = 0.002, component 1)</code></pre>
 </div>
-<div id="model-refining-likelihood-ratio-tests" class="section level2" number="2.6">
+<div id="model-refining-likelihood-ratio-tests" class="section level2" number="5.3">
 <h2>
-<span class="header-section-number">2.6</span> Model refining / Likelihood Ratio Tests<a class="anchor" aria-label="anchor" href="#model-refining-likelihood-ratio-tests"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3</span> Model refining / Likelihood Ratio Tests<a class="anchor" aria-label="anchor" href="#model-refining-likelihood-ratio-tests"><i class="fas fa-link"></i></a>
 </h2>
 <p>Once we have produce an initial model with a random effects structure, we may wish to perform model selection by comparing different nested models with varying random effects structures. It allows us to assess whether the inclusion of additional random effects or changes in the random effects structure significantly improve the model fit. By comparing the likelihood values of different nested models, we can determine which model provides a better fit to the data.</p>
 <p>Previously we looked at the random intercepts vs. random intercepts <em>and</em> slopes model and concluded that the latter looked like it fit the data best.</p>
 <p>We can use a likelihood ratio test with the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function if we want to determine if the fit is significantly different to the simpler randome intercepts only model.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">lmer1</span>, <span class="va">lmer3</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
 <div class="inline-table"><table class="table table-sm">
@@ -416,9 +342,13 @@ adjustments to better understand the best type of random effects
 structure is perfectly reasonable.
 </p>
 </div>
-<div id="maximum-likelihood" class="section level3" number="2.6.1">
+<div class="webex-solution">
+<button>
+ML vs. REML
+</button>
+<div id="maximum-likelihood" class="section level3" number="5.3.1">
 <h3>
-<span class="header-section-number">2.6.1</span> Maximum Likelihood<a class="anchor" aria-label="anchor" href="#maximum-likelihood"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.1</span> Maximum Likelihood<a class="anchor" aria-label="anchor" href="#maximum-likelihood"><i class="fas fa-link"></i></a>
 </h3>
 <p>Frequentist fit used by LMM through lme4 / lmer is based on the <strong>Maximum Likelihood principle</strong>, where we maximize the likelihood <span class="math inline">\(L(y)\)</span> of observing the data <span class="math inline">\(y\)</span>, which is equivalent to minimizing residuals of the model, the Ordinary Least Squares (OLS) approach. It measures the probability of observing the data given a specific set of parameter values.</p>
 <p>When we are attempting to optimise a model we can use the likelihood ratio test (LRT). Given two nested models, denoted as Model 1 and Model 2, the LRT compares the likelihood values of these models to assess whether the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1. The LRT statistic, denoted as <span class="math inline">\(D\)</span>, is calculated as the difference between the log-likelihood values of Model 1 and Model 2, multiplied by 2:</p>
@@ -427,20 +357,21 @@ structure is perfectly reasonable.
 <p>To determine the statistical significance of the LRT statistic, one can compare it to the critical value from the chi-square distribution with the appropriate degrees of freedom. If the LRT statistic exceeds the critical value, it indicates that the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1.</p>
 <p>ML estimation is often used to perform hypothesis tests, including the chi-square test. The chi-square test compares the observed data to the expected data predicted by a statistical model. It assesses the goodness-of-fit between the observed data and the model's predictions.</p>
 </div>
-<div id="reml" class="section level3" number="2.6.2">
+<div id="reml" class="section level3" number="5.3.2">
 <h3>
-<span class="header-section-number">2.6.2</span> REML<a class="anchor" aria-label="anchor" href="#reml"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.2</span> REML<a class="anchor" aria-label="anchor" href="#reml"><i class="fas fa-link"></i></a>
 </h3>
 <p>REML (Restricted Maximum Likelihood) estimation is a variant of ML estimation that addresses the issue of bias in the estimation of random effects in mixed effects models. In mixed effects models, random effects account for the variation at the group or individual level that is not explained by the fixed effects. However, the inclusion of random effects introduces a bias in the ML estimates, as they are influenced by the variability of the random effects.</p>
 <p>REML estimation addresses this bias by optimizing the likelihood function conditional on the fixed effects only, effectively removing the influence of the random effects on the estimation. This approach provides unbiased estimates of the fixed effects and is especially useful when the primary interest lies in the fixed effects rather than the random effects.</p>
 </div>
-<div id="ml-vs.-reml-fitting" class="section level3" number="2.6.3">
+<div id="ml-vs.-reml-fitting" class="section level3" number="5.3.3">
 <h3>
-<span class="header-section-number">2.6.3</span> ML vs. REML fitting<a class="anchor" aria-label="anchor" href="#ml-vs.-reml-fitting"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.3</span> ML vs. REML fitting<a class="anchor" aria-label="anchor" href="#ml-vs.-reml-fitting"><i class="fas fa-link"></i></a>
 </h3>
-<p>Maximum Likelihood (ML) estimation is preferable when comparing nested models because it allows for the direct comparison of the likelihood values between different models. ML estimation provides a quantitative measure of how well a given model fits the observed data, based on the likelihood function.</p>
+<p><strong>Maximum Likelihood (ML) estimation is preferable when comparing nested models</strong> because it allows for the direct comparison of the likelihood values between different models. ML estimation provides a quantitative measure of how well a given model fits the observed data, based on the likelihood function.</p>
 <p>In this context, ML estimation is preferable because it allows for a formal statistical comparison between nested models. It provides a rigorous and objective way to assess whether the inclusion of additional parameters in the more complex model leads to a significantly better fit to the data compared to the simpler model. This approach ensures that model comparisons are based on sound statistical principles and helps in determining the most appropriate model for the given data.</p>
-<p>Older versions of model fitting packages like <code>lmer</code> used to require the manual switch between REML and ML when fitting models in order to switch between the objectives of assessing goodness-of-fit and interpreting estimates. But you will notice that when you perform an LRT with the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function it informs you the switch is being made automatically.</p>
+<p><strong>REML can be preferable when producing unbiased estimates of the fixed effects</strong>. Older versions of model fitting packages like <code>lmer</code> used to require the manual switch between REML and ML when fitting models in order to switch between the objectives of assessing goodness-of-fit and interpreting estimates. But you will notice that when you perform an LRT with the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function it informs you the switch is being made automatically.</p>
+</div>
 </div>
 </div>
 </div>
@@ -624,24 +555,19 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="foundations-of-mixed-modelling.html"><span class="header-section-number">1</span> Foundations of Mixed Modelling</a></div>
-<div class="next"><a href="reporting-mixed-model-results.html"><span class="header-section-number">3</span> Reporting Mixed Model Results</a></div>
+<div class="prev"><a href="worked-example-2---nested-design.html"><span class="header-section-number">4</span> Worked Example 2 - Nested design</a></div>
+<div class="next"><a href="worked-example-3---complex-designs.html"><span class="header-section-number">6</span> Worked Example 3 - Complex Designs</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#types-of-random-effects"><span class="header-section-number">2</span> Types of Random Effects</a></li>
-<li><a class="nav-link" href="#how-do-i-decide-if-it-is-a-fixed-or-random-effect"><span class="header-section-number">2.1</span> How do I decide if it is a fixed or random effect?</a></li>
-<li><a class="nav-link" href="#missing-data"><span class="header-section-number">2.2</span> Missing data</a></li>
+<li><a class="nav-link" href="#types-of-random-effects"><span class="header-section-number">5</span> Types of Random Effects</a></li>
+<li><a class="nav-link" href="#random-slopes"><span class="header-section-number">5.1</span> Random slopes</a></li>
+<li><a class="nav-link" href="#random-effect-correlation"><span class="header-section-number">5.2</span> Random effect correlation</a></li>
 <li>
-<a class="nav-link" href="#multiple-random-effects"><span class="header-section-number">2.3</span> Multiple random effects</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#crossed-or-nested"><span class="header-section-number">2.3.1</span> Crossed or Nested</a></li></ul>
-</li>
-<li><a class="nav-link" href="#random-slopes"><span class="header-section-number">2.4</span> Random slopes</a></li>
-<li><a class="nav-link" href="#random-effect-correlation"><span class="header-section-number">2.5</span> Random effect correlation</a></li>
-<li>
-<a class="nav-link" href="#model-refining-likelihood-ratio-tests"><span class="header-section-number">2.6</span> Model refining / Likelihood Ratio Tests</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#maximum-likelihood"><span class="header-section-number">2.6.1</span> Maximum Likelihood</a></li>
-<li><a class="nav-link" href="#reml"><span class="header-section-number">2.6.2</span> REML</a></li>
-<li><a class="nav-link" href="#ml-vs.-reml-fitting"><span class="header-section-number">2.6.3</span> ML vs. REML fitting</a></li>
+<a class="nav-link" href="#model-refining-likelihood-ratio-tests"><span class="header-section-number">5.3</span> Model refining / Likelihood Ratio Tests</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#maximum-likelihood"><span class="header-section-number">5.3.1</span> Maximum Likelihood</a></li>
+<li><a class="nav-link" href="#reml"><span class="header-section-number">5.3.2</span> REML</a></li>
+<li><a class="nav-link" href="#ml-vs.-reml-fitting"><span class="header-section-number">5.3.3</span> ML vs. REML fitting</a></li>
 </ul>
 </li>
 </ul>
@@ -661,7 +587,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
+    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-06-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

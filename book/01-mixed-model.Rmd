@@ -27,6 +27,7 @@ library(DHARMa)
 library(sjPlot)
 library(MuMIn)
 library(emmeans)
+library(downloadthis)
 
  report_p <- function(p, digits = 3) {
      reported <- if_else(p < 0.001,
@@ -526,7 +527,7 @@ Pooling helps to improve the precision of the estimates by borrowing strength fr
 
 - Partial pooling/Mixed models: this model reflects the greater uncertainty of the Mean and SE of the intercept. However, the SED in a partial pooling model accounts for both the variability within groups and the uncertainty between groups. Compared to a no pooling approach, the SED in a partial pooling model tends to be smaller because it incorporates the pooled information, which reduces the overall uncertainty. This adjusted SED provides a more accurate measure of the uncertainty associated with the estimated differences between groups or fixed effects.
 
-## Variance and model outcomes
+## Predictions
 
 One misconception about mixed-effects models is that we cannot produce estimates of the relationships for each group.
 
@@ -773,7 +774,8 @@ When you have a lot of data, even minimal deviations from the expected distribut
 `r longmcq(c(answer = "They can still estimate parameters even when some observations are missing", "They delete observations with missing data", "They set all values to 0"))`
 
 
-# Types of Random Effects
+# Worked Example 1 - Dolphins
+
 
 ## How do I decide if it is a fixed or random effect?
 
@@ -790,9 +792,103 @@ One of the most common questions in mixed-effects modelling is how to decide if 
 
 An added bonus with mixed-effects models is that they cope well with missing values and situations where we have groups of different sizes. Because we assume that each group or cluster of a random effect has been drawn essentially at random from a larger population of groups, we estimate the properties of an underlying distribution. Critically, if some estimates are missing, or groups are unequal in size we still generate a sensible parameter estimate. 
 
-This can make mixed-effects models a good choice for analysis of data that relates to under-represented groups. 
+This can make mixed-effects models a good choice for analysis of data that relates to under-represented groups
 
-## Multiple random effects
+
+## Dolphins
+
+```{r, eval = FALSE, echo = FALSE}
+downloadthis::download_link(
+  link = "https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/dolphins.csv",
+  button_label = "Download Dolphins data",
+  button_type = "success",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+
+```{r, echo = FALSE}
+
+dolphins <- read_csv("files/dolphins.csv") 
+
+dolphins$direction <- factor(dolphins$direction)
+
+dolphins <- drop_na(dolphins)
+
+```
+
+```{r, eval = TRUE, echo = FALSE}
+dolphins %>%
+  downloadthis::download_this(
+    output_name = "dolphins",
+    output_extension = ".csv",
+    button_label = "Download dolphins data as csv",
+    button_type = "success",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+```
+
+
+```{r, eval = FALSE}
+
+dolphins <- read_csv("dolphins.csv") 
+
+```
+
+DOLPHIN FIXED EFFECTS
+
+```{r}
+dolphmod.1 <- lmer(vt ~ bodymass + direction + (direction|animal), data=dolphins)
+dolphmod.2 <- lmer(vt ~ bodymass + direction + (1|animal), data=dolphins)
+```
+
+```{r}
+dolphins.1 <- dolphins %>% 
+    mutate(fit.m = predict(dolphmod.2, re.form = NA),
+           fit.c = predict(dolphmod.2, re.form = NULL))
+```
+
+
+```{r}
+dolphins.1 %>%
+  ggplot(aes(x = bodymass, y = vt, group = direction)) +
+  geom_point(pch = 16, aes(colour = animal)) +
+  geom_line(aes(y = fit.m, 
+                linetype = direction), 
+            linewidth = 1)  +
+  labs(x = "Body Mass", 
+       y = "VT") 
+
+```
+
+
+```{r}
+plot_model(dolphmod.2,type="pred",
+           terms=c("bodymass", "direction"),
+           pred.type="fe",
+           show.data = T)
+
+plot_model(dolphmod.2,type="pred",
+           terms=c("bodymass", "direction", "animal"),
+           pred.type="re",
+           show.data = T)
+
+
+```
+
+
+`r hide()`
+
+WRITE-UP?
+
+`r unhide()`
+
+
+
+# Multiple random effects
 
 https://www.muscardinus.be/2017/07/lme4-random-effects/
 
@@ -879,6 +975,123 @@ digraph boxes_and_circles {
 For more on designing models around crossed and nested designs check out [this amazing nature paper](https://www.nature.com/articles/nmeth.3137) @krzywinski_2014
 
 
+# Worked Example 2 - Nested design
+
+```{r, eval = FALSE, echo = FALSE}
+downloadthis::download_link(
+  link = "https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/rats.rds",
+  button_label = "Download as rds",
+  button_type = "success",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+
+```{r, echo= FALSE}
+
+rats <- readRDS("files/rats.rds")
+
+```
+
+```{r, eval = TRUE, echo = FALSE}
+rats %>%
+  downloadthis::download_this(
+    output_name = "rats",
+    output_extension = ".rds",
+    button_label = "Download rats data as rds",
+    button_type = "success",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+```
+
+
+```{r, eval = FALSE}
+
+rats <- readRDS("rats.rds")
+
+```
+
+```{r, eval = FALSE}
+rats %>% 
+  aggregate(Glycogen ~ Rat + Treatment + Liver, data = ., mean)
+
+```
+
+```
+   Glycogen Rat Treatment Liver
+1       131   1         1     1
+2       130   1         1     1
+3       131   1         1     2
+4       125   1         1     2
+5       136   1         1     3
+6       142   1         1     3
+7       150   2         1     1
+8       148   2         1     1
+9       140   2         1     2
+10      143   2         1     2
+11      160   2         1     3
+12      150   2         1     3
+13      157   3         2     1
+14      145   3         2     1
+15      154   3         2     2
+16      142   3         2     2
+17      147   3         2     3
+18      153   3         2     3
+19      151   4         2     1
+20      155   4         2     1
+21      147   4         2     2
+22      147   4         2     2
+23      162   4         2     3
+24      152   4         2     3
+25      134   5         3     1
+26      125   5         3     1
+27      138   5         3     2
+28      138   5         3     2
+29      135   5         3     3
+30      136   5         3     3
+31      138   6         3     1
+32      140   6         3     1
+33      139   6         3     2
+34      138   6         3     2
+35      134   6         3     3
+36      127   6         3     3
+
+```
+
+```{r}
+
+rats_lmer.1 <- lmer(Glycogen ~ Treatment + (1 | Rat) + (1 | Liver), data = rats)
+summary(rats_lmer.1)
+```
+
+
+```{r}
+
+rats_lmer.2 <- lmer(Glycogen ~ Treatment + (1 | Rat / Liver), data = rats)
+summary(rats_lmer.2)
+```
+
+```{r}
+
+plot(ggpredict(rats_lmer.2, terms = c("Treatment")))
+
+```
+
+```{r}
+
+plot(ggpredict(rats_lmer.2, 
+               terms = c("Treatment", "Rat"), 
+               type = "random"), 
+     add.data = TRUE)
+
+```
+
+# Types of Random Effects
+
+ 
 ## Random slopes
 
 So far we have looked at random effects where each group has its own *intercept*. This means that we fit a regression line across all five groups, which has a constant slope but is allowed to shift up or down for each group. This is what is represented in panel B. 
@@ -963,7 +1176,6 @@ As the combine random slopes and intercept model requries more degrees of freedo
 Because random intercepts models require fewer degrees of freedome, these may be easier to fit when data sets have fewer observations.
 
 
-
 ## Random effect correlation
 
 Understanding Group Structure: The correlation of random effects provides insight into the inherent structure of the groups in the data. It reveals the degree of similarity or dissimilarity between the random effects associated with different groups. This information helps to uncover patterns of clustering or similarity among the groups, which can be crucial in understanding the underlying mechanisms or processes being studied.
@@ -1010,6 +1222,8 @@ However, I would argue that while the inclusion of random effects and their stru
 ```
 
 
+`r hide("ML vs. REML")`
+
 ### Maximum Likelihood
 
 Frequentist fit used by LMM through lme4 / lmer is based on the **Maximum Likelihood principle**, where we maximize the likelihood $L(y)$ of observing the data $y$, which is equivalent to minimizing residuals of the model, the Ordinary Least Squares (OLS) approach.  It measures the probability of observing the data given a specific set of parameter values. 
@@ -1032,105 +1246,22 @@ REML estimation addresses this bias by optimizing the likelihood function condit
 
 ### ML vs. REML fitting
 
-Maximum Likelihood (ML) estimation is preferable when comparing nested models because it allows for the direct comparison of the likelihood values between different models. ML estimation provides a quantitative measure of how well a given model fits the observed data, based on the likelihood function.
+**Maximum Likelihood (ML) estimation is preferable when comparing nested models** because it allows for the direct comparison of the likelihood values between different models. ML estimation provides a quantitative measure of how well a given model fits the observed data, based on the likelihood function.
 
 In this context, ML estimation is preferable because it allows for a formal statistical comparison between nested models. It provides a rigorous and objective way to assess whether the inclusion of additional parameters in the more complex model leads to a significantly better fit to the data compared to the simpler model. This approach ensures that model comparisons are based on sound statistical principles and helps in determining the most appropriate model for the given data.
 
-Older versions of model fitting packages like `lmer` used to require the manual switch between REML and ML when fitting models in order to switch between the objectives of assessing goodness-of-fit and interpreting estimates. But you will notice that when you perform an LRT with the `anova()` function it informs you the switch is being made automatically. 
-
-
-
-# Reporting Mixed Model Results
-
-BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
-
-## Tables
-
-## Figures
-
-## Write-ups
-
-
-# Worked Example 1 - Dolphins
-
-```{r, eval = TRUE, echo = FALSE}
-downloadthis::download_link(
-  link = "https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/dolphins.csv",
-  button_label = "Download Dolphins data",
-  button_type = "success",
-  has_icon = TRUE,
-  icon = "fa fa-save",
-  self_contained = FALSE
-)
-```
-
-```{r, echo = FALSE}
-
-dolphins <- read_csv("files/dolphins.csv") 
-
-dolphins$direction <- factor(dolphins$direction)
-
-dolphins <- drop_na(dolphins)
-
-```
-
-DOLPHIN FIXED EFFECTS
-
-```{r}
-dolphmod.1 <- lmer(vt ~ bodymass + direction + (direction|animal), data=dolphins)
-dolphmod.2 <- lmer(vt ~ bodymass + direction + (1|animal), data=dolphins)
-```
-
-```{r}
-dolphins.1 <- dolphins %>% 
-    mutate(fit.m = predict(dolphmod.2, re.form = NA),
-           fit.c = predict(dolphmod.2, re.form = NULL))
-```
-
-
-```{r}
-dolphins.1 %>%
-  ggplot(aes(x = bodymass, y = vt, group = direction)) +
-  geom_point(pch = 16, aes(colour = animal)) +
-  geom_line(aes(y = fit.m, 
-                linetype = direction), 
-            linewidth = 1)  +
-  labs(x = "Body Mass", 
-       y = "VT") 
-
-```
-
-
-```{r}
-plot_model(dolphmod.2,type="pred",
-           terms=c("bodymass", "direction"),
-           pred.type="fe",
-           show.data = T)
-
-plot_model(dolphmod.2,type="pred",
-           terms=c("bodymass", "direction", "animal"),
-           pred.type="re",
-           show.data = T)
-
-
-```
-
-
-`r hide()`
-
-WRITE-UP?
+**REML can be preferable when producing unbiased estimates of the fixed effects**. Older versions of model fitting packages like `lmer` used to require the manual switch between REML and ML when fitting models in order to switch between the objectives of assessing goodness-of-fit and interpreting estimates. But you will notice that when you perform an LRT with the `anova()` function it informs you the switch is being made automatically. 
 
 `r unhide()`
 
-
-# Complex Designs
+# Worked Example 3 - Complex Designs
 
 ```{r, include = FALSE}
 biodepth <- read_tsv("files/Biodepth.txt")
 ```
 
 
-```{r, eval = TRUE, echo = FALSE}
+```{r, eval = FALSE, echo = FALSE}
 downloadthis::download_link(
   link = "https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/Biodepth.txt",
   button_label = "Download BIODEPTH data",
@@ -1142,7 +1273,7 @@ downloadthis::download_link(
 ```
 
 
-```{r}
+```{r, echo = FALSE}
 biodepth <- biodepth %>% 
   mutate(Mix = factor(Mix),
          Diversity2 = log(Diversity, 2)) %>% 
@@ -1153,6 +1284,23 @@ biodepth <- biodepth %>%
 
 ```
 
+```{r, eval = TRUE, echo = FALSE}
+biodepth %>%
+  downloadthis::download_this(
+    output_name = "Biodepth",
+    output_extension = ".csv",
+    button_label = "Download biodepth data as .csv",
+    button_type = "success",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+```
+
+```{r, eval = FALSE}
+biodepth <- read_csv("files/Biodepth.csv")
+```
+
+
 
 ```{r}
 
@@ -1162,24 +1310,36 @@ summary(bio.lmer1)
 
 ```
 
-
-In the 1 | Site:Mix specification, the random effect is specified as a two-way crossed random effect. It means that the random effect varies independently for each combination of levels in the Site and Mix factors. The : operator represents the interaction or crossed effect between the two factors. This specification allows for correlations between random effects within each combination of Site and Mix.
-
-On the other hand, the 1 | Site/Mix specification represents a nested random effect structure. It suggests that the random effect of Mix is nested within the random effect of Site. This specification assumes that the levels of Mix are nested within each level of Site, meaning that each level of Site has its own set of random effects for the levels of Mix. The / operator denotes the nesting relationship.
-
-To summarize:
-
-1 | Site:Mix: Two-way crossed random effect, allowing for independent variation of random effects for each combination of levels in Site and Mix.
-1 | Site/Mix: Nested random effect, with the random effect of Mix nested within the random effect of Site, assuming that the levels of Mix are nested within each level of Site.
-
 ```{r}
-bio.lmer2 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1|Block) + (1|Mix), data = biodepth)
 
-summary(bio.lmer2)
+lmer(Shoot2 ~ Diversity2 + (Diversity2 | Site) + (1 | Site/Mix) + (1 | Block), data = biodepth)
 
 ```
 
 
+```{r}
+
+bio.lmer2 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1 | Site:Mix) + (1|Mix) + (1 | Block), data = biodepth)
+
+```
+
+
+In the 1 | Site/Mix specification represents a nested random effect structure. It suggests that the random effect of Mix is nested within the random effect of Site. This specification assumes that the levels of Mix are nested within each level of Site, meaning that each level of Site has its own set of random effects for the levels of Mix. The / operator denotes the nesting relationship.
+
+On the other hand 1 | Site:Mix specification, the random effect is specified as a two-way crossed random effect. It means that the random effect varies independently for each combination of levels in the Site and Mix factors. The : operator represents the interaction or crossed effect between the two factors. This specification allows for correlations between random effects within each combination of Site and Mix.
+
+
+To summarize:
+
+1 | Site:Mix: Two-way crossed random effect, allowing for independent variation of random effects for each combination of levels in Site and Mix.
+
+1 | Site/Mix: Nested random effect, with the random effect of Mix nested within the random effect of Site, assuming that the levels of Mix are completely nested within each level of Site.
+
+```{r}
+lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1 | Site:Mix) + (1|Mix), data = biodepth)
+```
+
+ANOVA
 
 ### Model predictions
 
@@ -1215,23 +1375,53 @@ biodepth.2 %>%
            
 ```
 
-# Worked Example 2
+
+# Reporting Mixed Model Results
+
+BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
+
+## Tables
+
+## Figures
+
+## Write-ups
+
+# Worked Example 4
 
 https://exeter-data-analytics.github.io/StatModelling/mixed-effects-models.html
 
 https://bodowinter.com/tutorial/bw_LME_tutorial.pdf
 
+```{r, echo= FALSE}
 
-```{r}
-
-politeness <- read_csv("files/politeness_data.csv")
-
-politeness.model.1 = lmer(frequency ~ gender + attitude + (1+attitude|subject) +
-                            (1+attitude|scenario),
-                        data=politeness)
-
+bacteria <- readRDS("files/bacCabinets.rds")
 
 ```
+
+
+```{r, eval = TRUE, echo = FALSE}
+biodepth %>%
+  downloadthis::download_this(
+    output_name = "bacteria",
+    output_extension = ".rds",
+    button_label = "Download biodepth data as .rds",
+    button_type = "success",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+```
+
+
+
+```{r, eval = FALSE}
+
+bacteria <- readRDS("bacteria.rds")
+
+```
+
+
+
+
 
 # Summary
 

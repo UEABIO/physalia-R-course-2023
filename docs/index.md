@@ -1,7 +1,7 @@
 --- 
 title: "Mixed Models"
 author: "Philip T. Leftwich"
-date: "2023-06-21"
+date: "2023-06-22"
 subtitle: An introduction in R
 site: bookdown::bookdown_site
 documentclass: book

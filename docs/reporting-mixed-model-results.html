@@ -4,24 +4,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 3 Reporting Mixed Model Results | Mixed Models</title>
+<title>Chapter 7 Reporting Mixed Model Results | Mixed Models</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="BAKER - anova() ranova() MuMIn r.squaredGLMM  3.1 Tables   3.2 Figures   3.3 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
+<meta name="description" content="BAKER - anova() ranova() MuMIn r.squaredGLMM  7.1 Tables   7.2 Figures   7.3 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 3 Reporting Mixed Model Results | Mixed Models">
+<meta property="og:title" content="Chapter 7 Reporting Mixed Model Results | Mixed Models">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/intro-mixed-models/reporting-mixed-model-results.html">
 <meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
-<meta property="og:description" content="BAKER - anova() ranova() MuMIn r.squaredGLMM  3.1 Tables   3.2 Figures   3.3 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
+<meta property="og:description" content="BAKER - anova() ranova() MuMIn r.squaredGLMM  7.1 Tables   7.2 Figures   7.3 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 3 Reporting Mixed Model Results | Mixed Models">
-<meta name="twitter:description" content="BAKER - anova() ranova() MuMIn r.squaredGLMM  3.1 Tables   3.2 Figures   3.3 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
+<meta name="twitter:title" content="Chapter 7 Reporting Mixed Model Results | Mixed Models">
+<meta name="twitter:description" content="BAKER - anova() ranova() MuMIn r.squaredGLMM  7.1 Tables   7.2 Figures   7.3 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
 <meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="libs/grViz-binding-1.0.10/grViz.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.10/grViz.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -113,12 +113,14 @@
 <li><a class="" href="index.html">Overview</a></li>
 <li class="book-part">Mixed Models</li>
 <li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">1</span> Foundations of Mixed Modelling</a></li>
-<li><a class="" href="types-of-random-effects.html"><span class="header-section-number">2</span> Types of Random Effects</a></li>
-<li><a class="active" href="reporting-mixed-model-results.html"><span class="header-section-number">3</span> Reporting Mixed Model Results</a></li>
-<li><a class="" href="worked-example-1---dolphins.html"><span class="header-section-number">4</span> Worked Example 1 - Dolphins</a></li>
-<li><a class="" href="complex-designs.html"><span class="header-section-number">5</span> Complex Designs</a></li>
-<li><a class="" href="worked-example-2.html"><span class="header-section-number">6</span> Worked Example 2</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">7</span> Summary</a></li>
+<li><a class="" href="worked-example-1---dolphins.html"><span class="header-section-number">2</span> Worked Example 1 - Dolphins</a></li>
+<li><a class="" href="multiple-random-effects.html"><span class="header-section-number">3</span> Multiple random effects</a></li>
+<li><a class="" href="worked-example-2---nested-design.html"><span class="header-section-number">4</span> Worked Example 2 - Nested design</a></li>
+<li><a class="" href="types-of-random-effects.html"><span class="header-section-number">5</span> Types of Random Effects</a></li>
+<li><a class="" href="worked-example-3---complex-designs.html"><span class="header-section-number">6</span> Worked Example 3 - Complex Designs</a></li>
+<li><a class="active" href="reporting-mixed-model-results.html"><span class="header-section-number">7</span> Reporting Mixed Model Results</a></li>
+<li><a class="" href="worked-example-4.html"><span class="header-section-number">8</span> Worked Example 4</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">9</span> Summary</a></li>
 </ul>
 
         <div class="book-extra">
@@ -126,24 +128,24 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="reporting-mixed-model-results" class="section level1" number="3">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="reporting-mixed-model-results" class="section level1" number="7">
 <h1>
-<span class="header-section-number">3</span> Reporting Mixed Model Results<a class="anchor" aria-label="anchor" href="#reporting-mixed-model-results"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7</span> Reporting Mixed Model Results<a class="anchor" aria-label="anchor" href="#reporting-mixed-model-results"><i class="fas fa-link"></i></a>
 </h1>
 <p>BAKER - <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> <code>ranova()</code> <code>MuMIn</code> <code>r.squaredGLMM</code></p>
-<div id="tables" class="section level2" number="3.1">
+<div id="tables" class="section level2" number="7.1">
 <h2>
-<span class="header-section-number">3.1</span> Tables<a class="anchor" aria-label="anchor" href="#tables"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1</span> Tables<a class="anchor" aria-label="anchor" href="#tables"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="figures" class="section level2" number="3.2">
+<div id="figures" class="section level2" number="7.2">
 <h2>
-<span class="header-section-number">3.2</span> Figures<a class="anchor" aria-label="anchor" href="#figures"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.2</span> Figures<a class="anchor" aria-label="anchor" href="#figures"><i class="fas fa-link"></i></a>
 </h2>
 </div>
-<div id="write-ups" class="section level2" number="3.3">
+<div id="write-ups" class="section level2" number="7.3">
 <h2>
-<span class="header-section-number">3.3</span> Write-ups<a class="anchor" aria-label="anchor" href="#write-ups"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3</span> Write-ups<a class="anchor" aria-label="anchor" href="#write-ups"><i class="fas fa-link"></i></a>
 </h2>
 </div>
 </div>
@@ -327,15 +329,15 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="types-of-random-effects.html"><span class="header-section-number">2</span> Types of Random Effects</a></div>
-<div class="next"><a href="worked-example-1---dolphins.html"><span class="header-section-number">4</span> Worked Example 1 - Dolphins</a></div>
+<div class="prev"><a href="worked-example-3---complex-designs.html"><span class="header-section-number">6</span> Worked Example 3 - Complex Designs</a></div>
+<div class="next"><a href="worked-example-4.html"><span class="header-section-number">8</span> Worked Example 4</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#reporting-mixed-model-results"><span class="header-section-number">3</span> Reporting Mixed Model Results</a></li>
-<li><a class="nav-link" href="#tables"><span class="header-section-number">3.1</span> Tables</a></li>
-<li><a class="nav-link" href="#figures"><span class="header-section-number">3.2</span> Figures</a></li>
-<li><a class="nav-link" href="#write-ups"><span class="header-section-number">3.3</span> Write-ups</a></li>
+<li><a class="nav-link" href="#reporting-mixed-model-results"><span class="header-section-number">7</span> Reporting Mixed Model Results</a></li>
+<li><a class="nav-link" href="#tables"><span class="header-section-number">7.1</span> Tables</a></li>
+<li><a class="nav-link" href="#figures"><span class="header-section-number">7.2</span> Figures</a></li>
+<li><a class="nav-link" href="#write-ups"><span class="header-section-number">7.3</span> Write-ups</a></li>
 </ul>
 
       <div class="book-extra">
@@ -353,7 +355,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
+    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-06-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

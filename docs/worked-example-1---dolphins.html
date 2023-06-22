@@ -4,24 +4,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 4 Worked Example 1 - Dolphins | Mixed Models</title>
+<title>Chapter 2 Worked Example 1 - Dolphins | Mixed Models</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="Download Dolphins data DOLPHIN FIXED EFFECTS dolphmod.1 &lt;- lmer(vt ~ bodymass + direction + (direction|animal), data=dolphins) dolphmod.2 &lt;- lmer(vt ~ bodymass + direction + (1|animal),...">
+<meta name="description" content="2.1 How do I decide if it is a fixed or random effect? One of the most common questions in mixed-effects modelling is how to decide if an effect should be considered as fixed or random. This can...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 4 Worked Example 1 - Dolphins | Mixed Models">
+<meta property="og:title" content="Chapter 2 Worked Example 1 - Dolphins | Mixed Models">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/intro-mixed-models/worked-example-1---dolphins.html">
 <meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
-<meta property="og:description" content="Download Dolphins data DOLPHIN FIXED EFFECTS dolphmod.1 &lt;- lmer(vt ~ bodymass + direction + (direction|animal), data=dolphins) dolphmod.2 &lt;- lmer(vt ~ bodymass + direction + (1|animal),...">
+<meta property="og:description" content="2.1 How do I decide if it is a fixed or random effect? One of the most common questions in mixed-effects modelling is how to decide if an effect should be considered as fixed or random. This can...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 4 Worked Example 1 - Dolphins | Mixed Models">
-<meta name="twitter:description" content="Download Dolphins data DOLPHIN FIXED EFFECTS dolphmod.1 &lt;- lmer(vt ~ bodymass + direction + (direction|animal), data=dolphins) dolphmod.2 &lt;- lmer(vt ~ bodymass + direction + (1|animal),...">
+<meta name="twitter:title" content="Chapter 2 Worked Example 1 - Dolphins | Mixed Models">
+<meta name="twitter:description" content="2.1 How do I decide if it is a fixed or random effect? One of the most common questions in mixed-effects modelling is how to decide if an effect should be considered as fixed or random. This can...">
 <meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="libs/grViz-binding-1.0.10/grViz.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.10/grViz.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -113,12 +113,14 @@
 <li><a class="" href="index.html">Overview</a></li>
 <li class="book-part">Mixed Models</li>
 <li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">1</span> Foundations of Mixed Modelling</a></li>
-<li><a class="" href="types-of-random-effects.html"><span class="header-section-number">2</span> Types of Random Effects</a></li>
-<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">3</span> Reporting Mixed Model Results</a></li>
-<li><a class="active" href="worked-example-1---dolphins.html"><span class="header-section-number">4</span> Worked Example 1 - Dolphins</a></li>
-<li><a class="" href="complex-designs.html"><span class="header-section-number">5</span> Complex Designs</a></li>
-<li><a class="" href="worked-example-2.html"><span class="header-section-number">6</span> Worked Example 2</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">7</span> Summary</a></li>
+<li><a class="active" href="worked-example-1---dolphins.html"><span class="header-section-number">2</span> Worked Example 1 - Dolphins</a></li>
+<li><a class="" href="multiple-random-effects.html"><span class="header-section-number">3</span> Multiple random effects</a></li>
+<li><a class="" href="worked-example-2---nested-design.html"><span class="header-section-number">4</span> Worked Example 2 - Nested design</a></li>
+<li><a class="" href="types-of-random-effects.html"><span class="header-section-number">5</span> Types of Random Effects</a></li>
+<li><a class="" href="worked-example-3---complex-designs.html"><span class="header-section-number">6</span> Worked Example 3 - Complex Designs</a></li>
+<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">7</span> Reporting Mixed Model Results</a></li>
+<li><a class="" href="worked-example-4.html"><span class="header-section-number">8</span> Worked Example 4</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">9</span> Summary</a></li>
 </ul>
 
         <div class="book-extra">
@@ -126,22 +128,52 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="worked-example-1---dolphins" class="section level1" number="4">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="worked-example-1---dolphins" class="section level1" number="2">
 <h1>
-<span class="header-section-number">4</span> Worked Example 1 - Dolphins<a class="anchor" aria-label="anchor" href="#worked-example-1---dolphins"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2</span> Worked Example 1 - Dolphins<a class="anchor" aria-label="anchor" href="#worked-example-1---dolphins"><i class="fas fa-link"></i></a>
 </h1>
-<a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/dolphins.csv">
-<button class="btn btn-success"><i class="fa fa-save"></i> Download Dolphins data</button>
+<div id="how-do-i-decide-if-it-is-a-fixed-or-random-effect" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> How do I decide if it is a fixed or random effect?<a class="anchor" aria-label="anchor" href="#how-do-i-decide-if-it-is-a-fixed-or-random-effect"><i class="fas fa-link"></i></a>
+</h2>
+<p>One of the most common questions in mixed-effects modelling is how to decide if an effect should be considered as fixed or random. This can be quite a complicated question, as we have touched upon briefly before the definition of a random effect is not universal. It is a considered process that can include the hypothesis or question you are asking.</p>
+<p>1 ) Are you directly interested in the effect in question. If the answer is yes it should be a fixed effect.</p>
+<p>2 ) Is the variable continuous? If the answer is yes it should be a fixed effect.</p>
+<p>3 ) Does the variable have less than five levels? If ther answer is yes it should be a fixed effect.</p>
+</div>
+<div id="missing-data" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Missing data<a class="anchor" aria-label="anchor" href="#missing-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>An added bonus with mixed-effects models is that they cope well with missing values and situations where we have groups of different sizes. Because we assume that each group or cluster of a random effect has been drawn essentially at random from a larger population of groups, we estimate the properties of an underlying distribution. Critically, if some estimates are missing, or groups are unequal in size we still generate a sensible parameter estimate.</p>
+<p>This can make mixed-effects models a good choice for analysis of data that relates to under-represented groups</p>
+</div>
+<div id="dolphins" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Dolphins<a class="anchor" aria-label="anchor" href="#dolphins"><i class="fas fa-link"></i></a>
+</h2>
+<a onclick="fetch('data:text/csv;base64,YW5pbWFsO2JvZHltYXNzO3Z0O2RpcmVjdGlvbgpGMjk2OzEzNjszLDgyOzEKRjMwNjsxMzY7Myw1ODsxCkYyOTY7MTAxOzIsNzQ7MQpGMzA2OzEwMTsyLDMyOzEKRkIyMDk7MTU0OzcsMTA7MQpGQjI1NTs4MTs1LDAwOzEKRkIzMzsxOTU7NCw2ODsxCkZCMjU5OzEwMDs0LDg5OzEKRkIyOTI7MTI0OzQsNTk7MQpGQjI5NDs5NTszLDcwOzEKRkIyMjM7MTYwOzUsMTA7MQpGQjE3ODsyNDg7NiwyNDsxCkZCMTg4OzIyOTs1LDcwOzEKRkIyMDk7MTU0OzUsODE7MQpGQjI1NTs4MTsyLDc1OzEKRkIzMzsxOTU7NSw3MjsxCkZCMjU5OzEwMDsyLDM2OzEKRkIyOTI7MTI0OzMsMTk7MQpGQjI5NDs5NTszLDY5OzEKRkIyMjM7MTYwOzMsODE7MQpGQjE3ODsyNDg7NSwzODsxCkZCMTg4OzIyOTs0LDc0OzEKRkIyNTE7MTQ2OzMsOTU7MQpGQjI0NTsxMTA7NCw5NTsxCkZCMTMzOzE2NTs1LDEyOzEKRkIxOTk7MTQyOzQsMDc7MQpGQjE0NjsyNjY7Myw2MzsxCkZCMjU0OzI1MDs1LDUyOzEKRkIyNDU7MTEwOzQsMjQ7MQpGQjEzMzsxNjU7NCw4MDsxCkZCMTk5OzE0Mjs0LDQzOzEKRkIyNTc7NzM7NCw5MzsxCkZCMTkzOzE1NTs2LDI0OzEKRkIxNDY7MjY2OzYsNzQ7MQpGQjI1NDsyNTA7Nyw2MjsxCkZCMTk2OzI0ODs1LDk5OzEKRkIyNjg7MjI3OzQsNjA7MQpGQjI3NjsyOTE7NCw2MTsxCkZCMTQyOzI1Njs1LDI3OzEKRkIyMzc7MTkyOzgsNTE7MQpGQjE5NzsxNjc7Niw5ODsxCkZCMTc1OzE3MDs0LDIwOzEKRkIxMzM7MTY3OzYsMzY7MQpGQjI0MjsyNzY7MTAsNDQ7MQpGQjE2NDsyOTE7Nyw3MjsxCkZCMTg1OzE3Mjs0LDczOzEKRkIxOTY7MjQ4OzYsNTA7MQpGQjI3NjsyOTE7OSwzOTsxCkZCMTQyOzI1Njs2LDA2OzEKRkIyMzc7MTkyOzQsMTA7MQpGQjIzOTsxMTc7Miw0OTsxCkZCMjQxOzE1Nzs4LDA4OzEKRkIxMzM7MTY3OzQsNjM7MQpGQjI0MjsyNzY7OSw1MzsxCkZCMTY0OzI5MTs1LDUxOzEKRkIxODU7MTcyOzMsODg7MQpGMjk2OzEzNjs0LDg1OzIKRjMwNjsxMzY7NCw1OTsyCkYyOTY7MTAxOzMsNzM7MgpGMzA2OzEwMTszLDIzOzIKRkIyMDk7MTU0OzcsOTg7MgpGQjI1NTs4MTs1LDQ5OzIKRkIzMzsxOTU7NSw4MTsyCkZCMjU5OzEwMDs1LDU0OzIKRkIyOTI7MTI0OzUsMDg7MgpGQjI5NDs5NTs0LDQ5OzIKRkIyMjM7MTYwOzcsNDI7MgpGQjE3ODsyNDg7NywwODsyCkZCMTg4OzIyOTs2LDc3OzIKRkIyMDk7MTU0OzcsNTA7MgpGQjI1NTs4MTszLDM2OzIKRkIzMzsxOTU7Nyw0MDsyCkZCMjU5OzEwMDs0LDE3OzIKRkIyOTI7MTI0OzQsNjM7MgpGQjI5NDs5NTs0LDYwOzIKRkIyMjM7MTYwOzUsNjk7MgpGQjE3ODsyNDg7Niw2ODsyCkZCMTg4OzIyOTs2LDQ1OzIKRkIyNTE7MTQ2OzUsNjA7MgpGQjI0NTsxMTA7NSw0OTsyCkZCMTMzOzE2NTs2LDcxOzIKRkIxOTk7MTQyOzYsMDI7MgpGQjE0NjsyNjY7NCw5MzsyCkZCMjU0OzI1MDs3LDE0OzIKRkIyNDU7MTEwOzQsMTE7MgpGQjEzMzsxNjU7NiwwNDsyCkZCMTk5OzE0Mjs1LDI5OzIKRkIyNTc7NzM7Niw0NjsyCkZCMTkzOzE1NTs2LDgwOzIKRkIxNDY7MjY2OzgsOTM7MgpGQjI1NDsyNTA7OCw1MjsyCkZCMTk2OzI0ODs2LDk5OzIKRkIyNjg7MjI3OzUsNjA7MgpGQjI3NjsyOTE7NSw2MTsyCkZCMTQyOzI1Njs2LDI3OzIKRkIyMzc7MTkyOzksNTE7MgpGQjE5NzsxNjc7Nyw5ODsyCkZCMTc1OzE3MDs1LDIwOzIKRkIxMzM7MTY3OzcsMzY7MgpGQjI0MjsyNzY7MTEsNDQ7MgpGQjE2NDsyOTE7OCw3MjsyCkZCMTg1OzE3Mjs1LDczOzIKRkIxOTY7MjQ4OzcsNTA7MgpGQjI3NjsyOTE7MTAsMzk7MgpGQjE0MjsyNTY7NywwNjsyCkZCMjM3OzE5Mjs1LDEwOzIKRkIyMzk7MTE3OzMsNDk7MgpGQjI0MTsxNTc7OSwwODsyCkZCMTMzOzE2Nzs1LDYzOzIKRkIyNDI7Mjc2OzEwLDUzOzIKRkIxNjQ7MjkxOzYsNTE7MgpGQjE4NTsxNzI7NCw4ODsyCg==').then(res =&gt; res.blob()).then(blob =&gt; {
+      const downloadURL = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.href = downloadURL;
+      a.download = 'dolphins.csv'; a.click();
+      window.URL.revokeObjectURL(downloadURL);
+      document.body.removeChild(a);
+    });">
+<button class="btn btn-success" has_icon="TRUE"><i class="fa fa-save"></i> Download dolphins data as csv</button>
 </a>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dolphins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"dolphins.csv"</span><span class="op">)</span> </span></code></pre></div>
 <p>DOLPHIN FIXED EFFECTS</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dolphmod.1</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">vt</span> <span class="op">~</span> <span class="va">bodymass</span> <span class="op">+</span> <span class="va">direction</span> <span class="op">+</span> <span class="op">(</span><span class="va">direction</span><span class="op">|</span><span class="va">animal</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dolphins</span><span class="op">)</span></span>
 <span><span class="va">dolphmod.2</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">vt</span> <span class="op">~</span> <span class="va">bodymass</span> <span class="op">+</span> <span class="va">direction</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">animal</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dolphins</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dolphins.1</span> <span class="op">&lt;-</span> <span class="va">dolphins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fit.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">dolphmod.2</span>, re.form <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>           fit.c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">dolphmod.2</span>, re.form <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dolphins.1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bodymass</span>, y <span class="op">=</span> <span class="va">vt</span>, group <span class="op">=</span> <span class="va">direction</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">16</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">animal</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -150,24 +182,25 @@
 <span>            linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Body Mass"</span>, </span>
 <span>       y <span class="op">=</span> <span class="st">"VT"</span><span class="op">)</span> </span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">dolphmod.2</span>,type<span class="op">=</span><span class="st">"pred"</span>,</span>
 <span>           terms<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bodymass"</span>, <span class="st">"direction"</span><span class="op">)</span>,</span>
 <span>           pred.type<span class="op">=</span><span class="st">"fe"</span>,</span>
 <span>           show.data <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_model</span><span class="op">(</span><span class="va">dolphmod.2</span>,type<span class="op">=</span><span class="st">"pred"</span>,</span>
 <span>           terms<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bodymass"</span>, <span class="st">"direction"</span>, <span class="st">"animal"</span><span class="op">)</span>,</span>
 <span>           pred.type<span class="op">=</span><span class="st">"re"</span>,</span>
 <span>           show.data <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-51-2.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-45-2.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="webex-solution">
 <button>
 Solution
 </button>
 <p>WRITE-UP?</p>
+</div>
 </div>
 </div>
 <script>
@@ -350,11 +383,16 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="reporting-mixed-model-results.html"><span class="header-section-number">3</span> Reporting Mixed Model Results</a></div>
-<div class="next"><a href="complex-designs.html"><span class="header-section-number">5</span> Complex Designs</a></div>
+<div class="prev"><a href="foundations-of-mixed-modelling.html"><span class="header-section-number">1</span> Foundations of Mixed Modelling</a></div>
+<div class="next"><a href="multiple-random-effects.html"><span class="header-section-number">3</span> Multiple random effects</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#worked-example-1---dolphins"><span class="header-section-number">4</span> Worked Example 1 - Dolphins</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#worked-example-1---dolphins"><span class="header-section-number">2</span> Worked Example 1 - Dolphins</a></li>
+<li><a class="nav-link" href="#how-do-i-decide-if-it-is-a-fixed-or-random-effect"><span class="header-section-number">2.1</span> How do I decide if it is a fixed or random effect?</a></li>
+<li><a class="nav-link" href="#missing-data"><span class="header-section-number">2.2</span> Missing data</a></li>
+<li><a class="nav-link" href="#dolphins"><span class="header-section-number">2.3</span> Dolphins</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -371,7 +409,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
+    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-06-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
