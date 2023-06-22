@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 4 Worked Example 2 - Nested design | Mixed Models</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="The experiment involved a simple one-way anova with 3 treatments given to 6 rats. The analysis was complicated by the fact that three preparations were taken from the liver of each rat, and two...">
+<meta name="description" content="This experiment involved a simple one-way anova with 3 treatments given to 6 rats, the researchers the measured glycogen levels in their liver. The analysis was complicated by the fact that three...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
 <meta property="og:title" content="Chapter 4 Worked Example 2 - Nested design | Mixed Models">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/intro-mixed-models/worked-example-2---nested-design.html">
 <meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
-<meta property="og:description" content="The experiment involved a simple one-way anova with 3 treatments given to 6 rats. The analysis was complicated by the fact that three preparations were taken from the liver of each rat, and two...">
+<meta property="og:description" content="This experiment involved a simple one-way anova with 3 treatments given to 6 rats, the researchers the measured glycogen levels in their liver. The analysis was complicated by the fact that three...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 4 Worked Example 2 - Nested design | Mixed Models">
-<meta name="twitter:description" content="The experiment involved a simple one-way anova with 3 treatments given to 6 rats. The analysis was complicated by the fact that three preparations were taken from the liver of each rat, and two...">
+<meta name="twitter:description" content="This experiment involved a simple one-way anova with 3 treatments given to 6 rats, the researchers the measured glycogen levels in their liver. The analysis was complicated by the fact that three...">
 <meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -132,7 +132,7 @@
 <h1>
 <span class="header-section-number">4</span> Worked Example 2 - Nested design<a class="anchor" aria-label="anchor" href="#worked-example-2---nested-design"><i class="fas fa-link"></i></a>
 </h1>
-<p>The experiment involved a simple one-way anova with 3 treatments given to 6 rats. The analysis was complicated by the fact that three preparations were taken from the liver of each rat, and two readings of glycogen content were taken from each preparation. This generated 6 pseudoreplicates per rat to give a total of 36 readings in all.</p>
+<p>This experiment involved a simple one-way anova with 3 treatments given to 6 rats, the researchers the measured glycogen levels in their liver. The analysis was complicated by the fact that three preparations were taken from the liver of each rat, and two readings of glycogen content were taken from each preparation. This generated 6 pseudoreplicates per rat to give a total of 36 readings in all.</p>
 <p>Clearly, it would be a mistake to analyse these data as if they were a straightforward one-way anova, because that would give us 33 degrees of freedom for error. In fact, since there are only two rats in each treatment, we have only one degree of freedom per treatment, giving a total of 3 d.f. for error.</p>
 <p>The variance is likely to be different at each level of this nested analysis because:</p>
 <p>the readings differ because of variation in the glycogen detection method within each liver sample (measurement error);
@@ -234,7 +234,7 @@ Solution
 </button>
 <p>It is wrong because this would add two random effect terms, one for rat 1 and one for rat 2. In fact there are 6 rats altogether. The way that the data have been coded allows for these kinds of mistakes to happen. The same is true for Liver, which is coded as a 1, 2 or 3. This means that we could write this thinking that we are including the correct random effects for Rat and Liver. In fact, this assumes that the data come from a crossed design, in which there are 2 rats and 3 parts of the liver, and that Liver = 1 corresponds to the same type of measurement in rats 1 and 2 and so on. Sometimes this is appropriate, but not here!</p>
 <p>The nature of the way that many data sets are coded makes these kinds of mistakes very easy to make!</p>
-<p><code>r unhide()</code></p>
+</div>
 <p>A better design is the one below:</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rats_lmer.2</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">Glycogen</span> <span class="op">~</span> <span class="va">Treatment</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Rat</span> <span class="op">/</span> <span class="va">Liver</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">rats</span><span class="op">)</span></span>
@@ -459,10 +459,7 @@ $( document ).ready(function() {
     license
   );
 });
-</script>
-
-</div>
-<div class="chapter-nav">
+</script><div class="chapter-nav">
 <div class="prev"><a href="multiple-random-effects.html"><span class="header-section-number">3</span> Multiple random effects</a></div>
 <div class="next"><a href="types-of-random-effects.html"><span class="header-section-number">5</span> Types of Random Effects</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
@@ -476,6 +473,8 @@ $( document ).ready(function() {
         </ul>
 </div>
     </nav>
+</div>
+
 </div>
 </div> <!-- .container -->
 
@@ -519,6 +518,5 @@ for (let popover of popovers) {
   }
 }
 </script>
-</div>
 </body>
 </html>

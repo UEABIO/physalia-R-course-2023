@@ -1385,7 +1385,7 @@ For more on designing models around crossed and nested designs check out [this a
 
 # Worked Example 2 - Nested design
 
-The experiment involved a simple one-way anova with 3 treatments given to 6 rats. The analysis was complicated by the fact that three preparations were taken from the liver of each rat, and two readings of glycogen content were taken from each preparation. This generated 6 pseudoreplicates per rat to give a total of 36 readings in all.
+This experiment involved a simple one-way anova with 3 treatments given to 6 rats, the researchers the measured glycogen levels in their liver. The analysis was complicated by the fact that three preparations were taken from the liver of each rat, and two readings of glycogen content were taken from each preparation. This generated 6 pseudoreplicates per rat to give a total of 36 readings in all.
 
 Clearly, it would be a mistake to analyse these data as if they were a straightforward one-way anova, because that would give us 33 degrees of freedom for error. In fact, since there are only two rats in each treatment, we have only one degree of freedom per treatment, giving a total of 3 d.f. for error.
 
@@ -1513,7 +1513,10 @@ It is wrong because this would add two random effect terms, one for rat 1 and on
 
 The nature of the way that many data sets are coded makes these kinds of mistakes very easy to make!
 
-` r unhide()`
+
+</div>
+
+
 
 A better design is the one below:
 
