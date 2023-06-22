@@ -140,8 +140,8 @@
 <p>An alternative to the random intercepts model is the <em>random slopes</em> model, shown in panel C. In this model the slopes are permitted to vary, but the intercept is fixed across all groups. For our current data the random slopes model does a fair job as well.</p>
 <p>Finally we can allow <em>both the intercepts and slope</em> to vary between groups, as shown in panel D. This captures both the shallower slope of some of our groups and the vertical offsets present. If you inspect the original data set we generated, you can see that the random effect for group was calculated as both a product of random distribution on the intercept and slope, so it is not surprising that here this model fits the data best.</p>
 <p>This model will use more degrees of freedom than the other two, as these must be used to calculate variance for both intercept and slope.</p>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># random intercept model</span></span>
 <span><span class="va">lmer1</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">group</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span></span>
@@ -160,47 +160,9 @@
 <p>As the combine random slopes and intercept model requries more degrees of freedom, it may be the case that using likelihood ratio tests (LRT) are advisable to decide which model describes the data best (more on this later).</p>
 <p>Because random intercepts models require fewer degrees of freedome, these may be easier to fit when data sets have fewer observations.</p>
 </div>
-<div id="random-effect-correlation" class="section level2" number="5.2">
+<div id="model-refining-likelihood-ratio-tests" class="section level2" number="5.2">
 <h2>
-<span class="header-section-number">5.2</span> Random effect correlation<a class="anchor" aria-label="anchor" href="#random-effect-correlation"><i class="fas fa-link"></i></a>
-</h2>
-<p>Understanding Group Structure: The correlation of random effects provides insight into the inherent structure of the groups in the data. It reveals the degree of similarity or dissimilarity between the random effects associated with different groups. This information helps to uncover patterns of clustering or similarity among the groups, which can be crucial in understanding the underlying mechanisms or processes being studied.</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmer3</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-## lmerModLmerTest]
-## Formula: y ~ x + (x | group)
-##    Data: data
-## 
-## REML criterion at convergence: 3211
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -2.5477 -0.6567  0.0042  0.7018  2.9428 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev. Corr 
-##  group    (Intercept) 294.2242 17.1530       
-##           x             0.9398  0.9694  -0.65
-##  Residual              96.2248  9.8094       
-## Number of obs: 430, groups:  group, 5
-## 
-## Fixed effects:
-##             Estimate Std. Error      df t value Pr(&gt;|t|)  
-## (Intercept)  24.3285     7.7423  4.0342   3.142   0.0344 *
-## x             1.8297     0.4708  3.2059   3.887   0.0268 *
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##   (Intr)
-## x -0.641
-## optimizer (nloptwrap) convergence code: 0 (OK)
-## Model failed to converge with max|grad| = 0.00241 (tol = 0.002, component 1)</code></pre>
-</div>
-<div id="model-refining-likelihood-ratio-tests" class="section level2" number="5.3">
-<h2>
-<span class="header-section-number">5.3</span> Model refining / Likelihood Ratio Tests<a class="anchor" aria-label="anchor" href="#model-refining-likelihood-ratio-tests"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2</span> Model refining / Likelihood Ratio Tests<a class="anchor" aria-label="anchor" href="#model-refining-likelihood-ratio-tests"><i class="fas fa-link"></i></a>
 </h2>
 <p>Once we have produce an initial model with a random effects structure, we may wish to perform model selection by comparing different nested models with varying random effects structures. It allows us to assess whether the inclusion of additional random effects or changes in the random effects structure significantly improve the model fit. By comparing the likelihood values of different nested models, we can determine which model provides a better fit to the data.</p>
 <p>Previously we looked at the random intercepts vs. random intercepts <em>and</em> slopes model and concluded that the latter looked like it fit the data best.</p>
@@ -346,9 +308,9 @@ structure is perfectly reasonable.
 <button>
 ML vs. REML
 </button>
-<div id="maximum-likelihood" class="section level3" number="5.3.1">
+<div id="maximum-likelihood" class="section level3" number="5.2.1">
 <h3>
-<span class="header-section-number">5.3.1</span> Maximum Likelihood<a class="anchor" aria-label="anchor" href="#maximum-likelihood"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.1</span> Maximum Likelihood<a class="anchor" aria-label="anchor" href="#maximum-likelihood"><i class="fas fa-link"></i></a>
 </h3>
 <p>Frequentist fit used by LMM through lme4 / lmer is based on the <strong>Maximum Likelihood principle</strong>, where we maximize the likelihood <span class="math inline">\(L(y)\)</span> of observing the data <span class="math inline">\(y\)</span>, which is equivalent to minimizing residuals of the model, the Ordinary Least Squares (OLS) approach. It measures the probability of observing the data given a specific set of parameter values.</p>
 <p>When we are attempting to optimise a model we can use the likelihood ratio test (LRT). Given two nested models, denoted as Model 1 and Model 2, the LRT compares the likelihood values of these models to assess whether the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1. The LRT statistic, denoted as <span class="math inline">\(D\)</span>, is calculated as the difference between the log-likelihood values of Model 1 and Model 2, multiplied by 2:</p>
@@ -357,16 +319,16 @@ ML vs. REML
 <p>To determine the statistical significance of the LRT statistic, one can compare it to the critical value from the chi-square distribution with the appropriate degrees of freedom. If the LRT statistic exceeds the critical value, it indicates that the more complex Model 2 provides a significantly better fit to the data compared to the simpler Model 1.</p>
 <p>ML estimation is often used to perform hypothesis tests, including the chi-square test. The chi-square test compares the observed data to the expected data predicted by a statistical model. It assesses the goodness-of-fit between the observed data and the model's predictions.</p>
 </div>
-<div id="reml" class="section level3" number="5.3.2">
+<div id="reml" class="section level3" number="5.2.2">
 <h3>
-<span class="header-section-number">5.3.2</span> REML<a class="anchor" aria-label="anchor" href="#reml"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.2</span> REML<a class="anchor" aria-label="anchor" href="#reml"><i class="fas fa-link"></i></a>
 </h3>
 <p>REML (Restricted Maximum Likelihood) estimation is a variant of ML estimation that addresses the issue of bias in the estimation of random effects in mixed effects models. In mixed effects models, random effects account for the variation at the group or individual level that is not explained by the fixed effects. However, the inclusion of random effects introduces a bias in the ML estimates, as they are influenced by the variability of the random effects.</p>
 <p>REML estimation addresses this bias by optimizing the likelihood function conditional on the fixed effects only, effectively removing the influence of the random effects on the estimation. This approach provides unbiased estimates of the fixed effects and is especially useful when the primary interest lies in the fixed effects rather than the random effects.</p>
 </div>
-<div id="ml-vs.-reml-fitting" class="section level3" number="5.3.3">
+<div id="ml-vs.-reml-fitting" class="section level3" number="5.2.3">
 <h3>
-<span class="header-section-number">5.3.3</span> ML vs. REML fitting<a class="anchor" aria-label="anchor" href="#ml-vs.-reml-fitting"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.3</span> ML vs. REML fitting<a class="anchor" aria-label="anchor" href="#ml-vs.-reml-fitting"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Maximum Likelihood (ML) estimation is preferable when comparing nested models</strong> because it allows for the direct comparison of the likelihood values between different models. ML estimation provides a quantitative measure of how well a given model fits the observed data, based on the likelihood function.</p>
 <p>In this context, ML estimation is preferable because it allows for a formal statistical comparison between nested models. It provides a rigorous and objective way to assess whether the inclusion of additional parameters in the more complex model leads to a significantly better fit to the data compared to the simpler model. This approach ensures that model comparisons are based on sound statistical principles and helps in determining the most appropriate model for the given data.</p>
@@ -562,12 +524,11 @@ $( document ).ready(function() {
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#types-of-random-effects"><span class="header-section-number">5</span> Types of Random Effects</a></li>
 <li><a class="nav-link" href="#random-slopes"><span class="header-section-number">5.1</span> Random slopes</a></li>
-<li><a class="nav-link" href="#random-effect-correlation"><span class="header-section-number">5.2</span> Random effect correlation</a></li>
 <li>
-<a class="nav-link" href="#model-refining-likelihood-ratio-tests"><span class="header-section-number">5.3</span> Model refining / Likelihood Ratio Tests</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#maximum-likelihood"><span class="header-section-number">5.3.1</span> Maximum Likelihood</a></li>
-<li><a class="nav-link" href="#reml"><span class="header-section-number">5.3.2</span> REML</a></li>
-<li><a class="nav-link" href="#ml-vs.-reml-fitting"><span class="header-section-number">5.3.3</span> ML vs. REML fitting</a></li>
+<a class="nav-link" href="#model-refining-likelihood-ratio-tests"><span class="header-section-number">5.2</span> Model refining / Likelihood Ratio Tests</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#maximum-likelihood"><span class="header-section-number">5.2.1</span> Maximum Likelihood</a></li>
+<li><a class="nav-link" href="#reml"><span class="header-section-number">5.2.2</span> REML</a></li>
+<li><a class="nav-link" href="#ml-vs.-reml-fitting"><span class="header-section-number">5.2.3</span> ML vs. REML fitting</a></li>
 </ul>
 </li>
 </ul>

@@ -3,9 +3,9 @@ fig:unnamed-chunk-11
 fig:unnamed-chunk-13
 fig:unnamed-chunk-15
 fig:unnamed-chunk-27
-fig:unnamed-chunk-34
-fig:unnamed-chunk-46
-fig:unnamed-chunk-47
+fig:unnamed-chunk-40
+fig:unnamed-chunk-52
+fig:unnamed-chunk-53
 terminology
 variance
 foundations-of-mixed-modelling
@@ -26,9 +26,10 @@ predictions
 shrinkage-in-mixed-models
 ggeffects
 ggpredict
-ggemmeans
 sjplot
 checking-model-assumptions
+performance
+dharma
 practice-questions
 worked-example-1---dolphins
 how-do-i-decide-if-it-is-a-fixed-or-random-effect
@@ -41,7 +42,6 @@ nested-random-effects
 worked-example-2---nested-design
 types-of-random-effects
 random-slopes
-random-effect-correlation
 model-refining-likelihood-ratio-tests
 maximum-likelihood
 reml

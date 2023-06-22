@@ -777,9 +777,6 @@ But how do we do this?
 
 We can use the `coef()` function to extract the estimates (strictly these are predictions) for the random effects. This output has several components. 
 
-ESTIMATES VS PREDICTIONS
-http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
-
 
 
 ```r
@@ -901,78 +898,105 @@ data1 %>%
 <p class="caption">(\#fig:unnamed-chunk-27)Regression relationships from fixed-effects and mixed effects models, note shrinkage in group 5</p>
 </div>
 
-
 `re.form = NA`: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
 
 `re.form = NULL`: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
 
 
-```r
-plot_model(mixed_model, terms = c("x", "group"), type = "re")
-```
-
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
-
-```r
-plot_model(mixed_model, terms = c("x", "group"), type = "est")
-```
-
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-28-2.png" width="100%" style="display: block; margin: auto;" />
 
 
-
-
-```r
-basic_pred <- emmeans(basic_model, specs = ~  x, at = list(x = c(0, 2.5, 5, 7.5, 10))) %>% as_tibble()
-
-mixed_pred <- emmeans(mixed_model, specs = ~  x, at = list(x = c(0, 2.5, 5, 7.5, 10))) %>% as_tibble()
-
-pooled_plot <- data %>%
-  ggplot(aes(x = x, y = y)) +
-  geom_point(pch = 16, alpha = 0.6, aes(col = group)) +
-  geom_line(aes(x = x, y = emmean), linewidth = 1, data = basic_pred) +
-  geom_line(aes(x = x, y = lower.CL), linewidth = 0.5, linetype = 2, col = "gray50", data = basic_pred) +
-  geom_line(aes(x = x, y = upper.CL), linewidth = 0.5, linetype = 2, col = "gray50", data = basic_pred) +
-  coord_cartesian(ylim = c(0, 70))+
-  labs(title = "Pooled model",
-       x = "Independent Variable", 
-       y = "Dependent Variable") +
-  theme(legend.position = "none")
-
-partial_plot <- data %>%
-  ggplot(aes(x = x, y = y)) +
-  geom_point(pch = 16, alpha = 0.6, aes(col = group)) +
-  geom_line(aes(x = x, y = emmean), linewidth = 1, data = basic_pred) +
-  geom_line(aes(x = x, y = lower.CL), linewidth = 0.5, linetype = 2, col = "gray50", data = mixed_pred) +
-  geom_line(aes(x = x, y = upper.CL), linewidth = 0.5, linetype = 2, col = "gray50", data = mixed_pred) +
-  coord_cartesian(ylim = c(0, 70))+
-  labs(title = "Mixed model",
-       x = "Independent Variable", 
-       y = "Dependent Variable") +
-  theme(legend.position = "none")
-
-pooled_plot /
-  partial_plot
-```
-
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
-
+It's not always easy/straightforward to make prediciton or confidence intervals from complex general and generalized linear mixed models, luckily there are some excellent R packages that will do this for us. 
 
 ### `ggeffects`
+
+`ggeffects` (@R-ggeffects) is a light-weight package that aims at easily calculating marginal effects and adjusted predictions
 
 #### `ggpredict`
 
 The argument `type = random` in the `ggpredict` function (from the ggeffects package @R-ggeffects) is used to specify the type of predictions to be generated in the context of mixed effects models. The main difference between using `ggpredict` with and without `type = random` lies in the type of predictions produced:
 
-Without `type = random`: `ggpredict` will generate **fixed-effects predictions**. These predictions are based solely on the fixed effects of the model, ignoring any variability associated with the random effects. The resulting predictions represent the average or expected values of the response variable for specific combinations of predictor values, considering only the fixed components of the model.
+Without `type = random`: `ggpredict` will generate **fixed-effects predictions**. These estimates are based solely on the fixed effects of the model, ignoring any variability associated with the random effects. The resulting estimate represent the average or expected values of the response variable for specific combinations of predictor values, considering only the fixed components of the model.
 
-With `type = random`: ggpredict will generate predictions that **incorporate both fixed and random effects**. These predictions take into account the variability introduced by the random effects in the model. The resulting predictions reflect not only the average trend captured by the fixed effects but also the additional variability associated with the random effects at different levels of the grouping factor(s).
+Estimated mean fixed effects provide a comprehensive view of the average effect of dependent variables on the response variable. By plotting the estimated mean fixed effects using ggpredict, you can visualize how the response variable changes across different levels or values of the predictors while considering the effects of other variables in the model.
 
-#### `ggemmeans`
+
+```r
+library(ggeffects)
+
+ggpredict(mixed_model, terms = "x") %>% 
+plot(., add.data = TRUE)
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+
+With `type = random`: ggpredict will generate **predictions** that **incorporate both fixed and random effects**. These predictions take into account the variability introduced by the random effects in the model. The resulting predictions reflect not only the average trend captured by the fixed effects but also the additional variability associated with the random effects at different levels of the grouping factor(s). 
+
+By default the figure now produces **prediciton intervals**
+
+
+```r
+ggpredict(mixed_model, terms = "x", type = "random") %>% 
+plot(., add.data = TRUE)
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
+
+<div class="info">
+<p>Confidence Intervals: A confidence interval is used to estimate the
+range of plausible values for a population parameter, such as the mean
+or the regression coefficient, based on a sample from that population.
+It provides a range within which the true population parameter is likely
+to fall with a certain level of confidence. For example, a 95%
+confidence interval implies that if we were to repeat the sampling
+process many times, 95% of the resulting intervals would contain the
+true population parameter.</p>
+<p>Prediction Intervals: On the other hand, a prediction interval is
+used to estimate the range of plausible values for an individual
+observation or a future observation from the population. It takes into
+account both the uncertainty in the estimated model parameters and the
+inherent variability within the data. A 95% prediction interval provides
+a range within which a specific observed or predicted value is likely to
+fall with a certain level of confidence. The wider the prediction
+interval, the greater the uncertainty around the specific value being
+predicted.</p>
+</div>
+
+
+Furthermore, `ggpredict()` enables you to explore group-level predictions, which provide a deeper understanding of how the response variable varies across different levels of the grouping variable. By specifying the desired grouping variable in ggpredict when `type = random`, you can generate plots that depict the predicted values for each group separately, allowing for a comparative analysis of group-level effects.
+
+
+```r
+ggpredict(mixed_model, terms = c("x", "group"), type = "random") %>% 
+plot(., add.data = TRUE) + 
+  facet_wrap(~group)+
+  theme(legend.position = "none")
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;" />
+
 
 ### `sjPlot`
 
+Another way to visualise mixed model results is with the package `sjPlot`(@R-sjPlot), and if you are interested in showing the variation among levels of your random effects, you can plot the departure from the overall model estimate for intercepts - *and slopes, if you have a random slope model*:
 
+
+```r
+library(sjPlot)
+
+plot_model(mixed_model, terms = c("x", "group"), type = "re")/
+  (plot_model(mixed_model, terms = c("x", "group"), type = "est")+ggtitle("Fixed Effects"))
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+<div class="warning">
+<p>The values you see are NOT actual values, but rather the difference
+between the general intercept or slope value found in your model summary
+and the estimate for this specific level of random/fixed effect.</p>
+</div>
+
+`sjPlot` is also capable of producing prediction plots in the same way as `ggeffects`:
 
 
 ```r
@@ -983,17 +1007,31 @@ plot_model(mixed_model,type="pred",
   facet_wrap( ~ group)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-35-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Checking model assumptions
+
+
+We need to be just as conscious of testing the assumptions of mixed effects models as we are with any other. The assumptions are:
+
+1. Within-group errors are independent and normally distributed with mean zero and variance $\sigma^2$
+ 
+2. Within-group errors are independent of the random effects.
+
+3. Random effects are normally distributed with mean zero.
+
+4. Random effects are independent for different groups, except as specified by nesting (more on this later)
+
+
+Several model check plots would help us to confirm/deny these assumptions, but note that QQ-plots may not be relevant because of the model structure. Two commonly-used plots are:
 
 
 ```r
 plot(mixed_model) 
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1001,7 +1039,21 @@ qqnorm(resid(mixed_model))
 qqline(resid(mixed_model)) 
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-37-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+It can often be useful to check the distribution of residuals in each of the groups (e.g. blocks) to check assumptions 1 and 2. We can do this by plotting the residuals against the fitted values, separately for each level of the random effect, using the  `coplot()` function:
+
+
+```r
+coplot(resid(mixed_model) ~ fitted(mixed_model) | data$group)
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;" />
+
+Each sub-figure of this plot, which refers to an individual group, doesn’t contain much data. It can be hard to judge whether the spread of residuals around fitted values is the same for each group when observations are low.
+
+We can check assumption 3 with a histogram (here the more levels we have, the more we can be assured):
 
 
 ```r
@@ -1014,8 +1066,9 @@ rand_dist <- as.data.frame(ranef(mixed_model)) %>%
 hist(rand_dist$b0_hat)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" />
 
+Overlaying the random distribution of our intercept over the regression line produces a plot like the below: 
 
 
 ```r
@@ -1035,27 +1088,39 @@ data1 %>%
 ```
 
 <div class="figure" style="text-align: center">
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-34-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-34)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-40-1.png" alt="Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-40)Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts</p>
 </div>
 
 
+### performance
+
+The `check_model()` function from the performance package in R is a useful tool for evaluating the performance and assumptions of a statistical model, particularly in the context of mixed models. It provides a comprehensive set of diagnostics and visualizations to assess the model's fit, identify potential issues, and verify the assumptions underlying the model, which can be difficult with complex models
+
 
 ```r
-performance::check_model(mixed_model)
+library(performance)
+check_model(mixed_model)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-35-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
 
+### DHARma
+
+Simulation-based methods, like those available with DHARMa (@R-DHARMa), are often preferred for model validation and assumption checking because they offer flexibility and do not rely on specific assumptions. Simulation is particularly useful for evaluating complex models with multiple levels of variability, non-linearity, or complex hierarchical structures. Such models may not be adequately evaluated by solely examining residuals, and simulation provides a more robust approach to assess their assumptions and performance.
+
+Read the authors summary [here](https://theoreticalecology.wordpress.com/2016/08/28/dharma-an-r-package-for-residual-diagnostics-of-glmms/)
 
 
 ```r
-resid.mm <- DHARMa::simulateResiduals(mixed_model)
+library(DHARMa)
+
+resid.mm <- simulateResiduals(mixed_model)
 
 plot(resid.mm)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 <div class="warning">
@@ -1075,17 +1140,17 @@ distribution and decide if it is important for yourself.</p>
 
 2. A random effect is best described as?
 
-<div class='webex-radiogroup' id='radio_QEALJVAVDV'><label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value=""></input> <span>A variable that is noisier than other variables</span></label><label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value=""></input> <span>An effect that cannot be predicted based on group membership</span></label><label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value="answer"></input> <span>A variable where subgroups influence the outcome</span></label><label><input type="radio" autocomplete="off" name="radio_QEALJVAVDV" value=""></input> <span>Choosing slope values with a random number generator</span></label></div>
+<div class='webex-radiogroup' id='radio_LJVAVDVAHG'><label><input type="radio" autocomplete="off" name="radio_LJVAVDVAHG" value=""></input> <span>A variable that is noisier than other variables</span></label><label><input type="radio" autocomplete="off" name="radio_LJVAVDVAHG" value=""></input> <span>An effect that cannot be predicted based on group membership</span></label><label><input type="radio" autocomplete="off" name="radio_LJVAVDVAHG" value="answer"></input> <span>A variable where subgroups influence the outcome</span></label><label><input type="radio" autocomplete="off" name="radio_LJVAVDVAHG" value=""></input> <span>Choosing slope values with a random number generator</span></label></div>
 
 
 3. Which of the following is **not** an advantage of mixed-effects models?
 
-<div class='webex-radiogroup' id='radio_AHGRRGZVVS'><label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value=""></input> <span>They can cope with situations where individuals contribute different numbers of observations</span></label><label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value=""></input> <span>They can handle group-level differences in the outcome</span></label><label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value=""></input> <span>They can deal with variation due to different groups</span></label><label><input type="radio" autocomplete="off" name="radio_AHGRRGZVVS" value="answer"></input> <span>They are guaranteed to give significant results when ANOVAs do not</span></label></div>
+<div class='webex-radiogroup' id='radio_RRGZVVSOMC'><label><input type="radio" autocomplete="off" name="radio_RRGZVVSOMC" value=""></input> <span>They can cope with situations where individuals contribute different numbers of observations</span></label><label><input type="radio" autocomplete="off" name="radio_RRGZVVSOMC" value=""></input> <span>They can handle group-level differences in the outcome</span></label><label><input type="radio" autocomplete="off" name="radio_RRGZVVSOMC" value=""></input> <span>They can deal with variation due to different groups</span></label><label><input type="radio" autocomplete="off" name="radio_RRGZVVSOMC" value="answer"></input> <span>They are guaranteed to give significant results when ANOVAs do not</span></label></div>
 
 
 4. Mixed-effects models cope well with missing data because?
 
-<div class='webex-radiogroup' id='radio_OMCMUYFXDD'><label><input type="radio" autocomplete="off" name="radio_OMCMUYFXDD" value="answer"></input> <span>They can still estimate parameters even when some observations are missing</span></label><label><input type="radio" autocomplete="off" name="radio_OMCMUYFXDD" value=""></input> <span>They delete observations with missing data</span></label><label><input type="radio" autocomplete="off" name="radio_OMCMUYFXDD" value=""></input> <span>They set all values to 0</span></label></div>
+<div class='webex-radiogroup' id='radio_MUYFXDDCXE'><label><input type="radio" autocomplete="off" name="radio_MUYFXDDCXE" value="answer"></input> <span>They can still estimate parameters even when some observations are missing</span></label><label><input type="radio" autocomplete="off" name="radio_MUYFXDDCXE" value=""></input> <span>They delete observations with missing data</span></label><label><input type="radio" autocomplete="off" name="radio_MUYFXDDCXE" value=""></input> <span>They set all values to 0</span></label></div>
 
 
 
@@ -1158,7 +1223,7 @@ dolphins.1 %>%
        y = "VT") 
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1169,7 +1234,7 @@ plot_model(dolphmod.2,type="pred",
            show.data = T)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 plot_model(dolphmod.2,type="pred",
@@ -1178,7 +1243,7 @@ plot_model(dolphmod.2,type="pred",
            show.data = T)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-45-2.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-51-2.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1213,11 +1278,11 @@ Crossed random effects occur when the levels of two or more grouping variables a
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e389190f1dd1551a06de" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-e389190f1dd1551a06de">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d2e389190f1dd1551a06" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-d2e389190f1dd1551a06">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->1  II ->2 II ->3\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-46)Fully Crossed</p>
+<p class="caption">(\#fig:unnamed-chunk-52)Fully Crossed</p>
 </div>
 
 > Example 1: Let's consider a study examining the academic performance of students from different schools and different cities. The grouping variables are "School" and "City". Each school can be located in multiple cities, and each city can have multiple schools. The random effects of "School" and "City" are crossed since the levels of these variables are independent of each other.
@@ -1237,11 +1302,11 @@ Nested random effects occur when the levels of one grouping variable are complet
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9eda58cd6c8b9398b609" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-9eda58cd6c8b9398b609">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-de9eda58cd6c8b9398b6" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-de9eda58cd6c8b9398b6">{"x":{"diagram":"\ndigraph boxes_and_circles {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10]\n\n  # several \"node\" statements\n  node [shape = box,\n        fontname = Helvetica]\n  I; II; 1; 2; 3; 4; 5; 6\n\n  # several \"edge\" statements\n  I->1 I ->2 I ->3\n  II ->4  II ->5 II ->6\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:unnamed-chunk-47)Fully Nested</p>
+<p class="caption">(\#fig:unnamed-chunk-53)Fully Nested</p>
 </div>
 
 > Example 1. Consider a study on the job performance of employees within different departments of an organization. The grouping variables are "Employee" and "Department". Each employee belongs to one specific department, and no employee can be part of multiple departments. The random effects of "Employee" are nested within the random effects of "Department" since each employee is uniquely associated with a specific department.
@@ -1411,7 +1476,7 @@ summary(rats_lmer.2)
 plot(ggpredict(rats_lmer.2, terms = c("Treatment")))
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-55-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1421,7 +1486,7 @@ plot(ggpredict(rats_lmer.2,
      add.data = TRUE)
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-56-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
 
 # Types of Random Effects
 
@@ -1439,7 +1504,7 @@ This model will use more degrees of freedom than the other two, as these must be
 
 
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1465,49 +1530,6 @@ Mixed-effects models are enormously flexible. The decision about whether to incl
 As the combine random slopes and intercept model requries more degrees of freedom, it may be the case that using likelihood ratio tests (LRT) are advisable to decide which model describes the data best (more on this later). 
 
 Because random intercepts models require fewer degrees of freedome, these may be easier to fit when data sets have fewer observations.
-
-
-## Random effect correlation
-
-Understanding Group Structure: The correlation of random effects provides insight into the inherent structure of the groups in the data. It reveals the degree of similarity or dissimilarity between the random effects associated with different groups. This information helps to uncover patterns of clustering or similarity among the groups, which can be crucial in understanding the underlying mechanisms or processes being studied.
-
-
-```r
-summary(lmer3)
-```
-
-```
-## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-## lmerModLmerTest]
-## Formula: y ~ x + (x | group)
-##    Data: data
-## 
-## REML criterion at convergence: 3211
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -2.5477 -0.6567  0.0042  0.7018  2.9428 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev. Corr 
-##  group    (Intercept) 294.2242 17.1530       
-##           x             0.9398  0.9694  -0.65
-##  Residual              96.2248  9.8094       
-## Number of obs: 430, groups:  group, 5
-## 
-## Fixed effects:
-##             Estimate Std. Error      df t value Pr(>|t|)  
-## (Intercept)  24.3285     7.7423  4.0342   3.142   0.0344 *
-## x             1.8297     0.4708  3.2059   3.887   0.0268 *
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##   (Intr)
-## x -0.641
-## optimizer (nloptwrap) convergence code: 0 (OK)
-## Model failed to converge with max|grad| = 0.00241 (tol = 0.002, component 1)
-```
 
 
 
@@ -1796,18 +1818,275 @@ biodepth.2 %>%
    theme(legend.position = "none")
 ```
 
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-73-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-78-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Reporting Mixed Model Results
+
+Once you get your model, you have to **present** it in an accurate, clear and attractive form.
 
 BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
 
 ## Tables
 
+
+```r
+bio.lmer2 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1 | Site:Mix) + (1|Mix) + (1 | Block), data = biodepth)
+
+summary(bio.lmer2)
+```
+
+```
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: Shoot2 ~ Diversity2 + (Diversity2 | Site) + (1 | Site:Mix) +  
+##     (1 | Mix) + (1 | Block)
+##    Data: biodepth
+## 
+## REML criterion at convergence: 6045.1
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.4340 -0.4698 -0.0866  0.3430  3.5258 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr
+##  Site:Mix (Intercept) 20077.6  141.70       
+##  Mix      (Intercept) 15857.6  125.93       
+##  Block    (Intercept)   520.6   22.82       
+##  Site     (Intercept) 17106.8  130.79       
+##           Diversity2   1363.2   36.92   1.00
+##  Residual             16747.3  129.41       
+## Number of obs: 451, groups:  Site:Mix, 227; Mix, 192; Block, 15; Site, 8
+## 
+## Fixed effects:
+##             Estimate Std. Error      df t value Pr(>|t|)    
+## (Intercept)  346.322     52.004   7.856   6.659 0.000173 ***
+## Diversity2    79.355     17.598   9.288   4.509 0.001357 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##            (Intr)
+## Diversity2 0.434 
+## optimizer (nloptwrap) convergence code: 0 (OK)
+## boundary (singular) fit: see help('isSingular')
+```
+
+
+
+```r
+sjPlot::tab_model(bio.lmer2)
+```
+
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Shoot2</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictors</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">Estimates</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">CI</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">p</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">346.32</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">244.12&nbsp;&ndash;&nbsp;448.53</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Diversity2</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">79.36</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">44.77&nbsp;&ndash;&nbsp;113.94</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
+</tr>
+<tr>
+<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">Random Effects</td>
+</tr>
+
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&sigma;<sup>2</sup></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">16747.35</td>
+</tr>
+
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>00</sub> <sub>Site:Mix</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">20077.59</td>
+
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>00</sub> <sub>Mix</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">15857.60</td>
+
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>00</sub> <sub>Block</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">520.57</td>
+
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>00</sub> <sub>Site</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">17106.78</td>
+
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>11</sub> <sub>Site.Diversity2</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">1363.21</td>
+
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&rho;<sub>01</sub> <sub>Site</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">1.00</td>
+
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">ICC</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.81</td>
+
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">N <sub>Site</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">8</td>
+
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">N <sub>Mix</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">192</td>
+
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">N <sub>Block</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">15</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">451</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">Marginal R<sup>2</sup> / Conditional R<sup>2</sup></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.108 / 0.832</td>
+</tr>
+
+</table>
+
 ## Figures
 
+
+```r
+ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), type = "random") %>% 
+plot(., add.data = TRUE)
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-81-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), 
+          type = "random") %>% 
+  plot(., add.data = TRUE) + 
+  facet_wrap(~group)
+```
+
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-82-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+# Note ggpredict codes random effects as "groups" with a hidden label
+
+###
+
+ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), 
+          type = "random") %>% tibble() %>% 
+  head()
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> x </th>
+   <th style="text-align:right;"> predicted </th>
+   <th style="text-align:right;"> std.error </th>
+   <th style="text-align:right;"> conf.low </th>
+   <th style="text-align:right;"> conf.high </th>
+   <th style="text-align:left;"> group </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 503.0749 </td>
+   <td style="text-align:right;"> 139.4697 </td>
+   <td style="text-align:right;"> 228.96873 </td>
+   <td style="text-align:right;"> 777.1810 </td>
+   <td style="text-align:left;"> Germany </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 180.4816 </td>
+   <td style="text-align:right;"> 139.4697 </td>
+   <td style="text-align:right;"> -93.62451 </td>
+   <td style="text-align:right;"> 454.5877 </td>
+   <td style="text-align:left;"> Greece </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 472.1150 </td>
+   <td style="text-align:right;"> 139.4697 </td>
+   <td style="text-align:right;"> 198.00891 </td>
+   <td style="text-align:right;"> 746.2212 </td>
+   <td style="text-align:left;"> Ireland </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 208.5750 </td>
+   <td style="text-align:right;"> 139.4697 </td>
+   <td style="text-align:right;"> -65.53108 </td>
+   <td style="text-align:right;"> 482.6812 </td>
+   <td style="text-align:left;"> Portugal </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 420.2317 </td>
+   <td style="text-align:right;"> 139.4697 </td>
+   <td style="text-align:right;"> 146.12555 </td>
+   <td style="text-align:right;"> 694.3378 </td>
+   <td style="text-align:left;"> Sheffield </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 403.9469 </td>
+   <td style="text-align:right;"> 139.4697 </td>
+   <td style="text-align:right;"> 129.84073 </td>
+   <td style="text-align:right;"> 678.0530 </td>
+   <td style="text-align:left;"> Silwood </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
 ## Write-ups
+
+Part of the `easystats` range of packages (along with `performance`) - `report`(@R-report) is a phenomenally powerful package for aiding in write-up and making sure all important statistics are reported.
+
+> It should however be no substitute for logic and human understanding. 
+
+
+```r
+library(report)
+report(mixed_model)
+```
+
+```
+## We fitted a linear mixed model (estimated using REML and nloptwrap optimizer)
+## to predict y with x (formula: y ~ x). The model included group as random effect
+## (formula: ~1 | group). The model's total explanatory power is substantial
+## (conditional R2 = 0.70) and the part related to the fixed effects alone
+## (marginal R2) is of 0.10. The model's intercept, corresponding to x = 0, is at
+## 23.27 (95% CI [10.53, 36.01], t(426) = 3.59, p < .001). Within this model:
+## 
+##   - The effect of x is statistically significant and positive (beta = 2.03, 95%
+## CI [1.69, 2.36], t(426) = 11.90, p < .001; Std. beta = 0.31, 95% CI [0.26,
+## 0.37])
+## 
+## Standardized parameters were obtained by fitting the model on a standardized
+## version of the dataset. 95% Confidence Intervals (CIs) and p-values were
+## computed using a Wald t-distribution approximation.
+```
+
 
 # Worked Example 4
 

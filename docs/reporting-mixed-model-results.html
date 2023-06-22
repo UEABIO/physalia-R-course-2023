@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 7 Reporting Mixed Model Results | Mixed Models</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="BAKER - anova() ranova() MuMIn r.squaredGLMM  7.1 Tables   7.2 Figures   7.3 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
+<meta name="description" content="Once you get your model, you have to present it in an accurate, clear and attractive form. BAKER - anova() ranova() MuMIn r.squaredGLMM  7.1 Tables bio.lmer2 &lt;- lmer(Shoot2 ~ Diversity2 +...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
 <meta property="og:title" content="Chapter 7 Reporting Mixed Model Results | Mixed Models">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/intro-mixed-models/reporting-mixed-model-results.html">
 <meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
-<meta property="og:description" content="BAKER - anova() ranova() MuMIn r.squaredGLMM  7.1 Tables   7.2 Figures   7.3 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
+<meta property="og:description" content="Once you get your model, you have to present it in an accurate, clear and attractive form. BAKER - anova() ranova() MuMIn r.squaredGLMM  7.1 Tables bio.lmer2 &lt;- lmer(Shoot2 ~ Diversity2 +...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 7 Reporting Mixed Model Results | Mixed Models">
-<meta name="twitter:description" content="BAKER - anova() ranova() MuMIn r.squaredGLMM  7.1 Tables   7.2 Figures   7.3 Write-ups   /* update total correct if #webex-total_correct exists */ update_total_correct = function() { ...">
+<meta name="twitter:description" content="Once you get your model, you have to present it in an accurate, clear and attractive form. BAKER - anova() ranova() MuMIn r.squaredGLMM  7.1 Tables bio.lmer2 &lt;- lmer(Shoot2 ~ Diversity2 +...">
 <meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -132,21 +132,408 @@
 <h1>
 <span class="header-section-number">7</span> Reporting Mixed Model Results<a class="anchor" aria-label="anchor" href="#reporting-mixed-model-results"><i class="fas fa-link"></i></a>
 </h1>
+<p>Once you get your model, you have to <strong>present</strong> it in an accurate, clear and attractive form.</p>
 <p>BAKER - <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> <code>ranova()</code> <code>MuMIn</code> <code>r.squaredGLMM</code></p>
 <div id="tables" class="section level2" number="7.1">
 <h2>
 <span class="header-section-number">7.1</span> Tables<a class="anchor" aria-label="anchor" href="#tables"><i class="fas fa-link"></i></a>
 </h2>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bio.lmer2</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">Shoot2</span> <span class="op">~</span> <span class="va">Diversity2</span> <span class="op">+</span> <span class="op">(</span><span class="va">Diversity2</span><span class="op">|</span><span class="va">Site</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Site</span><span class="op">:</span><span class="va">Mix</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Mix</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Block</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">biodepth</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bio.lmer2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: Shoot2 ~ Diversity2 + (Diversity2 | Site) + (1 | Site:Mix) +  
+##     (1 | Mix) + (1 | Block)
+##    Data: biodepth
+## 
+## REML criterion at convergence: 6045.1
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.4340 -0.4698 -0.0866  0.3430  3.5258 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev. Corr
+##  Site:Mix (Intercept) 20077.6  141.70       
+##  Mix      (Intercept) 15857.6  125.93       
+##  Block    (Intercept)   520.6   22.82       
+##  Site     (Intercept) 17106.8  130.79       
+##           Diversity2   1363.2   36.92   1.00
+##  Residual             16747.3  129.41       
+## Number of obs: 451, groups:  Site:Mix, 227; Mix, 192; Block, 15; Site, 8
+## 
+## Fixed effects:
+##             Estimate Std. Error      df t value Pr(&gt;|t|)    
+## (Intercept)  346.322     52.004   7.856   6.659 0.000173 ***
+## Diversity2    79.355     17.598   9.288   4.509 0.001357 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##            (Intr)
+## Diversity2 0.434 
+## optimizer (nloptwrap) convergence code: 0 (OK)
+## boundary (singular) fit: see help('isSingular')</code></pre>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sjPlot</span><span class="fu">::</span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/tab_model.html">tab_model</a></span><span class="op">(</span><span class="va">bio.lmer2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table style="border-collapse:collapse; border:none;" class="table table-sm">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Shoot2
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+346.32
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+244.12 – 448.53
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Diversity2
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+79.36
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+44.77 – 113.94
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
+Random Effects
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+σ<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+16747.35
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub><sub>Site:Mix</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+20077.59
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub><sub>Mix</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+15857.60
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub><sub>Block</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+520.57
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub><sub>Site</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+17106.78
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>11</sub><sub>Site.Diversity2</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+1363.21
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+ρ<sub>01</sub><sub>Site</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+1.00
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+ICC
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.81
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>Site</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+8
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>Mix</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+192
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>Block</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+15
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+451
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.108 / 0.832
+</td>
+</tr>
+</table></div>
 </div>
 <div id="figures" class="section level2" number="7.2">
 <h2>
 <span class="header-section-number">7.2</span> Figures<a class="anchor" aria-label="anchor" href="#figures"><i class="fas fa-link"></i></a>
 </h2>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/ggeffects/reference/ggpredict.html">ggpredict</a></span><span class="op">(</span><span class="va">bio.lmer2</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Diversity2"</span>, <span class="st">"Site"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">.</span>, add.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-81-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/ggeffects/reference/ggpredict.html">ggpredict</a></span><span class="op">(</span><span class="va">bio.lmer2</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Diversity2"</span>, <span class="st">"Site"</span><span class="op">)</span>, </span>
+<span>          type <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">.</span>, add.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">group</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-82-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Note ggpredict codes random effects as "groups" with a hidden label</span></span>
+<span></span>
+<span><span class="co">###</span></span>
+<span></span>
+<span><span class="fu"><a href="https://strengejacke.github.io/ggeffects/reference/ggpredict.html">ggpredict</a></span><span class="op">(</span><span class="va">bio.lmer2</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Diversity2"</span>, <span class="st">"Site"</span><span class="op">)</span>, </span>
+<span>          type <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">tibble</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+predicted
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+conf.low
+</th>
+<th style="text-align:right;">
+conf.high
+</th>
+<th style="text-align:left;">
+group
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+503.0749
+</td>
+<td style="text-align:right;">
+139.4697
+</td>
+<td style="text-align:right;">
+228.96873
+</td>
+<td style="text-align:right;">
+777.1810
+</td>
+<td style="text-align:left;">
+Germany
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+180.4816
+</td>
+<td style="text-align:right;">
+139.4697
+</td>
+<td style="text-align:right;">
+-93.62451
+</td>
+<td style="text-align:right;">
+454.5877
+</td>
+<td style="text-align:left;">
+Greece
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+472.1150
+</td>
+<td style="text-align:right;">
+139.4697
+</td>
+<td style="text-align:right;">
+198.00891
+</td>
+<td style="text-align:right;">
+746.2212
+</td>
+<td style="text-align:left;">
+Ireland
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+208.5750
+</td>
+<td style="text-align:right;">
+139.4697
+</td>
+<td style="text-align:right;">
+-65.53108
+</td>
+<td style="text-align:right;">
+482.6812
+</td>
+<td style="text-align:left;">
+Portugal
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+420.2317
+</td>
+<td style="text-align:right;">
+139.4697
+</td>
+<td style="text-align:right;">
+146.12555
+</td>
+<td style="text-align:right;">
+694.3378
+</td>
+<td style="text-align:left;">
+Sheffield
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+403.9469
+</td>
+<td style="text-align:right;">
+139.4697
+</td>
+<td style="text-align:right;">
+129.84073
+</td>
+<td style="text-align:right;">
+678.0530
+</td>
+<td style="text-align:left;">
+Silwood
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
 </div>
 <div id="write-ups" class="section level2" number="7.3">
 <h2>
 <span class="header-section-number">7.3</span> Write-ups<a class="anchor" aria-label="anchor" href="#write-ups"><i class="fas fa-link"></i></a>
 </h2>
+<p>Part of the <code>easystats</code> range of packages (along with <code>performance</code>) - <code>report</code>(<span class="citation">Makowski et al. (<a href="summary.html#ref-R-report" role="doc-biblioref">2023</a>)</span>) is a phenomenally powerful package for aiding in write-up and making sure all important statistics are reported.</p>
+<blockquote>
+<p>It should however be no substitute for logic and human understanding.</p>
+</blockquote>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/report/">report</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://easystats.github.io/report/reference/report.html">report</a></span><span class="op">(</span><span class="va">mixed_model</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## We fitted a linear mixed model (estimated using REML and nloptwrap optimizer)
+## to predict y with x (formula: y ~ x). The model included group as random effect
+## (formula: ~1 | group). The model's total explanatory power is substantial
+## (conditional R2 = 0.70) and the part related to the fixed effects alone
+## (marginal R2) is of 0.10. The model's intercept, corresponding to x = 0, is at
+## 23.27 (95% CI [10.53, 36.01], t(426) = 3.59, p &lt; .001). Within this model:
+## 
+##   - The effect of x is statistically significant and positive (beta = 2.03, 95%
+## CI [1.69, 2.36], t(426) = 11.90, p &lt; .001; Std. beta = 0.31, 95% CI [0.26,
+## 0.37])
+## 
+## Standardized parameters were obtained by fitting the model on a standardized
+## version of the dataset. 95% Confidence Intervals (CIs) and p-values were
+## computed using a Wald t-distribution approximation.</code></pre>
 </div>
 </div>
 <script>

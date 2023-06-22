@@ -28,6 +28,7 @@ library(sjPlot)
 library(MuMIn)
 library(emmeans)
 library(downloadthis)
+library(stargazer)
 
  report_p <- function(p, digits = 3) {
      reported <- if_else(p < 0.001,
@@ -535,9 +536,6 @@ But how do we do this?
 
 We can use the `coef()` function to extract the estimates (strictly these are predictions) for the random effects. This output has several components. 
 
-ESTIMATES VS PREDICTIONS
-http://optimumsportsperformance.com/blog/making-predictions-from-a-mixed-model-using-r/
-
 
 ```{r}
 coef(mixed_model)
@@ -608,22 +606,12 @@ data1 %>%
 
 ```
 
-
 `re.form = NA`: When re.form is set to NA, it indicates that the random effects should be ignored during prediction. This means that the prediction will be based solely on the fixed effects of the model, ignoring the variation introduced by the random effects. This is useful when you are interested in estimating the overall trend or relationship described by the fixed effects, without considering the specific random effects of individual groups or levels.
 
 `re.form = NULL`: Conversely, when re.form is set to NULL, it indicates that the random effects should be included in the prediction. This means that the prediction will take into account both the fixed effects and the random effects associated with the levels of the random effect variable. The model will use the estimated random effects to generate predictions that account for the variation introduced by the random effects. This is useful when you want to visualize and analyze the variation in the response variable explained by different levels of the random effect.
 
-```{r}
 
-plot_model(mixed_model, terms = c("x", "group"), type = "re")
-
-plot_model(mixed_model, terms = c("x", "group"), type = "est")
-
-```
-
-
-
-```{r}
+```{r, eval = FALSE, echo = FALSE}
 basic_pred <- emmeans(basic_model, specs = ~  x, at = list(x = c(0, 2.5, 5, 7.5, 10))) %>% as_tibble()
 
 mixed_pred <- emmeans(mixed_model, specs = ~  x, at = list(x = c(0, 2.5, 5, 7.5, 10))) %>% as_tibble()
@@ -657,22 +645,84 @@ pooled_plot /
 
 ```
 
+It's not always easy/straightforward to make prediciton or confidence intervals from complex general and generalized linear mixed models, luckily there are some excellent R packages that will do this for us. 
 
 ### `ggeffects`
+
+`ggeffects` (@R-ggeffects) is a light-weight package that aims at easily calculating marginal effects and adjusted predictions
 
 #### `ggpredict`
 
 The argument `type = random` in the `ggpredict` function (from the ggeffects package @R-ggeffects) is used to specify the type of predictions to be generated in the context of mixed effects models. The main difference between using `ggpredict` with and without `type = random` lies in the type of predictions produced:
 
-Without `type = random`: `ggpredict` will generate **fixed-effects predictions**. These predictions are based solely on the fixed effects of the model, ignoring any variability associated with the random effects. The resulting predictions represent the average or expected values of the response variable for specific combinations of predictor values, considering only the fixed components of the model.
+Without `type = random`: `ggpredict` will generate **fixed-effects predictions**. These estimates are based solely on the fixed effects of the model, ignoring any variability associated with the random effects. The resulting estimate represent the average or expected values of the response variable for specific combinations of predictor values, considering only the fixed components of the model.
 
-With `type = random`: ggpredict will generate predictions that **incorporate both fixed and random effects**. These predictions take into account the variability introduced by the random effects in the model. The resulting predictions reflect not only the average trend captured by the fixed effects but also the additional variability associated with the random effects at different levels of the grouping factor(s).
+Estimated mean fixed effects provide a comprehensive view of the average effect of dependent variables on the response variable. By plotting the estimated mean fixed effects using ggpredict, you can visualize how the response variable changes across different levels or values of the predictors while considering the effects of other variables in the model.
 
-#### `ggemmeans`
+```{r}
+
+library(ggeffects)
+
+ggpredict(mixed_model, terms = "x") %>% 
+plot(., add.data = TRUE)
+
+```
+
+With `type = random`: ggpredict will generate **predictions** that **incorporate both fixed and random effects**. These predictions take into account the variability introduced by the random effects in the model. The resulting predictions reflect not only the average trend captured by the fixed effects but also the additional variability associated with the random effects at different levels of the grouping factor(s). 
+
+By default the figure now produces **prediciton intervals**
+
+```{r}
+
+ggpredict(mixed_model, terms = "x", type = "random") %>% 
+plot(., add.data = TRUE)
+
+```
+
+```{block, type = "info"}
+
+Confidence Intervals:
+A confidence interval is used to estimate the range of plausible values for a population parameter, such as the mean or the regression coefficient, based on a sample from that population. It provides a range within which the true population parameter is likely to fall with a certain level of confidence. For example, a 95% confidence interval implies that if we were to repeat the sampling process many times, 95% of the resulting intervals would contain the true population parameter.
+
+Prediction Intervals:
+On the other hand, a prediction interval is used to estimate the range of plausible values for an individual observation or a future observation from the population. It takes into account both the uncertainty in the estimated model parameters and the inherent variability within the data. A 95% prediction interval provides a range within which a specific observed or predicted value is likely to fall with a certain level of confidence. The wider the prediction interval, the greater the uncertainty around the specific value being predicted.
+
+```
+
+
+Furthermore, `ggpredict()` enables you to explore group-level predictions, which provide a deeper understanding of how the response variable varies across different levels of the grouping variable. By specifying the desired grouping variable in ggpredict when `type = random`, you can generate plots that depict the predicted values for each group separately, allowing for a comparative analysis of group-level effects.
+
+```{r}
+
+ggpredict(mixed_model, terms = c("x", "group"), type = "random") %>% 
+plot(., add.data = TRUE) + 
+  facet_wrap(~group)+
+  theme(legend.position = "none")
+
+```
+
 
 ### `sjPlot`
 
+Another way to visualise mixed model results is with the package `sjPlot`(@R-sjPlot), and if you are interested in showing the variation among levels of your random effects, you can plot the departure from the overall model estimate for intercepts - *and slopes, if you have a random slope model*:
 
+```{r}
+
+library(sjPlot)
+
+plot_model(mixed_model, terms = c("x", "group"), type = "re")/
+  (plot_model(mixed_model, terms = c("x", "group"), type = "est")+ggtitle("Fixed Effects"))
+
+```
+
+
+```{block, type = "warning"}
+
+The values you see are NOT actual values, but rather the difference between the general intercept or slope value found in your model summary and the estimate for this specific level of random/fixed effect. 
+
+```
+
+`sjPlot` is also capable of producing prediction plots in the same way as `ggeffects`:
 
 ```{r}
 plot_model(mixed_model,type="pred",
@@ -684,6 +734,20 @@ plot_model(mixed_model,type="pred",
 
 
 ## Checking model assumptions
+
+
+We need to be just as conscious of testing the assumptions of mixed effects models as we are with any other. The assumptions are:
+
+1. Within-group errors are independent and normally distributed with mean zero and variance $\sigma^2$
+ 
+2. Within-group errors are independent of the random effects.
+
+3. Random effects are normally distributed with mean zero.
+
+4. Random effects are independent for different groups, except as specified by nesting (more on this later)
+
+
+Several model check plots would help us to confirm/deny these assumptions, but note that QQ-plots may not be relevant because of the model structure. Two commonly-used plots are:
 
 ```{r}
 
@@ -698,6 +762,17 @@ qqline(resid(mixed_model))
 
 ```
 
+
+It can often be useful to check the distribution of residuals in each of the groups (e.g. blocks) to check assumptions 1 and 2. We can do this by plotting the residuals against the fitted values, separately for each level of the random effect, using the  `coplot()` function:
+
+```{r}
+coplot(resid(mixed_model) ~ fitted(mixed_model) | data$group)
+```
+
+Each sub-figure of this plot, which refers to an individual group, doesn’t contain much data. It can be hard to judge whether the spread of residuals around fitted values is the same for each group when observations are low.
+
+We can check assumption 3 with a histogram (here the more levels we have, the more we can be assured):
+
 ```{r}
 
 rand_dist <- as.data.frame(ranef(mixed_model)) %>% 
@@ -710,6 +785,7 @@ hist(rand_dist$b0_hat)
 
 ```
 
+Overlaying the random distribution of our intercept over the regression line produces a plot like the below: 
 
 ```{r, fig.cap = "Marginal fit, heavy black line from the random effect model with a histogram of the of the distribution of conditional intercepts"}
 
@@ -731,16 +807,27 @@ data1 %>%
 ```
 
 
-```{r}
+### performance
 
-performance::check_model(mixed_model)
+The `check_model()` function from the performance package in R is a useful tool for evaluating the performance and assumptions of a statistical model, particularly in the context of mixed models. It provides a comprehensive set of diagnostics and visualizations to assess the model's fit, identify potential issues, and verify the assumptions underlying the model, which can be difficult with complex models
+
+```{r}
+library(performance)
+check_model(mixed_model)
 
 ```
 
+### DHARma
+
+Simulation-based methods, like those available with DHARMa (@R-DHARMa), are often preferred for model validation and assumption checking because they offer flexibility and do not rely on specific assumptions. Simulation is particularly useful for evaluating complex models with multiple levels of variability, non-linearity, or complex hierarchical structures. Such models may not be adequately evaluated by solely examining residuals, and simulation provides a more robust approach to assess their assumptions and performance.
+
+Read the authors summary [here](https://theoreticalecology.wordpress.com/2016/08/28/dharma-an-r-package-for-residual-diagnostics-of-glmms/)
 
 ```{r}
 
-resid.mm <- DHARMa::simulateResiduals(mixed_model)
+library(DHARMa)
+
+resid.mm <- simulateResiduals(mixed_model)
 
 plot(resid.mm)
 
@@ -1176,17 +1263,6 @@ As the combine random slopes and intercept model requries more degrees of freedo
 Because random intercepts models require fewer degrees of freedome, these may be easier to fit when data sets have fewer observations.
 
 
-## Random effect correlation
-
-Understanding Group Structure: The correlation of random effects provides insight into the inherent structure of the groups in the data. It reveals the degree of similarity or dissimilarity between the random effects associated with different groups. This information helps to uncover patterns of clustering or similarity among the groups, which can be crucial in understanding the underlying mechanisms or processes being studied.
-
-```{r}
-
-summary(lmer3)
-
-```
-
-
 
 ## Model refining / Likelihood Ratio Tests
 
@@ -1378,13 +1454,61 @@ biodepth.2 %>%
 
 # Reporting Mixed Model Results
 
+Once you get your model, you have to **present** it in an accurate, clear and attractive form.
+
 BAKER - `anova()` `ranova()` `MuMIn` `r.squaredGLMM`
 
 ## Tables
 
+```{r}
+
+bio.lmer2 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1 | Site:Mix) + (1|Mix) + (1 | Block), data = biodepth)
+
+summary(bio.lmer2)
+```
+
+
+```{r}
+
+sjPlot::tab_model(bio.lmer2)
+
+```
+
 ## Figures
 
+```{r}
+ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), type = "random") %>% 
+plot(., add.data = TRUE)
+
+```
+
+```{r}
+ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), 
+          type = "random") %>% 
+  plot(., add.data = TRUE) + 
+  facet_wrap(~group)
+
+# Note ggpredict codes random effects as "groups" with a hidden label
+
+###
+
+ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), 
+          type = "random") %>% tibble() %>% 
+  head()
+
+```
+
 ## Write-ups
+
+Part of the `easystats` range of packages (along with `performance`) - `report`(@R-report) is a phenomenally powerful package for aiding in write-up and making sure all important statistics are reported.
+
+> It should however be no substitute for logic and human understanding. 
+
+```{r}
+library(report)
+report(mixed_model)
+```
+
 
 # Worked Example 4
 
