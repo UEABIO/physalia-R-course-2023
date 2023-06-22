@@ -47,6 +47,7 @@ model-refining-likelihood-ratio-tests
 maximum-likelihood
 reml
 ml-vs.-reml-fitting
+practice-questions-1
 worked-example-3---complex-designs
 the-data
 model-predictions

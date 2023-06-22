@@ -1205,7 +1205,7 @@ We need to determine our fixed effects, random effects and model structure:
 
 4) With the basic structure `y ~ x + z + (1|group)` what do you think this model should be?:
 
-`fitb(c("vt ~ bodymass + direction + (1|animal)", "vt ~  direction + bodymass + (1|animal)"), ignore_ws = TRUE, width = "20")`
+<input class='webex-solveme nospaces' size='20' data-answer='["vt ~ bodymass + direction + (1|animal)","vt ~  direction + bodymass + (1|animal)"]'/>
 
 
 <div class='webex-solution'><button>Solution</button>
@@ -1385,6 +1385,18 @@ For more on designing models around crossed and nested designs check out [this a
 
 # Worked Example 2 - Nested design
 
+The experiment involved a simple one-way anova with 3 treatments given to 6 rats. The analysis was complicated by the fact that three preparations were taken from the liver of each rat, and two readings of glycogen content were taken from each preparation. This generated 6 pseudoreplicates per rat to give a total of 36 readings in all.
+
+Clearly, it would be a mistake to analyse these data as if they were a straightforward one-way anova, because that would give us 33 degrees of freedom for error. In fact, since there are only two rats in each treatment, we have only one degree of freedom per treatment, giving a total of 3 d.f. for error.
+
+The variance is likely to be different at each level of this nested analysis because:
+
+the readings differ because of variation in the glycogen detection method within each liver sample (measurement error);
+the pieces of liver may differ because of heterogeneity in the distribution of glycogen within the liver of a single rat;
+the rats will differ from one another in their glycogen levels because of sex, age, size, genotype, etc.;
+rats allocated different experimental treatments may differ as a result of the fixed effects of treatment.
+If all we want to test is whether the experimental treatments have affected the glycogen levels, then we are not interested in liver bits within rat’s livers, or in preparations within liver bits. We could combine all the pseudoreplicates together, and analyse the 6 averages. This would have the virtue of showing what a tiny experiment this really was. This latter approach also ignores the nested sources of uncertainties. Instead we will use a linear mixed model.
+
 
 
 
@@ -1451,6 +1463,8 @@ rats %>%
 ```
 
 
+
+
 ```r
 rats_lmer.1 <- lmer(Glycogen ~ Treatment + (1 | Rat) + (1 | Liver), data = rats)
 summary(rats_lmer.1)
@@ -1489,6 +1503,19 @@ summary(rats_lmer.1)
 ## Treatment3 -0.696  0.500
 ```
 
+**Q. Why is this model above wrong**
+
+
+<div class='webex-solution'><button>Solution</button>
+
+
+It is wrong because this would add two random effect terms, one for rat 1 and one for rat 2. In fact there are 6 rats altogether. The way that the data have been coded allows for these kinds of mistakes to happen. The same is true for Liver, which is coded as a 1, 2 or 3. This means that we could write this thinking that we are including the correct random effects for Rat and Liver. In fact, this assumes that the data come from a crossed design, in which there are 2 rats and 3 parts of the liver, and that Liver = 1 corresponds to the same type of measurement in rats 1 and 2 and so on. Sometimes this is appropriate, but not here!
+
+The nature of the way that many data sets are coded makes these kinds of mistakes very easy to make!
+
+` r unhide()`
+
+A better design is the one below:
 
 
 ```r
@@ -1528,6 +1555,8 @@ summary(rats_lmer.2)
 ## Treatment2 -0.707       
 ## Treatment3 -0.707  0.500
 ```
+
+And we can see the effects in the figures below:
 
 
 ```r
@@ -1726,6 +1755,18 @@ In this context, ML estimation is preferable because it allows for a formal stat
 
 
 </div>
+
+
+
+## Practice Questions
+
+1. The formula `y ~ x + (x|group)` would fit a model with 
+<div class='webex-radiogroup' id='radio_JZPRVGYNML'><label><input type="radio" autocomplete="off" name="radio_JZPRVGYNML" value=""></input> <span>Random Slopes</span></label><label><input type="radio" autocomplete="off" name="radio_JZPRVGYNML" value=""></input> <span>Random Intercepts</span></label><label><input type="radio" autocomplete="off" name="radio_JZPRVGYNML" value="answer"></input> <span>Random Slopes and Intercepts</span></label><label><input type="radio" autocomplete="off" name="radio_JZPRVGYNML" value=""></input> <span>An intercept fixed at 0</span></label></div>
+
+
+2. Which formula would fit a random intercepts model?
+<div class='webex-radiogroup' id='radio_TYWJZXPUNU'><label><input type="radio" autocomplete="off" name="radio_TYWJZXPUNU" value=""></input> <span>y ~ x + (x|group)</span></label><label><input type="radio" autocomplete="off" name="radio_TYWJZXPUNU" value="answer"></input> <span>y ~ x + (1|group)</span></label><label><input type="radio" autocomplete="off" name="radio_TYWJZXPUNU" value=""></input> <span>y ~ x + (y | group)</span></label></div>
+
 
 
 # Worked Example 3 - Complex Designs
