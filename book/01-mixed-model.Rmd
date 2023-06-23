@@ -144,7 +144,7 @@ Finally, keep in mind that the name random doesn’t have much to do with mathem
 
 The provided code generates a dataset that is suitable for testing mixed models. Let's break down the code and annotate each step:
 
-```{r, include = FALSE}
+```{r}
 
 # Generating a fake dataset with different means for each group
 set.seed(123)  # Setting seed for reproducibility
@@ -908,8 +908,8 @@ dolphins <- drop_na(dolphins)
 dolphins %>%
   downloadthis::download_this(
     output_name = "dolphins",
-    output_extension = ".csv",
-    button_label = "Download dolphins data as csv",
+    output_extension = ".rds",
+    button_label = "Download dolphins data as .rds",
     button_type = "success",
     has_icon = TRUE,
     icon = "fa fa-save"
@@ -919,7 +919,7 @@ dolphins %>%
 
 ```{r, eval = FALSE}
 
-dolphins <- read_csv("dolphins.csv") 
+dolphins <- readRDS("dolphins.rds) 
 
 ```
 
@@ -1444,8 +1444,8 @@ biodepth <- biodepth %>%
 biodepth %>%
   downloadthis::download_this(
     output_name = "Biodepth",
-    output_extension = ".csv",
-    button_label = "Download biodepth data as .csv",
+    output_extension = ".rds",
+    button_label = "Download biodepth data as .rds",
     button_type = "success",
     has_icon = TRUE,
     icon = "fa fa-save"
@@ -1453,7 +1453,8 @@ biodepth %>%
 ```
 
 ```{r, eval = FALSE}
-biodepth <- read_csv("files/Biodepth.csv")
+biodepth <- readRDS("Biodepth.rds")
+
 ```
 
 ```{r}
@@ -1697,11 +1698,11 @@ bacteria <- readRDS("files/bacCabinets.rds")
 
 
 ```{r, eval = TRUE, echo = FALSE}
-biodepth %>%
+bacteria %>%
   downloadthis::download_this(
     output_name = "bacteria",
     output_extension = ".rds",
-    button_label = "Download biodepth data as .rds",
+    button_label = "Download bacteria data as .rds",
     button_type = "success",
     has_icon = TRUE,
     icon = "fa fa-save"
