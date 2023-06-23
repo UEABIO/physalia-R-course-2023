@@ -140,7 +140,7 @@
 <p>An alternative to the random intercepts model is the <em>random slopes</em> model, shown in panel C. In this model the slopes are permitted to vary, but the intercept is fixed across all groups. For our current data the random slopes model does a fair job as well.</p>
 <p>Finally we can allow <em>both the intercepts and slope</em> to vary between groups, as shown in panel D. This captures both the shallower slope of some of our groups and the vertical offsets present. If you inspect the original data set we generated, you can see that the random effect for group was calculated as both a product of random distribution on the intercept and slope, so it is not surprising that here this model fits the data best.</p>
 <p>This model will use more degrees of freedom than the other two, as these must be used to calculate variance for both intercept and slope.</p>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># random intercept model</span></span>
 <span><span class="va">lmer1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">group</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
@@ -367,13 +367,13 @@ ML vs. REML
 </h2>
 <ol style="list-style-type: decimal">
 <li>The formula <code>y ~ x + (x|group)</code> would fit a model with
-<div id="radio_JZPRVGYNML" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_JZPRVGYNML" value=""><span>Random Slopes</span></label><label><input type="radio" autocomplete="off" name="radio_JZPRVGYNML" value=""><span>Random Intercepts</span></label><label><input type="radio" autocomplete="off" name="radio_JZPRVGYNML" value="answer"><span>Random Slopes and Intercepts</span></label><label><input type="radio" autocomplete="off" name="radio_JZPRVGYNML" value=""><span>An intercept fixed at 0</span></label>
+<div id="radio_ZPRVGYNMLT" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZPRVGYNMLT" value=""><span>Random Slopes</span></label><label><input type="radio" autocomplete="off" name="radio_ZPRVGYNMLT" value=""><span>Random Intercepts</span></label><label><input type="radio" autocomplete="off" name="radio_ZPRVGYNMLT" value="answer"><span>Random Slopes and Intercepts</span></label><label><input type="radio" autocomplete="off" name="radio_ZPRVGYNMLT" value=""><span>An intercept fixed at 0</span></label>
 </div>
 </li>
 <li>Which formula would fit a random intercepts model?
-<div id="radio_TYWJZXPUNU" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_TYWJZXPUNU" value=""><span>y ~ x + (x|group)</span></label><label><input type="radio" autocomplete="off" name="radio_TYWJZXPUNU" value="answer"><span>y ~ x + (1|group)</span></label><label><input type="radio" autocomplete="off" name="radio_TYWJZXPUNU" value=""><span>y ~ x + (y | group)</span></label>
+<div id="radio_YWJZXPUNUX" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_YWJZXPUNUX" value=""><span>y ~ x + (x|group)</span></label><label><input type="radio" autocomplete="off" name="radio_YWJZXPUNUX" value="answer"><span>y ~ x + (1|group)</span></label><label><input type="radio" autocomplete="off" name="radio_YWJZXPUNUX" value=""><span>y ~ x + (y | group)</span></label>
 </div>
 </li>
 </ol>

@@ -882,7 +882,7 @@ This dataset was collected to measure resting lung function in 32 bottlenose dol
 
 
 
-```{r, eval = FALSE, echo = FALSE}
+```{r, eval = TRUE, echo = FALSE}
 downloadthis::download_link(
   link = "https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/dolphins.csv",
   button_label = "Download Dolphins data",
@@ -894,7 +894,7 @@ downloadthis::download_link(
 ```
 
 
-```{r, echo = FALSE}
+```{r}
 
 dolphins <- read_csv("files/dolphins.csv") 
 
@@ -904,7 +904,7 @@ dolphins <- drop_na(dolphins)
 
 ```
 
-```{r, eval = TRUE, echo = FALSE}
+```{r, eval = FALSE, echo = FALSE}
 dolphins %>%
   downloadthis::download_this(
     output_name = "dolphins",
@@ -917,11 +917,6 @@ dolphins %>%
 ```
 
 
-```{r, eval = FALSE}
-
-dolphins <- readRDS("dolphins.rds) 
-
-```
 
 
 Here we are interested in the relationship between ($V_T$) and body mass (kg), we have measurements which are taken on the breath *in* and the breath *out*, and each dolphin has been observed between one and four times.
@@ -1100,7 +1095,7 @@ the rats will differ from one another in their glycogen levels because of sex, a
 rats allocated different experimental treatments may differ as a result of the fixed effects of treatment.
 If all we want to test is whether the experimental treatments have affected the glycogen levels, then we are not interested in liver bits within rat’s livers, or in preparations within liver bits. We could combine all the pseudoreplicates together, and analyse the 6 averages. This would have the virtue of showing what a tiny experiment this really was. This latter approach also ignores the nested sources of uncertainties. Instead we will use a linear mixed model.
 
-```{r, eval = FALSE, echo = FALSE}
+```{r, eval = TRUE, echo = FALSE}
 downloadthis::download_link(
   link = "https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/rats.rds",
   button_label = "Download as rds",
@@ -1116,18 +1111,6 @@ downloadthis::download_link(
 
 rats <- readRDS("files/rats.rds")
 
-```
-
-```{r, eval = TRUE, echo = FALSE}
-rats %>%
-  downloadthis::download_this(
-    output_name = "rats",
-    output_extension = ".rds",
-    button_label = "Download rats data as rds",
-    button_type = "success",
-    has_icon = TRUE,
-    icon = "fa fa-save"
-  )
 ```
 
 
@@ -1412,12 +1395,12 @@ Each level of diversity was repeated with different mixtures of plant species ch
 
 Experiments were repeated in two blocks per site.
 
-```{r, include = FALSE}
+```{r}
 biodepth <- read_tsv("files/Biodepth.txt")
 ```
 
 
-```{r, eval = FALSE, echo = FALSE}
+```{r, eval = TRUE, echo = FALSE}
 downloadthis::download_link(
   link = "https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/Biodepth.txt",
   button_label = "Download BIODEPTH data",
@@ -1429,7 +1412,7 @@ downloadthis::download_link(
 ```
 
 
-```{r, echo = FALSE}
+```{r}
 biodepth <- biodepth %>% 
   mutate(Mix = factor(Mix),
          Diversity2 = log(Diversity, 2)) %>% 
@@ -1440,7 +1423,7 @@ biodepth <- biodepth %>%
 
 ```
 
-```{r, eval = TRUE, echo = FALSE}
+```{r, eval = FALSE, echo = FALSE}
 biodepth %>%
   downloadthis::download_this(
     output_name = "Biodepth",
@@ -1452,10 +1435,6 @@ biodepth %>%
   )
 ```
 
-```{r, eval = FALSE}
-biodepth <- readRDS("Biodepth.rds")
-
-```
 
 ```{r}
 head(biodepth)
@@ -1705,17 +1684,15 @@ bacteria <- readRDS("files/bacCabinets.rds")
 
 
 ```{r, eval = TRUE, echo = FALSE}
-bacteria %>%
-  downloadthis::download_this(
-    output_name = "bacteria",
-    output_extension = ".rds",
-    button_label = "Download bacteria data as .rds",
-    button_type = "success",
-    has_icon = TRUE,
-    icon = "fa fa-save"
-  )
+downloadthis::download_link(
+  link = "https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/bacCabinets.rds",
+  button_label = "Download bacteria data",
+  button_type = "success",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
 ```
-
 
 
 ```{r, eval = FALSE}

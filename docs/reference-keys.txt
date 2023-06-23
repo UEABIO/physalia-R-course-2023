@@ -4,10 +4,10 @@ fig:unnamed-chunk-13
 fig:unnamed-chunk-15
 fig:unnamed-chunk-27
 fig:unnamed-chunk-40
-fig:unnamed-chunk-51
+fig:unnamed-chunk-50
+fig:unnamed-chunk-52
 fig:unnamed-chunk-53
-fig:unnamed-chunk-54
-fig:unnamed-chunk-88
+fig:unnamed-chunk-85
 terminology
 variance
 packages

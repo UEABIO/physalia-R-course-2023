@@ -135,18 +135,10 @@
 <p>A microbiologist wishes to know which of four growth media is best for rearing large populations of anthrax, quickly. However, this poorly funded scientist does not own a large enough incubator in which to grow lots of replicate populations. Instead he requests space in five different incubators owned by other, better-funded researchers. Each incubator just has space for four bottles of medium. Our scientist allocates each growth medium to one bottle per incubator at random, inoculates with anthrax then monitors population growth rate.</p>
 <div class="inline-figure"><img src="images/bacCabinets.png" alt="Schematic for bacterial growth example" width="50%" style="display: block; margin: auto;"></div>
 <p>The data are available here:</p>
-<a onclick="fetch('data:application/octet-stream;base64,WAoAAAACAAQDAAACAwAAAAMTAAAAAwAAAw0AAAAUAAAAAQAAAAEAAAABAAAAAQAAAAIAAAACAAAAAgAAAAIAAAADAAAAAwAAAAMAAAADAAAABAAAAAQAAAAEAAAABAAAAAUAAAAFAAAABQAAAAUAAAQCAAAAAQAEAAkAAAAGbGV2ZWxzAAAAEAAAAAUABAAJAAAAATEABAAJAAAAATIABAAJAAAAATMABAAJAAAAATQABAAJAAAAATUAAAQCAAAAAQAEAAkAAAAFY2xhc3MAAAAQAAAAAQAEAAkAAAAGZmFjdG9yAAAA/gAAAw0AAAAUAAAAAQAAAAIAAAADAAAABAAAAAEAAAACAAAAAwAAAAQAAAABAAAAAgAAAAMAAAAEAAAAAQAAAAIAAAADAAAABAAAAAEAAAACAAAAAwAAAAQAAAQCAAAB/wAAABAAAAAEAAQACQAAAAExAAQACQAAAAEyAAQACQAAAAEzAAQACQAAAAE0AAAEAgAAAv8AAAAQAAAAAQAEAAkAAAAGZmFjdG9yAAAA/gAAAA4AAAAUQADMzMzMzM1ACzMzMzMzMz/4AAAAAAAAP+AAAAAAAABAFTMzMzMzM0AVmZmZmZmaQAgAAAAAAAA/+AAAAAAAAEAlMzMzMzMzQCwAAAAAAABAIAAAAAAAAEAUAAAAAAAAQAszMzMzMzNAFzMzMzMzMz/4AAAAAAAAP+ZmZmZmZmZAGgAAAAAAAEAgZmZmZmZmQBBmZmZmZmY/8AAAAAAAAAAABAIAAAABAAQACQAAAAVuYW1lcwAAABAAAAADAAQACQAAAAdjYWJpbmV0AAQACQAAAAVtZWRpYQAEAAkAAAAGZ3Jvd3RoAAAEAgAAAAEABAAJAAAACXJvdy5uYW1lcwAAAA0AAAACgAAAAP///+wAAAQCAAAC/wAAABAAAAABAAQACQAAAApkYXRhLmZyYW1lAAAA/g==').then(res =&gt; res.blob()).then(blob =&gt; {
-      const downloadURL = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.href = downloadURL;
-      a.download = 'bacteria.rds'; a.click();
-      window.URL.revokeObjectURL(downloadURL);
-      document.body.removeChild(a);
-    });">
-<button class="btn btn-success" has_icon="TRUE"><i class="fa fa-save"></i> Download bacteria data as .rds</button>
+<a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/bacCabinets.rds">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download bacteria data</button>
 </a>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bacteria</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"bacteria.rds"</span><span class="op">)</span></span></code></pre></div>
 <div class="try">
 <p>

@@ -136,7 +136,7 @@
 <p>The <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function provides us with some useful numbers such as the amount of variance left over after fitting our fixed effects that can be assigned to each of our random effects. It also provides information on how correlated our random effects are, which may be of interest in understanding the structure of our data as well.</p>
 <p>We can use it to check that the modelled random effect structure matches our data.</p>
 <p>It includes the coefficient estimates, t-statistics and p-values of our fixed effects</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bio.lmer2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">Shoot2</span> <span class="op">~</span> <span class="va">Diversity2</span> <span class="op">+</span> <span class="op">(</span><span class="va">Diversity2</span><span class="op">|</span><span class="va">Site</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Site</span><span class="op">:</span><span class="va">Mix</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Mix</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Block</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">biodepth</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bio.lmer2</span><span class="op">)</span></span></code></pre></div>
@@ -175,7 +175,7 @@
 ## optimizer (nloptwrap) convergence code: 0 (OK)
 ## boundary (singular) fit: see help('isSingular')</code></pre>
 <p>We can also produce an <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> type summary of our fixed effects</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">bio.lmer2</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
 <div class="inline-table"><table class="table table-sm">
@@ -227,7 +227,7 @@ Diversity2
 </table></div>
 </div>
 <p>We may also wish to report <span class="math inline">\(R^2\)</span> values from our model fit. This requires the <code>MuMIn</code> package (<span class="citation">(<a href="#ref-r-MuMIn" role="doc-biblioref"><strong>r-MuMIn?</strong></a>)</span>), though later we will see it can also be produced as part of the <code>report</code> package.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">MuMIn</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">bio.lmer2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##            R2m       R2c
@@ -238,7 +238,7 @@ Diversity2
 <span class="header-section-number">7.1</span> Tables<a class="anchor" aria-label="anchor" href="#tables"><i class="fas fa-link"></i></a>
 </h2>
 <p>There are a few packages for producing beautiful summary tables from regression models, but not all of them can handle mixed-effects models, the <code>sjPlot</code> <span class="citation">Lüdecke (<a href="summary.html#ref-R-sjPlot" role="doc-biblioref">2023b</a>)</span> package is one of the most robust and produces a simple HTML table detailing fixed and random effects, produces 95% confidence intervals for fixed effects and calculates those <span class="math inline">\(R^2\)</span> values for you:</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sjPlot</span><span class="fu">::</span><span class="fu"><a href="https://strengejacke.github.io/sjPlot/reference/tab_model.html">tab_model</a></span><span class="op">(</span><span class="va">bio.lmer2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table style="border-collapse:collapse; border:none;" class="table table-sm">
 <tr>
@@ -407,11 +407,11 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 <span class="header-section-number">7.2</span> Figures<a class="anchor" aria-label="anchor" href="#figures"><i class="fas fa-link"></i></a>
 </h2>
 <p>We have covered some of the packages that allow us to easily produce marginal and conditional fits, along with 95% confidence or prediction intervals: these will output <code>ggplot2</code> figures, allowing plenty of customisation for presentation</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://strengejacke.github.io/ggeffects/reference/ggpredict.html">ggpredict</a></span><span class="op">(</span><span class="va">bio.lmer2</span>, terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Diversity2"</span>, <span class="st">"Site"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">.</span>, add.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-87-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="01-mixed-model_files/figure-html/unnamed-chunk-84-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Custom colors</span></span>
 <span><span class="va">custom.col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#000000"</span>, <span class="st">"#E69F00"</span>, <span class="st">"#56B4E9"</span>, <span class="st">"#009E73"</span>,</span>
 <span>                <span class="st">"#F0E442"</span>, <span class="st">"#0072B2"</span>, <span class="st">"#D55E00"</span>, <span class="st">"#CC79A7"</span><span class="op">)</span></span>
@@ -429,12 +429,12 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>, </span>
 <span>                     labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2"</span>, <span class="st">"8"</span>, <span class="st">"32"</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Specify x-axis breaks and labels</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-88"></span>
-<img src="01-mixed-model_files/figure-html/unnamed-chunk-88-1.png" alt="Scatter plot of predicted yield as a function of the number of species for different sites and experimental groups. The plot showcases the predicted conditional fixed effects and random effects 95% prediction intervals." width="100%"><p class="caption">
+<span style="display:block;" id="fig:unnamed-chunk-85"></span>
+<img src="01-mixed-model_files/figure-html/unnamed-chunk-85-1.png" alt="Scatter plot of predicted yield as a function of the number of species for different sites and experimental groups. The plot showcases the predicted conditional fixed effects and random effects 95% prediction intervals." width="100%"><p class="caption">
 Figure 7.1: Scatter plot of predicted yield as a function of the number of species for different sites and experimental groups. The plot showcases the predicted conditional fixed effects and random effects 95% prediction intervals.
 </p>
 </div>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Note ggpredict codes random effects as "groups" with a hidden label</span></span>
 <span></span>
 <span><span class="co">###</span></span>
@@ -597,7 +597,7 @@ Silwood
 <blockquote>
 <p>It should however be no substitute for logic and human understanding.</p>
 </blockquote>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/report/">report</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://easystats.github.io/report/reference/report.html">report</a></span><span class="op">(</span><span class="va">bio.lmer2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## We fitted a linear mixed model (estimated using REML and nloptwrap optimizer)
@@ -619,7 +619,7 @@ Silwood
 <blockquote>
 <p>Note report produces the t statistic and the estimated degrees freedom from the full model for each coefficient. I might recommend using the anova() or drop1() functions and report overall variance explained by a fixed effect with an F-test, rather than reporting each individual coefficient relative to the intercept</p>
 </blockquote>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html">drop1</a></span><span class="op">(</span><span class="va">bio.lmer2</span>, test <span class="op">=</span> <span class="st">"F"</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
 <div class="inline-table"><table class="table table-sm">
