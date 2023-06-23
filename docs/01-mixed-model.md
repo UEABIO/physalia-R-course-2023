@@ -305,7 +305,7 @@ summary(basic_model)
 ## F-statistic: 81.62 on 1 and 428 DF,  p-value: < 2.2e-16
 ```
 
-Here we can see that the basic linear model has produced a statistically significant regression analysis (*t*~998~ = 11.24, *p* <0.001) with an $R^2$ of 0.11. There is a medium effect positive relationship between changes in x and y (Estimate = 2.765, S.E. = 0.25).
+Here we can see that the basic linear model has produced a statistically significant regression analysis (*t*~428~ = 9.034, *p* <0.001) with an $R^2$ of 0.16. There is a medium effect positive relationship between changes in x and y (Estimate = 2.58, S.E. = 0.29).
 
 We can see that clearly if we produce a simple plot of x against y: 
 
@@ -1317,7 +1317,7 @@ plot_model(dolphmod,type="pred",
 
 We fitted a linear mixed model (estimated using REML and nloptwrap optimizer) to predict ($V_T$) with bodymass(kg) and direction (in/out breath). 95% Confidence Intervals (CIs) and p-values were computed using a Wald t-distribution approximation. We included a random intercept effect of animal to account for repeated measurements (of between 1 to 4 observations) across a total of 32 bottlenosed dolphins. 
 
-We found that for every 1kg increase in bodymass, ($V_T$) increased by 0.02 litres (95% CI [0.01 - 0.02]), $t_{107}$ = 5.15, p < 0.001. The inbreath had on average a higher volume than the outbreath (1.11 litre difference [0.71 - 1.52]; $t_{107}$ = 5.48, p < 0.001).
+We found that for every 1kg increase in bodymass, ($V_T$) increased by 0.02 litres (95% CI [0.01 - 0.02]), . The inbreath had on average a higher volume than the outbreath (1.11 litre difference [0.71 - 1.52]..
 
 **Q.** This is not a perfect write-up, what else could we consider including?
 
@@ -1333,7 +1333,7 @@ Previously we used `(1|group)` to fit our random effect. Whatever is on the righ
 
 ### Crossed or Nested
 
-When we have more than one possible randome effect these can be **crossed** or **nested** - it depends on the relationship between the variables. Let’s have a look.
+When we have more than one possible random effect these can be **crossed** or **nested** - it depends on the relationship between the variables. Let’s have a look.
 
 A common issue that causes confusion is this issue of specifying random effects as either  ‘crossed’ or ‘nested’. In reality, the way you specify your random effects will be determined  by your experimental or sampling design. A simple  example can illustrate the difference. 
 
@@ -2438,25 +2438,64 @@ Part of the `easystats` range of packages (along with `performance`) - `report`(
 
 ```r
 library(report)
-report(mixed_model)
+report(bio.lmer2)
 ```
 
 ```
 ## We fitted a linear mixed model (estimated using REML and nloptwrap optimizer)
-## to predict y with x (formula: y ~ x). The model included group as random effect
-## (formula: ~1 | group). The model's total explanatory power is substantial
-## (conditional R2 = 0.70) and the part related to the fixed effects alone
-## (marginal R2) is of 0.10. The model's intercept, corresponding to x = 0, is at
-## 23.27 (95% CI [10.53, 36.01], t(426) = 3.59, p < .001). Within this model:
+## to predict Shoot2 with Diversity2 (formula: Shoot2 ~ Diversity2). The model
+## included Diversity2 as random effects (formula: list(~Diversity2 | Site, ~1 |
+## Site:Mix, ~1 | Mix, ~1 | Block)). The model's total explanatory power is
+## substantial (conditional R2 = 0.83) and the part related to the fixed effects
+## alone (marginal R2) is of 0.11. The model's intercept, corresponding to
+## Diversity2 = 0, is at 346.32 (95% CI [244.12, 448.53], t(442) = 6.66, p <
+## .001). Within this model:
 ## 
-##   - The effect of x is statistically significant and positive (beta = 2.03, 95%
-## CI [1.69, 2.36], t(426) = 11.90, p < .001; Std. beta = 0.31, 95% CI [0.26,
-## 0.37])
+##   - The effect of Diversity2 is statistically significant and positive (beta =
+## 79.36, 95% CI [44.77, 113.94], t(442) = 4.51, p < .001; Std. beta = 0.35, 95%
+## CI [0.19, 0.50])
 ## 
 ## Standardized parameters were obtained by fitting the model on a standardized
 ## version of the dataset. 95% Confidence Intervals (CIs) and p-values were
 ## computed using a Wald t-distribution approximation.
 ```
+
+> Note report produces the t statistic and the estimated degrees freedom from the full model for each coefficient. I might recommend using the anova() or drop1() functions and report overall variance explained by a fixed effect with an F-test, rather than reporting each individual coefficient relative to the intercept 
+
+
+```r
+drop1(bio.lmer2, test = "F")
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Sum Sq </th>
+   <th style="text-align:right;"> Mean Sq </th>
+   <th style="text-align:right;"> NumDF </th>
+   <th style="text-align:right;"> DenDF </th>
+   <th style="text-align:right;"> F value </th>
+   <th style="text-align:right;"> Pr(&gt;F) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Diversity2 </td>
+   <td style="text-align:right;"> 340561.5 </td>
+   <td style="text-align:right;"> 340561.5 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 9.288082 </td>
+   <td style="text-align:right;"> 20.33525 </td>
+   <td style="text-align:right;"> 0.0013567 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
 
 
 # Worked Example 4
