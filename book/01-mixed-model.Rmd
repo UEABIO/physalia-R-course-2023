@@ -1728,8 +1728,6 @@ Here is a suggested workflow:
 By initially focusing on the fixed effects, you can establish the foundation of your model and identify the significant predictors and interactions. This step allows you to better understand the relationships in your data and guide the subsequent inclusion of random effects if appropriate.
 
 
-https://ademos.people.uic.edu/Chapter17.html#121_crossed__nested_designs
-
 ## Mixed Model extensions
 
 
