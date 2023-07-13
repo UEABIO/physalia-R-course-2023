@@ -1,5 +1,5 @@
 --- 
-title: "Introduction to Statisticss"
+title: "Introduction to Statistics"
 author: "Philip T. Leftwich"
 date: "2023-07-13"
 subtitle: A guide for Biologists and Ecologists

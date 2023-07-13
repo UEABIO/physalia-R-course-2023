@@ -58,7 +58,7 @@ The simplest possible model ignores any explanatory variables, instead the `1` i
 
 When you have made a linear model, we can investigate a summary of the model using the base R function `summary()`. There is also a tidyverse option provided by the package `broom`(@R-broom).
 
-### Broom
+#### Broom
 
 broom summarizes key information about models in tidy `tibble()s`. broom provides three verbs to make it convenient to interact with model objects:
 
@@ -68,7 +68,7 @@ broom summarizes key information about models in tidy `tibble()s`. broom provide
 
 * `broom::augment()` adds informations about individual observations to a dataset and it can be used to model predictions onto a new dataset.
 
-### Model summary
+#### Model summary
 
 ```{solution, multCode = T}
 
@@ -98,7 +98,7 @@ mean(darwin$height)
 
 This simple model allows us to understand what the `lm()` function does. 
 
-### Compare means
+#### Compare means
 
 What we really want is a linear model that analyses the *difference* in average plant height as a function of pollination type. We can use the `lm()` function to fit this as a linear model as follows:
 
@@ -171,7 +171,7 @@ darwin %>%
   theme_bw()
 ```
 
-### Standard error of the difference
+#### Standard error of the difference
 
 The output of the model also gives the standard errors of the values (estimates). In the first row the intercept calculates a mean and the standard error of the mean (SEM). As the second row gives the mean *difference* in this column it gives the *standard error of the difference* between the two means (SED). We have already seen how to calculate SEM, but what about SED?
 
@@ -238,7 +238,7 @@ We can also include this argument in the `tidy()` function if we wish to:
 broom::tidy(lsmodel1, conf.int=T, conf.level=0.99)
 ```
 
-### Getting the other treatment mean and standard error
+#### Getting the other treatment mean and standard error
 
 One limitation of the table of coefficients output is that it doesn't provide the mean and standard error of the *other* treatment level (only the difference between them). If we wish to calculate the "other" mean and SE then we can get R to do this.
 
@@ -320,7 +320,7 @@ plot(lsmodel1)
 
 ```
 
-### Normal distribution
+#### Normal distribution
 
 ```{r, eval=T}
 performance::check_model(lsmodel1, check=c("normality","qq"))
@@ -344,7 +344,7 @@ In our example we can see that *most* of our residuals can be explained by a nor
 
 So the fit is not perfect, but it is also not terrible! 
 
-### Equal variance
+#### Equal variance
 
 ```{r, eval=T}
 performance::check_model(lsmodel1, check="homogeneity")
@@ -360,7 +360,7 @@ The `check_models` plot provides what we call 'standardized residuals' where we 
 
 In this instance we can see that the higher fitted values (Cross treatment) appears to be more variable than the lower fitted values. Again, this is not too bad, but not perfect. This is probably being influence at least partially by the potential outliers. 
 
-### Outliers
+#### Outliers
 
 We have talked a lot about the potential effect of outliers, we can see that they are potentially affecting our estimates of error/variance. However, we should also check how much of an effect they might be having on the model estimates (means). This is where formal outlier tests are useful. 
 

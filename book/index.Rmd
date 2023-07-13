@@ -1,5 +1,5 @@
 --- 
-title: "Introduction to Statisticss"
+title: "Introduction to Statistics"
 author: "Philip T. Leftwich"
 date: "`r Sys.Date()`"
 subtitle: A guide for Biologists and Ecologists

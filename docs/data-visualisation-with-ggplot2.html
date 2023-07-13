@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 4 Data visualisation with ggplot2 | Introduction to Statisticss</title>
+<title>Chapter 4 Data visualisation with ggplot2 | Introduction to Statistics</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="4.1 Intro to grammar The ggplot2 package is widely used and valued for its simple, consistent approach to making data visuals. The 'grammar of graphics' relates to the different components of a...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 4 Data visualisation with ggplot2 | Introduction to Statisticss">
+<meta property="og:title" content="Chapter 4 Data visualisation with ggplot2 | Introduction to Statistics">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/data-visualisation-with-ggplot2.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="4.1 Intro to grammar The ggplot2 package is widely used and valued for its simple, consistent approach to making data visuals. The 'grammar of graphics' relates to the different components of a...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 4 Data visualisation with ggplot2 | Introduction to Statisticss">
+<meta name="twitter:title" content="Chapter 4 Data visualisation with ggplot2 | Introduction to Statistics">
 <meta name="twitter:description" content="4.1 Intro to grammar The ggplot2 package is widely used and valued for its simple, consistent approach to making data visuals. The 'grammar of graphics' relates to the different components of a...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -98,7 +98,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statisticss</a>:
+        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statistics</a>:
         <small class="text-muted">A guide for Biologists and Ecologists</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
@@ -166,17 +166,17 @@
 Figure 4.1: An example of what we can produce in ggplot
 </p>
 </div>
-</div>
-<div id="before-we-start" class="section level2" number="4.2">
-<h2>
-<span class="header-section-number">4.2</span> Before we start<a class="anchor" aria-label="anchor" href="#before-we-start"><i class="fas fa-link"></i></a>
-</h2>
+<div id="before-we-start" class="section level4" number="4.1.0.1">
+<h4>
+<span class="header-section-number">4.1.0.1</span> Before we start<a class="anchor" aria-label="anchor" href="#before-we-start"><i class="fas fa-link"></i></a>
+</h4>
 <p>You should have a workspace ready to work with the Palmer penguins data. Load this workspace now.</p>
 <p>Think about some basic checks before you start your work today.</p>
-<div id="checklist-2" class="section level3" number="4.2.1">
-<h3>
-<span class="header-section-number">4.2.1</span> Checklist<a class="anchor" aria-label="anchor" href="#checklist-2"><i class="fas fa-link"></i></a>
-</h3>
+</div>
+<div id="checklist-2" class="section level4" number="4.1.0.2">
+<h4>
+<span class="header-section-number">4.1.0.2</span> Checklist<a class="anchor" aria-label="anchor" href="#checklist-2"><i class="fas fa-link"></i></a>
+</h4>
 <ul>
 <li>Are there objects already in your Environment pane? <a href="#global-options">There shouldn't be</a>, if there are use <code>rm(list=ls())</code>
 </li>
@@ -233,10 +233,10 @@ Figure 4.3: If you have sucessfully saved 02_visualisation_penguins.R it should 
 </p>
 </div>
 </div>
-<div id="what-if-source-isnt-working" class="section level3" number="4.2.2">
-<h3>
-<span class="header-section-number">4.2.2</span> What if source isn't working?<a class="anchor" aria-label="anchor" href="#what-if-source-isnt-working"><i class="fas fa-link"></i></a>
-</h3>
+<div id="what-if-source-isnt-working" class="section level4" number="4.1.0.3">
+<h4>
+<span class="header-section-number">4.1.0.3</span> What if source isn't working?<a class="anchor" aria-label="anchor" href="#what-if-source-isnt-working"><i class="fas fa-link"></i></a>
+</h4>
 <p>If source isn't working, or you can't figure out your project set-up you can complete this worksheet if you put the following commands at the top of your script <em>instead</em> of <code>source("scripts/01_import_penguins_data.R")</code></p>
 <div class="webex-solution">
 <button>
@@ -264,9 +264,9 @@ Script adjustment
 </div>
 </div>
 </div>
-<div id="building-a-plot" class="section level2" number="4.3">
+<div id="building-a-plot" class="section level2" number="4.2">
 <h2>
-<span class="header-section-number">4.3</span> Building a plot<a class="anchor" aria-label="anchor" href="#building-a-plot"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2</span> Building a plot<a class="anchor" aria-label="anchor" href="#building-a-plot"><i class="fas fa-link"></i></a>
 </h2>
 <p>To start building the plot We are going to use the penguin data we have been working with previously. First we must specify the data frame that contains the relevant data for our plot. We can do this in two ways:</p>
 <ol style="list-style-type: decimal">
@@ -291,9 +291,9 @@ because we need to specify how different columns of the data frame
 should be represented in the plot.
 </p>
 </div>
-<div id="aesthetics---aes" class="section level3" number="4.3.1">
+<div id="aesthetics---aes" class="section level3" number="4.2.1">
 <h3>
-<span class="header-section-number">4.3.1</span> Aesthetics - <code>aes()</code><a class="anchor" aria-label="anchor" href="#aesthetics---aes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.1</span> Aesthetics - <code>aes()</code><a class="anchor" aria-label="anchor" href="#aesthetics---aes"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can call in different columns of data from any dataset based on their column names. Column names are given as ‘aesthetic’ elements to the ggplot function, and are wrapped in the aes() function.</p>
 <p>Because we want a scatter plot, each point will have an x and a y coordinate. We want the x axis to represent flipper length ( x = flipper_length_mm ), and the y axis to represent the body mass ( y = body_mass_g ).</p>
@@ -313,9 +313,9 @@ evaluation</a>.
 <p>So far we have the grid lines for our x and y axis. <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> knows the variables required for the plot, and thus the scale, but has no information about how to display the data points.</p>
 </div>
 </div>
-<div id="geometric-representations---geom" class="section level2" number="4.4">
+<div id="geometric-representations---geom" class="section level2" number="4.3">
 <h2>
-<span class="header-section-number">4.4</span> Geometric representations - geom()<a class="anchor" aria-label="anchor" href="#geometric-representations---geom"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3</span> Geometric representations - geom()<a class="anchor" aria-label="anchor" href="#geometric-representations---geom"><i class="fas fa-link"></i></a>
 </h2>
 <p>Given we want a scatter plot, we need to specify that the geometric representation of the data will be in point form, using geom_point(). <a href="https://ggplot2.tidyverse.org/reference/#geoms">There are many geometric object types</a>.</p>
 <div class="figure" style="text-align: center">
@@ -351,15 +351,15 @@ Figure 4.4: geom shapes
 <div class="inline-figure"><img src="06-ggplot_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Now we have the scatter plot! Each row (except for two rows of missing data) in the penguins data set now has an x coordinate, a y coordinate, and a designated geometric representation (point).</p>
 <p>From this we can see that smaller penguins tend to have smaller flipper lengths.</p>
-<div id="and" class="section level3" number="4.4.1">
+<div id="and" class="section level3" number="4.3.1">
 <h3>
-<span class="header-section-number">4.4.1</span> %&gt;% and +<a class="anchor" aria-label="anchor" href="#and"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.1</span> %&gt;% and +<a class="anchor" aria-label="anchor" href="#and"><i class="fas fa-link"></i></a>
 </h3>
 <p>ggplot2, an early component of the tidyverse package, was written before the pipe was introduced. The + sign in ggplot2 functions in a similar way to the pipe in other functions in the tidyverse: by allowing code to be written from left to right.</p>
 </div>
-<div id="colour" class="section level3" number="4.4.2">
+<div id="colour" class="section level3" number="4.3.2">
 <h3>
-<span class="header-section-number">4.4.2</span> Colour<a class="anchor" aria-label="anchor" href="#colour"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.2</span> Colour<a class="anchor" aria-label="anchor" href="#colour"><i class="fas fa-link"></i></a>
 </h3>
 <p>The colors of lines and points can be set directly using <code>colour="red"</code>, replacing “red” with a color name. The colors of filled objects, like bars, can be set using <code>fill="red"</code>.</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
@@ -412,9 +412,9 @@ comments.
 </p>
 </div>
 </div>
-<div id="more-layers" class="section level3" number="4.4.3">
+<div id="more-layers" class="section level3" number="4.3.3">
 <h3>
-<span class="header-section-number">4.4.3</span> More layers<a class="anchor" aria-label="anchor" href="#more-layers"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.3</span> More layers<a class="anchor" aria-label="anchor" href="#more-layers"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can see the relationship between body size and flipper length. But what if we want to model this relationship with a trend line? We can add another ‘layer’ to this plot, using a different geometric representation of the data. In this case a trend line, which is in fact a summary of the data rather than a representation of each point.</p>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> function draws a trend line through the data. The default behaviour is to draw a local regression line (curve) through the points, however these can be hard to interpret. We want to add a straight line based on a linear model (‘lm’) of the relationship between x and y.</p>
@@ -453,9 +453,9 @@ line?
 </p>
 </div>
 </div>
-<div id="co-ordinate-space" class="section level3" number="4.4.4">
+<div id="co-ordinate-space" class="section level3" number="4.3.4">
 <h3>
-<span class="header-section-number">4.4.4</span> Co-ordinate space<a class="anchor" aria-label="anchor" href="#co-ordinate-space"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.4</span> Co-ordinate space<a class="anchor" aria-label="anchor" href="#co-ordinate-space"><i class="fas fa-link"></i></a>
 </h3>
 <p>ggplot will automatically pick the scale for each axis, and the type of coordinate space. Most plots are in Cartesian (linear X vs linear Y) coordinate space.</p>
 <p>For this plot, let’s say we want the x and y origin to be set at 0. To do this we can add in <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim()</a></code> functions, which define the limits of the axes:</p>
@@ -484,9 +484,9 @@ line?
 <div class="inline-figure"><img src="06-ggplot_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 </div>
-<div id="labels" class="section level2" number="4.5">
+<div id="labels" class="section level2" number="4.4">
 <h2>
-<span class="header-section-number">4.5</span> Labels<a class="anchor" aria-label="anchor" href="#labels"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4</span> Labels<a class="anchor" aria-label="anchor" href="#labels"><i class="fas fa-link"></i></a>
 </h2>
 <p>By default, the axis labels will be the column names we gave as aesthetics aes(). We can change the axis labels using the xlab() and ylab() functions. Given that column names are often short and can be cryptic, this functionality is particularly important for effectively communicating results.</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
@@ -501,10 +501,10 @@ line?
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Flipper length (mm)"</span>,</span>
 <span>       y <span class="op">=</span> <span class="st">"Body mass (g)"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="06-ggplot_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div id="titles-and-subtitles" class="section level3" number="4.5.1">
-<h3>
-<span class="header-section-number">4.5.1</span> Titles and subtitles<a class="anchor" aria-label="anchor" href="#titles-and-subtitles"><i class="fas fa-link"></i></a>
-</h3>
+<div id="titles-and-subtitles" class="section level4" number="4.4.0.1">
+<h4>
+<span class="header-section-number">4.4.0.1</span> Titles and subtitles<a class="anchor" aria-label="anchor" href="#titles-and-subtitles"><i class="fas fa-link"></i></a>
+</h4>
 <div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Add titles ----</span></span>
 <span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -521,9 +521,9 @@ line?
 <div class="inline-figure"><img src="06-ggplot_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 </div>
-<div id="themes" class="section level2" number="4.6">
+<div id="themes" class="section level2" number="4.5">
 <h2>
-<span class="header-section-number">4.6</span> Themes<a class="anchor" aria-label="anchor" href="#themes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5</span> Themes<a class="anchor" aria-label="anchor" href="#themes"><i class="fas fa-link"></i></a>
 </h2>
 <p>Finally, the overall appearance of the plot can be modified using theme() functions. The default theme has a grey background.
 You may prefer <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code>, a <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> or even <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code>. Try them out.</p>
@@ -567,13 +567,13 @@ what you can do.
 </p>
 </div>
 </div>
-<div id="more-geom-shapes" class="section level2" number="4.7">
+<div id="more-geom-shapes" class="section level2" number="4.6">
 <h2>
-<span class="header-section-number">4.7</span> More geom shapes<a class="anchor" aria-label="anchor" href="#more-geom-shapes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.6</span> More geom shapes<a class="anchor" aria-label="anchor" href="#more-geom-shapes"><i class="fas fa-link"></i></a>
 </h2>
-<div id="jitter" class="section level3" number="4.7.1">
+<div id="jitter" class="section level3" number="4.6.1">
 <h3>
-<span class="header-section-number">4.7.1</span> Jitter<a class="anchor" aria-label="anchor" href="#jitter"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.6.1</span> Jitter<a class="anchor" aria-label="anchor" href="#jitter"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code> command adds some random scatter to the points which can reduce over-plotting. Compare these two plots:</p>
 <div class="inline-figure"><img src="06-ggplot_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;"></div>
@@ -592,9 +592,9 @@ what you can do.
 <span>              alpha <span class="op">=</span> <span class="fl">0.7</span>, <span class="co"># specifies the amount of transparency in the points</span></span>
 <span>              show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># don't leave a legend in a plot, if it doesn't add value</span></span></code></pre></div>
 </div>
-<div id="boxplots" class="section level3" number="4.7.2">
+<div id="boxplots" class="section level3" number="4.6.2">
 <h3>
-<span class="header-section-number">4.7.2</span> Boxplots<a class="anchor" aria-label="anchor" href="#boxplots"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.6.2</span> Boxplots<a class="anchor" aria-label="anchor" href="#boxplots"><i class="fas fa-link"></i></a>
 </h3>
 <p>Box plots, or ‘box &amp; whisker plots’ are another essential tool for data analysis. Box plots summarize the distribution of a set of values by displaying the minimum and maximum values, the median (i.e. middle-ranked value), and the range of the middle 50% of values (inter-quartile range).
 The whisker line extending above and below the IQR box define Q3 + (1.5 x IQR), and Q1 - (1.5 x IQR) respectively. You can watch a short video to learn more about box plots <a href="https://www.youtube.com/watch?v=fHLhBnmwUM0">here</a>.</p>
@@ -638,9 +638,9 @@ errors!
 </p>
 </div>
 </div>
-<div id="density-and-histogram" class="section level3" number="4.7.3">
+<div id="density-and-histogram" class="section level3" number="4.6.3">
 <h3>
-<span class="header-section-number">4.7.3</span> Density and histogram<a class="anchor" aria-label="anchor" href="#density-and-histogram"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.6.3</span> Density and histogram<a class="anchor" aria-label="anchor" href="#density-and-histogram"><i class="fas fa-link"></i></a>
 </h3>
 <p>Compare the following two sets of code:</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
@@ -666,9 +666,9 @@ Explain this
 <p><br></p>
 </div>
 </div>
-<div id="more-colours" class="section level2" number="4.8">
+<div id="more-colours" class="section level2" number="4.7">
 <h2>
-<span class="header-section-number">4.8</span> More Colours<a class="anchor" aria-label="anchor" href="#more-colours"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.7</span> More Colours<a class="anchor" aria-label="anchor" href="#more-colours"><i class="fas fa-link"></i></a>
 </h2>
 <p>There are two main differences when it comes to colors in <code>ggplot2</code>. Both arguments, color and fill, can be specified as single color or
 assigned to variables.</p>
@@ -682,10 +682,10 @@ assigned to variables.</p>
 <span>                   position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>                   colour<span class="op">=</span><span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="06-ggplot_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div id="choosing-and-using-colour-palettes" class="section level3" number="4.8.1">
-<h3>
-<span class="header-section-number">4.8.1</span> Choosing and using colour palettes<a class="anchor" aria-label="anchor" href="#choosing-and-using-colour-palettes"><i class="fas fa-link"></i></a>
-</h3>
+<div id="choosing-and-using-colour-palettes" class="section level4" number="4.7.0.1">
+<h4>
+<span class="header-section-number">4.7.0.1</span> Choosing and using colour palettes<a class="anchor" aria-label="anchor" href="#choosing-and-using-colour-palettes"><i class="fas fa-link"></i></a>
+</h4>
 <p>You can specify what colours you want to assign to variables in a number of different ways.</p>
 <p>In ggplot2, colors that are assigned to variables are modified via the scale_color_* and the scale_fill_* functions. In order to use color with your data, most importantly you need to know if you are dealing with a categorical or continuous variable. The color palette should be chosen depending on type of the variable:</p>
 <ul>
@@ -725,14 +725,14 @@ You can explore all schemes available with the command
 <div class="inline-figure"><img src="images/wesanderson.png" width="80%" style="display: block; margin: auto;"></div>
 </div>
 </div>
-<div id="accessibility" class="section level2" number="4.9">
+<div id="accessibility" class="section level2" number="4.8">
 <h2>
-<span class="header-section-number">4.9</span> Accessibility<a class="anchor" aria-label="anchor" href="#accessibility"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.8</span> Accessibility<a class="anchor" aria-label="anchor" href="#accessibility"><i class="fas fa-link"></i></a>
 </h2>
-<div id="colour-blindness" class="section level3" number="4.9.1">
-<h3>
-<span class="header-section-number">4.9.1</span> Colour blindness<a class="anchor" aria-label="anchor" href="#colour-blindness"><i class="fas fa-link"></i></a>
-</h3>
+<div id="colour-blindness" class="section level4" number="4.8.0.1">
+<h4>
+<span class="header-section-number">4.8.0.1</span> Colour blindness<a class="anchor" aria-label="anchor" href="#colour-blindness"><i class="fas fa-link"></i></a>
+</h4>
 <p>It's very easy to get carried away with colour palettes, but you should remember at all times that your figures must be accessible. One way to check how accessible your figures are is to use a colour blindness checker <a href="https://cran.r-project.org/web/packages/colorBlindness/vignettes/colorBlindness.html">colorBlindness</a></p>
 <div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Check accessibility ----</span></span>
@@ -741,19 +741,23 @@ You can explore all schemes available with the command
 <span><span class="fu">colorBlindness</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/colorBlindness/man/cvdPlot.html">cvdPlot</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># will automatically run on the last plot you made</span></span></code></pre></div>
 <div class="inline-figure"><img src="06-ggplot_files/figure-html/unnamed-chunk-47-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
-<div id="guides-to-visual-accessibility" class="section level3" number="4.9.2">
-<h3>
-<span class="header-section-number">4.9.2</span> Guides to visual accessibility<a class="anchor" aria-label="anchor" href="#guides-to-visual-accessibility"><i class="fas fa-link"></i></a>
-</h3>
+<div id="guides-to-visual-accessibility" class="section level4" number="4.8.0.2">
+<h4>
+<span class="header-section-number">4.8.0.2</span> Guides to visual accessibility<a class="anchor" aria-label="anchor" href="#guides-to-visual-accessibility"><i class="fas fa-link"></i></a>
+</h4>
 <p>Using colours to tell categories apart can be useful, but as we can see in the example above, you should choose carefully. Other aesthetics which you can access in your geoms include <code>shape</code>, and <code>size</code> - you can combine these in complimentary ways to enhance the accessibility of your plots. Here is a hierarchy of "interpretability" for different types of data</p>
 <div class="inline-figure"><img src="images/list.png" width="80%" style="display: block; margin: auto;"></div>
 <div class="inline-figure"><img src="images/shape_v_colour.png" width="80%" style="display: block; margin: auto;"></div>
 </div>
 </div>
-<div id="facets" class="section level2" number="4.10">
+<div id="multiple-plots" class="section level2" number="4.9">
 <h2>
-<span class="header-section-number">4.10</span> Facets<a class="anchor" aria-label="anchor" href="#facets"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.9</span> Multiple plots<a class="anchor" aria-label="anchor" href="#multiple-plots"><i class="fas fa-link"></i></a>
 </h2>
+<div id="facets" class="section level4" number="4.9.0.1">
+<h4>
+<span class="header-section-number">4.9.0.1</span> Facets<a class="anchor" aria-label="anchor" href="#facets"><i class="fas fa-link"></i></a>
+</h4>
 <p>Adding combinations of different aesthetics allows you to layer more information onto a 2D plot, sometimes though things will just become <em>too</em> busy. At the point where it becomes difficult to see the trends or differences in your plot then we want to break up a single plot into sub-plots; this is called ‘faceting’. Facets are commonly used when there is too much data to display clearly in a single plot. We will revisit faceting below, however for now, let’s try to facet the plot according to sex.</p>
 <p>To do this we use the tilde symbol ‘~’ to indicate the column name that will form each facet.</p>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
@@ -769,10 +773,10 @@ You can explore all schemes available with the command
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="06-ggplot_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
-<div id="patchwork" class="section level2" number="4.11">
-<h2>
-<span class="header-section-number">4.11</span> Patchwork<a class="anchor" aria-label="anchor" href="#patchwork"><i class="fas fa-link"></i></a>
-</h2>
+<div id="patchwork" class="section level4" number="4.9.0.2">
+<h4>
+<span class="header-section-number">4.9.0.2</span> Patchwork<a class="anchor" aria-label="anchor" href="#patchwork"><i class="fas fa-link"></i></a>
+</h4>
 <p>There are many times you might want to <em>combine</em> separate figures into multi-panel plots. Probably the easiest way to do this is with the <code>patchwork</code> package (<span class="citation">Pedersen (<a href="summary-10.html#ref-R-patchwork" role="doc-biblioref">2022</a>)</span>).</p>
 <div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Patchwork ----</span></span>
@@ -808,9 +812,10 @@ You can explore all schemes available with the command
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>guides <span class="op">=</span> <span class="st">"collect"</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="06-ggplot_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
-<div id="activity-replicate-this-figure" class="section level2" number="4.12">
+</div>
+<div id="activity-replicate-this-figure" class="section level2" number="4.10">
 <h2>
-<span class="header-section-number">4.12</span> Activity: Replicate this figure<a class="anchor" aria-label="anchor" href="#activity-replicate-this-figure"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.10</span> Activity: Replicate this figure<a class="anchor" aria-label="anchor" href="#activity-replicate-this-figure"><i class="fas fa-link"></i></a>
 </h2>
 <div class="try">
 <p>
@@ -851,9 +856,9 @@ Solution
 <span>    subtitle <span class="op">=</span> <span class="st">"Box and violin plot of body mass by species"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
-<div id="saving" class="section level2" number="4.13">
+<div id="saving" class="section level2" number="4.11">
 <h2>
-<span class="header-section-number">4.13</span> Saving<a class="anchor" aria-label="anchor" href="#saving"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.11</span> Saving<a class="anchor" aria-label="anchor" href="#saving"><i class="fas fa-link"></i></a>
 </h2>
 <p>One of the easiest ways to save a figure you have made is with the <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> function. By default it will save the last plot you made on the screen.</p>
 <p>You should specify the output path to your <strong>figures</strong> folder, then provide a file name. Here I have decided to call my plot <em>plot</em> (imaginative!) and I want to save it as a .PNG image file. I can also specify the resolution (dpi 300 is good enough for most computer screens).</p>
@@ -880,11 +885,10 @@ Use any of your own data
 </li>
 </ol>
 </div>
-</div>
-<div id="quitting" class="section level2" number="4.14">
-<h2>
-<span class="header-section-number">4.14</span> Quitting<a class="anchor" aria-label="anchor" href="#quitting"><i class="fas fa-link"></i></a>
-</h2>
+<div id="quitting" class="section level4" number="4.11.0.1">
+<h4>
+<span class="header-section-number">4.11.0.1</span> Quitting<a class="anchor" aria-label="anchor" href="#quitting"><i class="fas fa-link"></i></a>
+</h4>
 <div class="warning">
 <p>
 Make sure you have saved your script! Remember to Download your image
@@ -900,18 +904,19 @@ packages</a> when writing reports later.
 </p>
 </div>
 </div>
-<div id="finished-2" class="section level2" number="4.15">
+</div>
+<div id="finished-2" class="section level2" number="4.12">
 <h2>
-<span class="header-section-number">4.15</span> Finished<a class="anchor" aria-label="anchor" href="#finished-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.12</span> Finished<a class="anchor" aria-label="anchor" href="#finished-2"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li><p>Make sure you have <strong>saved your scripts 💾</strong> in the <a href="loading-data.html#activity-1-organising-our-workspace">"scripts" folder</a>.</p></li>
 <li><p>Make sure your workspace is set <strong>not</strong> to save objects from the environment <a href="#global-options"><em>between</em> sessions</a>.</p></li>
 </ul>
-<div id="what-we-learned" class="section level3" number="4.15.1">
-<h3>
-<span class="header-section-number">4.15.1</span> What we learned<a class="anchor" aria-label="anchor" href="#what-we-learned"><i class="fas fa-link"></i></a>
-</h3>
+<div id="what-we-learned" class="section level4" number="4.12.0.1">
+<h4>
+<span class="header-section-number">4.12.0.1</span> What we learned<a class="anchor" aria-label="anchor" href="#what-we-learned"><i class="fas fa-link"></i></a>
+</h4>
 <p>You have learned</p>
 <ul>
 <li><p>The anatomy of ggplots</p></li>
@@ -921,17 +926,17 @@ packages</a> when writing reports later.
 <li><p>How to save and export images</p></li>
 </ul>
 </div>
-<div id="further-reading-guides-and-tips-on-data-visualisation" class="section level3" number="4.15.2">
-<h3>
-<span class="header-section-number">4.15.2</span> Further Reading, Guides and tips on data visualisation<a class="anchor" aria-label="anchor" href="#further-reading-guides-and-tips-on-data-visualisation"><i class="fas fa-link"></i></a>
-</h3>
+</div>
+<div id="further-reading-guides-and-tips-on-data-visualisation" class="section level2" number="4.13">
+<h2>
+<span class="header-section-number">4.13</span> Further Reading, Guides and tips on data visualisation<a class="anchor" aria-label="anchor" href="#further-reading-guides-and-tips-on-data-visualisation"><i class="fas fa-link"></i></a>
+</h2>
 <ul>
 <li><p><a href="https://www.rstudio.com/resources/cheatsheets/">R Cheat Sheets</a></p></li>
 <li><p><a href="https://clauswilke.com/dataviz/">Fundamentals of Data Visualization</a>: this book tells you everything you need to know about presenting your figures for accessbility and clarity</p></li>
 <li><p><a href="https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/">Beautiful Plotting in R</a>: an incredibly handy ggplot guide for how to build and improve your figures</p></li>
 <li><p><a href="https://ggplot2-book.org/">The ggplot2 book</a>: the original Hadley Wickham book on ggplot2</p></li>
 </ul>
-</div>
 </div>
 </div>
 
@@ -1125,53 +1130,32 @@ $( document ).ready(function() {
 <li><a class="nav-link" href="#data-visualisation-with-ggplot2"><span class="header-section-number">4</span> Data visualisation with ggplot2</a></li>
 <li><a class="nav-link" href="#intro-to-grammar"><span class="header-section-number">4.1</span> Intro to grammar</a></li>
 <li>
-<a class="nav-link" href="#before-we-start"><span class="header-section-number">4.2</span> Before we start</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#checklist-2"><span class="header-section-number">4.2.1</span> Checklist</a></li>
-<li><a class="nav-link" href="#what-if-source-isnt-working"><span class="header-section-number">4.2.2</span> What if source isn't working?</a></li>
+<a class="nav-link" href="#building-a-plot"><span class="header-section-number">4.2</span> Building a plot</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#aesthetics---aes"><span class="header-section-number">4.2.1</span> Aesthetics - aes()</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#geometric-representations---geom"><span class="header-section-number">4.3</span> Geometric representations - geom()</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#and"><span class="header-section-number">4.3.1</span> %&gt;% and +</a></li>
+<li><a class="nav-link" href="#colour"><span class="header-section-number">4.3.2</span> Colour</a></li>
+<li><a class="nav-link" href="#more-layers"><span class="header-section-number">4.3.3</span> More layers</a></li>
+<li><a class="nav-link" href="#co-ordinate-space"><span class="header-section-number">4.3.4</span> Co-ordinate space</a></li>
 </ul>
 </li>
+<li><a class="nav-link" href="#labels"><span class="header-section-number">4.4</span> Labels</a></li>
+<li><a class="nav-link" href="#themes"><span class="header-section-number">4.5</span> Themes</a></li>
 <li>
-<a class="nav-link" href="#building-a-plot"><span class="header-section-number">4.3</span> Building a plot</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#aesthetics---aes"><span class="header-section-number">4.3.1</span> Aesthetics - aes()</a></li></ul>
-</li>
-<li>
-<a class="nav-link" href="#geometric-representations---geom"><span class="header-section-number">4.4</span> Geometric representations - geom()</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#and"><span class="header-section-number">4.4.1</span> %&gt;% and +</a></li>
-<li><a class="nav-link" href="#colour"><span class="header-section-number">4.4.2</span> Colour</a></li>
-<li><a class="nav-link" href="#more-layers"><span class="header-section-number">4.4.3</span> More layers</a></li>
-<li><a class="nav-link" href="#co-ordinate-space"><span class="header-section-number">4.4.4</span> Co-ordinate space</a></li>
+<a class="nav-link" href="#more-geom-shapes"><span class="header-section-number">4.6</span> More geom shapes</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#jitter"><span class="header-section-number">4.6.1</span> Jitter</a></li>
+<li><a class="nav-link" href="#boxplots"><span class="header-section-number">4.6.2</span> Boxplots</a></li>
+<li><a class="nav-link" href="#density-and-histogram"><span class="header-section-number">4.6.3</span> Density and histogram</a></li>
 </ul>
 </li>
-<li>
-<a class="nav-link" href="#labels"><span class="header-section-number">4.5</span> Labels</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#titles-and-subtitles"><span class="header-section-number">4.5.1</span> Titles and subtitles</a></li></ul>
-</li>
-<li><a class="nav-link" href="#themes"><span class="header-section-number">4.6</span> Themes</a></li>
-<li>
-<a class="nav-link" href="#more-geom-shapes"><span class="header-section-number">4.7</span> More geom shapes</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#jitter"><span class="header-section-number">4.7.1</span> Jitter</a></li>
-<li><a class="nav-link" href="#boxplots"><span class="header-section-number">4.7.2</span> Boxplots</a></li>
-<li><a class="nav-link" href="#density-and-histogram"><span class="header-section-number">4.7.3</span> Density and histogram</a></li>
-</ul>
-</li>
-<li>
-<a class="nav-link" href="#more-colours"><span class="header-section-number">4.8</span> More Colours</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#choosing-and-using-colour-palettes"><span class="header-section-number">4.8.1</span> Choosing and using colour palettes</a></li></ul>
-</li>
-<li>
-<a class="nav-link" href="#accessibility"><span class="header-section-number">4.9</span> Accessibility</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#colour-blindness"><span class="header-section-number">4.9.1</span> Colour blindness</a></li>
-<li><a class="nav-link" href="#guides-to-visual-accessibility"><span class="header-section-number">4.9.2</span> Guides to visual accessibility</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#facets"><span class="header-section-number">4.10</span> Facets</a></li>
-<li><a class="nav-link" href="#patchwork"><span class="header-section-number">4.11</span> Patchwork</a></li>
-<li><a class="nav-link" href="#activity-replicate-this-figure"><span class="header-section-number">4.12</span> Activity: Replicate this figure</a></li>
-<li><a class="nav-link" href="#saving"><span class="header-section-number">4.13</span> Saving</a></li>
-<li><a class="nav-link" href="#quitting"><span class="header-section-number">4.14</span> Quitting</a></li>
-<li>
-<a class="nav-link" href="#finished-2"><span class="header-section-number">4.15</span> Finished</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#what-we-learned"><span class="header-section-number">4.15.1</span> What we learned</a></li>
-<li><a class="nav-link" href="#further-reading-guides-and-tips-on-data-visualisation"><span class="header-section-number">4.15.2</span> Further Reading, Guides and tips on data visualisation</a></li>
-</ul>
-</li>
+<li><a class="nav-link" href="#more-colours"><span class="header-section-number">4.7</span> More Colours</a></li>
+<li><a class="nav-link" href="#accessibility"><span class="header-section-number">4.8</span> Accessibility</a></li>
+<li><a class="nav-link" href="#multiple-plots"><span class="header-section-number">4.9</span> Multiple plots</a></li>
+<li><a class="nav-link" href="#activity-replicate-this-figure"><span class="header-section-number">4.10</span> Activity: Replicate this figure</a></li>
+<li><a class="nav-link" href="#saving"><span class="header-section-number">4.11</span> Saving</a></li>
+<li><a class="nav-link" href="#finished-2"><span class="header-section-number">4.12</span> Finished</a></li>
+<li><a class="nav-link" href="#further-reading-guides-and-tips-on-data-visualisation"><span class="header-section-number">4.13</span> Further Reading, Guides and tips on data visualisation</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1189,7 +1173,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statisticss</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

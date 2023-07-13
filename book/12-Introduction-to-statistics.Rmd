@@ -117,7 +117,7 @@ summary(darwin)
 
 </details>
 
-### Visualisation
+#### Visualisation
 
 Now seems like a good time for our first data visualisation.
 
@@ -139,7 +139,7 @@ The graph clearly shows that the average height of the 'crossed' plants is great
 
 The variance appears to be roughly similar between the two groups - though by making a graph we can now clearly see that in the crossed group, there is a *potential* outlier with a value of 12. 
 
-### Comparing groups
+#### Comparing groups
 
 As we have seen previously we can use various tidy functions to determine the mean and standard deviations of our groups. 
 
@@ -199,7 +199,7 @@ Our goal is to:
 
 * Quantify our *confidence* in these differences
 
-### Differences between groups
+#### Differences between groups
 
 Darwin's data used match pairs - each pair shared one parent. So that in pair 1 the same parent plant was either 'selfed' or 'crossed' to produce offspring. This is a powerful approach to experimental design, as it means that we can look at the differences in heights across each of the 15 pairs of plants - rather than having to infer differences from two randomly derived groups. 
 
@@ -273,7 +273,7 @@ difference_summary %>%
 Our estimate of the mean is not really very useful without an accompanying measuring of *uncertainty* like the standard error, in fact estimates of averages or differences should **always** be accompanied by their measure of uncertainty. 
 
 
-### Activity 3: Communicate
+## Activity 3: Communicate
 
 With the information above, how would you present a short sentence describing the average different in height?
 
@@ -301,7 +301,7 @@ When we decide whether we have enough confidence that a difference is real (e.g.
 
 ```
 
-### Normal distribution
+#### Normal distribution
 
 As we should remember, the normal distribution is the bell-shaped curve. It is defined by two parameters:
 

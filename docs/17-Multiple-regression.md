@@ -349,7 +349,7 @@ Using our one-way ANOVA design we are able to accurately estimate the mean diffe
 
 In contrast to the one-way ANOVA approach, a factorial design lets us test and compare additive effects and interaction effects
 
-## Testing for interactions
+### Testing for interactions
 
 <div class="figure" style="text-align: center">
 <img src="17-Multiple-regression_files/figure-html/unnamed-chunk-11-1.png" alt="Left an illustration of an additive model, Right an illustration of a model with an interaction effect." width="100%" />
@@ -432,7 +432,7 @@ GGally::ggcoef_model(ls_2,
 When we use a factorial combination, the last line of the table of coefficients estimates the size of the interaction effect at around 95g. So if combining the light and fertilisation treatments produced a biomass equivalent to their additive predictions, the estimate of the interaction would be *zero*. Instead it is **95g more than we would expect from the additive effects alone**. This means in order to work out the estimated biomass for the treatment of light and fertiliser we must sum the additive effects of `Light`+ `Fert` and the interaction effect `Light:Fert`. 
 
 
-### Model estimates and confidence intervals
+#### Model estimates and confidence intervals
 
 When we compare this to our one-way ANOVA model, we must add the single terms and the interaction term, this should add up to the combined treatment from our first model: 
 
@@ -464,7 +464,7 @@ main effects, regardless of whether they are significant on their
 own.</p>
 </div>
 
-## ANOVA tables
+### ANOVA tables
 
 So you have made a linear model with an interaction term, how do you report whether this interaction is significant? How do you report the main effect terms when there is an interaction present?
 
@@ -609,7 +609,7 @@ effect e.g. </p>
 
 In the examples above, you are unlikely to find much of a difference between running the `drop1()` function or `anova()` on the complex or reduced models. This is because these designs are 'balanced' (equal numbers in each level of a predictor). When designs are not balanced then the order matters when we use `anova()` -  this is because the sum of squares is calculated sequentially (in the order of the formula), and so we could get different results depending on the order in which we assemble predictors into our model!
 
-### Practice
+#### Practice
 
 Let's start by making a deliberately unbalanced dataset
 
@@ -696,6 +696,7 @@ unbalanced
 </table>
 
 </div>
+
 ## Activity 1: Sums of Squares
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
@@ -892,7 +893,7 @@ Because the drop1 function drops one term from the model, then adds it back in a
 </div></div></div>
 
 
-## post-hoc
+### post-hoc
 
 In this example it is unnecessary to spend time looking at pairwise comparisons between the four possible levels, the interesting finding is to report the strength of the interaction effect. **But** it is possible to generate estimated means, and produce pairwise comparisons with the `emmeans()` package
 
@@ -928,7 +929,7 @@ emmeans::emmeans(ls_2, specs = pairwise ~ Light + Fert + Light:Fert) %>%
 ## Conf-level adjustment: tukey method for comparing a family of 4 estimates
 ```
 
-## Continuous Linear Models
+## ANCOVA
 
 The previous section looked at an interaction between two categorical variables, we can also examine interactions between a factor and a continuous variable. Often referred to as ANCOVA. 
 
@@ -1181,7 +1182,7 @@ William_ls1 %>%
 </div>
 It looks as though there is no strong evidence here for an interaction effect, but before we proceed any further we should check that the model is a good fit for our data. </div></div></div>
 
-### Check the model fit
+#### Check the model fit
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Check the residuals of your model </div></div>
@@ -1197,7 +1198,7 @@ performance::check_model(William_ls1)
 <img src="17-Multiple-regression_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;" />
 </div></div></div>
 
-### Simplify the model
+#### Simplify the model
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Everything looks pretty good, so now we could go ahead and simplify our model.  </div></div>

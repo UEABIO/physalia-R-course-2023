@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 5 Data Insights part one | Introduction to Statisticss</title>
+<title>Chapter 5 Data Insights part one | Introduction to Statistics</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="In these last chapters we are concentrating on generating insights into our data using visualisations and descriptive statistics. The easiest way to do this is to use questions as tools to guide...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 5 Data Insights part one | Introduction to Statisticss">
+<meta property="og:title" content="Chapter 5 Data Insights part one | Introduction to Statistics">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/data-insights-part-one.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="In these last chapters we are concentrating on generating insights into our data using visualisations and descriptive statistics. The easiest way to do this is to use questions as tools to guide...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 5 Data Insights part one | Introduction to Statisticss">
+<meta name="twitter:title" content="Chapter 5 Data Insights part one | Introduction to Statistics">
 <meta name="twitter:description" content="In these last chapters we are concentrating on generating insights into our data using visualisations and descriptive statistics. The easiest way to do this is to use questions as tools to guide...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -98,7 +98,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statisticss</a>:
+        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statistics</a>:
         <small class="text-muted">A guide for Biologists and Ecologists</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
@@ -166,10 +166,10 @@
 <li>Confounding variables</li>
 </ul>
 <p>This inevitably leads to more and a variety of questions. Each new question that you ask will expose you to a <em>new aspect</em> of your data.</p>
-<div id="data-wrangling" class="section level3" number="5.0.1">
-<h3>
-<span class="header-section-number">5.0.1</span> Data wrangling<a class="anchor" aria-label="anchor" href="#data-wrangling"><i class="fas fa-link"></i></a>
-</h3>
+<div id="data-wrangling" class="section level4" number="5.0.0.1">
+<h4>
+<span class="header-section-number">5.0.0.1</span> Data wrangling<a class="anchor" aria-label="anchor" href="#data-wrangling"><i class="fas fa-link"></i></a>
+</h4>
 <p>Importantly you should have already generated an understanding of the variables contained within your dataset during the <a href="data-wrangling-part-one.html#data-wrangling-part-one">data wrangling</a> steps. Including:</p>
 <ul>
 <li><p>The number of variables</p></li>
@@ -231,12 +231,10 @@ In a tibble these will be represented by the header <code>&lt;chr&gt;</code>.</p
 </ul>
 <p>These will have to be coded manually see <a href="data-wrangling-part-two.html#factors">Factors</a>, and will then be represented in a tibble by the header <code>&lt;fct&gt;</code></p>
 <p>It is important to order Ordinal variables in the their logical order value when plotting data visuals or tables. Nominal variables are more flexible and could be ordered in whatever pattern works best for your data ( by default they will plot alphabetically, but perhaps you could order them according to the values of another numeric variable).</p>
-</div>
-</div>
-<div id="quick-view-of-variables" class="section level2" number="5.2">
-<h2>
-<span class="header-section-number">5.2</span> Quick view of variables<a class="anchor" aria-label="anchor" href="#quick-view-of-variables"><i class="fas fa-link"></i></a>
-</h2>
+<div id="quick-view-of-variables" class="section level4" number="5.1.2.1">
+<h4>
+<span class="header-section-number">5.1.2.1</span> Quick view of variables<a class="anchor" aria-label="anchor" href="#quick-view-of-variables"><i class="fas fa-link"></i></a>
+</h4>
 <p>Let's take a look at some of our variables, these functions will give a quick snapshot overview.</p>
 <div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
@@ -244,14 +242,16 @@ In a tibble these will be represented by the header <code>&lt;chr&gt;</code>.</p
 <p>We can see that bill length contains numbers, and that many of these are fractions, but only down to 0.1mm. By comparison body mass all appear to be discrete number variables. Does this make body mass an integer? The underlying quantity (bodyweight) is clearly continuous, it is clearly possible for a penguin to weigh 3330.7g but it might <em>look</em> like an integer because of the way it was measured. This illustrates the importance of understanding the the type of variable you are working with - just looking at the values isn't enough.</p>
 <p>On the other hand, how we choose to measure and record data <em>can</em> change the way it is presented in a dataset. If the researchers had decided to simply record small, medium and large classes of bodyweight, then we would be dealing with ordinal categorical variables (factors). These distinctions can become less clear if we start to deal with multiple classes of ordinal categories - for example if the researchers were measuring body mass to the nearest 10g. It might be reasonable to treat these as integers...</p>
 </div>
-<div id="categorical-variables" class="section level2" number="5.3">
+</div>
+</div>
+<div id="categorical-variables" class="section level2" number="5.2">
 <h2>
-<span class="header-section-number">5.3</span> Categorical variables<a class="anchor" aria-label="anchor" href="#categorical-variables"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2</span> Categorical variables<a class="anchor" aria-label="anchor" href="#categorical-variables"><i class="fas fa-link"></i></a>
 </h2>
-<div id="frequency" class="section level3" number="5.3.1">
-<h3>
-<span class="header-section-number">5.3.1</span> Frequency<a class="anchor" aria-label="anchor" href="#frequency"><i class="fas fa-link"></i></a>
-</h3>
+<div id="frequency" class="section level4" number="5.2.0.1">
+<h4>
+<span class="header-section-number">5.2.0.1</span> Frequency<a class="anchor" aria-label="anchor" href="#frequency"><i class="fas fa-link"></i></a>
+</h4>
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -396,10 +396,10 @@ Gentoo
 <div class="inline-figure"><img src="10-Data-insights-part-1_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>This is an example of a figure we might use in a report or paper. Having cleaned up the theme, added some simple colour, made sure our labels are clear and descriptive, ordered our categories in ascending frequency order, and included some simple text of percentages to aid readability.</p>
 </div>
-<div id="two-categorical-variables" class="section level3" number="5.3.2">
-<h3>
-<span class="header-section-number">5.3.2</span> Two categorical variables<a class="anchor" aria-label="anchor" href="#two-categorical-variables"><i class="fas fa-link"></i></a>
-</h3>
+<div id="two-categorical-variables" class="section level4" number="5.2.0.2">
+<h4>
+<span class="header-section-number">5.2.0.2</span> Two categorical variables<a class="anchor" aria-label="anchor" href="#two-categorical-variables"><i class="fas fa-link"></i></a>
+</h4>
 <div class="panel panel-default">
 <div class="panel-heading">
 Task
@@ -548,14 +548,14 @@ NA
 </div>
 </div>
 </div>
-<div id="continuous-variables" class="section level2" number="5.4">
+<div id="continuous-variables" class="section level2" number="5.3">
 <h2>
-<span class="header-section-number">5.4</span> Continuous variables<a class="anchor" aria-label="anchor" href="#continuous-variables"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3</span> Continuous variables<a class="anchor" aria-label="anchor" href="#continuous-variables"><i class="fas fa-link"></i></a>
 </h2>
-<div id="visualising-distributions" class="section level3" number="5.4.1">
-<h3>
-<span class="header-section-number">5.4.1</span> Visualising distributions<a class="anchor" aria-label="anchor" href="#visualising-distributions"><i class="fas fa-link"></i></a>
-</h3>
+<div id="visualising-distributions" class="section level4" number="5.3.0.1">
+<h4>
+<span class="header-section-number">5.3.0.1</span> Visualising distributions<a class="anchor" aria-label="anchor" href="#visualising-distributions"><i class="fas fa-link"></i></a>
+</h4>
 <p><strong>Variation</strong> is the tendency of the values of a variable to change from measurement to measurement. You can see variation easily in real life; if you measure any continuous variable twice, you will get two different results. This is true even if you measure quantities that are constant, like the speed of light. Each of your measurements will include a small amount of error that varies from measurement to measurement. Every variable has its own pattern of variation, which can reveal interesting information. The best way to understand that pattern is to visualise the distribution of the variable’s values.</p>
 <p>This is the script to plot a frequency distribution, we only specify an x variable, because we intend to plot a histogram, and the y variable is always the count of observations. Here we ask the data to be presented in 10 equally sized bins of data. In this case chopping the x axis range into 10 equal parts and counting the number of observations that fall within each one.</p>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
@@ -610,17 +610,17 @@ There appear to be more data points to the right of the peak of the histogram th
 </div>
 </div>
 </div>
-<div id="atypical-values" class="section level4" number="5.4.1.1">
+</div>
+<div id="atypical-values" class="section level4" number="5.3.0.2">
 <h4>
-<span class="header-section-number">5.4.1.1</span> Atypical values<a class="anchor" aria-label="anchor" href="#atypical-values"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.0.2</span> Atypical values<a class="anchor" aria-label="anchor" href="#atypical-values"><i class="fas fa-link"></i></a>
 </h4>
 <p>If you found atypical values at this point, you could decide to exclude them from the dataset (using <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>). BUT you should only do this at this stage if you have a very strong reason for believing this is a mistake in the data entry, rather than a true outlier.</p>
 </div>
-</div>
-<div id="central-tendency" class="section level3" number="5.4.2">
-<h3>
-<span class="header-section-number">5.4.2</span> Central tendency<a class="anchor" aria-label="anchor" href="#central-tendency"><i class="fas fa-link"></i></a>
-</h3>
+<div id="central-tendency" class="section level4" number="5.3.0.3">
+<h4>
+<span class="header-section-number">5.3.0.3</span> Central tendency<a class="anchor" aria-label="anchor" href="#central-tendency"><i class="fas fa-link"></i></a>
+</h4>
 <p>Central tendency is a descriptive summary of a dataset through a single value that reflects the center of the data distribution. The three most widely used measures of central tendency are <strong>mean</strong>, <strong>median</strong> and <strong>mode</strong>.</p>
 <p>The <strong>mean</strong> is defined as the sum of all values of the variable divided by the total number of values. The <strong>median</strong> is the middle value. If N is odd and if N is even, it is the average of the two middle values. The <strong>mode</strong> is the most frequently occurring observation in a data set, but is arguable least useful for understanding biological datasets.</p>
 <p>We can find both the mean and median easily with the summarise function. The <strong>mean</strong> is usually the best measure of central tendency when the distribution is symmetrical, and the <strong>mode</strong> is the best measure when the distribution is asymmetrical/skewed.</p>
@@ -690,10 +690,10 @@ Figure 5.1: Red dashed line represents the mean, Black dashed line is the median
 </p>
 </div>
 </div>
-<div id="normal-distribution" class="section level3" number="5.4.3">
-<h3>
-<span class="header-section-number">5.4.3</span> Normal distribution<a class="anchor" aria-label="anchor" href="#normal-distribution"><i class="fas fa-link"></i></a>
-</h3>
+<div id="normal-distribution" class="section level4" number="5.3.0.4">
+<h4>
+<span class="header-section-number">5.3.0.4</span> Normal distribution<a class="anchor" aria-label="anchor" href="#normal-distribution"><i class="fas fa-link"></i></a>
+</h4>
 <p>From our histogram we can likely already tell whether we have normally distributed data.</p>
 <div class="info">
 <p>
@@ -718,9 +718,10 @@ curve”.
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">value</span><span class="op">)</span>,</span>
 <span>                 bins <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-Data-insights-part-1_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div id="qq-plot" class="section level4" number="5.4.3.1">
+</div>
+<div id="qq-plot" class="section level4" number="5.3.0.5">
 <h4>
-<span class="header-section-number">5.4.3.1</span> QQ-plot<a class="anchor" aria-label="anchor" href="#qq-plot"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.0.5</span> QQ-plot<a class="anchor" aria-label="anchor" href="#qq-plot"><i class="fas fa-link"></i></a>
 </h4>
 <p>A QQ plot is a classic way of checking whether a sample distribution is the same as another (or theoretical distribution). They look a bit odd at first, but they are actually fairly easy to understand, and very useful! The qqplot distributes your data on the y-axis, and a theoretical normal distribution on the x-axis. If the residuals follow a normal distribution, they should meet to produce a perfect diagonal line across the plot.</p>
 <p>Watch this video to see <a href="https://www.youtube.com/watch?v=okjYjClSjOg">QQ plots explained</a></p>
@@ -765,11 +766,10 @@ There are is a 'truncated' left tail of our normal distribution. We would predic
 </div>
 </div>
 </div>
-</div>
-<div id="variation" class="section level3" number="5.4.4">
-<h3>
-<span class="header-section-number">5.4.4</span> Variation<a class="anchor" aria-label="anchor" href="#variation"><i class="fas fa-link"></i></a>
-</h3>
+<div id="variation" class="section level4" number="5.3.0.6">
+<h4>
+<span class="header-section-number">5.3.0.6</span> Variation<a class="anchor" aria-label="anchor" href="#variation"><i class="fas fa-link"></i></a>
+</h4>
 <p>Dispersion (how spread out the data is) is an important component towards understanding any numeric variable. While measures of central tendency are used to estimate the central value of a dataset, measures of dispersion are important for describing the spread of data.</p>
 <p>Two data sets can have an equal mean (that is, measure of central tendency) but vastly different variability.</p>
 <p>Important measures for dispersion are <strong>range</strong>, <strong>interquartile range</strong>, <strong>variance</strong> and <strong>standard deviation</strong>.</p>
@@ -778,9 +778,10 @@ There are is a 'truncated' left tail of our normal distribution. We would predic
 <li><p>The <strong>interquartile range</strong> is defined as the difference between the third quartile denoted by 𝑸_𝟑 and the lower quartile denoted by 𝑸_𝟏 . 75% of observations lie below the third quartile and 25% of observations lie below the first quartile.</p></li>
 <li><p><strong>Variance</strong> is defined as the sum of squares of deviations from the mean, divided by the total number of observations. The standard deviation is the positive square root of the variance. The <strong>standard deviation</strong> is preferred instead of variance as it has the same units as the original values.</p></li>
 </ul>
-<div id="interquartile-range" class="section level4" number="5.4.4.1">
+</div>
+<div id="interquartile-range" class="section level4" number="5.3.0.7">
 <h4>
-<span class="header-section-number">5.4.4.1</span> Interquartile range<a class="anchor" aria-label="anchor" href="#interquartile-range"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.0.7</span> Interquartile range<a class="anchor" aria-label="anchor" href="#interquartile-range"><i class="fas fa-link"></i></a>
 </h4>
 <p>We used the IQR function in <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> to find the interquartile range of the body mass variable.</p>
 <p>The IQR is also useful when applied to the summary plots 'box and whisker plots'. We can also calculate the values of the IQR margins, and add labels with <code>scales</code> <span class="citation">Wickham &amp; Seidel (<a href="summary-10.html#ref-R-scales" role="doc-biblioref">2022</a>)</span>.</p>
@@ -828,9 +829,9 @@ quantile
 </div>
 <p>We can see for ourselves the IQR is obtained by subtracting the body mass at tht 75% quantile from the 25% quantile (4750-3550 = 1200).</p>
 </div>
-<div id="standard-deviation" class="section level4" number="5.4.4.2">
+<div id="standard-deviation" class="section level4" number="5.3.0.8">
 <h4>
-<span class="header-section-number">5.4.4.2</span> Standard deviation<a class="anchor" aria-label="anchor" href="#standard-deviation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.0.8</span> Standard deviation<a class="anchor" aria-label="anchor" href="#standard-deviation"><i class="fas fa-link"></i></a>
 </h4>
 <p>standard deviation (or <span class="math inline">\(s\)</span>) is a measure of how dispersed the data is in relation to the mean. Low standard deviation means data are clustered around the mean, and high standard deviation indicates data are more spread out. As such it makes sense only to use this when the mean is a good measure of our central tendency.</p>
 <div class="info">
@@ -868,11 +869,10 @@ Solution
 </div>
 </div>
 </div>
-</div>
-<div id="visualising-dispersion" class="section level3" number="5.4.5">
-<h3>
-<span class="header-section-number">5.4.5</span> Visualising dispersion<a class="anchor" aria-label="anchor" href="#visualising-dispersion"><i class="fas fa-link"></i></a>
-</h3>
+<div id="visualising-dispersion" class="section level4" number="5.3.0.9">
+<h4>
+<span class="header-section-number">5.3.0.9</span> Visualising dispersion<a class="anchor" aria-label="anchor" href="#visualising-dispersion"><i class="fas fa-link"></i></a>
+</h4>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:unnamed-chunk-27"></span>
 <img src="images/distribution_gif.gif" alt="Visualising dispersion with different figures" width="80%"><p class="caption">
@@ -928,10 +928,10 @@ Figure 5.3: Visualising dispersion with different figures
 <div class="inline-figure"><img src="10-Data-insights-part-1_files/figure-html/unnamed-chunk-28-1.png" width="80%" style="display: block; margin: auto;"></div>
 <p>We now have several compact representations of the body_mass_g including a histogram, boxplot and summary calculations. You can <em>and should</em> generate the same summaries for your other numeric variables. These tables and graphs provide the detail you need to understand the central tendency and dispersion of numeric variables.</p>
 </div>
-<div id="drop_na" class="section level3" number="5.4.6">
-<h3>
-<span class="header-section-number">5.4.6</span> drop_na<a class="anchor" aria-label="anchor" href="#drop_na"><i class="fas fa-link"></i></a>
-</h3>
+<div id="drop_na" class="section level4" number="5.3.0.10">
+<h4>
+<span class="header-section-number">5.3.0.10</span> drop_na<a class="anchor" aria-label="anchor" href="#drop_na"><i class="fas fa-link"></i></a>
+</h4>
 <p>We first met <code>NA</code> back in <a href="data-wrangling-part-one.html#missing-values-na">Chapter 4</a> and you will hopefully have noticed, either here or in those previous chapters, that missing values <code>NA</code> can really mess up our calculations. There are a few different ways we can deal with missing data:</p>
 <ul>
 <li><p><code><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na()</a></code> on everything before we start. This runs the risk that we lose <strong>a lot</strong> of data as <em>every</em> row, with an NA in <em>any column</em> will be removed</p></li>
@@ -940,9 +940,9 @@ Figure 5.3: Visualising dispersion with different figures
 </ul>
 </div>
 </div>
-<div id="categorical-and-continuous-variables" class="section level2" number="5.5">
+<div id="categorical-and-continuous-variables" class="section level2" number="5.4">
 <h2>
-<span class="header-section-number">5.5</span> Categorical and continuous variables<a class="anchor" aria-label="anchor" href="#categorical-and-continuous-variables"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.4</span> Categorical and continuous variables<a class="anchor" aria-label="anchor" href="#categorical-and-continuous-variables"><i class="fas fa-link"></i></a>
 </h2>
 <p>It’s common to want to explore the distribution of a continuous variable broken down by a categorical variable.</p>
 <div class="webex-solution">
@@ -960,9 +960,9 @@ Figure 5.4: Species and sex are both likely to affect body mass
 <p>The best and simplest place to start exploring these possible relationships is by producing simple figures.</p>
 <p>Let's start by looking at the distribution of body mass by species.</p>
 </div>
-<div id="activity-1-produce-a-plot-which-allows-you-to-look-at-the-distribution-of-penguin-body-mass-observations-by-species" class="section level2" number="5.6">
+<div id="activity-1-produce-a-plot-which-allows-you-to-look-at-the-distribution-of-penguin-body-mass-observations-by-species" class="section level2" number="5.5">
 <h2>
-<span class="header-section-number">5.6</span> Activity 1: Produce a plot which allows you to look at the distribution of penguin body mass observations by species<a class="anchor" aria-label="anchor" href="#activity-1-produce-a-plot-which-allows-you-to-look-at-the-distribution-of-penguin-body-mass-observations-by-species"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.5</span> Activity 1: Produce a plot which allows you to look at the distribution of penguin body mass observations by species<a class="anchor" aria-label="anchor" href="#activity-1-produce-a-plot-which-allows-you-to-look-at-the-distribution-of-penguin-body-mass-observations-by-species"><i class="fas fa-link"></i></a>
 </h2>
 <button id="displayTextunnamed-chunk-30" onclick="javascript:toggle('unnamed-chunk-30');">
 Show Solution
@@ -1006,9 +1006,9 @@ Solution
 </div>
 </div>
 </div>
-<div id="ggridges" class="section level2" number="5.7">
+<div id="ggridges" class="section level2" number="5.6">
 <h2>
-<span class="header-section-number">5.7</span> GGridges<a class="anchor" aria-label="anchor" href="#ggridges"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.6</span> GGridges<a class="anchor" aria-label="anchor" href="#ggridges"><i class="fas fa-link"></i></a>
 </h2>
 <p>The package <code>ggridges</code> (<span class="citation">Wilke (<a href="summary-10.html#ref-R-ggridges" role="doc-biblioref">2022</a>)</span>) provides some excellent extra geoms to supplement <code>ggplot</code>. One if its most useful features is to to allow different groups to be mapped to the y axis, so that histograms are more easily viewed.</p>
 <button id="displayTextunnamed-chunk-31" onclick="javascript:toggle('unnamed-chunk-31');">
@@ -1079,9 +1079,9 @@ Solution
 <div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># try playing with the bandwidth argument - this behaves similar to binning which you should be familiar with from using geom_histogram</span></span></code></pre></div>
 </div>
-<div id="activity-2-test-yourself" class="section level2" number="5.8">
+<div id="activity-2-test-yourself" class="section level2" number="5.7">
 <h2>
-<span class="header-section-number">5.8</span> Activity 2: Test yourself<a class="anchor" aria-label="anchor" href="#activity-2-test-yourself"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.7</span> Activity 2: Test yourself<a class="anchor" aria-label="anchor" href="#activity-2-test-yourself"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Question 1.</strong> Write down some insights you have made about the data and relationships you have observed. Compare these to the ones below. Do you agree with these? Did you miss any? What observations did you make that are <strong>not</strong> in the list below.</p>
 <div class="webex-solution">
@@ -1343,36 +1343,19 @@ $( document ).ready(function() {
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li>
-<a class="nav-link" href="#data-insights-part-one"><span class="header-section-number">5</span> Data Insights part one</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#data-wrangling"><span class="header-section-number">5.0.1</span> Data wrangling</a></li></ul>
-</li>
+<li><a class="nav-link" href="#data-insights-part-one"><span class="header-section-number">5</span> Data Insights part one</a></li>
 <li>
 <a class="nav-link" href="#variable-types"><span class="header-section-number">5.1</span> Variable types</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#numerical"><span class="header-section-number">5.1.1</span> Numerical</a></li>
 <li><a class="nav-link" href="#categorical"><span class="header-section-number">5.1.2</span> Categorical</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#quick-view-of-variables"><span class="header-section-number">5.2</span> Quick view of variables</a></li>
-<li>
-<a class="nav-link" href="#categorical-variables"><span class="header-section-number">5.3</span> Categorical variables</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#frequency"><span class="header-section-number">5.3.1</span> Frequency</a></li>
-<li><a class="nav-link" href="#two-categorical-variables"><span class="header-section-number">5.3.2</span> Two categorical variables</a></li>
-</ul>
-</li>
-<li>
-<a class="nav-link" href="#continuous-variables"><span class="header-section-number">5.4</span> Continuous variables</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#visualising-distributions"><span class="header-section-number">5.4.1</span> Visualising distributions</a></li>
-<li><a class="nav-link" href="#central-tendency"><span class="header-section-number">5.4.2</span> Central tendency</a></li>
-<li><a class="nav-link" href="#normal-distribution"><span class="header-section-number">5.4.3</span> Normal distribution</a></li>
-<li><a class="nav-link" href="#variation"><span class="header-section-number">5.4.4</span> Variation</a></li>
-<li><a class="nav-link" href="#visualising-dispersion"><span class="header-section-number">5.4.5</span> Visualising dispersion</a></li>
-<li><a class="nav-link" href="#drop_na"><span class="header-section-number">5.4.6</span> drop_na</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#categorical-and-continuous-variables"><span class="header-section-number">5.5</span> Categorical and continuous variables</a></li>
-<li><a class="nav-link" href="#activity-1-produce-a-plot-which-allows-you-to-look-at-the-distribution-of-penguin-body-mass-observations-by-species"><span class="header-section-number">5.6</span> Activity 1: Produce a plot which allows you to look at the distribution of penguin body mass observations by species</a></li>
-<li><a class="nav-link" href="#ggridges"><span class="header-section-number">5.7</span> GGridges</a></li>
-<li><a class="nav-link" href="#activity-2-test-yourself"><span class="header-section-number">5.8</span> Activity 2: Test yourself</a></li>
+<li><a class="nav-link" href="#categorical-variables"><span class="header-section-number">5.2</span> Categorical variables</a></li>
+<li><a class="nav-link" href="#continuous-variables"><span class="header-section-number">5.3</span> Continuous variables</a></li>
+<li><a class="nav-link" href="#categorical-and-continuous-variables"><span class="header-section-number">5.4</span> Categorical and continuous variables</a></li>
+<li><a class="nav-link" href="#activity-1-produce-a-plot-which-allows-you-to-look-at-the-distribution-of-penguin-body-mass-observations-by-species"><span class="header-section-number">5.5</span> Activity 1: Produce a plot which allows you to look at the distribution of penguin body mass observations by species</a></li>
+<li><a class="nav-link" href="#ggridges"><span class="header-section-number">5.6</span> GGridges</a></li>
+<li><a class="nav-link" href="#activity-2-test-yourself"><span class="header-section-number">5.7</span> Activity 2: Test yourself</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1390,7 +1373,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statisticss</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

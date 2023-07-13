@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 11 ANOVA | Introduction to Statisticss</title>
+<title>Chapter 11 ANOVA | Introduction to Statistics</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="11.1 Analysis of Variance (ANOVA) So far we have used linear models for analyses between two 'categorical' explanatory variables e.g. t-tests, and for regression with two 'continuous' variables....">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 11 ANOVA | Introduction to Statisticss">
+<meta property="og:title" content="Chapter 11 ANOVA | Introduction to Statistics">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/anova.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="11.1 Analysis of Variance (ANOVA) So far we have used linear models for analyses between two 'categorical' explanatory variables e.g. t-tests, and for regression with two 'continuous' variables....">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 11 ANOVA | Introduction to Statisticss">
+<meta name="twitter:title" content="Chapter 11 ANOVA | Introduction to Statistics">
 <meta name="twitter:description" content="11.1 Analysis of Variance (ANOVA) So far we have used linear models for analyses between two 'categorical' explanatory variables e.g. t-tests, and for regression with two 'continuous' variables....">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -98,7 +98,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statisticss</a>:
+        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statistics</a>:
         <small class="text-muted">A guide for Biologists and Ecologists</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
@@ -195,7 +195,7 @@ measuring the distance to the estimates
 <span class="header-section-number">11.2.1</span> The ANOVA table<a class="anchor" aria-label="anchor" href="#the-anova-table"><i class="fas fa-link"></i></a>
 </h3>
 <p>If we want to get the ANOVA table for a linear model we can use the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function:</p>
-<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">lsmodel1</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
 <div class="inline-table"><table class="table table-sm">
@@ -277,7 +277,7 @@ In our example <em>F</em> = 5.9, which means that the estimated signal is nearly
 <p>The probability value can be looked up in an ANOVA table, and is calculated from an <em>F</em> distribution. The <em>F</em>-test takes sample size into account, and the probability assigned takes into account the degrees of freedom of both the signal and noise.</p>
 <p>We can see this if we use the R function <code><a href="https://rdrr.io/r/stats/Fdist.html">pf()</a></code> that this should recreate the exact <em>P</em>-value we see in our ANOVA table.</p>
 <p>The first three arguments here are the <em>F</em>-value, degrees of freedom for the signal, and noise. The last argument is to set this as a two directional test.</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">pf</a></span><span class="op">(</span><span class="fl">5.9395</span>, <span class="fl">1</span>, <span class="fl">28</span>, lower.tail<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.02141466</code></pre>
 <p>It is common to see <em>P</em>-values reported with no supporting information (naked <em>P</em>-values). But it is impossible to interpret these without knowing:</p>
@@ -301,10 +301,10 @@ In our example <em>F</em> = 5.9, which means that the estimated signal is nearly
 <span class="header-section-number">11.3</span> Two-way ANOVA<a class="anchor" aria-label="anchor" href="#two-way-anova"><i class="fas fa-link"></i></a>
 </h2>
 <p>Two way ANOVA (as you might guess) includes <strong>two</strong> explanatory variables. Usually these are treatments of interest, but for this example we will stick with including the pair variable.</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lsmodel2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">height</span> <span class="op">~</span> <span class="va">type</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">pair</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">darwin</span><span class="op">)</span></span></code></pre></div>
 <p>And we can look at this table using the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function again</p>
-<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">lsmodel2</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
 <div class="inline-table"><table class="table table-sm">
@@ -471,7 +471,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#___________________________----</span></span>
 <span></span>
 <span><span class="co"># SET UP ----</span></span>
@@ -515,7 +515,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ANALYSIS ----</span></span>
 <span><span class="va">lsmodel_frogs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">days</span> <span class="op">~</span> <span class="va">temperature</span>, data <span class="op">=</span> <span class="va">frogs</span><span class="op">)</span></span>
 <span></span>
@@ -652,12 +652,12 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-18" class="tabcontentunnamed-chunk-18">
-<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lsmodel_frogs1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="16-ANOVA_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;"><img src="16-ANOVA_files/figure-html/unnamed-chunk-26-2.png" width="100%" style="display: block; margin: auto;"><img src="16-ANOVA_files/figure-html/unnamed-chunk-26-3.png" width="100%" style="display: block; margin: auto;"><img src="16-ANOVA_files/figure-html/unnamed-chunk-26-4.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
 <div id="option2unnamed-chunk-18" class="tabcontentunnamed-chunk-18">
-<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">lsmodel_frogs1</span>,</span>
 <span>                         check <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"qq"</span>, <span class="st">"outliers"</span>, <span class="st">"homogeneity"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="16-ANOVA_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;"></div>
@@ -938,7 +938,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statisticss</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

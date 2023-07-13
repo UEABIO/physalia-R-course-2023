@@ -66,7 +66,7 @@ We are using summarise and group_by a lot! They are very powerful functions:
 
 * `summarise` is a data aggregation function thart calculates summaries of one or more variables, and it will do this separately for any groups defined by `group_by`
 
-### Using summarise()
+### summarise()
 
 `summarise()` has a whole list of useful functions for producing *descriptive* statistics
 
@@ -156,7 +156,7 @@ penguins %>%
 
 
 
-### Summarize `across` columns
+#### Summarize `across` columns
 
 
 `across` has two arguments, `.cols` and `.fns`. 
@@ -209,7 +209,7 @@ Subsequent functions are applied in a “grouped by” manner - but the
 dataframe itself looks unchanged.</p>
 </div>
 
-### More than one grouping variable
+#### More than one grouping variable
 
 What if we need to calculate by more than one variable at a time? 
 No problem we can submit several arguments:
@@ -230,7 +230,7 @@ summarise(mean_flipper = mean(flipper_length_mm, na.rm=TRUE))
 
 Now the first row of our summary table shows us the mean flipper length (in mm) for female Adelie penguins. There are eight rows in total, six unique combinations and two rows where the sex of the penguins was not recorded(`NA`)
 
-### using group_by with mutate
+#### using group_by with mutate
 
 So far we have only used `group_by` with the `summarise` function, but this doesn't always have to be the case. 
 When `mutate` is used with `group_by`, the calculations occur by 'group'. Here's an example:
@@ -248,7 +248,7 @@ centered_penguins %>%
 ```
 Here we are calculating a **group centered mean**, this new variable contains the *difference* between each observation and the mean of whichever group that observation is in. 
 
-### remove group_by
+#### remove group_by
 
 On occasion we may need to remove the grouping information from a dataset. This is often required when we string pipes together, when we need to work using a grouping structure, then revert back to the whole dataset again
 
@@ -293,7 +293,7 @@ str_replace_all(names(penguins), c("e"= "E"))
 ```
 
 
-### More stringr
+#### More stringr
 
 
 ```r
@@ -342,7 +342,7 @@ penguins %>%
   filter(str_detect(individual_id, "N1"))
 ```
 
-### separate
+#### separate
 
 Sometimes a string might contain two pieces of information in one. This does not confirm to our tidy data principles. But we can easily separate the information with `separate()` from the `tidyr` package.
 
@@ -533,7 +533,7 @@ penguins %>%
             max_date=max(date_egg_proper))
 ```
 
-### Calculations with dates
+#### Calculations with dates
 
 How many times was each penguin measured, and across what total time period?
 

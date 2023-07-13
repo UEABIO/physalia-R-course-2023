@@ -8,7 +8,7 @@
 
 
 
-## Designing a Model
+### Designing a Model
 
 We are introduced to the fruitfly dataset Partridge and Farquhar (1981)^[https://nature.com/articles/294580a0]. From our understanding of sexual selection and reproductive biology in fruit flies, we know there is a well established 'cost' to reproduction in terms of reduced longevity for female fruitflies. The data from this experiment is designed to test whether increased sexual activity affects the lifespan of male fruitflies.
 
@@ -33,7 +33,7 @@ The flies used were an outbred stock, sexual activity was manipulated by supplyi
 
 * **sleep**: percentage of the day spent sleeping
 
-## Hypothesis
+### Hypothesis
 
 Before you start any formal analysis you should think clearly about the sensible parameters to test. In this example, we are *most* interested in the effect of sexual activity on longevity. But it is possible that other factors may also affect longevity and we should include these in our model as well, and we should think **hard** about what terms might reasonably be expected to *interact* with sexual activity to affect longevity. 
 
@@ -55,7 +55,7 @@ In this exercise I have just asked you to try and think logically about suitable
 
 Other interactions *could* be included but you should have a strong reason for them. </div></div></div>
 
-## Checking the data
+### Checking the data
 
 You should now import, clean and tidy your data. Making sure it is in tidy format, all variables have useful names, and there are no mistakes, missing data or typos.
 
@@ -70,7 +70,7 @@ GGally::ggpairs(fruitfly)
 
 <img src="18-Complex-models_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
 
-## Activity 1: Think about your data
+## Activity 1: Building a model
 
 Think carefully about the plots you should make to investigate the potential differences and relationships you wish to investigate - try and answer the questions first before checking the examples hidden behind dropdowns.
 
@@ -208,7 +208,7 @@ Here it does look as though sleep interacts with treatment to affect lifespan. A
 
 
 
-## Designing a model
+#### Designing a model
 
 <div class="info">
 <p>When you include an interaction term, the numbers produced from this
@@ -337,8 +337,9 @@ coef(flyls1)[3] +
 ```
 </div></div></div>
 
+## Activity 2: Model checking
 
-## Model checking & collinearity
+#### Model checking & collinearity
 
 Before we start playing with the terms in our model, we should check to see if this is even a good way of fitting and measuring our data. We should check the assumptions of our model are being met.
 
@@ -349,7 +350,7 @@ performance::check_model(flyls1)
 
 <img src="18-Complex-models_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" />
 
-## Activity 2: Model checking
+
 
 **Question - IS the assumption of homogeneity of variance met?** <select class='webex-select'><option value='blank'></option><option value='answer'>Yes</option><option value=''>No</option></select>
 
@@ -768,7 +769,7 @@ Comparing the treatment effects against other predictors of longevity such as bo
 
 In this chapter we have worked with our scientific knowledge to develop testable hypotheses and built statistical models to formally assess them. We now have a working pipeline for tackling complex datasets, developing insights and producing and explaining robust linear models. 
 
-### Checklist
+#### Checklist
 
 * Think carefully about the hypotheses to test, use your scientific knowledge and background reading to support this
 

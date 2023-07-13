@@ -42,7 +42,7 @@ Here 'tidy' refers to a specific structure that lets us manipulate and visualise
 
 So we know our data is in R, and we know the columns and names have been imported. But we still don't know whether all of our values imported correctly, or whether it captured all the rows. 
 
-### Open your script from last time and add these new lines at the bottom. 
+#### Open your script from last time and add these new lines at the bottom. 
 
 
 ```r
@@ -83,7 +83,7 @@ When we run `colnames()` we get the identities of each column in our dataframe
 * **Delta 13C**: the ratio of stable Carbon isotopes 13C:12C from blood sample
 
 
-### Clean column names
+#### Clean column names
 
 Often we might want to change the names of our variables. They might be non-intuitive, or too long. Our data has a couple of issues:
 
@@ -117,7 +117,7 @@ colnames(penguins) # quickly check the new variable names
 ## [16] "delta_13_c_o_oo"   "comments"
 ```
 
-### Rename columns (manually)
+#### Rename columns (manually)
 
 The `clean_names` function quickly converts all variable names into snake case. The N and C blood isotope ratio names are still quite long though, so let's clean those with `dplyr::rename()` where "new_name" = "old_name".
 
@@ -130,7 +130,10 @@ penguins <- rename(penguins,
          "delta_13c"="delta_13_c_o_oo")
 ```
 
-### glimpse: check data format 
+
+## Check data
+
+#### glimpse: check data format 
 
 When we run `glimpse()` we get several lines of output. The number of observations "rows", the number of variables "columns". Check this against the csv file you have - they should be the same. In the next lines we see variable names and the type of data. 
 
@@ -146,7 +149,7 @@ It also provides information on the *type* of data in each column
 
 * `<dbl>` - means numerical data
 
-### Rename text values
+#### Rename text values
 
 Sometimes we may want to rename the values in our variables in order to make a shorthand that is easier to follow. This is changing the **values** in our columns, not the column names. 
 
@@ -533,7 +536,7 @@ Using the link below take the text and copy/paste into a **new** R script and sa
 
 All of the correct lines of code, comments and document markers are present, but not in the correct order. Can you unscramble them to produce a sensible output and a clear document outline?
 
-### Submit when you are finished
+#### Submit when you are finished
 
 
 ```{=html}

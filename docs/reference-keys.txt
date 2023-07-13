@@ -54,6 +54,7 @@ activity-1-change-column-names
 open-your-script-from-last-time-and-add-these-new-lines-at-the-bottom.
 clean-column-names
 rename-columns-manually
+check-data
 glimpse-check-data-format
 rename-text-values
 dplyr-verbs
@@ -76,7 +77,7 @@ data-wrangling-part-two
 load-your-workspace-1
 checklist-1
 more-summary-tools
-using-summarise
+summarise-1
 summarize-across-columns
 group_by-revisited
 more-than-one-grouping-variable
@@ -115,6 +116,7 @@ choosing-and-using-colour-palettes
 accessibility
 colour-blindness
 guides-to-visual-accessibility
+multiple-plots
 facets
 patchwork
 activity-replicate-this-figure
@@ -240,7 +242,7 @@ balancedunbalanced-designs
 practice
 activity-1-sums-of-squares
 post-hoc
-continuous-linear-models
+ancova
 activity-2-build-your-own-analysis
 check-the-model-fit
 simplify-the-model
@@ -252,10 +254,10 @@ complex-models
 designing-a-model
 hypothesis-1
 checking-the-data
-activity-1-think-about-your-data
+activity-1-building-a-model
 designing-a-model-1
-model-checking-collinearity
 activity-2-model-checking
+model-checking-collinearity
 data-transformations
 boxcox
 model-selection

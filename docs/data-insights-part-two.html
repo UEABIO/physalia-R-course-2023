@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 6 Data insights part two | Introduction to Statisticss</title>
+<title>Chapter 6 Data insights part two | Introduction to Statistics</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="In the previous chapter we looked at individual variables, and understanding the different types of data. We made numeric and graphical summaries of the distributions of features within each...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 6 Data insights part two | Introduction to Statisticss">
+<meta property="og:title" content="Chapter 6 Data insights part two | Introduction to Statistics">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/data-insights-part-two.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="In the previous chapter we looked at individual variables, and understanding the different types of data. We made numeric and graphical summaries of the distributions of features within each...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 6 Data insights part two | Introduction to Statisticss">
+<meta name="twitter:title" content="Chapter 6 Data insights part two | Introduction to Statistics">
 <meta name="twitter:description" content="In the previous chapter we looked at individual variables, and understanding the different types of data. We made numeric and graphical summaries of the distributions of features within each...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -98,7 +98,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statisticss</a>:
+        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statistics</a>:
         <small class="text-muted">A guide for Biologists and Ecologists</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
@@ -159,10 +159,10 @@
 <h2>
 <span class="header-section-number">6.1</span> Associations between numerical variables<a class="anchor" aria-label="anchor" href="#associations-between-numerical-variables"><i class="fas fa-link"></i></a>
 </h2>
-<div id="correlations" class="section level3" number="6.1.1">
-<h3>
-<span class="header-section-number">6.1.1</span> Correlations<a class="anchor" aria-label="anchor" href="#correlations"><i class="fas fa-link"></i></a>
-</h3>
+<div id="correlations" class="section level4" number="6.1.0.1">
+<h4>
+<span class="header-section-number">6.1.0.1</span> Correlations<a class="anchor" aria-label="anchor" href="#correlations"><i class="fas fa-link"></i></a>
+</h4>
 <p>A common measure of association between two numerical variables is the <strong>correlation coefficient</strong>. The correlation metric is a numerical measure of the <em>strength of an association</em></p>
 <p>There are several measures of correlation including:</p>
 <ul>
@@ -256,10 +256,10 @@ Figure 6.1: Different relationships between two numeric variables. Each number r
 <li><p>The third row shows a series of associations where there is <em>clearly</em> a relationship between the two variables, but it is also not linear so would be inappropriate for a Pearson's correlation.</p></li>
 </ul>
 </div>
-<div id="non-linear-correlations" class="section level3" number="6.1.2">
-<h3>
-<span class="header-section-number">6.1.2</span> Non-linear correlations<a class="anchor" aria-label="anchor" href="#non-linear-correlations"><i class="fas fa-link"></i></a>
-</h3>
+<div id="non-linear-correlations" class="section level4" number="6.1.0.2">
+<h4>
+<span class="header-section-number">6.1.0.2</span> Non-linear correlations<a class="anchor" aria-label="anchor" href="#non-linear-correlations"><i class="fas fa-link"></i></a>
+</h4>
 <p>So what should we do if the relationship between our variables is non-linear? Instead of using Pearson's correlation coefficient we can calculate something called a <strong>rank correlation</strong>.</p>
 <p>Instead of working with the raw values of our two variables we can use rank ordering instead. The idea is pretty simple if we start with the lowest vaule in a variable and order it as '1', then assign labels '2', '3' etc. as we ascend in rank order. We can see a way that this could be applied manually with the function <code>dense_rank</code> from dplyr below:</p>
 <div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
@@ -424,10 +424,10 @@ Spearman
 </div>
 <p>What we can see in this example is that Pearson's <em>r</em> and Spearman's <span class="math inline">\(\rho\)</span> are basically identical.</p>
 </div>
-<div id="graphical-summaries-between-numeric-variables" class="section level3" number="6.1.3">
-<h3>
-<span class="header-section-number">6.1.3</span> Graphical summaries between numeric variables<a class="anchor" aria-label="anchor" href="#graphical-summaries-between-numeric-variables"><i class="fas fa-link"></i></a>
-</h3>
+<div id="graphical-summaries-between-numeric-variables" class="section level4" number="6.1.0.3">
+<h4>
+<span class="header-section-number">6.1.0.3</span> Graphical summaries between numeric variables<a class="anchor" aria-label="anchor" href="#graphical-summaries-between-numeric-variables"><i class="fas fa-link"></i></a>
+</h4>
 <p>Correlation coefficients are a quick and simple way to attach a metric to the level of association between two variables. They are limited however in that a single number can never capture the every aspect of their relationship. This is why we visualise our data.</p>
 <p>We have already covered scatter plots and <code>ggplot2()</code> extensively in previous chapters, so here we will just cover some of the different ways in which you could present the nature of a relationship</p>
 <div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
@@ -931,11 +931,6 @@ Pearson
 <p>When you do spot a trend, difference or relationship, it is important to recognise that you may not have enough evidence to assign a reason behind this observation. As scientists it is important to develope hypotheses based on knowledge and understanding, this can help (sometimes) with avoiding spurious associations.</p>
 <p>Sometimes we may see a pattern in our data, but it has likely occurred due to random chance, rather than as a result of an underlying process. This is where formal statistical analysis, to quantitatively assess the evidence, assess probability and study effect sizes can be incredibly powerful. We will delve into these exciting topics next term.</p>
 <p>That's it! Thank you for taking the time to get this far. Be kind to yourself if you found it difficult. You have done incredibly well.</p>
-<p>Have some praise!!!!</p>
-<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">praise</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/praise/man/praise.html">praise</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "You are praiseworthy!"</code></pre>
-<pre><code>[1] "You are spectaculaR!"</code></pre>
 
 </div>
 </div>
@@ -1128,13 +1123,7 @@ $( document ).ready(function() {
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#data-insights-part-two"><span class="header-section-number">6</span> Data insights part two</a></li>
-<li>
-<a class="nav-link" href="#associations-between-numerical-variables"><span class="header-section-number">6.1</span> Associations between numerical variables</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#correlations"><span class="header-section-number">6.1.1</span> Correlations</a></li>
-<li><a class="nav-link" href="#non-linear-correlations"><span class="header-section-number">6.1.2</span> Non-linear correlations</a></li>
-<li><a class="nav-link" href="#graphical-summaries-between-numeric-variables"><span class="header-section-number">6.1.3</span> Graphical summaries between numeric variables</a></li>
-</ul>
-</li>
+<li><a class="nav-link" href="#associations-between-numerical-variables"><span class="header-section-number">6.1</span> Associations between numerical variables</a></li>
 <li><a class="nav-link" href="#associations-between-categorical-variables"><span class="header-section-number">6.2</span> Associations between categorical variables</a></li>
 <li><a class="nav-link" href="#associations-between-categorical-numerical-variables"><span class="header-section-number">6.3</span> Associations between Categorical-numerical variables</a></li>
 <li>
@@ -1161,7 +1150,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statisticss</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -215,7 +215,7 @@ So when you combine both uncertainties of the prediction there is a spread betwe
 </div>
 
 
-### Summary
+#### Summary
 
 
 <div class="tab"><button class="tablinksunnamed-chunk-13 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-13', 'unnamed-chunk-13');">Base R</button><button class="tablinksunnamed-chunk-13" onclick="javascript:openCode(event, 'option2unnamed-chunk-13', 'unnamed-chunk-13');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-13" class="tabcontentunnamed-chunk-13">
@@ -365,13 +365,13 @@ e.g. at a density of <span class="math inline">\(\rho\)</span> = 45.73
 the average timber hardness on the janka scale is 1469.</p>
 </div>
 
-### the second row
+#### the second row
 
 The second row is labelled 'dens'. Density is our explanatory variable, and the slope is estimated against it. So if 57.5 is the value of the regression slope (with its standard error) - then the timber hardness is predicted to **increase** by 57.5 on the janka scale for every unit change of density. 
 
 According to our model summary, this estimated change in the mean is statistically significant  - so for this effect size and sample size it is unlikely that we would observe this relationship if the null hypothesis (that we cannot predict timber hardness from wood density) were true. 
 
-### Confidence intervals
+#### Confidence intervals
 
 Just like with the maize data, we can produce upper and lower bounds of confidence intervals: 
 
@@ -442,7 +442,7 @@ What would you say is the minimum effect size (at 95% confidence) of density on 
 <div id="toggleTextunnamed-chunk-20" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 Here we can say that at $\alpha$ = 0.05 we think there is at least a 52.9 unit increase on the janka scale for every unit increase in density ($\rho$). Because our 95% confidence intervals do not span 0, we know that there is a significant relationship at $\alpha$ = 0.05. </div></div></div>
 
-### Effect size
+#### Effect size
 
 With a regression model, we can also produce a standardised effect size. The estimate and 95% confidence intervals are the amount of change being observed, but just like with the maize data we can produce a standardised measure of how strong the relationship is. This value is represented by $R^2$ : the proportion of the variation in the data explained by the linear regression analysis. 
 
@@ -772,7 +772,7 @@ p3 <- model_plot(y=".resid", title="Remaining pattern")
 </div></div></div>
 
 
-### Normal distribution
+#### Normal distribution
 
 We can use the same model diagnostic plots as we used for the maize data.
 Here you can see it is mostly pretty good, with just one or two data points outside of the confidence intervals
@@ -796,7 +796,7 @@ performance::check_model(janka_ls1, check=c("normality","qq"))
 </div><script> javascript:hide('option2unnamed-chunk-28') </script></div></div></div>
 
 
-### Equal variance
+#### Equal variance
 
 We can use the same model diagnostic plots as we used for the maize data. 
 You should see that this is similar to the `p3` plot we constructed manually. With the plot we constructed earlier we had the 'raw' residuals as a function of the fitted values. The plot we have produced now is the 'standardized residuals' - this is the raw residual divided by the standard deviation.
@@ -821,7 +821,7 @@ performance::check_model(janka_ls1, check="homogeneity")
 <img src="15-Regression_files/figure-html/unnamed-chunk-57-1.png" width="100%" style="display: block; margin: auto;" />
 </div><script> javascript:hide('option2unnamed-chunk-29') </script></div></div></div>
 
-### Outliers
+#### Outliers
 
 Here we can see there is just one potential outlier. 
 

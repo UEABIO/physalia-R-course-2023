@@ -20,13 +20,13 @@ The philosophy of ggplot is much better explained by the package author, Hadley 
 <p class="caption">(\#fig:ambitious-figure)An example of what we can produce in ggplot</p>
 </div>
 
-## Before we start
+#### Before we start
 
 You should have a workspace ready to work with the Palmer penguins data. Load this workspace now. 
 
 Think about some basic checks before you start your work today.
 
-### Checklist
+#### Checklist
 
 * Are there objects already in your Environment pane? [There shouldn't be](#global-options), if there are use `rm(list=ls())`
 
@@ -80,7 +80,7 @@ called scripts.</p>
 <p class="caption">(\#fig:unnamed-chunk-8)If you have sucessfully saved 02_visualisation_penguins.R it should be visible here too </p>
 </div>
 
-### What if source isn't working?
+#### What if source isn't working?
 
 If source isn't working, or you can't figure out your project set-up you can complete this worksheet if you put the following commands at the top of your script *instead* of `source("scripts/01_import_penguins_data.R")`
 
@@ -387,7 +387,7 @@ penguins %>%
 
 <img src="06-ggplot_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
 
-### Titles and subtitles
+#### Titles and subtitles
 
 
 ```r
@@ -590,7 +590,7 @@ penguins %>%
 
 <img src="06-ggplot_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
 
-### Choosing and using colour palettes
+#### Choosing and using colour palettes
 
 You can specify what colours you want to assign to variables in a number of different ways. 
 
@@ -647,7 +647,7 @@ There are also many, many extensions that provide additional colour palettes. So
 
 ## Accessibility
 
-### Colour blindness
+#### Colour blindness
 
 It's very easy to get carried away with colour palettes, but you should remember at all times that your figures must be accessible. One way to check how accessible your figures are is to use a colour blindness checker [colorBlindness](https://cran.r-project.org/web/packages/colorBlindness/vignettes/colorBlindness.html)
 
@@ -662,7 +662,7 @@ colorBlindness::cvdPlot() # will automatically run on the last plot you made
 <img src="06-ggplot_files/figure-html/unnamed-chunk-47-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-### Guides to visual accessibility 
+#### Guides to visual accessibility 
 
 Using colours to tell categories apart can be useful, but as we can see in the example above, you should choose carefully. Other aesthetics which you can access in your geoms include `shape`, and `size` - you can combine these in complimentary ways to enhance the accessibility of your plots. Here is a hierarchy of "interpretability" for different types of data 
 
@@ -671,7 +671,9 @@ Using colours to tell categories apart can be useful, but as we can see in the e
 
 <img src="images/shape_v_colour.png" width="80%" style="display: block; margin: auto;" />
 
-## Facets
+## Multiple plots
+
+#### Facets
 
 Adding combinations of different aesthetics allows you to layer more information onto a 2D plot, sometimes though things will just become *too* busy. At the point where it becomes difficult to see the trends or differences in your plot then we want to break up a single plot into sub-plots; this is called ‘faceting’. Facets are commonly used when there is too much data to display clearly in a single plot. We will revisit faceting below, however for now, let’s try to facet the plot according to sex.
 
@@ -693,7 +695,7 @@ penguins %>%
 
 <img src="06-ggplot_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;" />
 
-## Patchwork
+#### Patchwork
 
 There are many times you might want to *combine* separate figures into multi-panel plots. Probably the easiest way to do this is with the `patchwork` package (@R-patchwork). 
 
@@ -802,7 +804,7 @@ further reading below to use for inspiration.</p></li>
 </div>
 
 
-## Quitting
+#### Quitting
 
 <div class="warning">
 <p>Make sure you have saved your script! Remember to Download your image
@@ -823,7 +825,7 @@ packages</a> when writing reports later.</p>
 
 * Make sure your workspace is set **not** to save objects from the environment [*between* sessions](#global-options).
 
-### What we learned
+#### What we learned
 
 You have learned
 
@@ -838,7 +840,7 @@ You have learned
 * How to save and export images
 
 
-### Further Reading, Guides and tips on data visualisation
+## Further Reading, Guides and tips on data visualisation
 
 * [R Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
 

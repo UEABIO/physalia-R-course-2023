@@ -30,7 +30,7 @@ In order to answer this question properly we should first understand our differe
 
 This inevitably leads to more and a variety of questions. Each new question that you ask will expose you to a *new aspect* of your data.
 
-### Data wrangling
+#### Data wrangling
 
 Importantly you should have already generated an understanding of the variables contained within your dataset during the [data wrangling](#data-wrangling-part-one) steps. Including: 
 
@@ -86,7 +86,7 @@ These will have to be coded manually see [Factors](#factors), and will then be r
 
 It is important to order Ordinal variables in the their logical order value when plotting data visuals or tables. Nominal variables are more flexible and could be ordered in whatever pattern works best for your data ( by default they will plot alphabetically, but perhaps you could order them according to the values of another numeric variable). 
 
-## Quick view of variables
+#### Quick view of variables
 
 Let's take a look at some of our variables, these functions will give a quick snapshot overview.
 
@@ -101,7 +101,7 @@ On the other hand, how we choose to measure and record data *can* change the way
 
 ## Categorical variables
 
-### Frequency
+#### Frequency
 
 ```{r}
 penguins %>% 
@@ -176,7 +176,7 @@ penguins %>%
 
 This is an example of a figure we might use in a report or paper. Having cleaned up the theme, added some simple colour, made sure our labels are clear and descriptive, ordered our categories in ascending frequency order, and included some simple text of percentages to aid readability. 
 
-### Two categorical variables
+#### Two categorical variables
 
 ```{task}
 Think about what might be a suitable confounding variable to investigate and graph here?
@@ -194,7 +194,7 @@ penguins %>%
 
 ## Continuous variables
 
-### Visualising distributions
+#### Visualising distributions
 
 **Variation** is the tendency of the values of a variable to change from measurement to measurement. You can see variation easily in real life; if you measure any continuous variable twice, you will get two different results. This is true even if you measure quantities that are constant, like the speed of light. Each of your measurements will include a small amount of error that varies from measurement to measurement. Every variable has its own pattern of variation, which can reveal interesting information. The best way to understand that pattern is to visualise the distribution of the variable’s values.
 
@@ -234,7 +234,7 @@ There appear to be more data points to the right of the peak of the histogram th
 
 If you found atypical values at this point, you could decide to exclude them from the dataset (using `filter()`). BUT you should only do this at this stage if you have a very strong reason for believing this is a mistake in the data entry, rather than a true outlier. 
 
-### Central tendency
+#### Central tendency
 
 Central tendency is a descriptive summary of a dataset through a single value that reflects the center of the data distribution. The three most widely used measures of central tendency are **mean**, **median** and **mode**.
 
@@ -276,7 +276,7 @@ ggplot()+
 
 
 
-### Normal distribution
+#### Normal distribution
 
 From our histogram we can likely already tell whether we have normally distributed data. 
 
@@ -342,7 +342,7 @@ There are is a 'truncated' left tail of our normal distribution. We would predic
 ```
 
 
-### Variation
+#### Variation
 
 Dispersion (how spread out the data is) is an important component towards understanding any numeric variable. While measures of central tendency are used to estimate the central value of a dataset, measures of dispersion are important for describing the spread of data. 
 
@@ -403,7 +403,7 @@ penguins %>%
 
 
 
-### Visualising dispersion
+#### Visualising dispersion
 
 ```{r, eval=TRUE, echo=FALSE, out.width="80%", fig.cap = "Visualising dispersion with different figures"}
 knitr::include_graphics("images/distribution_gif.gif")
@@ -461,7 +461,7 @@ plot_1 + plot_2 + plot_3
 
 We now have several compact representations of the body_mass_g including a histogram, boxplot and summary calculations. You can *and should* generate the same summaries for your other numeric variables. These tables and graphs provide the detail you need to understand the central tendency and dispersion of numeric variables. 
 
-### drop_na
+#### drop_na
 
 We first met `NA` back in [Chapter 4](#missing-values-na) and you will hopefully have noticed, either here or in those previous chapters, that missing values `NA` can really mess up our calculations. There are a few different ways we can deal with missing data:
 
@@ -659,7 +659,7 @@ Understanding the relationship between two or more variables is often the basis 
 
 ## Associations between numerical variables
 
-### Correlations
+#### Correlations
 
 A common measure of association between two numerical variables is the **correlation coefficient**. The correlation metric is a numerical measure of the *strength of an association*
 
@@ -709,7 +709,7 @@ This can be difficult to understand at first, so carefully consider the figure a
 
 * The third row shows a series of associations where there is *clearly* a relationship between the two variables, but it is also not linear so would be inappropriate for a Pearson's correlation. 
 
-### Non-linear correlations
+#### Non-linear correlations
 
 So what should we do if the relationship between our variables is non-linear? Instead of using Pearson's correlation coefficient we can calculate something called a **rank correlation**. 
 
@@ -737,7 +737,7 @@ penguins %>%
 ```
 What we can see in this example is that Pearson's *r* and Spearman's $\rho$ are basically identical. 
 
-### Graphical summaries between numeric variables
+#### Graphical summaries between numeric variables
 
 Correlation coefficients are a quick and simple way to attach a metric to the level of association between two variables. They are limited however in that a single number can never capture the every aspect of their relationship. This is why we visualise our data. 
 
@@ -1036,11 +1036,4 @@ Sometimes we may see a pattern in our data, but it has likely occurred due to ra
 
 That's it! Thank you for taking the time to get this far. Be kind to yourself if you found it difficult. You have done incredibly well.
 
-Have some praise!!!!
 
-```{r}
-praise::praise()
-```
-```
-[1] "You are spectaculaR!"
-```
