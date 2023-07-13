@@ -3,7 +3,7 @@ bookdown::bs4_book:
   md_extensions: -smart
   df_print: kable
   repo:
-    base: https://github.com/UEABIO/intro-mixed-models
+    base: https://github.com/UEABIO/physalia-intro-stats-2023
     branch: main
     subdir: book
   includes:

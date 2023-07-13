@@ -1,4 +1,3 @@
-base
 extrafont
 tidyverse
 ggplot2
@@ -23,3 +22,4 @@ patchwork
 rphylopic
 sjPlot
 gtsummary
+lubridate

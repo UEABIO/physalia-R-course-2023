@@ -1,4 +1,3 @@
-base
 extrafont
 tidyverse
 ggplot2
@@ -20,3 +19,4 @@ GGally
 emmeans
 performance
 here
+lubridate
