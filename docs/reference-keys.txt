@@ -32,8 +32,6 @@ fig:unnamed-chunk-50
 fig:unnamed-chunk-52
 fig:unnamed-chunk-53
 fig:unnamed-chunk-85
-terminology
-variance
 packages
 loading-data
 meet-the-penguins

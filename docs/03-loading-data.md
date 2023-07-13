@@ -204,7 +204,7 @@ In the example above the `read_csv()` function requires you to provide a filepat
 
 * "penguins_raw.csv" - specifies the name and format of the file
 
-### Directories
+#### Directories
 
 A directory refers to a folder on a computer that has relationships to other folders. The term “directory” considers the relationship between that folder and the folders within and around it. Directories are hierarchical which means that they can exist within other folders as well as have folders exist within them.
 
@@ -216,7 +216,7 @@ not Found</a></p>
 
 A "parent" directory is any folder that contains a subdirectory. For example your downloads folder is a directory, it is the parent directory to any subdirectories or files contained within it. 
 
-### Home directory
+#### Home directory
 
 The home directory on a computer is a directory defined by your operating system. The home directory is the primary directory for your user account on your computer. Your files are by default stored in your home directory.
 
@@ -224,7 +224,7 @@ The home directory on a computer is a directory defined by your operating system
 
 * On Mac and Linux, the home directory is typically `/home/your-username`.
 
-### Working directory
+#### Working directory
 
 The working directory refers to the directory on your computer that a tool assumes is the starting place for all filepaths
 

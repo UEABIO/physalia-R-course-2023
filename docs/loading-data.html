@@ -4,19 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 1 Loading data | Mixed Models</title>
+<title>Chapter 1 Loading data | Introduction to Statisticss</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="In this workshop we work through loading data. Once we have a curated and cleaned dataset we can work on generating insights from the data. As a biologist you should be used to asking questions...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 1 Loading data | Mixed Models">
+<meta property="og:title" content="Chapter 1 Loading data | Introduction to Statisticss">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/intro-mixed-models/loading-data.html">
-<meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
+<meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/loading-data.html">
+<meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="In this workshop we work through loading data. Once we have a curated and cleaned dataset we can work on generating insights from the data. As a biologist you should be used to asking questions...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 1 Loading data | Mixed Models">
+<meta name="twitter:title" content="Chapter 1 Loading data | Introduction to Statisticss">
 <meta name="twitter:description" content="In this workshop we work through loading data. Once we have a curated and cleaned dataset we can work on generating insights from the data. As a biologist you should be used to asking questions...">
-<meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
+<meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -98,8 +98,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="An introduction in R">Mixed Models</a>:
-        <small class="text-muted">An introduction in R</small>
+        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statisticss</a>:
+        <small class="text-muted">A guide for Biologists and Ecologists</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -161,7 +161,7 @@
 <h2>
 <span class="header-section-number">1.1</span> Meet the Penguins<a class="anchor" aria-label="anchor" href="#meet-the-penguins"><i class="fas fa-link"></i></a>
 </h2>
-<p>This data, taken from the <code>palmerpenguins</code> (<span class="citation">(<a href="#ref-R-palmerpenguins" role="doc-biblioref"><strong>R-palmerpenguins?</strong></a>)</span>) package was originally published by <span class="citation">Gorman et al. (<a href="summary-10.html#ref-Antarctic" role="doc-biblioref">2014</a>)</span>. In our course we will work with real data that has been shared by other researchers.</p>
+<p>This data, taken from the <code>palmerpenguins</code> (<span class="citation">Horst et al. (<a href="summary-10.html#ref-R-palmerpenguins" role="doc-biblioref">2022</a>)</span>) package was originally published by <span class="citation">Gorman et al. (<a href="summary-10.html#ref-Antarctic" role="doc-biblioref">2014</a>)</span>. In our course we will work with real data that has been shared by other researchers.</p>
 <p>The palmer penguins data contains size measurements, clutch observations, and blood isotope ratios for three penguin species observed on three islands in the Palmer Archipelago, Antarctica over a study period of three years.</p>
 <div class="inline-figure"><img src="images/gorman-penguins.jpg" alt="Photo of three penguin species, Chinstrap, Gentoo, Adelie" width="80%" style="display: block; margin: auto;"></div>
 <p>These data were collected from 2007 - 2009 by Dr. Kristen Gorman with the Palmer Station Long Term Ecological Research Program, part of the US Long Term Ecological Research Network. The data were imported directly from the Environmental Data Initiative (EDI) Data Portal, and are available for use by CC0 license (“No Rights Reserved”) in accordance with the Palmer Station Data Policy. We gratefully acknowledge Palmer Station LTER and the US LTER Network. Special thanks to Marty Downs (Director, LTER Network Office) for help regarding the data license &amp; use. Here is our intrepid package co-author, Dr. Gorman, in action collecting some penguin data:</p>
@@ -342,10 +342,10 @@ they have different ways of naming columns.
 <li><p>"data/" - specifies the directory in which to look for the file</p></li>
 <li><p>"penguins_raw.csv" - specifies the name and format of the file</p></li>
 </ul>
-<div id="directories" class="section level3" number="1.7.1">
-<h3>
-<span class="header-section-number">1.7.1</span> Directories<a class="anchor" aria-label="anchor" href="#directories"><i class="fas fa-link"></i></a>
-</h3>
+<div id="directories" class="section level4" number="1.7.0.1">
+<h4>
+<span class="header-section-number">1.7.0.1</span> Directories<a class="anchor" aria-label="anchor" href="#directories"><i class="fas fa-link"></i></a>
+</h4>
 <p>A directory refers to a folder on a computer that has relationships to other folders. The term “directory” considers the relationship between that folder and the folders within and around it. Directories are hierarchical which means that they can exist within other folders as well as have folders exist within them.</p>
 <div class="info">
 <p>
@@ -355,25 +355,25 @@ not Found</a>
 </div>
 <p>A "parent" directory is any folder that contains a subdirectory. For example your downloads folder is a directory, it is the parent directory to any subdirectories or files contained within it.</p>
 </div>
-<div id="home-directory" class="section level3" number="1.7.2">
-<h3>
-<span class="header-section-number">1.7.2</span> Home directory<a class="anchor" aria-label="anchor" href="#home-directory"><i class="fas fa-link"></i></a>
-</h3>
+<div id="home-directory" class="section level4" number="1.7.0.2">
+<h4>
+<span class="header-section-number">1.7.0.2</span> Home directory<a class="anchor" aria-label="anchor" href="#home-directory"><i class="fas fa-link"></i></a>
+</h4>
 <p>The home directory on a computer is a directory defined by your operating system. The home directory is the primary directory for your user account on your computer. Your files are by default stored in your home directory.</p>
 <ul>
 <li><p>On Windows, the home directory is typically <code>C:\Users\your-username</code>.</p></li>
 <li><p>On Mac and Linux, the home directory is typically <code>/home/your-username</code>.</p></li>
 </ul>
 </div>
-<div id="working-directory" class="section level3" number="1.7.3">
-<h3>
-<span class="header-section-number">1.7.3</span> Working directory<a class="anchor" aria-label="anchor" href="#working-directory"><i class="fas fa-link"></i></a>
-</h3>
+<div id="working-directory" class="section level4" number="1.7.0.3">
+<h4>
+<span class="header-section-number">1.7.0.3</span> Working directory<a class="anchor" aria-label="anchor" href="#working-directory"><i class="fas fa-link"></i></a>
+</h4>
 <p>The working directory refers to the directory on your computer that a tool assumes is the starting place for all filepaths</p>
 </div>
-<div id="absolute-vs-relative-filepaths" class="section level3" number="1.7.4">
+<div id="absolute-vs-relative-filepaths" class="section level3" number="1.7.1">
 <h3>
-<span class="header-section-number">1.7.4</span> Absolute vs Relative filepaths<a class="anchor" aria-label="anchor" href="#absolute-vs-relative-filepaths"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.7.1</span> Absolute vs Relative filepaths<a class="anchor" aria-label="anchor" href="#absolute-vs-relative-filepaths"><i class="fas fa-link"></i></a>
 </h3>
 <p>What has this got to do with working in R?</p>
 <p>When you use any programming language, you have to specify filepaths in order for the program to find files to read-in or where to output files.</p>
@@ -667,12 +667,7 @@ $( document ).ready(function() {
 <li><a class="nav-link" href="#activity-4-make-a-script"><span class="header-section-number">1.5</span> Activity 4: Make a script</a></li>
 <li><a class="nav-link" href="#activity-5-read-in-data"><span class="header-section-number">1.6</span> Activity 5: Read in data</a></li>
 <li>
-<a class="nav-link" href="#filepaths"><span class="header-section-number">1.7</span> Filepaths</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#directories"><span class="header-section-number">1.7.1</span> Directories</a></li>
-<li><a class="nav-link" href="#home-directory"><span class="header-section-number">1.7.2</span> Home directory</a></li>
-<li><a class="nav-link" href="#working-directory"><span class="header-section-number">1.7.3</span> Working directory</a></li>
-<li><a class="nav-link" href="#absolute-vs-relative-filepaths"><span class="header-section-number">1.7.4</span> Absolute vs Relative filepaths</a></li>
-</ul>
+<a class="nav-link" href="#filepaths"><span class="header-section-number">1.7</span> Filepaths</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#absolute-vs-relative-filepaths"><span class="header-section-number">1.7.1</span> Absolute vs Relative filepaths</a></li></ul>
 </li>
 <li><a class="nav-link" href="#activity-5-check-your-script"><span class="header-section-number">1.8</span> Activity 5: Check your script</a></li>
 <li><a class="nav-link" href="#activity-7-test-yourself"><span class="header-section-number">1.9</span> Activity 7: Test yourself</a></li>
@@ -693,7 +688,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
+    <p>"<strong>Introduction to Statisticss</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -4,19 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Overview | Mixed Models</title>
+<title>Overview | Introduction to Statisticss</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="This book ...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Overview | Mixed Models">
+<meta property="og:title" content="Overview | Introduction to Statisticss">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/intro-mixed-models">
-<meta property="og:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
+<meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/">
+<meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="This book ...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Overview | Mixed Models">
+<meta name="twitter:title" content="Overview | Introduction to Statisticss">
 <meta name="twitter:description" content="This book ...">
-<meta name="twitter:image" content="https://ueabio.github.io/intro-mixed-models/images/logos/twitter_card.png">
+<meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -98,8 +98,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="An introduction in R">Mixed Models</a>:
-        <small class="text-muted">An introduction in R</small>
+        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statisticss</a>:
+        <small class="text-muted">A guide for Biologists and Ecologists</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -153,37 +153,11 @@
 <h1>Overview<a class="anchor" aria-label="anchor" href="#overview"><i class="fas fa-link"></i></a>
 </h1>
 <div class="small_right">
-<img src="images/logos/mixed-logo.png" alt="Data skills Logo">
+<img src="images/logos/logo.png" alt="Data skills Logo">
 </div>
-<p>Data are often complex and messy.</p>
-<p>We can have different grouping factors like where we collect the data, etc. Sample sizes may also leave something to be desired, especially if we try to fit complicated models with many parameters. On top of that, our data points might not be truly independent. For instance, there might be structure to our data.</p>
-<p>This is why mixed models were developed, to deal with such messy data and to allow us to use all our data, even when we have low sample sizes, structured data and many covariates to fit. On top of all that, mixed models allow us to save degrees of freedom compared to running standard linear models! Sounds good.</p>
-<p>Here we will cover the basics of linear mixed models, how to use them responsibly and interepret your findings effectively.</p>
-<p>If you are trying to “extend” your linear model, fear not: there are generalised linear mixed effects models, too.</p>
-<div id="terminology" class="section level2" number="0.1">
+<div id="packages" class="section level2" number="0.1">
 <h2>
-<span class="header-section-number">0.1</span> Terminology<a class="anchor" aria-label="anchor" href="#terminology"><i class="fas fa-link"></i></a>
-</h2>
-<p>Mixed-effects models are sometime referred to as hierarchical models, multi-level models, random effects models, and mixed-models. Regardless of the confusing vocabulary, it’s worth knowing that the terms all may be used to mean similar models.</p>
-<p>Random effects are an important part of mixed-effects models. Random effects capture the variations that come from grouping or clustering of data. They are used in mixed models, which combine both fixed effects (relationships between variables) and random effects. This approach helps us account for correlations and dependencies within groups, making our models more realistic.</p>
-<p>In nature, we often see hierarchical structures, such as streams within a watershed or species within a family. Random effects can be useful in these situations and others where observations tend to be clustered. By using random effects, we can improve our ability to model the system accurately.</p>
-<p>The main purpose of applying random effects in mixed models is to capture more realistic patterns and uncertainties in the data. For example, we can account for correlations that arise from multiple observations within a group or when our observations lack complete independence.</p>
-<p>To sum it up, random effects and mixed models help us deal with situations where observations are not independent. They allow us to capture the complexities and dependencies within groups, improving the accuracy of our statistical models.</p>
-<div id="variance" class="section level3" number="0.1.1">
-<h3>
-<span class="header-section-number">0.1.1</span> Variance<a class="anchor" aria-label="anchor" href="#variance"><i class="fas fa-link"></i></a>
-</h3>
-<p>To understand mixed- and random effects models, we need to understand random effects and to understand random effects, we need to understand variance.</p>
-<blockquote>
-<p>Variance is a statistical measure that quantifies the spread or dispersion of a set of data points. It provides a measure of how much the values in a dataset deviate from the mean.</p>
-</blockquote>
-<p>To calculate the variance in a linear model (ordinary least squares), you first obtain the residuals, which are the differences between the observed response values and the predicted values. Then, you square each residual to eliminate the negative signs and calculate the sum of these squared residuals. Finally, you divide the sum by the degrees of freedom, which is the total number of observations minus the number of estimated coefficients in the model.</p>
-<p>o estimate the variance components in a linear mixed model, likelihood-based methods such as <a href="https://towardsdatascience.com/probability-concepts-explained-maximum-likelihood-estimation-c7b4342fdbb1">maximum likelihood estimation (MLE)</a> or restricted maximum likelihood estimation (REML) are commonly used. These methods optimize the likelihood function by adjusting the model parameters, including the variance components, to find the values that best fit the observed data.</p>
-</div>
-</div>
-<div id="packages" class="section level2" number="0.2">
-<h2>
-<span class="header-section-number">0.2</span> Packages<a class="anchor" aria-label="anchor" href="#packages"><i class="fas fa-link"></i></a>
+<span class="header-section-number">0.1</span> Packages<a class="anchor" aria-label="anchor" href="#packages"><i class="fas fa-link"></i></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -392,10 +366,7 @@ $( document ).ready(function() {
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#overview">Overview</a></li>
-<li>
-<a class="nav-link" href="#terminology"><span class="header-section-number">0.1</span> Terminology</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#variance"><span class="header-section-number">0.1.1</span> Variance</a></li></ul>
-</li>
-<li><a class="nav-link" href="#packages"><span class="header-section-number">0.2</span> Packages</a></li>
+<li><a class="nav-link" href="#packages"><span class="header-section-number">0.1</span> Packages</a></li>
 </ul>
 
       <div class="book-extra">
@@ -413,7 +384,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Mixed Models</strong>: An introduction in R" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
+    <p>"<strong>Introduction to Statisticss</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
