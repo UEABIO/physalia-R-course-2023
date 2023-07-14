@@ -157,36 +157,17 @@
 <p>Many people seem to operate under the assumption that the only option for data cleaning is the painstaking and time-consuming cutting and pasting of data within a spreadsheet program like Excel. We have witnessed students and colleagues waste days, weeks, and even months manually transforming their data in Excel, cutting, copying, and pasting data. Fixing up your data by hand is not only a terrible use of your time, but it is error-prone and not reproducible. Additionally, in this age where we can easily collect massive datasets online, you will not be able to organise, clean, and prepare these by hand.</p>
 <p>In short, you will not thrive as a scientist if you do not learn some key data wrangling skills. Although every dataset presents unique challenges, there are some systematic principles you should follow that will make your analyses easier, less error-prone, more efficient, and more reproducible.</p>
 <p>In this chapter you will see how data science skills will allow you to efficiently get answers to nearly any question you might want to ask about your data. By learning how to properly make your computer do the hard and boring work for you, you can focus on the bigger issues.</p>
-<div id="load-your-workspace" class="section level2" number="2.1">
+<div id="activity-1-change-column-names" class="section level2" number="2.1">
 <h2>
-<span class="header-section-number">2.1</span> Load your workspace<a class="anchor" aria-label="anchor" href="#load-your-workspace"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1</span> Activity 1: Change column names<a class="anchor" aria-label="anchor" href="#activity-1-change-column-names"><i class="fas fa-link"></i></a>
 </h2>
-<p>You should have a workspace ready to work with the Palmer penguins data.</p>
-<p>Load this workspace now.</p>
-<p>Think about some basic checks before you start your work today.</p>
-<div id="checklist" class="section level3" number="2.1.1">
-<h3>
-<span class="header-section-number">2.1.1</span> Checklist<a class="anchor" aria-label="anchor" href="#checklist"><i class="fas fa-link"></i></a>
-</h3>
-<ul>
-<li><p>Are there objects already in your Environment pane? <a href="#global-options">There shouldn't be</a>, if there are use <code>rm(list=ls())</code></p></li>
-<li><p>Re-run your script from <a href="loading-data.html#activity-4-make-a-script">last time</a> from line 1 to the last line</p></li>
-<li><p>Check for any warning or error messages</p></li>
-<li><p>Add the code from today's session to your script as we go</p></li>
-</ul>
-</div>
-</div>
-<div id="activity-1-change-column-names" class="section level2" number="2.2">
-<h2>
-<span class="header-section-number">2.2</span> Activity 1: Change column names<a class="anchor" aria-label="anchor" href="#activity-1-change-column-names"><i class="fas fa-link"></i></a>
-</h2>
-<p>We are going to learn how to organise data using the <em>tidy</em> format<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;(&lt;a href="http://vita.had.co.nz/papers/tidy-data.pdf" class="uri"&gt;http://vita.had.co.nz/papers/tidy-data.pdf&lt;/a&gt;)&lt;/p&gt;'><sup>2</sup></a>. This is because we are using the <code>tidyverse</code> packages <span class="citation">Wickham (<a href="summary-10.html#ref-R-tidyverse" role="doc-biblioref">2023</a>)</span>. This is an opinionated, but highly effective method for generating reproducible analyses with a wide-range of data manipulation tools. Tidy data is an easy format for computers to read.</p>
+<p>We are going to learn how to organise data using the <em>tidy</em> format<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;(&lt;a href="http://vita.had.co.nz/papers/tidy-data.pdf" class="uri"&gt;http://vita.had.co.nz/papers/tidy-data.pdf&lt;/a&gt;)&lt;/p&gt;'><sup>2</sup></a>. This is because we are using the <code>tidyverse</code> packages <span class="citation">Wickham (<a href="summary-10.html#ref-R-tidyverse" role="doc-biblioref">2023</a>)</span>. This is an opinionated, but highly effective method for generating reproducible analyses with a wide-range of data manipulation tools. Tidy data is an easy format for computers to read. It is also the required data structure for our <strong>statistical tests</strong> that we will work with later.</p>
 <p>Here 'tidy' refers to a specific structure that lets us manipulate and visualise data with ease. In a tidy dataset each <em>variable</em> is in one column and each row contains one <em>observation</em>. Each cell of the table/spreadsheet contains the <em>values</em>. One observation you might make about tidy data is it is quite long - it generates a lot of rows of data - you might remember then that <em>tidy</em> data can be referred to as <em>long</em>-format data (as opposed to <em>wide</em> data).</p>
 <div class="inline-figure"><img src="images/tidy-1.png" alt="tidy data overview" width="80%" style="display: block; margin: auto;"></div>
 <p>So we know our data is in R, and we know the columns and names have been imported. But we still don't know whether all of our values imported correctly, or whether it captured all the rows.</p>
-<div id="open-your-script-from-last-time-and-add-these-new-lines-at-the-bottom." class="section level4" number="2.2.0.1">
+<div id="add-this-to-your-script" class="section level4" number="2.1.0.1">
 <h4>
-<span class="header-section-number">2.2.0.1</span> Open your script from last time and add these new lines at the bottom.<a class="anchor" aria-label="anchor" href="#open-your-script-from-last-time-and-add-these-new-lines-at-the-bottom."><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1.0.1</span> Add this to your script<a class="anchor" aria-label="anchor" href="#add-this-to-your-script"><i class="fas fa-link"></i></a>
 </h4>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># CHECK DATA----</span></span>
@@ -211,9 +192,9 @@
 <li><p><strong>Delta 13C</strong>: the ratio of stable Carbon isotopes 13C:12C from blood sample</p></li>
 </ul>
 </div>
-<div id="clean-column-names" class="section level4" number="2.2.0.2">
+<div id="clean-column-names" class="section level4" number="2.1.0.2">
 <h4>
-<span class="header-section-number">2.2.0.2</span> Clean column names<a class="anchor" aria-label="anchor" href="#clean-column-names"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1.0.2</span> Clean column names<a class="anchor" aria-label="anchor" href="#clean-column-names"><i class="fas fa-link"></i></a>
 </h4>
 <p>Often we might want to change the names of our variables. They might be non-intuitive, or too long. Our data has a couple of issues:</p>
 <ul>
@@ -239,9 +220,9 @@
 ## [13] "body_mass_g"       "sex"               "delta_15_n_o_oo"  
 ## [16] "delta_13_c_o_oo"   "comments"</code></pre>
 </div>
-<div id="rename-columns-manually" class="section level4" number="2.2.0.3">
+<div id="rename-columns-manually" class="section level4" number="2.1.0.3">
 <h4>
-<span class="header-section-number">2.2.0.3</span> Rename columns (manually)<a class="anchor" aria-label="anchor" href="#rename-columns-manually"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1.0.3</span> Rename columns (manually)<a class="anchor" aria-label="anchor" href="#rename-columns-manually"><i class="fas fa-link"></i></a>
 </h4>
 <p>The <code>clean_names</code> function quickly converts all variable names into snake case. The N and C blood isotope ratio names are still quite long though, so let's clean those with <code><a href="https://dplyr.tidyverse.org/reference/rename.html">dplyr::rename()</a></code> where "new_name" = "old_name".</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -252,13 +233,13 @@
 <span>         <span class="st">"delta_13c"</span><span class="op">=</span><span class="st">"delta_13_c_o_oo"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
-<div id="check-data" class="section level2" number="2.3">
+<div id="check-data" class="section level2" number="2.2">
 <h2>
-<span class="header-section-number">2.3</span> Check data<a class="anchor" aria-label="anchor" href="#check-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2</span> Check data<a class="anchor" aria-label="anchor" href="#check-data"><i class="fas fa-link"></i></a>
 </h2>
-<div id="glimpse-check-data-format" class="section level4" number="2.3.0.1">
+<div id="glimpse-check-data-format" class="section level4" number="2.2.0.1">
 <h4>
-<span class="header-section-number">2.3.0.1</span> glimpse: check data format<a class="anchor" aria-label="anchor" href="#glimpse-check-data-format"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.0.1</span> glimpse: check data format<a class="anchor" aria-label="anchor" href="#glimpse-check-data-format"><i class="fas fa-link"></i></a>
 </h4>
 <p>When we run <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code> we get several lines of output. The number of observations "rows", the number of variables "columns". Check this against the csv file you have - they should be the same. In the next lines we see variable names and the type of data.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -270,9 +251,9 @@ It also provides information on the <em>type</em> of data in each column</p>
 <li><p><code>&lt;dbl&gt;</code> - means numerical data</p></li>
 </ul>
 </div>
-<div id="rename-text-values" class="section level4" number="2.3.0.2">
+<div id="rename-text-values" class="section level4" number="2.2.0.2">
 <h4>
-<span class="header-section-number">2.3.0.2</span> Rename text values<a class="anchor" aria-label="anchor" href="#rename-text-values"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.0.2</span> Rename text values<a class="anchor" aria-label="anchor" href="#rename-text-values"><i class="fas fa-link"></i></a>
 </h4>
 <p>Sometimes we may want to rename the values in our variables in order to make a shorthand that is easier to follow. This is changing the <strong>values</strong> in our columns, not the column names.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -289,9 +270,9 @@ tibble and check the variables have been renamed as you wanted.
 </div>
 </div>
 </div>
-<div id="dplyr-verbs" class="section level2" number="2.4">
+<div id="dplyr-verbs" class="section level2" number="2.3">
 <h2>
-<span class="header-section-number">2.4</span> dplyr verbs<a class="anchor" aria-label="anchor" href="#dplyr-verbs"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3</span> dplyr verbs<a class="anchor" aria-label="anchor" href="#dplyr-verbs"><i class="fas fa-link"></i></a>
 </h2>
 <p>In this section we will be introduced to some of the most commonly used data wrangling functions, these come from the <code>dplyr</code> package (part of the <code>tidyverse</code>). These are functions you are likely to become <em>very</em> familiar with.</p>
 <div class="kable-table">
@@ -356,9 +337,9 @@ create a new variable
 </tbody>
 </table></div>
 </div>
-<div id="select" class="section level3" number="2.4.1">
+<div id="select" class="section level3" number="2.3.1">
 <h3>
-<span class="header-section-number">2.4.1</span> Select<a class="anchor" aria-label="anchor" href="#select"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3.1</span> Select<a class="anchor" aria-label="anchor" href="#select"><i class="fas fa-link"></i></a>
 </h3>
 <p>If we wanted to create a dataset that only includes certain variables, we can use the <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> function from the <code>dplyr</code> package.</p>
 <p>For example I might wish to create a simplified dataset that only contains <code>species</code>, <code>sex</code>, <code>flipper_length_mm</code> and <code>body_mass_g</code>.</p>
@@ -379,9 +360,9 @@ create a new variable
 <code class="sourceCode R"><span><span class="va">new_penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>, </span>
 <span>       <span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span>, <span class="va">body_mass_g</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="filter" class="section level3" number="2.4.2">
+<div id="filter" class="section level3" number="2.3.2">
 <h3>
-<span class="header-section-number">2.4.2</span> Filter<a class="anchor" aria-label="anchor" href="#filter"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3.2</span> Filter<a class="anchor" aria-label="anchor" href="#filter"><i class="fas fa-link"></i></a>
 </h3>
 <p>Having previously used <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> to select certain variables, we will now use <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> to select only certain rows or observations. For example only Adelie penguins.</p>
 <p>We can do this with the equivalence operator <code>==</code></p>
@@ -470,9 +451,9 @@ in
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span>, <span class="va">flipper_length_mm</span> <span class="op">&gt;</span> <span class="fl">190</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="arrange" class="section level3" number="2.4.3">
+<div id="arrange" class="section level3" number="2.3.3">
 <h3>
-<span class="header-section-number">2.4.3</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3.3</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
 </h3>
 <p>The function <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> sorts the rows in the table according to the columns supplied. For example</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
@@ -488,9 +469,9 @@ in
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span>,</span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="mutate" class="section level3" number="2.4.4">
+<div id="mutate" class="section level3" number="2.3.4">
 <h3>
-<span class="header-section-number">2.4.4</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3.4</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sometimes we need to create a new variable that doesn't exist in our dataset. For example we might want to figure out what the flipper length is when factoring in body mass.</p>
 <p>To create new variables we use the function <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>.</p>
@@ -500,9 +481,9 @@ in
 <span>                       body_mass_kg <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
-<div id="pipes" class="section level2" number="2.5">
+<div id="pipes" class="section level2" number="2.4">
 <h2>
-<span class="header-section-number">2.5</span> Pipes<a class="anchor" aria-label="anchor" href="#pipes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4</span> Pipes<a class="anchor" aria-label="anchor" href="#pipes"><i class="fas fa-link"></i></a>
 </h2>
 <div class="inline-figure"><img src="images/pipe_order.jpg" alt="Pipes make code more human readable" width="80%" style="display: block; margin: auto;"></div>
 <p>Pipes look like this: <code>%&gt;%</code> Pipes allow you to send the output from one function straight into another function. Specifically, they send the result of the function before <code>%&gt;%</code> to be the <strong>first</strong> argument of the function after <code>%&gt;%</code>. As usual, it's easier to show, rather than tell so let's look at an example.</p>
@@ -560,13 +541,13 @@ site</a> does a good job of explaining
 </p>
 </div>
 </div>
-<div id="a-few-more-handy-functions" class="section level2" number="2.6">
+<div id="a-few-more-handy-functions" class="section level2" number="2.5">
 <h2>
-<span class="header-section-number">2.6</span> A few more handy functions<a class="anchor" aria-label="anchor" href="#a-few-more-handy-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5</span> A few more handy functions<a class="anchor" aria-label="anchor" href="#a-few-more-handy-functions"><i class="fas fa-link"></i></a>
 </h2>
-<div id="check-for-duplication" class="section level3" number="2.6.1">
+<div id="check-for-duplication" class="section level3" number="2.5.1">
 <h3>
-<span class="header-section-number">2.6.1</span> Check for duplication<a class="anchor" aria-label="anchor" href="#check-for-duplication"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5.1</span> Check for duplication<a class="anchor" aria-label="anchor" href="#check-for-duplication"><i class="fas fa-link"></i></a>
 </h3>
 <p>It is very easy when inputting data to make mistakes, copy something in twice for example, or if someone did a lot of copy-pasting to assemble a spreadsheet (yikes!). We can check this pretty quickly</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
@@ -577,9 +558,9 @@ site</a> does a good job of explaining
 <pre><code>[1] 0</code></pre>
 <p>Great!</p>
 </div>
-<div id="summarise" class="section level3" number="2.6.2">
+<div id="summarise" class="section level3" number="2.5.2">
 <h3>
-<span class="header-section-number">2.6.2</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5.2</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can also explore our data for very obvious typos by checking for implausibly small or large values, this is a simple use of the <code>summarise</code> function.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
@@ -595,9 +576,9 @@ our dataset is nearly half the size of the largest penguin.
 </p>
 </div>
 </div>
-<div id="group-by" class="section level3" number="2.6.3">
+<div id="group-by" class="section level3" number="2.5.3">
 <h3>
-<span class="header-section-number">2.6.3</span> Group By<a class="anchor" aria-label="anchor" href="#group-by"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5.3</span> Group By<a class="anchor" aria-label="anchor" href="#group-by"><i class="fas fa-link"></i></a>
 </h3>
 <p>Many data analysis tasks can be approached using the “split-apply-combine” paradigm: split the data into groups, apply some analysis to each group, and then combine the results. <code>dplyr</code> makes this very easy with the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function. In the <code>summarise</code> example above we were able to find the max-min body mass values for the penguins in our dataset. But what if we wanted to break that down by a grouping such as species of penguin. This is where <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> comes in.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
@@ -607,9 +588,9 @@ our dataset is nearly half the size of the largest penguin.
 <span>            max<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Now we know a little more about our data, the max weight of our Gentoo penguins is much larger than the other two species. In fact, the minimum weight of a Gentoo penguin is not far off the max weight of the other two species.</p>
 </div>
-<div id="distinct" class="section level3" number="2.6.4">
+<div id="distinct" class="section level3" number="2.5.4">
 <h3>
-<span class="header-section-number">2.6.4</span> Distinct<a class="anchor" aria-label="anchor" href="#distinct"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5.4</span> Distinct<a class="anchor" aria-label="anchor" href="#distinct"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can also look for typos by asking R to produce all of the distinct values in a variable. This is more useful for categorical data, where we expect there to be only a few distinct categories</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
@@ -617,9 +598,9 @@ our dataset is nearly half the size of the largest penguin.
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 <p>Here if someone had mistyped e.g. 'FMALE' it would be obvious. We could do the same thing (and probably should have before we changed the names) for species.</p>
 </div>
-<div id="missing-values-na" class="section level3" number="2.6.5">
+<div id="missing-values-na" class="section level3" number="2.5.5">
 <h3>
-<span class="header-section-number">2.6.5</span> Missing values: NA<a class="anchor" aria-label="anchor" href="#missing-values-na"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5.5</span> Missing values: NA<a class="anchor" aria-label="anchor" href="#missing-values-na"><i class="fas fa-link"></i></a>
 </h3>
 <p>There are multiple ways to check for missing values in our data</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
@@ -630,9 +611,9 @@ our dataset is nearly half the size of the largest penguin.
 <p>But this doesn't tell us where these are, fortunately the function <code>summary</code> does this easily</p>
 </div>
 </div>
-<div id="summary" class="section level2" number="2.7">
+<div id="summary" class="section level2" number="2.6">
 <h2>
-<span class="header-section-number">2.7</span> <code>Summary</code><a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.6</span> <code>Summary</code><a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
 </h2>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># produce a summary of our data</span></span>
@@ -642,24 +623,20 @@ our dataset is nearly half the size of the largest penguin.
 <p>We will leave the NA's alone for now, but it's useful to know how many we have.</p>
 <p>We've now got a clean &amp; tidy dataset, with a handful of first insights into the data.</p>
 </div>
-<div id="finished" class="section level2" number="2.8">
+<div id="finished" class="section level2" number="2.7">
 <h2>
-<span class="header-section-number">2.8</span> Finished<a class="anchor" aria-label="anchor" href="#finished"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.7</span> Finished<a class="anchor" aria-label="anchor" href="#finished"><i class="fas fa-link"></i></a>
 </h2>
 <p>That was a lot of work! But remember you don't have to remember all of these functions, remember this chapter when you do more data wrangling in the future. Also bookmark the <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheatsheets Page</a>.</p>
 <p>Finally, make sure you have saved the changes made to your script 💾 &amp; make sure your workspace is set <strong>not</strong> to save objects from the environment <a href="#global-options"><em>between</em> sessions</a>.</p>
 <p>We want our script to be our record of work and progress, and not to be confused by a cluttered R Environment.</p>
 </div>
-<div id="activity-reorganise-this-script" class="section level2" number="2.9">
+<div id="activity-reorganise-this-script" class="section level2" number="2.8">
 <h2>
-<span class="header-section-number">2.9</span> Activity: Reorganise this script<a class="anchor" aria-label="anchor" href="#activity-reorganise-this-script"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.8</span> Activity: Reorganise this script<a class="anchor" aria-label="anchor" href="#activity-reorganise-this-script"><i class="fas fa-link"></i></a>
 </h2>
 <p>Using the link below take the text and copy/paste into a <strong>new</strong> R script and save this as <code>YYYY_MM_DD_workshop_4_jumbled_script.R</code></p>
 <p>All of the correct lines of code, comments and document markers are present, but not in the correct order. Can you unscramble them to produce a sensible output and a clear document outline?</p>
-<div id="submit-when-you-are-finished" class="section level4" number="2.9.0.1">
-<h4>
-<span class="header-section-number">2.9.0.1</span> Submit when you are finished<a class="anchor" aria-label="anchor" href="#submit-when-you-are-finished"><i class="fas fa-link"></i></a>
-</h4>
 <a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/jumbled_script.R">
 <button class="btn btn-success"><i class="fa fa-save"></i> Download jumbled R script</button>
 </a>
@@ -667,13 +644,12 @@ our dataset is nearly half the size of the largest penguin.
 <button>
 Solution
 </button>
-<p>If you want to check your answers (or are just completely stuck) then click here before submitting</p>
+<p>If you want to check your answers (or are just completely stuck) then click here</p>
 <a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/unjumbled_script.R">
 <button class="btn btn-success"><i class="fa fa-save"></i> Unjumbled script</button>
 </a>
 </div>
 
-</div>
 </div>
 </div>
 
@@ -863,32 +839,29 @@ $( document ).ready(function() {
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#data-wrangling-part-one"><span class="header-section-number">2</span> Data wrangling part one</a></li>
+<li><a class="nav-link" href="#activity-1-change-column-names"><span class="header-section-number">2.1</span> Activity 1: Change column names</a></li>
+<li><a class="nav-link" href="#check-data"><span class="header-section-number">2.2</span> Check data</a></li>
 <li>
-<a class="nav-link" href="#load-your-workspace"><span class="header-section-number">2.1</span> Load your workspace</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#checklist"><span class="header-section-number">2.1.1</span> Checklist</a></li></ul>
-</li>
-<li><a class="nav-link" href="#activity-1-change-column-names"><span class="header-section-number">2.2</span> Activity 1: Change column names</a></li>
-<li><a class="nav-link" href="#check-data"><span class="header-section-number">2.3</span> Check data</a></li>
-<li>
-<a class="nav-link" href="#dplyr-verbs"><span class="header-section-number">2.4</span> dplyr verbs</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#select"><span class="header-section-number">2.4.1</span> Select</a></li>
-<li><a class="nav-link" href="#filter"><span class="header-section-number">2.4.2</span> Filter</a></li>
-<li><a class="nav-link" href="#arrange"><span class="header-section-number">2.4.3</span> Arrange</a></li>
-<li><a class="nav-link" href="#mutate"><span class="header-section-number">2.4.4</span> Mutate</a></li>
+<a class="nav-link" href="#dplyr-verbs"><span class="header-section-number">2.3</span> dplyr verbs</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#select"><span class="header-section-number">2.3.1</span> Select</a></li>
+<li><a class="nav-link" href="#filter"><span class="header-section-number">2.3.2</span> Filter</a></li>
+<li><a class="nav-link" href="#arrange"><span class="header-section-number">2.3.3</span> Arrange</a></li>
+<li><a class="nav-link" href="#mutate"><span class="header-section-number">2.3.4</span> Mutate</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#pipes"><span class="header-section-number">2.5</span> Pipes</a></li>
+<li><a class="nav-link" href="#pipes"><span class="header-section-number">2.4</span> Pipes</a></li>
 <li>
-<a class="nav-link" href="#a-few-more-handy-functions"><span class="header-section-number">2.6</span> A few more handy functions</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#check-for-duplication"><span class="header-section-number">2.6.1</span> Check for duplication</a></li>
-<li><a class="nav-link" href="#summarise"><span class="header-section-number">2.6.2</span> Summarise</a></li>
-<li><a class="nav-link" href="#group-by"><span class="header-section-number">2.6.3</span> Group By</a></li>
-<li><a class="nav-link" href="#distinct"><span class="header-section-number">2.6.4</span> Distinct</a></li>
-<li><a class="nav-link" href="#missing-values-na"><span class="header-section-number">2.6.5</span> Missing values: NA</a></li>
+<a class="nav-link" href="#a-few-more-handy-functions"><span class="header-section-number">2.5</span> A few more handy functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#check-for-duplication"><span class="header-section-number">2.5.1</span> Check for duplication</a></li>
+<li><a class="nav-link" href="#summarise"><span class="header-section-number">2.5.2</span> Summarise</a></li>
+<li><a class="nav-link" href="#group-by"><span class="header-section-number">2.5.3</span> Group By</a></li>
+<li><a class="nav-link" href="#distinct"><span class="header-section-number">2.5.4</span> Distinct</a></li>
+<li><a class="nav-link" href="#missing-values-na"><span class="header-section-number">2.5.5</span> Missing values: NA</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#summary"><span class="header-section-number">2.7</span> Summary</a></li>
-<li><a class="nav-link" href="#finished"><span class="header-section-number">2.8</span> Finished</a></li>
-<li><a class="nav-link" href="#activity-reorganise-this-script"><span class="header-section-number">2.9</span> Activity: Reorganise this script</a></li>
+<li><a class="nav-link" href="#summary"><span class="header-section-number">2.6</span> Summary</a></li>
+<li><a class="nav-link" href="#finished"><span class="header-section-number">2.7</span> Finished</a></li>
+<li><a class="nav-link" href="#activity-reorganise-this-script"><span class="header-section-number">2.8</span> Activity: Reorganise this script</a></li>
 </ul>
 
       <div class="book-extra">
@@ -906,7 +879,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-13.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-14.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

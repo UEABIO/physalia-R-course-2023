@@ -30,9 +30,9 @@ Darwin wanted to know whether inbreeding reduced the fitness of the selfed plant
 
 ```r
 library(tidyverse)
-library(here)
 
-darwin <- read_csv(here("data", "darwin.csv"))
+
+darwin <- read_csv("data/darwin.csv")
 ```
 
 

@@ -396,6 +396,18 @@ GGally::ggcoef_model(lsmodel1,
 
 <img src="13-Introduction-to-linear-models_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
 
+```r
+## 
+
+#lsmodel1 %>% 
+#  broom::tidy(conf.int = T) %>% 
+#  filter(term != "(Intercept)") %>% 
+#  ggplot(aes(x = estimate, y = term)) + 
+#  geom_pointrange(aes(xmin = conf.low, xmax = conf.high))+
+#  coord_cartesian(xlim = c(-5,0))+ 
+#  geom_vline(xintercept = 0, linetype = "dashed")
+```
+
 <div class="try">
 <p>Set the confidence levels to 99%, do you think the difference between
 treatments is still statistically significant at an of 0.01?</p>

@@ -14,27 +14,9 @@ In short, you will not thrive as a scientist if you do not learn some key data w
 
 In this chapter you will see how data science skills will allow you to efficiently get answers to nearly any question you might want to ask about your data. By learning how to properly make your computer do the hard and boring work for you, you can focus on the bigger issues.
 
-## Load your workspace
-
-You should have a workspace ready to work with the Palmer penguins data. 
-
-Load this workspace now. 
-
-Think about some basic checks before you start your work today.
-
-### Checklist
-
-* Are there objects already in your Environment pane? [There shouldn't be](#global-options), if there are use `rm(list=ls())`
-
-* Re-run your script from [last time](#activity-4-make-a-script) from line 1 to the last line
-
-* Check for any warning or error messages
-
-* Add the code from today's session to your script as we go
-
 ## Activity 1: Change column names
 
-We are going to learn how to organise data using the *tidy* format^[(http://vita.had.co.nz/papers/tidy-data.pdf)]. This is because we are using the `tidyverse` packages @R-tidyverse. This is an opinionated, but highly effective method for generating reproducible analyses with a wide-range of data manipulation tools. Tidy data is an easy format for computers to read. 
+We are going to learn how to organise data using the *tidy* format^[(http://vita.had.co.nz/papers/tidy-data.pdf)]. This is because we are using the `tidyverse` packages @R-tidyverse. This is an opinionated, but highly effective method for generating reproducible analyses with a wide-range of data manipulation tools. Tidy data is an easy format for computers to read. It is also the required data structure for our **statistical tests** that we will work with later.
 
 Here 'tidy' refers to a specific structure that lets us manipulate and visualise data with ease. In a tidy dataset each *variable* is in one column and each row contains one *observation*. Each cell of the table/spreadsheet contains the *values*. One observation you might make about tidy data is it is quite long - it generates a lot of rows of data - you might remember then that *tidy* data can be referred to as *long*-format data (as opposed to *wide* data). 
 
@@ -42,7 +24,7 @@ Here 'tidy' refers to a specific structure that lets us manipulate and visualise
 
 So we know our data is in R, and we know the columns and names have been imported. But we still don't know whether all of our values imported correctly, or whether it captured all the rows. 
 
-#### Open your script from last time and add these new lines at the bottom. 
+#### Add this to your script 
 
 
 ```r
@@ -536,7 +518,6 @@ Using the link below take the text and copy/paste into a **new** R script and sa
 
 All of the correct lines of code, comments and document markers are present, but not in the correct order. Can you unscramble them to produce a sensible output and a clear document outline?
 
-#### Submit when you are finished
 
 
 ```{=html}
@@ -545,10 +526,11 @@ All of the correct lines of code, comments and document markers are present, but
 </a>
 ```
 
+
 <div class='webex-solution'><button>Solution</button>
 
 
-If you want to check your answers (or are just completely stuck) then click here before submitting
+If you want to check your answers (or are just completely stuck) then click here
 
 
 ```{=html}

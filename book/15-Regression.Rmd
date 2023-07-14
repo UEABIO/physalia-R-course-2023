@@ -86,6 +86,11 @@ Check the data is imported correctly and make sure it is 'tidy' with no obvious 
 
 ```
 
+```{r, eval = FALSE}
+
+janka <- read_csv("data/janka.csv")
+
+```
 
 ## Activity 1: Exploratory Analysis
 

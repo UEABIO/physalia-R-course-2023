@@ -34,9 +34,9 @@ downloadthis::download_link(
 
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
-library(here)
 
-darwin <- read_csv(here("data", "darwin.csv"))
+
+darwin <- read_csv("data/darwin.csv")
 
 ```
 

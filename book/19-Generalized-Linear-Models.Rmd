@@ -726,11 +726,14 @@ We first consider why we are dealing with odds  $\frac{p}{1-p}$ instead of just 
 
 When we use a binomial model, we produce the 'log-odds', this produces a fully unconstrained linear regression as anything less than 1, can now occupy an infinite negative value -∞ to ∞. 
 
-$$\log\left(\frac{p}{1-p}\right)	=	\beta_{0}+\beta_{1}x_{1}+\beta_{2}x_{2}
+$$
+\log\left(\frac{p}{1-p}\right)	=	\beta_{0}+\beta_{1}x_{1}+\beta_{2}x_{2}
 $$
 
-$$\frac{p}{1-p}	=	e^{\beta_{0}}e^{\beta_{1}x_{1}}e^{\beta_{2}x_{2}}
 $$
+\frac{p}{1-p}	=	e^{\beta_{0}}e^{\beta_{1}x_{1}}e^{\beta_{2}x_{2}}
+$$
+
 
 We can interpret $\beta_{1}$ and $\beta_{2}$ as the increase in the log odds for every unit increase in $x_{1}$ and $x_{2}$. We could alternatively interpret $\beta_{1}$ and $\beta_{2}$ using the notion that a one unit change in $x_{1}$ as a percent change of $e^{\beta_{1}}$ in the odds. That is to say, $e^{\beta_{1}}$ is the odds ratio of that change. 
 
@@ -812,10 +815,9 @@ broom::augment(binary_model,
   head()
 ```
 
-Annoyingly a limitation of the augment function is that it won't produce 95% CI for predictions on glms. But I have written a short function to do this
-Don't worry if this is a lot to get your head around - the main thing is use this code to produce 95% CI. 
+Annoyingly a limitation of the augment function is that it won't produce 95% CI for predictions on glms. 
 
-```{r}
+```{r, echo = FALSE, eval = FALSE}
 augment_glm <- function(mod, predict = NULL){
   fam <- family(mod)
   ilink <- fam$linkinv
@@ -841,20 +843,26 @@ emmeans::emmeans(binary_model,
 ```
 
 ```{task}
-Use the augment_glm function to make a ggplot of the changing probability of O-ring failure with temperature
+Use the emmeans output to make a ggplot of the changing probability of O-ring failure with temperature
 ```
+
 
 ```{solution}
 
 ``{r, eval = T}
 
-augment_glm(binary_model) %>% 
-  ggplot(aes(x=temp, y=oring_binary))+geom_line(aes(x=temp, y=.fitted))+
-  geom_ribbon(aes(ymin=.lower, ymax=.upper), alpha=0.2)
+emmeans::emmeans(binary_model, 
+                 specs = ~ temp, 
+                 at=list(temp=c(27:80)), 
+                 type='response') %>% 
+  as_tibble() %>% 
+  ggplot(aes(x=temp, y=prob))+geom_line(aes(x=temp, y=prob))+
+  geom_ribbon(aes(ymin=asymp.LCL, ymax=asymp.UCL), alpha=0.2)
 
 ``
 
 ```
+
 
 ## Predictions
 
@@ -875,10 +883,12 @@ Make a new dataset with the temperature on the day of the Challenger launch - wh
 First - we make a new dataset with the temperature on the day of the Challenger Launch **36&deg;F**
 
 ``{r, eval = TRUE}
-new_data <- tibble(temp=36, oring_binary=1)
 
 
-augment_glm(binary_model, new_data)
+ emmeans::emmeans(binary_model, 
+                 specs = ~ temp, 
+                 at = list(temp = 36),                  
+                 type='response')
 
 ``
 We can see from our fitted model, an O-ring failure on the day of the Challenger launch could have been predicted with a probability of >0.999 [95%CI: 0.43-1]
@@ -892,8 +902,24 @@ The standard model checks from `plot()` cannot be used on binomial glms, they ar
 
 Luckily the `performance` package detects and alters the checks. Pay particular attention to the binned residuals plot - this is your best estimate of possible overdispersion (requiring a quasi-likelihood check). In this case there is likely not enough data for robust checks
 
-```{r}
+```{multCode = T}
+
+``{r}
+library(arm)
+
+x <- predict(binary_model)
+y <- resid(binary_model)
+arm::binnedplot(x,y)
+
+``
+
+####
+
+``{r}
+
 performance::check_model(binary_model)
+
+``
 
 ```
 
@@ -908,11 +934,7 @@ All analyses were carried out in R (ver 4.1.3) (R Core Team 2021) with the follo
 
 Results: I found a significant negative relationship between temperature and probability of o-ring failure (logit-odds = -0.37 [95%CI: -0.88 - -0.12], *z* = -2.1, d.f = 21, *P* = 0.036). At an average temperature of 69.6&deg;F the probability of o-ring failure was estimated at 0.15[0.03-0.45], but this rose to a near certainty of failure 0.99[0.43-1] at 36&deg;F.
 
-> Note you could use drop1( test = "Chisq") here, but as there is only one, continuous variable, we can also report directly from the summary table. 
-
-```{r}
-drop1(binary_model, test="Chisq")
-```
+> Note you could use anova( test = "Chisq") here, but as there is only one, continuous variable, we can also report directly from the summary table. 
 
 `r unhide()`
 

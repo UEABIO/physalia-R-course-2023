@@ -22,9 +22,12 @@ So far we have worked almost exclusively with single explanatory variables eithe
 ```
 
 
+
+
 ```r
-biomass <- read_csv(here::here("book", "files", "biomass.csv"))
+biomass <- read_csv("data/biomass.csv")
 ```
+
 
 You should first check the data and look at the top rows, we can see that this shows the application or non-application of fertiliser and light additions, because *all four* possible combinations are present, this is known as a *fully factorial design*:
 
@@ -49,9 +52,9 @@ Close inspection of the dataset shows that the same data is presented in *two* w
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Use your R  data wrangling skills to check the data after import. </div></div>
 
-<button id="displayTextunnamed-chunk-6" onclick="javascript:toggle('unnamed-chunk-6');">Show Solution</button>
+<button id="displayTextunnamed-chunk-7" onclick="javascript:toggle('unnamed-chunk-7');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-6" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-7" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # check the structure of the data
@@ -265,8 +268,8 @@ We will look at the two different ways to analyse this data then, and the pros a
 ## One-way ANOVA
 
 <div class="figure" style="text-align: center">
-<img src="17-Multiple-regression_files/figure-html/unnamed-chunk-7-1.png" alt="Boxplot and individual biomass values (black points) with treatment means (red diamonds)" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-7)Boxplot and individual biomass values (black points) with treatment means (red diamonds)</p>
+<img src="17-Multiple-regression_files/figure-html/unnamed-chunk-8-1.png" alt="Boxplot and individual biomass values (black points) with treatment means (red diamonds)" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-8)Boxplot and individual biomass values (black points) with treatment means (red diamonds)</p>
 </div>
 
 Plotting the data and superimposing mean values produces the graph shown above. Now we are confident there is a difference in our sample means, we can begin a linear model to quantify this and test it against a null hypothesis. 
@@ -317,8 +320,8 @@ GGally::ggcoef_model(ls_1,
 ```
 
 <div class="figure" style="text-align: center">
-<img src="17-Multiple-regression_files/figure-html/unnamed-chunk-9-1.png" alt="Effects of light and fertiliser treatments on biomass relative to an untreated control (error bars = 95% CI)" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-9)Effects of light and fertiliser treatments on biomass relative to an untreated control (error bars = 95% CI)</p>
+<img src="17-Multiple-regression_files/figure-html/unnamed-chunk-10-1.png" alt="Effects of light and fertiliser treatments on biomass relative to an untreated control (error bars = 95% CI)" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-10)Effects of light and fertiliser treatments on biomass relative to an untreated control (error bars = 95% CI)</p>
 </div>
 
 But what about the fourth level - combined fertiliser and light treatments? If there is no interaction (combined effect) between light and fertiliser then we would expect the average biomass difference caused by the light and the and the average biomass difference caused by fertiliser to *add together* to approximately the value found in the combined treatment.
@@ -352,8 +355,8 @@ In contrast to the one-way ANOVA approach, a factorial design lets us test and c
 ### Testing for interactions
 
 <div class="figure" style="text-align: center">
-<img src="17-Multiple-regression_files/figure-html/unnamed-chunk-11-1.png" alt="Left an illustration of an additive model, Right an illustration of a model with an interaction effect." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-11)Left an illustration of an additive model, Right an illustration of a model with an interaction effect.</p>
+<img src="17-Multiple-regression_files/figure-html/unnamed-chunk-12-1.png" alt="Left an illustration of an additive model, Right an illustration of a model with an interaction effect." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-12)Left an illustration of an additive model, Right an illustration of a model with an interaction effect.</p>
 </div>
 
 When the data can be best explained by an additive model, we expect new terms to shift the intercept up or down but the slope of the line to remain the same. An interaction effect *changes* the relationship as such we should see *different* gradients.
@@ -379,7 +382,7 @@ biomass %>% ggplot(aes(x=Fert, y=Biomass.m2, colour = Light, fill = Light, group
     )
 ```
 
-<img src="17-Multiple-regression_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="17-Multiple-regression_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
 
 To produce an interactive model, we need to use the *separate* factors for fertiliser and light rather than the single `fl` factor. When we make this model, we include the main effects of `Light` and `Fert`, if the additive model explains sufficient variance then this will be enough, but if we suspect an interaction term we add this as `Light:Fert` written out as follows:
 
@@ -427,7 +430,7 @@ GGally::ggcoef_model(ls_2,
                      conf.level=0.95)
 ```
 
-<img src="17-Multiple-regression_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="17-Multiple-regression_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
 
 When we use a factorial combination, the last line of the table of coefficients estimates the size of the interaction effect at around 95g. So if combining the light and fertilisation treatments produced a biomass equivalent to their additive predictions, the estimate of the interaction would be *zero*. Instead it is **95g more than we would expect from the additive effects alone**. This means in order to work out the estimated biomass for the treatment of light and fertiliser we must sum the additive effects of `Light`+ `Fert` and the interaction effect `Light:Fert`. 
 
@@ -472,11 +475,15 @@ So you have made a linear model with an interaction term, how do you report whet
 
 In previous chapters we ran the `anova()` function directly on our linear model. This works well for simple & 'balanced' designs (there are equal sample sizes in each level of a factor), but can be misleading with ['unbalanced' designs or models with complex interactions](https://mcfromnz.wordpress.com/2011/03/02/anova-type-iiiiii-ss-explained/). 
 
-In order to report an *F* statistic for the interaction effect, we need to carry out an *F*-test of two models, one *with* and one *without* the interaction effect. This is easy with the function `drop1()`
+In order to report an *F* statistic for the interaction effect, we need to carry out an *F*-test of two models, one *with* and one *without* the interaction effect. Here we can use the `anova()` function again but we will compare *nested models*
 
 
 ```r
-drop1(ls_2, test = "F")
+# A simpler model with the interaction term removed
+ls_3 <- lm(Biomass.m2 ~ Fert + Light, data = biomass)
+
+# Put the simpler model first
+anova(ls_3, ls_2,  test = "F")
 ```
 
 <div class="kable-table">
@@ -484,31 +491,28 @@ drop1(ls_2, test = "F")
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Res.Df </th>
+   <th style="text-align:right;"> RSS </th>
    <th style="text-align:right;"> Df </th>
    <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> AIC </th>
-   <th style="text-align:right;"> F value </th>
+   <th style="text-align:right;"> F </th>
    <th style="text-align:right;"> Pr(&gt;F) </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> &lt;none&gt; </td>
+   <td style="text-align:right;"> 61 </td>
+   <td style="text-align:right;"> 550407.1 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 513997.7 </td>
-   <td style="text-align:right;"> 583.4298 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> Fert:Light </td>
+   <td style="text-align:right;"> 60 </td>
+   <td style="text-align:right;"> 513997.7 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 36409.41 </td>
-   <td style="text-align:right;"> 550407.1 </td>
-   <td style="text-align:right;"> 585.8099 </td>
    <td style="text-align:right;"> 4.250144 </td>
    <td style="text-align:right;"> 0.0435871 </td>
   </tr>
@@ -517,7 +521,7 @@ drop1(ls_2, test = "F")
 
 </div>
 
-This *F*-test is testing the *null hypothesis* that there is no true interaction effect. The significance test rejects the null hypothesis (just). The `drop1()` function also provides the **Akaike information criterion (AIC)**, an alternative method of model selection (more on this later). 
+This *F*-test is testing the *null hypothesis* that there is no true interaction effect. The significance test rejects the null hypothesis (just). It also provides the **Akaike information criterion (AIC)**, an alternative method of model selection (more on this later). 
 
 We could now write this up as follows:
 
@@ -539,9 +543,12 @@ If we decide to include reports of the main effect then estimates and confidence
 ```r
 # we have to remove the interaction term before we can keep using drop1()
 
-ls_3 <- lm(Biomass.m2 ~ Fert + Light, data = biomass)
+ls_4a <- lm(Biomass.m2 ~ Fert, data = biomass)
+ls_4b <- lm(Biomass.m2 ~ Light, data = biomass)
 
-drop1(ls_3, test = "F")
+anova(ls_4a, ls_3, test = "F")
+
+anova(ls_4b, ls_3, test = "F")
 ```
 
 <div class="kable-table">
@@ -549,42 +556,63 @@ drop1(ls_3, test = "F")
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Res.Df </th>
+   <th style="text-align:right;"> RSS </th>
    <th style="text-align:right;"> Df </th>
    <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> AIC </th>
-   <th style="text-align:right;"> F value </th>
+   <th style="text-align:right;"> F </th>
    <th style="text-align:right;"> Pr(&gt;F) </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> &lt;none&gt; </td>
+   <td style="text-align:right;"> 62 </td>
+   <td style="text-align:right;"> 647322.6 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 61 </td>
    <td style="text-align:right;"> 550407.1 </td>
-   <td style="text-align:right;"> 585.8099 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Fert </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 319889.22 </td>
-   <td style="text-align:right;"> 870296.4 </td>
-   <td style="text-align:right;"> 613.1332 </td>
-   <td style="text-align:right;"> 35.45238 </td>
-   <td style="text-align:right;"> 0.0000001 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Light </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 96915.47 </td>
-   <td style="text-align:right;"> 647322.6 </td>
-   <td style="text-align:right;"> 594.1899 </td>
    <td style="text-align:right;"> 10.74086 </td>
    <td style="text-align:right;"> 0.0017322 </td>
+  </tr>
+</tbody>
+</table>
+
+</div><div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Res.Df </th>
+   <th style="text-align:right;"> RSS </th>
+   <th style="text-align:right;"> Df </th>
+   <th style="text-align:right;"> Sum of Sq </th>
+   <th style="text-align:right;"> F </th>
+   <th style="text-align:right;"> Pr(&gt;F) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 62 </td>
+   <td style="text-align:right;"> 870296.4 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 61 </td>
+   <td style="text-align:right;"> 550407.1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 319889.2 </td>
+   <td style="text-align:right;"> 35.45238 </td>
+   <td style="text-align:right;"> 1e-07 </td>
   </tr>
 </tbody>
 </table>
@@ -593,7 +621,7 @@ drop1(ls_3, test = "F")
 
 
 <div class="warning">
-<p>You can use this reduced model to get F values, BUT reports of
+<p>You can use these reduced models to get F values, BUT reports of
 estimates should come from the full model.</p>
 </div>
 
@@ -607,7 +635,7 @@ effect e.g. </p>
 <p>lm(Light + Fert)</p>
 </div>
 
-In the examples above, you are unlikely to find much of a difference between running the `drop1()` function or `anova()` on the complex or reduced models. This is because these designs are 'balanced' (equal numbers in each level of a predictor). When designs are not balanced then the order matters when we use `anova()` -  this is because the sum of squares is calculated sequentially (in the order of the formula), and so we could get different results depending on the order in which we assemble predictors into our model!
+In the examples above, you are unlikely to find much of a difference between running the `anova()` function as a test of nested models or `anova()` on the full model. This is because these designs are 'balanced' (equal numbers in each level of a predictor). When designs are not balanced then the order matters when we use `anova()` -  this is because the sum of squares is calculated sequentially (in the order of the formula), and so we could get different results depending on the order in which we assemble predictors into our model!
 
 #### Practice
 
@@ -702,9 +730,9 @@ unbalanced
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Produce a linear model testing size and treatment against height. Try making two models swapping the order for including the two predictors and compare them with anova() </div></div>
 
-<button id="displayTextunnamed-chunk-25" onclick="javascript:toggle('unnamed-chunk-25');">Show Solution</button>
+<button id="displayTextunnamed-chunk-26" onclick="javascript:toggle('unnamed-chunk-26');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-25" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-26" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 model_1 <- lm(height ~ treatment + size, data = unbalanced)
@@ -803,93 +831,13 @@ Compare these two anova tables. Same data, same predictors, but a different conc
 
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-Now compare your two models with the drop1() function </div></div>
+Now compare your two models by making simpler ones and running a nested model test </div></div>
 
-<button id="displayTextunnamed-chunk-27" onclick="javascript:toggle('unnamed-chunk-27');">Show Solution</button>
+<button id="displayTextunnamed-chunk-28" onclick="javascript:toggle('unnamed-chunk-28');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-27" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-28" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
-```r
-drop1(model_1)
-drop1(model_2)
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> AIC </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> &lt;none&gt; </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 759.1579 </td>
-   <td style="text-align:right;"> 52.57746 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> treatment </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 590.1754 </td>
-   <td style="text-align:right;"> 1349.3333 </td>
-   <td style="text-align:right;"> 56.90418 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> size </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 4846.0421 </td>
-   <td style="text-align:right;"> 5605.2000 </td>
-   <td style="text-align:right;"> 72.56910 </td>
-  </tr>
-</tbody>
-</table>
-
-</div><div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> AIC </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> &lt;none&gt; </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 759.1579 </td>
-   <td style="text-align:right;"> 52.57746 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> size </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 4846.0421 </td>
-   <td style="text-align:right;"> 5605.2000 </td>
-   <td style="text-align:right;"> 72.56910 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> treatment </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 590.1754 </td>
-   <td style="text-align:right;"> 1349.3333 </td>
-   <td style="text-align:right;"> 56.90418 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-Because the drop1 function drops one term from the model, then adds it back in and drops a new one it doesn't matter what order they were included. 
+Because the nested function drops one term from the model, then adds it back in and drops a new one it doesn't matter what order they were included. 
 </div></div></div>
 
 
@@ -954,9 +902,9 @@ Try and make as much progress as you can without checking the solutions. Click o
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Explore the data! </div></div>
 
-<button id="displayTextunnamed-chunk-32" onclick="javascript:toggle('unnamed-chunk-32');">Show Solution</button>
+<button id="displayTextunnamed-chunk-33" onclick="javascript:toggle('unnamed-chunk-33');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-32" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-33" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # check the structure of the data
@@ -1093,9 +1041,9 @@ biomass %>%
 Visualise the data </div></div>
 
 
-<button id="displayTextunnamed-chunk-34" onclick="javascript:toggle('unnamed-chunk-34');">Show Solution</button>
+<button id="displayTextunnamed-chunk-35" onclick="javascript:toggle('unnamed-chunk-35');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-34" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-35" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 pollution %>% 
@@ -1114,9 +1062,9 @@ pollution %>%
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Model the data </div></div>
 
-<button id="displayTextunnamed-chunk-36" onclick="javascript:toggle('unnamed-chunk-36');">Show Solution</button>
+<button id="displayTextunnamed-chunk-37" onclick="javascript:toggle('unnamed-chunk-37');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-36" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-37" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 William_ls1 <- lm(William ~ O3 + Stress + O3:Stress, data = pollution)
@@ -1187,9 +1135,9 @@ It looks as though there is no strong evidence here for an interaction effect, b
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Check the residuals of your model </div></div>
 
-<button id="displayTextunnamed-chunk-38" onclick="javascript:toggle('unnamed-chunk-38');">Show Solution</button>
+<button id="displayTextunnamed-chunk-39" onclick="javascript:toggle('unnamed-chunk-39');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-38" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-39" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 performance::check_model(William_ls1)
@@ -1203,14 +1151,16 @@ performance::check_model(William_ls1)
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Everything looks pretty good, so now we could go ahead and simplify our model.  </div></div>
 
-<button id="displayTextunnamed-chunk-40" onclick="javascript:toggle('unnamed-chunk-40');">Show Solution</button>
+<button id="displayTextunnamed-chunk-41" onclick="javascript:toggle('unnamed-chunk-41');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-40" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-41" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 Testing that dropping the interaction term does not significantly reduce the variance explained
 
 ```r
-drop1(William_ls1, test = "F")
+William_ls2 <- lm(William ~ O3 + Stress, data = pollution)
+
+anova(William_ls2, William_ls1, test = "F")
 ```
 
 <div class="kable-table">
@@ -1218,31 +1168,28 @@ drop1(William_ls1, test = "F")
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Res.Df </th>
+   <th style="text-align:right;"> RSS </th>
    <th style="text-align:right;"> Df </th>
    <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> AIC </th>
-   <th style="text-align:right;"> F value </th>
+   <th style="text-align:right;"> F </th>
    <th style="text-align:right;"> Pr(&gt;F) </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> &lt;none&gt; </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 0.5799809 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 0.5698523 </td>
-   <td style="text-align:right;"> -110.9073 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> O3:Stress </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 0.5698523 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.0101286 </td>
-   <td style="text-align:right;"> 0.5799809 </td>
-   <td style="text-align:right;"> -112.3787 </td>
    <td style="text-align:right;"> 0.4621281 </td>
    <td style="text-align:right;"> 0.5026393 </td>
   </tr>
@@ -1251,19 +1198,17 @@ drop1(William_ls1, test = "F")
 
 </div>
 
-####
-Making a simpler model
-
-```r
-William_ls2 <- lm(William ~ O3 + Stress, data = pollution) 
-```
 
 ####
 
 Get the F values of the simpler model
 
 ```r
-drop1(William_ls2, test = "F")
+William_ls3a <- lm(William ~ Stress, data = pollution)
+William_ls3b <- lm(William ~ O3, data = pollution)
+
+anova(William_ls3a, William_ls2, test = "F")
+anova(William_ls3b, William_ls2, test = "F")
 ```
 
 <div class="kable-table">
@@ -1271,40 +1216,61 @@ drop1(William_ls2, test = "F")
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Res.Df </th>
+   <th style="text-align:right;"> RSS </th>
    <th style="text-align:right;"> Df </th>
    <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> AIC </th>
-   <th style="text-align:right;"> F value </th>
+   <th style="text-align:right;"> F </th>
    <th style="text-align:right;"> Pr(&gt;F) </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> &lt;none&gt; </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 0.5799809 </td>
-   <td style="text-align:right;"> -112.37872 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> O3 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 1.1381194 </td>
+   <td style="text-align:right;"> 28 </td>
    <td style="text-align:right;"> 1.7181003 </td>
-   <td style="text-align:right;"> -81.79934 </td>
-   <td style="text-align:right;"> 52.98317 </td>
-   <td style="text-align:right;"> 0.0000001 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> Stress </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 0.5799809 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1.138119 </td>
+   <td style="text-align:right;"> 52.98317 </td>
+   <td style="text-align:right;"> 1e-07 </td>
+  </tr>
+</tbody>
+</table>
+
+</div><div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Res.Df </th>
+   <th style="text-align:right;"> RSS </th>
+   <th style="text-align:right;"> Df </th>
+   <th style="text-align:right;"> Sum of Sq </th>
+   <th style="text-align:right;"> F </th>
+   <th style="text-align:right;"> Pr(&gt;F) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 0.8176233 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 0.5799809 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.2376424 </td>
-   <td style="text-align:right;"> 0.8176233 </td>
-   <td style="text-align:right;"> -104.07653 </td>
    <td style="text-align:right;"> 11.06303 </td>
    <td style="text-align:right;"> 0.0025466 </td>
   </tr>
@@ -1372,10 +1338,10 @@ William_ls2 %>%
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Write up the results </div></div>
 
-<button id="displayTextunnamed-chunk-42" onclick="javascript:toggle('unnamed-chunk-42');">Show Solution</button>
+<button id="displayTextunnamed-chunk-43" onclick="javascript:toggle('unnamed-chunk-43');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-42" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
-I hypothesised that plants under stress might react more negatively to pollution than non-stressed plants, however when tested I found no evidence of a negative interation effect between stress and Ozone levels (*F*~1,27~ = 0.4621, *P* = 0.5). Individually however, while well-watered plants had higher yields than stressed plants (mean 0.178 [95% CI: 0.0682 - 0.288]) (*F*~1,28~ = 11, *P* = 0.003), there was a much larger effect of Ozone, where every unit increase ($\mu$L L^-1^) produced a mean decrease in yield of 7.14 kg ha^-1^ [5.13 - 9.15] (*F*~1,28~ = 53, *P* < 0.001). </div></div></div>
+<div id="toggleTextunnamed-chunk-43" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+I hypothesised that plants under stress might react more negatively to pollution than non-stressed plants, however when tested I found no evidence of a negative interation effect between stress and Ozone levels (*F*~1,26~ = 0.4621, *P* = 0.5). Individually however, while well-watered plants had higher yields than stressed plants (mean 0.178 [95% CI: 0.0682 - 0.288]) (*F*~1,27~ = 11, *P* = 0.003), there was a much larger effect of Ozone, where every unit increase ($\mu$L L^-1^) produced a mean decrease in yield of 7.14 kg ha^-1^ [5.13 - 9.15] (*F*~1,27~ = 53, *P* < 0.001). </div></div></div>
 
 ## Summary
 
@@ -1387,7 +1353,7 @@ I hypothesised that plants under stress might react more negatively to pollution
 
 * **IF** interactions are significant then estimates should come from the full model, while *F*-values should come from a reduced model (for main effects). **IF** interaction terms are not significant they can be removed (model simplification).
 
-* Use `drop1()` to avoid mistakes when using an unbalanced experiment design
+* Use nested models to avoid mistakes when using an unbalanced experiment design
 
 * Always report estimates and effect sizes - this is the important bit - and easy to lose sight of when models get more complicated
 

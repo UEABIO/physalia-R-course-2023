@@ -488,8 +488,11 @@ Not really, despite the suggestion that a sqrt transformation would improve the 
 
 
 ```r
-# use drop1 function to remove top-level terms
-drop1(flyls1, test = "F")
+# Remove top-level interaction
+
+flyls2 <- lm(longevity ~ type + thorax + sleep, data = fruitfly)
+
+anova(flyls2, flyls1, test = "F")
 ```
 
 <div class="kable-table">
@@ -497,40 +500,28 @@ drop1(flyls1, test = "F")
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Res.Df </th>
+   <th style="text-align:right;"> RSS </th>
    <th style="text-align:right;"> Df </th>
    <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> AIC </th>
-   <th style="text-align:right;"> F value </th>
+   <th style="text-align:right;"> F </th>
    <th style="text-align:right;"> Pr(&gt;F) </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> &lt;none&gt; </td>
+   <td style="text-align:right;"> 120 </td>
+   <td style="text-align:right;"> 15124.57 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 118 </td>
    <td style="text-align:right;"> 14994.43 </td>
-   <td style="text-align:right;"> 612.3900 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> thorax </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 14347.4733 </td>
-   <td style="text-align:right;"> 29341.90 </td>
-   <td style="text-align:right;"> 694.3073 </td>
-   <td style="text-align:right;"> 112.9087541 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> type:sleep </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 130.1431 </td>
-   <td style="text-align:right;"> 15124.57 </td>
-   <td style="text-align:right;"> 609.4702 </td>
    <td style="text-align:right;"> 0.5120865 </td>
    <td style="text-align:right;"> 0.6005695 </td>
   </tr>
@@ -546,9 +537,13 @@ Based on this ANOVA table, we do not appear to have a strong rationale for keepi
 
 
 ```r
-flyls2 <- lm(longevity ~ type + thorax + sleep, data = fruitfly)
+flyls3a <- lm(longevity ~ type + thorax, data = fruitfly)
+flyls3b <- lm(longevity ~ type + sleep, data = fruitfly)
+flyls3c <- lm(longevity ~ thorax + sleep, data = fruitfly)
 
-drop1(flyls2, test = "F")
+anova(flyls3a, flyls2)
+anova(flyls3b, flyls2)
+anova(flyls3c, flyls2)
 ```
 
 <div class="kable-table">
@@ -556,51 +551,96 @@ drop1(flyls2, test = "F")
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Res.Df </th>
+   <th style="text-align:right;"> RSS </th>
    <th style="text-align:right;"> Df </th>
    <th style="text-align:right;"> Sum of Sq </th>
-   <th style="text-align:right;"> RSS </th>
-   <th style="text-align:right;"> AIC </th>
-   <th style="text-align:right;"> F value </th>
+   <th style="text-align:right;"> F </th>
    <th style="text-align:right;"> Pr(&gt;F) </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> &lt;none&gt; </td>
+   <td style="text-align:right;"> 121 </td>
+   <td style="text-align:right;"> 15210.85 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 120 </td>
    <td style="text-align:right;"> 15124.57 </td>
-   <td style="text-align:right;"> 609.4702 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> type </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 7576.86233 </td>
-   <td style="text-align:right;"> 22701.43 </td>
-   <td style="text-align:right;"> 656.2337 </td>
-   <td style="text-align:right;"> 30.057833 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> thorax </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 15282.82102 </td>
-   <td style="text-align:right;"> 30407.39 </td>
-   <td style="text-align:right;"> 694.7659 </td>
-   <td style="text-align:right;"> 121.255596 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> sleep </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 86.27949 </td>
-   <td style="text-align:right;"> 15210.85 </td>
-   <td style="text-align:right;"> 608.1813 </td>
    <td style="text-align:right;"> 0.684551 </td>
    <td style="text-align:right;"> 0.4096663 </td>
+  </tr>
+</tbody>
+</table>
+
+</div><div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Res.Df </th>
+   <th style="text-align:right;"> RSS </th>
+   <th style="text-align:right;"> Df </th>
+   <th style="text-align:right;"> Sum of Sq </th>
+   <th style="text-align:right;"> F </th>
+   <th style="text-align:right;"> Pr(&gt;F) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 121 </td>
+   <td style="text-align:right;"> 30407.39 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 120 </td>
+   <td style="text-align:right;"> 15124.57 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 15282.82 </td>
+   <td style="text-align:right;"> 121.2556 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+
+</div><div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Res.Df </th>
+   <th style="text-align:right;"> RSS </th>
+   <th style="text-align:right;"> Df </th>
+   <th style="text-align:right;"> Sum of Sq </th>
+   <th style="text-align:right;"> F </th>
+   <th style="text-align:right;"> Pr(&gt;F) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 122 </td>
+   <td style="text-align:right;"> 22701.43 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 120 </td>
+   <td style="text-align:right;"> 15124.57 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 7576.862 </td>
+   <td style="text-align:right;"> 30.05783 </td>
+   <td style="text-align:right;"> 0 </td>
   </tr>
 </tbody>
 </table>
@@ -688,7 +728,7 @@ flyls2 %>% broom::tidy(conf.int = T) %>%
 mutate_if(is.numeric, round, 2) %>% 
 kbl(col.names = c("Predictors",
                     "Estimates",
-                    "Z-value",
+                    "t-value",
                     "P",
                     "Lower 95% CI",
                     "Upper 95% CI"),
@@ -698,12 +738,12 @@ kbl(col.names = c("Predictors",
 ```
 
 <table class="table" style="font-size: 16px; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-50)Linear model coefficients</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-42)Linear model coefficients</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Predictors </th>
    <th style="text-align:right;"> Estimates </th>
-   <th style="text-align:right;"> Z-value </th>
+   <th style="text-align:right;"> t-value </th>
    <th style="text-align:right;"> P </th>
    <th style="text-align:right;"> Lower 95% CI </th>
    <th style="text-align:right;"> Upper 95% CI </th>
@@ -760,8 +800,8 @@ Post hoc analysis showed that these differences were statistically significant f
 Comparing the treatment effects against other predictors of longevity such as body size and sleep, I found that sleep had a very small effect on longevity (mean change -0.05 days [-0.18 - 0.07]) which was not significantly different from no effect (Linear model: F~1,120~ = 0.68, P = 0.41). Body size (taken from thorax length) was a significant predictor of longevity (F~1,120~ = 121, P < 0.001), with each 0.1 mm increase in body size adding 14.4 days to the individual lifespan [11.8 - 17]. It appears as though body size has a stronger effect on longevity than treatment, indicating that while there is a measurable cost of sexual activity to males, it may be less severe than in females (not compared here), and less severe than other measurable predictors. 
 
 <div class="figure" style="text-align: center">
-<img src="18-Complex-models_files/figure-html/unnamed-chunk-51-1.png" alt=" A scatter plot of longevity against body size across three treatments of differening male sexual activity. Fitted model slopes are from the reduced linear model (main effects only of thorax size, sleep and treatment group), with 95% confidence intervals, circles are individual data points. Marginal plots are density plot distributions for thorax length and longevity split by treatments." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-51) A scatter plot of longevity against body size across three treatments of differening male sexual activity. Fitted model slopes are from the reduced linear model (main effects only of thorax size, sleep and treatment group), with 95% confidence intervals, circles are individual data points. Marginal plots are density plot distributions for thorax length and longevity split by treatments.</p>
+<img src="18-Complex-models_files/figure-html/unnamed-chunk-43-1.png" alt=" A scatter plot of longevity against body size across three treatments of differening male sexual activity. Fitted model slopes are from the reduced linear model (main effects only of thorax size, sleep and treatment group), with 95% confidence intervals, circles are individual data points. Marginal plots are density plot distributions for thorax length and longevity split by treatments." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-43) A scatter plot of longevity against body size across three treatments of differening male sexual activity. Fitted model slopes are from the reduced linear model (main effects only of thorax size, sleep and treatment group), with 95% confidence intervals, circles are individual data points. Marginal plots are density plot distributions for thorax length and longevity split by treatments.</p>
 </div>
 </div></div></div>
 

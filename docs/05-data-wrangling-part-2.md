@@ -278,205 +278,10 @@ centered_penguins
 Look at this output - you can see the information on groups has now been removed from the data. 
 
 
-## Working with character strings
-
-Datasets often contain words, and we call these words "(character) strings". 
-
-Often these aren't quite how we want them to be, but we can manipulate these as much as we like. Functions in the package `stringr`, are fantastic. And the number of different types of manipulations are endless!
-
-
-```r
-# Stringr ----
-
-str_replace_all(names(penguins), c("e"= "E"))
-# replace all character "e" with "E"
-```
-
-
-#### More stringr
-
-
-```r
-penguins %>% 
-  mutate(species=str_to_upper(species))
-# Capitalise all letters
-```
-
-
-```r
-penguins %>% 
-  mutate(species=str_remove_all(species, "e"))
-# remove every character "e" from selected variables
-```
-
-We can also trim leading or trailing empty spaces with `str_trim`. These are often problematic and difficult to spot e.g.
-
-
-```r
-df2 <- tibble(label=c("penguin", " penguin", "penguin ")) 
-df2 # make a test dataframe
-```
-
-We can easily imagine a scenario where data is manually input, and trailing or leading spaces are left in. These are difficult to spot by eye - but problematic because as far as R is concerned these are different values. We can use the function `distinct` to return the names of all the different levels it can find in this dataframe.
-
-
-```r
-df2 %>% 
-  distinct()
-```
-
-If we pipe the data throught the `str_trim` function to remove any gaps, then pipe this on to `distinct` again - by removing the whitespace, R now recognises just one level to this data. 
-
-
-```r
-df2 %>% 
-  mutate(label=str_trim(label, side="both")) %>% 
-  distinct()
-```
-
-A quick example of how to extract partial strings according to a pattern is to use `str_detect`. Combined with `filter` it is possible to subset a dataframe by searching for all the strings that match provided information, such as all the penguin IDs that start with "N1"
-
-
-```r
-penguins %>% 
-  filter(str_detect(individual_id, "N1"))
-```
-
-#### separate
-
-Sometimes a string might contain two pieces of information in one. This does not confirm to our tidy data principles. But we can easily separate the information with `separate()` from the `tidyr` package.
-
-First we produce some made-up data
-
-
-```r
-df <- tibble(label=c("a-1", "a-2", "a-3")) 
-#make a one column tibble
-df
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> label </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> a-1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> a-2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> a-3 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-
-
-```r
-df %>% 
-  separate(label, # name of variable
-           c("treatment", "replicate"), # new column names
-           sep="-") # the character to mark where the separation occurs
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> treatment </th>
-   <th style="text-align:left;"> replicate </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> a </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> a </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> a </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-
-We started with one variable called `label` and then split it into two variables, `treatment` and `replicate`, with the split made where `-` occurs. 
-The opposite of this function is `unite()`
-
-## Changing data formats
-
-In the previous [worksheet](@glimpse-check-data-format), we used `glimpse()` to check the format of each of our variables. One of our variables `date_egg` isn't in a very helpful format. It has been read as a character string, this means there is no intrinsic order or values attached to the dates. Most likely this has happened because of the "/" symbols. When we have clearly non-numerical symbols in our variables, R will default to treating these as character variables. 
-
-Luckily we can fix this using `mutate()` and `str_remove_all()`
-
-<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-Remove the all the "/" elements from the `date_egg` variable </div></div>
-
-
-<div class='webex-solution'><button>Solution</button>
-
-
-Check your code
-
-
-```r
-# DATES ----
-penguins %>% 
-  mutate(date_egg = str_remove_all(date_egg, "/"))
-```
-
-
-</div>
-
-
-**Question** Does this now mean the `date_egg` variable is being treated as numeric? `r`
-
-<select class='webex-select'><option value='blank'></option><option value=''>yes</option><option value='answer'>no</option></select>
-
-
-<div class='webex-solution'><button>Explain This Answer</button>
-
-
-Data formats are set only when reading the data in for the first time, if we wish to change them, then we need to do so explicitly using mutate()
-
-
-```r
-# add the as.numeric() function
-penguins %>% 
-  mutate(date_egg = as.numeric(str_remove_all(date_egg, "/"))) %>% 
-  glimpse()
-```
-
-<div class="info">
-<p>There are as.numeric(), as.character(), as.logical() functions to
-convert data formats, these will only work if there are no “illegal”
-characters. So you may need to remove these first, as in the examples
-above.</p>
-</div>
-
-
-</div>
- 
-
-<br>
-
 
 ## Working with dates
 
-We now know that we can change data formats easily, but treating date as strictly numeric is problematic, it won't account for number of days in months or number of months in a year. 
+Working with dates can be tricky, treating date as strictly numeric is problematic, it won't account for number of days in months or number of months in a year. 
 
 Additionally there's a lot of different ways to write the same date:
 
@@ -492,11 +297,6 @@ Additionally there's a lot of different ways to write the same date:
 
 This variability makes it difficult to tell our software how to read the information, luckily we can use the functions in the `lubridate` package. 
 
-Depending on how we interpret the date ordering in a file, we can use `ymd()`, `ydm()`, `mdy()`, `dmy()` 
-
-* **Question** What is the appropriate function to use on the `date_egg` variable?
-
-<input class='webex-solveme nospaces' size='5' data-answer='["dmy()"]'/>
 
 <div class="warning">
 <p>If you get a warning that some dates could not be parsed, then you
@@ -504,6 +304,14 @@ might find the date has been inconsistently entered into the
 dataset.</p>
 <p>Pay attention to warning and error messages</p>
 </div>
+
+Depending on how we interpret the date ordering in a file, we can use `ymd()`, `ydm()`, `mdy()`, `dmy()` 
+
+* **Question** What is the appropriate function from the above to use on the `date_egg` variable?
+
+
+<div class='webex-radiogroup' id='radio_QOMAELQZMM'><label><input type="radio" autocomplete="off" name="radio_QOMAELQZMM" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_QOMAELQZMM" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_QOMAELQZMM" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_QOMAELQZMM" value="answer"></input> <span>dmy()</span></label></div>
+
 
 
 
@@ -591,7 +399,7 @@ penguins %>%
   geom_bar()
 ```
 
-<img src="05-data-wrangling-part-2_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-data-wrangling-part-2_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
 
 To convert a character or numeric column to class factor, you can use any function from the `forcats` package. They will convert to class factor and then also perform or allow certain ordering of the levels - for example using `forcats::fct_relevel()` lets you manually specify the level order. 
 The function `as_factor()` simply converts the class without any further capabilities.
@@ -631,24 +439,32 @@ penguins %>%
   geom_bar()
 ```
 
-<img src="05-data-wrangling-part-2_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-data-wrangling-part-2_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+
+<div class="info">
+<p>Factors will also be important when we build linear models a bit
+later. The reference or intercept for a categorical predictor variable
+when it is read as a <code>&lt;chr&gt;</code> is set by R as the first
+one when ordered alphabetically. This may not always be the most
+appropriate choice, and by changing this to an ordered
+<code>&lt;fct&gt;</code> we can manually set the intercept.</p>
+</div>
+
 
 ## Finished
 
 * Make sure you have **saved your script 💾**  and given it the filename "01_import_penguins_data.R" in the ["scripts" folder](#activity-1-organising-our-workspace).
 
-* Make sure your workspace is set **not** to save objects from the environment [*between* sessions](#global-options).
-
 * Does your workspace look like the below? 
 
 <div class="figure" style="text-align: center">
 <img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-44)My neat project layout</p>
+<p class="caption">(\#fig:unnamed-chunk-31)My neat project layout</p>
 </div>
 
 <div class="figure" style="text-align: center">
 <img src="images/r_script.png" alt="My scripts and file subdirectory" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-45)My scripts and file subdirectory</p>
+<p class="caption">(\#fig:unnamed-chunk-32)My scripts and file subdirectory</p>
 </div>
 
 ## Activity: Test yourself

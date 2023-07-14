@@ -32,11 +32,18 @@ downloadthis::download_link(
 )
 ```
 
-```{r, eval=T, warning = F, message = F}
+```{r, echo = F, eval=T, warning = F, message = F}
 
 biomass <- read_csv(here::here("book", "files", "biomass.csv"))
 
 ```
+
+```{r,  eval=F}
+
+biomass <- read_csv("data/biomass.csv")
+
+```
+
 
 You should first check the data and look at the top rows, we can see that this shows the application or non-application of fertiliser and light additions, because *all four* possible combinations are present, this is known as a *fully factorial design*:
 
@@ -275,13 +282,17 @@ So you have made a linear model with an interaction term, how do you report whet
 
 In previous chapters we ran the `anova()` function directly on our linear model. This works well for simple & 'balanced' designs (there are equal sample sizes in each level of a factor), but can be misleading with ['unbalanced' designs or models with complex interactions](https://mcfromnz.wordpress.com/2011/03/02/anova-type-iiiiii-ss-explained/). 
 
-In order to report an *F* statistic for the interaction effect, we need to carry out an *F*-test of two models, one *with* and one *without* the interaction effect. This is easy with the function `drop1()`
+In order to report an *F* statistic for the interaction effect, we need to carry out an *F*-test of two models, one *with* and one *without* the interaction effect. Here we can use the `anova()` function again but we will compare *nested models*
 
 ```{r}
-drop1(ls_2, test = "F")
+# A simpler model with the interaction term removed
+ls_3 <- lm(Biomass.m2 ~ Fert + Light, data = biomass)
+
+# Put the simpler model first
+anova(ls_3, ls_2,  test = "F")
 ```
 
-This *F*-test is testing the *null hypothesis* that there is no true interaction effect. The significance test rejects the null hypothesis (just). The `drop1()` function also provides the **Akaike information criterion (AIC)**, an alternative method of model selection (more on this later). 
+This *F*-test is testing the *null hypothesis* that there is no true interaction effect. The significance test rejects the null hypothesis (just). It also provides the **Akaike information criterion (AIC)**, an alternative method of model selection (more on this later). 
 
 We could now write this up as follows:
 
@@ -304,14 +315,17 @@ If we decide to include reports of the main effect then estimates and confidence
 ```{r}
 # we have to remove the interaction term before we can keep using drop1()
 
-ls_3 <- lm(Biomass.m2 ~ Fert + Light, data = biomass)
+ls_4a <- lm(Biomass.m2 ~ Fert, data = biomass)
+ls_4b <- lm(Biomass.m2 ~ Light, data = biomass)
 
-drop1(ls_3, test = "F")
+anova(ls_4a, ls_3, test = "F")
+
+anova(ls_4b, ls_3, test = "F")
 ```
 
 
 ```{block, type="warning"}
-You can use this reduced model to get F values, BUT reports of estimates should come from the full model. 
+You can use these reduced models to get F values, BUT reports of estimates should come from the full model. 
 ```
 
 ## Balanced/Unbalanced designs
@@ -324,7 +338,7 @@ lm(Fert + Light) would give a different anova table to
 lm(Light + Fert)
 ```
 
-In the examples above, you are unlikely to find much of a difference between running the `drop1()` function or `anova()` on the complex or reduced models. This is because these designs are 'balanced' (equal numbers in each level of a predictor). When designs are not balanced then the order matters when we use `anova()` -  this is because the sum of squares is calculated sequentially (in the order of the formula), and so we could get different results depending on the order in which we assemble predictors into our model!
+In the examples above, you are unlikely to find much of a difference between running the `anova()` function as a test of nested models or `anova()` on the full model. This is because these designs are 'balanced' (equal numbers in each level of a predictor). When designs are not balanced then the order matters when we use `anova()` -  this is because the sum of squares is calculated sequentially (in the order of the formula), and so we could get different results depending on the order in which we assemble predictors into our model!
 
 #### Practice
 
@@ -366,17 +380,12 @@ Compare these two anova tables. Same data, same predictors, but a different conc
 
 
 ```{task} 
-Now compare your two models with the drop1() function
+Now compare your two models by making simpler ones and running a nested model test
 ```
 
 ```{solution}
 
-``{r}
-drop1(model_1)
-drop1(model_2)
-
-``
-Because the drop1 function drops one term from the model, then adds it back in and drops a new one it doesn't matter what order they were included. 
+Because the nested function drops one term from the model, then adds it back in and drops a new one it doesn't matter what order they were included. 
 
 ```
 
@@ -527,19 +536,12 @@ Testing that dropping the interaction term does not significantly reduce the var
 
 ``{r, eval = T}
 
-drop1(William_ls1, test = "F")
+William_ls2 <- lm(William ~ O3 + Stress, data = pollution)
+
+anova(William_ls2, William_ls1, test = "F")
 
 ``
 
-####
-Making a simpler model
-
-
-``{r, eval = T}
-
-William_ls2 <- lm(William ~ O3 + Stress, data = pollution) 
-
-``
 
 ####
 
@@ -547,7 +549,11 @@ Get the F values of the simpler model
 
 ``{r, eval = T}
 
-drop1(William_ls2, test = "F")
+William_ls3a <- lm(William ~ Stress, data = pollution)
+William_ls3b <- lm(William ~ O3, data = pollution)
+
+anova(William_ls3a, William_ls2, test = "F")
+anova(William_ls3b, William_ls2, test = "F")
 
 ``
 
@@ -568,7 +574,7 @@ Write up the results
 ```
 
 ```{solution}
-I hypothesised that plants under stress might react more negatively to pollution than non-stressed plants, however when tested I found no evidence of a negative interation effect between stress and Ozone levels (*F*~1,27~ = 0.4621, *P* = 0.5). Individually however, while well-watered plants had higher yields than stressed plants (mean 0.178 [95% CI: 0.0682 - 0.288]) (*F*~1,28~ = 11, *P* = 0.003), there was a much larger effect of Ozone, where every unit increase ($\mu$L L^-1^) produced a mean decrease in yield of 7.14 kg ha^-1^ [5.13 - 9.15] (*F*~1,28~ = 53, *P* < 0.001). 
+I hypothesised that plants under stress might react more negatively to pollution than non-stressed plants, however when tested I found no evidence of a negative interation effect between stress and Ozone levels (*F*~1,26~ = 0.4621, *P* = 0.5). Individually however, while well-watered plants had higher yields than stressed plants (mean 0.178 [95% CI: 0.0682 - 0.288]) (*F*~1,27~ = 11, *P* = 0.003), there was a much larger effect of Ozone, where every unit increase ($\mu$L L^-1^) produced a mean decrease in yield of 7.14 kg ha^-1^ [5.13 - 9.15] (*F*~1,27~ = 53, *P* < 0.001). 
 ```
 
 ## Summary
@@ -581,7 +587,7 @@ I hypothesised that plants under stress might react more negatively to pollution
 
 * **IF** interactions are significant then estimates should come from the full model, while *F*-values should come from a reduced model (for main effects). **IF** interaction terms are not significant they can be removed (model simplification).
 
-* Use `drop1()` to avoid mistakes when using an unbalanced experiment design
+* Use nested models to avoid mistakes when using an unbalanced experiment design
 
 * Always report estimates and effect sizes - this is the important bit - and easy to lose sight of when models get more complicated
 

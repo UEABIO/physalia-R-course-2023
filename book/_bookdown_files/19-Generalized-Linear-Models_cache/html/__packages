@@ -20,3 +20,7 @@ performance
 patchwork
 here
 lubridate
+MASS
+Matrix
+lme4
+arm

@@ -368,8 +368,11 @@ Not really, despite the suggestion that a sqrt transformation would improve the 
 ## Model selection
 
 ```{r}
-# use drop1 function to remove top-level terms
-drop1(flyls1, test = "F")
+# Remove top-level interaction
+
+flyls2 <- lm(longevity ~ type + thorax + sleep, data = fruitfly)
+
+anova(flyls2, flyls1, test = "F")
 
 ```
 
@@ -383,9 +386,13 @@ flyls2 <- lm(longevity ~ type + thorax + sleep, data = fruitfly)
 
 ```{r}
 
-flyls2 <- lm(longevity ~ type + thorax + sleep, data = fruitfly)
+flyls3a <- lm(longevity ~ type + thorax, data = fruitfly)
+flyls3b <- lm(longevity ~ type + sleep, data = fruitfly)
+flyls3c <- lm(longevity ~ thorax + sleep, data = fruitfly)
 
-drop1(flyls2, test = "F")
+anova(flyls3a, flyls2)
+anova(flyls3b, flyls2)
+anova(flyls3c, flyls2)
 
 ```
 
@@ -444,7 +451,7 @@ flyls2 %>% broom::tidy(conf.int = T) %>%
 mutate_if(is.numeric, round, 2) %>% 
 kbl(col.names = c("Predictors",
                     "Estimates",
-                    "Z-value",
+                    "t-value",
                     "P",
                     "Lower 95% CI",
                     "Upper 95% CI"),

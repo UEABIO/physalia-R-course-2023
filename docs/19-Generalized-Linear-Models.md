@@ -1078,11 +1078,14 @@ We first consider why we are dealing with odds  $\frac{p}{1-p}$ instead of just 
 
 When we use a binomial model, we produce the 'log-odds', this produces a fully unconstrained linear regression as anything less than 1, can now occupy an infinite negative value -∞ to ∞. 
 
-$$\log\left(\frac{p}{1-p}\right)	=	\beta_{0}+\beta_{1}x_{1}+\beta_{2}x_{2}
+$$
+\log\left(\frac{p}{1-p}\right)	=	\beta_{0}+\beta_{1}x_{1}+\beta_{2}x_{2}
 $$
 
-$$\frac{p}{1-p}	=	e^{\beta_{0}}e^{\beta_{1}x_{1}}e^{\beta_{2}x_{2}}
 $$
+\frac{p}{1-p}	=	e^{\beta_{0}}e^{\beta_{1}x_{1}}e^{\beta_{2}x_{2}}
+$$
+
 
 We can interpret $\beta_{1}$ and $\beta_{2}$ as the increase in the log odds for every unit increase in $x_{1}$ and $x_{2}$. We could alternatively interpret $\beta_{1}$ and $\beta_{2}$ using the notion that a one unit change in $x_{1}$ as a percent change of $e^{\beta_{1}}$ in the odds. That is to say, $e^{\beta_{1}}$ is the odds ratio of that change. 
 
@@ -1527,346 +1530,9 @@ broom::augment(binary_model,
 
 </div>
 
-Annoyingly a limitation of the augment function is that it won't produce 95% CI for predictions on glms. But I have written a short function to do this
-Don't worry if this is a lot to get your head around - the main thing is use this code to produce 95% CI. 
+Annoyingly a limitation of the augment function is that it won't produce 95% CI for predictions on glms. 
 
 
-```r
-augment_glm <- function(mod, predict = NULL){
-  fam <- family(mod)
-  ilink <- fam$linkinv
-  
-  broom::augment(mod, newdata = predict, se_fit=T)%>%
-    mutate(.lower = ilink(.fitted - 1.96*.se.fit),
-           .upper = ilink(.fitted + 1.96*.se.fit), 
-           .fitted=ilink(.fitted))
-}
-
-augment_glm(binary_model)
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> oring_binary </th>
-   <th style="text-align:right;"> temp </th>
-   <th style="text-align:right;"> .fitted </th>
-   <th style="text-align:right;"> .se.fit </th>
-   <th style="text-align:right;"> .resid </th>
-   <th style="text-align:right;"> .hat </th>
-   <th style="text-align:right;"> .sigma </th>
-   <th style="text-align:right;"> .cooksd </th>
-   <th style="text-align:right;"> .std.resid </th>
-   <th style="text-align:right;"> .lower </th>
-   <th style="text-align:right;"> .upper </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 66 </td>
-   <td style="text-align:right;"> 0.3947697 </td>
-   <td style="text-align:right;"> 0.7122731 </td>
-   <td style="text-align:right;"> -1.0021439 </td>
-   <td style="text-align:right;"> 0.1212153 </td>
-   <td style="text-align:right;"> 0.8149531 </td>
-   <td style="text-align:right;"> 0.0511900 </td>
-   <td style="text-align:right;"> -1.0690274 </td>
-   <td style="text-align:right;"> 0.1390310 </td>
-   <td style="text-align:right;"> 0.7248700 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 70 </td>
-   <td style="text-align:right;"> 0.1307765 </td>
-   <td style="text-align:right;"> 0.8133661 </td>
-   <td style="text-align:right;"> 2.0170599 </td>
-   <td style="text-align:right;"> 0.0752029 </td>
-   <td style="text-align:right;"> 0.7080401 </td>
-   <td style="text-align:right;"> 0.2922222 </td>
-   <td style="text-align:right;"> 2.0974690 </td>
-   <td style="text-align:right;"> 0.0296467 </td>
-   <td style="text-align:right;"> 0.4255788 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 69 </td>
-   <td style="text-align:right;"> 0.1783731 </td>
-   <td style="text-align:right;"> 0.7286671 </td>
-   <td style="text-align:right;"> -0.6268474 </td>
-   <td style="text-align:right;"> 0.0778149 </td>
-   <td style="text-align:right;"> 0.8366510 </td>
-   <td style="text-align:right;"> 0.0099323 </td>
-   <td style="text-align:right;"> -0.6527589 </td>
-   <td style="text-align:right;"> 0.0494727 </td>
-   <td style="text-align:right;"> 0.4752149 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 68 </td>
-   <td style="text-align:right;"> 0.2385386 </td>
-   <td style="text-align:right;"> 0.6794956 </td>
-   <td style="text-align:right;"> -0.7382625 </td>
-   <td style="text-align:right;"> 0.0838649 </td>
-   <td style="text-align:right;"> 0.8315908 </td>
-   <td style="text-align:right;"> 0.0156510 </td>
-   <td style="text-align:right;"> -0.7713137 </td>
-   <td style="text-align:right;"> 0.0763842 </td>
-   <td style="text-align:right;"> 0.5426717 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 67 </td>
-   <td style="text-align:right;"> 0.3113088 </td>
-   <td style="text-align:right;"> 0.6736765 </td>
-   <td style="text-align:right;"> -0.8636693 </td>
-   <td style="text-align:right;"> 0.0973013 </td>
-   <td style="text-align:right;"> 0.8246049 </td>
-   <td style="text-align:right;"> 0.0269880 </td>
-   <td style="text-align:right;"> -0.9090255 </td>
-   <td style="text-align:right;"> 0.1077038 </td>
-   <td style="text-align:right;"> 0.6286427 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 72 </td>
-   <td style="text-align:right;"> 0.0673886 </td>
-   <td style="text-align:right;"> 1.0520852 </td>
-   <td style="text-align:right;"> -0.3735417 </td>
-   <td style="text-align:right;"> 0.0695651 </td>
-   <td style="text-align:right;"> 0.8448617 </td>
-   <td style="text-align:right;"> 0.0029032 </td>
-   <td style="text-align:right;"> -0.3872542 </td>
-   <td style="text-align:right;"> 0.0091067 </td>
-   <td style="text-align:right;"> 0.3622931 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 73 </td>
-   <td style="text-align:right;"> 0.0476880 </td>
-   <td style="text-align:right;"> 1.1923059 </td>
-   <td style="text-align:right;"> -0.3126102 </td>
-   <td style="text-align:right;"> 0.0645605 </td>
-   <td style="text-align:right;"> 0.8462069 </td>
-   <td style="text-align:right;"> 0.0018473 </td>
-   <td style="text-align:right;"> -0.3232178 </td>
-   <td style="text-align:right;"> 0.0048153 </td>
-   <td style="text-align:right;"> 0.3413479 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 70 </td>
-   <td style="text-align:right;"> 0.1307765 </td>
-   <td style="text-align:right;"> 0.8133661 </td>
-   <td style="text-align:right;"> -0.5294432 </td>
-   <td style="text-align:right;"> 0.0752029 </td>
-   <td style="text-align:right;"> 0.8403180 </td>
-   <td style="text-align:right;"> 0.0066147 </td>
-   <td style="text-align:right;"> -0.5505492 </td>
-   <td style="text-align:right;"> 0.0296467 </td>
-   <td style="text-align:right;"> 0.4255788 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 57 </td>
-   <td style="text-align:right;"> 0.9464956 </td>
-   <td style="text-align:right;"> 1.9365672 </td>
-   <td style="text-align:right;"> 0.3316293 </td>
-   <td style="text-align:right;"> 0.1899238 </td>
-   <td style="text-align:right;"> 0.8452819 </td>
-   <td style="text-align:right;"> 0.0081803 </td>
-   <td style="text-align:right;"> 0.3684596 </td>
-   <td style="text-align:right;"> 0.2844142 </td>
-   <td style="text-align:right;"> 0.9987315 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 63 </td>
-   <td style="text-align:right;"> 0.6621290 </td>
-   <td style="text-align:right;"> 1.0178481 </td>
-   <td style="text-align:right;"> 0.9080692 </td>
-   <td style="text-align:right;"> 0.2317717 </td>
-   <td style="text-align:right;"> 0.8170810 </td>
-   <td style="text-align:right;"> 0.1001978 </td>
-   <td style="text-align:right;"> 1.0360335 </td>
-   <td style="text-align:right;"> 0.2104548 </td>
-   <td style="text-align:right;"> 0.9350983 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 70 </td>
-   <td style="text-align:right;"> 0.1307765 </td>
-   <td style="text-align:right;"> 0.8133661 </td>
-   <td style="text-align:right;"> 2.0170599 </td>
-   <td style="text-align:right;"> 0.0752029 </td>
-   <td style="text-align:right;"> 0.7080401 </td>
-   <td style="text-align:right;"> 0.2922222 </td>
-   <td style="text-align:right;"> 2.0974690 </td>
-   <td style="text-align:right;"> 0.0296467 </td>
-   <td style="text-align:right;"> 0.4255788 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 78 </td>
-   <td style="text-align:right;"> 0.0079412 </td>
-   <td style="text-align:right;"> 1.9788007 </td>
-   <td style="text-align:right;"> -0.1262767 </td>
-   <td style="text-align:right;"> 0.0308485 </td>
-   <td style="text-align:right;"> 0.8488032 </td>
-   <td style="text-align:right;"> 0.0001315 </td>
-   <td style="text-align:right;"> -0.1282707 </td>
-   <td style="text-align:right;"> 0.0001655 </td>
-   <td style="text-align:right;"> 0.2790320 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 67 </td>
-   <td style="text-align:right;"> 0.3113088 </td>
-   <td style="text-align:right;"> 0.6736765 </td>
-   <td style="text-align:right;"> -0.8636693 </td>
-   <td style="text-align:right;"> 0.0973013 </td>
-   <td style="text-align:right;"> 0.8246049 </td>
-   <td style="text-align:right;"> 0.0269880 </td>
-   <td style="text-align:right;"> -0.9090255 </td>
-   <td style="text-align:right;"> 0.1077038 </td>
-   <td style="text-align:right;"> 0.6286427 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 53 </td>
-   <td style="text-align:right;"> 0.9871288 </td>
-   <td style="text-align:right;"> 2.6052168 </td>
-   <td style="text-align:right;"> 0.1609645 </td>
-   <td style="text-align:right;"> 0.0862364 </td>
-   <td style="text-align:right;"> 0.8484526 </td>
-   <td style="text-align:right;"> 0.0006733 </td>
-   <td style="text-align:right;"> 0.1683888 </td>
-   <td style="text-align:right;"> 0.3172542 </td>
-   <td style="text-align:right;"> 0.9999210 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 67 </td>
-   <td style="text-align:right;"> 0.3113088 </td>
-   <td style="text-align:right;"> 0.6736765 </td>
-   <td style="text-align:right;"> -0.8636693 </td>
-   <td style="text-align:right;"> 0.0973013 </td>
-   <td style="text-align:right;"> 0.8246049 </td>
-   <td style="text-align:right;"> 0.0269880 </td>
-   <td style="text-align:right;"> -0.9090255 </td>
-   <td style="text-align:right;"> 0.1077038 </td>
-   <td style="text-align:right;"> 0.6286427 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 75 </td>
-   <td style="text-align:right;"> 0.0234853 </td>
-   <td style="text-align:right;"> 1.4950302 </td>
-   <td style="text-align:right;"> -0.2180160 </td>
-   <td style="text-align:right;"> 0.0512601 </td>
-   <td style="text-align:right;"> 0.8478117 </td>
-   <td style="text-align:right;"> 0.0006848 </td>
-   <td style="text-align:right;"> -0.2238281 </td>
-   <td style="text-align:right;"> 0.0012822 </td>
-   <td style="text-align:right;"> 0.3105914 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 70 </td>
-   <td style="text-align:right;"> 0.1307765 </td>
-   <td style="text-align:right;"> 0.8133661 </td>
-   <td style="text-align:right;"> -0.5294432 </td>
-   <td style="text-align:right;"> 0.0752029 </td>
-   <td style="text-align:right;"> 0.8403180 </td>
-   <td style="text-align:right;"> 0.0066147 </td>
-   <td style="text-align:right;"> -0.5505492 </td>
-   <td style="text-align:right;"> 0.0296467 </td>
-   <td style="text-align:right;"> 0.4255788 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 81 </td>
-   <td style="text-align:right;"> 0.0026572 </td>
-   <td style="text-align:right;"> 2.4796156 </td>
-   <td style="text-align:right;"> -0.0729485 </td>
-   <td style="text-align:right;"> 0.0162947 </td>
-   <td style="text-align:right;"> 0.8491284 </td>
-   <td style="text-align:right;"> 0.0000224 </td>
-   <td style="text-align:right;"> -0.0735502 </td>
-   <td style="text-align:right;"> 0.0000206 </td>
-   <td style="text-align:right;"> 0.2558266 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 76 </td>
-   <td style="text-align:right;"> 0.0163939 </td>
-   <td style="text-align:right;"> 1.6534591 </td>
-   <td style="text-align:right;"> -0.1818228 </td>
-   <td style="text-align:right;"> 0.0440855 </td>
-   <td style="text-align:right;"> 0.8482690 </td>
-   <td style="text-align:right;"> 0.0004021 </td>
-   <td style="text-align:right;"> -0.1859683 </td>
-   <td style="text-align:right;"> 0.0006518 </td>
-   <td style="text-align:right;"> 0.2986916 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 79 </td>
-   <td style="text-align:right;"> 0.0055168 </td>
-   <td style="text-align:right;"> 2.1444266 </td>
-   <td style="text-align:right;"> -0.1051866 </td>
-   <td style="text-align:right;"> 0.0252300 </td>
-   <td style="text-align:right;"> 0.8489535 </td>
-   <td style="text-align:right;"> 0.0000737 </td>
-   <td style="text-align:right;"> -0.1065392 </td>
-   <td style="text-align:right;"> 0.0000829 </td>
-   <td style="text-align:right;"> 0.2706470 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 75 </td>
-   <td style="text-align:right;"> 0.0234853 </td>
-   <td style="text-align:right;"> 1.4950302 </td>
-   <td style="text-align:right;"> -0.2180160 </td>
-   <td style="text-align:right;"> 0.0512601 </td>
-   <td style="text-align:right;"> 0.8478117 </td>
-   <td style="text-align:right;"> 0.0006848 </td>
-   <td style="text-align:right;"> -0.2238281 </td>
-   <td style="text-align:right;"> 0.0012822 </td>
-   <td style="text-align:right;"> 0.3105914 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 76 </td>
-   <td style="text-align:right;"> 0.0163939 </td>
-   <td style="text-align:right;"> 1.6534591 </td>
-   <td style="text-align:right;"> -0.1818228 </td>
-   <td style="text-align:right;"> 0.0440855 </td>
-   <td style="text-align:right;"> 0.8482690 </td>
-   <td style="text-align:right;"> 0.0004021 </td>
-   <td style="text-align:right;"> -0.1859683 </td>
-   <td style="text-align:right;"> 0.0006518 </td>
-   <td style="text-align:right;"> 0.2986916 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 58 </td>
-   <td style="text-align:right;"> 0.9245824 </td>
-   <td style="text-align:right;"> 1.7732723 </td>
-   <td style="text-align:right;"> 0.3960130 </td>
-   <td style="text-align:right;"> 0.2192676 </td>
-   <td style="text-align:right;"> 0.8433540 </td>
-   <td style="text-align:right;"> 0.0146713 </td>
-   <td style="text-align:right;"> 0.4481860 </td>
-   <td style="text-align:right;"> 0.2750175 </td>
-   <td style="text-align:right;"> 0.9974824 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
 
 Alternatively we can also do this calculation via emmeans
 
@@ -1926,20 +1592,26 @@ emmeans::emmeans(binary_model,
 ```
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-Use the augment_glm function to make a ggplot of the changing probability of O-ring failure with temperature </div></div>
+Use the emmeans output to make a ggplot of the changing probability of O-ring failure with temperature </div></div>
+
 
 <button id="displayTextunnamed-chunk-51" onclick="javascript:toggle('unnamed-chunk-51');">Show Solution</button>
 
 <div id="toggleTextunnamed-chunk-51" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
-augment_glm(binary_model) %>% 
-  ggplot(aes(x=temp, y=oring_binary))+geom_line(aes(x=temp, y=.fitted))+
-  geom_ribbon(aes(ymin=.lower, ymax=.upper), alpha=0.2)
+emmeans::emmeans(binary_model, 
+                 specs = ~ temp, 
+                 at=list(temp=c(27:80)), 
+                 type='response') %>% 
+  as_tibble() %>% 
+  ggplot(aes(x=temp, y=prob))+geom_line(aes(x=temp, y=prob))+
+  geom_ribbon(aes(ymin=asymp.LCL, ymax=asymp.UCL), alpha=0.2)
 ```
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-56-1.png" width="100%" style="display: block; margin: auto;" />
 </div></div></div>
+
 
 ## Predictions
 
@@ -1961,38 +1633,19 @@ Make a new dataset with the temperature on the day of the Challenger launch - wh
 First - we make a new dataset with the temperature on the day of the Challenger Launch **36&deg;F**
 
 ```r
-new_data <- tibble(temp=36, oring_binary=1)
-
-
-augment_glm(binary_model, new_data)
+ emmeans::emmeans(binary_model, 
+                 specs = ~ temp, 
+                 at = list(temp = 36),                  
+                 type='response')
 ```
 
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> temp </th>
-   <th style="text-align:right;"> oring_binary </th>
-   <th style="text-align:right;"> .fitted </th>
-   <th style="text-align:right;"> .se.fit </th>
-   <th style="text-align:right;"> .lower </th>
-   <th style="text-align:right;"> .upper </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 36 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.9999744 </td>
-   <td style="text-align:right;"> 5.536051 </td>
-   <td style="text-align:right;"> 0.4312045 </td>
-   <td style="text-align:right;"> 1 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
+```
+##  temp    prob        SE  df asymp.LCL asymp.UCL
+##    36 0.99997 0.0001416 Inf   0.43125         1
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the logit scale
+```
 We can see from our fitted model, an O-ring failure on the day of the Challenger launch could have been predicted with a probability of >0.999 [95%CI: 0.43-1]
 </div></div></div>
 
@@ -2003,12 +1656,25 @@ The standard model checks from `plot()` cannot be used on binomial glms, they ar
 
 Luckily the `performance` package detects and alters the checks. Pay particular attention to the binned residuals plot - this is your best estimate of possible overdispersion (requiring a quasi-likelihood check). In this case there is likely not enough data for robust checks
 
+<div class="tab"><button class="tablinks= T active" onclick="javascript:openCode(event, 'option1= T', '= T');">Base R</button><button class="tablinks= T" onclick="javascript:openCode(event, 'option2= T', '= T');"><tt>tidyverse</tt></button></div><div id="option1= T" class="tabcontent= T">
+
+```r
+library(arm)
+
+x <- predict(binary_model)
+y <- resid(binary_model)
+arm::binnedplot(x,y)
+```
+
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-55-1.png" width="100%" style="display: block; margin: auto;" />
+</div><div id="option2= T" class="tabcontent= T">
 
 ```r
 performance::check_model(binary_model)
 ```
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-54-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-56-1.png" width="100%" style="display: block; margin: auto;" />
+</div><script> javascript:hide('option2= T') </script>
 
 ### Activity 5: Write-up
 
@@ -2023,47 +1689,7 @@ All analyses were carried out in R (ver 4.1.3) (R Core Team 2021) with the follo
 
 Results: I found a significant negative relationship between temperature and probability of o-ring failure (logit-odds = -0.37 [95%CI: -0.88 - -0.12], *z* = -2.1, d.f = 21, *P* = 0.036). At an average temperature of 69.6&deg;F the probability of o-ring failure was estimated at 0.15[0.03-0.45], but this rose to a near certainty of failure 0.99[0.43-1] at 36&deg;F.
 
-> Note you could use drop1( test = "Chisq") here, but as there is only one, continuous variable, we can also report directly from the summary table. 
-
-
-```r
-drop1(binary_model, test="Chisq")
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Df </th>
-   <th style="text-align:right;"> Deviance </th>
-   <th style="text-align:right;"> AIC </th>
-   <th style="text-align:right;"> LRT </th>
-   <th style="text-align:right;"> Pr(&gt;Chi) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> &lt;none&gt; </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 14.42579 </td>
-   <td style="text-align:right;"> 18.42579 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> temp </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 26.40237 </td>
-   <td style="text-align:right;"> 28.40237 </td>
-   <td style="text-align:right;"> 11.97658 </td>
-   <td style="text-align:right;"> 0.0005387 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
+> Note you could use anova( test = "Chisq") here, but as there is only one, continuous variable, we can also report directly from the summary table. 
 
 
 </div>
