@@ -418,7 +418,7 @@ downloadthis::download_link(
 )
 ```
 
-```{r, eval=T, warning = F, message = F}
+```{r, eval=T, echo = F, warning = F, message = F}
 
 pollution <- read_csv(here::here("book", "files", "pollution.csv"))
 

@@ -138,7 +138,7 @@
 <li><a class="" href="multiple-random-effects.html"><span class="header-section-number">19</span> Multiple random effects</a></li>
 <li><a class="" href="worked-example-2---nested-design.html"><span class="header-section-number">20</span> Worked Example 2 - Nested design</a></li>
 <li><a class="" href="types-of-random-effects.html"><span class="header-section-number">21</span> Types of Random Effects</a></li>
-<li><a class="" href="worked-example-3---complex-designs.html"><span class="header-section-number">22</span> Worked Example 3 - Complex Designs</a></li>
+<li><a class="" href="worked-example-3---sleep-study.html"><span class="header-section-number">22</span> Worked Example 3 - Sleep study</a></li>
 <li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">23</span> Reporting Mixed Model Results</a></li>
 <li><a class="" href="worked-example-4.html"><span class="header-section-number">24</span> Worked Example 4</a></li>
 <li><a class="" href="summary-10.html"><span class="header-section-number">25</span> Summary</a></li>
@@ -155,12 +155,25 @@
 <div class="small_right">
 <img src="images/logos/logo.png" alt="Data skills Logo">
 </div>
-<div id="packages" class="section level2" number="0.1">
+<p>This course will introduce scientists and practitioners interested in applying statistical approaches in their daily routine using R as a working environment. Participants will be introduced into R and R Studio while learning how to perform common statistical analyses. After a short introduction on R and its principles, the focus will be on questions that could be addressed using common statistical analyses, both for descriptive statistics and for statistical inference.</p>
+<div id="learning-outcomes" class="section level2" number="0.1">
 <h2>
-<span class="header-section-number">0.1</span> Packages<a class="anchor" aria-label="anchor" href="#packages"><i class="fas fa-link"></i></a>
+<span class="header-section-number">0.1</span> Learning outcomes<a class="anchor" aria-label="anchor" href="#learning-outcomes"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li><p>Understand how to read, interpret and write scripts in R.</p></li>
+<li><p>Learn statistical tools to address common questions in research activities.</p></li>
+<li><p>An introduction to efficient, readable and reproducible analyses</p></li>
+<li><p>Being comfortable with using R when performing both descriptive and inferential statistics.</p></li>
+</ol>
+</div>
+<div id="packages" class="section level2" number="0.2">
+<h2>
+<span class="header-section-number">0.2</span> Packages<a class="anchor" aria-label="anchor" href="#packages"><i class="fas fa-link"></i></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/rstatix/">rstatix</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/see/">see</a></span><span class="op">)</span></span>
@@ -366,7 +379,8 @@ $( document ).ready(function() {
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#overview">Overview</a></li>
-<li><a class="nav-link" href="#packages"><span class="header-section-number">0.1</span> Packages</a></li>
+<li><a class="nav-link" href="#learning-outcomes"><span class="header-section-number">0.1</span> Learning outcomes</a></li>
+<li><a class="nav-link" href="#packages"><span class="header-section-number">0.2</span> Packages</a></li>
 </ul>
 
       <div class="book-extra">
@@ -384,7 +398,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-14.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -1778,51 +1778,48 @@ In this context, ML estimation is preferable because it allows for a formal stat
 
 
 
-# Worked Example 3 - Complex Designs
+# Worked Example 3 - Sleep study
 
-This is definitely the most complicated experiment we will analyse in this workbook, as a result of the complex data hierarchy. 
+In this chapter, we'll be working with some real data from a study looking at the effects of sleep deprivation on psychomotor performance @belenky_2003. The dataset `sleepstudy` is built-in to the lme4 package. 
 
-## The data
+Access the documentation by typing `??sleepstudy` in the console
 
-The BIODEPTH (Biodiversity and Ecosystem Process in Terrestrial Herbaceous Ecosystems) project manipulated grassland plant diversity in field plots to simulate the impact of the loss of plant species on ecosystem processes here above ground yield. 
 
-There is a gradient of managed species diversity with five levels ranging from monoculture to an attempted maximum for each site. This was repeated at eight different grassland sites across seven countries. 
 
-Each level of diversity was repeated with different mixtures of plant species chosen at random, and this is designed to separate the features of diversity from the species composition. 
-
-Experiments were repeated in two blocks per site.
+A good way to start every analysis is to plot the data.
 
 
 ```r
-biodepth <- read_tsv("files/Biodepth.txt")
+ggplot(sleepstudy, aes(x = Days, y = Reaction)) +
+  geom_point() +
+  scale_x_continuous(breaks = 0:9) +
+  facet_wrap(~Subject)
 ```
 
+<img src="20-mixed-model_files/figure-html/unnamed-chunk-69-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-```{=html}
-<a href="https://raw.githubusercontent.com/UEABIO/intro-mixed-models/main/book/files/Biodepth.txt">
-<button class="btn btn-success"><i class="fa fa-save"></i> Download BIODEPTH data</button>
-</a>
-```
+To model the data appropriately, first we need to know more about about the design - according to the study this went as follows:
 
+>The first 3 days (T1, T2 and B) were adaptation and training (T1 and T2) and baseline (B) and subjects were required to be in bed from 23:00 to 07:00 h [8 h required time in bed (TIB)]. On the third day (B), baseline measures were taken. Beginning on the fourth day and continuing for a total of 7 days (E1–E7) subjects were in one of four sleep conditions [9 h required TIB (22:00–07:00 h), 7 h required TIB (24:00–07:00 h), 5 h required TIB (02:00–07:00 h), or 3 h required TIB (04:00–07:00 h)], effectively one sleep augmentation condition, and three sleep restriction conditions.
 
+There were seven nights of sleep restriction, with the first night of restriction occurring after the third day. The first two days, coded as 0, 1, were adaptation and training. The day coded as 2, where the baseline measurement was taken, should be the place where we start our analysis. If we include the days 0 and 1 in our analysis, this might bias our results, since any changes in performance during the first two days have to do with training, not sleep restriction.
+
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+
+Remove from the dataset observations where Days is coded 0 or 1, and then make a new variable days_deprived from the Days variable so that the sequence starts at day 2, with day 2 being re-coded as day 0, day 3 as day 1, day 4 as day 2, etc. This new variable now tracks the number of days of sleep deprivation. Store the new table as sleep2.
+ </div></div>
+
+<button id="displayTextunnamed-chunk-71" onclick="javascript:toggle('unnamed-chunk-71');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-71" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
-biodepth <- biodepth %>% 
-  mutate(Mix = factor(Mix),
-         Diversity2 = log(Diversity, 2)) %>% 
-  drop_na()
+sleep2 <- sleepstudy %>%
+  filter(Days >= 2L) %>%
+  mutate(days_deprived = Days - 2L)
 
-# set Mix as a factor
-# Set Diversity to log, base 2
-```
-
-
-
-
-
-```r
-head(biodepth)
+head(sleep2)
 ```
 
 <div class="kable-table">
@@ -1830,203 +1827,113 @@ head(biodepth)
 <table>
  <thead>
   <tr>
-   <th style="text-align:left;"> Plot </th>
-   <th style="text-align:left;"> Site </th>
-   <th style="text-align:left;"> Block </th>
-   <th style="text-align:left;"> Mix </th>
-   <th style="text-align:right;"> Mix_Nested </th>
-   <th style="text-align:right;"> Diversity </th>
-   <th style="text-align:right;"> Shoot2 </th>
-   <th style="text-align:right;"> Shoot3 </th>
-   <th style="text-align:right;"> Diversity2 </th>
+   <th style="text-align:right;"> Reaction </th>
+   <th style="text-align:right;"> Days </th>
+   <th style="text-align:left;"> Subject </th>
+   <th style="text-align:right;"> days_deprived </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> B1P001 </td>
-   <td style="text-align:left;"> Germany </td>
-   <td style="text-align:left;"> A </td>
-   <td style="text-align:left;"> 5 </td>
+   <td style="text-align:right;"> 250.8006 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> 308 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 321.4398 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> 308 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 356.8519 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> 308 </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 414.6901 </td>
    <td style="text-align:right;"> 5 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 463.75 </td>
-   <td style="text-align:right;"> 554.75 </td>
-   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> 308 </td>
+   <td style="text-align:right;"> 3 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> B1P003 </td>
-   <td style="text-align:left;"> Germany </td>
-   <td style="text-align:left;"> A </td>
-   <td style="text-align:left;"> 15 </td>
-   <td style="text-align:right;"> 15 </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 674.55 </td>
-   <td style="text-align:right;"> 539.95 </td>
-   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 382.2038 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> 308 </td>
+   <td style="text-align:right;"> 4 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> B1P004 </td>
-   <td style="text-align:left;"> Germany </td>
-   <td style="text-align:left;"> A </td>
-   <td style="text-align:left;"> 7 </td>
+   <td style="text-align:right;"> 290.1486 </td>
    <td style="text-align:right;"> 7 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 563.40 </td>
-   <td style="text-align:right;"> 476.00 </td>
-   <td style="text-align:right;"> 0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B1P005 </td>
-   <td style="text-align:left;"> Germany </td>
-   <td style="text-align:left;"> A </td>
-   <td style="text-align:left;"> 16 </td>
-   <td style="text-align:right;"> 16 </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 567.10 </td>
-   <td style="text-align:right;"> 308.45 </td>
-   <td style="text-align:right;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B1P006 </td>
-   <td style="text-align:left;"> Germany </td>
-   <td style="text-align:left;"> A </td>
-   <td style="text-align:left;"> 8 </td>
-   <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 378.20 </td>
-   <td style="text-align:right;"> 447.10 </td>
-   <td style="text-align:right;"> 0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B1P008 </td>
-   <td style="text-align:left;"> Germany </td>
-   <td style="text-align:left;"> A </td>
-   <td style="text-align:left;"> 13 </td>
-   <td style="text-align:right;"> 13 </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 889.15 </td>
-   <td style="text-align:right;"> 825.10 </td>
-   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> 308 </td>
+   <td style="text-align:right;"> 5 </td>
   </tr>
 </tbody>
 </table>
 
 </div>
 
-Important variables are:
+</div></div></div>
 
-- `Shoot2` as one of the variables representing yield, our **response** or **dependent** variable. 
 
-- `Diversity2` Species richness indicator (on a log base 2 scale)
+Take a moment to think about how me might model the relationship between days_deprived and Reaction. Does reaction time increase or decrease with increasing sleep deprivation? Is the relationship roughly stable or does it change with time?
 
-- `Block`, `Site`, `Mix` are all random effects
 
-What follows is a complex design, but will hopefully outline the careful thought that must go into designing mixed-models 
+| Model | Syntax                                     |
+|-------|--------------------------------------------|
+| Random intercepts    | Reaction ~ days_deprived + (1 | Subject)                       |
+| Random intercepts and slopes     | Reaction ~ days_deprived + (days_deprived | Subject)        |
+| Random slopes    | Reaction ~ days_deprived + (0 + days_deprived | Subject)        |
 
-**Q. Discussion - what is wrong with this design?**
+The most reasonable model is Model 2 - different patients may have different initial reaction times & they may respond to sleep deprivation differently. 
+
 
 
 ```r
-bio.lmer1 <- lmer(Shoot2 ~ Diversity2 + (1|Site) + (1|Block) + (1|Mix), data = biodepth)
-
-summary(bio.lmer1)
+sleep_model <- lmer(Reaction ~ days_deprived + (days_deprived | Subject), data = sleep2)
+summary(sleep_model)
 ```
 
 ```
 ## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 ## lmerModLmerTest]
-## Formula: Shoot2 ~ Diversity2 + (1 | Site) + (1 | Block) + (1 | Mix)
-##    Data: biodepth
+## Formula: Reaction ~ days_deprived + (days_deprived | Subject)
+##    Data: sleep2
 ## 
-## REML criterion at convergence: 6082.6
+## REML criterion at convergence: 1404.1
 ## 
 ## Scaled residuals: 
 ##     Min      1Q  Median      3Q     Max 
-## -2.2187 -0.5179 -0.1031  0.3941  3.1735 
+## -4.0157 -0.3541  0.0069  0.4681  5.0732 
 ## 
 ## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  Mix      (Intercept) 33665.3  183.48  
-##  Block    (Intercept)   383.2   19.57  
-##  Site     (Intercept) 30163.9  173.68  
-##  Residual             22039.8  148.46  
-## Number of obs: 451, groups:  Mix, 192; Block, 15; Site, 8
+##  Groups   Name          Variance Std.Dev. Corr
+##  Subject  (Intercept)   958.35   30.957       
+##           days_deprived  45.78    6.766   0.18
+##  Residual               651.60   25.526       
+## Number of obs: 144, groups:  Subject, 18
 ## 
 ## Fixed effects:
-##             Estimate Std. Error      df t value Pr(>|t|)    
-## (Intercept)  349.488     66.244   8.576   5.276 0.000598 ***
-## Diversity2    78.901     12.059 175.159   6.543 6.42e-10 ***
+##               Estimate Std. Error      df t value Pr(>|t|)    
+## (Intercept)    267.967      8.266  17.000  32.418  < 2e-16 ***
+## days_deprived   11.435      1.845  16.999   6.197 9.75e-06 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Correlation of Fixed Effects:
-##            (Intr)
-## Diversity2 -0.286
+##             (Intr)
+## days_deprvd -0.062
 ```
 
-
-<div class='webex-solution'><button>Solution</button>
-
-
-Overall, the model assumes that the response variable "Shoot2" is influenced by the fixed effect "Diversity2" while accounting for the random effects due to the varying levels of "Site," "Block," and "Mix" within the data.
-
-It also suffers from the fact that the design may be nested or crossed, it is not explicit. Basically we know that each block exists only within each site, they should be nested. If each block has a unique code then this is ok, but if for example they are coded as Germany: A/B, Switzerland A/B etc... then we would need to make our design explicity e.g. Site/Block. 
-
-This model also does not allow for any random slopes, which we may wish to consider.
-
-
-</div>
-
-
-**Q. Discuss these two designs**
+We can compare this against a simpler intercept model to check this fit
 
 
 ```r
-bio.lmer1a <- lmer(Shoot2 ~ Diversity2 + (Diversity2 | Site) + (1 | Site/Mix) + (1 | Block), data = biodepth)
+sleep_model_intercept <- lmer(Reaction ~ days_deprived + (1| Subject), data = sleep2)
 
-#Site/Mix denotes that Mix is nested fully within Site
-```
-
-
-
-```r
-bio.lmer2 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1 | Site:Mix) + (1|Mix) + (1 | Block), data = biodepth)
-
-# Site:Mix denotes the random effect varies independently for each combination of levels in the Site and Mix factors
-```
-
-
-
-<div class='webex-solution'><button>Solution</button>
-
-
-In the above designs we have produced a random slope and intercept for the effect of Site. This makes sense if we think that the way diversity affects yield may vary in a random site-specific manner. 
-
-What about the nesting or interaction of Site and Mix?
-
-In the 1 | Site/Mix specification represents a nested random effect structure. It suggests that the random effect of Mix is nested within the random effect of Site. This specification assumes that the levels of Mix are nested within each level of Site, meaning that each level of Site has its own set of random effects for the levels of Mix. The / operator denotes the nesting relationship.
-
-On the other hand 1 | Site:Mix specification, the random effect is specified as a two-way crossed random effect. It means that the random effect varies independently for each combination of levels in the Site and Mix factors. The : operator represents the interaction or crossed effect between the two factors. This specification allows for correlations between random effects within each combination of Site and Mix.
-
-To summarize:
-
-1 | Site:Mix: Two-way crossed random effect, allowing for independent variation of random effects for each combination of levels in Site and Mix.
-
-1 | Site/Mix: Nested random effect, with the random effect of Mix nested within the random effect of Site, assuming that the levels of Mix are completely nested within each level of Site.
-
-
-</div>
-
-
-
-
-```r
-bio.lmer3 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1 | Site:Mix) + (1|Mix), data = biodepth)
-```
-
-
-```r
-anova(bio.lmer2, bio.lmer3)
+anova(sleep_model_intercept, sleep_model)
 ```
 
 <div class="kable-table">
@@ -2047,33 +1954,33 @@ anova(bio.lmer2, bio.lmer3)
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> bio.lmer3 </td>
-   <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> 6080.019 </td>
-   <td style="text-align:right;"> 6112.911 </td>
-   <td style="text-align:right;"> -3032.010 </td>
-   <td style="text-align:right;"> 6064.019 </td>
+   <td style="text-align:left;"> sleep_model_intercept </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1446.490 </td>
+   <td style="text-align:right;"> 1458.369 </td>
+   <td style="text-align:right;"> -719.2451 </td>
+   <td style="text-align:right;"> 1438.490 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> bio.lmer2 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 6080.168 </td>
-   <td style="text-align:right;"> 6117.171 </td>
-   <td style="text-align:right;"> -3031.084 </td>
-   <td style="text-align:right;"> 6062.168 </td>
-   <td style="text-align:right;"> 1.851387 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.1736222 </td>
+   <td style="text-align:left;"> sleep_model </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 1425.158 </td>
+   <td style="text-align:right;"> 1442.977 </td>
+   <td style="text-align:right;"> -706.5790 </td>
+   <td style="text-align:right;"> 1413.158 </td>
+   <td style="text-align:right;"> 25.33213 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 3.2e-06 </td>
   </tr>
 </tbody>
 </table>
 
 </div>
 
-**Q. What does the LRT indicate about the effect of block on our model?**
+Q. What does the LRT indicate about the effect of the random slopeon our model?
 
 Should we remove it from our model? <select class='webex-select'><option value='blank'></option><option value=''>Yes</option><option value='answer'>No</option></select>
 
@@ -2081,47 +1988,11 @@ Should we remove it from our model? <select class='webex-select'><option value='
 <div class='webex-solution'><button>Solution</button>
 
 
-The LRT indicates that removing block from the design of our model does not produce a simpler model that explains significantly less variance. So in effect we could remove it. However, I would argue it also does not harm the model and it is part of our explicit design, so should be left in. 
+The LRT indicates that removing random slope from the design of our model explains significantly less variance, and should be left in the model. 
 
 
 </div>
 
-
-### Model predictions
-
-
-```r
-nested_data <- biodepth %>% 
-    group_by(Site) %>% 
-    nest()
-
-models <- map(nested_data$data, ~ lm(Shoot2 ~ Diversity2, data = .)) %>% 
-    map(predict)
-```
-
-
-
-```r
-biodepth.2 <- biodepth %>% 
-    mutate(fit.m = predict(bio.lmer2, re.form = NA),
-           fit.c = predict(bio.lmer2, re.form = ~(1+Diversity2|Site)),
-           fit.l = unlist(models))
-
-biodepth.2 %>% 
-    ggplot(aes(x = Diversity2, y = Shoot2, colour = Site)) +
-    geom_point(pch = 16) + 
-    geom_line(aes(y = fit.l), color = "black")+
-    geom_line(aes(y = fit.c))+ 
-    geom_line(aes(y = fit.m), colour = "grey",
-              linetype = "dashed")+
-    facet_wrap( ~ Site)+
-   coord_cartesian(ylim = c(0, 1200))+
-   theme(legend.position = "none")
-```
-
-<img src="20-mixed-model_files/figure-html/unnamed-chunk-79-1.png" width="100%" style="display: block; margin: auto;" />
-
-**Q. Can you observe the effect of partial pooling in this analysis?**
 
 
 # Reporting Mixed Model Results
@@ -2136,53 +2007,61 @@ It includes the coefficient estimates, t-statistics and p-values of our fixed ef
 
 
 ```r
-bio.lmer2 <- lmer(Shoot2 ~ Diversity2 + (Diversity2|Site) + (1 | Site:Mix) + (1|Mix) + (1 | Block), data = biodepth)
-
-summary(bio.lmer2)
+summary(sleep_model)
 ```
 
 ```
 ## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 ## lmerModLmerTest]
-## Formula: Shoot2 ~ Diversity2 + (Diversity2 | Site) + (1 | Site:Mix) +  
-##     (1 | Mix) + (1 | Block)
-##    Data: biodepth
+## Formula: Reaction ~ days_deprived + (days_deprived | Subject)
+##    Data: sleep2
 ## 
-## REML criterion at convergence: 6045.1
+## REML criterion at convergence: 1404.1
 ## 
 ## Scaled residuals: 
 ##     Min      1Q  Median      3Q     Max 
-## -2.4340 -0.4698 -0.0866  0.3430  3.5258 
+## -4.0157 -0.3541  0.0069  0.4681  5.0732 
 ## 
 ## Random effects:
-##  Groups   Name        Variance Std.Dev. Corr
-##  Site:Mix (Intercept) 20077.6  141.70       
-##  Mix      (Intercept) 15857.6  125.93       
-##  Block    (Intercept)   520.6   22.82       
-##  Site     (Intercept) 17106.8  130.79       
-##           Diversity2   1363.2   36.92   1.00
-##  Residual             16747.3  129.41       
-## Number of obs: 451, groups:  Site:Mix, 227; Mix, 192; Block, 15; Site, 8
+##  Groups   Name          Variance Std.Dev. Corr
+##  Subject  (Intercept)   958.35   30.957       
+##           days_deprived  45.78    6.766   0.18
+##  Residual               651.60   25.526       
+## Number of obs: 144, groups:  Subject, 18
 ## 
 ## Fixed effects:
-##             Estimate Std. Error      df t value Pr(>|t|)    
-## (Intercept)  346.322     52.004   7.856   6.659 0.000173 ***
-## Diversity2    79.355     17.598   9.288   4.509 0.001357 ** 
+##               Estimate Std. Error      df t value Pr(>|t|)    
+## (Intercept)    267.967      8.266  17.000  32.418  < 2e-16 ***
+## days_deprived   11.435      1.845  16.999   6.197 9.75e-06 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Correlation of Fixed Effects:
-##            (Intr)
-## Diversity2 0.434 
-## optimizer (nloptwrap) convergence code: 0 (OK)
-## boundary (singular) fit: see help('isSingular')
+##             (Intr)
+## days_deprvd -0.062
 ```
+
+<div class="info">
+<p>Note that the t values only appear with df and a p value when using
+the lmerTest version of lmer(). This is because the degrees of freedom
+in a mixed-effects model are not well-defined. Often people will treat
+them as Wald z- values, i.e., as observations from the standard normal
+distribution. Because the t-distribution asymptotes the standard normal
+distribution as the number of observations goes to infinity, this
+“t-as-z” practice is legitimate if you have a large enough set of
+observations.</p>
+<p>The lmerTest function produces estimated degrees of freedom with a
+satterthwaite approximation (another common method is the “kenward
+approximation”), which will have the effect of widening confidence
+intervals. It is important to know what method you are using, and to be
+consistent across your presentation/write-up</p>
+</div>
 
 We can also produce an `anova()` type summary of our fixed effects
 
 
 ```r
-anova(bio.lmer2)
+anova(sleep_model)
 ```
 
 <div class="kable-table">
@@ -2201,13 +2080,13 @@ anova(bio.lmer2)
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> Diversity2 </td>
-   <td style="text-align:right;"> 340561.5 </td>
-   <td style="text-align:right;"> 340561.5 </td>
+   <td style="text-align:left;"> days_deprived </td>
+   <td style="text-align:right;"> 25023.83 </td>
+   <td style="text-align:right;"> 25023.83 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 9.288082 </td>
-   <td style="text-align:right;"> 20.33525 </td>
-   <td style="text-align:right;"> 0.0013567 </td>
+   <td style="text-align:right;"> 16.9995 </td>
+   <td style="text-align:right;"> 38.40382 </td>
+   <td style="text-align:right;"> 9.8e-06 </td>
   </tr>
 </tbody>
 </table>
@@ -2219,12 +2098,12 @@ We may also wish to report $R^2$ values from our model fit. This requires the `M
 
 ```r
 library(MuMIn)
-r.squaredGLMM(bio.lmer2)
+r.squaredGLMM(sleep_model)
 ```
 
 ```
 ##            R2m       R2c
-## [1,] 0.1082987 0.8321128
+## [1,] 0.2055824 0.8062353
 ```
 
 This calculates two values the first $R^2_{m}$ is the marginal $R^2$ value, representing the proportion of variance explained by our fixed effects. The second $R^2_{c}$ is the conditional $R^2$, which is the proportion of variance explained by the full model, with both fixed and random effects. 
@@ -2235,13 +2114,14 @@ There are a few packages for producing beautiful summary tables from regression 
 
 
 ```r
-sjPlot::tab_model(bio.lmer2)
+sjPlot::tab_model(sleep_model, 
+                  df.method = "satterthwaite")
 ```
 
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Shoot 2</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Reaction</th>
 </tr>
 <tr>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictors</td>
@@ -2251,14 +2131,14 @@ sjPlot::tab_model(bio.lmer2)
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">346.32</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">244.12&nbsp;&ndash;&nbsp;448.53</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">267.97</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">250.53&nbsp;&ndash;&nbsp;285.41</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
 </tr>
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Diversity2</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">79.36</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">44.77&nbsp;&ndash;&nbsp;113.94</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">days deprived</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">11.44</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">7.54&nbsp;&ndash;&nbsp;15.33</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
 </tr>
 <tr>
@@ -2267,55 +2147,35 @@ sjPlot::tab_model(bio.lmer2)
 
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&sigma;<sup>2</sup></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">16747.35</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">651.60</td>
 </tr>
 
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>00</sub> <sub>Site:Mix</sub></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">20077.59</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>00</sub> <sub>Subject</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">958.35</td>
 
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>00</sub> <sub>Mix</sub></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">15857.60</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>11</sub> <sub>Subject.days_deprived</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">45.78</td>
 
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>00</sub> <sub>Block</sub></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">520.57</td>
-
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>00</sub> <sub>Site</sub></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">17106.78</td>
-
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&tau;<sub>11</sub> <sub>Site.Diversity2</sub></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">1363.21</td>
-
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&rho;<sub>01</sub> <sub>Site</sub></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">1.00</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">&rho;<sub>01</sub> <sub>Subject</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.18</td>
 
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">ICC</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.81</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.76</td>
 
 <tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">N <sub>Site</sub></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">8</td>
-
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">N <sub>Mix</sub></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">192</td>
-
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">N <sub>Block</sub></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">15</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">N <sub>Subject</sub></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">18</td>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">451</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">144</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">Marginal R<sup>2</sup> / Conditional R<sup>2</sup></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.108 / 0.832</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.206 / 0.806</td>
 </tr>
 
 </table>
@@ -2326,181 +2186,30 @@ We have covered some of the packages that allow us to easily produce marginal an
 
 
 ```r
-ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), type = "random") %>% 
-plot(., add.data = TRUE)
-```
-
-<img src="20-mixed-model_files/figure-html/unnamed-chunk-84-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-```r
 # Custom colors
 custom.col <- c("#000000", "#E69F00", "#56B4E9", "#009E73",
                 "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
-# Create the plot with ggpredict and customization
-ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), type = "random") %>% 
-  plot(., add.data = TRUE) + 
-  facet_wrap(~ group) +
-  theme(legend.position = "none") +
-  scale_colour_manual(values = custom.col) +  # Custom line colors
-  scale_fill_manual(values = custom.col) +  # Custom fill colors
-  labs(y = "Yield", 
-       x = "Number of species",
-       title = "") +  # Axis and title labels
-  scale_x_continuous(breaks = c(0, 2, 4), 
-                     labels = c("2", "8", "32"))  # Specify x-axis breaks and labels
+cols <- colorRampPalette(custom.col)(18)
+
+
+ggpredict(sleep_model, terms = c("days_deprived", "Subject" ), 
+          type = "random") %>% 
+plot(., add.data = TRUE) + 
+  scale_color_manual(values = cols)+
+  facet_wrap(~group)+theme(legend.position = "none")
 ```
 
-<div class="figure" style="text-align: center">
-<img src="20-mixed-model_files/figure-html/unnamed-chunk-85-1.png" alt="Scatter plot of predicted yield as a function of the number of species for different sites and experimental groups. The plot showcases the predicted conditional fixed effects and random effects 95% prediction intervals." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-85)Scatter plot of predicted yield as a function of the number of species for different sites and experimental groups. The plot showcases the predicted conditional fixed effects and random effects 95% prediction intervals.</p>
-</div>
+<img src="20-mixed-model_files/figure-html/unnamed-chunk-79-1.png" width="100%" style="display: block; margin: auto;" />
 
-```r
-# Note ggpredict codes random effects as "groups" with a hidden label
 
-###
-
-ggpredict(bio.lmer2, terms = c("Diversity2", "Site"), 
-          type = "random") %>% tibble() %>% 
-  head()
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> x </th>
-   <th style="text-align:right;"> predicted </th>
-   <th style="text-align:right;"> std.error </th>
-   <th style="text-align:right;"> conf.low </th>
-   <th style="text-align:right;"> conf.high </th>
-   <th style="text-align:left;"> group </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 503.0749 </td>
-   <td style="text-align:right;"> 139.4697 </td>
-   <td style="text-align:right;"> 228.96873 </td>
-   <td style="text-align:right;"> 777.1810 </td>
-   <td style="text-align:left;"> Germany </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 180.4816 </td>
-   <td style="text-align:right;"> 139.4697 </td>
-   <td style="text-align:right;"> -93.62451 </td>
-   <td style="text-align:right;"> 454.5877 </td>
-   <td style="text-align:left;"> Greece </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 472.1150 </td>
-   <td style="text-align:right;"> 139.4697 </td>
-   <td style="text-align:right;"> 198.00891 </td>
-   <td style="text-align:right;"> 746.2212 </td>
-   <td style="text-align:left;"> Ireland </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 208.5750 </td>
-   <td style="text-align:right;"> 139.4697 </td>
-   <td style="text-align:right;"> -65.53108 </td>
-   <td style="text-align:right;"> 482.6812 </td>
-   <td style="text-align:left;"> Portugal </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 420.2317 </td>
-   <td style="text-align:right;"> 139.4697 </td>
-   <td style="text-align:right;"> 146.12555 </td>
-   <td style="text-align:right;"> 694.3378 </td>
-   <td style="text-align:left;"> Sheffield </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 403.9469 </td>
-   <td style="text-align:right;"> 139.4697 </td>
-   <td style="text-align:right;"> 129.84073 </td>
-   <td style="text-align:right;"> 678.0530 </td>
-   <td style="text-align:left;"> Silwood </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
 
 ## Write-ups
 
-Part of the `easystats` range of packages (along with `performance`) - `report`(@R-report) is a phenomenally powerful package for aiding in write-up and making sure all important statistics are reported.
-
-> It should however be no substitute for logic and human understanding. 
-
-
-```r
-library(report)
-report(bio.lmer2)
-```
-
-```
-## We fitted a linear mixed model (estimated using REML and nloptwrap optimizer)
-## to predict Shoot2 with Diversity2 (formula: Shoot2 ~ Diversity2). The model
-## included Diversity2 as random effects (formula: list(~Diversity2 | Site, ~1 |
-## Site:Mix, ~1 | Mix, ~1 | Block)). The model's total explanatory power is
-## substantial (conditional R2 = 0.83) and the part related to the fixed effects
-## alone (marginal R2) is of 0.11. The model's intercept, corresponding to
-## Diversity2 = 0, is at 346.32 (95% CI [244.12, 448.53], t(442) = 6.66, p <
-## .001). Within this model:
-## 
-##   - The effect of Diversity2 is statistically significant and positive (beta =
-## 79.36, 95% CI [44.77, 113.94], t(442) = 4.51, p < .001; Std. beta = 0.35, 95%
-## CI [0.19, 0.50])
-## 
-## Standardized parameters were obtained by fitting the model on a standardized
-## version of the dataset. 95% Confidence Intervals (CIs) and p-values were
-## computed using a Wald t-distribution approximation.
-```
-
-> Note report produces the t statistic and the estimated degrees freedom from the full model for each coefficient. I might recommend using the anova() or drop1() functions and report overall variance explained by a fixed effect with an F-test, rather than reporting each individual coefficient relative to the intercept 
-
-
-```r
-drop1(bio.lmer2, test = "F")
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Sum Sq </th>
-   <th style="text-align:right;"> Mean Sq </th>
-   <th style="text-align:right;"> NumDF </th>
-   <th style="text-align:right;"> DenDF </th>
-   <th style="text-align:right;"> F value </th>
-   <th style="text-align:right;"> Pr(&gt;F) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Diversity2 </td>
-   <td style="text-align:right;"> 340561.5 </td>
-   <td style="text-align:right;"> 340561.5 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 9.288082 </td>
-   <td style="text-align:right;"> 20.33525 </td>
-   <td style="text-align:right;"> 0.0013567 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-
+> We fitted a linear mixed model (estimated using REML) to predict reaction time (ms) with days of sleep deprivation. The
+model included a random slope and intercept design to allow for the repeated measure design of measuring patients on multiple days and for the effect o sleep deprivation to vary by patient. The model's total explanatory power is substantial (conditional R^2 = 0.81), and the part related to the fixed effects alone (marginal R2) is of 0.21. 
+The mean reaction time at Day 0 was  267.97ms (95% CI[250.53, 285.41], t(17) = 32.42, p < .001). The effect of sleep deprivation was a steady increase to the reaction time of 11.44ms per day of sleep loss ([7.54 - 15.33], t(17) = 6.2, p < 0.001). 
+These 95% Confidence Intervals (CIs) and p-values were computed using a satterthwaite approximation of the degrees of freedom and a t-distribution approximation.
 
 
 # Worked Example 4
@@ -2525,7 +2234,7 @@ The data are available here:
 
 
 ```r
-bacteria <- readRDS("bacteria.rds")
+bacteria <- readRDS("bacCabinets.rds")
 ```
 
 <div class="try">

@@ -889,9 +889,6 @@ The previous section looked at an interaction between two categorical variables,
 ```
 
 
-```r
-pollution <- read_csv(here::here("book", "files", "pollution.csv"))
-```
 
 The data is from an experimental study of the effects of low-level atmospheric pollutants and drought on agricultural yields. The experiment aimed to see how the yields soya bean (William variety), were affected by stress and Ozone levels. **Your task is to first determine whether there is any evidence of an interaction effect, and if not drop this term from your model and then report the estimates and confidence intervals from the simplified model**. 
 

@@ -31,7 +31,7 @@ fig:unnamed-chunk-15
 fig:unnamed-chunk-50
 fig:unnamed-chunk-52
 fig:unnamed-chunk-53
-fig:unnamed-chunk-85
+learning-outcomes
 packages
 loading-data
 meet-the-penguins
@@ -321,9 +321,7 @@ maximum-likelihood
 reml
 ml-vs.-reml-fitting
 practice-questions-1
-worked-example-3---complex-designs
-the-data
-model-predictions
+worked-example-3---sleep-study
 reporting-mixed-model-results
 tables
 figures

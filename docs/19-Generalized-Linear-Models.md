@@ -270,9 +270,6 @@ The question of interest is:
 
 
 
-```r
-cuckoo <- read_csv(here::here("book", "files", "cuckoo.csv"))
-```
 
 
 ```{=html}
