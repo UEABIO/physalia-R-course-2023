@@ -2093,7 +2093,7 @@ anova(sleep_model)
 
 </div>
 
-We may also wish to report $R^2$ values from our model fit. This requires the `MuMIn` package (@r-MuMIn), though later we will see it can also be produced as part of the `report` package. 
+We may also wish to report $R^2$ values from our model fit. This requires the `MuMIn` package. 
 
 
 ```r

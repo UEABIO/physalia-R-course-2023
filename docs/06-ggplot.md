@@ -28,7 +28,6 @@ Think about some basic checks before you start your work today.
 
 #### Checklist
 
-* Are there objects already in your Environment pane? [There shouldn't be](#global-options), if there are use `rm(list=ls())`
 
 <div class="try">
 <p>Today we are going to make a NEW R script in the same project space
@@ -742,7 +741,7 @@ p3 <- penguins %>%
 <p>How close can you get to replicating the figure below?</p>
 <p>Make a NEW script for this assignment - replicate_figure.R</p>
 <p>Make sure to use the tips and links at the end of this chapter, when
-you are done save the file and submit!</p>
+you are done save the file</p>
 </div>
 
 <img src="06-ggplot_files/figure-html/unnamed-chunk-53-1.png" width="100%" style="display: block; margin: auto;" />
@@ -823,7 +822,6 @@ packages</a> when writing reports later.</p>
 
 * Make sure you have **saved your scripts 💾** in the ["scripts" folder](#activity-1-organising-our-workspace).
 
-* Make sure your workspace is set **not** to save objects from the environment [*between* sessions](#global-options).
 
 #### What we learned
 

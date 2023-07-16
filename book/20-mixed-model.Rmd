@@ -1495,7 +1495,7 @@ We can also produce an `anova()` type summary of our fixed effects
 anova(sleep_model)
 ```
 
-We may also wish to report $R^2$ values from our model fit. This requires the `MuMIn` package (@r-MuMIn), though later we will see it can also be produced as part of the `report` package. 
+We may also wish to report $R^2$ values from our model fit. This requires the `MuMIn` package. 
 
 ```{r}
 library(MuMIn)

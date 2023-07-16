@@ -33,7 +33,6 @@ Think about some basic checks before you start your work today.
 
 #### Checklist
 
-* Are there objects already in your Environment pane? [There shouldn't be](#global-options), if there are use `rm(list=ls())`
 
 ```{block, type = "try"}
 Today we are going to make a NEW R script in the same project space as we have previously been working. This is part of organising our workspace so that our analysis workflow is [well documented and easy to follow](#activity-1-organising-our-workspace)
@@ -692,7 +691,7 @@ How close can you get to replicating the figure below?
 
 Make a NEW script for this assignment - replicate_figure.R
 
-Make sure to use the tips and links at the end of this chapter, when you are done save the file and submit!
+Make sure to use the tips and links at the end of this chapter, when you are done save the file
 
 ```
 
@@ -785,7 +784,6 @@ run `SessionInfo()` at the end of your script to gather the packages and version
 
 * Make sure you have **saved your scripts 💾** in the ["scripts" folder](#activity-1-organising-our-workspace).
 
-* Make sure your workspace is set **not** to save objects from the environment [*between* sessions](#global-options).
 
 #### What we learned
 
