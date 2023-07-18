@@ -1541,53 +1541,6 @@ emmeans::emmeans(binary_model,
                  type='response') 
 ```
 
-```
-##  temp     prob         SE  df asymp.LCL asymp.UCL
-##    66 0.394770 0.17018097 Inf  0.139034  0.724865
-##    65 0.484853 0.19701707 Inf  0.167060  0.815387
-##    64 0.575932 0.21823406 Inf  0.190739  0.886694
-##    63 0.662129 0.22770706 Inf  0.210461  0.935096
-##    62 0.738753 0.22299102 Inf  0.227046  0.964568
-##    61 0.803166 0.20584013 Inf  0.241266  0.981259
-##    60 0.854818 0.18057075 Inf  0.253727  0.990288
-##    59 0.894693 0.15192302 Inf  0.264874  0.995033
-##    58 0.924582 0.12364996 Inf  0.275030  0.997482
-##    57 0.946496 0.09807106 Inf  0.284428  0.998731
-##    56 0.962301 0.07624709 Inf  0.293240  0.999364
-##    55 0.973568 0.05837488 Inf  0.301592  0.999682
-##    54 0.981533 0.04416262 Inf  0.309579  0.999841
-##    53 0.987129 0.03310075 Inf  0.317275  0.999921
-##    52 0.991045 0.02462725 Inf  0.324734  0.999961
-##    51 0.993777 0.01821445 Inf  0.332003  0.999981
-##    50 0.995679 0.01340624 Inf  0.339114  0.999990
-##    49 0.997001 0.00982751 Inf  0.346096  0.999995
-##    48 0.997920 0.00717951 Inf  0.352970  0.999998
-##    47 0.998558 0.00522962 Inf  0.359755  0.999999
-##    46 0.999000 0.00379955 Inf  0.366464  0.999999
-##    45 0.999307 0.00275431 Inf  0.373111  1.000000
-##    44 0.999520 0.00199257 Inf  0.379705  1.000000
-##    43 0.999667 0.00143888 Inf  0.386253  1.000000
-##    42 0.999769 0.00103733 Inf  0.392763  1.000000
-##    41 0.999840 0.00074671 Inf  0.399239  1.000000
-##    40 0.999889 0.00053676 Inf  0.405687  1.000000
-##    39 0.999923 0.00038534 Inf  0.412110  1.000000
-##    38 0.999947 0.00027631 Inf  0.418510  1.000000
-##    37 0.999963 0.00019791 Inf  0.424891  1.000000
-##    36 0.999974 0.00014160 Inf  0.431253  1.000000
-##    35 0.999982 0.00010122 Inf  0.437600  1.000000
-##    34 0.999988 0.00007228 Inf  0.443931  1.000000
-##    33 0.999992 0.00005158 Inf  0.450247  1.000000
-##    32 0.999994 0.00003677 Inf  0.456549  1.000000
-##    31 0.999996 0.00002619 Inf  0.462837  1.000000
-##    30 0.999997 0.00001865 Inf  0.469112  1.000000
-##    29 0.999998 0.00001327 Inf  0.475372  1.000000
-##    28 0.999999 0.00000943 Inf  0.481619  1.000000
-##    27 0.999999 0.00000670 Inf  0.487850  1.000000
-## 
-## Confidence level used: 0.95 
-## Intervals are back-transformed from the logit scale
-```
-
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Use the emmeans output to make a ggplot of the changing probability of O-ring failure with temperature </div></div>
 
@@ -1605,9 +1558,9 @@ emmeans::emmeans(binary_model,
   ggplot(aes(x=temp, y=prob))+geom_line(aes(x=temp, y=prob))+
   geom_ribbon(aes(ymin=asymp.LCL, ymax=asymp.UCL), alpha=0.2)
 ```
-
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-56-1.png" width="100%" style="display: block; margin: auto;" />
 </div></div></div>
+
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-52-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Predictions
@@ -1623,9 +1576,9 @@ We can use augment to add our model to new data - and make predictions about the
 Make a new dataset with the temperature on the day of the Challenger launch - what was the probability of o-ring failure? </div></div>
 
 
-<button id="displayTextunnamed-chunk-53" onclick="javascript:toggle('unnamed-chunk-53');">Show Solution</button>
+<button id="displayTextunnamed-chunk-54" onclick="javascript:toggle('unnamed-chunk-54');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-53" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-54" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 First - we make a new dataset with the temperature on the day of the Challenger Launch **36&deg;F**
   

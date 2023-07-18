@@ -834,7 +834,7 @@ augment_glm(binary_model)
 
 Alternatively we can also do this calculation via emmeans
 
-```{r}
+```{r, eval = FALSE}
 emmeans::emmeans(binary_model, 
                  specs = ~ temp, 
                  at=list(temp=c(66:27)), 
@@ -849,7 +849,7 @@ Use the emmeans output to make a ggplot of the changing probability of O-ring fa
 
 ```{solution}
 
-``{r, eval = T}
+``{r, eval = F}
 
 emmeans::emmeans(binary_model, 
                  specs = ~ temp, 
@@ -860,6 +860,17 @@ emmeans::emmeans(binary_model,
   geom_ribbon(aes(ymin=asymp.LCL, ymax=asymp.UCL), alpha=0.2)
 
 ``
+
+```
+
+```{r, echo = F}
+emmeans::emmeans(binary_model, 
+                 specs = ~ temp, 
+                 at=list(temp=c(27:80)), 
+                 type='response') %>% 
+  as_tibble() %>% 
+  ggplot(aes(x=temp, y=prob))+geom_line(aes(x=temp, y=prob))+
+  geom_ribbon(aes(ymin=asymp.LCL, ymax=asymp.UCL), alpha=0.2)
 
 ```
 
