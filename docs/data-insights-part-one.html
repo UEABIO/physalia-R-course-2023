@@ -862,8 +862,8 @@ Solution
 </div>
 <div class="panel-body">
 <pre><code>penguins %&gt;% 
-  summarise(mean = mean(body_mass_g),
-            sd = sd(body_mass_g),
+  summarise(mean = mean(body_mass_g, na.rm = T),
+            sd = sd(body_mass_g, na.rm = T),
             n = n())</code></pre>
 </div>
 </div>
@@ -923,7 +923,7 @@ Figure 5.3: Visualising dispersion with different figures
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="va">lims</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span></span>
+<span><span class="co">#library(patchwork)</span></span>
 <span><span class="va">plot_1</span> <span class="op">+</span> <span class="va">plot_2</span> <span class="op">+</span> <span class="va">plot_3</span> </span></code></pre></div>
 <div class="inline-figure"><img src="10-Data-insights-part-1_files/figure-html/unnamed-chunk-28-1.png" width="80%" style="display: block; margin: auto;"></div>
 <p>We now have several compact representations of the body_mass_g including a histogram, boxplot and summary calculations. You can <em>and should</em> generate the same summaries for your other numeric variables. These tables and graphs provide the detail you need to understand the central tendency and dispersion of numeric variables.</p>

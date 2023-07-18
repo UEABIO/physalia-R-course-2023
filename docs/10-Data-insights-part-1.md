@@ -593,8 +593,8 @@ If we know we have a normal distribution, then we can use `summarise()` to quick
 
 ```
 penguins %>% 
-  summarise(mean = mean(body_mass_g),
-            sd = sd(body_mass_g),
+  summarise(mean = mean(body_mass_g, na.rm = T),
+            sd = sd(body_mass_g, na.rm = T),
             n = n())
 ```
 </div></div></div>
@@ -654,7 +654,7 @@ plot_3 <- penguin_body_mass_summary %>%
   scale_y_continuous(limits = lims)+
   theme_minimal()
 
-
+#library(patchwork)
 plot_1 + plot_2 + plot_3 
 ```
 
