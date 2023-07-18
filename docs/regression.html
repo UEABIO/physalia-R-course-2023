@@ -1180,20 +1180,51 @@ dens
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="va">p1</span><span class="op">+</span><span class="va">p2</span><span class="op">+</span><span class="va">p3</span></span></code></pre></div>
 <div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div id="normal-distribution-3" class="section level4" number="10.8.0.1">
+<h4>
+<span class="header-section-number">10.8.0.1</span> Normal distribution<a class="anchor" aria-label="anchor" href="#normal-distribution-3"><i class="fas fa-link"></i></a>
+</h4>
+<p>We can use the same model diagnostic plots as we used for the maize data.
+Here you can see it is mostly pretty good, with just one or two data points outside of the confidence intervals</p>
+<button id="displayTextunnamed-chunk-27" onclick="javascript:toggle('unnamed-chunk-27');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-27" style="display: none">
 <div class="panel panel-default">
-<div class="panel-heading">
-Task
+<div class="panel-heading panel-heading1">
+Solution
 </div>
 <div class="panel-body">
-<p>The above is an example of functional, but repetitive code - could you make a function that reduces the amount of code needed?</p>
-HINT - to make sure your arguments for a ggplot are passed properly use this structure x=.data[[x]] , y = .data[[y]]
+<div class="tab">
+<button class="tablinksunnamed-chunk-27 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-27', 'unnamed-chunk-27');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-27" onclick="javascript:openCode(event, 'option2unnamed-chunk-27', 'unnamed-chunk-27');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
+<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">janka_ls1</span>, which<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-40-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="option2unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
+<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">janka_ls1</span>, check<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"normality"</span>,<span class="st">"qq"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<script> javascript:hide('option2unnamed-chunk-27') </script>
 </div>
 </div>
-<p>This is an example of the <a href="#functions">function</a> we want to make:</p>
-<pre><code>model_plot(data=augmented_ls1, 
-            x="dens", 
-            y="hardness", 
-            title="Full data")</code></pre>
+</div>
+</div>
+<div id="equal-variance-1" class="section level4" number="10.8.0.2">
+<h4>
+<span class="header-section-number">10.8.0.2</span> Equal variance<a class="anchor" aria-label="anchor" href="#equal-variance-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>We can use the same model diagnostic plots as we used for the maize data.
+You should see that this is similar to the <code>p3</code> plot we constructed manually. With the plot we constructed earlier we had the 'raw' residuals as a function of the fitted values. The plot we have produced now is the 'standardized residuals' - this is the raw residual divided by the standard deviation.</p>
+<p>Both plots suggests that the residuals <strong>do not</strong> have constant variance, broadly speaking the amount of variance <em>y</em> increases as <em>x</em> increases. This means we have less confidence in our predictions at high values of density. Later we will see what we can do to improve the fit of this model</p>
 <button id="displayTextunnamed-chunk-28" onclick="javascript:toggle('unnamed-chunk-28');">
 Show Solution
 </button>
@@ -1203,31 +1234,35 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">model_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">=</span><span class="va">augmented_ls1</span>, </span>
-<span>                       <span class="va">x</span><span class="op">=</span><span class="st">"dens"</span>, </span>
-<span>                       <span class="va">y</span><span class="op">=</span><span class="st">"hardness"</span>, </span>
-<span>                       <span class="va">title</span><span class="op">=</span><span class="st">"Full data"</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">.data</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, </span>
-<span>             y<span class="op">=</span><span class="va">.data</span><span class="op">[[</span><span class="va">y</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, </span>
-<span>         data<span class="op">=</span><span class="va">data</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
-<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="va">title</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">model_plot</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">model_plot</span><span class="op">(</span>y<span class="op">=</span><span class="st">".fitted"</span>, title<span class="op">=</span><span class="st">"Linear prediction"</span><span class="op">)</span></span>
-<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu">model_plot</span><span class="op">(</span>y<span class="op">=</span><span class="st">".resid"</span>, title<span class="op">=</span><span class="st">"Remaining pattern"</span><span class="op">)</span></span></code></pre></div>
+<div class="tab">
+<button class="tablinksunnamed-chunk-28 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-28', 'unnamed-chunk-28');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-28" onclick="javascript:openCode(event, 'option2unnamed-chunk-28', 'unnamed-chunk-28');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-28" class="tabcontentunnamed-chunk-28">
+<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">janka_ls1</span>, which<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="15-Regression_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;"><img src="15-Regression_files/figure-html/unnamed-chunk-42-2.png" width="100%" style="display: block; margin: auto;"></p>
+</div>
+<div id="option2unnamed-chunk-28" class="tabcontentunnamed-chunk-28">
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">janka_ls1</span>, check<span class="op">=</span><span class="st">"homogeneity"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<script> javascript:hide('option2unnamed-chunk-28') </script>
 </div>
 </div>
 </div>
-<div id="normal-distribution-3" class="section level4" number="10.8.0.1">
+</div>
+<div id="outliers-1" class="section level4" number="10.8.0.3">
 <h4>
-<span class="header-section-number">10.8.0.1</span> Normal distribution<a class="anchor" aria-label="anchor" href="#normal-distribution-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.8.0.3</span> Outliers<a class="anchor" aria-label="anchor" href="#outliers-1"><i class="fas fa-link"></i></a>
 </h4>
-<p>We can use the same model diagnostic plots as we used for the maize data.
-Here you can see it is mostly pretty good, with just one or two data points outside of the confidence intervals</p>
+<p>Here we can see there is just one potential outlier.</p>
+<p>What is it's positional order in the dataframe? <input class="webex-solveme nospaces" size="2" data-answer='["32"]'></p>
 <button id="displayTextunnamed-chunk-29" onclick="javascript:toggle('unnamed-chunk-29');">
 Show Solution
 </button>
@@ -1246,93 +1281,16 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-29" class="tabcontentunnamed-chunk-29">
-<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">janka_ls1</span>, which<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-55-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">janka_ls1</span>, which<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="15-Regression_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;"><img src="15-Regression_files/figure-html/unnamed-chunk-44-2.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
 <div id="option2unnamed-chunk-29" class="tabcontentunnamed-chunk-29">
-<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">janka_ls1</span>, check<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"normality"</span>,<span class="st">"qq"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-56-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">janka_ls1</span>, check<span class="op">=</span><span class="st">"outliers"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-29') </script>
-</div>
-</div>
-</div>
-</div>
-<div id="equal-variance-1" class="section level4" number="10.8.0.2">
-<h4>
-<span class="header-section-number">10.8.0.2</span> Equal variance<a class="anchor" aria-label="anchor" href="#equal-variance-1"><i class="fas fa-link"></i></a>
-</h4>
-<p>We can use the same model diagnostic plots as we used for the maize data.
-You should see that this is similar to the <code>p3</code> plot we constructed manually. With the plot we constructed earlier we had the 'raw' residuals as a function of the fitted values. The plot we have produced now is the 'standardized residuals' - this is the raw residual divided by the standard deviation.</p>
-<p>Both plots suggests that the residuals <strong>do not</strong> have constant variance, broadly speaking the amount of variance <em>y</em> increases as <em>x</em> increases. This means we have less confidence in our predictions at high values of density. Later we will see what we can do to improve the fit of this model</p>
-<button id="displayTextunnamed-chunk-30" onclick="javascript:toggle('unnamed-chunk-30');">
-Show Solution
-</button>
-<div id="toggleTextunnamed-chunk-30" style="display: none">
-<div class="panel panel-default">
-<div class="panel-heading panel-heading1">
-Solution
-</div>
-<div class="panel-body">
-<div class="tab">
-<button class="tablinksunnamed-chunk-30 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-30', 'unnamed-chunk-30');">
-Base R
-</button>
-<button class="tablinksunnamed-chunk-30" onclick="javascript:openCode(event, 'option2unnamed-chunk-30', 'unnamed-chunk-30');">
-<tt>tidyverse</tt>
-</button>
-</div>
-<div id="option1unnamed-chunk-30" class="tabcontentunnamed-chunk-30">
-<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">janka_ls1</span>, which<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="15-Regression_files/figure-html/unnamed-chunk-57-1.png" width="100%" style="display: block; margin: auto;"><img src="15-Regression_files/figure-html/unnamed-chunk-57-2.png" width="100%" style="display: block; margin: auto;"></p>
-</div>
-<div id="option2unnamed-chunk-30" class="tabcontentunnamed-chunk-30">
-<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">janka_ls1</span>, check<span class="op">=</span><span class="st">"homogeneity"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;"></div>
-</div>
-<script> javascript:hide('option2unnamed-chunk-30') </script>
-</div>
-</div>
-</div>
-</div>
-<div id="outliers-1" class="section level4" number="10.8.0.3">
-<h4>
-<span class="header-section-number">10.8.0.3</span> Outliers<a class="anchor" aria-label="anchor" href="#outliers-1"><i class="fas fa-link"></i></a>
-</h4>
-<p>Here we can see there is just one potential outlier.</p>
-<p>What is it's positional order in the dataframe? <input class="webex-solveme nospaces" size="2" data-answer='["32"]'></p>
-<button id="displayTextunnamed-chunk-31" onclick="javascript:toggle('unnamed-chunk-31');">
-Show Solution
-</button>
-<div id="toggleTextunnamed-chunk-31" style="display: none">
-<div class="panel panel-default">
-<div class="panel-heading panel-heading1">
-Solution
-</div>
-<div class="panel-body">
-<div class="tab">
-<button class="tablinksunnamed-chunk-31 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-31', 'unnamed-chunk-31');">
-Base R
-</button>
-<button class="tablinksunnamed-chunk-31" onclick="javascript:openCode(event, 'option2unnamed-chunk-31', 'unnamed-chunk-31');">
-<tt>tidyverse</tt>
-</button>
-</div>
-<div id="option1unnamed-chunk-31" class="tabcontentunnamed-chunk-31">
-<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">janka_ls1</span>, which<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="15-Regression_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;"><img src="15-Regression_files/figure-html/unnamed-chunk-59-2.png" width="100%" style="display: block; margin: auto;"></p>
-</div>
-<div id="option2unnamed-chunk-31" class="tabcontentunnamed-chunk-31">
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">janka_ls1</span>, check<span class="op">=</span><span class="st">"outliers"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;"></div>
-</div>
-<script> javascript:hide('option2unnamed-chunk-31') </script>
 </div>
 </div>
 </div>
@@ -1345,12 +1303,35 @@ Base R
 </h2>
 <p>Using the coefficients of the intercept and the slope we can make predictions on new data.
 The estimates of the intercept and the slope are:</p>
-<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">janka_ls1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## (Intercept)        dens 
 ## -1160.49970    57.50667</code></pre>
 <p>Now imagine we have a new wood samples with a density of 65, how can we use the equation for a linear regression to predict what the timber hardness for this wood sample should be?</p>
 <p><span class="math display">\[ y = a + bx \]</span></p>
+<button id="displayTextunnamed-chunk-31" onclick="javascript:toggle('unnamed-chunk-31');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-31" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># a + bx</span></span>
+<span></span>
+<span><span class="op">-</span><span class="fl">1160.49970</span> <span class="op">+</span> <span class="fl">57.50667</span> <span class="op">*</span> <span class="fl">65</span></span></code></pre></div>
+<pre><code>## [1] 2577.434</code></pre>
+</div>
+</div>
+</div>
+<p>Rather than work out the values manually, we can also use the coefficients of the model directly</p>
+<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">janka_ls1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">janka_ls1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">65</span></span></code></pre></div>
+<pre><code>## (Intercept) 
+##    2577.434</code></pre>
+<p>But most of the time we are unlikely to want to work out predicted values by hand, instead we can use functions like <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> and <code><a href="https://generics.r-lib.org/reference/augment.html">broom::augment()</a></code></p>
 <button id="displayTextunnamed-chunk-33" onclick="javascript:toggle('unnamed-chunk-33');">
 Show Solution
 </button>
@@ -1360,45 +1341,22 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># a + bx</span></span>
-<span></span>
-<span><span class="op">-</span><span class="fl">1160.49970</span> <span class="op">+</span> <span class="fl">57.50667</span> <span class="op">*</span> <span class="fl">65</span></span></code></pre></div>
-<pre><code>## [1] 2577.434</code></pre>
-</div>
-</div>
-</div>
-<p>Rather than work out the values manually, we can also use the coefficients of the model directly</p>
-<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">janka_ls1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">janka_ls1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">65</span></span></code></pre></div>
-<pre><code>## (Intercept) 
-##    2577.434</code></pre>
-<p>But most of the time we are unlikely to want to work out predicted values by hand, instead we can use functions like <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> and <code><a href="https://generics.r-lib.org/reference/augment.html">broom::augment()</a></code></p>
-<button id="displayTextunnamed-chunk-35" onclick="javascript:toggle('unnamed-chunk-35');">
-Show Solution
-</button>
-<div id="toggleTextunnamed-chunk-35" style="display: none">
-<div class="panel panel-default">
-<div class="panel-heading panel-heading1">
-Solution
-</div>
-<div class="panel-body">
 <div class="tab">
-<button class="tablinksunnamed-chunk-35 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-35', 'unnamed-chunk-35');">
+<button class="tablinksunnamed-chunk-33 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-33', 'unnamed-chunk-33');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-35" onclick="javascript:openCode(event, 'option2unnamed-chunk-35', 'unnamed-chunk-35');">
+<button class="tablinksunnamed-chunk-33" onclick="javascript:openCode(event, 'option2unnamed-chunk-33', 'unnamed-chunk-33');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
-<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<div id="option1unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">janka_ls1</span>, newdata<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">22</span>,<span class="fl">35</span>,<span class="fl">65</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##         1         2         3 
 ##  104.6471  852.2339 2577.4342</code></pre>
 </div>
-<div id="option2unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
-<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<div id="option2unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">janka_ls1</span>, </span>
 <span>               newdata<span class="op">=</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>dens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">22</span>,<span class="fl">35</span>,<span class="fl">65</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
@@ -1440,7 +1398,7 @@ dens
 </table></div>
 </div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-35') </script>
+<script> javascript:hide('option2unnamed-chunk-33') </script>
 </div>
 </div>
 </div>
@@ -1452,7 +1410,7 @@ dens
 <h4>
 <span class="header-section-number">10.9.1.1</span> Standard error<a class="anchor" aria-label="anchor" href="#standard-error"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">janka_ls1</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>dens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">22</span>,<span class="fl">35</span>,<span class="fl">65</span><span class="op">)</span><span class="op">)</span>, se<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
 <div class="inline-table"><table class="table table-sm">
@@ -1509,7 +1467,7 @@ dens
 <h4>
 <span class="header-section-number">10.9.1.2</span> 95% Confidence Intervals<a class="anchor" aria-label="anchor" href="#confidence-intervals-3"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">janka_ls1</span>, newdata<span class="op">=</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>dens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">22</span>,<span class="fl">35</span>,<span class="fl">65</span><span class="op">)</span><span class="op">)</span>, interval<span class="op">=</span><span class="st">"confidence"</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
 <div class="inline-table"><table class="table table-sm">
@@ -1578,7 +1536,7 @@ dens
 <button>
 emmeans
 </button>
-<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">emmeans</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">janka_ls1</span>, </span>
 <span>                 specs <span class="op">=</span> <span class="st">"dens"</span>, </span>
 <span>                 at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dens <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">22</span>, <span class="fl">35</span>, <span class="fl">65</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1607,16 +1565,16 @@ can you plot the three new predicted values onto an existing figure to recreate 
 <blockquote>
 <p>Hint - first make a new R object that contains your predictions, then work out how to add two dataframes to one plot.</p>
 </blockquote>
-<button id="displayTextunnamed-chunk-40" onclick="javascript:toggle('unnamed-chunk-40');">
+<button id="displayTextunnamed-chunk-38" onclick="javascript:toggle('unnamed-chunk-38');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-40" style="display: none">
+<div id="toggleTextunnamed-chunk-38" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pred_newdata</span> <span class="op">&lt;-</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">janka_ls1</span>, </span>
 <span>               newdata<span class="op">=</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>dens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">22</span>,<span class="fl">35</span>,<span class="fl">65</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1629,7 +1587,7 @@ Solution
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"Density"</span>, y<span class="op">=</span><span class="st">"Timber Hardness"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>limits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">80</span><span class="op">)</span>, expand<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html">expansion</a></span><span class="op">(</span>add<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="15-Regression_files/figure-html/unnamed-chunk-49-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 </div>
 </div>
