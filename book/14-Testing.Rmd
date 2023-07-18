@@ -127,7 +127,7 @@ lsmodel1 <- lm(height ~ type, data = darwin)
 
 
 ```{task}
-Run  a function to generate a summary of your model
+Run  the function `summary()` to generate a summary of your model
 ```
 
 ```{solution, multCode = T}
@@ -150,7 +150,7 @@ As an example the *second* row of our table is a test we planned to perform, it 
 
 However, the first row also performs a *t*-test, it tests a null hypothesis that the intercept (here the mean height of the cross-pollinated plants) is zero. This was not a comparison we intended to make, nor is it likely that this test is particularly useful. 
 
-Anyway the observed difference in plant heights was 2.62 inches ± 1.07, which produces an observed value of *t* as:
+Anyway the observed difference in plant heights was 2.62 inches S.E.± 1.07, which produces an observed value of *t* as:
 
 ```{r}
 tidy_model1 <- broom::tidy(lsmodel1)
@@ -158,7 +158,7 @@ tidy_model1 <- broom::tidy(lsmodel1)
 tidy_model1[[2,2]] / tidy_model1[[2,3]]
 ```
 
-Which could be the same as the value for *t* in our model summary.
+Which should be the same as the value for *t* in our model summary.
 
 ## Paired t
 
@@ -166,7 +166,7 @@ The structure of our linear model so far has produced the output for a standard 
 
 ```{solution, multCode = T}
 
-Note that I have made pair a factor - pair 2 is not greater than pair 1 - so it does nott make sense to treat these as number values.
+Note that I have made pair a factor - pair 2 is not greater than pair 1 - so it does not make sense to treat these as number values.
 
 ``{r}
 lsmodel_darwin <- lm(height ~ type + factor(pair), data = darwin)
@@ -193,9 +193,14 @@ The table of coefficients suddenly looks a lot more complicated! This is because
 
 Again the linear model computes every possible combination of *t*-statistic and *P*-value, however the only one we care about is the difference in Cross and Self-pollinated plant heights. If we ignore the pair comparisons the second row gives us a *paired t*-test. 'What is the difference in height between Cross and Self-pollinated plants when we hold pairs constant.'
 
-For completeness let's generate the confidence intervals for the *paired t*-test. 
+For completeness let's generate the confidence intervals for the *paired t*-test and compare them to our *unpaired t*-test. 
 
 ```{r}
+
+lm(height ~ type, data = darwin) %>% 
+   broom::tidy(., conf.int=T) %>% 
+    slice(1:2) 
+
 lm(height ~ type + factor(pair), data = darwin) %>% 
   broom::tidy(., conf.int=T) %>% 
   slice(1:2) # just show first two rows
@@ -232,7 +237,7 @@ In future sessions we will work through model building and simplification, in th
 
 ## Effect sizes
 
-We have discussed the importance of using confidence intervals to talk about effect sizes. When our 95% confidence intervals do not overlap the intercept, this indicates we have difference in our means which is significant at $\alpha$ = 0.05. More interestingly than this it allows us to talk about the 'amount of difference' between our treatments, the lower margin of our confidence intervals is the smallest/minimum effect size. On the response scale of our variables this is very useful, we can report for example that there is *at least* a 0.43 inch height difference between self and crossed fertilised plants at $\alpha$ = 0.05. 
+We have discussed the importance of using confidence intervals to talk about effect sizes. When our 95% confidence intervals do not overlap the intercept, this indicates we have difference in our means which is significant at $\alpha$ = 0.05. More interestingly than this it allows us to talk about the 'amount of difference' between our treatments, the lower margin of our confidence intervals is the smallest/minimum effect size. On the response scale of our variables this is very useful, we can report for example that there is *at least* a 0.4 inch height difference between self and crossed fertilised plants at $\alpha$ = 0.05. 
 
 
 ## Type 1 and Type 2 errors
@@ -259,22 +264,38 @@ In the example below we have made a for loop that assumes we 'know' the true mea
 
 ```{r, eval=T}
 
+# Set the seed for reproducibility
 set.seed(1234)
 
+# Create an empty list with 20 elements
 myList <- vector("list", 20)
+
+# Create an empty tibble
 y <- tibble()
 
+# Perform a loop for each element in myList
 for (i in 1:length(myList)) { 
 
-x <-  rnorm(n=12, mean=2.6, sd=2.83)
-data <- tibble(x)
-temp <- lm(x~1, data=data) %>% 
-  broom::tidy(conf.int=T) 
-y <- rbind(y,temp)  
+  # Generate a random sample of 12 values from a normal distribution
+  x <- rnorm(n = 12, mean = 2.6, sd = 2.83)
+  
+  # Create a tibble with the values of x
+  data <- tibble(x)
+  
+  # Fit a linear regression model with x as the response variable and a constant as the predictor
+  temp <- lm(x ~ 1, data = data) %>% 
+    broom::tidy(conf.int = TRUE) 
+  
+  # Append the model summary to the y tibble
+  y <- rbind(y, temp)  
 
 }
 
+# Add a column to y indicating the experiment number
 y$`experiment number` <- rep(1:20)
+
+# The new dataframe y contains the results of 20 new experiments
+
 
 # the new dataframe y contains the results of 20 new experiments
 ```
@@ -290,10 +311,14 @@ Using this newly generated data how many experiments found a significant differe
 ```{solution}
 
 ``{r}
+# Mutate a new column `p value < 0.05` based on the condition of p.value
 y %>% 
-  mutate(`p value < 0.05` = if_else(p.value > 0.049, "non-significant", "significant")) %>% 
-  group_by(`p value < 0.05`) %>% 
-  summarise(`number of experiments`=n())
+  mutate(`p value < 0.05` = if_else(p.value > 0.049, "non-significant", "significant")) %>%
+  # Group the data by the `p value < 0.05` column
+  group_by(`p value < 0.05`) %>%
+  # Summarize the number of experiments in each group
+  summarise(`number of experiments` = n())
+
 ``
 
 ```
@@ -311,12 +336,18 @@ Using this newly generated data compare the estimates and confidence intervals? 
 
 ``{r}
 
+# Create a plot using ggplot
 y %>% 
-  ggplot(aes(x=`experiment number`, y=estimate))+
-  geom_pointrange(aes(ymin = conf.low, ymax=conf.high))+
-  labs(y = "Estimated mean effect of outcrossing")+
-  geom_hline(linetype="dashed", yintercept=0.05)+
+  ggplot(aes(x = `experiment number`, y = estimate)) +
+  # Add point estimates with error bars
+  geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) +
+  # Add y-axis label
+  labs(y = "Estimated mean effect of outcrossing") +
+  # Add a dashed horizontal line at y = 0.05
+  geom_hline(linetype = "dashed", yintercept = 0.05) +
+  # Apply a minimal theme to the plot
   theme_minimal()
+
 ``
 
 ```

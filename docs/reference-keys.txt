@@ -16,7 +16,6 @@ fig:unnamed-chunk-37
 fig:unnamed-chunk-40
 fig:unnamed-chunk-41
 fig:unnamed-chunk-45
-tab:unnamed-chunk-10
 fig:unnamed-chunk-26
 tab:unnamed-chunk-23
 fig:unnamed-chunk-28

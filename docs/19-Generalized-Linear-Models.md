@@ -1628,6 +1628,7 @@ Make a new dataset with the temperature on the day of the Challenger launch - wh
 <div id="toggleTextunnamed-chunk-53" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 First - we make a new dataset with the temperature on the day of the Challenger Launch **36&deg;F**
+  
 
 ```r
  emmeans::emmeans(binary_model, 

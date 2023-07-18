@@ -881,7 +881,7 @@ Make a new dataset with the temperature on the day of the Challenger launch - wh
 ```{solution}
 
 First - we make a new dataset with the temperature on the day of the Challenger Launch **36&deg;F**
-
+  
 ``{r, eval = TRUE}
 
 

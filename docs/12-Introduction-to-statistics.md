@@ -31,7 +31,7 @@ Darwin wanted to know whether inbreeding reduced the fitness of the selfed plant
 ```r
 library(tidyverse)
 
-
+# read csv file darwin.csv and assign to object darwin
 darwin <- read_csv("data/darwin.csv")
 ```
 
@@ -112,8 +112,9 @@ Now seems like a good time for our first data visualisation.
 
 ```r
 darwin %>% 
-  ggplot(aes(x=type,
-         y=height))+
+  # set x axis to type (selfed or crossed), and y axis to continuous variable height
+  ggplot(aes(x = type, y = height)) +
+  # Add points to the plot
   geom_point()
 ```
 
@@ -140,9 +141,11 @@ As we have seen previously we can use various tidy functions to determine the me
 
 ```r
 darwin %>% 
+  # Group the data by 'type'
   group_by(type) %>% 
-  summarise(mean=mean(height),
-            sd=sd(height))
+  # Calculate the mean and standard deviation of 'height' within each group
+  summarise(mean = mean(height),
+            sd = sd(height))
 ```
 
 <div class="kable-table">
@@ -178,58 +181,26 @@ standard deviation.</p>
 </div>
 
 
-Summary statistics like these could be presented as figures or tables. We normally reserve tables for **very** simple sets of numbers, and this instance we could present both.
+Summary statistics like these could be presented as figures or tables. We normally reserve tables for **very** simple sets of numbers, and this instance we could present either.
 
 
 ```r
-# make a new object
-darwin_summary <-darwin %>% 
+# Create a new object 'darwin_summary' containing summary statistics
+darwin_summary <- darwin %>% 
   group_by(type) %>% 
-  summarise(mean=mean(height),
-            sd=sd(height))
+  summarise(mean = mean(height),
+            sd = sd(height))
 
-# make a summary plot
+# Create a summary plot using ggplot
 darwin_summary %>% 
-  ggplot(aes(x=type,
-             y=mean))+
-  geom_pointrange(aes(ymin=mean-sd, ymax=mean+sd))+
+  ggplot(aes(x = type, y = mean)) +
+  # Add error bars representing the standard deviation
+  geom_pointrange(aes(ymin = mean - sd, ymax = mean + sd)) +
+  # Apply a black and white theme to the plot
   theme_bw()
 ```
 
 <img src="12-Introduction-to-statistics_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
-
-```r
-# put this at top of script
-library(kableExtra)
-
-# use kable extra functions to make a nice table (could be replaced with kable() if needed)
-darwin_summary %>% 
-    kbl(caption="Summary statistics of crossed and selfed maize plants") %>% 
-  kable_styling(bootstrap_options = "striped", full_width = T, position = "left")
-```
-
-<table class="table table-striped" style="">
-<caption>(\#tab:unnamed-chunk-10)Summary statistics of crossed and selfed maize plants</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> type </th>
-   <th style="text-align:right;"> mean </th>
-   <th style="text-align:right;"> sd </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Cross </td>
-   <td style="text-align:right;"> 20.19167 </td>
-   <td style="text-align:right;"> 3.616945 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Self </td>
-   <td style="text-align:right;"> 17.57500 </td>
-   <td style="text-align:right;"> 2.051676 </td>
-  </tr>
-</tbody>
-</table>
 
 Descriptive statistics and careful data checking are often skipped steps in the rush to answer the **big** questions. However, description is an essential part of early phase analysis. 
 
@@ -261,6 +232,7 @@ darwin %>%
   group_by(type) %>% 
   summarise(mean=mean(height),
             sd=sd(height),
+# add calculations for n and se for each group
             n = n(),
             se = sd/sqrt(n))
 ```
@@ -310,19 +282,14 @@ In order to calculate the differences in height between each pair we need to do 
 Create a new column called difference with the height of the selfed plant in each pair subtracted from the crossed plant. 
 
 
-<button id="displayTextunnamed-chunk-12" onclick="javascript:toggle('unnamed-chunk-12');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-12" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
-# pivot data to wide format then subtract Selfed plant heights from Crossed plant heights
-
 darwin_wide <- darwin %>% 
+  # pivot/reshape the data from long to wide format
   pivot_wider(names_from = type, values_from = height) %>% 
+  # Calculate the difference between 'Cross' and 'Self' heights for each pair
   mutate(difference = Cross - Self)
 ```
-
-</div></div></div>
 
 
 We now have the difference in height for each pair, we can use this to calculate the **mean difference** in heights between paired plants, and the amount of variance (as standard deviation)
@@ -472,16 +439,17 @@ As a *probability* distribution, the area within the curve sums to the whole pop
 
 
 ```r
-#Create a sequence of 100 equally spaced numbers between -4 and 4
-x <- seq(-4, 4, length=100)
+# Create a sequence of 100 equally spaced numbers between -4 and 4
+x <- seq(-4, 4, length = 100)
 
-#create a vector of values that shows the height of the probability distribution
-#for each value in x
+# Create a vector of values that represents the height of the probability distribution
+# for each value in x using the standard normal distribution
 y <- dnorm(x)
 
-#plot x and y as a scatterplot with connected lines (type = "l") and add
-#an x-axis with custom labels
-plot(x,y, type = "l", lwd = 2, axes = FALSE, xlab = "", ylab = "")
+# Plot x and y as a scatterplot with connected lines (type = "l") and customize the plot
+plot(x, y, type = "l", lwd = 2, axes = FALSE, xlab = "", ylab = "")
+
+# Add an x-axis with custom labels
 axis(1, at = -3:3, labels = c("-3s", "-2s", "-1s", "mean", "1s", "2s", "3s"))
 ```
 

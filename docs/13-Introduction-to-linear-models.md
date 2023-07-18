@@ -275,14 +275,14 @@ We could use the information from this model to superimpose the calculated means
 
 
 ```r
+# Create a plot using ggplot
 darwin %>% 
-  ggplot(aes(x=type, 
-             y=height,
-             colour=type))+
-  geom_jitter(alpha=0.5,
-              width=0.1)+
-  stat_summary(fun=mean,
-               size=1.2)+
+  ggplot(aes(x = type, y = height, colour = type)) +
+  # Add jittered points with transparency and width customization
+  geom_jitter(alpha = 0.5, width = 0.1) +
+  # Add a summary statistic point representing the mean
+  stat_summary(fun = mean, size = 1.2) +
+  # Apply a black and white theme to the plot
   theme_bw()
 ```
 
@@ -389,24 +389,13 @@ The `GGally` package has a handy `ggcoef_model()` function, that produces a grap
 
 
 ```r
+# Generate a coefficient plot for the linear regression model using ggcoef_model
 GGally::ggcoef_model(lsmodel1,
-                     show_p_values=FALSE, 
-                     conf.level=0.95)
+                     show_p_values = FALSE,
+                     conf.level = 0.95)
 ```
 
 <img src="13-Introduction-to-linear-models_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
-
-```r
-## 
-
-#lsmodel1 %>% 
-#  broom::tidy(conf.int = T) %>% 
-#  filter(term != "(Intercept)") %>% 
-#  ggplot(aes(x = estimate, y = term)) + 
-#  geom_pointrange(aes(xmin = conf.low, xmax = conf.high))+
-#  coord_cartesian(xlim = c(-5,0))+ 
-#  geom_vline(xintercept = 0, linetype = "dashed")
-```
 
 <div class="try">
 <p>Set the confidence levels to 99%, do you think the difference between
@@ -466,10 +455,15 @@ One limitation of the table of coefficients output is that it doesn't provide th
 
 
 ```r
+# Perform linear regression on darwin data with Self as the intercept
 darwin %>% 
-  mutate(type=factor(type)) %>% 
-  mutate(type=fct_relevel(type, c("Self", "Cross"))) %>% 
-  lm(height~type, data=.) %>% 
+  # Convert 'type' column to a factor
+  mutate(type = factor(type)) %>%
+  # Relevel 'type' column to specify the order of factor levels
+  mutate(type = fct_relevel(type, c("Self", "Cross"))) %>%
+  # Fit linear regression model with 'height' as the response variable and 'type' as the predictor
+  lm(height ~ type, data = .) %>%
+  # Tidy the model summary
   broom::tidy()
 ```
 
@@ -513,6 +507,7 @@ We could also use the package [`emmeans`](https://aosmith.rbind.io/2019/03/25/ge
 
 
 ```r
+# Calculate estimated marginal means (EMMs) using emmeans package
 means <- emmeans::emmeans(lsmodel1, specs = ~ type)
 
 means
@@ -533,13 +528,13 @@ The advantage of emmeans is that it provides the mean, standard error and 95% co
 
 
 ```r
-means %>% 
-  as_tibble() %>% 
-  ggplot(aes(x=type, 
-             y=emmean))+
-  geom_pointrange(aes(
-    ymin=lower.CL, 
-    ymax=upper.CL))
+# Convert the 'means' object to a tibble
+means %>%
+  as_tibble() %>%
+  # Create a plot using ggplot
+  ggplot(aes(x = type, y = emmean)) +
+  # Add point estimates with error bars
+  geom_pointrange(aes(ymin = lower.CL, ymax = upper.CL))
 ```
 
 <img src="13-Introduction-to-linear-models_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" />
@@ -676,14 +671,15 @@ Linear models make a variety of assumptions, including that the noise (residual 
 
 ```r
 darwin %>% 
-  ggplot(aes(x=type, 
-             y=height))+
-   geom_jitter(width=0.1, 
-              pch=21, 
-              aes(fill=type))+
-  theme_classic()+
-  geom_segment(aes(x=1, xend=2, y=20.192, yend=20.192-2.617), linetype="dashed")+
-stat_summary(fun.y=mean, geom="crossbar", width=0.2)
+  ggplot(aes(x = type, y = height)) +
+  # Add jittered points with customization of width, point shape, and fill color
+  geom_jitter(width = 0.1, pch = 21, aes(fill = type)) +
+  # Apply a classic theme to the plot
+  theme_classic() +
+  # Add a dashed segment indicating a specific measurement
+  geom_segment(aes(x = 1, xend = 2, y = 20.192, yend = 20.192 - 2.617), linetype = "dashed") +
+  # Add a summary statistic using a crossbar geom
+  stat_summary(fun.y = mean, geom = "crossbar", width = 0.2)
 ```
 
 <img src="13-Introduction-to-linear-models_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
