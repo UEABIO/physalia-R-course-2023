@@ -177,6 +177,7 @@ darwin %>%
 standard deviation.</p>
 </div>
 
+
 Summary statistics like these could be presented as figures or tables. We normally reserve tables for **very** simple sets of numbers, and this instance we could present both.
 
 
@@ -244,20 +245,74 @@ Our goal is to:
 
 * Quantify our *confidence* in these differences
 
+### Standard error of the mean(s)
+
+Remember standard deviation is a *descriptive* statistic - it measures the variance within our dataset - e.g. how closely do datapoints fit to the mean. However for *inferential* statistics we are more interested in our confidence in our estimation of the mean. This is where standard error comes in. 
+
+$$
+SE = \frac{\sigma}{\sqrt(n)}
+$$
+
+We can think of error as a standard deviation of the mean. The mean we have calculated is an estimate based on one sample of data. We would expect that if we sampled another 30 plants these would have a different sample mean. Standard error describes the variability we would expect among sample means if we repeated this experiment many times. So we can think of it as a measure of the confidence we have in our estimate of a **true population mean(s)**. 
+
+
+```r
+darwin %>% 
+  group_by(type) %>% 
+  summarise(mean=mean(height),
+            sd=sd(height),
+            n = n(),
+            se = sd/sqrt(n))
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> type </th>
+   <th style="text-align:right;"> mean </th>
+   <th style="text-align:right;"> sd </th>
+   <th style="text-align:right;"> n </th>
+   <th style="text-align:right;"> se </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Cross </td>
+   <td style="text-align:right;"> 20.19167 </td>
+   <td style="text-align:right;"> 3.616945 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 0.9338912 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Self </td>
+   <td style="text-align:right;"> 17.57500 </td>
+   <td style="text-align:right;"> 2.051676 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 0.5297405 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+Here we have separately estimated the mean, and a measure of uncertainty for each mean - however this does not directly address our question about the mean *difference* between the groups.
+
 #### Differences between groups
 
 Darwin's data used match pairs - each pair shared one parent. So that in pair 1 the same parent plant was either 'selfed' or 'crossed' to produce offspring. This is a powerful approach to experimental design, as it means that we can look at the differences in heights across each of the 15 pairs of plants - rather than having to infer differences from two randomly derived groups. 
 
-In order to calculate the differences in height between each pair we need to do some data wrangling with `tidyr::pivot_wider()` [Chapter 2](#using-`pivot`-functions) and calculations with `mutate`.
+In order to calculate the differences in height between each pair we need to do some data wrangling with `tidyr::pivot_wider()` and calculations with `mutate`.
 
 ## Activity 2: Differences
 
 Create a new column called difference with the height of the selfed plant in each pair subtracted from the crossed plant. 
 
 
-<button id="displayTextunnamed-chunk-11" onclick="javascript:toggle('unnamed-chunk-11');">Show Solution</button>
+<button id="displayTextunnamed-chunk-12" onclick="javascript:toggle('unnamed-chunk-12');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-11" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-12" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # pivot data to wide format then subtract Selfed plant heights from Crossed plant heights
@@ -318,16 +373,16 @@ Remember standard deviation is a *descriptive* statistic - it measures the varia
 We can think of error as a standard deviation of the mean. The mean we have calculated is an estimate based on one sample of data. We would expect that if we sampled another 30 plants these would have a different sample mean. Standard error describes the variability we would expect among sample means if we repeated this experiment many times. So we can think of it as a measure of the confidence we have in our estimate of a **true population mean**. 
 
 $$
-SE = \frac{s}{\sqrt(n)}
+SE = \frac{\sigma}{\sqrt(n)}
 $$
 
 As sample size increases the standard error should reduce - reflecting an increasing confidence in our estimate. 
 
 We can calculate the standard error for our sample by applying this equation to our `difference_summary` object, can you complete this?
 
-<button id="displayTextunnamed-chunk-14" onclick="javascript:toggle('unnamed-chunk-14');">Show Solution</button>
+<button id="displayTextunnamed-chunk-15" onclick="javascript:toggle('unnamed-chunk-15');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-14" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-15" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 difference_summary %>% 
@@ -358,8 +413,14 @@ difference_summary %>%
 </div>
 </div></div></div>
 
-
 Our estimate of the mean is not really very useful without an accompanying measuring of *uncertainty* like the standard error, in fact estimates of averages or differences should **always** be accompanied by their measure of uncertainty. 
+
+<div class="info">
+<p>The standard error for the difference between two means is always
+larger than the standard error of either mean. It quantifies
+uncertainty. The uncertainty of the difference between two means is
+greater than the uncertainty in either mean.</p>
+</div>
 
 
 ## Activity 3: Communicate
@@ -367,9 +428,9 @@ Our estimate of the mean is not really very useful without an accompanying measu
 With the information above, how would you present a short sentence describing the average different in height?
 
 
-<button id="displayTextunnamed-chunk-15" onclick="javascript:toggle('unnamed-chunk-15');">Show Solution</button>
+<button id="displayTextunnamed-chunk-17" onclick="javascript:toggle('unnamed-chunk-17');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-15" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-17" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 *... the average difference in height was 2.62 ± 1.22 inches (mean ± SE).*</div></div></div>
 
 ## Uncertainty
@@ -424,7 +485,7 @@ plot(x,y, type = "l", lwd = 2, axes = FALSE, xlab = "", ylab = "")
 axis(1, at = -3:3, labels = c("-3s", "-2s", "-1s", "mean", "1s", "2s", "3s"))
 ```
 
-<img src="12-Introduction-to-statistics_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="12-Introduction-to-statistics_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
 
 How do we convert this information into how likely we are to observe a difference of 2.62 inches in plant heights if the 'true' difference between crosses and selfed plants is *zero*? 
 
@@ -432,7 +493,7 @@ The **central limit theorem** states that if you have a population with mean and
 
 So if we now center our bell curve on the estimate of the mean (2.62), then just over two thirds of the area under the curve is ± 1.22 inches. 95% of it will be within ± 2 standard errors, and 99.8% will be within ± 3 standard errors.
 
-<img src="12-Introduction-to-statistics_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="12-Introduction-to-statistics_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" />
 
 Taking a look at this figure we can ask ourselves where is zero on our normal distribution? One way to think about this is, if the true difference between our plant groups is zero, how surprising is it that we estimated a difference between the groups of 2.62 inches? 
 

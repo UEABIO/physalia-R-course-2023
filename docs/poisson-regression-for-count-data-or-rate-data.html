@@ -212,7 +212,7 @@ The question of interest is:</p>
 <a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/cuckoo.csv">
 <button class="btn btn-success"><i class="fa fa-save"></i> Download cuckoo data as csv</button>
 </a>
-<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cuckoo</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
 <div class="inline-table"><table class="table table-sm">
@@ -306,7 +306,7 @@ Cuckoo
 <li>
 <strong>Species</strong>: Warbler or Cuckoo</li>
 </ul>
-<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">cuckoo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Mass</span>, y<span class="op">=</span><span class="va">Beg</span>, colour<span class="op">=</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>There seem to be a relationship between mass and begging calls and it could
@@ -318,11 +318,11 @@ of the original paper did; <strong>reed warbler chicks</strong> (solid circles, 
 <p>This model is inadequate. It is predicting <strong>negative</strong> begging calls <em>within</em> the
 range of the observed data, which clearly does not make any sense.</p>
 <p>Let us display the model diagnostics plots for this linear model.</p>
-<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Fit model</span></span>
 <span><span class="co">## There is an interaction term here, it is reasonable to think that how calling rates change with size might be different between the two species.</span></span>
 <span><span class="va">cuckoo_ls1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Beg</span> <span class="op">~</span> <span class="va">Mass</span><span class="op">+</span><span class="va">Species</span><span class="op">+</span><span class="va">Mass</span><span class="op">:</span><span class="va">Species</span>, data<span class="op">=</span><span class="va">cuckoo</span><span class="op">)</span> </span></code></pre></div>
-<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">cuckoo_ls1</span>, </span>
 <span>                         check <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"homogeneity"</span>,</span>
 <span>                                   <span class="st">"qq"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -366,7 +366,7 @@ both species have the same slope for the relationship between begging rate and m
 \end{aligned}
 \]</span></p>
 <p>Fit the model with the interaction term in R:</p>
-<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cuckoo_glm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">Beg</span> <span class="op">~</span> <span class="va">Mass</span> <span class="op">+</span> <span class="va">Species</span> <span class="op">+</span> <span class="va">Mass</span><span class="op">:</span><span class="va">Species</span>, data<span class="op">=</span><span class="va">cuckoo</span>, family<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link<span class="op">=</span><span class="st">"log"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">cuckoo_glm1</span><span class="op">)</span></span></code></pre></div>
@@ -409,7 +409,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># using augment allows you to generate fitted outcomes from the regression, make sure to set the predictions onto the response scale in order to 'back transform` the data onto the original scale</span></span>
 <span></span>
 <span><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">cuckoo_glm1</span>, type.predict <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -436,7 +436,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">cuckoo_glm1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Mass</span>, y<span class="op">=</span><span class="va">.fitted</span>, colour<span class="op">=</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -448,12 +448,12 @@ Solution
 </div>
 </div>
 <p>Compare the new Poisson model fits to the ordinary least squares model. We can see that although the homogeneity of variance is far from perfect, the curvature in the model has been drastically reduced (this makes sense as now we have a model fitted to exponential data), and the qqplot is within acceptable confidence intervals.</p>
-<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">cuckoo_glm1</span>, </span>
 <span>                         check <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"homogeneity"</span>,</span>
 <span>                                   <span class="st">"qq"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">cuckoo_glm1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -498,7 +498,7 @@ intervals
 <span class="header-section-number">15.2</span> Estimates and Intervals<a class="anchor" aria-label="anchor" href="#estimates-and-intervals"><i class="fas fa-link"></i></a>
 </h2>
 <p>Remember that not only is this <strong>Poisson</strong> model fitting variance using a Poisson and not Normal distribution. It is also relating the predictors to the response variable with a "<em>log-link</em>" this means we need to exponentiate our estimates to get them on the same scale as the response (y) variable. Until you do this all the model estimates are logn(y).</p>
-<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">cuckoo_glm1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="co">### Intercept - Incidence rate at Mass=0, and Species = Cuckoo</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">cuckoo_glm1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="co">### Change in the average incidence rate with Mass </span></span>
@@ -515,7 +515,7 @@ intervals
 ## Mass:SpeciesWarbler 
 ##           0.9785598</code></pre>
 <p>Luckily when you tidy your models up with <code>broom</code> you can specify that you want to put model predictions on the <em>response</em> variable scale by specifying <code>exponentiate = T</code> which will remove the log transformation, and allow easy calculation of confidence intervals.</p>
-<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">cuckoo_glm1</span>, </span>
 <span>            exponentiate <span class="op">=</span> <span class="cn">T</span>, </span>
 <span>            conf.int <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
@@ -661,7 +661,7 @@ Chisquare distributions are used instead of t- and F.
 </div>
 <p>In this example we wished to infer the relationship between begging rates and mass in these two species.</p>
 <p>I hypothesised that the rate of begging in chicks would increase as their body size increased. Interestingly I found there was a significant interaction effect with mass and species, where Warbler chicks increased their calling rate with mass at a rate that was only 0.98 [95%CI: 0.96-0.99] that of Cuckoo chicks (Poisson GLM: <span class="math inline">\(\chi^2\)</span><sub>1,47</sub> = 6.77, <em>P</em> = 0.009). This meant that while at hatching Warbler chicks start with a mean call rate that is higher than their parasitic brood mates, this quickly reverses as they grow.</p>
-<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For a fixed  mean-variance model we use a Chisquare distribution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html">drop1</a></span><span class="op">(</span><span class="va">cuckoo_glm1</span>, test <span class="op">=</span> <span class="st">"Chisq"</span><span class="op">)</span></span>
 <span></span>
@@ -752,7 +752,7 @@ Mass:Species
 <p>Overdispersion statistic values <strong>&gt; 1 = Overdispersed</strong></p>
 <p>Overdispersion is a result of larger than expected variance for that mean under a Poisson distribution, this is clearly an issue with our model!</p>
 <p>Luckily a simple fix is to fit a <em>quasi-likelihood</em> model which accounts for this, think of "quasi" as "sort of but not completely" Poisson.</p>
-<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cuckoo_glm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">Beg</span> <span class="op">~</span> <span class="va">Mass</span><span class="op">+</span><span class="va">Species</span><span class="op">+</span><span class="va">Mass</span><span class="op">:</span><span class="va">Species</span>, data<span class="op">=</span><span class="va">cuckoo</span>, family<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/family.html">quasipoisson</a></span><span class="op">(</span>link<span class="op">=</span><span class="st">"log"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">cuckoo_glm2</span><span class="op">)</span></span></code></pre></div>
@@ -1029,7 +1029,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-17.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-18.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

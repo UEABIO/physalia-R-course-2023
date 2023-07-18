@@ -159,6 +159,7 @@ activity-1-carry-out-some-basic-exploratory-data-analysis
 visualisation
 comparing-groups
 estimation
+standard-error-of-the-means
 differences-between-groups
 activity-2-differences
 standard-error-of-the-difference

@@ -158,6 +158,7 @@ darwin %>%
 You should (re)familiarise yourself with how (and why) we calculate standard deviation. 
 ```
 
+
 Summary statistics like these could be presented as figures or tables. We normally reserve tables for **very** simple sets of numbers, and this instance we could present both.
 
 ```{r}
@@ -199,11 +200,32 @@ Our goal is to:
 
 * Quantify our *confidence* in these differences
 
+### Standard error of the mean(s)
+
+Remember standard deviation is a *descriptive* statistic - it measures the variance within our dataset - e.g. how closely do datapoints fit to the mean. However for *inferential* statistics we are more interested in our confidence in our estimation of the mean. This is where standard error comes in. 
+
+$$
+SE = \frac{\sigma}{\sqrt(n)}
+$$
+
+We can think of error as a standard deviation of the mean. The mean we have calculated is an estimate based on one sample of data. We would expect that if we sampled another 30 plants these would have a different sample mean. Standard error describes the variability we would expect among sample means if we repeated this experiment many times. So we can think of it as a measure of the confidence we have in our estimate of a **true population mean(s)**. 
+
+```{r}
+darwin %>% 
+  group_by(type) %>% 
+  summarise(mean=mean(height),
+            sd=sd(height),
+            n = n(),
+            se = sd/sqrt(n))
+```
+
+Here we have separately estimated the mean, and a measure of uncertainty for each mean - however this does not directly address our question about the mean *difference* between the groups.
+
 #### Differences between groups
 
 Darwin's data used match pairs - each pair shared one parent. So that in pair 1 the same parent plant was either 'selfed' or 'crossed' to produce offspring. This is a powerful approach to experimental design, as it means that we can look at the differences in heights across each of the 15 pairs of plants - rather than having to infer differences from two randomly derived groups. 
 
-In order to calculate the differences in height between each pair we need to do some data wrangling with `tidyr::pivot_wider()` [Chapter 2](#using-`pivot`-functions) and calculations with `mutate`.
+In order to calculate the differences in height between each pair we need to do some data wrangling with `tidyr::pivot_wider()` and calculations with `mutate`.
 
 ## Activity 2: Differences
 
@@ -252,7 +274,7 @@ Remember standard deviation is a *descriptive* statistic - it measures the varia
 We can think of error as a standard deviation of the mean. The mean we have calculated is an estimate based on one sample of data. We would expect that if we sampled another 30 plants these would have a different sample mean. Standard error describes the variability we would expect among sample means if we repeated this experiment many times. So we can think of it as a measure of the confidence we have in our estimate of a **true population mean**. 
 
 $$
-SE = \frac{s}{\sqrt(n)}
+SE = \frac{\sigma}{\sqrt(n)}
 $$
 
 As sample size increases the standard error should reduce - reflecting an increasing confidence in our estimate. 
@@ -269,8 +291,13 @@ difference_summary %>%
 
 ```
 
-
 Our estimate of the mean is not really very useful without an accompanying measuring of *uncertainty* like the standard error, in fact estimates of averages or differences should **always** be accompanied by their measure of uncertainty. 
+
+```{block, type = "info"}
+
+The standard error for the difference between two means is always larger than the standard error of either mean. It quantifies uncertainty. The uncertainty of the difference between two means is greater than the uncertainty in either mean.
+
+```
 
 
 ## Activity 3: Communicate
