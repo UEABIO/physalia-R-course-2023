@@ -214,9 +214,7 @@ Which should be the same as the value for *t* in our model summary.
 
 The structure of our linear model so far has produced the output for a standard two-sample Student's *t*-test. However, when we *first* [calculated our estimates by hand](#differences-between-groups) - we started by making an average of the paired differences in height. To generate the equivalent of a paired *t*-test, we simply have to add the factor for pairs to our linear model formula:
 
-<button id="displayTextunnamed-chunk-9" onclick="javascript:toggle('unnamed-chunk-9');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-9" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-9 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-9', 'unnamed-chunk-9');">Base R</button><button class="tablinksunnamed-chunk-9" onclick="javascript:openCode(event, 'option2unnamed-chunk-9', 'unnamed-chunk-9');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-9" class="tabcontentunnamed-chunk-9">
+<div class="tab"><button class="tablinks= T active" onclick="javascript:openCode(event, 'option1= T', '= T');">Base R</button><button class="tablinks= T" onclick="javascript:openCode(event, 'option2= T', '= T');"><tt>tidyverse</tt></button></div><div id="option1= T" class="tabcontent= T">
 
 Note that I have made pair a factor - pair 2 is not greater than pair 1 - so it does not make sense to treat these as number values.
 
@@ -259,7 +257,7 @@ summary(lsmodel_darwin)
 ## Multiple R-squared:  0.469,	Adjusted R-squared:  -0.09997 
 ## F-statistic: 0.8243 on 15 and 14 DF,  p-value: 0.6434
 ```
-</div><div id="option2unnamed-chunk-9" class="tabcontentunnamed-chunk-9">
+</div><div id="option2= T" class="tabcontent= T">
 
 ```r
 darwin %>% 
@@ -397,7 +395,7 @@ darwin %>%
 </table>
 
 </div>
-</div><script> javascript:hide('option2unnamed-chunk-9') </script></div></div></div>
+</div><script> javascript:hide('option2= T') </script>
 
 
 The table of coefficients suddenly looks a lot more complicated! This is because **now** the intercept is the height of the crossed plant from pair 1:
@@ -517,7 +515,7 @@ rbind(m1,m2) %>%
   coord_flip()
 ```
 
-<img src="14-Testing_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="14-Testing_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>Choosing the right model</p>
@@ -605,9 +603,9 @@ Using this newly generated data how many experiments found a significant differe
 
 
 
-<button id="displayTextunnamed-chunk-16" onclick="javascript:toggle('unnamed-chunk-16');">Show Solution</button>
+<button id="displayTextunnamed-chunk-15" onclick="javascript:toggle('unnamed-chunk-15');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-16" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-15" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # Mutate a new column `p value < 0.05` based on the condition of p.value
@@ -650,9 +648,9 @@ A **better** way would be to look at the estimates and calculated confidence int
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Using this newly generated data compare the estimates and confidence intervals? - What do you conclude from this? </div></div>
 
-<button id="displayTextunnamed-chunk-18" onclick="javascript:toggle('unnamed-chunk-18');">Show Solution</button>
+<button id="displayTextunnamed-chunk-17" onclick="javascript:toggle('unnamed-chunk-17');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-18" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-17" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # Create a plot using ggplot
@@ -668,7 +666,7 @@ y %>%
   theme_minimal()
 ```
 
-<img src="14-Testing_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="14-Testing_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
 </div></div></div>
 
 By illustrating this visually, it is clearer to see that the results are not really inconsistent, the negative effects of inbreeding depression are clear to see in all of the experiments - we are simply observing the effect of sampling error. 

@@ -164,7 +164,7 @@ Which should be the same as the value for *t* in our model summary.
 
 The structure of our linear model so far has produced the output for a standard two-sample Student's *t*-test. However, when we *first* [calculated our estimates by hand](#differences-between-groups) - we started by making an average of the paired differences in height. To generate the equivalent of a paired *t*-test, we simply have to add the factor for pairs to our linear model formula:
 
-```{solution, multCode = T}
+```{multCode = T}
 
 Note that I have made pair a factor - pair 2 is not greater than pair 1 - so it does not make sense to treat these as number values.
 

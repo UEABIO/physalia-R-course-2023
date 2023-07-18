@@ -391,24 +391,15 @@ typeSelf
 <span class="header-section-number">9.3</span> Paired t<a class="anchor" aria-label="anchor" href="#paired-t"><i class="fas fa-link"></i></a>
 </h2>
 <p>The structure of our linear model so far has produced the output for a standard two-sample Student's <em>t</em>-test. However, when we <em>first</em> <a href="introduction-to-statistics.html#differences-between-groups">calculated our estimates by hand</a> - we started by making an average of the paired differences in height. To generate the equivalent of a paired <em>t</em>-test, we simply have to add the factor for pairs to our linear model formula:</p>
-<button id="displayTextunnamed-chunk-9" onclick="javascript:toggle('unnamed-chunk-9');">
-Show Solution
-</button>
-<div id="toggleTextunnamed-chunk-9" style="display: none">
-<div class="panel panel-default">
-<div class="panel-heading panel-heading1">
-Solution
-</div>
-<div class="panel-body">
 <div class="tab">
-<button class="tablinksunnamed-chunk-9 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-9', 'unnamed-chunk-9');">
+<button class="tablinks= T active" onclick="javascript:openCode(event, 'option1= T', '= T');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-9" onclick="javascript:openCode(event, 'option2unnamed-chunk-9', 'unnamed-chunk-9');">
+<button class="tablinks= T" onclick="javascript:openCode(event, 'option2= T', '= T');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-9" class="tabcontentunnamed-chunk-9">
+<div id="option1= T" class="tabcontent= T">
 <p>Note that I have made pair a factor - pair 2 is not greater than pair 1 - so it does not make sense to treat these as number values.</p>
 <div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lsmodel_darwin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">height</span> <span class="op">~</span> <span class="va">type</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">pair</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">darwin</span><span class="op">)</span></span>
@@ -446,7 +437,7 @@ Base R
 ## Multiple R-squared:  0.469,  Adjusted R-squared:  -0.09997 
 ## F-statistic: 0.8243 on 15 and 14 DF,  p-value: 0.6434</code></pre>
 </div>
-<div id="option2unnamed-chunk-9" class="tabcontentunnamed-chunk-9">
+<div id="option2= T" class="tabcontent= T">
 <div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">darwin</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pair <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html">as_factor</a></span><span class="op">(</span><span class="va">pair</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -748,11 +739,7 @@ pair15
 </table></div>
 </div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-9') </script>
-</div>
-</div>
-</div>
-<p>The table of coefficients suddenly looks a lot more complicated! This is because <strong>now</strong> the intercept is the height of the crossed plant from pair 1:</p>
+<script> javascript:hide('option2= T') </script><p>The table of coefficients suddenly looks a lot more complicated! This is because <strong>now</strong> the intercept is the height of the crossed plant from pair 1:</p>
 <ul>
 <li><p>The second row now compares the mean heights of Crossed and Selfed plants when they are in the same pair</p></li>
 <li><p>rows three to 16 compare the average difference of each pair (Crossed and Selfed combined) against pair 1</p></li>
@@ -935,7 +922,7 @@ typeSelf
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>yintercept<span class="op">=</span><span class="fl">0</span><span class="op">)</span>, linetype<span class="op">=</span><span class="st">"dashed"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="14-Testing_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="14-Testing_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="info">
 <p>
 Choosing the right model
@@ -1028,10 +1015,10 @@ Task
 Using this newly generated data how many experiments found a significant difference and how many did not? - What would you conclue from this?
 </div>
 </div>
-<button id="displayTextunnamed-chunk-16" onclick="javascript:toggle('unnamed-chunk-16');">
+<button id="displayTextunnamed-chunk-15" onclick="javascript:toggle('unnamed-chunk-15');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-16" style="display: none">
+<div id="toggleTextunnamed-chunk-15" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
@@ -1088,10 +1075,10 @@ Task
 Using this newly generated data compare the estimates and confidence intervals? - What do you conclude from this?
 </div>
 </div>
-<button id="displayTextunnamed-chunk-18" onclick="javascript:toggle('unnamed-chunk-18');">
+<button id="displayTextunnamed-chunk-17" onclick="javascript:toggle('unnamed-chunk-17');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-18" style="display: none">
+<div id="toggleTextunnamed-chunk-17" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
@@ -1109,7 +1096,7 @@ Solution
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>linetype <span class="op">=</span> <span class="st">"dashed"</span>, yintercept <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># Apply a minimal theme to the plot</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="14-Testing_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="14-Testing_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 </div>
 </div>
