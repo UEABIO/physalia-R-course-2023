@@ -180,6 +180,52 @@ They are exactly the same. This is not surprising, as the maximum likelihood bei
 </div></div></div>
 
 
+### Sqrt transformation
+
+In the previous chapter we found that a sqrt transformation of the dependent variable produced a slightly better model fit for the data - does the same apply when using a sqrt "link"?
+
+
+
+
+```r
+flyglm_sqrt <- glm(longevity ~ type + thorax + sleep, 
+             family = gaussian(link = "sqrt"),
+             data = fruitfly)
+
+AIC(flyglm, flyglm_sqrt)
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> df </th>
+   <th style="text-align:right;"> AIC </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> flyglm </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 966.2049 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> flyglm_sqrt </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 968.4094 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+> GLMs do not use OLS to produce model fits (though they may converge on the same answer) Instead they use maximum likelihood. As a result we cannot use R squared as a comparison of model fit
+Instead we use the AIC, a measure of the relative quality of a statistical model for a given set of data. It takes into account both the goodness of fit of the model to the data and the complexity of the model. And can be used to compare models. The AIC value is relative, meaning that it is useful for comparing different models fit on the same dataset. The model with the lowest AIC is considered to be the best compromise between goodness of fit and parsimony, and it is often chosen as the preferred model among a set of candidate models.
+
+Here we see that a the sqrt link is indistinguishable from the original model (if the difference in AIC is less than 2, the models are considered to be the same in performance). Remember in the original model it was the heterogeneity that caused issues - and with the glm it does not alter the variance only the link with the mean.
+
 ## Workflow for fitting a GLM
 
 * Exploratory data analysis
@@ -236,7 +282,7 @@ The **Poisson** distribution has the following characteristics:
 
 So we model the variance as equal to the mean - as the mean increases so does the variance. 
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 <img src="images/poisson.png" alt="Poisson distribution on an exponential line" width="80%" style="display: block; margin: auto;" />
@@ -340,7 +386,7 @@ The data columns are:
 ggplot(cuckoo, aes(x=Mass, y=Beg, colour=Species)) + geom_point()
 ```
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" />
 
 There seem to be a relationship between mass and begging calls and it could
 be different between species. It is tempting to fit a linear model to this data. 
@@ -369,7 +415,7 @@ performance::check_model(cuckoo_ls1,
                                    "qq"))
 ```
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" />
 
 The residuals plot depicts a strong "funnelling" effect, highlighting that the model assumptions are violated.
 We should therefore try a different model structure.
@@ -457,9 +503,9 @@ Hint: Use `broom::augment`. If we fit the model on the log scale, then we get th
 
 ### Variable scale
 
-<button id="displayTextunnamed-chunk-20" onclick="javascript:toggle('unnamed-chunk-20');">Show Solution</button>
+<button id="displayTextunnamed-chunk-22" onclick="javascript:toggle('unnamed-chunk-22');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-20" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-22" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # using augment allows you to generate fitted outcomes from the regression, make sure to set the predictions onto the response scale in order to 'back transform` the data onto the original scale
@@ -472,13 +518,13 @@ ggplot(aes(x=Mass, y=.fitted, colour=Species)) +
   theme_minimal()
 ```
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;" /></div></div></div>
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;" /></div></div></div>
 
 ### Log scale
 
-<button id="displayTextunnamed-chunk-21" onclick="javascript:toggle('unnamed-chunk-21');">Show Solution</button>
+<button id="displayTextunnamed-chunk-23" onclick="javascript:toggle('unnamed-chunk-23');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-21" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-23" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 broom::augment(cuckoo_glm1) %>% 
@@ -489,7 +535,7 @@ ggplot(aes(x=Mass, y=.fitted, colour=Species)) +
   theme_minimal()
 ```
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;" />
 </div></div></div>
 
 Compare the new Poisson model fits to the ordinary least squares model. We can see that although the homogeneity of variance is far from perfect, the curvature in the model has been drastically reduced (this makes sense as now we have a model fitted to exponential data), and the qqplot is within acceptable confidence intervals. 
@@ -501,7 +547,7 @@ performance::check_model(cuckoo_glm1,
                                    "qq"))
 ```
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -774,9 +820,9 @@ should specify the F-test again.</p>
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 How would you write up an Analysis Methods section? </div></div>
 
-<button id="displayTextunnamed-chunk-32" onclick="javascript:toggle('unnamed-chunk-32');">Show Solution</button>
+<button id="displayTextunnamed-chunk-34" onclick="javascript:toggle('unnamed-chunk-34');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-32" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-34" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 I used a Poisson log-link Generalized Linear Model with quasi-likelihoods to account for overdispersion to analyse begging call rates in Warbler and Cuckoo chicks. The species of chick was included as a categorical predictor and mass was included as a continuous predictor. 
 
@@ -832,7 +878,7 @@ $$
 Again, note that we are still "only" fitting straight lines through our data, but this time in the log odds space.
 As a shorthand notation we write $\log\left(\frac{p}{1 - p}\right) = \text{logit}(p) = \beta_0 + \beta_1 X$.
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-35-1.png" width="100%" style="display: block; margin: auto;" />
 
 We can also re-arrange the above equation so that we get an expression for $p$
 
@@ -840,7 +886,7 @@ $$
 p = \frac{e^{\beta_0 + \beta_1 X}}{1 + e^{\beta_0 + \beta_1 X}}
 $$
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-34-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" />
 
 Note how $p$ can only vary between 0 and 1. 
 
@@ -951,7 +997,7 @@ ggplot(aes(y=oring_dt, x=temp))+geom_point()+
   ggtitle("Temperature on flight launches where an O-ring incident occurred")
 ```
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
 
 From this it was concluded that temperature did not appear to affect o-ring risk of failure, as o-ring failures were detected at a range of different temperatures.
 
@@ -968,7 +1014,7 @@ ggplot(aes(y=oring_dt,
   ggtitle("All launch data")
 ```
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-40-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" />
 
 When we include the flights without incident *and* those with incident, we can see that there is a very clear relationship between temperature and the risk of an o-ring failure. It has been argued that the clear presentation of this data should have allowed even the casual observer to determine the high risk of disaster.
 
@@ -1099,9 +1145,9 @@ A powerful use of logisitic regression is prediction. Can we predict the probabi
 
 Can you use our prediction functions `predict()` or `broom::augment()` to look at the models predictions for O-ring failure in our data? Bonus points if you can convert log-odds to probability?
 
-<button id="displayTextunnamed-chunk-44" onclick="javascript:toggle('unnamed-chunk-44');">Show Solution</button>
+<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-44" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-44 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-44', 'unnamed-chunk-44');">Base R</button><button class="tablinksunnamed-chunk-44" onclick="javascript:openCode(event, 'option2unnamed-chunk-44', 'unnamed-chunk-44');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-44" class="tabcontentunnamed-chunk-44">
+<div id="toggleTextunnamed-chunk-46" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-46 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-46', 'unnamed-chunk-46');">Base R</button><button class="tablinksunnamed-chunk-46" onclick="javascript:openCode(event, 'option2unnamed-chunk-46', 'unnamed-chunk-46');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
 
 ```r
 predict(binary_model, type = "response")
@@ -1117,7 +1163,7 @@ predict(binary_model, type = "response")
 ##          19          20          21          22          23 
 ## 0.016393905 0.005516836 0.023485304 0.016393905 0.924582363
 ```
-</div><div id="option2unnamed-chunk-44" class="tabcontentunnamed-chunk-44">
+</div><div id="option2unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
 
 ```r
 broom::augment(binary_model, 
@@ -1374,7 +1420,7 @@ broom::augment(binary_model,
 </table>
 
 </div>
-</div><script> javascript:hide('option2unnamed-chunk-44') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-46') </script></div></div></div>
 
 ### Emmeans
 
@@ -1545,9 +1591,9 @@ emmeans::emmeans(binary_model,
 Use the emmeans output to make a ggplot of the changing probability of O-ring failure with temperature </div></div>
 
 
-<button id="displayTextunnamed-chunk-51" onclick="javascript:toggle('unnamed-chunk-51');">Show Solution</button>
+<button id="displayTextunnamed-chunk-53" onclick="javascript:toggle('unnamed-chunk-53');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-51" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-53" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 emmeans::emmeans(binary_model, 
@@ -1560,7 +1606,7 @@ emmeans::emmeans(binary_model,
 ```
 </div></div></div>
 
-<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-52-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="19-Generalized-Linear-Models_files/figure-html/unnamed-chunk-54-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Predictions
@@ -1576,9 +1622,9 @@ We can use augment to add our model to new data - and make predictions about the
 Make a new dataset with the temperature on the day of the Challenger launch - what was the probability of o-ring failure? </div></div>
 
 
-<button id="displayTextunnamed-chunk-54" onclick="javascript:toggle('unnamed-chunk-54');">Show Solution</button>
+<button id="displayTextunnamed-chunk-56" onclick="javascript:toggle('unnamed-chunk-56');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-54" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-56" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 First - we make a new dataset with the temperature on the day of the Challenger Launch **36&deg;F**
   

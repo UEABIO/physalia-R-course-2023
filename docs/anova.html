@@ -420,14 +420,6 @@ these pairs were not sampled at random.
 <h2>
 <span class="header-section-number">11.5</span> Activity<a class="anchor" aria-label="anchor" href="#activity"><i class="fas fa-link"></i></a>
 </h2>
-<p>Write a short R based report (Rmd) using ANOVA to test an experimental hypothesis:</p>
-<ul>
-<li><p>Set up a new R project for your analysis - get it talking to Github</p></li>
-<li><p>Import, clean and analyse your data</p></li>
-<li><p>Test an experimental hypothesis</p></li>
-<li><p>Produce a data visual summary</p></li>
-<li><p>Produce a short write-up</p></li>
-</ul>
 <p>Now is the time to try and put your analysis skills into action. Below are instructions for importing data and setting up a new project to answer the question, does temperature affect frogspawn development? This is your chance to practice:</p>
 <p><strong>Q. How does frogspawn hatching time vary with temperature?</strong></p>
 <p>Imagine we ran a manipulative experiment.</p>
@@ -457,7 +449,7 @@ these pairs were not sampled at random.
 Task
 </div>
 <div class="panel-body">
-<p>After setting up your R project, import and tidy your dataset.</p>
+<p>Import and tidy your dataset.</p>
 <p>Hint: check your data is in a tidy format.</p>
 Remember to organise your analysis script - use the document outline feature to help you.
 </div>
@@ -671,7 +663,7 @@ Base R
 Task
 </div>
 <div class="panel-body">
-Can you produce a suitable Figure for this dataset?
+Can you produce a suitable/simple Figure for this dataset?
 </div>
 </div>
 <button id="displayTextunnamed-chunk-20" onclick="javascript:toggle('unnamed-chunk-20');">
@@ -684,18 +676,71 @@ Solution
 </div>
 <div class="panel-body">
 <p>There are multiple ways to present the same data, equally valid, but emphasising different concepts. For example this first figure uses a boxplot and data points to illustrate the differences. Remember the median and IQR are essentially descriptive statistics, not inferential.</p>
+<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">frogs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">temperature</span>, y <span class="op">=</span> <span class="va">days</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>               lwd <span class="op">=</span> <span class="fl">1.1</span>,</span>
+<span>               fill <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>               width <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>              size<span class="op">=</span><span class="fl">2</span>,</span>
+<span>              shape <span class="op">=</span> <span class="fl">21</span>,</span>
+<span>              colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">temperature</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#97F7C5"</span>, <span class="st">"#4ED973"</span>, <span class="st">"#08873D"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="st">'Temperature ('</span><span class="op">*</span><span class="op">~</span><span class="va">degree</span><span class="op">*</span><span class="va">C</span><span class="op">*</span><span class="st">')'</span><span class="op">)</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Number of days to spawn hatching"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-28"></span>
-<img src="16-ANOVA_files/figure-html/unnamed-chunk-28-1.png" alt="Frogspawn hatching times at 13, 18 and 25 degrees Celsius. Boxplot displays median, hinges are first and third quartiles, whiskers extend from the hinge to 1.5X the interquartile range. Points represent individual frogspawns." width="100%"><p class="caption">
+<span style="display:block;" id="fig:unnamed-chunk-25"></span>
+<img src="16-ANOVA_files/figure-html/unnamed-chunk-25-1.png" alt="Frogspawn hatching times at 13, 18 and 25 degrees Celsius. Boxplot displays median, hinges are first and third quartiles, whiskers extend from the hinge to 1.5X the interquartile range. Points represent individual frogspawns." width="100%"><p class="caption">
 Figure 11.1: Frogspawn hatching times at 13, 18 and 25 degrees Celsius. Boxplot displays median, hinges are first and third quartiles, whiskers extend from the hinge to 1.5X the interquartile range. Points represent individual frogspawns.
 </p>
 </div>
 <p>Whereas the next figure, uses the <code><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans()</a></code> package to produce estimate means and confidence intervals from the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and therefore is the produce of inferential statistics, this figure illustrates the estimates of our model rather than the parameters of our sample.</p>
 <p>Neither method is 'best'.</p>
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">emmeans</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">lsmodel_frogs1</span>, specs <span class="op">=</span> <span class="op">~</span><span class="va">temperature</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">temperature</span>,</span>
+<span>             y <span class="op">=</span> <span class="va">emmean</span>,</span>
+<span>             colour <span class="op">=</span> <span class="va">temperature</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>data<span class="op">=</span> <span class="va">frogs</span>,</span>
+<span>              width <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>              size<span class="op">=</span><span class="fl">2</span>,</span>
+<span>              shape <span class="op">=</span> <span class="fl">21</span>,</span>
+<span>              colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">temperature</span>,</span>
+<span>                  y <span class="op">=</span> <span class="va">days</span>,</span>
+<span>                  fill <span class="op">=</span> <span class="va">temperature</span><span class="op">)</span>,</span>
+<span>              alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_linerange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lower.CL</span>,</span>
+<span>                      ymax <span class="op">=</span> <span class="va">upper.CL</span><span class="op">)</span>,</span>
+<span>                 colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>                 size<span class="op">=</span><span class="fl">1.1</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html">geom_segment</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, xend <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>               y <span class="op">=</span> <span class="fl">26.3</span>, yend <span class="op">=</span> <span class="fl">21</span><span class="op">)</span>,</span>
+<span>               linetype<span class="op">=</span><span class="st">"dashed"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html">geom_segment</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="fl">1</span>, xend <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>                   y <span class="op">=</span> <span class="fl">26.3</span>, yend <span class="op">=</span> <span class="fl">16.2</span><span class="op">)</span>,</span>
+<span>               linetype<span class="op">=</span><span class="st">"dashed"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>             shape <span class="op">=</span> <span class="fl">21</span>,</span>
+<span>             colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>             fill <span class="op">=</span> <span class="va">temperature</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#97F7C5"</span>, <span class="st">"#4ED973"</span>, <span class="st">"#08873D"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#97F7C5"</span>, <span class="st">"#4ED973"</span>, <span class="st">"#08873D"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="st">'Temperature ('</span><span class="op">*</span><span class="op">~</span><span class="va">degree</span><span class="op">*</span><span class="va">C</span><span class="op">*</span><span class="st">')'</span><span class="op">)</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Number of days to spawn hatching"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-29"></span>
-<img src="16-ANOVA_files/figure-html/unnamed-chunk-29-1.png" alt="Time to hatching is inversely related to temperature in frogspawn. Circles represent estimated mean hatching times with 95% confidence intervals from a one-way ANOVA (F~1,28~ = 385.9, P &lt; 0.001). Dashed lines indicate the slope of the mean difference between 13-18 degrees and 13-25 degrees Celsius. Faded points represent individual data points." width="100%"><p class="caption">
-Figure 5.4: Time to hatching is inversely related to temperature in frogspawn. Circles represent estimated mean hatching times with 95% confidence intervals from a one-way ANOVA (F<sub>1,28</sub> = 385.9, P &lt; 0.001). Dashed lines indicate the slope of the mean difference between 13-18 degrees and 13-25 degrees Celsius. Faded points represent individual data points.
+<span style="display:block;" id="fig:unnamed-chunk-26"></span>
+<img src="16-ANOVA_files/figure-html/unnamed-chunk-26-1.png" alt="Time to hatching is inversely related to temperature in frogspawn. Circles represent estimated mean hatching times with 95% confidence intervals from a one-way ANOVA (F~1,28~ = 385.9, P &lt; 0.001). Dashed lines indicate the slope of the mean difference between 13-18 degrees and 13-25 degrees Celsius. Faded points represent individual data points." width="100%"><p class="caption">
+Figure 8.1: Time to hatching is inversely related to temperature in frogspawn. Circles represent estimated mean hatching times with 95% confidence intervals from a one-way ANOVA (F<sub>1,28</sub> = 385.9, P &lt; 0.001). Dashed lines indicate the slope of the mean difference between 13-18 degrees and 13-25 degrees Celsius. Faded points represent individual data points.
 </p>
 </div>
 </div>
@@ -938,7 +983,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-18.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

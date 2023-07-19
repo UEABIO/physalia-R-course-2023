@@ -18,12 +18,12 @@ fig:unnamed-chunk-41
 fig:unnamed-chunk-45
 fig:unnamed-chunk-26
 tab:unnamed-chunk-23
-fig:unnamed-chunk-28
+fig:unnamed-chunk-25
 fig:unnamed-chunk-42
-fig:unnamed-chunk-43
-fig:unnamed-chunk-44
-tab:unnamed-chunk-26
-tab:unnamed-chunk-42
+fig:unnamed-chunk-14
+tab:unnamed-chunk-27
+fig:unnamed-chunk-28
+tab:unnamed-chunk-36
 fig:unnamed-chunk-11
 fig:unnamed-chunk-13
 fig:unnamed-chunk-15
@@ -254,7 +254,9 @@ data-transformations
 boxcox
 model-selection
 posthoc
-activity-3-write-up
+write-up
+methods
+results
 summary-8
 checklist-2
 supplementary-code
@@ -262,6 +264,7 @@ generalized-linear-models
 motivation
 generalised-linear-models-glms
 section-2
+sqrt-transformation
 workflow-for-fitting-a-glm
 poisson-regression-for-count-data-or-rate-data
 example-cuckoos

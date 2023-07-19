@@ -295,7 +295,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flyls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">longevity</span> <span class="op">~</span> <span class="va">type</span> <span class="op">+</span> <span class="va">thorax</span> <span class="op">+</span> <span class="va">sleep</span>, data <span class="op">=</span> <span class="va">fruitfly</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">flyls</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -323,7 +323,7 @@ Solution
 <h4>
 <span class="header-section-number">14.2.0.1</span> <a class="anchor" aria-label="anchor" href="#section-2"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flyglm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">longevity</span> <span class="op">~</span> <span class="va">type</span> <span class="op">+</span> <span class="va">thorax</span> <span class="op">+</span> <span class="va">sleep</span>, </span>
 <span>             family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span>,</span>
 <span>             data <span class="op">=</span> <span class="va">fruitfly</span><span class="op">)</span></span>
@@ -354,6 +354,61 @@ Solution
 </div>
 </div>
 </div>
+</div>
+<div id="sqrt-transformation" class="section level3" number="14.2.1">
+<h3>
+<span class="header-section-number">14.2.1</span> Sqrt transformation<a class="anchor" aria-label="anchor" href="#sqrt-transformation"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the previous chapter we found that a sqrt transformation of the dependent variable produced a slightly better model fit for the data - does the same apply when using a sqrt "link"?</p>
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flyglm_sqrt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">longevity</span> <span class="op">~</span> <span class="va">type</span> <span class="op">+</span> <span class="va">thorax</span> <span class="op">+</span> <span class="va">sleep</span>, </span>
+<span>             family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"sqrt"</span><span class="op">)</span>,</span>
+<span>             data <span class="op">=</span> <span class="va">fruitfly</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">flyglm</span>, <span class="va">flyglm_sqrt</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:right;">
+AIC
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+flyglm
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+966.2049
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+flyglm_sqrt
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+968.4094
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<blockquote>
+<p>GLMs do not use OLS to produce model fits (though they may converge on the same answer) Instead they use maximum likelihood. As a result we cannot use R squared as a comparison of model fit
+Instead we use the AIC, a measure of the relative quality of a statistical model for a given set of data. It takes into account both the goodness of fit of the model to the data and the complexity of the model. And can be used to compare models. The AIC value is relative, meaning that it is useful for comparing different models fit on the same dataset. The model with the lowest AIC is considered to be the best compromise between goodness of fit and parsimony, and it is often chosen as the preferred model among a set of candidate models.</p>
+</blockquote>
+<p>Here we see that a the sqrt link is indistinguishable from the original model (if the difference in AIC is less than 2, the models are considered to be the same in performance). Remember in the original model it was the heterogeneity that caused issues - and with the glm it does not alter the variance only the link with the mean.</p>
 </div>
 </div>
 <div id="workflow-for-fitting-a-glm" class="section level2" number="14.3">
@@ -576,7 +631,9 @@ $( document ).ready(function() {
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#generalized-linear-models"><span class="header-section-number">14</span> Generalized Linear Models</a></li>
 <li><a class="nav-link" href="#motivation"><span class="header-section-number">14.1</span> Motivation</a></li>
-<li><a class="nav-link" href="#generalised-linear-models-glms"><span class="header-section-number">14.2</span> Generalised Linear Models (GLMs)</a></li>
+<li>
+<a class="nav-link" href="#generalised-linear-models-glms"><span class="header-section-number">14.2</span> Generalised Linear Models (GLMs)</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#sqrt-transformation"><span class="header-section-number">14.2.1</span> Sqrt transformation</a></li></ul>
+</li>
 <li><a class="nav-link" href="#workflow-for-fitting-a-glm"><span class="header-section-number">14.3</span> Workflow for fitting a GLM</a></li>
 </ul>
 
@@ -595,7 +652,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-18.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-07-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

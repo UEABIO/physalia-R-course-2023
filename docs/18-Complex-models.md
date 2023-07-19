@@ -102,13 +102,41 @@ fruitfly %>%
 
 **Q** Does it like treatment affects longevity? <select class='webex-select'><option value='blank'></option><option value='answer'>Yes</option><option value=''>No</option></select>
 
+We can also see that our distributions look *roughly* normally distributed, though we could use qq-plots to be sure. 
+
+
+> Note it is only our dependent variable where we are strictly concerned about the distribution - independent variables have no strict requirements
+
+
+
+```r
+fruitfly %>% 
+  group_split(type) %>% 
+  map(~pull(.x, thorax) %>% 
+        car::qqPlot())
+```
+
+<img src="18-Complex-models_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /><img src="18-Complex-models_files/figure-html/unnamed-chunk-10-2.png" width="100%" style="display: block; margin: auto;" /><img src="18-Complex-models_files/figure-html/unnamed-chunk-10-3.png" width="100%" style="display: block; margin: auto;" />
+
+```
+## [[1]]
+## [1] 1 2
+## 
+## [[2]]
+## [1]  1 26
+## 
+## [[3]]
+## [1] 26 27
+```
+
+
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Make a scatterplot of size against longevity. </div></div>
 
 
-<button id="displayTextunnamed-chunk-11" onclick="javascript:toggle('unnamed-chunk-11');">Show Solution</button>
+<button id="displayTextunnamed-chunk-12" onclick="javascript:toggle('unnamed-chunk-12');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-11" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-12" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 In this first figure - we can investigate whether there is an obvious difference in the longevities of males across the three treatments
 
 ```r
@@ -120,8 +148,8 @@ fruitfly %>%
 ```
 
 <div class="figure" style="text-align: center">
-<img src="18-Complex-models_files/figure-html/unnamed-chunk-43-1.png" alt="A scatterplot of longevity against body size (thorax (mm)). No trend line added - often it is a good idea to look at data points without being lead to a conclusion by a line" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-43)A scatterplot of longevity against body size (thorax (mm)). No trend line added - often it is a good idea to look at data points without being lead to a conclusion by a line</p>
+<img src="18-Complex-models_files/figure-html/unnamed-chunk-41-1.png" alt="A scatterplot of longevity against body size (thorax (mm)). No trend line added - often it is a good idea to look at data points without being lead to a conclusion by a line" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-41)A scatterplot of longevity against body size (thorax (mm)). No trend line added - often it is a good idea to look at data points without being lead to a conclusion by a line</p>
 </div>
 </div></div></div>
 
@@ -130,11 +158,9 @@ fruitfly %>%
 
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-Make an interaction plot to see if size interacts with treatment to affect longevity. (Use colour and groups to make differentiate points and lines) </div></div>
+Now let us make an interaction plot to see if size interacts with treatment to affect longevity. (Use colour and groups to make differentiate points and lines) </div></div>
 
-<button id="displayTextunnamed-chunk-13" onclick="javascript:toggle('unnamed-chunk-13');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-13" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 colours <- c("cyan", "darkorange", "purple")
@@ -149,10 +175,10 @@ fruitfly %>%
 ```
 
 <div class="figure" style="text-align: center">
-<img src="18-Complex-models_files/figure-html/unnamed-chunk-44-1.png" alt="A scatterplot of thorax against longevity - colours indicate treatment types. This time I have included a line, as it will help determine if I think the slopes are different by group" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-44)A scatterplot of thorax against longevity - colours indicate treatment types. This time I have included a line, as it will help determine if I think the slopes are different by group</p>
+<img src="18-Complex-models_files/figure-html/unnamed-chunk-14-1.png" alt="A scatterplot of thorax against longevity - colours indicate treatment types. This time I have included a line, as it will help determine if I think the slopes are different by group" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-14)A scatterplot of thorax against longevity - colours indicate treatment types. This time I have included a line, as it will help determine if I think the slopes are different by group</p>
 </div>
-</div></div></div>
+
 
 **Q** Does it look like size affects longevity differently between treatment groups? <select class='webex-select'><option value='blank'></option><option value=''>Yes</option><option value='answer'>No</option></select>
 
@@ -167,15 +193,12 @@ Here it does look as though larger flies have a longer lifespan than smaller fli
 
 
 
-
 We are also interested in the potential effect of sleep on activity, we can construct a scatter plot of sleep against longevity, while including treatment as a covariate.
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-Make an interaction plot to see if sleep interacts with treatment to affect longevity. </div></div>
+Investigate an interaction plot to see if sleep interacts with treatment to affect longevity. </div></div>
 
-<button id="displayTextunnamed-chunk-15" onclick="javascript:toggle('unnamed-chunk-15');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-15" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 fruitfly %>% 
@@ -188,10 +211,9 @@ fruitfly %>%
 ```
 
 <div class="figure" style="text-align: center">
-<img src="18-Complex-models_files/figure-html/unnamed-chunk-45-1.png" alt="A scatter plot of proportion of time spent sleeping against longevity with a linear model trendline. Points represent individual flies, colours represent treatments." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-45)A scatter plot of proportion of time spent sleeping against longevity with a linear model trendline. Points represent individual flies, colours represent treatments.</p>
+<img src="18-Complex-models_files/figure-html/unnamed-chunk-16-1.png" alt="A scatter plot of proportion of time spent sleeping against longevity with a linear model trendline. Points represent individual flies, colours represent treatments." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-16)A scatter plot of proportion of time spent sleeping against longevity with a linear model trendline. Points represent individual flies, colours represent treatments.</p>
 </div>
-</div></div></div>
 
 
 In these plots - Are the trendlines moving in the same direction?  <select class='webex-select'><option value='blank'></option><option value=''>Yes</option><option value='answer'>No</option></select>
@@ -217,6 +239,7 @@ estimate is than if you just combined the main effects.</p>
 </div>
 
 
+<div class="tab"><button class="tablinks= T active" onclick="javascript:openCode(event, 'option1= T', '= T');">Base R</button><button class="tablinks= T" onclick="javascript:openCode(event, 'option2= T', '= T');"><tt>tidyverse</tt></button></div><div id="option1= T" class="tabcontent= T">
 
 ```r
 # a full model
@@ -292,6 +315,40 @@ flyls1 %>%
 </table>
 
 </div>
+</div><div id="option2= T" class="tabcontent= T">
+
+```r
+flyls1 <- lm(longevity ~ type + thorax + sleep + type:sleep, data = fruitfly)
+summary(flyls1)
+```
+
+```
+## 
+## Call:
+## lm(formula = longevity ~ type + thorax + sleep + type:sleep, 
+##     data = fruitfly)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -28.808  -6.961  -2.024   7.463  28.741 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)           -57.52754   11.35546  -5.066 1.52e-06 ***
+## typeInseminated         7.98838    5.34120   1.496   0.1374    
+## typeVirgin            -10.90754    5.47458  -1.992   0.0486 *  
+## thorax                142.50900   13.41154  10.626  < 2e-16 ***
+## sleep                   0.09045    0.18859   0.480   0.6324    
+## typeInseminated:sleep  -0.19651    0.20823  -0.944   0.3473    
+## typeVirgin:sleep       -0.11243    0.21665  -0.519   0.6048    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 11.27 on 118 degrees of freedom
+## Multiple R-squared:  0.608,	Adjusted R-squared:  0.5881 
+## F-statistic: 30.51 on 6 and 118 DF,  p-value: < 2.2e-16
+```
+</div><script> javascript:hide('option2= T') </script>
 
 
 <div class="info">
@@ -308,9 +365,7 @@ sure.</p>
 From the model summary table could you say what the mean longevity of a male with a 0.79mm thorax, that sleeps for 22% of the day and is paired with virgin females would be? </div></div>
 
 
-<button id="displayTextunnamed-chunk-20" onclick="javascript:toggle('unnamed-chunk-20');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-20" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # intercept
@@ -325,6 +380,10 @@ coef(flyls1)[3] +
 # 22 * coefficient for sleep  
 (coef(flyls1)[5]*22) + 
 ```
+
+<button id="displayTextunnamed-chunk-21" onclick="javascript:toggle('unnamed-chunk-21');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-21" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # 22 * 1 * coefficient for interaction
@@ -348,15 +407,14 @@ Before we start playing with the terms in our model, we should check to see if t
 performance::check_model(flyls1)
 ```
 
-<img src="18-Complex-models_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" />
-
+<img src="18-Complex-models_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 **Question - IS the assumption of homogeneity of variance met?** <select class='webex-select'><option value='blank'></option><option value='answer'>Yes</option><option value=''>No</option></select>
 
-<button id="displayTextunnamed-chunk-22" onclick="javascript:toggle('unnamed-chunk-22');">Show Solution</button>
+<button id="displayTextunnamed-chunk-23" onclick="javascript:toggle('unnamed-chunk-23');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-22" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-23" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 * Mostly - the reference line is fairly flat (there is a slight curve).
 
@@ -369,9 +427,9 @@ With a slight curvature this could indicate that you *might* get a better fit wi
 
 **Question - ARE the residuals normally distributed?** <select class='webex-select'><option value='blank'></option><option value='answer'>Yes</option><option value=''>No</option></select>
 
-<button id="displayTextunnamed-chunk-23" onclick="javascript:toggle('unnamed-chunk-23');">Show Solution</button>
+<button id="displayTextunnamed-chunk-24" onclick="javascript:toggle('unnamed-chunk-24');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-23" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-24" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 Yes - the QQplot looks pretty good, a very minor indication of a right skew, but nothing to worry about. 
 
 [Interpreting QQ plots][What is a Quantile-Quantile (QQ) plot?]
@@ -380,9 +438,9 @@ Yes - the QQplot looks pretty good, a very minor indication of a right skew, but
 
 **Question - IS their an issue with Collinearity?** <select class='webex-select'><option value='blank'></option><option value=''>Yes</option><option value='answer'>No</option></select>
 
-<button id="displayTextunnamed-chunk-24" onclick="javascript:toggle('unnamed-chunk-24');">Show Solution</button>
+<button id="displayTextunnamed-chunk-25" onclick="javascript:toggle('unnamed-chunk-25');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-24" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-25" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 This graph clearly shows there **is** collinearity. But this is not unusual when we include an *interaction term*, if we see evidence of collinearity in terms that are not part of an interaction **then** we should take another look^[https://easystats.github.io/performance/reference/check_collinearity.html].
 
@@ -430,7 +488,7 @@ model.</p>
 </div>
 
 <table class="table" style="font-size: 16px; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-26)Common Box-Cox Transformations</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-27)Common Box-Cox Transformations</caption>
  <thead>
   <tr>
    <th style="text-align:right;"> lambda value </th>
@@ -464,15 +522,15 @@ MASS::boxcox(flyls1)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="18-Complex-models_files/figure-html/unnamed-chunk-27-1.png" alt="standard curve fitted by maximum likelihood, dashed lines represent the 95% confidence interval range for picking the 'best' transformation for the dependent variable" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-27)standard curve fitted by maximum likelihood, dashed lines represent the 95% confidence interval range for picking the 'best' transformation for the dependent variable</p>
+<img src="18-Complex-models_files/figure-html/unnamed-chunk-28-1.png" alt="standard curve fitted by maximum likelihood, dashed lines represent the 95% confidence interval range for picking the 'best' transformation for the dependent variable" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-28)standard curve fitted by maximum likelihood, dashed lines represent the 95% confidence interval range for picking the 'best' transformation for the dependent variable</p>
 </div>
 
-**Question - Does the fit of the model improve with a square root transformation?** <select class='webex-select'><option value='blank'></option><option value=''>Yes</option><option value='answer'>No</option></select>
+**Question - Does the fit of the model improve with a square root transformation?** 
 
-<button id="displayTextunnamed-chunk-28" onclick="javascript:toggle('unnamed-chunk-28');">Show Solution</button>
+<button id="displayTextunnamed-chunk-29" onclick="javascript:toggle('unnamed-chunk-29');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-28" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-29" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 flyls_sqrt <- lm(sqrt(longevity) ~ type + thorax + sleep + type:sleep, data = fruitfly)
@@ -480,9 +538,71 @@ flyls_sqrt <- lm(sqrt(longevity) ~ type + thorax + sleep + type:sleep, data = fr
 performance::check_model(flyls_sqrt)
 ```
 
-<img src="18-Complex-models_files/figure-html/unnamed-chunk-49-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="18-Complex-models_files/figure-html/unnamed-chunk-46-1.png" width="100%" style="display: block; margin: auto;" />
 
-Not really, despite the suggestion that a sqrt transformation would improve the model, residual fits are not really any better - so we might as well stick with the original scale.</div></div></div>
+Despite the suggestion that a sqrt transformation would improve the model, residual fits have improved only slightly, but there is one more check. Using summary() - which model has the best adjusted R^2?
+  
+
+```r
+summary(flyls1)
+
+summary(flyls_sqrt)
+```
+
+```
+## 
+## Call:
+## lm(formula = longevity ~ type + thorax + sleep + type:sleep, 
+##     data = fruitfly)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -28.808  -6.961  -2.024   7.463  28.741 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)           -57.52754   11.35546  -5.066 1.52e-06 ***
+## typeInseminated         7.98838    5.34120   1.496   0.1374    
+## typeVirgin            -10.90754    5.47458  -1.992   0.0486 *  
+## thorax                142.50900   13.41154  10.626  < 2e-16 ***
+## sleep                   0.09045    0.18859   0.480   0.6324    
+## typeInseminated:sleep  -0.19651    0.20823  -0.944   0.3473    
+## typeVirgin:sleep       -0.11243    0.21665  -0.519   0.6048    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 11.27 on 118 degrees of freedom
+## Multiple R-squared:  0.608,	Adjusted R-squared:  0.5881 
+## F-statistic: 30.51 on 6 and 118 DF,  p-value: < 2.2e-16
+## 
+## 
+## Call:
+## lm(formula = sqrt(longevity) ~ type + thorax + sleep + type:sleep, 
+##     data = fruitfly)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.91588 -0.48660 -0.09031  0.53105  1.60861 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)           -0.576928   0.758260  -0.761   0.4483    
+## typeInseminated        0.487914   0.356658   1.368   0.1739    
+## typeVirgin            -0.855749   0.365564  -2.341   0.0209 *  
+## thorax                10.064167   0.895554  11.238   <2e-16 ***
+## sleep                  0.003317   0.012593   0.263   0.7927    
+## typeInseminated:sleep -0.010241   0.013905  -0.737   0.4629    
+## typeVirgin:sleep      -0.003497   0.014467  -0.242   0.8094    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.7527 on 118 degrees of freedom
+## Multiple R-squared:  0.6311,	Adjusted R-squared:  0.6124 
+## F-statistic: 33.65 on 6 and 118 DF,  p-value: < 2.2e-16
+```
+
+Using this we could conclude that the sqrt transformed model explains more variance than the original model
+  </div></div></div>
 
 ## Model selection
 
@@ -490,9 +610,9 @@ Not really, despite the suggestion that a sqrt transformation would improve the 
 ```r
 # Remove top-level interaction
 
-flyls2 <- lm(longevity ~ type + thorax + sleep, data = fruitfly)
+flyls_sqrt2 <- lm(sqrt(longevity) ~ type + thorax + sleep, data = fruitfly)
 
-anova(flyls2, flyls1, test = "F")
+anova(flyls_sqrt2, flyls_sqrt, test = "F")
 ```
 
 <div class="kable-table">
@@ -511,7 +631,7 @@ anova(flyls2, flyls1, test = "F")
 <tbody>
   <tr>
    <td style="text-align:right;"> 120 </td>
-   <td style="text-align:right;"> 15124.57 </td>
+   <td style="text-align:right;"> 67.33770 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -519,11 +639,11 @@ anova(flyls2, flyls1, test = "F")
   </tr>
   <tr>
    <td style="text-align:right;"> 118 </td>
-   <td style="text-align:right;"> 14994.43 </td>
+   <td style="text-align:right;"> 66.85853 </td>
    <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 130.1431 </td>
-   <td style="text-align:right;"> 0.5120865 </td>
-   <td style="text-align:right;"> 0.6005695 </td>
+   <td style="text-align:right;"> 0.4791614 </td>
+   <td style="text-align:right;"> 0.4228409 </td>
+   <td style="text-align:right;"> 0.6561716 </td>
   </tr>
 </tbody>
 </table>
@@ -537,13 +657,13 @@ Based on this ANOVA table, we do not appear to have a strong rationale for keepi
 
 
 ```r
-flyls3a <- lm(longevity ~ type + thorax, data = fruitfly)
-flyls3b <- lm(longevity ~ type + sleep, data = fruitfly)
-flyls3c <- lm(longevity ~ thorax + sleep, data = fruitfly)
+flyls_sqrt3a <- lm(sqrt(longevity) ~ type + thorax, data = fruitfly)
+flyls_sqrt3b <- lm(sqrt(longevity) ~ type + sleep, data = fruitfly)
+flyls_sqrt3c <- lm(sqrt(longevity) ~ thorax + sleep, data = fruitfly)
 
-anova(flyls3a, flyls2)
-anova(flyls3b, flyls2)
-anova(flyls3c, flyls2)
+anova(flyls_sqrt3a, flyls_sqrt2)
+anova(flyls_sqrt3b, flyls_sqrt2)
+anova(flyls_sqrt3c, flyls_sqrt2)
 ```
 
 <div class="kable-table">
@@ -562,7 +682,7 @@ anova(flyls3c, flyls2)
 <tbody>
   <tr>
    <td style="text-align:right;"> 121 </td>
-   <td style="text-align:right;"> 15210.85 </td>
+   <td style="text-align:right;"> 67.67243 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -570,11 +690,11 @@ anova(flyls3c, flyls2)
   </tr>
   <tr>
    <td style="text-align:right;"> 120 </td>
-   <td style="text-align:right;"> 15124.57 </td>
+   <td style="text-align:right;"> 67.33770 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 86.27949 </td>
-   <td style="text-align:right;"> 0.684551 </td>
-   <td style="text-align:right;"> 0.4096663 </td>
+   <td style="text-align:right;"> 0.3347353 </td>
+   <td style="text-align:right;"> 0.5965194 </td>
+   <td style="text-align:right;"> 0.4414276 </td>
   </tr>
 </tbody>
 </table>
@@ -595,7 +715,7 @@ anova(flyls3c, flyls2)
 <tbody>
   <tr>
    <td style="text-align:right;"> 121 </td>
-   <td style="text-align:right;"> 30407.39 </td>
+   <td style="text-align:right;"> 142.7961 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -603,10 +723,10 @@ anova(flyls3c, flyls2)
   </tr>
   <tr>
    <td style="text-align:right;"> 120 </td>
-   <td style="text-align:right;"> 15124.57 </td>
+   <td style="text-align:right;"> 67.3377 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 15282.82 </td>
-   <td style="text-align:right;"> 121.2556 </td>
+   <td style="text-align:right;"> 75.4584 </td>
+   <td style="text-align:right;"> 134.4716 </td>
    <td style="text-align:right;"> 0 </td>
   </tr>
 </tbody>
@@ -628,7 +748,7 @@ anova(flyls3c, flyls2)
 <tbody>
   <tr>
    <td style="text-align:right;"> 122 </td>
-   <td style="text-align:right;"> 22701.43 </td>
+   <td style="text-align:right;"> 104.4759 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -636,10 +756,10 @@ anova(flyls3c, flyls2)
   </tr>
   <tr>
    <td style="text-align:right;"> 120 </td>
-   <td style="text-align:right;"> 15124.57 </td>
+   <td style="text-align:right;"> 67.3377 </td>
    <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 7576.862 </td>
-   <td style="text-align:right;"> 30.05783 </td>
+   <td style="text-align:right;"> 37.13823 </td>
+   <td style="text-align:right;"> 33.09133 </td>
    <td style="text-align:right;"> 0 </td>
   </tr>
 </tbody>
@@ -649,9 +769,9 @@ anova(flyls3c, flyls2)
 
 **Question - Should we drop sleep from this model?** <select class='webex-select'><option value='blank'></option><option value=''>Yes</option><option value='answer'>No</option></select>
 
-<button id="displayTextunnamed-chunk-32" onclick="javascript:toggle('unnamed-chunk-32');">Show Solution</button>
+<button id="displayTextunnamed-chunk-33" onclick="javascript:toggle('unnamed-chunk-33');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-32" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-33" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 There is good reason to remove non-significant *interaction terms* from a model, they complicate estimates and make interpretations more difficult. For **main** effects things are a little more ambiguous. 
 
@@ -668,28 +788,32 @@ Using the [emmeans](https://aosmith.rbind.io/2019/03/25/getting-started-with-emm
 
 
 ```r
-emmeans::emmeans(flyls2, specs = pairwise ~ type + thorax + sleep)
+emmeans::emmeans(flyls_sqrt2, # model
+                 specs = pairwise ~ type + thorax + sleep, # specifies pairwise contrasts wanted as well as means
+                 type = "response") # this argument specifies whether means are presented on the sqrt transformation or 'original' scale
 ```
 
 ```
 ## $emmeans
-##  type        thorax sleep emmean   SE  df lower.CL upper.CL
-##  Control      0.821  23.5   61.3 2.26 120     56.8     65.8
-##  Inseminated  0.821  23.5   64.9 1.59 120     61.8     68.1
-##  Virgin       0.821  23.5   48.0 1.59 120     44.9     51.2
+##  type        thorax sleep response   SE  df lower.CL upper.CL
+##  Control      0.821  23.5     60.1 2.34 120     55.5     64.8
+##  Inseminated  0.821  23.5     64.1 1.70 120     60.8     67.5
+##  Virgin       0.821  23.5     46.6 1.45 120     43.8     49.5
 ## 
 ## Confidence level used: 0.95 
+## Intervals are back-transformed from the sqrt scale 
 ## 
 ## $contrasts
 ##  contrast                                                                 
 ##  Control thorax0.82096 sleep23.464 - Inseminated thorax0.82096 sleep23.464
 ##  Control thorax0.82096 sleep23.464 - Virgin thorax0.82096 sleep23.464     
 ##  Inseminated thorax0.82096 sleep23.464 - Virgin thorax0.82096 sleep23.464 
-##  estimate   SE  df t.ratio p.value
-##     -3.63 2.77 120  -1.309  0.3929
-##     13.25 2.76 120   4.796  <.0001
-##     16.87 2.25 120   7.508  <.0001
+##  estimate    SE  df t.ratio p.value
+##    -0.258 0.185 120  -1.394  0.3474
+##     0.924 0.184 120   5.016  <.0001
+##     1.182 0.150 120   7.883  <.0001
 ## 
+## Note: contrasts are still on the sqrt scale 
 ## P value adjustment: tukey method for comparing a family of 3 estimates
 ```
 
@@ -700,30 +824,24 @@ constant between categories at the average value of all continuous
 variables.</p>
 </div>
 
-## Activity 3: Write-up
+## Write-up
 
-<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-Can you write an Analysis section? </div></div>
+### Methods
 
-<button id="displayTextunnamed-chunk-36" onclick="javascript:toggle('unnamed-chunk-36');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-36" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
-I constructed an ordinary least squares model to investigate the effects of sleep, mating type and body size on longevity in adult Drosophila melanogaster. I also included an interaction term between sleep and mating type. All Analyses and data cleaning was carried out in R ver 4.1.2 with the tidyverse range of packages (Wickham et al 2019), model residuals were checked with the performance package (Lüdecke et al 2021), and summary tables produced with broom (Robinson et al 2022) and kableExtra (Zhu 2020).</div></div></div>
+I constructed an ordinary least squares model to investigate the effects of sleep, mating type and body size on longevity in adult Drosophila melanogaster. I also included an interaction term between sleep and mating type. All Analyses and data cleaning was carried out in R ver 4.1.2 with the tidyverse range of packages (Wickham et al 2019), model residuals were checked with the performance package (Lüdecke et al 2021), and summary tables produced with broom (Robinson et al 2022) and kableExtra (Zhu 2020).
 
 
-<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-Can you write a Results section? </div></div>
+### Results
 
-<button id="displayTextunnamed-chunk-38" onclick="javascript:toggle('unnamed-chunk-38');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-38" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 I tested the hypothesis that sexual activity is costly for male *Drosophila melanogaster* fruitflies. Previous research indicated that sleep deprived males are less attractive to females, this would indicate that levels of sexual activity might be affected by sleep and impact the effect on longevity, as such this was included as an interaction term in the full model. Body size is also know to affect lifespan, as such this was included as a covariate in the mode. 
 
-There was a small interaction effect of decreased lifespan with increasing sleep in the treatment groups compared to control in our samples, but this was not significantly different from no effect (F~2,118~ = 0.512, P = 0.6), and was therefore dropped from the full model (Table 15.1). 
+There was a small interaction effect of decreased lifespan with increasing sleep in the treatment groups compared to control in our samples, but this was not significantly different from no effect (F~2,118~ = 0.423, P = 0.656), and was therefore dropped from the full model (Table 15.1). 
+
 
 ```r
 library(kableExtra)
-flyls2 %>% broom::tidy(conf.int = T) %>% 
+flyls_sqrt2 %>% broom::tidy(conf.int = T) %>% 
  select(-`std.error`) %>% 
 mutate_if(is.numeric, round, 2) %>% 
 kbl(col.names = c("Predictors",
@@ -732,13 +850,13 @@ kbl(col.names = c("Predictors",
                     "P",
                     "Lower 95% CI",
                     "Upper 95% CI"),
-      caption = "Linear model coefficients", 
+      caption = "Linear model coefficients on square-root transformed dependent variable", 
     booktabs = T) %>% 
    kable_styling(full_width = FALSE, font_size=16)
 ```
 
 <table class="table" style="font-size: 16px; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-42)Linear model coefficients</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-36)Linear model coefficients on square-root transformed dependent variable</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Predictors </th>
@@ -752,58 +870,61 @@ kbl(col.names = c("Predictors",
 <tbody>
   <tr>
    <td style="text-align:left;"> (Intercept) </td>
-   <td style="text-align:right;"> -56.05 </td>
-   <td style="text-align:right;"> -5.01 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> -78.18 </td>
-   <td style="text-align:right;"> -33.91 </td>
+   <td style="text-align:right;"> -0.51 </td>
+   <td style="text-align:right;"> -0.68 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> -1.98 </td>
+   <td style="text-align:right;"> 0.97 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> typeInseminated </td>
-   <td style="text-align:right;"> 3.63 </td>
-   <td style="text-align:right;"> 1.31 </td>
-   <td style="text-align:right;"> 0.19 </td>
-   <td style="text-align:right;"> -1.86 </td>
-   <td style="text-align:right;"> 9.11 </td>
+   <td style="text-align:right;"> 0.26 </td>
+   <td style="text-align:right;"> 1.39 </td>
+   <td style="text-align:right;"> 0.17 </td>
+   <td style="text-align:right;"> -0.11 </td>
+   <td style="text-align:right;"> 0.62 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> typeVirgin </td>
-   <td style="text-align:right;"> -13.25 </td>
-   <td style="text-align:right;"> -4.80 </td>
+   <td style="text-align:right;"> -0.92 </td>
+   <td style="text-align:right;"> -5.02 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> -18.71 </td>
-   <td style="text-align:right;"> -7.78 </td>
+   <td style="text-align:right;"> -1.29 </td>
+   <td style="text-align:right;"> -0.56 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> thorax </td>
-   <td style="text-align:right;"> 144.43 </td>
-   <td style="text-align:right;"> 11.01 </td>
+   <td style="text-align:right;"> 10.15 </td>
+   <td style="text-align:right;"> 11.60 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 118.46 </td>
-   <td style="text-align:right;"> 170.40 </td>
+   <td style="text-align:right;"> 8.42 </td>
+   <td style="text-align:right;"> 11.88 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> sleep </td>
-   <td style="text-align:right;"> -0.05 </td>
-   <td style="text-align:right;"> -0.83 </td>
-   <td style="text-align:right;"> 0.41 </td>
-   <td style="text-align:right;"> -0.18 </td>
-   <td style="text-align:right;"> 0.07 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> -0.77 </td>
+   <td style="text-align:right;"> 0.44 </td>
+   <td style="text-align:right;"> -0.01 </td>
+   <td style="text-align:right;"> 0.01 </td>
   </tr>
 </tbody>
 </table>
 
-There was a significant overall effect of treatment on male longevity (Linear model: F~2,120~ = 30.1, P < 0.001), with males paired to virgin females having the lowest mean longevity (48 days, [95%CI: 44.9 - 51.2]) (when holding body size and sleep constant), compared to control males (61.3 days [56.8 - 65.8]) and males paired with inseminated females (64.9 days [61.8 - 68.1 days]). 
+There was a significant overall effect of treatment on male longevity (Linear model: F~2,120~ = 33.1, P < 0.001), with males paired to virgin females having the lowest mean longevity (46.6 days, [95%CI: 43.8 - 49.5]) (at an average body size of 0.82mm and 23.5% sleep), compared to control males (60.1 days [55.5 - 64.8]) and males paired with inseminated females (64.1 days [60.8 - 67.5 days]). 
 
-Post hoc analysis showed that these differences were statistically significant for males paired with control females compared to the inseminated (Tukey test: t~120~ = 4.8, P < 0.001)  and virgin groups (t~120~ = 7.5, P < 0.001), but there was no overall evidence of a difference between inseminated and virgin groups (t~120~ = -1.309  P < 0.3929) (Figure 19.4). 
+Post hoc analysis showed that these differences were not significant for males paired with virgin females compared to the control females (Tukey test: t~120~ = 5.016, P < 0.001)  and inseminated female groups (t~120~ = 7.883, P < 0.001), but there was no overall evidence of a difference between inseminated and control groups (t~120~ = -1.394  P = 0.347) (Figure 19.4). 
 
-Comparing the treatment effects against other predictors of longevity such as body size and sleep, I found that sleep had a very small effect on longevity (mean change -0.05 days [-0.18 - 0.07]) which was not significantly different from no effect (Linear model: F~1,120~ = 0.68, P = 0.41). Body size (taken from thorax length) was a significant predictor of longevity (F~1,120~ = 121, P < 0.001), with each 0.1 mm increase in body size adding 14.4 days to the individual lifespan [11.8 - 17]. It appears as though body size has a stronger effect on longevity than treatment, indicating that while there is a measurable cost of sexual activity to males, it may be less severe than in females (not compared here), and less severe than other measurable predictors. 
+Comparing the treatment effects against other predictors of longevity such as body size and sleep, I found that sleep had an effect that was significantly different from no effect (Linear model: F~1,120~ = 0.33, P = 0.441). Body size (taken from thorax length) was a significant predictor of longevity (F~1,120~ = 134, P < 0.001), with each 0.1 mm increase in body size adding 10.2 days to the individual lifespan (sqrt scale 10.1 days per 1mm 95%CI[8.42 - 11.9]). It appears as though body size has a stronger effect on longevity than treatment, indicating that while there is a measurable cost of sexual activity to males, it may be less severe than in females (not compared here), and less severe than other measurable predictors. 
+
+> Note: when transformations have been applied to a linear model care must be taken when presenting results. In this example coefficients are sqrt transformed, back transformation should be treated with caution. In addition note that the coefficient for size is "per 1mm" - but this is an unrealistic scale - a Drosophila is no more than 3mm in total length, so scaling to 0.1mm may make more sense.  
 
 <div class="figure" style="text-align: center">
-<img src="18-Complex-models_files/figure-html/unnamed-chunk-43-1.png" alt=" A scatter plot of longevity against body size across three treatments of differening male sexual activity. Fitted model slopes are from the reduced linear model (main effects only of thorax size, sleep and treatment group), with 95% confidence intervals, circles are individual data points. Marginal plots are density plot distributions for thorax length and longevity split by treatments." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-43) A scatter plot of longevity against body size across three treatments of differening male sexual activity. Fitted model slopes are from the reduced linear model (main effects only of thorax size, sleep and treatment group), with 95% confidence intervals, circles are individual data points. Marginal plots are density plot distributions for thorax length and longevity split by treatments.</p>
+<img src="18-Complex-models_files/figure-html/unnamed-chunk-37-1.png" alt=" A scatter plot of longevity against body size across three treatments of differening male sexual activity. Fitted model slopes are from the reduced linear model (main effects only of thorax size, sleep and treatment group), with 95% confidence intervals" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-37) A scatter plot of longevity against body size across three treatments of differening male sexual activity. Fitted model slopes are from the reduced linear model (main effects only of thorax size, sleep and treatment group), with 95% confidence intervals</p>
 </div>
-</div></div></div>
+
+
 
 ## Summary
 
@@ -837,13 +958,13 @@ In this chapter we have worked with our scientific knowledge to develop testable
 
 ```r
 library(sjPlot)
-tab_model(flyls2)
+tab_model(flyls_sqrt2)
 ```
 
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">longevity</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">sqrt(longevity)</th>
 </tr>
 <tr>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictors</td>
@@ -853,33 +974,33 @@ tab_model(flyls2)
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;56.05</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;78.18&nbsp;&ndash;&nbsp;-33.91</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.51</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;1.98&nbsp;&ndash;&nbsp;0.97</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.500</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">type [Inseminated]</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">3.63</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;1.86&nbsp;&ndash;&nbsp;9.11</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.193</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.26</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.11&nbsp;&ndash;&nbsp;0.62</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.166</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">type [Virgin]</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;13.25</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;18.71&nbsp;&ndash;&nbsp;-7.78</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.92</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;1.29&nbsp;&ndash;&nbsp;-0.56</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">thorax</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">144.43</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">118.46&nbsp;&ndash;&nbsp;170.40</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">10.15</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">8.42&nbsp;&ndash;&nbsp;11.88</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">sleep</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.05</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.18&nbsp;&ndash;&nbsp;0.07</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.410</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.00</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;0.01&nbsp;&ndash;&nbsp;0.01</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.441</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
@@ -887,7 +1008,7 @@ tab_model(flyls2)
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.605 / 0.591</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">0.628 / 0.616</td>
 </tr>
 
 </table>
@@ -895,7 +1016,7 @@ tab_model(flyls2)
 
 ```r
 library(gtsummary)
-tbl_regression(flyls2)
+tbl_regression(flyls_sqrt2)
 ```
 
 ```{=html}
@@ -1359,20 +1480,20 @@ tbl_regression(flyls2)
 <td headers="ci" class="gt_row gt_center">—</td>
 <td headers="p.value" class="gt_row gt_center"></td></tr>
     <tr><td headers="label" class="gt_row gt_left">    Inseminated</td>
-<td headers="estimate" class="gt_row gt_center">3.6</td>
-<td headers="ci" class="gt_row gt_center">-1.9, 9.1</td>
+<td headers="estimate" class="gt_row gt_center">0.26</td>
+<td headers="ci" class="gt_row gt_center">-0.11, 0.62</td>
 <td headers="p.value" class="gt_row gt_center">0.2</td></tr>
     <tr><td headers="label" class="gt_row gt_left">    Virgin</td>
-<td headers="estimate" class="gt_row gt_center">-13</td>
-<td headers="ci" class="gt_row gt_center">-19, -7.8</td>
+<td headers="estimate" class="gt_row gt_center">-0.92</td>
+<td headers="ci" class="gt_row gt_center">-1.3, -0.56</td>
 <td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
     <tr><td headers="label" class="gt_row gt_left">thorax</td>
-<td headers="estimate" class="gt_row gt_center">144</td>
-<td headers="ci" class="gt_row gt_center">118, 170</td>
+<td headers="estimate" class="gt_row gt_center">10</td>
+<td headers="ci" class="gt_row gt_center">8.4, 12</td>
 <td headers="p.value" class="gt_row gt_center"><0.001</td></tr>
     <tr><td headers="label" class="gt_row gt_left">sleep</td>
-<td headers="estimate" class="gt_row gt_center">-0.05</td>
-<td headers="ci" class="gt_row gt_center">-0.18, 0.07</td>
+<td headers="estimate" class="gt_row gt_center">0.00</td>
+<td headers="ci" class="gt_row gt_center">-0.01, 0.01</td>
 <td headers="p.value" class="gt_row gt_center">0.4</td></tr>
   </tbody>
   

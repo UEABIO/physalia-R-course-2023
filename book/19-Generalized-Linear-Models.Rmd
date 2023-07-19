@@ -131,6 +131,31 @@ They are exactly the same. This is not surprising, as the maximum likelihood bei
 ```
 
 
+### Sqrt transformation
+
+In the previous chapter we found that a sqrt transformation of the dependent variable produced a slightly better model fit for the data - does the same apply when using a sqrt "link"?
+
+```{r, echo = FALSE}
+flyglm <- glm(longevity ~ type + thorax + sleep, 
+             family = gaussian(link = "identity"),
+             data = fruitfly)
+```
+
+```{r}
+
+flyglm_sqrt <- glm(longevity ~ type + thorax + sleep, 
+             family = gaussian(link = "sqrt"),
+             data = fruitfly)
+
+AIC(flyglm, flyglm_sqrt)
+
+```
+
+> GLMs do not use OLS to produce model fits (though they may converge on the same answer) Instead they use maximum likelihood. As a result we cannot use R squared as a comparison of model fit
+Instead we use the AIC, a measure of the relative quality of a statistical model for a given set of data. It takes into account both the goodness of fit of the model to the data and the complexity of the model. And can be used to compare models. The AIC value is relative, meaning that it is useful for comparing different models fit on the same dataset. The model with the lowest AIC is considered to be the best compromise between goodness of fit and parsimony, and it is often chosen as the preferred model among a set of candidate models.
+
+Here we see that a the sqrt link is indistinguishable from the original model (if the difference in AIC is less than 2, the models are considered to be the same in performance). Remember in the original model it was the heterogeneity that caused issues - and with the glm it does not alter the variance only the link with the mean.
+
 ## Workflow for fitting a GLM
 
 * Exploratory data analysis

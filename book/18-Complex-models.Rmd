@@ -114,6 +114,21 @@ fruitfly %>%
 
 **Q** Does it like treatment affects longevity? `r mcq(c(answer = "Yes","No"))`
 
+We can also see that our distributions look *roughly* normally distributed, though we could use qq-plots to be sure. 
+
+
+> Note it is only our dependent variable where we are strictly concerned about the distribution - independent variables have no strict requirements
+
+
+```{r}
+
+fruitfly %>% 
+  group_split(type) %>% 
+  map(~pull(.x, thorax) %>% 
+        car::qqPlot())
+```
+
+
 ```{task}
 Make a scatterplot of size against longevity.
 ```
@@ -141,12 +156,11 @@ fruitfly %>%
 
 
 ```{task}
-Make an interaction plot to see if size interacts with treatment to affect longevity. (Use colour and groups to make differentiate points and lines)
+Now let us make an interaction plot to see if size interacts with treatment to affect longevity. (Use colour and groups to make differentiate points and lines)
 ```
 
-```{solution}
 
-``{r, message = FALSE, eval = TRUE, fig.cap = "A scatterplot of thorax against longevity - colours indicate treatment types. This time I have included a line, as it will help determine if I think the slopes are different by group"}
+```{r, message = FALSE, eval = TRUE, fig.cap = "A scatterplot of thorax against longevity - colours indicate treatment types. This time I have included a line, as it will help determine if I think the slopes are different by group"}
 
 colours <- c("cyan", "darkorange", "purple")
 
@@ -157,9 +171,8 @@ fruitfly %>%
             se = FALSE)+
   scale_colour_manual(values = colours)+
   theme_minimal()
-``
-
 ```
+
 
 **Q** Does it look like size affects longevity differently between treatment groups? `r mcq(c("Yes", answer = "No"))`
 
@@ -170,16 +183,14 @@ Here it does look as though larger flies have a longer lifespan than smaller fli
 `r unhide()`
 
 
-
 We are also interested in the potential effect of sleep on activity, we can construct a scatter plot of sleep against longevity, while including treatment as a covariate.
 
 ```{task}
-Make an interaction plot to see if sleep interacts with treatment to affect longevity.
+Investigate an interaction plot to see if sleep interacts with treatment to affect longevity.
 ```
 
-```{solution}
 
-``{r, message = FALSE, eval = TRUE, fig.cap = "A scatter plot of proportion of time spent sleeping against longevity with a linear model trendline. Points represent individual flies, colours represent treatments."}
+```{r, message = FALSE, eval = TRUE, fig.cap = "A scatter plot of proportion of time spent sleeping against longevity with a linear model trendline. Points represent individual flies, colours represent treatments."}
 
 fruitfly %>% 
   ggplot(aes(x=sleep, y = longevity, group = type, colour = type))+
@@ -188,8 +199,6 @@ fruitfly %>%
             se = FALSE)+
   scale_colour_manual(values = colours)+
   theme_minimal()
-``
-
 ```
 
 
@@ -210,12 +219,24 @@ When you include an interaction term, the numbers produced from this are how muc
 ```
 
 
-```{r}
+```{multCode = T}
+
+``{r}
 # a full model
 flyls1 <- lm(longevity ~ type + thorax + sleep + type:sleep, data = fruitfly)
 
 flyls1 %>% 
   broom::tidy()
+``
+
+####
+
+``{r}
+
+flyls1 <- lm(longevity ~ type + thorax + sleep + type:sleep, data = fruitfly)
+summary(flyls1)
+``
+
 ```
 
 
@@ -228,9 +249,8 @@ From the model summary table could you say what the mean longevity of a male wit
 ```
 
 
-```{solution}
 
-``{r, eval = F}
+```{r, eval = F}
 # intercept
 coef(flyls1)[1] + 
   
@@ -243,7 +263,9 @@ coef(flyls1)[3] +
 # 22 * coefficient for sleep  
 (coef(flyls1)[5]*22) + 
 
-``
+```
+
+```{solution}
 
 ``{r}
 # 22 * 1 * coefficient for interaction
@@ -263,7 +285,6 @@ Before we start playing with the terms in our model, we should check to see if t
 performance::check_model(flyls1)
 
 ```
-
 
 
 **Question - IS the assumption of homogeneity of variance met?** `r mcq(c( answer = "Yes", "No"))`
@@ -352,7 +373,7 @@ MASS::boxcox(flyls1)
 
 ```
 
-**Question - Does the fit of the model improve with a square root transformation?** `r mcq(c("Yes", answer ="No"))`
+**Question - Does the fit of the model improve with a square root transformation?** 
 
 ```{solution}
 
@@ -362,7 +383,18 @@ flyls_sqrt <- lm(sqrt(longevity) ~ type + thorax + sleep + type:sleep, data = fr
 performance::check_model(flyls_sqrt)
 ``
 
-Not really, despite the suggestion that a sqrt transformation would improve the model, residual fits are not really any better - so we might as well stick with the original scale.
+Despite the suggestion that a sqrt transformation would improve the model, residual fits have improved only slightly, but there is one more check. Using summary() - which model has the best adjusted R^2?
+  
+``{r}
+
+summary(flyls1)
+
+summary(flyls_sqrt)
+
+``
+
+Using this we could conclude that the sqrt transformed model explains more variance than the original model
+  
 ```
 
 ## Model selection
@@ -370,29 +402,30 @@ Not really, despite the suggestion that a sqrt transformation would improve the 
 ```{r}
 # Remove top-level interaction
 
-flyls2 <- lm(longevity ~ type + thorax + sleep, data = fruitfly)
+flyls_sqrt2 <- lm(sqrt(longevity) ~ type + thorax + sleep, data = fruitfly)
 
-anova(flyls2, flyls1, test = "F")
+anova(flyls_sqrt2, flyls_sqrt, test = "F")
 
 ```
 
 Based on this ANOVA table, we do not appear to have a strong rationale for keeping the interaction term in the model (AIC or F-test). Therefore we can confidently remove the interaction, simplifying our model and making interpretation easier. 
 
 ```{r, eval = TRUE, echo = F}
-flyls2 <- lm(longevity ~ type + thorax + sleep, data = fruitfly)
+
+flyls_sqrt2 <- lm(sqrt(longevity) ~ type + thorax + sleep, data = fruitfly)
 
 ```
 
 
 ```{r}
 
-flyls3a <- lm(longevity ~ type + thorax, data = fruitfly)
-flyls3b <- lm(longevity ~ type + sleep, data = fruitfly)
-flyls3c <- lm(longevity ~ thorax + sleep, data = fruitfly)
+flyls_sqrt3a <- lm(sqrt(longevity) ~ type + thorax, data = fruitfly)
+flyls_sqrt3b <- lm(sqrt(longevity) ~ type + sleep, data = fruitfly)
+flyls_sqrt3c <- lm(sqrt(longevity) ~ thorax + sleep, data = fruitfly)
 
-anova(flyls3a, flyls2)
-anova(flyls3b, flyls2)
-anova(flyls3c, flyls2)
+anova(flyls_sqrt3a, flyls_sqrt2)
+anova(flyls_sqrt3b, flyls_sqrt2)
+anova(flyls_sqrt3c, flyls_sqrt2)
 
 ```
 
@@ -416,7 +449,9 @@ Using the [emmeans](https://aosmith.rbind.io/2019/03/25/getting-started-with-emm
 
 ```{r}
 
-emmeans::emmeans(flyls2, specs = pairwise ~ type + thorax + sleep)
+emmeans::emmeans(flyls_sqrt2, # model
+                 specs = pairwise ~ type + thorax + sleep, # specifies pairwise contrasts wanted as well as means
+                 type = "response") # this argument specifies whether means are presented on the sqrt transformation or 'original' scale
 
 ```
 
@@ -424,29 +459,23 @@ emmeans::emmeans(flyls2, specs = pairwise ~ type + thorax + sleep)
 For continuous variables (sleep and thorax) - `emmeans` has set these to the mean value within the dataset, so comparisons are constant between categories at the average value of all continuous variables. 
 ```
 
-## Activity 3: Write-up
+## Write-up
 
-```{task}
-Can you write an Analysis section?
-```
+### Methods
 
-```{solution}
 I constructed an ordinary least squares model to investigate the effects of sleep, mating type and body size on longevity in adult Drosophila melanogaster. I also included an interaction term between sleep and mating type. All Analyses and data cleaning was carried out in R ver 4.1.2 with the tidyverse range of packages (Wickham et al 2019), model residuals were checked with the performance package (Lüdecke et al 2021), and summary tables produced with broom (Robinson et al 2022) and kableExtra (Zhu 2020).
-```
 
 
-```{task} 
-Can you write a Results section?
-```
+### Results
 
-```{solution}
+
 I tested the hypothesis that sexual activity is costly for male *Drosophila melanogaster* fruitflies. Previous research indicated that sleep deprived males are less attractive to females, this would indicate that levels of sexual activity might be affected by sleep and impact the effect on longevity, as such this was included as an interaction term in the full model. Body size is also know to affect lifespan, as such this was included as a covariate in the mode. 
 
-There was a small interaction effect of decreased lifespan with increasing sleep in the treatment groups compared to control in our samples, but this was not significantly different from no effect (F~2,118~ = 0.512, P = 0.6), and was therefore dropped from the full model (Table 15.1). 
+There was a small interaction effect of decreased lifespan with increasing sleep in the treatment groups compared to control in our samples, but this was not significantly different from no effect (F~2,118~ = 0.423, P = 0.656), and was therefore dropped from the full model (Table 15.1). 
 
-``{r}
+```{r}
 library(kableExtra)
-flyls2 %>% broom::tidy(conf.int = T) %>% 
+flyls_sqrt2 %>% broom::tidy(conf.int = T) %>% 
  select(-`std.error`) %>% 
 mutate_if(is.numeric, round, 2) %>% 
 kbl(col.names = c("Predictors",
@@ -455,87 +484,49 @@ kbl(col.names = c("Predictors",
                     "P",
                     "Lower 95% CI",
                     "Upper 95% CI"),
-      caption = "Linear model coefficients", 
+      caption = "Linear model coefficients on square-root transformed dependent variable", 
     booktabs = T) %>% 
    kable_styling(full_width = FALSE, font_size=16)
-``
+```
 
-There was a significant overall effect of treatment on male longevity (Linear model: F~2,120~ = 30.1, P < 0.001), with males paired to virgin females having the lowest mean longevity (48 days, [95%CI: 44.9 - 51.2]) (when holding body size and sleep constant), compared to control males (61.3 days [56.8 - 65.8]) and males paired with inseminated females (64.9 days [61.8 - 68.1 days]). 
+There was a significant overall effect of treatment on male longevity (Linear model: F~2,120~ = 33.1, P < 0.001), with males paired to virgin females having the lowest mean longevity (46.6 days, [95%CI: 43.8 - 49.5]) (at an average body size of 0.82mm and 23.5% sleep), compared to control males (60.1 days [55.5 - 64.8]) and males paired with inseminated females (64.1 days [60.8 - 67.5 days]). 
 
-Post hoc analysis showed that these differences were statistically significant for males paired with control females compared to the inseminated (Tukey test: t~120~ = 4.8, P < 0.001)  and virgin groups (t~120~ = 7.5, P < 0.001), but there was no overall evidence of a difference between inseminated and virgin groups (t~120~ = -1.309  P < 0.3929) (Figure 19.4). 
+Post hoc analysis showed that these differences were not significant for males paired with virgin females compared to the control females (Tukey test: t~120~ = 5.016, P < 0.001)  and inseminated female groups (t~120~ = 7.883, P < 0.001), but there was no overall evidence of a difference between inseminated and control groups (t~120~ = -1.394  P = 0.347) (Figure 19.4). 
 
-Comparing the treatment effects against other predictors of longevity such as body size and sleep, I found that sleep had a very small effect on longevity (mean change -0.05 days [-0.18 - 0.07]) which was not significantly different from no effect (Linear model: F~1,120~ = 0.68, P = 0.41). Body size (taken from thorax length) was a significant predictor of longevity (F~1,120~ = 121, P < 0.001), with each 0.1 mm increase in body size adding 14.4 days to the individual lifespan [11.8 - 17]. It appears as though body size has a stronger effect on longevity than treatment, indicating that while there is a measurable cost of sexual activity to males, it may be less severe than in females (not compared here), and less severe than other measurable predictors. 
+Comparing the treatment effects against other predictors of longevity such as body size and sleep, I found that sleep had an effect that was significantly different from no effect (Linear model: F~1,120~ = 0.33, P = 0.441). Body size (taken from thorax length) was a significant predictor of longevity (F~1,120~ = 134, P < 0.001), with each 0.1 mm increase in body size adding 10.2 days to the individual lifespan (sqrt scale 10.1 days per 1mm 95%CI[8.42 - 11.9]). It appears as though body size has a stronger effect on longevity than treatment, indicating that while there is a measurable cost of sexual activity to males, it may be less severe than in females (not compared here), and less severe than other measurable predictors. 
 
-``{r,eval = TRUE, echo = F, message = F, warning = F, fig.cap = " A scatter plot of longevity against body size across three treatments of differening male sexual activity. Fitted model slopes are from the reduced linear model (main effects only of thorax size, sleep and treatment group), with 95% confidence intervals, circles are individual data points. Marginal plots are density plot distributions for thorax length and longevity split by treatments."}
+> Note: when transformations have been applied to a linear model care must be taken when presenting results. In this example coefficients are sqrt transformed, back transformation should be treated with caution. In addition note that the coefficient for size is "per 1mm" - but this is an unrealistic scale - a Drosophila is no more than 3mm in total length, so scaling to 0.1mm may make more sense.  
 
+```{r,eval = TRUE, echo = F, message = F, warning = F, fig.cap = " A scatter plot of longevity against body size across three treatments of differening male sexual activity. Fitted model slopes are from the reduced linear model (main effects only of thorax size, sleep and treatment group), with 95% confidence intervals"}
 
-# optional extras for adding animal silhouette
-#library(rphylopic) rphylopic not working
-# search for the right image in the database
-#fruitfly_phylo <- name_search(text = "Drosophila melanogaster", options = "namebankID")[[1]] 
+colours <- c("cyan", "darkorange", "purple")
 
-# name_images(uuid = fruitfly$uid[1])
-
-# extract the ID of thr right image
-#fruitfly_2 <- name_images(uuid = fruitfly_phylo$uid[1])$same[[2]]$ui
-
-# get the actual image
-#fruitfly_pic <- image_data(fruitfly_2, size = 256)[[1]]
-
-# density plot of thorax length by treatment
-marginal1 <- fruitfly %>% 
-  ggplot()+
-  geom_density(aes(x = thorax, fill = type),
-               alpha = 0.5)+
-  scale_fill_manual(values = colours)+
-  theme_void()+
-  theme(legend.position = "none")
-
-# density plot of longevity by treatment
-marginal2 <- fruitfly %>% 
-  ggplot()+
-  geom_density(aes(x = longevity, fill = type),
-               alpha = 0.5)+
-  scale_fill_manual(values = colours)+
-  theme_void()+
-  coord_flip()
-
-
-# create a new dataset where all sleep values are set to a constant (mean) values - see the emmeans table
-
-fruitfly_2 <- fruitfly %>% 
-  mutate(sleep = mean(sleep))
-
-# use the final model to produce model predictions set to the new constant sleep dataframe
-model_plot <- broom::augment(flyls2, newdata = fruitfly_2, interval = "confidence") %>% 
-  ggplot(aes(x=thorax, y = .fitted, colour = type, fill = type))+
-  geom_ribbon(aes(ymin=.lower, ymax=.upper), alpha = 0.2)+
-    geom_line(linetype = "dashed", show.legend = FALSE)+
-  geom_point(data = fruitfly, aes(x = thorax, y = longevity),
-             show.legend = FALSE)+
-  scale_colour_manual(values = colours)+
-  scale_fill_manual(values = colours)+
-  labs(y = "Lifespan in days",
-       x = "Thorax length (mm)",
-       fill = "Type of female exposure")+
-  guides(colour = "none")+
-  theme_classic()+
-  theme(legend.position = "none")
-#  add_phylopic(fruitfly_pic, alpha = 0.8, x = 0.7, y = 80, ysize = 10)
-
-
-
-layout <- "
-AAA#
-BBBC
-BBBC
-BBBC"
-
-
-marginal1+model_plot+marginal2 +plot_layout(design = layout)
-``
+emmeans::emmeans(flyls_sqrt2, # model
+                 specs = ~ type + thorax, 
+                 at = list(thorax = c(0.6, 0.7, 0.8, 0.9)), 
+                 type = "response") %>% 
+                 as_tibble() %>% 
+                 ggplot(aes(x=thorax, 
+                 y = response, 
+                 colour = type,
+                 group = type,
+                 fill = type))+
+    geom_ribbon(aes(ymin=lower.CL, 
+    ymax=upper.CL), 
+    alpha = 0.2)+
+    geom_line(linetype = "dashed", 
+    show.legend = FALSE)+
+    scale_colour_manual(values = colours)+
+    scale_fill_manual(values = colours)+
+    labs(y = "Lifespan in days",
+         x = "Thorax length (mm)",
+         fill = "Type of female exposure")+
+    guides(colour = "none")+
+    theme_classic()
 
 ```
+
+
 
 ## Summary
 
@@ -568,11 +559,11 @@ In this chapter we have worked with our scientific knowledge to develop testable
 
 ```{r}
 library(sjPlot)
-tab_model(flyls2)
+tab_model(flyls_sqrt2)
 ```
 
 ```{r}
 library(gtsummary)
-tbl_regression(flyls2)
+tbl_regression(flyls_sqrt2)
 
 ```

@@ -310,7 +310,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_NRJESDEBOL'><label><input type="radio" autocomplete="off" name="radio_NRJESDEBOL" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_NRJESDEBOL" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_NRJESDEBOL" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_NRJESDEBOL" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_ZPMTRBMYJJ'><label><input type="radio" autocomplete="off" name="radio_ZPMTRBMYJJ" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_ZPMTRBMYJJ" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_ZPMTRBMYJJ" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_ZPMTRBMYJJ" value="answer"></input> <span>dmy()</span></label></div>
 
 
 

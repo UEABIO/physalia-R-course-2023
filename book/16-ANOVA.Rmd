@@ -179,17 +179,6 @@ ANOVA tables can be built for any linear model. The tables partition the varianc
 
 ## Activity
 
-Write a short R based report (Rmd) using ANOVA to test an experimental hypothesis:
-
-* Set up a new R project for your analysis - get it talking to Github
-
-* Import, clean and analyse your data
-
-* Test an experimental hypothesis
-
-* Produce a data visual summary
-
-* Produce a short write-up
 
 Now is the time to try and put your analysis skills into action. Below are instructions for importing data and setting up a new project to answer the question, does temperature affect frogspawn development? This is your chance to practice: 
 
@@ -246,7 +235,7 @@ This should be backed up by some level of knowledge about your study system.
 In our case, knowing that frogspawn takes around 2-3 weeks to hatch under optimal temperatures (15-20°C), we can hypothesize that the lower the temperature, the longer it will take for frogspawn to hatch. Our hypothesis can therefore be: mean frogspawn hatching time will vary with temperature level. We can predict that given our temperature range, at the highest temperature (25°C) hatching time will be reduced.
 
 ```{task}
-After setting up your R project, import and tidy your dataset.
+Import and tidy your dataset.
 
 Hint: check your data is in a tidy format.
 
@@ -301,6 +290,7 @@ lsmodel_frogs1 <- lm(days ~ temperature, data = frogs)
 broom::tidy(lsmodel_frogs1, conf.int = T)
 #___________________________----
 ``
+
 ```
 
 ```{task}
@@ -324,13 +314,13 @@ performance::check_model(lsmodel_frogs1,
 
 
 ```{task}
-Can you produce a suitable Figure for this dataset?
+Can you produce a suitable/simple Figure for this dataset?
 ```
 
 ```{solution}
 There are multiple ways to present the same data, equally valid, but emphasising different concepts. For example this first figure uses a boxplot and data points to illustrate the differences. Remember the median and IQR are essentially descriptive statistics, not inferential.
 
-``{r, eval = T, echo = F, fig.cap = "Frogspawn hatching times at 13, 18 and 25 degrees Celsius. Boxplot displays median, hinges are first and third quartiles, whiskers extend from the hinge to 1.5X the interquartile range. Points represent individual frogspawns."}
+``{r, eval = T, echo = T, fig.cap = "Frogspawn hatching times at 13, 18 and 25 degrees Celsius. Boxplot displays median, hinges are first and third quartiles, whiskers extend from the hinge to 1.5X the interquartile range. Points represent individual frogspawns."}
 
 frogs %>% 
   ggplot(aes(x = temperature, y = days))+
@@ -356,7 +346,8 @@ Whereas the next figure, uses the `emmeans()` package to produce estimate means 
 Neither method is 'best'. 
 
 
-``{r, eval = T, echo = F, fig.cap = "Time to hatching is inversely related to temperature in frogspawn. Circles represent estimated mean hatching times with 95% confidence intervals from a one-way ANOVA (F~1,28~ = 385.9, P < 0.001). Dashed lines indicate the slope of the mean difference between 13-18 degrees and 13-25 degrees Celsius. Faded points represent individual data points."}
+``{r, eval = T, echo = T, fig.cap = "Time to hatching is inversely related to temperature in frogspawn. Circles represent estimated mean hatching times with 95% confidence intervals from a one-way ANOVA (F~1,28~ = 385.9, P < 0.001). Dashed lines indicate the slope of the mean difference between 13-18 degrees and 13-25 degrees Celsius. Faded points represent individual data points."}
+
 emmeans::emmeans(lsmodel_frogs1, specs = ~temperature) %>% 
   as_tibble() %>% 
   ggplot(aes(x = temperature,

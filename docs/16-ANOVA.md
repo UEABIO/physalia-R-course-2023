@@ -242,17 +242,6 @@ ANOVA tables can be built for any linear model. The tables partition the varianc
 
 ## Activity
 
-Write a short R based report (Rmd) using ANOVA to test an experimental hypothesis:
-
-* Set up a new R project for your analysis - get it talking to Github
-
-* Import, clean and analyse your data
-
-* Test an experimental hypothesis
-
-* Produce a data visual summary
-
-* Produce a short write-up
 
 Now is the time to try and put your analysis skills into action. Below are instructions for importing data and setting up a new project to answer the question, does temperature affect frogspawn development? This is your chance to practice: 
 
@@ -292,7 +281,7 @@ This should be backed up by some level of knowledge about your study system.
 In our case, knowing that frogspawn takes around 2-3 weeks to hatch under optimal temperatures (15-20°C), we can hypothesize that the lower the temperature, the longer it will take for frogspawn to hatch. Our hypothesis can therefore be: mean frogspawn hatching time will vary with temperature level. We can predict that given our temperature range, at the highest temperature (25°C) hatching time will be reduced.
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-After setting up your R project, import and tidy your dataset.
+Import and tidy your dataset.
 
 Hint: check your data is in a tidy format.
 
@@ -394,7 +383,8 @@ broom::tidy(lsmodel_frogs1, conf.int = T)
 </tbody>
 </table>
 
-</div></div></div></div>
+</div>
+</div></div></div>
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Can you check the assumptions of your model? </div></div>
@@ -420,26 +410,82 @@ performance::check_model(lsmodel_frogs1,
 
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-Can you produce a suitable Figure for this dataset? </div></div>
+Can you produce a suitable/simple Figure for this dataset? </div></div>
 
 <button id="displayTextunnamed-chunk-20" onclick="javascript:toggle('unnamed-chunk-20');">Show Solution</button>
 
 <div id="toggleTextunnamed-chunk-20" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 There are multiple ways to present the same data, equally valid, but emphasising different concepts. For example this first figure uses a boxplot and data points to illustrate the differences. Remember the median and IQR are essentially descriptive statistics, not inferential.
 
+```r
+frogs %>% 
+  ggplot(aes(x = temperature, y = days))+
+  geom_boxplot(outlier.shape = NA,
+               lwd = 1.1,
+               fill = NA,
+               width = 0.6)+
+  geom_jitter(width = 0.2,
+              size=2,
+              shape = 21,
+              colour = "black",
+              aes(fill = temperature))+
+  scale_fill_manual(values= c("#97F7C5", "#4ED973", "#08873D"))+
+  theme_minimal()+
+  theme(legend.position = "none")+
+  labs(x = expression('Temperature ('*~degree*C*')'),
+       y = "Number of days to spawn hatching")
+```
+
 <div class="figure" style="text-align: center">
-<img src="16-ANOVA_files/figure-html/unnamed-chunk-28-1.png" alt="Frogspawn hatching times at 13, 18 and 25 degrees Celsius. Boxplot displays median, hinges are first and third quartiles, whiskers extend from the hinge to 1.5X the interquartile range. Points represent individual frogspawns." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-28)Frogspawn hatching times at 13, 18 and 25 degrees Celsius. Boxplot displays median, hinges are first and third quartiles, whiskers extend from the hinge to 1.5X the interquartile range. Points represent individual frogspawns.</p>
+<img src="16-ANOVA_files/figure-html/unnamed-chunk-25-1.png" alt="Frogspawn hatching times at 13, 18 and 25 degrees Celsius. Boxplot displays median, hinges are first and third quartiles, whiskers extend from the hinge to 1.5X the interquartile range. Points represent individual frogspawns." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-25)Frogspawn hatching times at 13, 18 and 25 degrees Celsius. Boxplot displays median, hinges are first and third quartiles, whiskers extend from the hinge to 1.5X the interquartile range. Points represent individual frogspawns.</p>
 </div>
 
 Whereas the next figure, uses the `emmeans()` package to produce estimate means and confidence intervals from the `lm()` and therefore is the produce of inferential statistics, this figure illustrates the estimates of our model rather than the parameters of our sample.
 
 Neither method is 'best'. 
 
+```r
+emmeans::emmeans(lsmodel_frogs1, specs = ~temperature) %>% 
+  as_tibble() %>% 
+  ggplot(aes(x = temperature,
+             y = emmean,
+             colour = temperature))+
+    geom_jitter(data= frogs,
+              width = 0.1,
+              size=2,
+              shape = 21,
+              colour = "black",
+              aes(x=temperature,
+                  y = days,
+                  fill = temperature),
+              alpha = 0.2)+
+  geom_linerange(aes(ymin = lower.CL,
+                      ymax = upper.CL),
+                 colour = "black",
+                 size=1.1)+
+    geom_segment(aes(x = 1, xend = 2,
+               y = 26.3, yend = 21),
+               linetype="dashed")+
+  geom_segment(aes(x=1, xend = 3,
+                   y = 26.3, yend = 16.2),
+               linetype="dashed")+
+  geom_point(size = 3, 
+             shape = 21,
+             colour = "black",
+             aes(
+             fill = temperature))+
+  scale_colour_manual(values= c("#97F7C5", "#4ED973", "#08873D"))+
+      scale_fill_manual(values= c("#97F7C5", "#4ED973", "#08873D"))+
+    theme_minimal()+
+  theme(legend.position = "none")+
+  labs(x = expression('Temperature ('*~degree*C*')'),
+       y = "Number of days to spawn hatching")
+```
 
 <div class="figure" style="text-align: center">
-<img src="16-ANOVA_files/figure-html/unnamed-chunk-29-1.png" alt="Time to hatching is inversely related to temperature in frogspawn. Circles represent estimated mean hatching times with 95% confidence intervals from a one-way ANOVA (F~1,28~ = 385.9, P &lt; 0.001). Dashed lines indicate the slope of the mean difference between 13-18 degrees and 13-25 degrees Celsius. Faded points represent individual data points." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-29)Time to hatching is inversely related to temperature in frogspawn. Circles represent estimated mean hatching times with 95% confidence intervals from a one-way ANOVA (F~1,28~ = 385.9, P < 0.001). Dashed lines indicate the slope of the mean difference between 13-18 degrees and 13-25 degrees Celsius. Faded points represent individual data points.</p>
+<img src="16-ANOVA_files/figure-html/unnamed-chunk-26-1.png" alt="Time to hatching is inversely related to temperature in frogspawn. Circles represent estimated mean hatching times with 95% confidence intervals from a one-way ANOVA (F~1,28~ = 385.9, P &lt; 0.001). Dashed lines indicate the slope of the mean difference between 13-18 degrees and 13-25 degrees Celsius. Faded points represent individual data points." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-26)Time to hatching is inversely related to temperature in frogspawn. Circles represent estimated mean hatching times with 95% confidence intervals from a one-way ANOVA (F~1,28~ = 385.9, P < 0.001). Dashed lines indicate the slope of the mean difference between 13-18 degrees and 13-25 degrees Celsius. Faded points represent individual data points.</p>
 </div>
 </div></div></div>
 
