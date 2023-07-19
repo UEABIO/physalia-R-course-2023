@@ -869,6 +869,7 @@ Using this we could conclude that the sqrt transformed model explains more varia
 <h2>
 <span class="header-section-number">13.4</span> Model selection<a class="anchor" aria-label="anchor" href="#model-selection"><i class="fas fa-link"></i></a>
 </h2>
+<p>Let's work to see if the interaction effect is worth keeping in our model</p>
 <div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Remove top-level interaction</span></span>
 <span></span>
@@ -941,7 +942,7 @@ NA
 </tbody>
 </table></div>
 </div>
-<p>Based on this ANOVA table, we do not appear to have a strong rationale for keeping the interaction term in the model (AIC or F-test). Therefore we can confidently remove the interaction, simplifying our model and making interpretation easier.</p>
+<p>Based on this ANOVA table, we do not appear to have a strong rationale for keeping the interaction term in the model (F-test). Therefore we can confidently remove the interaction, simplifying our model and making interpretation easier.</p>
 <div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flyls_sqrt3a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">longevity</span><span class="op">)</span> <span class="op">~</span> <span class="va">type</span> <span class="op">+</span> <span class="va">thorax</span>, data <span class="op">=</span> <span class="va">fruitfly</span><span class="op">)</span></span>
 <span><span class="va">flyls_sqrt3b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">longevity</span><span class="op">)</span> <span class="op">~</span> <span class="va">type</span> <span class="op">+</span> <span class="va">sleep</span>, data <span class="op">=</span> <span class="va">fruitfly</span><span class="op">)</span></span>
@@ -1163,7 +1164,6 @@ Solution
 <p>There is good reason to remove non-significant <em>interaction terms</em> from a model, they complicate estimates and make interpretations more difficult. For <strong>main</strong> effects things are a little more ambiguous.</p>
 <p>When the main aim is prediction, it makes sense to be cautious and retain non-significant terms, as extra terms make no difference to the R^2 of a model.</p>
 <p>When the focus is on hypothesis testing, then removal of non-significant terms can help produce a 'true' model, but this is optional. Generally speaking it is often simpler to leave main effects in the model (you should have carefully considered the terms which were included in the first place).</p>
-In this example we can also see that AIC has not really changed - so the quality of the model is also not improved vby dropping this term.
 </div>
 </div>
 </div>
@@ -1392,7 +1392,7 @@ Figure 6.1:  A scatter plot of longevity against body size across three treatmen
 <li><p>Import, clean and understand your dataset: use data visuals to investigate trends and determine if there is clear support for your hypotheses</p></li>
 <li><p>Fit a linear model, including interaction terms with caution</p></li>
 <li><p>Investigate the fit of your model, understand that parameters may never be perfect, but that classic patterns in residuals may indicate a poorly fitting model - sometimes this can be fixed with careful consideration of missing variables or through data transformation</p></li>
-<li><p>Test the removal of any interaction terms from a model, look at AIC and significance tests</p></li>
+<li><p>Test the removal of any interaction terms from a model</p></li>
 <li><p>Make sure you understand the output of a model summary, sense check this against the graphs you have made</p></li>
 <li><p>The direction and size of any effects are the priority - produce estimates and uncertainties. Make sure the observations are clear.</p></li>
 <li><p>Write-up your significance test results, taking care to report not just significance (and all required parts of a significance test). Do you know <em>what</em> to report? Within a complex model - reporting <em>t</em> will indicate the slope of the line for that single term against the intercept, <em>F</em> is the overall effect of a predictor across all levels, <em>post-hoc</em> if you wish to compare across all levels.</p></li>

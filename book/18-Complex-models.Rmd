@@ -399,6 +399,8 @@ Using this we could conclude that the sqrt transformed model explains more varia
 
 ## Model selection
 
+Let's work to see if the interaction effect is worth keeping in our model
+
 ```{r}
 # Remove top-level interaction
 
@@ -408,7 +410,7 @@ anova(flyls_sqrt2, flyls_sqrt, test = "F")
 
 ```
 
-Based on this ANOVA table, we do not appear to have a strong rationale for keeping the interaction term in the model (AIC or F-test). Therefore we can confidently remove the interaction, simplifying our model and making interpretation easier. 
+Based on this ANOVA table, we do not appear to have a strong rationale for keeping the interaction term in the model (F-test). Therefore we can confidently remove the interaction, simplifying our model and making interpretation easier. 
 
 ```{r, eval = TRUE, echo = F}
 
@@ -439,7 +441,7 @@ When the main aim is prediction, it makes sense to be cautious and retain non-si
 
 When the focus is on hypothesis testing, then removal of non-significant terms can help produce a 'true' model, but this is optional. Generally speaking it is often simpler to leave main effects in the model (you should have carefully considered the terms which were included in the first place). 
 
-In this example we can also see that AIC has not really changed - so the quality of the model is also not improved vby dropping this term. 
+
 ```
 
 
@@ -542,7 +544,7 @@ In this chapter we have worked with our scientific knowledge to develop testable
 
 * Investigate the fit of your model, understand that parameters may never be perfect, but that classic patterns in residuals may indicate a poorly fitting model - sometimes this can be fixed with careful consideration of missing variables or through data transformation
 
-* Test the removal of any interaction terms from a model, look at AIC and significance tests
+* Test the removal of any interaction terms from a model
 
 * Make sure you understand the output of a model summary, sense check this against the graphs you have made
 

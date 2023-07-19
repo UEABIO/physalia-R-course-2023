@@ -301,6 +301,7 @@ Can you check the assumptions of your model?
 
 ``{r}
 plot(lsmodel_frogs1)
+
 ``
 
 #####
