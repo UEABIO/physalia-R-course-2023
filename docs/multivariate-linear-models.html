@@ -642,7 +642,11 @@ own.
 <span><span class="va">ls_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Biomass.m2</span> <span class="op">~</span> <span class="va">Fert</span> <span class="op">+</span> <span class="va">Light</span>, data <span class="op">=</span> <span class="va">biomass</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Put the simpler model first</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">ls_3</span>, <span class="va">ls_2</span>,  test <span class="op">=</span> <span class="st">"F"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">ls_3</span>, <span class="va">ls_2</span>,  test <span class="op">=</span> <span class="st">"F"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># An equivalent function can be performed with drop1 which will do this automatically</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html">drop1</a></span><span class="op">(</span><span class="va">ls_2</span>, test <span class="op">=</span> <span class="st">"F"</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
 <div class="inline-table"><table class="table table-sm">
 <thead><tr>
@@ -709,6 +713,80 @@ NA
 </tbody>
 </table></div>
 </div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Df
+</th>
+<th style="text-align:right;">
+Sum of Sq
+</th>
+<th style="text-align:right;">
+RSS
+</th>
+<th style="text-align:right;">
+AIC
+</th>
+<th style="text-align:right;">
+F value
+</th>
+<th style="text-align:right;">
+Pr(&gt;F)
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+&lt;none&gt;
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+513997.7
+</td>
+<td style="text-align:right;">
+583.4298
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fert:Light
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+36409.41
+</td>
+<td style="text-align:right;">
+550407.1
+</td>
+<td style="text-align:right;">
+585.8099
+</td>
+<td style="text-align:right;">
+4.250144
+</td>
+<td style="text-align:right;">
+0.0435871
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
 <p>This <em>F</em>-test is testing the <em>null hypothesis</em> that there is no true interaction effect. The significance test rejects the null hypothesis (just). It also provides the <strong>Akaike information criterion (AIC)</strong>, an alternative method of model selection (more on this later).</p>
 <p>We could now write this up as follows:</p>
 <blockquote>
@@ -723,10 +801,10 @@ Remember to check the assumptions of your full model
 <ol start="2" style="list-style-type: decimal">
 <li><strong>Main effects</strong></li>
 </ol>
-<p>A good thing about the <code><a href="https://rdrr.io/r/stats/add1.html">drop1()</a></code> function is that if there are interactions in the model, it stops there. This is because if the interaction effect is significant, then the main effects must be included, even if they aren't significant on their own. We can make further models to test the main effects <strong>but</strong> these are less important because we already know the interaction term provides the main result.</p>
+<p>We can make further models to test the main effects <strong>but</strong> these are less important because we already know the interaction term provides the main result.</p>
 <p>If we decide to include reports of the main effect then estimates and confidence intervals should come from the <em>full</em> model, but we need to produce an interaction free model to produce accurate <em>F</em>-values (especially for unbalanced designs, see below).</p>
 <div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># we have to remove the interaction term before we can keep using drop1()</span></span>
+<code class="sourceCode R"><span><span class="co"># we have to remove the interaction term before we proceed further</span></span>
 <span></span>
 <span><span class="va">ls_4a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Biomass.m2</span> <span class="op">~</span> <span class="va">Fert</span>, data <span class="op">=</span> <span class="va">biomass</span><span class="op">)</span></span>
 <span><span class="va">ls_4b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Biomass.m2</span> <span class="op">~</span> <span class="va">Light</span>, data <span class="op">=</span> <span class="va">biomass</span><span class="op">)</span></span>
@@ -874,407 +952,12 @@ estimates should come from the full model.
 </div>
 </div>
 </div>
-<div id="balancedunbalanced-designs" class="section level2" number="12.4">
+<div id="post-hoc" class="section level2" number="12.4">
 <h2>
-<span class="header-section-number">12.4</span> Balanced/Unbalanced designs<a class="anchor" aria-label="anchor" href="#balancedunbalanced-designs"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.4</span> post-hoc<a class="anchor" aria-label="anchor" href="#post-hoc"><i class="fas fa-link"></i></a>
 </h2>
-<div class="warning">
-<p>
-In an unbalanced design when you run the anova() function on your
-model, the order in which your variables were included can have an
-effect e.g. 
-</p>
-<p>
-lm(Fert + Light) would give a different anova table to
-</p>
-<p>
-lm(Light + Fert)
-</p>
-</div>
-<p>In the examples above, you are unlikely to find much of a difference between running the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function as a test of nested models or <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> on the full model. This is because these designs are 'balanced' (equal numbers in each level of a predictor). When designs are not balanced then the order matters when we use <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> - this is because the sum of squares is calculated sequentially (in the order of the formula), and so we could get different results depending on the order in which we assemble predictors into our model!</p>
-<div id="practice" class="section level4" number="12.4.0.1">
-<h4>
-<span class="header-section-number">12.4.0.1</span> Practice<a class="anchor" aria-label="anchor" href="#practice"><i class="fas fa-link"></i></a>
-</h4>
-<p>Let's start by making a deliberately unbalanced dataset</p>
-<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># make three vectors and combine them into a new tibble</span></span>
-<span></span>
-<span><span class="va">height</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>,<span class="fl">57</span>,<span class="fl">91</span>,<span class="fl">94</span>,<span class="fl">102</span>,<span class="fl">110</span>,<span class="fl">57</span>,<span class="fl">71</span>,<span class="fl">85</span>,<span class="fl">105</span>,<span class="fl">120</span><span class="op">)</span></span>
-<span><span class="va">size</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"small"</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"small"</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Removal"</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">unbalanced</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">height</span>, <span class="va">size</span>, <span class="va">treatment</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">unbalanced</span></span></code></pre></div>
-<div class="kable-table">
-<div class="inline-table"><table class="table table-sm">
-<thead><tr>
-<th style="text-align:right;">
-height
-</th>
-<th style="text-align:left;">
-size
-</th>
-<th style="text-align:left;">
-treatment
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:left;">
-small
-</td>
-<td style="text-align:left;">
-Control
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-57
-</td>
-<td style="text-align:left;">
-small
-</td>
-<td style="text-align:left;">
-Control
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-91
-</td>
-<td style="text-align:left;">
-large
-</td>
-<td style="text-align:left;">
-Control
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-94
-</td>
-<td style="text-align:left;">
-large
-</td>
-<td style="text-align:left;">
-Control
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-102
-</td>
-<td style="text-align:left;">
-large
-</td>
-<td style="text-align:left;">
-Control
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-110
-</td>
-<td style="text-align:left;">
-large
-</td>
-<td style="text-align:left;">
-Control
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-57
-</td>
-<td style="text-align:left;">
-small
-</td>
-<td style="text-align:left;">
-Removal
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-71
-</td>
-<td style="text-align:left;">
-small
-</td>
-<td style="text-align:left;">
-Removal
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-85
-</td>
-<td style="text-align:left;">
-small
-</td>
-<td style="text-align:left;">
-Removal
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-105
-</td>
-<td style="text-align:left;">
-large
-</td>
-<td style="text-align:left;">
-Removal
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-120
-</td>
-<td style="text-align:left;">
-large
-</td>
-<td style="text-align:left;">
-Removal
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-</div>
-</div>
-<div id="activity-1-sums-of-squares" class="section level2" number="12.5">
-<h2>
-<span class="header-section-number">12.5</span> Activity 1: Sums of Squares<a class="anchor" aria-label="anchor" href="#activity-1-sums-of-squares"><i class="fas fa-link"></i></a>
-</h2>
-<div class="panel panel-default">
-<div class="panel-heading">
-Task
-</div>
-<div class="panel-body">
-Produce a linear model testing size and treatment against height. Try making two models swapping the order for including the two predictors and compare them with anova()
-</div>
-</div>
-<button id="displayTextunnamed-chunk-26" onclick="javascript:toggle('unnamed-chunk-26');">
-Show Solution
-</button>
-<div id="toggleTextunnamed-chunk-26" style="display: none">
-<div class="panel panel-default">
-<div class="panel-heading panel-heading1">
-Solution
-</div>
-<div class="panel-body">
-<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">model_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">height</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">+</span> <span class="va">size</span>, data <span class="op">=</span> <span class="va">unbalanced</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">model_1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">model_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">height</span> <span class="op">~</span> <span class="va">size</span> <span class="op">+</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">unbalanced</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">model_2</span><span class="op">)</span></span></code></pre></div>
-<div class="kable-table">
-<div class="inline-table"><table class="table table-sm">
-<thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-Df
-</th>
-<th style="text-align:right;">
-Sum Sq
-</th>
-<th style="text-align:right;">
-Mean Sq
-</th>
-<th style="text-align:right;">
-F value
-</th>
-<th style="text-align:right;">
-Pr(&gt;F)
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-treatment
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-35.34545
-</td>
-<td style="text-align:right;">
-35.34545
-</td>
-<td style="text-align:right;">
-0.3724701
-</td>
-<td style="text-align:right;">
-0.5585952
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-size
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4846.04211
-</td>
-<td style="text-align:right;">
-4846.04211
-</td>
-<td style="text-align:right;">
-51.0675541
-</td>
-<td style="text-align:right;">
-0.0000975
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Residuals
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-759.15789
-</td>
-<td style="text-align:right;">
-94.89474
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="kable-table">
-<div class="inline-table"><table class="table table-sm">
-<thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-Df
-</th>
-<th style="text-align:right;">
-Sum Sq
-</th>
-<th style="text-align:right;">
-Mean Sq
-</th>
-<th style="text-align:right;">
-F value
-</th>
-<th style="text-align:right;">
-Pr(&gt;F)
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-size
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4291.2121
-</td>
-<td style="text-align:right;">
-4291.21212
-</td>
-<td style="text-align:right;">
-45.220760
-</td>
-<td style="text-align:right;">
-0.0001489
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-treatment
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-590.1754
-</td>
-<td style="text-align:right;">
-590.17544
-</td>
-<td style="text-align:right;">
-6.219264
-</td>
-<td style="text-align:right;">
-0.0372980
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Residuals
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-759.1579
-</td>
-<td style="text-align:right;">
-94.89474
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-Compare these two anova tables. Same data, same predictors, but a different conclusion just because of the order the terms were included in the model!
-</div>
-</div>
-</div>
-<div class="panel panel-default">
-<div class="panel-heading">
-Task
-</div>
-<div class="panel-body">
-Now compare your two models by making simpler ones and running a nested model test
-</div>
-</div>
-<button id="displayTextunnamed-chunk-28" onclick="javascript:toggle('unnamed-chunk-28');">
-Show Solution
-</button>
-<div id="toggleTextunnamed-chunk-28" style="display: none">
-<div class="panel panel-default">
-<div class="panel-heading panel-heading1">
-Solution
-</div>
-<div class="panel-body">
-<p>Because the nested function drops one term from the model, then adds it back in and drops a new one it doesn't matter what order they were included.</p>
-</div>
-</div>
-</div>
-<div id="post-hoc" class="section level3" number="12.5.1">
-<h3>
-<span class="header-section-number">12.5.1</span> post-hoc<a class="anchor" aria-label="anchor" href="#post-hoc"><i class="fas fa-link"></i></a>
-</h3>
 <p>In this example it is unnecessary to spend time looking at pairwise comparisons between the four possible levels, the interesting finding is to report the strength of the interaction effect. <strong>But</strong> it is possible to generate estimated means, and produce pairwise comparisons with the <code><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans()</a></code> package</p>
-<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">emmeans</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">ls_2</span>, specs <span class="op">=</span> <span class="va">pairwise</span> <span class="op">~</span> <span class="va">Light</span> <span class="op">+</span> <span class="va">Fert</span> <span class="op">+</span> <span class="va">Light</span><span class="op">:</span><span class="va">Fert</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co"># including the argument pairwise in front of the ~ prompts the post-hoc pairwise comparisons.</span></span>
@@ -1301,10 +984,9 @@ Solution
 ## Confidence level used: 0.95 
 ## Conf-level adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 </div>
-</div>
-<div id="ancova" class="section level2" number="12.6">
+<div id="ancova" class="section level2" number="12.5">
 <h2>
-<span class="header-section-number">12.6</span> ANCOVA<a class="anchor" aria-label="anchor" href="#ancova"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.5</span> ANCOVA<a class="anchor" aria-label="anchor" href="#ancova"><i class="fas fa-link"></i></a>
 </h2>
 <p>The previous section looked at an interaction between two categorical variables, we can also examine interactions between a factor and a continuous variable. Often referred to as ANCOVA.</p>
 <a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/pollution.csv">
@@ -1312,9 +994,9 @@ Solution
 </a>
 <p>The data is from an experimental study of the effects of low-level atmospheric pollutants and drought on agricultural yields. The experiment aimed to see how the yields soya bean (William variety), were affected by stress and Ozone levels. <strong>Your task is to first determine whether there is any evidence of an interaction effect, and if not drop this term from your model and then report the estimates and confidence intervals from the simplified model</strong>.</p>
 </div>
-<div id="activity-2-build-your-own-analysis" class="section level2" number="12.7">
+<div id="activity-2-build-your-own-analysis" class="section level2" number="12.6">
 <h2>
-<span class="header-section-number">12.7</span> Activity 2: Build your own analysis<a class="anchor" aria-label="anchor" href="#activity-2-build-your-own-analysis"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6</span> Activity 2: Build your own analysis<a class="anchor" aria-label="anchor" href="#activity-2-build-your-own-analysis"><i class="fas fa-link"></i></a>
 </h2>
 <p>Try and make as much progress as you can without checking the solutions. Click on the boxes when you need help/to check your working</p>
 <div class="panel panel-default">
@@ -1325,16 +1007,16 @@ Task
 Explore the data!
 </div>
 </div>
-<button id="displayTextunnamed-chunk-33" onclick="javascript:toggle('unnamed-chunk-33');">
+<button id="displayTextunnamed-chunk-27" onclick="javascript:toggle('unnamed-chunk-27');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-33" style="display: none">
+<div id="toggleTextunnamed-chunk-27" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># check the structure of the data</span></span>
 <span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">pollution</span><span class="op">)</span></span>
 <span></span>
@@ -1515,16 +1197,16 @@ Task
 Visualise the data
 </div>
 </div>
-<button id="displayTextunnamed-chunk-35" onclick="javascript:toggle('unnamed-chunk-35');">
+<button id="displayTextunnamed-chunk-29" onclick="javascript:toggle('unnamed-chunk-29');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-35" style="display: none">
+<div id="toggleTextunnamed-chunk-29" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pollution</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">O3</span>, y <span class="op">=</span> <span class="va">William</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
@@ -1532,7 +1214,7 @@ Solution
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Stress</span><span class="op">)</span><span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">Ozone</span><span class="op">~</span><span class="va">mu</span><span class="op">~</span><span class="va">L</span><span class="op">~</span><span class="va">L</span><span class="op">^</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>       y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">Log</span><span class="op">~</span><span class="va">Yield</span><span class="op">~</span><span class="op">(</span><span class="va">kg</span><span class="op">~</span><span class="va">ha</span><span class="op">^</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="17-Multiple-regression_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="17-Multiple-regression_files/figure-html/unnamed-chunk-40-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 </div>
 </div>
@@ -1544,16 +1226,16 @@ Task
 Model the data
 </div>
 </div>
-<button id="displayTextunnamed-chunk-37" onclick="javascript:toggle('unnamed-chunk-37');">
+<button id="displayTextunnamed-chunk-31" onclick="javascript:toggle('unnamed-chunk-31');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-37" style="display: none">
+<div id="toggleTextunnamed-chunk-31" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">William_ls1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">William</span> <span class="op">~</span> <span class="va">O3</span> <span class="op">+</span> <span class="va">Stress</span> <span class="op">+</span> <span class="va">O3</span><span class="op">:</span><span class="va">Stress</span>, data <span class="op">=</span> <span class="va">pollution</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">William_ls1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1683,9 +1365,9 @@ It looks as though there is no strong evidence here for an interaction effect, b
 </div>
 </div>
 </div>
-<div id="check-the-model-fit" class="section level4" number="12.7.0.1">
+<div id="check-the-model-fit" class="section level4" number="12.6.0.1">
 <h4>
-<span class="header-section-number">12.7.0.1</span> Check the model fit<a class="anchor" aria-label="anchor" href="#check-the-model-fit"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.0.1</span> Check the model fit<a class="anchor" aria-label="anchor" href="#check-the-model-fit"><i class="fas fa-link"></i></a>
 </h4>
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -1695,25 +1377,25 @@ Task
 Check the residuals of your model
 </div>
 </div>
-<button id="displayTextunnamed-chunk-39" onclick="javascript:toggle('unnamed-chunk-39');">
+<button id="displayTextunnamed-chunk-33" onclick="javascript:toggle('unnamed-chunk-33');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-39" style="display: none">
+<div id="toggleTextunnamed-chunk-33" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/check_model.html">check_model</a></span><span class="op">(</span><span class="va">William_ls1</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="17-Multiple-regression_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="17-Multiple-regression_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 </div>
 </div>
 </div>
-<div id="simplify-the-model" class="section level4" number="12.7.0.2">
+<div id="simplify-the-model" class="section level4" number="12.6.0.2">
 <h4>
-<span class="header-section-number">12.7.0.2</span> Simplify the model<a class="anchor" aria-label="anchor" href="#simplify-the-model"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.0.2</span> Simplify the model<a class="anchor" aria-label="anchor" href="#simplify-the-model"><i class="fas fa-link"></i></a>
 </h4>
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -1723,17 +1405,17 @@ Task
 Everything looks pretty good, so now we could go ahead and simplify our model.
 </div>
 </div>
-<button id="displayTextunnamed-chunk-41" onclick="javascript:toggle('unnamed-chunk-41');">
+<button id="displayTextunnamed-chunk-35" onclick="javascript:toggle('unnamed-chunk-35');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-41" style="display: none">
+<div id="toggleTextunnamed-chunk-35" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
 <p>Testing that dropping the interaction term does not significantly reduce the variance explained</p>
-<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">William_ls2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">William</span> <span class="op">~</span> <span class="va">O3</span> <span class="op">+</span> <span class="va">Stress</span>, data <span class="op">=</span> <span class="va">pollution</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">William_ls2</span>, <span class="va">William_ls1</span>, test <span class="op">=</span> <span class="st">"F"</span><span class="op">)</span></span></code></pre></div>
@@ -1803,12 +1485,12 @@ NA
 </tbody>
 </table></div>
 </div>
-<div id="section" class="section level4" number="12.7.0.3">
+<div id="section" class="section level4" number="12.6.0.3">
 <h4>
-<span class="header-section-number">12.7.0.3</span> <a class="anchor" aria-label="anchor" href="#section"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.0.3</span> <a class="anchor" aria-label="anchor" href="#section"><i class="fas fa-link"></i></a>
 </h4>
 <p>Get the F values of the simpler model</p>
-<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">William_ls3a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">William</span> <span class="op">~</span> <span class="va">Stress</span>, data <span class="op">=</span> <span class="va">pollution</span><span class="op">)</span></span>
 <span><span class="va">William_ls3b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">William</span> <span class="op">~</span> <span class="va">O3</span>, data <span class="op">=</span> <span class="va">pollution</span><span class="op">)</span></span>
 <span></span>
@@ -1947,12 +1629,12 @@ NA
 </table></div>
 </div>
 </div>
-<div id="section-1" class="section level4" number="12.7.0.4">
+<div id="section-1" class="section level4" number="12.6.0.4">
 <h4>
-<span class="header-section-number">12.7.0.4</span> <a class="anchor" aria-label="anchor" href="#section-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6.0.4</span> <a class="anchor" aria-label="anchor" href="#section-1"><i class="fas fa-link"></i></a>
 </h4>
 <p>Report the estimates and confidence intervals of the new model</p>
-<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">William_ls2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span>conf.int <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
@@ -2065,10 +1747,10 @@ Task
 Write up the results
 </div>
 </div>
-<button id="displayTextunnamed-chunk-43" onclick="javascript:toggle('unnamed-chunk-43');">
+<button id="displayTextunnamed-chunk-37" onclick="javascript:toggle('unnamed-chunk-37');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-43" style="display: none">
+<div id="toggleTextunnamed-chunk-37" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
@@ -2080,9 +1762,9 @@ I hypothesised that plants under stress might react more negatively to pollution
 </div>
 </div>
 </div>
-<div id="summary-7" class="section level2" number="12.8">
+<div id="summary-7" class="section level2" number="12.7">
 <h2>
-<span class="header-section-number">12.8</span> Summary<a class="anchor" aria-label="anchor" href="#summary-7"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.7</span> Summary<a class="anchor" aria-label="anchor" href="#summary-7"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li><p>Always have a good hypothesis for including an interaction</p></li>
@@ -2288,13 +1970,10 @@ $( document ).ready(function() {
 <li><a class="nav-link" href="#anova-tables"><span class="header-section-number">12.3.2</span> ANOVA tables</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#balancedunbalanced-designs"><span class="header-section-number">12.4</span> Balanced/Unbalanced designs</a></li>
-<li>
-<a class="nav-link" href="#activity-1-sums-of-squares"><span class="header-section-number">12.5</span> Activity 1: Sums of Squares</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#post-hoc"><span class="header-section-number">12.5.1</span> post-hoc</a></li></ul>
-</li>
-<li><a class="nav-link" href="#ancova"><span class="header-section-number">12.6</span> ANCOVA</a></li>
-<li><a class="nav-link" href="#activity-2-build-your-own-analysis"><span class="header-section-number">12.7</span> Activity 2: Build your own analysis</a></li>
-<li><a class="nav-link" href="#summary-7"><span class="header-section-number">12.8</span> Summary</a></li>
+<li><a class="nav-link" href="#post-hoc"><span class="header-section-number">12.4</span> post-hoc</a></li>
+<li><a class="nav-link" href="#ancova"><span class="header-section-number">12.5</span> ANCOVA</a></li>
+<li><a class="nav-link" href="#activity-2-build-your-own-analysis"><span class="header-section-number">12.6</span> Activity 2: Build your own analysis</a></li>
+<li><a class="nav-link" href="#summary-7"><span class="header-section-number">12.7</span> Summary</a></li>
 </ul>
 
       <div class="book-extra">

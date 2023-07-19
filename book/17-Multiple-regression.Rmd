@@ -290,6 +290,10 @@ ls_3 <- lm(Biomass.m2 ~ Fert + Light, data = biomass)
 
 # Put the simpler model first
 anova(ls_3, ls_2,  test = "F")
+
+# An equivalent function can be performed with drop1 which will do this automatically
+
+drop1(ls_2, test = "F")
 ```
 
 This *F*-test is testing the *null hypothesis* that there is no true interaction effect. The significance test rejects the null hypothesis (just). It also provides the **Akaike information criterion (AIC)**, an alternative method of model selection (more on this later). 
@@ -308,12 +312,12 @@ Remember to check the assumptions of your full model
 
 2. **Main effects**
 
-A good thing about the `drop1()` function is that if there are interactions in the model, it stops there. This is because if the interaction effect is significant, then the main effects must be included, even if they aren't significant on their own. We can make further models to test the main effects **but** these are less important because we already know the interaction term provides the main result. 
+We can make further models to test the main effects **but** these are less important because we already know the interaction term provides the main result. 
 
 If we decide to include reports of the main effect then estimates and confidence intervals should come from the *full* model, but we need to produce an interaction free model to produce accurate *F*-values (especially for unbalanced designs, see below).
 
 ```{r}
-# we have to remove the interaction term before we can keep using drop1()
+# we have to remove the interaction term before we proceed further
 
 ls_4a <- lm(Biomass.m2 ~ Fert, data = biomass)
 ls_4b <- lm(Biomass.m2 ~ Light, data = biomass)
@@ -321,6 +325,8 @@ ls_4b <- lm(Biomass.m2 ~ Light, data = biomass)
 anova(ls_4a, ls_3, test = "F")
 
 anova(ls_4b, ls_3, test = "F")
+
+
 ```
 
 
@@ -328,69 +334,8 @@ anova(ls_4b, ls_3, test = "F")
 You can use these reduced models to get F values, BUT reports of estimates should come from the full model. 
 ```
 
-## Balanced/Unbalanced designs
 
-```{block, type="warning"}
-In an unbalanced design when you run the anova() function on your model, the order in which your variables were included can have an effect e.g. 
-
-lm(Fert + Light) would give a different anova table to 
-
-lm(Light + Fert)
-```
-
-In the examples above, you are unlikely to find much of a difference between running the `anova()` function as a test of nested models or `anova()` on the full model. This is because these designs are 'balanced' (equal numbers in each level of a predictor). When designs are not balanced then the order matters when we use `anova()` -  this is because the sum of squares is calculated sequentially (in the order of the formula), and so we could get different results depending on the order in which we assemble predictors into our model!
-
-#### Practice
-
-Let's start by making a deliberately unbalanced dataset
-
-```{r}
-# make three vectors and combine them into a new tibble
-
-height <- c(50,57,91,94,102,110,57,71,85,105,120)
-size <- c(rep("small", 2), rep("large", 4), rep("small", 3), rep("large", 2))
-treatment <- c(rep("Control", 6), rep("Removal", 5))
-
-unbalanced <- tibble(height, size, treatment)
-
-unbalanced
-
-```
-
-## Activity 1: Sums of Squares
-
-```{task}
-Produce a linear model testing size and treatment against height. Try making two models swapping the order for including the two predictors and compare them with anova()
-```
-
-```{solution}
-
-``{r}
-
-model_1 <- lm(height ~ treatment + size, data = unbalanced)
-anova(model_1)
-
-model_2 <- lm(height ~ size + treatment, data = unbalanced)
-anova(model_2)
-``
-Compare these two anova tables. Same data, same predictors, but a different conclusion just because of the order the terms were included in the model!
-  
-```
-
-
-
-```{task} 
-Now compare your two models by making simpler ones and running a nested model test
-```
-
-```{solution}
-
-Because the nested function drops one term from the model, then adds it back in and drops a new one it doesn't matter what order they were included. 
-
-```
-
-
-### post-hoc
+## post-hoc
 
 In this example it is unnecessary to spend time looking at pairwise comparisons between the four possible levels, the interesting finding is to report the strength of the interaction effect. **But** it is possible to generate estimated means, and produce pairwise comparisons with the `emmeans()` package
 

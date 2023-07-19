@@ -231,9 +231,6 @@ one-way-anova
 testing-for-interactions
 model-estimates-and-confidence-intervals
 anova-tables
-balancedunbalanced-designs
-practice
-activity-1-sums-of-squares
 post-hoc
 ancova
 activity-2-build-your-own-analysis
