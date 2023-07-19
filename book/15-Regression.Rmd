@@ -226,42 +226,10 @@ This output should look very familiar to you, because it's the same output produ
 ```{block, type = "info"}
 In many ways the intercept makes more intuitive sense in a regression model than a difference model. Here the intercept describes the value of *y* (timber hardness) when *x* (wood density) = 0. The standard error is standard error of this calculated mean value. The only wrinkle here is that that value of *y* is an impossible value - timber hardness obviously cannot be a negative value (anti-hardness???). This does not affect the fit of our line, it just means a regression line (being an infinite straight line) can move into impossible value ranges.
 
-One way in which the intercept can be made more valuable is to use a technique known as 'centering'. By subtracting the average (mean) value of *x* from every data point, the intercept (when *x* is 0) can effectively be right-shifted into the centre of the data. 
-```
-
-## Activity 3: Mean centered regression
-
-```{task}
-Try it for yourself, use your data manipulation skills to 'center' the values of x then fit a new linear model.
-```
-
-```{solution}
-
-``{r}
-
-dens_mean <- janka %>% 
-  summarise(mean_dens=mean(dens))
-# 45.73333
-
-janka %>% 
-  mutate(centered_dens = dens-pull(dens_mean)) %>% 
-  lm(hardness ~ centered_dens, data = .) %>% 
-  broom::tidy()
-
-``
-
+One way in which the intercept can be made more valuable is to use a technique known as 'centering'. By subtracting the average (mean) value of *x* from every data point, the intercept (when *x* is 0) can effectively be right-shifted into the centre of the data. This is known as mean-centered regression 
 ```
 
 
-```{block, type = "info"}
-Note how the estimate for row 2 - the effect of density on timber hardness **has not** changed, but the intercept now represents the estimated mean timber hardness for the mean wood density e.g. at a density of $\rho$ = 45.73 the average timber hardness on the janka scale is 1469.
-```
-
-#### the second row
-
-The second row is labelled 'dens'. Density is our explanatory variable, and the slope is estimated against it. So if 57.5 is the value of the regression slope (with its standard error) - then the timber hardness is predicted to **increase** by 57.5 on the janka scale for every unit change of density. 
-
-According to our model summary, this estimated change in the mean is statistically significant  - so for this effect size and sample size it is unlikely that we would observe this relationship if the null hypothesis (that we cannot predict timber hardness from wood density) were true. 
 
 #### Confidence intervals
 
@@ -577,35 +545,6 @@ emmeans::emmeans(janka_ls1,
 
 `r unhide()`
 
-
-## Activity 4: Prediction
-
-```{task}
-can you plot the three new predicted values onto an existing figure to recreate the below? 
-```
-
-> Hint - first make a new R object that contains your predictions, then work out how to add two dataframes to one plot. 
-
-```{solution}
-
-``{r}
-
-pred_newdata <- broom::augment(janka_ls1, 
-               newdata=tibble(dens=c(22,35,65)))
-
-janka %>% 
-  ggplot(aes(x=dens, y=hardness))+
-  geom_point()+
-  geom_smooth(method="lm")+
-  geom_point(data=pred_newdata, aes(y=.fitted, x=dens), colour="red")+
-  geom_label(data=pred_newdata, (aes(y=(.fitted+10), x=(dens+3), label=round(.fitted, digits=0))))+
-  theme_bw()+
-  labs(x="Density", y="Timber Hardness")+
-  scale_x_continuous(limits=c(20,80), expand=expansion(add=c(0,5)))
-
-``
-
-```
 
 
 ## Summary
