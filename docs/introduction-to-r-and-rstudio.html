@@ -4,24 +4,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 1 Introduction to R and RStudio | 5023Y</title>
+<title>Chapter 1 Introduction to R and RStudio | Introduction to Statistics</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="R is the name of the programming language we will learn on this course. RStudio is a convenient interface which we will be using throughout the course in order to learn how to organise data,...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 1 Introduction to R and RStudio | 5023Y">
+<meta property="og:title" content="Chapter 1 Introduction to R and RStudio | Introduction to Statistics">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/data-sci/introduction-to-r-and-rstudio.html">
-<meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/introduction-to-r-and-rstudio.html">
+<meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="R is the name of the programming language we will learn on this course. RStudio is a convenient interface which we will be using throughout the course in order to learn how to organise data,...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 1 Introduction to R and RStudio | 5023Y">
+<meta name="twitter:title" content="Chapter 1 Introduction to R and RStudio | Introduction to Statistics">
 <meta name="twitter:description" content="R is the name of the programming language we will learn on this course. RStudio is a convenient interface which we will be using throughout the course in order to learn how to organise data,...">
-<meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="libs/grViz-binding-1.0.10/grViz.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -97,8 +97,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="Data Science for Biologists">5023Y</a>:
-        <small class="text-muted">Data Science for Biologists</small>
+        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statistics</a>:
+        <small class="text-muted">A guide for Biologists and Ecologists</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -116,19 +116,18 @@
 <li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R Basics</a></li>
 <li class="book-part">Exploring Data</li>
 <li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
-<li class="book-part">Mixed Models</li>
-<li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">4</span> Foundations of Mixed Modelling</a></li>
-<li><a class="" href="types-of-random-effects.html"><span class="header-section-number">5</span> Types of Random Effects</a></li>
-<li><a class="" href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></li>
-<li><a class="" href="complex-designs.html"><span class="header-section-number">7</span> Complex designs</a></li>
-<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">8</span> Reporting Mixed Model results</a></li>
-<li><a class="" href="worked-example-1.html"><span class="header-section-number">9</span> Worked Example 1</a></li>
-<li><a class="" href="worked-example-2---dolphins.html"><span class="header-section-number">10</span> Worked Example 2 - Dolphins</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">11</span> Summary</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">4</span> Starting up R</a></li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">5</span> Data visualisation with ggplot2</a></li>
+<li class="book-part">Literate Programming and Reproducibility</li>
+<li><a class="" href="markdown.html"><span class="header-section-number">6</span> Markdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">7</span> Github</a></li>
+<li class="book-part">R Programming</li>
+<li><a class="" href="functions-1.html"><span class="header-section-number">8</span> Functions</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">9</span> Iteration</a></li>
 </ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/UEABIO/intro-mixed-models">View book source <i class="fab fa-github"></i></a></p>
+          <p><a id="book-repo" href="https://github.com/UEABIO/physalia-intro-stats-2023">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
 </div>
@@ -252,7 +251,7 @@ occasionally make!
 </h2>
 <p>In the RStudio pane, navigate to the <strong>console</strong> (bottom left) and <code>type or copy</code> the below it should appear at the &gt;</p>
 <p>Hit Enter on your keyboard.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">10</span> <span class="op">+</span> <span class="fl">20</span></span></code></pre></div>
 <ul>
 <li>What answer did you get?</li>
@@ -261,7 +260,7 @@ occasionally make!
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">30</span></span></code></pre></div>
 </div>
 <p>The first line shows the request you made to R, the next line is R's response</p>
@@ -357,7 +356,7 @@ it on faith that you meant to type exactly what you did type.
 </p>
 </div>
 <p>Suppose you forget to hit the shift key when trying to type <code>+</code>, and as a result your command ended up being <code>10 = 20</code> rather than <code>10 + 20</code>. Try it for yourself and replicate this error message:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">10</span> <span class="op">=</span> <span class="fl">20</span></span></code></pre></div>
 <div class="webex-solution">
 <button>
@@ -368,7 +367,7 @@ What answer did you get?
 <p>What's happened here is that R has attempted to interpret <code>10 = 20</code> as a command, and spits out an error message because the command doesn't make any sense to it.</p>
 <p>When a <em>human</em> looks at this, and then looks down at his or her keyboard and sees that <code>+</code> and <code>=</code> are on the same key, it's pretty obvious that the command was a typo. But R doesn't know this, so it gets upset.</p>
 <p>Even more subtle is the fact that some typos won't produce errors at all, because they happen to correspond to "well-formed" R commands. For instance, suppose that not only did I forget to hit the shift key when trying to type <code>10 + 20</code>, I also managed to press the key next to one I meant do. The resulting typo would produce the command <code>10 - 20</code>. Clearly, R has no way of knowing that you meant to <em>add</em> 20 to 10, not <em>subtract</em> 20 from 10, so what happens this time is this:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">10</span> <span class="op">-</span> <span class="fl">20</span></span></code></pre></div>
 <pre><code>## [1] -10</code></pre>
 <p>In this case, R produces the right answer, but to the the wrong question.</p>
@@ -391,16 +390,16 @@ What answer did you get?
 <h3>
 <span class="header-section-number">1.5.4</span> Try some simple maths<a class="anchor" aria-label="anchor" href="#try-some-simple-maths"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fl">1</span><span class="op">+</span><span class="fl">7</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fl">13</span><span class="op">-</span><span class="fl">10</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fl">1</span><span class="op">+</span><span class="fl">7</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fl">4</span><span class="op">*</span><span class="fl">6</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fl">13</span><span class="op">-</span><span class="fl">10</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">4</span><span class="op">*</span><span class="fl">6</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">12</span><span class="op">/</span><span class="fl">3</span></span></code></pre></div>
 <p>Raise a number to the power of another</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">5</span><span class="op">^</span><span class="fl">4</span></span></code></pre></div>
 <p>As I'm sure everyone will probably remember the moment they read this, the act of multiplying a number <span class="math inline">\(x\)</span> by itself <span class="math inline">\(n\)</span> times is called "raising <span class="math inline">\(x\)</span> to the <span class="math inline">\(n\)</span>-th power". Mathematically, this is written as <span class="math inline">\(x^n\)</span>. Some values of <span class="math inline">\(n\)</span> have special names: in particular <span class="math inline">\(x^2\)</span> is called <span class="math inline">\(x\)</span>-squared, and <span class="math inline">\(x^3\)</span> is called <span class="math inline">\(x\)</span>-cubed. So, the 4th power of 5 is calculated like this:</p>
 <p><span class="math display">\[5^4 = 5 \times 5 \times 5 \times 5 \]</span></p>
@@ -412,14 +411,14 @@ What answer did you get?
 <p>Perform some mathematical combos, noting that the order in which R performs calculations is the standard one.</p>
 <p>That is, first calculate things inside <strong>B</strong>rackets <code>()</code>, then calculate <strong>O</strong>rders of (exponents) <code>^</code>, then <strong>D</strong>ivision <code>/</code> and <strong>M</strong>ultiplication <code>*</code>, then <strong>A</strong>ddition <code>+</code> and <strong>S</strong>ubtraction <code>-</code>.</p>
 <p>Notice the different outputs of these two commands.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fl">3</span><span class="op">^</span><span class="fl">2</span><span class="op">-</span><span class="fl">5</span><span class="op">/</span><span class="fl">2</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">3</span><span class="op">^</span><span class="fl">2</span><span class="op">-</span><span class="fl">5</span><span class="op">/</span><span class="fl">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="fl">3</span><span class="op">^</span><span class="fl">2</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span></span></code></pre></div>
 <p>Similarly if we want to raise a number to a fraction, we need to surround the fraction with parentheses <code>()</code></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fl">16</span><span class="op">^</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">16</span><span class="op">^</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">16</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>The first one calculates 16 raised to the power of 1, then divided this answer by two. The second one raises 16 to the power of a half. A big difference in the output.</p>
 <div class="info">
@@ -446,11 +445,11 @@ scripts, as an essential way to re-use, store and edit commands.
 <p>In George Orwell's classic book <em>1984</em>, one of the slogans used by the totalitarian Party was "two plus two equals five", the idea being that the political domination of human freedom becomes complete when it is possible to subvert even the most basic of truths.</p>
 <p>But they didn't have R!</p>
 <p>R will not be subverted. It has rather firm opinions on the topic of what is and isn't true, at least as regards basic mathematics. If I ask it to calculate <code>2 + 2</code>, it always gives the same answer, and it's <strong>not</strong> 5:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span></span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <p>Of course, so far R is just doing the calculations. I haven't asked it to explicitly assert that <span class="math inline">\(2+2 = 4\)</span> is a true statement. If I want R to make an explicit judgement, I can use a command like this:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">4</span></span></code></pre></div>
 <div class="webex-solution">
 <button>
@@ -473,11 +472,11 @@ is to accidentally type <code>=</code> when you really mean
 </p>
 </div>
 <p>Okay, let's see what R thinks of the Party slogan:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span><span class="op">+</span><span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Take that Big Brother! Anyway, it's worth having a look at what happens if I try to <em>force</em> R to believe that two plus two is five by making an assignment statement like <code>2 + 2 = 5</code> or <code>2 + 2 &lt;- 5</code>. When I do this, here's what happens:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">=</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>Error in 2 + 2 = 5 : target of assignment expands to non-language object</code></pre>
 <p>R doesn't like this very much. It recognises that <code>2 + 2</code> is <em>not</em> a variable (that's what the "non-language object" part is saying), and it won't let you try to "reassign" it. While R is pretty flexible, and actually does let you do some quite remarkable things to redefine parts of R itself, there are just some basic, primitive truths that it refuses to give up. It won't change the laws of addition, and it won't change the definition of the number <code>2</code>.</p>
@@ -489,7 +488,7 @@ is to accidentally type <code>=</code> when you really mean
 <span class="header-section-number">1.7</span> Storing outputs<a class="anchor" aria-label="anchor" href="#storing-outputs"><i class="fas fa-link"></i></a>
 </h2>
 <p>With simple questions like the ones above we are happy to just see the answer, but our questions are often more complex than this. If we need to take multiple steps, we benefit from being able to store our answers and recall them for use in later steps. This is very simple to do we can <em>assign</em> outputs to a name:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">+</span><span class="fl">2</span></span></code></pre></div>
 <p>This literally means please <em>assign</em> the value of <code>1+2</code> to the name <code>a</code>. We use the <strong>assignment operator</strong> <code>&lt;-</code> to make this assignment.</p>
 <div class="info">
@@ -512,33 +511,33 @@ Figure 1.3: object a is now visible withe a value of 3 in the Environment Pane
 <li><p>You should be able to look at what a is by typing it into your Console and pressing Enter</p></li>
 <li><p>Note that you will not see the outcome of your functions <em>until</em> you type the object into the R console and hit Enter</p></li>
 </ul>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span></span></code></pre></div>
 <div class="webex-solution">
 <button>
 What output do you get when you type a into your console?
 </button>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">3</span></span></code></pre></div>
 </div>
 <p>You can now call this object at <em>any time</em> during your R session and perform calculations with it.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span> <span class="op">*</span> <span class="va">a</span></span></code></pre></div>
 <div class="webex-solution">
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">6</span></span></code></pre></div>
 </div>
 <p>What happens if we assign a value to a named object that <strong>already</strong> exists in our R environment??? for example</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
 <span><span class="va">a</span></span></code></pre></div>
 <p>The value of <code>a</code> is now 10.</p>
 <p>You should see that the previous assignment is lost, <em>gone forever</em> and has been replaced by the new value.</p>
 <p>We can assign lots of things to objects, and use them in calculations to build more objects.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
 <span><span class="va">c</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span></span></code></pre></div>
 <div class="warning">
@@ -554,7 +553,7 @@ they are made.
 Overwriting objects with new values means the old value is lost.
 </p>
 </div>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">7</span></span>
 <span><span class="va">b</span></span>
 <span><span class="va">c</span></span></code></pre></div>
@@ -646,7 +645,7 @@ Figure 1.5: courtesy of Allison Horst
 <p>Functions are the tools of R. Each one helps us to do a different task.</p>
 <p>Take for example the function that we use to round a number to a certain number of digits - this function is called <code>round</code></p>
 <p>Here's an example:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>x  <span class="op">=</span> <span class="fl">2.4326782647</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>We start the command with the function name <code>round</code>. The name is followed by parentheses <code>()</code>. Within these we place the <em>arguments</em> for the function, each of which is separated by a comma.</p>
 <p>The arguments:</p>
@@ -660,10 +659,10 @@ Figure 1.5: courtesy of Allison Horst
 Copy and paste the following code into the console.
 </p>
 </div>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/help.html">help</a></span><span class="op">(</span><span class="va">round</span><span class="op">)</span></span></code></pre></div>
 <p>The help documentation for <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>should appear in the bottom right help panel. In the usage section, we see that <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>takes the following form:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
 <p>In the arguments section, there are explanations for each of the arguments. <code>x</code>is the number or vector where we wish to round values. <code>digits</code> is the number of decimal places to be used. In the description we can see that if no value is supplied for <code>digits</code> it will default to 0 or whole number rounding.</p>
 <p>Read the 'Details' section to find out what happens when rounding when the last digit is a 5.</p>
@@ -673,11 +672,11 @@ Copy and paste the following code into the console.
 Copy and paste the following code into the console.
 </p>
 </div>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>x  <span class="op">=</span> <span class="fl">2.4326782647</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Now we can change the additional arguments to produce a different set of numbers.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>x  <span class="op">=</span> <span class="fl">2.4326782647</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 2.43</code></pre>
 <p>This time R has still rounded the number, but it has done so to a set number of 'decimal places'.</p>
@@ -693,7 +692,7 @@ Copy and paste the following code into the console.
 Copy and paste the following code into the console.
 </p>
 </div>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">number_of_digits</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
 <span></span>
 <span><span class="va">my_number</span> <span class="op">&lt;-</span> <span class="fl">2.4326782647</span></span>
@@ -713,14 +712,14 @@ Solution
 <span class="header-section-number">1.9.2</span> More fun with functions<a class="anchor" aria-label="anchor" href="#more-fun-with-functions"><i class="fas fa-link"></i></a>
 </h3>
 <p>Copy and paste this:</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2.4326782647</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>Looks like we don't even <em>have</em> to give the names of arguments for a function to still work. This works because the function <code>round</code> expects us to give the number value first, and the argument for rounding digits second. <em>But</em> this assumes we know the expected ordering within a function, this might be the case for functions we use a lot. If you give arguments their proper names <em>then</em> you can actually introduce them in <strong>any order you want</strong>.</p>
 <p>Try this:</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span>, x  <span class="op">=</span> <span class="fl">2.4326782647</span><span class="op">)</span></span></code></pre></div>
 <p>But this gives a different answer</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2.4326782647</span><span class="op">)</span></span></code></pre></div>
 <div class="warning">
 <p>
@@ -730,9 +729,9 @@ Remember naming arguments overrides the position defaults
 <p>How do we <strong>know</strong> the argument orders and defaults? Well we get to know how a lot of functions work through practice, but we can also use <code><a href="https://rdrr.io/r/utils/help.html">help()</a></code> .</p>
 </div>
 </div>
-<div id="packages" class="section level2" number="1.10">
+<div id="packages-1" class="section level2" number="1.10">
 <h2>
-<span class="header-section-number">1.10</span> Packages<a class="anchor" aria-label="anchor" href="#packages"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.10</span> Packages<a class="anchor" aria-label="anchor" href="#packages-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>When you install R you will have access to a range of functions including options for data wrangling and statistical analysis. The functions that are included in the default installation are typically referred to as <strong>Base R</strong> and there is a useful cheat sheet that shows many Base R functions <a href="%5Bhttps://www.rstudio.com/wp-content/uploads/2016/05/base-r.pdf">here</a></p>
 <p>However, the power of R is that it is extendable and open source - anyone can create a new <strong>package</strong> that extends the functions of R.</p>
@@ -743,7 +742,7 @@ Remember naming arguments overrides the position defaults
 Copy and paste the following code into the console.
 </p>
 </div>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span></code></pre></div>
 <ul>
@@ -774,7 +773,7 @@ the function hasn’t been loaded.
 Copy and paste the following code into the console.
 </p>
 </div>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bill_length_mm</span>, y <span class="op">=</span> <span class="va">bill_depth_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="01-intro-to-r_files/figure-html/unnamed-chunk-55-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="information">
@@ -793,7 +792,7 @@ provide useful information.
 </div>
 <p>The above command can also be written as below, its in a longer style with each new line for each argument in the function. This style can be easier to read, and makes it easier to write comments with <code>#</code>. Copy this longer command into your console then hit Enter.</p>
 <p>Note that R ignores anything that comes after <code>#</code> on a line of code - this means we can add notes to our work.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>, <span class="co"># calls ggplot function, data is penguins</span></span>
 <span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bill_length_mm</span>, <span class="co"># sets x axis as bill length</span></span>
 <span>           y <span class="op">=</span> <span class="va">bill_depth_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="co"># sets y axis value as bill depth</span></span>
@@ -846,7 +845,7 @@ analysis, in the correct order.
 Put the following comment in your script on line 1.
 </p>
 </div>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># I really love R</span></span></code></pre></div>
 <p>We can also use <code>#</code> to produce Headers of different levels, if we follow these with commented lines of <code>-</code> or <code>=</code> as shown in the figure below.</p>
 <div class="figure" style="text-align: center">
@@ -881,7 +880,7 @@ Use the document outline button to help organise your script.
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># I really love R</span></span>
 <span><span class="co"># _______________----</span></span>
 <span></span>
@@ -911,7 +910,7 @@ already have
 </p>
 </div>
 <p>It is very similar to the code you ran earlier, but is preceded by <code>plot_1 &lt;-</code></p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># DATA VISUAL ----</span></span>
 <span></span>
 <span><span class="va">plot_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>, <span class="co"># calls ggplot function, data is penguins</span></span>
@@ -942,7 +941,7 @@ already have
 <span class="header-section-number">1.12.5</span> Making an output<a class="anchor" aria-label="anchor" href="#making-an-output"><i class="fas fa-link"></i></a>
 </h3>
 <p>For our next trick we will make a script that outputs a file. Underneath the lines of code to generate the figure we will add a new function <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code>. Then <strong>re-run your script</strong>. To find out more about this function (and the arguments it contains), type <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">help(ggsave)</a></code> into the console.</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># OUTPUT TO FILE ----</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"2022_10_01_5023Y_workshop_1_penguin_scatterplot.png"</span>, </span>
@@ -992,7 +991,7 @@ e.g. YYYYMMDD_short_image_description.fileextension
 <button>
 Check your script
 </button>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># I really love R</span></span>
 <span><span class="co"># _______________----</span></span>
 <span></span>
@@ -1059,7 +1058,7 @@ Solution
 <p><strong>Question 3.</strong> What symbol do I use if I want to <strong>assign</strong> a value or output of a function to an R object</p>
 <p><input class="webex-solveme nospaces" size="2" data-answer='["&lt;-"]'></p>
 <p><strong>Question 4.</strong> What is the value of <code>a</code> if I ran the following commands?</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span>  <span class="fl">12</span><span class="op">*</span><span class="fl">2</span></span>
 <span></span>
 <span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></code></pre></div>
@@ -1305,7 +1304,7 @@ $( document ).ready(function() {
 <li><a class="nav-link" href="#more-fun-with-functions"><span class="header-section-number">1.9.2</span> More fun with functions</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#packages"><span class="header-section-number">1.10</span> Packages</a></li>
+<li><a class="nav-link" href="#packages-1"><span class="header-section-number">1.10</span> Packages</a></li>
 <li><a class="nav-link" href="#my-first-data-visualisation"><span class="header-section-number">1.11</span> My first data visualisation</a></li>
 <li>
 <a class="nav-link" href="#writing-scripts"><span class="header-section-number">1.12</span> Writing scripts</a><ul class="nav navbar-nav">
@@ -1325,8 +1324,8 @@ $( document ).ready(function() {
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/intro-mixed-models/blob/main/book/01-intro-to-r.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/intro-mixed-models/edit/main/book/01-intro-to-r.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/01-intro-to-r.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/01-intro-to-r.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -1338,7 +1337,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-09-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

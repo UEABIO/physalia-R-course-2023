@@ -1,4 +1,3 @@
-base
 extrafont
 tidyverse
 ggplot2
@@ -18,3 +17,4 @@ kableExtra
 glossary
 patchwork
 here
+lubridate

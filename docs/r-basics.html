@@ -4,24 +4,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 2 R Basics | 5023Y</title>
+<title>Chapter 2 R Basics | Introduction to Statistics</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="To load packages we use the function library(). Typically you would start any analysis script by loading all of the packages you need. The tidyverse is an opinionated collection of R packages...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 2 R Basics | 5023Y">
+<meta property="og:title" content="Chapter 2 R Basics | Introduction to Statistics">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/data-sci/r-basics.html">
-<meta property="og:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/r-basics.html">
+<meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="To load packages we use the function library(). Typically you would start any analysis script by loading all of the packages you need. The tidyverse is an opinionated collection of R packages...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 2 R Basics | 5023Y">
+<meta name="twitter:title" content="Chapter 2 R Basics | Introduction to Statistics">
 <meta name="twitter:description" content="To load packages we use the function library(). Typically you would start any analysis script by loading all of the packages you need. The tidyverse is an opinionated collection of R packages...">
-<meta name="twitter:image" content="https://ueabio.github.io/data-sci/images/logos/twitter_card.png">
+<meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="libs/grViz-binding-1.0.10/grViz.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -97,8 +97,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="Data Science for Biologists">5023Y</a>:
-        <small class="text-muted">Data Science for Biologists</small>
+        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statistics</a>:
+        <small class="text-muted">A guide for Biologists and Ecologists</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -116,19 +116,18 @@
 <li><a class="active" href="r-basics.html"><span class="header-section-number">2</span> R Basics</a></li>
 <li class="book-part">Exploring Data</li>
 <li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
-<li class="book-part">Mixed Models</li>
-<li><a class="" href="foundations-of-mixed-modelling.html"><span class="header-section-number">4</span> Foundations of Mixed Modelling</a></li>
-<li><a class="" href="types-of-random-effects.html"><span class="header-section-number">5</span> Types of Random Effects</a></li>
-<li><a class="" href="random-intercept-model.html"><span class="header-section-number">6</span> Random intercept model</a></li>
-<li><a class="" href="complex-designs.html"><span class="header-section-number">7</span> Complex designs</a></li>
-<li><a class="" href="reporting-mixed-model-results.html"><span class="header-section-number">8</span> Reporting Mixed Model results</a></li>
-<li><a class="" href="worked-example-1.html"><span class="header-section-number">9</span> Worked Example 1</a></li>
-<li><a class="" href="worked-example-2---dolphins.html"><span class="header-section-number">10</span> Worked Example 2 - Dolphins</a></li>
-<li><a class="" href="summary.html"><span class="header-section-number">11</span> Summary</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">4</span> Starting up R</a></li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">5</span> Data visualisation with ggplot2</a></li>
+<li class="book-part">Literate Programming and Reproducibility</li>
+<li><a class="" href="markdown.html"><span class="header-section-number">6</span> Markdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">7</span> Github</a></li>
+<li class="book-part">R Programming</li>
+<li><a class="" href="functions-1.html"><span class="header-section-number">8</span> Functions</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">9</span> Iteration</a></li>
 </ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/UEABIO/intro-mixed-models">View book source <i class="fab fa-github"></i></a></p>
+          <p><a id="book-repo" href="https://github.com/UEABIO/physalia-intro-stats-2023">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
 </div>
@@ -143,7 +142,7 @@
 <span class="header-section-number">2.1</span> Using packages<a class="anchor" aria-label="anchor" href="#using-packages"><i class="fas fa-link"></i></a>
 </h2>
 <p>Run the below code to load the tidyverse package. You can do this regardless of whether you are using your own computer or the cloud.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <p>You will get what looks like an error message - it's not. It's just R telling you what it's done. You should <strong>read this</strong> it gives you a full list of the packages it has made available to you. One of these should look familiar to you from last week?</p>
 <p><select class="webex-select"><option value="blank"></option>
@@ -158,7 +157,7 @@ Install the tidyverse. You DO NOT need to do this on RStudio Cloud.
 </button>
 <p>In order to use a package, you must first install it. The following code installs the package tidyverse, a package we will use very frequently.</p>
 <p>If you are working on your own computer, use the below code to install the tidyverse.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span></code></pre></div>
 <p>You only need to install a package once, however, each time you start R you need to load the packages you want to use, in a similar way that you need to install an app on your phone once, but you need to open it every time you want to use it.</p>
 </div>
@@ -192,7 +191,7 @@ using your own machine.
 <span class="header-section-number">2.3</span> Package conflicts<a class="anchor" aria-label="anchor" href="#package-conflicts"><i class="fas fa-link"></i></a>
 </h2>
 <p>There are thousands of different R packages with even more functions. Unfortunately, sometimes different packages have the same function names. For example, the packages <code>dplyr</code> and <code>MASS</code> both have a function named <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>. If you load both of these packages, R will produce a warning telling you that there is a conflict.</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code>package �dplyr� was built under R version 3.6.3
@@ -214,7 +213,7 @@ The following object is masked from �package:dplyr�:
     select</code></pre>
 <p>In this case, R is telling you that the function <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> in the <code>dplyr</code> package is being hidden (or 'masked') by another function with the same name. If you were to try and use <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>, R would use the function from the package that was loaded most recently - in this case it would use the function from <code>MASS</code>.</p>
 <p>If you want to specify which package you want to use for a particular function you can use code in the format <code>package::function</code>, for example:</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/lm.ridge.html">select</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="info">
@@ -238,7 +237,7 @@ there are NEVER any functions with identical names.
 <span class="header-section-number">2.4.1</span> Activity 1: Create some objects<a class="anchor" aria-label="anchor" href="#activity-1-create-some-objects"><i class="fas fa-link"></i></a>
 </h3>
 <p>Copy and paste the following code into the console, change the code so that it uses your own name and age and run it. You should see that <code>name</code>, <code>age</code>, <code>today</code>, <code>new_year</code>, and <code>data</code> appear in the environment pane.</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"emily"</span></span>
 <span><span class="va">age</span> <span class="op">&lt;-</span> <span class="fl">16</span> <span class="op">+</span> <span class="fl">19</span> </span>
 <span><span class="va">today</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -256,7 +255,7 @@ Figure 2.1: Objects in the environment
 <p>Note that in these examples, <code>name</code>,<code>age</code>, and <code>new_year</code> would always contain the values <code>emily</code>, <code>35</code>, and the date of New Year's Day 2021, however, <code>today</code> will draw the date from the operating system and <code>data</code> will be a randomly generated set of data so the values of these objects will not be static.</p>
 <p>As a side note, if you ever have to teach programming and statistics, don't use your age as an example because every time you have to update your teaching materials you get a reminder of the fragility of existence and your advancing age. 2021 update: I have now given up updating my age, I will remain forever 35.</p>
 <p>Importantly, objects can be involved in calculations and can interact with each other. For example:</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">age</span> <span class="op">+</span> <span class="fl">10</span></span>
 <span><span class="va">new_year</span> <span class="op">-</span> <span class="va">today</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
@@ -264,7 +263,7 @@ Figure 2.1: Objects in the environment
 ## Time difference of -534 days
 ## [1] 15.27983</code></pre>
 <p>Finally, you can store the result of these operations in a new object:</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">decade</span> <span class="op">&lt;-</span> <span class="va">age</span> <span class="op">+</span> <span class="fl">10</span></span></code></pre></div>
 <div class="info">
 <p>
@@ -288,7 +287,7 @@ synonymously very frequently.
 <span class="header-section-number">2.5</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
 </h2>
 <p>We have been working with R objects containing a single element of data, but we will more commonly work with vectors. A vector is a <em>sequence</em> of elements, <strong>all of the same data type</strong>. These could be logical, numerical, character etc.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">numeric_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">character_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"fruits"</span>, <span class="st">"vegetables"</span>, <span class="st">"seeds"</span><span class="op">)</span></span>
@@ -315,7 +314,7 @@ element within the vectors.
 </p>
 </div>
 <p>Let's have a quick go at making our own <strong>tibble</strong> from scratch.</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># make some variables/ vectors</span></span>
 <span><span class="va">person</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Mark"</span>, <span class="st">"Phil"</span>, <span class="st">"Becky"</span>, <span class="st">"Tony"</span><span class="op">)</span></span>
 <span></span>
@@ -330,7 +329,7 @@ contains.
 </p>
 </div>
 <p>Now we put these vectors together, where they become the variables in a new tibble using the function <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code></p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># make a tibble</span></span>
 <span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">person</span>, <span class="va">hobby</span>, <span class="va">awesomeness</span><span class="op">)</span></span>
 <span><span class="va">my_data</span></span></code></pre></div>
@@ -342,7 +341,7 @@ contains.
 3 Becky  dog walking              1
 4 Tony   car boot sales           1</code></pre>
 <p>Have a go at messing about with your script and figure out what each of the functions below does.</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Some R functions for looking at tibbles and dataframes</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">my_data</span>, n<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
@@ -380,7 +379,7 @@ Figure 2.2: A visual representation of long and wide format data shapes
 <li><p><code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">tidyr::pivot_wider()</a></code> - from <em>long</em> to <em>wide</em> format</p></li>
 <li><p><code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">tidyr::pivot_longer()</a></code> - from <em>wide</em> to <em>long</em> format</p></li>
 </ul>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">country</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span></span>
 <span> <span class="va">yr1960</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span></span>
 <span> <span class="va">yr1970</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">13</span>, <span class="fl">23</span>, <span class="fl">33</span><span class="op">)</span></span>
@@ -450,7 +449,7 @@ z
 </tbody>
 </table></div>
 </div>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">country_data</span>,</span>
 <span>             cols <span class="op">=</span> <span class="va">yr1960</span><span class="op">:</span><span class="va">yr2010</span>,</span>
 <span>             names_to <span class="op">=</span> <span class="st">"year"</span>,</span>
@@ -472,7 +471,7 @@ Figure 2.3: Reshaping data with pivot
 <h3>
 <span class="header-section-number">2.8.1</span> Overwrite the original object<a class="anchor" aria-label="anchor" href="#overwrite-the-original-object"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">country_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">country_data</span>,</span>
 <span>             cols <span class="op">=</span> <span class="va">yr1960</span><span class="op">:</span><span class="va">yr2010</span>,</span>
 <span>             names_to <span class="op">=</span> <span class="st">"year"</span>,</span>
@@ -483,7 +482,7 @@ Figure 2.3: Reshaping data with pivot
 <h3>
 <span class="header-section-number">2.8.2</span> Create a new r object<a class="anchor" aria-label="anchor" href="#create-a-new-r-object"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">long_country_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">country_data</span>,</span>
 <span>             cols <span class="op">=</span> <span class="va">yr1960</span><span class="op">:</span><span class="va">yr2010</span>,</span>
 <span>             names_to <span class="op">=</span> <span class="st">"year"</span>,</span>
@@ -563,7 +562,7 @@ include broken data or objects.
 </h2>
 <p>You may be some way off writing a scientific report where you have to cite and reference R, however, when the time comes it is important to do so to the people who built it (most of them for free!) credit. You should provide separate citations for R, RStudio, and the packages you use.</p>
 <p>To get the citation for the version of R you are using, simply run the <code><a href="https://rdrr.io/r/utils/citation.html">citation()</a></code> function which will always provide you with he most recent citation.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## To cite R in publications use:
 ## 
@@ -586,7 +585,7 @@ include broken data or objects.
 ## when using it for data analysis. See also 'citation("pkgname")' for
 ## citing R packages.</code></pre>
 <p>To generate the citation for any packages you are using, you can also use the <code><a href="https://rdrr.io/r/utils/citation.html">citation()</a></code> function with the name of the package you wish to cite.</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## To cite package 'tidyverse' in publications use:
 ## 
@@ -610,7 +609,7 @@ include broken data or objects.
 ##     doi = {10.21105/joss.01686},
 ##   }</code></pre>
 <p>To generate the citation for the version of RStudio you are using, you can use the <code>RStudio.Version()</code> function:</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">RStudio.Version</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, here's an example of how that might look in the write-up of your method section:</p>
 <blockquote>
@@ -686,7 +685,7 @@ Explain This Answer
 <p>Remember, when you run <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> it will always install the latest version of the package and it will overwrite any older versions of the package you may have installed.</p>
 </div>
 <p><br><strong>Question 2.</strong> What will the following code produce?</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">50</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p><select class="webex-select"><option value="blank"></option>
 <option value="">A dataset with 10 numbers that has a mean of 6 and an SD of 50</option>
@@ -953,8 +952,8 @@ $( document ).ready(function() {
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/intro-mixed-models/blob/main/book/02-programming-basics.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/intro-mixed-models/edit/main/book/02-programming-basics.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/02-programming-basics.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/02-programming-basics.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -966,7 +965,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>5023Y</strong>: Data Science for Biologists" was written by Philip T. Leftwich. It was last built on 2023-06-21.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-09-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

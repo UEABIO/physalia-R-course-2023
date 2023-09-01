@@ -1,7 +1,7 @@
 --- 
 title: "Introduction to Statistics"
 author: "Philip T. Leftwich"
-date: "2023-07-19"
+date: "2023-09-01"
 subtitle: A guide for Biologists and Ecologists
 site: bookdown::bookdown_site
 documentclass: book

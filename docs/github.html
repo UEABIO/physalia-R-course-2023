@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 7 Github | Introduction to Statistics</title>
+<meta name="author" content="Philip T. Leftwich">
+<meta name="description" content="7.1 Let's Git it started Git is a version control system. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects -...">
+<meta name="generator" content="bookdown 0.34 with bs4_book()">
+<meta property="og:title" content="Chapter 7 Github | Introduction to Statistics">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/github.html">
+<meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
+<meta property="og:description" content="7.1 Let's Git it started Git is a version control system. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects -...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 7 Github | Introduction to Statistics">
+<meta name="twitter:description" content="7.1 Let's Git it started Git is a version control system. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects -...">
+<meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6NP3MF25W3');
+    </script><script language="javascript"> 
+        function toggle(id) {
+            var ele = document.getElementById("toggleText" + id);
+            var text = document.getElementById("displayText" + id);
+            var buttonText = text.innerHTML.replace("Show ", "");
+            buttonText = buttonText.replace("Hide ", "");
+            if(ele.style.display == "block") {
+                ele.style.display = "none";
+                text.innerHTML = "Show " + buttonText;
+            } else {
+                ele.style.display = "block";
+                text.innerHTML = "Hide " + buttonText;
+            }
+        } 
+    </script><script language="javascript">
+        function openCode(evt, codeName, id) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent" + id);
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks" + id);
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(codeName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script><script language="javascript">
+        function hide(id){
+            document.getElementById(id).style.display = "none";
+        }
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statistics</a>:
+        <small class="text-muted">A guide for Biologists and Ecologists</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li class="book-part">Get Started in R</li>
+<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R Basics</a></li>
+<li class="book-part">Exploring Data</li>
+<li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">4</span> Starting up R</a></li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">5</span> Data visualisation with ggplot2</a></li>
+<li class="book-part">Literate Programming and Reproducibility</li>
+<li><a class="" href="markdown.html"><span class="header-section-number">6</span> Markdown</a></li>
+<li><a class="active" href="github.html"><span class="header-section-number">7</span> Github</a></li>
+<li class="book-part">R Programming</li>
+<li><a class="" href="functions-1.html"><span class="header-section-number">8</span> Functions</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">9</span> Iteration</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/UEABIO/physalia-intro-stats-2023">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="github" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> Github<a class="anchor" aria-label="anchor" href="#github"><i class="fas fa-link"></i></a>
+</h1>
+<div id="lets-git-it-started" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> Let's Git it started<a class="anchor" aria-label="anchor" href="#lets-git-it-started"><i class="fas fa-link"></i></a>
+</h2>
+<p>Git is a <strong>version control system</strong>. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects - with tracked changes.</p>
+<p>Git and GitHub are a big part of the data science community. We can use GitHub in a number of ways</p>
+<ol style="list-style-type: decimal">
+<li><p>To source code and repurpose analyses built by others for our own uses</p></li>
+<li>
+<p>Manage our analysis projects so that all parts of it:</p>
+<p>🔢 Data</p>
+<p>✍ ️Scripts</p>
+<p>📊 Figures</p>
+<p>📝 Reports</p>
+</li>
+</ol>
+<p>Are version controlled and open access</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Version control lets you recover from any mistakes &amp; your analysis is <em>backed up</em> externally</p></li>
+<li><p>When you come to publish any reports - your analysis is accessible to others</p></li>
+<li><p>Build up your own library of projects to show what you can do in Data Science</p></li>
+</ol>
+<div id="what-is-github" class="section level3" number="7.1.1">
+<h3>
+<span class="header-section-number">7.1.1</span> What is Github?<a class="anchor" aria-label="anchor" href="#what-is-github"><i class="fas fa-link"></i></a>
+</h3>
+<p>Watch this video <em>before</em> or <em>after</em> today's session:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/w3jLJU7DT5E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+<div id="will-this-be-fun" class="section level3" number="7.1.2">
+<h3>
+<span class="header-section-number">7.1.2</span> Will this be fun?<a class="anchor" aria-label="anchor" href="#will-this-be-fun"><i class="fas fa-link"></i></a>
+</h3>
+<p>No.</p>
+<p>Using GitHub and version control is a bit like cleaning your teeth. It's not exactly fun, but it's good for you and it promotes excellent hygiene. It also only takes about two minutes.</p>
+<p>When we talk a about projects on GitHub we refer to Repositories / repos.</p>
+<p>Repos on GitHub are the same unit as an RStudio Project - it's a place where you can easily store all information/data/etc. related to whatever project you're working on.</p>
+<p>The way in which we will set up our RStudio Projects will now have a few extra steps to it</p>
+<ol style="list-style-type: decimal">
+<li><p>Make a new GitHub repository (or <em>fork</em> an existing one)</p></li>
+<li><p>Make a New project on RStudio Cloud - selecting the <em>from GitHub Repository</em> option</p></li>
+<li><p>Clone your GitHub repo into an RStudio Project</p></li>
+<li><p>Make sure RStudio and Github can <em>talk</em> to each other</p></li>
+<li><p>Go about your normal business:</p></li>
+</ol>
+<ul>
+<li><p>When it comes to <em>saving</em> your files, you will also periodically make a <strong>commit</strong> - this takes a multi-file <em>snapshot</em> of your <em>entire</em> project</p></li>
+<li><p>At the end of a session <strong>push</strong> your changes to GitHub.</p></li>
+</ul>
+<p>These changes to working with RStudio will feel a little different at first, but will quickly become routine - and are a big step forward in your Data Science skills.</p>
+</div>
+<div id="the-payoff" class="section level3" number="7.1.3">
+<h3>
+<span class="header-section-number">7.1.3</span> The Payoff<a class="anchor" aria-label="anchor" href="#the-payoff"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p><strong>A portfolio:</strong> build up a library of data science projects you can show off</p></li>
+<li><p><strong>be keen:</strong> track the development of R packages on GitHUb</p></li>
+<li><p><strong>version control:</strong> keep a safe archive of all your edits and changes</p></li>
+<li><p><strong>play with others:</strong> easy ways to collaborate on data science projects</p></li>
+</ul>
+<p>For the full rundown on how to use Git and R you can't go wrong with checking out <a href="https://happygitwithr.com/">Happy Git</a></p>
+</div>
+</div>
+<div id="set-up-github" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Set up GitHub<a class="anchor" aria-label="anchor" href="#set-up-github"><i class="fas fa-link"></i></a>
+</h2>
+<p>First things first you will need to set yourself up with a GitHub account.</p>
+<p>Head to <a href="https://github.com/">GitHub</a> and sign up for a free account.</p>
+<div class="warning">
+<p>
+Make a careful note of
+</p>
+<ul>
+<li>
+<p>
+The username you choose
+</p>
+</li>
+<li>
+<p>
+Use the same email you have signed up to RStudio Cloud
+with
+</p>
+</li>
+<li>
+<p>
+Note your password carefully!
+</p>
+</li>
+</ul>
+</div>
+</div>
+<div id="activity-1-fork-clone-an-existing-repo-on-github-make-edits-push-back" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> <strong>Activity 1:</strong> Fork &amp; clone an existing repo on GitHub, make edits, push back<a class="anchor" aria-label="anchor" href="#activity-1-fork-clone-an-existing-repo-on-github-make-edits-push-back"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>a.</strong> Go to <a href="https://github.com/">github.com</a> and log in (you need your own account - for sign up with your uea.ac.uk e-mail)</p>
+<p><strong>b.</strong> In the Search bar, look for repo <strong>Philip-Leftwich/5023Y-Happy-Git</strong></p>
+<p><strong>c.</strong> Click on the repo name, and look at the existing repo structure</p>
+<p><strong>d.</strong> <strong>FORK</strong> the repo</p>
+<div id="what-the-hell-is-a-fork" class="section level3" number="7.3.1">
+<h3>
+<span class="header-section-number">7.3.1</span> What the hell is a fork?<a class="anchor" aria-label="anchor" href="#what-the-hell-is-a-fork"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-figure"><img src="images/fork.png" width="100%" style="display: block; margin: auto;"></div>
+<p>A fork is when you generate a <em>personal</em> copy of another user's <a href="github.html#glossary-github">repository</a>.</p>
+<p><strong>e.</strong> Press Clone/download and copy the URL, then create a <strong>new</strong> project in RStudio Cloud selecting the <strong>New project from Git repository</strong> option - make sure you are in the 5023Y Workspace</p>
+<div class="inline-figure"><img src="images/new-project.png" width="100%" style="display: block; margin: auto;"></div>
+<p><strong>f.</strong> Open the some_cool_animals.Rmd document, and the accompanying html</p>
+<p><strong>g.</strong> Add <em>your name</em> to the top of the document</p>
+<p><strong>h.</strong> BUT WAIT. We have forgotten to add a great image and facts about a very important species - Baby Yoda, including an image (the file is in the repo, and the info to add is below).</p>
+<p><strong>FACTS</strong></p>
+<div class="inline-figure"><img src="images/Grogu.png" width="100%" style="display: block; margin: auto;"></div>
+<ul>
+<li><p>Also known as "The Child"</p></li>
+<li><p>likes unfertilised frog eggs &amp; control knobs</p></li>
+<li><p>strong with the force</p></li>
+</ul>
+<p>
+ 
+</p>
+<p>
+ 
+</p>
+<p><strong>i.</strong> Once you’ve added Grogu, knit the Rmd document to update the html</p>
+<p><strong>j.</strong> Add your Git credentials go to section <a href="github.html#talking-to-github">talking to github</a></p>
+<p><strong>k.</strong> Stage, Commit &amp; Push all files <a href="github.html#glossary-github">(glossary)</a></p>
+<p>Staged - pick those files which you intend to bind to a commit</p>
+<p>Commit - write a short descriptive message, binds changes to a single <a href="github.html#commit">commit</a></p>
+<p>Push - "Pushes" your changes from the local repo to the remote repo on GitHub, <a href="github.html#push">(push)</a></p>
+<p><strong>l.</strong> On GitHub, refresh and see that files are updated. Cool! Now you’ve used something someone else has created, customized it, and saved your updated version.</p>
+</div>
+</div>
+<div id="talking-to-github" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> Talking to GitHub<a class="anchor" aria-label="anchor" href="#talking-to-github"><i class="fas fa-link"></i></a>
+</h2>
+<p>Getting set up to talk to GitHub can seem like a pain. Eventually when you work on your own computer - with a copy of R &amp; RStudio installed - you will only have to do this once. For now when we use RStudio Cloud - it looks like we have to do this <strong>once per project</strong>. It only takes a few seconds and you should put these commands <strong>directly into your console</strong>.</p>
+<p>Run this first line <strong>in your console</strong> and put in your GitHub username and the e-mail connected to your GitHub account.</p>
+<div class="warning">
+<p>
+Make sure you go to your RStudio Cloud profile &gt; Authentication
+and select Github Enabled &amp; Private repo access also enabled
+</p>
+</div>
+<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git_config.html">use_git_config</a></span><span class="op">(</span>user.name <span class="op">=</span> <span class="st">"Jane Doe"</span>, user.email <span class="op">=</span> <span class="st">"jane@example.org"</span><span class="op">)</span></span></code></pre></div>
+<p>Then you need to give RStudio Cloud your GitHub Personal Access Token, which you can retrieve by going to Github.com and finding Settings &gt; Developer Settings &gt; Generate Token</p>
+<p>Select all the "scopes" and name your token.</p>
+<div class="inline-figure"><img src="images/git-PAT.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Make a note of this because you will need it whenever you set up a new project you want to talk to GitHub. GitHub recently removed password authentication in favour of PATs, but RStudio Cloud doesn't seem to have updated this yet - that's ok though - just enter this line of code - then copy+paste your PAT when prompted. - Option set/replace these credentials.</p>
+<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html">gitcreds_set</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="info">
+<p>
+When you start working on your own computer, you should only have to
+re-input your PAT when it expires. On RStudio Cloud it works a little
+differently.
+</p>
+<p>
+In theory you should only need to input your PAT once per project.
+Sometimes it seems to forget and asks for it again between one session
+and the next. So you might want to write it down somewhere.
+</p>
+<p>
+If you forget your PAT - that’s ok - you can’t retrieve it - but you
+can just generate a new one o Github.
+</p>
+</div>
+<div id="see-changes" class="section level3" number="7.4.1">
+<h3>
+<span class="header-section-number">7.4.1</span> See changes<a class="anchor" aria-label="anchor" href="#see-changes"><i class="fas fa-link"></i></a>
+</h3>
+<p>The first and most immediate benefit of using GitHub with your RStudio Project is seeing the changes you have made since your last commit.</p>
+<p>The RStudio Git pane lists every file that’s been added, modified or deleted. The icon describes the change:</p>
+<ul>
+<li><div class="inline-figure">You've changed a file
+<img src="images/git-modified.png" width="5%" style="display: block; margin: auto auto auto 0;">
+</div></li>
+<li><div class="inline-figure">You've added a new file Git hasn't seen before
+<img src="images/git-unknown.png" width="5%" style="display: block; margin: auto auto auto 0;">
+</div></li>
+<li><div class="inline-figure">You've deleted a file
+<img src="images/git-deleted.png" width="5%" style="display: block; margin: auto auto auto 0;">
+</div></li>
+</ul>
+<p>You can get more details on the changes that have been made to each file by right-clicking and selecting diff</p>
+<div class="inline-figure"><img src="images/git-diff.png" width="15%" style="display: block; margin: auto auto auto 0;"></div>
+<p>This opens a new window highlighting the <strong>diff</strong>erences between your current file and the previous commit.</p>
+<div class="inline-figure">
+<img src="images/git-diff-window.png" width="100%" style="display: block; margin: auto;">
+The background colours tells you whether the text has been added (green) or removed (red). (If you’re colourblind you can use the line numbers in the two columns at the far left as a guide).</div>
+</div>
+</div>
+<div id="how-to-use-version-control---when-to-commit-push-and-pull" class="section level2" number="7.5">
+<h2>
+<span class="header-section-number">7.5</span> How to use version control - when to commit, push and pull<a class="anchor" aria-label="anchor" href="#how-to-use-version-control---when-to-commit-push-and-pull"><i class="fas fa-link"></i></a>
+</h2>
+<p>Repositories (repos) on GitHub are the same unit as an RStudio Project - it's a place where you can easily store all information/data/etc. related to whatever project you're working on.</p>
+<p>When we create a Repository in GitHub and have it communicating with a Project in RStudio, then we can changes moving in two directions</p>
+<ul>
+<li>
+<strong>pull</strong> information <em>from</em> GitHub <em>to</em> RStudio</li>
+</ul>
+<p>or</p>
+<ul>
+<li>
+<strong>push</strong> information <em>from</em> RStudio <em>to</em> GitHub where it is safely stored and/or our collaborators can access it.</li>
+</ul>
+<p>Github also keeps a <em>complete history</em> of different versions of each file that can be accessed/reviewed by you and your collaborators at any time, from anywhere, as long as you have the internet.</p>
+<p>I have mentioned the term <strong>commit</strong> a few times (<a href="github.html#glossary-github">7.11</a>). The fundamental unit of work in Git is a commit. A commit takes a snapshot of your code at a specified point in time.</p>
+<p>You create a commit in two stages:</p>
+<ol style="list-style-type: decimal">
+<li><p>You <strong>stage</strong> files, telling Git which changes should be included in the next commit.</p></li>
+<li><p>You <strong>commit</strong> the staged files, describing the changes with a message.</p></li>
+</ol>
+<div id="stage" class="section level3" number="7.5.1">
+<h3>
+<span class="header-section-number">7.5.1</span> Stage<a class="anchor" aria-label="anchor" href="#stage"><i class="fas fa-link"></i></a>
+</h3>
+<div class="info">
+<p>
+The staging section allows you to have finescale control over the
+files that are included with each commit. So in theory you could
+separate changes made in different files into different commitments.
+</p>
+</div>
+<p>First <strong>save</strong> your files, then select files for inclusion by <em>staging</em> them, tick the checkbox and then select the commit box.</p>
+<div class="inline-figure"><img src="images/stage_step_4.png" width="100%" style="display: block; margin: auto;"></div>
+<p>A new window will open 'Review Changes' - and you will see the <strong>diffs</strong> in the bottom pane, and all the files you have selected for the latest commit.</p>
+</div>
+<div id="commit" class="section level3" number="7.5.2">
+<h3>
+<span class="header-section-number">7.5.2</span> Commit<a class="anchor" aria-label="anchor" href="#commit"><i class="fas fa-link"></i></a>
+</h3>
+<p>In this new 'Review Changes' window you will see the list of files that were staged in the last window.</p>
+<p>If you click on a file name you see the changes that have been made highlighted in the bottom panel. Added content is highlighted in green, removed content is highlighted in red.</p>
+<p>To <strong>commit</strong> these changes (take a snapshot) you must enter a mandatory commit message in the "commit message" box.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-15"></span>
+<img src="images/stage_step_5.png" alt="Green = added content, Red = deleted content" width="100%"><p class="caption">
+Figure 7.1: Green = added content, Red = deleted content
+</p>
+</div>
+<p>The commit message should be short but meaningful (to you or any collaborators)</p>
+<p>Describe the <strong>why</strong>, not the what. Git stores all the associated differences between commits, the message doesn’t need to say exactly what changed - this is kept track of for you by Git. Instead it should provide a summary that focuses on the <strong>reasons</strong> for the change. Make this understandable for someone else!</p>
+<p>It is tradition to enter the very first message of a new project as "First Commit".</p>
+<p>Once you click &gt; commit, a new window will open that summarises your commit - and you can close this</p>
+<div class="inline-figure"><img src="images/stage_step_6.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="info">
+<p>
+When you commit changes - you are not simply saving a new version of
+the file. It is committing the exact line changes made, and only
+modifying those files which you have selected for commit.
+</p>
+</div>
+</div>
+<div id="push" class="section level3" number="7.5.3">
+<h3>
+<span class="header-section-number">7.5.3</span> Push<a class="anchor" aria-label="anchor" href="#push"><i class="fas fa-link"></i></a>
+</h3>
+<p>At the moment, all of your commits are <em>local</em>, in order to send them to GitHub you have to select <strong>Push</strong> at this point your github credentials need to be in place - if you get prompted to provide these, close the windows and follow the steps <a href="github.html#talking-to-github">here</a> before trying again.</p>
+<p>Your git pane will be empty at this point - but there is a little message at the top detailing how many commits you are <em>ahead</em> of the master repo on GitHub. If this says your branch is one or more commits ahead of the master, then your commits are still local and haven't been pushed yet.</p>
+<div class="inline-figure"><img src="images/stage_step_7.png" width="100%" style="display: block; margin: auto;"></div>
+<p>To confirm the changes you made to the project have been pushed to Github, open your GitHub page (get the link in Tools &gt; Project Options &gt; Git/SVN).</p>
+<p>You should see all your files listed, alongside the file names you will see your last commit message <em>and</em> when you made the commit.</p>
+<div class="inline-figure"><img src="images/git-link.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="a-couple-of-general-tips" class="section level3" number="7.5.4">
+<h3>
+<span class="header-section-number">7.5.4</span> A couple of general tips:<a class="anchor" aria-label="anchor" href="#a-couple-of-general-tips"><i class="fas fa-link"></i></a>
+</h3>
+<div class="note">
+<ul>
+<li>
+<p>
+Pull at the start of <strong>every session</strong> this
+retrieves the master repo from GitHub - which you update at the end of
+every session. This helps prevent <em>conflicts</em>
+</p>
+</li>
+<li>
+<p>
+<strong>Commit/push</strong> in small, meaningful increments and
+do this often. You can make <strong>multiple</strong> commits in a
+session - and <strong>always push at the end of the
+session</strong>
+</p>
+</li>
+<li>
+<p>
+In this way your GitHub Repo becomes the <strong>master
+copy</strong> of your project.
+</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="activity-2-github-classrooms-enabled-r-projects-with-subfolders" class="section level2" number="7.6">
+<h2>
+<span class="header-section-number">7.6</span> <strong>Activity 2:</strong> GitHub Classrooms enabled R Projects with subfolders<a class="anchor" aria-label="anchor" href="#activity-2-github-classrooms-enabled-r-projects-with-subfolders"><i class="fas fa-link"></i></a>
+</h2>
+<p>GitHub Classrooms is a way for me to set repos as assigments - when you accept an assignment on GitHub Classroom it <em>automatically</em> forks a private repo for you.</p>
+<p>You should make regular commits and pushes to save your work as you go - and I will be grading your project repositories on GitHub classrooms when you do your assignment work.</p>
+<div class="warning">
+<p>
+When you accept an assignment on GitHub classrooms - the repo won’t
+appear on your main profile, this is because it belongs to our class
+rather than you. You can always find it by searching through your
+Organisations - <strong>but</strong> it’s probably easiest just check
+the URL in Project Options on RStudio
+</p>
+</div>
+<p><strong>a.</strong> Follow this <a href="https://classroom.github.com/a/fM_53MuL">invite link</a></p>
+<p><strong>b.</strong> You will be invited to sign-in to Github (if not already) &amp; to join the UEABIO organisation</p>
+<p><strong>c.</strong> Clone your assignment to work locally in RStudio Cloud - 5023Y Workspace</p>
+<p><strong>d.</strong> In your local project folder, create subfolders ‘data’ and ‘figures’, 'scripts'.</p>
+<p><strong>f.</strong> Open a new <code>.R</code> script (or <code>.Rmd</code> if you prefer to practice with this)</p>
+<p><strong>g.</strong> Attach the <code>tidyverse</code>, <code>janitor</code>, and optionally <code>here</code> packages</p>
+<p><strong>h.</strong> Read in the infant_mortality.csv data</p>
+<p>This is a file look at the death rate for every country in the world across six decades. See the README for more information</p>
+<p><strong>i.</strong> Stage, commit &amp; push at this point - notice that the empty folder ‘final_graphs’ doesn’t show up (won’t commit an empty folder) - <strong>you will have to set up your git credentials again</strong></p>
+<p><strong>j.</strong> Back in the script, write a short script to read and clean the data.</p>
+<p>This script is pre-written, it puts the data in tidy format, cleans names, makes sure year is treated as date data and filters four countries of interest.</p>
+<p>Assign this to a new object</p>
+<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://plotly-r.com">plotly</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">infant_mortality</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/infant_mortality.csv"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">subset_infant_mortality</span> <span class="op">&lt;-</span> <span class="va">infant_mortality</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols<span class="op">=</span><span class="st">"1960"</span><span class="op">:</span><span class="st">"2020"</span>, </span>
+<span>               names_to<span class="op">=</span><span class="st">"year"</span>,               </span>
+<span>               values_to<span class="op">=</span><span class="st">"infant_mortality_rate"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year<span class="op">=</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># set ymd format</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year<span class="op">=</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># extract year</span></span>
+<span>  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># put names in snake case</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">country_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> </span>
+<span>           <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"United States"</span>, </span>
+<span>             <span class="st">"Japan"</span>, </span>
+<span>             <span class="st">"Afghanistan"</span>, </span>
+<span>             <span class="st">"United Kingdom"</span><span class="op">)</span><span class="op">)</span> <span class="co"># extract four countries</span></span>
+<span></span>
+<span><span class="co"># View(subset_infant_mortality)</span></span>
+<span></span>
+<span><span class="co"># subset the date according to (US,UK, Japan = lowest infant death rates, Afghanistan = highest infant death rates)</span></span></code></pre></div>
+<p><strong>k.</strong> Make a ggplot plotting the infant mortality rate by country</p>
+<p>HINT - use <code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line()</a></code> and remember to separate countries by colour</p>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">subset_infant_mortality</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>,</span>
+<span>                 y <span class="op">=</span> <span class="va">infant_mortality_rate</span>,</span>
+<span>                 color <span class="op">=</span> <span class="va">country_name</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p><strong>l.</strong> Update your graph with direct labels (using <code>annotate</code>) and vertical or horizontal lines with <code>geom_vline</code> or <code>geom_hline</code>.</p>
+<div class="inline-figure"><img src="08-github_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mortality_figure</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">subset_infant_mortality</span>,</span>
+<span>                           <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>,</span>
+<span>                 y <span class="op">=</span> <span class="va">infant_mortality_rate</span>,</span>
+<span>                 color <span class="op">=</span> <span class="va">country_name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"blue"</span>, <span class="st">"magenta"</span>, <span class="st">"orange"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>,</span>
+<span>           x <span class="op">=</span> <span class="fl">2023</span>,</span>
+<span>           y <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>           label <span class="op">=</span> <span class="st">"Afghanistan"</span>,</span>
+<span>           size <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>           colour<span class="op">=</span><span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>,</span>
+<span>           x <span class="op">=</span> <span class="fl">2023</span>,</span>
+<span>           y <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,</span>
+<span>           label <span class="op">=</span> <span class="st">"Japan"</span>,</span>
+<span>           size <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>           colour<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>,</span>
+<span>           x <span class="op">=</span> <span class="fl">2023</span>,</span>
+<span>           y <span class="op">=</span> <span class="fl">15</span>,</span>
+<span>           label <span class="op">=</span> <span class="st">"United Kingdom"</span>,</span>
+<span>           size <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>           colour<span class="op">=</span><span class="st">"orange"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>,</span>
+<span>           x <span class="op">=</span> <span class="fl">2023</span>,</span>
+<span>           y <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>           label <span class="op">=</span> <span class="st">"United States"</span>,</span>
+<span>           size <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>           colour<span class="op">=</span><span class="st">"magenta"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">2000</span>,</span>
+<span>             lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim</a></span><span class="op">(</span><span class="fl">1970</span>, <span class="fl">2025</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"Year"</span>,</span>
+<span>       y<span class="op">=</span><span class="st">"Deaths per 100,000"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Mortality rate, infant (per 1,000 live births) \nhas been steadily falling in Afghanistan from 1970 to present"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p><strong>m.</strong> Use ggsave() to write your graph to a .png in the ‘final_graphs’ subfolder</p>
+<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"figures/infant mortality graph.png"</span>, plot <span class="op">=</span> <span class="va">mortality_figure</span>, dpi<span class="op">=</span><span class="fl">900</span>, width <span class="op">=</span> <span class="fl">7</span>, height <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code></pre></div>
+<p><strong>n.</strong> Save, stage, commit</p>
+<p><strong>o</strong> Let's do one more cool and fun thing! And make an interactive version of our plot using plotly <span class="citation">Sievert et al. (<a href="iteration.html#ref-R-plotly">2023</a>)</span> just for fun!</p>
+<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html">ggplotly</a></span><span class="op">(</span><span class="va">mortality_figure</span>, tooltip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"infant_mortality_rate"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">## uses plotly package</span></span></code></pre></div>
+<p><strong>p</strong> Now save, stage, commit &amp; <strong>push</strong></p>
+<p><strong>q.</strong> Check that changes are stored on GitHub</p>
+<p>(<strong>NOTE</strong> this will be in your organisations rather than repos)</p>
+<p><strong>Make sure you finish both exercises before next week to become a GitHub pro!!!!!!!!!</strong></p>
+</div>
+<div id="find-your-classroom-repos" class="section level2" number="7.7">
+<h2>
+<span class="header-section-number">7.7</span> Find your classroom repos<a class="anchor" aria-label="anchor" href="#find-your-classroom-repos"><i class="fas fa-link"></i></a>
+</h2>
+<p>When you work with GitHub classrooms your repos become part of our organisation UEABIO.</p>
+<p>If you want to find your repos on GitHub then you can do this in a couple of ways</p>
+<ol style="list-style-type: decimal">
+<li><p>Bookmark the direct URL (if you noted it) from when you first visit the repo</p></li>
+<li><p>Head to (<a href="https://github.com/UEABIO" class="uri">https://github.com/UEABIO</a>) - you should only be able to see repos that belong to <strong>you</strong>.</p></li>
+<li><p>From RStudio Cloud head to Tools &gt; Project Options &gt; Git to find the URL.</p></li>
+</ol>
+<div class="inline-figure"><img src="images/classroom-organisation.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="git-history" class="section level2" number="7.8">
+<h2>
+<span class="header-section-number">7.8</span> Git History<a class="anchor" aria-label="anchor" href="#git-history"><i class="fas fa-link"></i></a>
+</h2>
+<p>So far we have used Git to track, stage and commit our file changes to GitHub. Now we will look briefly at how to review our changes and what to do if we want to revert any changes.</p>
+<div id="commit-history" class="section level3" number="7.8.1">
+<h3>
+<span class="header-section-number">7.8.1</span> Commit History<a class="anchor" aria-label="anchor" href="#commit-history"><i class="fas fa-link"></i></a>
+</h3>
+<p>To view your commit history in RStudio, simply click on the 'History' button 🕒 in the Git Panel.</p>
+<p>This window is split in two parts. The top pane lists every commit you have made in this repository, with their associated messsages (top to bottom, most recent to last).</p>
+<p>Click on any commit and the bottom pane shows you the changes you made compared to the previous commit, there is also a summary of who made the commit, the commit message and the date it was made.</p>
+<p>There is also an SHA (Secure Hash Algorithm), this is a unique identifier for the commit, and Parent SHA which identifies the commit that immediately preceded it.</p>
+<p>You <strong>can</strong> also review your commit history on Github by clicking on the 'commits' link in the repository</p>
+</div>
+<div id="reverting-changes" class="section level3" number="7.8.2">
+<h3>
+<span class="header-section-number">7.8.2</span> Reverting changes<a class="anchor" aria-label="anchor" href="#reverting-changes"><i class="fas fa-link"></i></a>
+</h3>
+<p>One of the most powerful things about Git is the ability to revert to previous versions of files, if you made a mistake, broke something, or just changed your mind!</p>
+<p>How you do this depends on what stage you are at in making your changes. We'll go through each of these scenarios in turn.</p>
+<div id="changes-saved-but-not-staged-committed-or-pushed" class="section level4" number="7.8.2.1">
+<h4>
+<span class="header-section-number">7.8.2.1</span> Changes saved but not staged, committed or pushed<a class="anchor" aria-label="anchor" href="#changes-saved-but-not-staged-committed-or-pushed"><i class="fas fa-link"></i></a>
+</h4>
+<p>If you have saved changes to your file, but not yet staged them, you can click on the offending file in the Git pane and select 'revert'. This will roll back the file to your last 'commit' (warning reverting cannot be undone).</p>
+<p>Changes can be made to <em>part</em> of a file by opening the 'Diff' window. Select the line you wish to discard by double-clicking the line and select 'Discard line/chunk'</p>
+</div>
+<div id="staged-but-not-committed" class="section level4" number="7.8.2.2">
+<h4>
+<span class="header-section-number">7.8.2.2</span> Staged but not committed<a class="anchor" aria-label="anchor" href="#staged-but-not-committed"><i class="fas fa-link"></i></a>
+</h4>
+<p>Simply unclick the staged check box, then revert as described above.</p>
+</div>
+<div id="staged-and-committed-but-not-pushed" class="section level4" number="7.8.2.3">
+<h4>
+<span class="header-section-number">7.8.2.3</span> Staged and committed but not pushed<a class="anchor" aria-label="anchor" href="#staged-and-committed-but-not-pushed"><i class="fas fa-link"></i></a>
+</h4>
+<p>If you made a mistake or forgot to include a file in your last commit, you can fix your mistake, save the changes and tick the box 'Amend previous commit' in the 'Review Changes' pane.</p>
+<p>If you want to make a change that was several commits ago there are two options:</p>
+<ul>
+<li>
+<strong>Option 1</strong> - easier but not <em>very Git</em> 🤷</li>
+</ul>
+<p>Look in your commit history in RStudio - find the commit you want to go back to and click the 'View file @' button to show file contents.</p>
+<p>Copy the contents of the file to clipboard and paste into your current file. Save, stage, commit as normal.</p>
+<ul>
+<li>
+<strong>Option 2</strong> - Go to Git history, find the commit and write down the SHA.</li>
+</ul>
+<p>Now go to the <strong>Terminal</strong> tab (next to Console) and type</p>
+<pre><code>git checkout &lt;SHA&gt; &lt;filename&gt;</code></pre>
+<p>This might look something like this</p>
+<pre><code>git checkout 2b4693d1 first_doc.Rmd</code></pre>
+<p>This command will copy the selected file from the past and replace it in the present. You may be asked if you want to reload the file now (say yes). Then stage, commit as usual.</p>
+</div>
+<div id="staged-committed-and-pushed" class="section level4" number="7.8.2.4">
+<h4>
+<span class="header-section-number">7.8.2.4</span> Staged, committed and pushed<a class="anchor" aria-label="anchor" href="#staged-committed-and-pushed"><i class="fas fa-link"></i></a>
+</h4>
+<p>You could use either of the strategies described above, although if you are using the Terminal there is now a better command <code>git revert</code>.</p>
+<p>First you need to identify the SHA of the commit you want to revert to as before. Then use the <code>git revert</code> command in the Terminal. Adding the <code>--no-commit</code> option stops us having to deal with intermediate commits. Adding <code>..HEAD</code> tells GIT to make this old commit the new/old "HEAD" or lead of the project.</p>
+<pre><code>git revert --no-commit d27e79f1..HEAD
+</code></pre>
+</div>
+</div>
+</div>
+<div id="collaborate-with-git" class="section level2" number="7.9">
+<h2>
+<span class="header-section-number">7.9</span> Collaborate with Git<a class="anchor" aria-label="anchor" href="#collaborate-with-git"><i class="fas fa-link"></i></a>
+</h2>
+<p>GitHub is great for collaboration. It can seem a little scary or complicated at first, but it's totally worth it!</p>
+<p>Github works as a <em>distributed system</em> this means each person working on a project has their own copy. Changes are then merged together in the remote repository on GitHub.</p>
+<p>For small projects we can use exactly the same system as above. Everybody connects their local repository to the same remote one.</p>
+<ul>
+<li><p><strong>Pull</strong> the repository at the start of <em>each</em> session to make sure you are working on the most up to-date version.</p></li>
+<li><p>Work on your aspect of the project, staging, committing and pushing as you go.</p></li>
+</ul>
+<p>For small projects this works well if each person has their own files to work on, but if two people are working on the same file <em>at the same time</em> this can cause a 'merge conflict'. So for bigger projects each collaborator creates a copy (fork) of the repository, then a <strong>pull request</strong> must be sent to the owner of the main repository to incorporate any changes, this includes a review step before these changes are integrated.</p>
+</div>
+<div id="final-git-tips" class="section level2" number="7.10">
+<h2>
+<span class="header-section-number">7.10</span> Final Git tips<a class="anchor" aria-label="anchor" href="#final-git-tips"><i class="fas fa-link"></i></a>
+</h2>
+<p>Reminders:</p>
+<ul>
+<li><p>Commit often, and push at the end of a session</p></li>
+<li><p>If you don't want to track a file in your repository (maybe you aren't working with that in a collaboration) you can get Git to ignore by right-click and selecting Ignore.</p></li>
+<li><p>Check the Github repo online to make sure changes are being pushed</p></li>
+<li><p>If it all goes wrong! And you trash your project! That's ok, as long as your GitHub repository online is good the final option is to delete your RStudio project on your computer or RStudio Cloud and clone the project from GitHub again!</p></li>
+</ul>
+</div>
+<div id="glossary-github" class="section level2" number="7.11">
+<h2>
+<span class="header-section-number">7.11</span> Glossary-GitHub<a class="anchor" aria-label="anchor" href="#glossary-github"><i class="fas fa-link"></i></a>
+</h2>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;">
+Terms
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+clone
+</td>
+<td style="text-align:left;">
+A clone is a copy of a repository that lives on your computer instead of on a website's server somewhere, or the act of making that copy. When you make a clone, you can edit the files in your preferred editor and use Git to keep track of your changes without having to be online. The repository you cloned is still connected to the remote version so that you can push your local changes to the remote to keep them synced when you're online.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+commit
+</td>
+<td style="text-align:left;">
+A commit, or revision, is an individual change to a file (or set of files). When you make a commit to save your work, Git creates a unique ID that allows you to keep record of the specific changes committed along with who made them and when. Commits usually contain a commit message which is a brief description of what changes were made.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+commit message
+</td>
+<td style="text-align:left;">
+Short, descriptive text that accompanies a commit and communicates the change the commit is introducing.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fork
+</td>
+<td style="text-align:left;">
+A fork is a personal copy of another user's repository that lives on your account. Forks allow you to freely make changes to a project without affecting the original upstream repository. You can also open a pull request in the upstream repository and keep your fork synced with the latest changes since both repositories are still connected.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Git
+</td>
+<td style="text-align:left;">
+Git is an open source program for tracking changes in text files. It was written by the author of the Linux operating system, and is the core technology that GitHub, the social and user interface, is built on top of.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GitHub Classroom
+</td>
+<td style="text-align:left;">
+GitHub Classroom automates repository creation and access control, making it easy to distribute starter code and collect assignments on GitHub
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Markdown
+</td>
+<td style="text-align:left;">
+Markdown is an incredibly simple semantic file format, not too dissimilar from .doc, .rtf and .txt. Markdown makes it easy for even those without a web-publishing background to write prose (including with links, lists, bullets, etc.) and have it displayed like a website.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pull
+</td>
+<td style="text-align:left;">
+Pull refers to when you are fetching in changes and merging them. For instance, if someone has edited the remote file you're both working on, you'll want to pull in those changes to your local copy so that it's up to date
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+push
+</td>
+<td style="text-align:left;">
+To push means to send your committed changes to a remote repository on GitHub.com. For instance, if you change something locally, you can push those changes so that others may access them.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+README
+</td>
+<td style="text-align:left;">
+A text file containing information about the files in a repository that is typically the first file a visitor to your repository will see. A README file, along with a repository license, contribution guidelines, and a code of conduct, helps you share expectations and manage contributions to your project.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+repository
+</td>
+<td style="text-align:left;">
+A repository (repo) is the most basic element of GitHub. They're easiest to imagine as a project's folder. A repository contains all of the project files (including documentation), and stores each file's revision history. Repositories can have multiple collaborators and can be either public or private.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMarkdown
+</td>
+<td style="text-align:left;">
+Rmarkdown is a package and filetype that are deeply embedded with RStudio to allow the integration of Markdown and output chunks of programming code (such as R) to publish a variety of different file types
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+personal access token
+</td>
+<td style="text-align:left;">
+A token that is used in place of a password when performing Git operations over HTTPS. Also called a PAT.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="summing-up-github" class="section level2" number="7.12">
+<h2>
+<span class="header-section-number">7.12</span> Summing up GitHub<a class="anchor" aria-label="anchor" href="#summing-up-github"><i class="fas fa-link"></i></a>
+</h2>
+<div id="what-we-learned-2" class="section level3" number="7.12.1">
+<h3>
+<span class="header-section-number">7.12.1</span> What we learned<a class="anchor" aria-label="anchor" href="#what-we-learned-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>You have learned:</p>
+<ul>
+<li><p>How to fork and clone GitHub Projects</p></li>
+<li><p>How to use GitHub classrooms</p></li>
+<li><p>How to make RStudio and GitHub talk to each other</p></li>
+<li><p>How to use version control, with stage, commit and push</p></li>
+<li><p>Remember to bookmark <a href="https://happygitwithr.com/">Happy Git</a></p></li>
+</ul>
+<p>You have used</p>
+<ul>
+<li><p><code>gitcreds</code> <span class="citation">Csárdi (<a href="iteration.html#ref-R-gitcreds">2022</a>)</span></p></li>
+<li><p><code>usethis</code> <span class="citation">Wickham, Bryan, et al. (<a href="iteration.html#ref-R-usethis">2023</a>)</span></p></li>
+</ul>
+</div>
+</div>
+<div id="sharing-a-github-repo---dealing-with-conflict-when-collaborating" class="section level2" number="7.13">
+<h2>
+<span class="header-section-number">7.13</span> Sharing a Github repo - Dealing with conflict when collaborating<a class="anchor" aria-label="anchor" href="#sharing-a-github-repo---dealing-with-conflict-when-collaborating"><i class="fas fa-link"></i></a>
+</h2>
+<div id="how-to-avoid-a-conflict" class="section level3" number="7.13.1">
+<h3>
+<span class="header-section-number">7.13.1</span> How to avoid a conflict<a class="anchor" aria-label="anchor" href="#how-to-avoid-a-conflict"><i class="fas fa-link"></i></a>
+</h3>
+<p>The best and simplest way to avoid Github conflicts is to follow some simple guidelines. If two people are sharing a repo and commit their work usually this will go smoothly. However, if you try to merge changes on the same part of the same file you will get a merge conflict.</p>
+<pre><code>git merge issue-5
+# Auto-merging index.html
+# CONFLICT (content): Merge conflict in index.html
+# Automatic merge failed; fix conflicts and then commit the result.
+</code></pre>
+<p>If you see a message like this, the first thing is <strong>do not panic</strong>. Merge conflicts can be easily fixed.</p>
+<p>We can avoid merge conflicts altogether by following some simple organisation tips:</p>
+<ol style="list-style-type: decimal">
+<li><p>Partition the project, work on independent R scripts, so that changes made by one person have no affect on the files someone else is working on.</p></li>
+<li><p>Communicate - organise times when one person might work on a shared file, so that two people don't work on the same file at the same time</p></li>
+<li><p>Always Pull the latest version of the repo <em>before</em> you start working, try pulling <strong>just before you push</strong> in order to collect the latest changes &amp; <strong>always</strong> push to Github at the <em>end</em> of a session.</p></li>
+</ol>
+</div>
+<div id="dealing-with-a-conflict" class="section level3" number="7.13.2">
+<h3>
+<span class="header-section-number">7.13.2</span> Dealing with a conflict<a class="anchor" aria-label="anchor" href="#dealing-with-a-conflict"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let's imagine you HAVE made a mistake and two people have tried to push changes for the same file at the same time!</p>
+<p>The <em>second</em> person trying to push a change to Github will get an error</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-30"></span>
+<img src="images/git-conflict-01-push-error.png" alt="Git conflict" width="100%"><p class="caption">
+Figure 7.2: Git conflict
+</p>
+</div>
+<p>Do what the message says and pull the changes from Github, this will generate a <strong>different</strong> error mesage. In this case indicating a merge conflict because of the differences on the same line of a file. In the Git pane, the file will now be flagged with an orange 'U'. This stands for 'unresolved'</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-31"></span>
+<img src="images/git-conflict-03-conflict.png" alt="git conflict" width="100%"><p class="caption">
+Figure 7.3: git conflict
+</p>
+</div>
+<p>To resolve the conflict, this file now needs to be edited. Git has flagged the locations in which conflicts have occurred with <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. The file needs to be edited merging the appropriate changes until the file reads how it should and all conflict markers are removed.</p>
+<div class="inline-figure"><img src="images/git-conflict-04-conflict-tags.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="images/git-conflict-05-resolved-file.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="commit-resolutions" class="section level3" number="7.13.3">
+<h3>
+<span class="header-section-number">7.13.3</span> Commit resolutions<a class="anchor" aria-label="anchor" href="#commit-resolutions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Proceed as normal, commit the file changes, this should change the file from orange <code>U</code> to blue <code>M</code> and push this to Github, all collaborators will need to be informed to Pull the updated repo to get the new changes.</p>
+</div>
+<div id="try-and-create-and-solve-a-merge-error." class="section level3" number="7.13.4">
+<h3>
+<span class="header-section-number">7.13.4</span> Try and create and solve a merge error.<a class="anchor" aria-label="anchor" href="#try-and-create-and-solve-a-merge-error."><i class="fas fa-link"></i></a>
+</h3>
+<div class="try">
+<p>
+Merge Conflict Challenge As part of your group why not try and
+intentionally create a merge conflict, and then go through the steps
+needed to resolve the issues and continue developing with the merged
+files. See the sections above for help with each of these steps:
+</p>
+<p>
+Step 0: Ensure you have the same starting project Step 1: Project
+co-ordinator makes a change and commits - a small change to the
+README.md Step 2: Collaborator makes a change and commits on the same
+line Step 3: Collaborator pushes the file to GitHub Step 4: Owner pushes
+their changes and gets an error Step 5: Owner pulls from GitHub to get
+Collaborator changes Step 6: Owner edits the file to resolve the
+conflict Step 7: Owner commits the resolved changes Step 8: Owner pushes
+the resolved changes to GitHub Step 9: Collaborator pulls the resolved
+changes from GitHub Step 10: Both can view commit history
+</p>
+</div>
+</div>
+<div id="abort" class="section level3" number="7.13.5">
+<h3>
+<span class="header-section-number">7.13.5</span> Abort!<a class="anchor" aria-label="anchor" href="#abort"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes you just made a mistake. When you get a merge conflict, the repository is placed in a ‘Merging’ state until you resolve it. There’s a commandline command to abort doing the merge altogether:</p>
+<p>In the terminal type</p>
+<pre><code>git merge --abort</code></pre>
+<p>Of course, after doing that you still haven’t synced with your collaborator’s changes, so things are still unresolved. But at least your repository is now usable on your local machine. Let me know asap and we can fix the issue</p>
+
+</div>
+</div>
+</div>
+
+
+
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+    
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+  
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+  
+  var cl = this.classList
+  
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+  
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+  
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+  
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+$( document ).ready(function() {
+  var cite = ' ';
+  var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
+
+  $("footer div.row div:eq(1) p").html(
+    license
+  );
+});
+</script><div class="chapter-nav">
+<div class="prev"><a href="markdown.html"><span class="header-section-number">6</span> Markdown</a></div>
+<div class="next"><a href="functions-1.html"><span class="header-section-number">8</span> Functions</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#github"><span class="header-section-number">7</span> Github</a></li>
+<li>
+<a class="nav-link" href="#lets-git-it-started"><span class="header-section-number">7.1</span> Let's Git it started</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#what-is-github"><span class="header-section-number">7.1.1</span> What is Github?</a></li>
+<li><a class="nav-link" href="#will-this-be-fun"><span class="header-section-number">7.1.2</span> Will this be fun?</a></li>
+<li><a class="nav-link" href="#the-payoff"><span class="header-section-number">7.1.3</span> The Payoff</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#set-up-github"><span class="header-section-number">7.2</span> Set up GitHub</a></li>
+<li>
+<a class="nav-link" href="#activity-1-fork-clone-an-existing-repo-on-github-make-edits-push-back"><span class="header-section-number">7.3</span> Activity 1: Fork &amp; clone an existing repo on GitHub, make edits, push back</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#what-the-hell-is-a-fork"><span class="header-section-number">7.3.1</span> What the hell is a fork?</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#talking-to-github"><span class="header-section-number">7.4</span> Talking to GitHub</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#see-changes"><span class="header-section-number">7.4.1</span> See changes</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#how-to-use-version-control---when-to-commit-push-and-pull"><span class="header-section-number">7.5</span> How to use version control - when to commit, push and pull</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#stage"><span class="header-section-number">7.5.1</span> Stage</a></li>
+<li><a class="nav-link" href="#commit"><span class="header-section-number">7.5.2</span> Commit</a></li>
+<li><a class="nav-link" href="#push"><span class="header-section-number">7.5.3</span> Push</a></li>
+<li><a class="nav-link" href="#a-couple-of-general-tips"><span class="header-section-number">7.5.4</span> A couple of general tips:</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#activity-2-github-classrooms-enabled-r-projects-with-subfolders"><span class="header-section-number">7.6</span> Activity 2: GitHub Classrooms enabled R Projects with subfolders</a></li>
+<li><a class="nav-link" href="#find-your-classroom-repos"><span class="header-section-number">7.7</span> Find your classroom repos</a></li>
+<li>
+<a class="nav-link" href="#git-history"><span class="header-section-number">7.8</span> Git History</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#commit-history"><span class="header-section-number">7.8.1</span> Commit History</a></li>
+<li><a class="nav-link" href="#reverting-changes"><span class="header-section-number">7.8.2</span> Reverting changes</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#collaborate-with-git"><span class="header-section-number">7.9</span> Collaborate with Git</a></li>
+<li><a class="nav-link" href="#final-git-tips"><span class="header-section-number">7.10</span> Final Git tips</a></li>
+<li><a class="nav-link" href="#glossary-github"><span class="header-section-number">7.11</span> Glossary-GitHub</a></li>
+<li>
+<a class="nav-link" href="#summing-up-github"><span class="header-section-number">7.12</span> Summing up GitHub</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#what-we-learned-2"><span class="header-section-number">7.12.1</span> What we learned</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#sharing-a-github-repo---dealing-with-conflict-when-collaborating"><span class="header-section-number">7.13</span> Sharing a Github repo - Dealing with conflict when collaborating</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#how-to-avoid-a-conflict"><span class="header-section-number">7.13.1</span> How to avoid a conflict</a></li>
+<li><a class="nav-link" href="#dealing-with-a-conflict"><span class="header-section-number">7.13.2</span> Dealing with a conflict</a></li>
+<li><a class="nav-link" href="#commit-resolutions"><span class="header-section-number">7.13.3</span> Commit resolutions</a></li>
+<li><a class="nav-link" href="#try-and-create-and-solve-a-merge-error."><span class="header-section-number">7.13.4</span> Try and create and solve a merge error.</a></li>
+<li><a class="nav-link" href="#abort"><span class="header-section-number">7.13.5</span> Abort!</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/08-github.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/08-github.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-09-01.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
