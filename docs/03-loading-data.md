@@ -338,3 +338,1456 @@ Each column is a unique variable and each row is a unique observation so this da
 
 <input class='webex-solveme nospaces' size='2' data-answer='["<-"]'/>
 
+
+# Data wrangling part one
+
+
+
+
+
+
+It may surprise you to learn that scientists actually spend far more time cleaning and preparing their data than they spend actually analysing it. This means completing tasks such as cleaning up bad values, changing the structure of dataframes, reducing the data down to a subset of observations, and producing data summaries. 
+
+Many people seem to operate under the assumption that the only option for data cleaning is the painstaking and time-consuming cutting and pasting of data within a spreadsheet program like Excel. We have witnessed students and colleagues waste days, weeks, and even months manually transforming their data in Excel, cutting, copying, and pasting data. Fixing up your data by hand is not only a terrible use of your time, but it is error-prone and not reproducible. Additionally, in this age where we can easily collect massive datasets online, you will not be able to organise, clean, and prepare these by hand.
+
+In short, you will not thrive as a scientist if you do not learn some key data wrangling skills. Although every dataset presents unique challenges, there are some systematic principles you should follow that will make your analyses easier, less error-prone, more efficient, and more reproducible.
+
+In this chapter you will see how data science skills will allow you to efficiently get answers to nearly any question you might want to ask about your data. By learning how to properly make your computer do the hard and boring work for you, you can focus on the bigger issues.
+
+## Activity 1: Change column names
+
+We are going to learn how to organise data using the *tidy* format^[(http://vita.had.co.nz/papers/tidy-data.pdf)]. This is because we are using the `tidyverse` packages @R-tidyverse. This is an opinionated, but highly effective method for generating reproducible analyses with a wide-range of data manipulation tools. Tidy data is an easy format for computers to read. It is also the required data structure for our **statistical tests** that we will work with later.
+
+Here 'tidy' refers to a specific structure that lets us manipulate and visualise data with ease. In a tidy dataset each *variable* is in one column and each row contains one *observation*. Each cell of the table/spreadsheet contains the *values*. One observation you might make about tidy data is it is quite long - it generates a lot of rows of data - you might remember then that *tidy* data can be referred to as *long*-format data (as opposed to *wide* data). 
+
+<img src="images/tidy-1.png" alt="tidy data overview" width="80%" style="display: block; margin: auto;" />
+
+So we know our data is in R, and we know the columns and names have been imported. But we still don't know whether all of our values imported correctly, or whether it captured all the rows. 
+
+#### Add this to your script 
+
+
+```r
+# CHECK DATA----
+# check the data
+colnames(penguins)
+#__________________________----
+```
+
+When we run `colnames()` we get the identities of each column in our dataframe
+
+* **Study name**: an identifier for the year in which sets of observations were made
+
+* **Region**: the area in which the observation was recorded
+
+* **Island**: the specific island where the observation was recorded
+
+* **Stage**: Denotes reproductive stage of the penguin
+
+* **Individual** ID: the unique ID of the individual
+
+* **Clutch completion**: if the study nest observed with a full clutch e.g. 2 eggs
+
+* **Date egg**: the date at which the study nest observed with 1 egg
+
+* **Culmen length**: length of the dorsal ridge of the bird's bill (mm)
+
+* **Culmen depth**: depth of the dorsal ridge of the bird's bill (mm)
+
+* **Flipper Length**: length of bird's flipper (mm)
+
+* **Body Mass**: Bird's mass in (g)
+
+* **Sex**: Denotes the sex of the bird
+
+* **Delta 15N** : the ratio of stable Nitrogen isotopes 15N:14N from blood sample
+
+* **Delta 13C**: the ratio of stable Carbon isotopes 13C:12C from blood sample
+
+
+#### Clean column names
+
+Often we might want to change the names of our variables. They might be non-intuitive, or too long. Our data has a couple of issues:
+
+* Some of the names contain spaces
+
+* Some of the names have capitalised letters
+
+* Some of the names contain brackets
+
+This dataframe  does not like these so let's correct these quickly. R is case-sensitive and also doesn't like spaces or brackets in variable names
+
+
+```r
+# CLEAN DATA ----
+
+# clean all variable names to snake_case using the clean_names function from the janitor package
+# note we are using assign <- to overwrite the old version of penguins with a version that has updated names
+# this changes the data in our R workspace but NOT the original csv file
+
+penguins <- janitor::clean_names(penguins) # clean the column names
+
+colnames(penguins) # quickly check the new variable names
+```
+
+```
+##  [1] "study_name"        "sample_number"     "species"          
+##  [4] "region"            "island"            "stage"            
+##  [7] "individual_id"     "clutch_completion" "date_egg"         
+## [10] "culmen_length_mm"  "culmen_depth_mm"   "flipper_length_mm"
+## [13] "body_mass_g"       "sex"               "delta_15_n_o_oo"  
+## [16] "delta_13_c_o_oo"   "comments"
+```
+
+#### Rename columns (manually)
+
+The `clean_names` function quickly converts all variable names into snake case. The N and C blood isotope ratio names are still quite long though, so let's clean those with `dplyr::rename()` where "new_name" = "old_name".
+
+
+```r
+# shorten the variable names for N and C isotope blood samples
+
+penguins <- rename(penguins,
+         "delta_15n"="delta_15_n_o_oo",  # use rename from the dplyr package
+         "delta_13c"="delta_13_c_o_oo")
+```
+
+
+## Check data
+
+#### glimpse: check data format 
+
+When we run `glimpse()` we get several lines of output. The number of observations "rows", the number of variables "columns". Check this against the csv file you have - they should be the same. In the next lines we see variable names and the type of data. 
+
+
+```r
+glimpse(penguins)
+```
+
+We can see a dataset with 345 rows (including the headers) and 17 variables
+It also provides information on the *type* of data in each column
+
+* `<chr>` - means character or text data
+
+* `<dbl>` - means numerical data
+
+#### Rename text values
+
+Sometimes we may want to rename the values in our variables in order to make a shorthand that is easier to follow. This is changing the **values** in our columns, not the column names. 
+
+
+```r
+# use mutate and case_when for a statement that conditionally changes the names of the values in a variable
+penguins <- penguins %>% 
+  mutate(species = case_when(species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
+                             species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
+                             species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap"))
+```
+
+<div class="warning">
+<p>Have you checked that the above code block worked? Inspect your new
+tibble and check the variables have been renamed as you wanted.</p>
+</div>
+
+
+## dplyr verbs
+
+In this section we will be introduced to some of the most commonly used data wrangling functions, these come from the `dplyr` package (part of the `tidyverse`). These are functions you are likely to become *very* familiar with. 
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> verb </th>
+   <th style="text-align:left;"> action </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> select() </td>
+   <td style="text-align:left;"> take a subset of columns </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> filter() </td>
+   <td style="text-align:left;"> take a subset of rows </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> arrange() </td>
+   <td style="text-align:left;"> reorder the rows </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> summarise() </td>
+   <td style="text-align:left;"> reduce raw data to user defined summaries </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> group_by() </td>
+   <td style="text-align:left;"> group the rows by a specified column </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mutate() </td>
+   <td style="text-align:left;"> create a new variable </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+### Select
+
+If we wanted to create a dataset that only includes certain variables, we can use the `select()` function from the `dplyr` package. 
+
+For example I might wish to create a simplified dataset that only contains `species`, `sex`, `flipper_length_mm` and `body_mass_g`. 
+
+Run the below code to select only those columns
+
+
+```r
+# DPLYR VERBS ----
+
+select(.data = penguins, # the data object
+       species, sex, flipper_length_mm, body_mass_g) # the variables you want to select
+```
+
+Alternatively you could tell R the columns you **don't** want e.g. 
+
+
+```r
+select(.data = penguins,
+       -study_name, -sample_number)
+```
+
+Note that `select()` does **not** change the original `penguins` tibble. It spits out the new tibble directly into your console. 
+
+If you don't **save** this new tibble, it won't be stored. If you want to keep it, then you must create a new object. 
+
+When you run this new code, you will not see anything in your console, but you will see a new object appear in your Environment pane.
+
+
+```r
+new_penguins <- select(.data = penguins, 
+       species, sex, flipper_length_mm, body_mass_g)
+```
+
+### Filter
+
+Having previously used `select()` to select certain variables, we will now use `filter()` to select only certain rows or observations. For example only Adelie penguins. 
+
+We can do this with the equivalence operator `==`
+
+
+```r
+filter(.data = new_penguins, species == "Adelie Penguin (Pygoscelis adeliae)")
+```
+
+Filter is quite a complicate function, and uses several differe operators to assess the way in which it should apply a filter.
+
+<table class="table" style="font-size: 16px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-35)Boolean expressions</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Operator </th>
+   <th style="text-align:left;"> Name </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A &lt; B </td>
+   <td style="text-align:left;"> less than </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A &lt;= B </td>
+   <td style="text-align:left;"> less than or equal to </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A &gt; B </td>
+   <td style="text-align:left;"> greater than </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A &gt;= B </td>
+   <td style="text-align:left;"> greater than or equal to </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A == B </td>
+   <td style="text-align:left;"> equivalence </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A != B </td>
+   <td style="text-align:left;"> not equal </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> A %in% B </td>
+   <td style="text-align:left;"> in </td>
+  </tr>
+</tbody>
+</table>
+
+If you wanted to select all the Penguin species except Adelies, you use 'not equals'.
+
+
+```r
+filter(.data = new_penguins, species != "Adelie")
+```
+
+This is the same as 
+
+
+```r
+filter(.data = new_penguins, species %in% c("Chinstrap", "Gentoo"))
+```
+You can include multiple expressions within `filter()` and it will pull out only those rows that evaluate to `TRUE` for all of your conditions. 
+
+For example the below code will pull out only those observations of Adelie penguins where flipper length was measured as greater than 190mm. 
+
+
+```r
+filter(.data = new_penguins, species == "Adelie", flipper_length_mm > 190)
+```
+
+### Arrange
+
+The function `arrange()` sorts the rows in the table according to the columns supplied. For example
+
+
+```r
+arrange(.data = new_penguins, sex)
+```
+
+The data is now arranged in alphabetical order by sex. So all of the observations of female penguins are listed before males. 
+
+You can also reverse this with `desc()`
+
+
+```r
+arrange(.data = new_penguins, desc(sex))
+```
+
+You can also sort by more than one column, what do you think the code below does?
+
+
+```r
+arrange(.data = new_penguins,
+        sex,
+        desc(species),
+        desc(flipper_length_mm))
+```
+
+### Mutate
+
+Sometimes we need to create a new variable that doesn't exist in our dataset. For example we might want to figure out what the flipper length is when factoring in body mass. 
+
+To create new variables we use the function `mutate()`. 
+
+Note that as before, if you want to save your new column you must save it as an object. Here we are mutating a new column and attaching it to the `new_penguins` data oject.
+
+
+```r
+new_penguins <- mutate(.data = new_penguins,
+                       body_mass_kg = body_mass_g/1000)
+```
+
+## Pipes
+
+<img src="images/pipe_order.jpg" alt="Pipes make code more human readable" width="80%" style="display: block; margin: auto;" />
+
+Pipes look like this: `%>%` Pipes allow you to send the output from one function straight into another function. Specifically, they send the result of the function before `%>%` to be the **first** argument of the function after `%>%`. As usual, it's easier to show, rather than tell so let's look at an example.
+
+
+```r
+# this example uses brackets to nest and order functions
+arrange(.data = filter(.data = select(.data = penguins, species, sex, flipper_length_mm), sex == "MALE"), desc(flipper_length_mm))
+```
+
+
+```r
+# this example uses sequential R objects to make the code more readable
+object_1 <- select(.data = penguins, species, sex, flipper_length_mm)
+object_2 <- filter(.data = object_1, sex == "MALE")
+arrange(object_2, desc(flipper_length_mm))
+```
+
+
+```r
+# this example is human readable without intermediate objects
+penguins %>% 
+  select(species, sex, flipper_length_mm) %>% 
+  filter(sex == "MALE") %>% 
+  arrange(desc(flipper_length_mm))
+```
+
+The reason that this function is called a pipe is because it 'pipes' the data through to the next function. When you wrote the code previously, the first argument of each function was the dataset you wanted to work on. When you use pipes it will automatically take the data from the previous line of code so you don't need to specify it again.
+
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+Try and write out as plain English what the %>% above is doing? You can read the %>% as THEN </div></div>
+
+
+<div class='webex-solution'><button>Solution</button>
+
+
+Take the penguins data AND THEN
+Select only the species, sex and flipper length columns AND THEN
+Filter to keep only those observations labelled as sex equals male AND THEN
+Arrange the data from HIGHEST to LOWEST flipper lengths.
+
+
+</div>
+
+
+<div class="info">
+<p>From R version 4 onwards there is now a “native pipe”
+<code>|&gt;</code></p>
+<p>This doesn’t require the tidyverse <code>magrittr</code> package or
+any other packages to load and use.</p>
+<p>For this coursebook I have chosen to continue to use the
+<code>tidyverse</code> pipe <code>%&gt;%</code> for the time being it is
+likely to be much more familiar in other tutorials, and website usages.
+The native pipe also behaves “slightly” differently, and this could
+cause some confusion.</p>
+<p>If you want to read about some of the operational differences, <a
+href="https://www.infoworld.com/article/3621369/use-the-new-r-pipe-built-into-r-41.html">this
+site</a> does a good job of explaining</p>
+</div>
+
+
+## A few more handy functions
+
+### Check for duplication
+
+It is very easy when inputting data to make mistakes, copy something in twice for example, or if someone did a lot of copy-pasting to assemble a spreadsheet (yikes!). We can check this pretty quickly
+
+
+```r
+# check for duplicate rows in the data
+penguins %>% 
+  duplicated() %>% # produces a list of TRUE/FALSE statements for duplicated or not
+  sum() # sums all the TRUE statements
+```
+
+```
+[1] 0
+```
+Great! 
+
+### Summarise
+
+We can also  explore our data for very obvious typos by checking for implausibly small or large values, this is a simple use of the `summarise` function.
+
+
+```r
+# use summarise to make calculations
+penguins %>% 
+  summarise(min=min(body_mass_g, na.rm=TRUE), 
+            max=max(body_mass_g, na.rm=TRUE))
+```
+
+The minimum weight for our penguins is 2.7kg, and the max is 6.3kg - not outrageous. If the min had come out at 27g we might have been suspicious. We will use `summarise` again to calculate other metrics in the future. 
+
+<div class="info">
+<p>our first data insight, the difference the smallest adult penguin in
+our dataset is nearly half the size of the largest penguin.</p>
+</div>
+
+### Group By
+
+Many data analysis tasks can be approached using the “split-apply-combine” paradigm: split the data into groups, apply some analysis to each group, and then combine the results. `dplyr` makes this very easy with the `group_by()` function. In the `summarise` example above we were able to find the max-min body mass values for the penguins in our dataset. But what if we wanted to break that down by a grouping such as species of penguin. This is where `group_by()` comes in.
+
+
+```r
+penguins %>% 
+  group_by(species) %>%  # subsequent functions are perform "by group"
+  summarise(min=min(body_mass_g, na.rm=TRUE), 
+            max=max(body_mass_g, na.rm=TRUE))
+```
+
+Now we know a little more about our data, the max weight of our Gentoo penguins is much larger than the other two species. In fact, the minimum weight of a Gentoo penguin is not far off the max weight of the other two species. 
+
+
+### Distinct
+
+We can also look for typos by asking R to produce all of the distinct values in a variable. This is more useful for categorical data, where we expect there to be only a few distinct categories
+
+
+```r
+penguins %>% 
+  distinct(sex)
+```
+
+Here if someone had mistyped e.g. 'FMALE' it would be obvious. We could do the same thing (and probably should have before we changed the names) for species. 
+
+### Missing values: NA
+
+There are multiple ways to check for missing values in our data
+
+
+```r
+# Get a sum of how many observations are missing in our dataframe
+penguins %>% 
+  is.na() %>% 
+  sum()
+```
+
+But this doesn't tell us where these are, fortunately the function `summary` does this easily
+
+## `Summary`
+
+
+```r
+# produce a summary of our data
+summary(penguins)
+#__________________________----
+```
+
+This provides a quick breakdown of the max and min for all numeric variables, as well as a list of how many missing observations there are for each one. As we can see there appear to be two missing observations for measurements in body mass, bill lengths, flipper lengths and several more for blood measures. We don't know for sure without inspecting our data further, *but* it is likely that the two birds are missing multiple measurements, and that several more were measured but didn't have their blood drawn. 
+
+We will leave the NA's alone for now, but it's useful to know how many we have. 
+
+We've now got a clean & tidy dataset, with a handful of first insights into the data. 
+
+
+## Finished
+
+That was a lot of work! But remember you don't have to remember all of these functions, remember this chapter when you do more data wrangling in the future. Also bookmark the [RStudio Cheatsheets Page](https://www.rstudio.com/resources/cheatsheets/). 
+
+Finally, make sure you have saved the changes made to your script 💾 & make sure your workspace is set **not** to save objects from the environment [*between* sessions](#global-options). 
+
+We want our script to be our record of work and progress, and not to be confused by a cluttered R Environment. 
+
+
+## Activity: Reorganise this script
+Using the link below take the text and copy/paste into a **new** R script and save this as `YYYY_MM_DD_workshop_4_jumbled_script.R` 
+
+All of the correct lines of code, comments and document markers are present, but not in the correct order. Can you unscramble them to produce a sensible output and a clear document outline?
+
+
+
+```{=html}
+<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/jumbled_script.R">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download jumbled R script</button>
+</a>
+```
+
+
+<div class='webex-solution'><button>Solution</button>
+
+
+If you want to check your answers (or are just completely stuck) then click here
+
+
+```{=html}
+<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/unjumbled_script.R">
+<button class="btn btn-success"><i class="fa fa-save"></i> Unjumbled script</button>
+</a>
+```
+
+
+</div>
+
+
+
+
+# Data wrangling part two
+
+
+
+
+
+
+## Load your workspace
+
+You should have a workspace ready to work with the Palmer penguins data. Load this workspace now. 
+
+Think about some basic checks before you start your work today.
+
+### Checklist
+
+* Are there objects already in your Environment pane? [There shouldn't be](#global-options), if there are use `rm(list=ls())`
+
+* Re-run your script from [last time](#data-wrangling-part-one) from line 1 to the last line
+
+* Check for any warning or error messages
+
+* Add the code from today's session to your script as we go
+
+## More summary tools
+
+Very often we want to make calculations aobut groups of observations, such as the mean or median. We are often interested in comparing responses among groups. For example, we previously found the number of distinct penguins in our entire dataset.
+
+<div class="try">
+<p>Add these new lines of code to your script as you try them. Comment
+out # and add short descriptions of what you are achieving with them</p>
+</div>
+
+
+```r
+penguins %>% 
+  summarise(n_distinct(individual_id))
+```
+
+Now consider when the groups are subsets of observations, as when we find out the number of penguins in each species and sex.
+
+
+```r
+penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(n_distinct(individual_id))
+```
+
+As we progress, not only are we learning how to use our data wrangling tools. We are also gaining insights into our data. 
+
+**Question** How many female Adelie penguins are in our dataset? 
+
+<input class='webex-solveme nospaces' size='2' data-answer='["65"]'/>
+
+<br>
+
+**Question** How many Gentoo penguins **did not** have their sex recorded?
+
+<input class='webex-solveme nospaces' size='1' data-answer='["5"]'/>
+
+<br>
+
+We are using summarise and group_by a lot! They are very powerful functions:
+
+* `group_by` adds *grouping* information into a data object, so that subsequent calculations happen on a *group-specific* basis. 
+
+* `summarise` is a data aggregation function thart calculates summaries of one or more variables, and it will do this separately for any groups defined by `group_by`
+
+### summarise()
+
+`summarise()` has a whole list of useful functions for producing *descriptive* statistics
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> verb </th>
+   <th style="text-align:left;"> action </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> mean(), median() </td>
+   <td style="text-align:left;"> Center data </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sd(), IQR() </td>
+   <td style="text-align:left;"> Spread of data </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> min(), max(), quantile() </td>
+   <td style="text-align:left;"> Range of data </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> first(), last(), nth() </td>
+   <td style="text-align:left;"> Position </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> n(), n_distinct() </td>
+   <td style="text-align:left;"> Count </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+* `min` and `max` to calculate minimum and maximum values of a numeric vector
+
+* `mean` and `median` to calculate averages of a numeric vector
+
+* `sd` and `var` calculate standard deviation and variance of a numeric vector
+
+Using `summarise` we can calculate the mean flipper and bill lengths of our penguins:
+
+
+```r
+penguins %>% 
+  summarise(
+    mean_flipper_length = mean(flipper_length_mm, na.rm=TRUE),
+     mean_culmen_length = mean(culmen_length_mm, na.rm=TRUE))
+```
+
+<div class="info">
+<p>Note - we provide informative names for ourselves on the left side of
+the <code>=</code></p>
+<p>When performing calculations in summarise it is important to set
+<code>na.rm = TRUE</code>, this removes missing values from the
+calculation</p>
+</div>
+
+<div class="try">
+<p>What happens when you try to produce calculations that include
+<code>NA</code>? e.g <code>NA</code> + 4 or <code>NA</code> * 5</p>
+</div>
+
+
+We can use several functions in `summarise`. Which means we can string several calculations together in a single step, and generate more insights into our data.
+
+
+```r
+penguins %>% 
+  summarise(n=n(), # number of rows of data
+            num_penguins = n_distinct(individual_id), # number of unique individuals
+            mean_flipper_length = mean(flipper_length_mm, na.rm=TRUE), # mean flipper length
+            prop_female = sum(sex == "FEMALE", na.rm=TRUE) / n()) # proportion of observations that are coded as female
+```
+
+<div class='webex-solution'><button>Solution</button>
+
+
+* There are 190 unique IDs and 344 total observations so it would appear that there are roughly twice as many observations as unique individuals. The sex ratio is roughly even (48% female) and the average flipper length is 201 mm.
+
+
+</div>
+
+
+
+#### Summarize `across` columns
+
+
+`across` has two arguments, `.cols` and `.fns`. 
+
+* The `.cols` argument lets you select the columns you wish to apply functions to
+
+* The `.fns` argument applies the required function to all of the selected columns. 
+
+
+
+```r
+# Across ----
+# The mean of ALL numeric columns in the data, where(is.numeric == TRUE) hunts for numeric columns
+
+penguins %>% 
+  summarise(across(.cols = where(is.numeric), 
+                   .fns = ~ mean(., na.rm=TRUE)))
+```
+
+The above example calculates the means of any & all numeric variables in the dataset. 
+
+The below example is a slightly complicated way of running the n_distinct for summarise. The `.cols()` looks for any column that contains the word "penguin" and then runs the `n_distinct()`command on these
+
+
+```r
+# number of distinct penguins, as only one column contains the word penguin
+# the argument contains looks for columns that match a character expression
+
+penguins %>% 
+  summarise(across(.cols = contains("individual"), 
+                   .fns = ~n_distinct(.)))
+```
+
+### group_by revisited
+
+The `group_by` function provides the ability to separate our summary functions according to any subgroups we wish to make. The real magic happens when we pair this with `summarise` and `mutate`.
+
+In this example, by grouping on the individual penguin ids, then summarising by n - we can see how many times each penguin was monitored in the course of this study. 
+
+
+```r
+penguin_stats <- penguins %>% 
+  group_by(individual_id) %>% 
+  summarise(num=n())
+```
+
+<div class="info">
+<p>Remember the actions of <code>group_by</code> are “invisible”.
+Subsequent functions are applied in a “grouped by” manner - but the
+dataframe itself looks unchanged.</p>
+</div>
+
+#### More than one grouping variable
+
+What if we need to calculate by more than one variable at a time? 
+No problem we can submit several arguments:
+
+
+```r
+penguins_grouped <- penguins %>% 
+  group_by(sex, species)
+```
+
+ We can then calculate the mean flipper length of penguins in each of the six combinations
+
+
+```r
+penguins_grouped %>% 
+summarise(mean_flipper = mean(flipper_length_mm, na.rm=TRUE))
+```
+
+Now the first row of our summary table shows us the mean flipper length (in mm) for female Adelie penguins. There are eight rows in total, six unique combinations and two rows where the sex of the penguins was not recorded(`NA`)
+
+#### using group_by with mutate
+
+So far we have only used `group_by` with the `summarise` function, but this doesn't always have to be the case. 
+When `mutate` is used with `group_by`, the calculations occur by 'group'. Here's an example:
+
+
+```r
+# Using mutate and group_by ----
+centered_penguins <- penguins %>% 
+  group_by(sex, species) %>% 
+  mutate(flipper_centered = flipper_length_mm-mean(flipper_length_mm, na.rm=TRUE))
+
+centered_penguins %>% 
+  select(flipper_centered)
+# Each row now returns a value for EACH penguin of how much greater/lesser than the group average (sex and species) its flipper is. 
+```
+Here we are calculating a **group centered mean**, this new variable contains the *difference* between each observation and the mean of whichever group that observation is in. 
+
+#### remove group_by
+
+On occasion we may need to remove the grouping information from a dataset. This is often required when we string pipes together, when we need to work using a grouping structure, then revert back to the whole dataset again
+
+Look at our grouped dataframe, and we can see the information on groups is at the top of the data:
+
+```
+# A tibble: 344 x 10
+# Groups:   sex, species [8]
+   species island culmen_length_mm culmen_depth_mm flipper_length_~ body_mass_g
+   <chr>   <chr>           <dbl>         <dbl>            <dbl>       <dbl>
+ 1 Adelie  Torge~           39.1          18.7              181        3750
+ 2 Adelie  Torge~           39.5          17.4              186        3800
+ 3 Adelie  Torge~           40.3          18                195        3250
+ ```
+
+
+
+```r
+# Run this command will remove the groups - but this is only saved if assigned BACK to an object
+
+centered_penguins <- centered_penguins %>% 
+  ungroup()
+
+centered_penguins
+```
+
+Look at this output - you can see the information on groups has now been removed from the data. 
+
+
+
+## Working with dates
+
+Working with dates can be tricky, treating date as strictly numeric is problematic, it won't account for number of days in months or number of months in a year. 
+
+Additionally there's a lot of different ways to write the same date:
+
+* 13-10-2019
+
+* 10-13-2019
+
+* 13-10-19
+
+* 13th Oct 2019
+
+* 2019-10-13
+
+This variability makes it difficult to tell our software how to read the information, luckily we can use the functions in the `lubridate` package. 
+
+
+<div class="warning">
+<p>If you get a warning that some dates could not be parsed, then you
+might find the date has been inconsistently entered into the
+dataset.</p>
+<p>Pay attention to warning and error messages</p>
+</div>
+
+Depending on how we interpret the date ordering in a file, we can use `ymd()`, `ydm()`, `mdy()`, `dmy()` 
+
+* **Question** What is the appropriate function from the above to use on the `date_egg` variable?
+
+
+<div class='webex-radiogroup' id='radio_SIPRYDTSDB'><label><input type="radio" autocomplete="off" name="radio_SIPRYDTSDB" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_SIPRYDTSDB" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_SIPRYDTSDB" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_SIPRYDTSDB" value="answer"></input> <span>dmy()</span></label></div>
+
+
+
+
+<div class='webex-solution'><button>Solution</button>
+
+
+
+
+```r
+penguins <- penguins %>%
+  mutate(date_egg_proper = lubridate::dmy(date_egg))
+```
+
+
+Here we use the `mutate` function from `dplyr` to create a *new variable* called `date_egg_proper` based on the output of converting the characters in `date_egg` to date format. The original variable is left intact, if we had specified the "new" variable was also called `date_egg` then it would have overwritten the original variable. 
+
+
+</div>
+
+
+Once we have established our date data, we are able to perform calculations. Such as the date range across which our data was collected.  
+
+
+```r
+penguins %>% 
+  summarise(min_date=min(date_egg_proper),
+            max_date=max(date_egg_proper))
+```
+
+#### Calculations with dates
+
+How many times was each penguin measured, and across what total time period?
+
+
+```r
+penguins %>% 
+  group_by(individual_id) %>% 
+  summarise(first_observation=min(date_egg_proper), 
+            last_observation=max(date_egg_proper), 
+            study_duration = last_observation-first_observation, 
+            n=n())
+```
+
+Cool we can also convert intervals such as days into weeks, months or years with `dweeks(1)`, `dmonths(1)`, `dyears(1)`.
+
+As with all cool functions, you should check out the RStudio [cheat sheet](https://www.rstudio.com/resources/cheatsheets/) for more information. Date type data is common in datasets, and learning to work with it is a useful skill. 
+
+
+
+```r
+penguins %>% 
+  group_by(individual_id) %>% 
+  summarise(first_observation=min(date_egg_proper), 
+            last_observation=max(date_egg_proper), 
+            study_duration_years = (last_observation-first_observation)/lubridate::dyears(1), 
+            n=n()) %>% 
+    arrange(desc(study_duration_years))
+```
+
+
+## Factors
+
+In R, factors are a class of data that allow for **ordered categories** with a fixed set of acceptable values. 
+
+Typically, you would convert a column from character or numeric class to a factor if you want to set an intrinsic order to the values (“levels”) so they can be displayed non-alphabetically in plots and tables, or for use in linear model analyses (more on this later). 
+
+Another common use of factors is to standardise the legends of plots so they do not fluctuate if certain values are temporarily absent from the data.
+
+
+
+
+```r
+penguins <- penguins %>% 
+  mutate(flipper_range = case_when(flipper_length_mm <= 190 ~ "small",
+                                   flipper_length_mm >190 & flipper_length_mm < 213 ~ "medium",
+                                   flipper_length_mm >= 213 ~ "large"))
+```
+
+If we make a barplot, the order of the values on the x axis will typically be in alphabetical order for any character data
+
+
+```r
+penguins %>% 
+  ggplot(aes(x = flipper_range))+
+  geom_bar()
+```
+
+<img src="03-loading-data_files/figure-html/unnamed-chunk-83-1.png" width="100%" style="display: block; margin: auto;" />
+
+To convert a character or numeric column to class factor, you can use any function from the `forcats` package. They will convert to class factor and then also perform or allow certain ordering of the levels - for example using `forcats::fct_relevel()` lets you manually specify the level order. 
+The function `as_factor()` simply converts the class without any further capabilities.
+
+The `base R` function `factor()` converts a column to factor and allows you to manually specify the order of the levels, as a character vector to its `levels =` argument.
+
+Below we use `mutate()` and `fct_relevel()` to convert the column flipper_range from class character to class factor. 
+
+
+```r
+penguins <- penguins %>% 
+  mutate(flipper_range = fct_relevel(flipper_range))
+```
+
+
+```r
+levels(penguins$flipper_range)
+```
+
+```
+## [1] "large"  "medium" "small"
+```
+
+
+```r
+# Correct the code in your script with this version
+penguins <- penguins %>% 
+  mutate(flipper_range = fct_relevel(flipper_range, "small", "medium", "large"))
+```
+
+Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels. 
+
+
+```r
+penguins %>% 
+  ggplot(aes(x = flipper_range))+
+  geom_bar()
+```
+
+<img src="03-loading-data_files/figure-html/unnamed-chunk-87-1.png" width="100%" style="display: block; margin: auto;" />
+
+<div class="info">
+<p>Factors will also be important when we build linear models a bit
+later. The reference or intercept for a categorical predictor variable
+when it is read as a <code>&lt;chr&gt;</code> is set by R as the first
+one when ordered alphabetically. This may not always be the most
+appropriate choice, and by changing this to an ordered
+<code>&lt;fct&gt;</code> we can manually set the intercept.</p>
+</div>
+
+
+## Finished
+
+* Make sure you have **saved your script 💾**  and given it the filename "01_import_penguins_data.R" in the ["scripts" folder](#activity-1-organising-our-workspace).
+
+* Does your workspace look like the below? 
+
+<div class="figure" style="text-align: center">
+<img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-89)My neat project layout</p>
+</div>
+
+<div class="figure" style="text-align: center">
+<img src="images/r_script.png" alt="My scripts and file subdirectory" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-90)My scripts and file subdirectory</p>
+</div>
+
+## Activity: Test yourself
+
+
+**Question 1.** In order to subset a data by **rows** I should use the function <select class='webex-select'><option value='blank'></option><option value=''>select()</option><option value='answer'>filter()</option><option value=''>group_by()</option></select>
+
+**Question 2.** In order to subset a data by **columns** I should use the function <select class='webex-select'><option value='blank'></option><option value='answer'>select()</option><option value=''>filter()</option><option value=''>group_by()</option></select>
+
+**Question 3.** In order to make a new column I should use the function <select class='webex-select'><option value='blank'></option><option value=''>group_by()</option><option value=''>select()</option><option value='answer'>mutate()</option><option value=''>arrange()</option></select>
+
+**Question 4.** Which operator should I use to send the output from line of code into the next line? <input class='webex-solveme nospaces' size='3' data-answer='["%>%"]'/>
+
+**Question 5.** What will be the outcome of the following line of code?
+
+
+```r
+penguins %>% 
+  filter(species == "Adelie")
+```
+
+<select class='webex-select'><option value='blank'></option><option value=''>The penguins dataframe object is reduced to include only Adelie penguins from now on</option><option value='answer'>A new filtered dataframe of only Adelie penguins will be printed into the console</option></select>
+
+
+<div class='webex-solution'><button>Explain this answer</button>
+
+
+Unless the output of a series of functions is "assigned" to an object using `<-` it will not be saved, the results will be immediately printed. This code would have to be modified to the below in order to create a new filtered object `penguins_filtered`
+
+
+```r
+penguins_filtered <- penguins %>% 
+  filter(species == "Adelie")
+```
+
+
+</div>
+
+
+<br>
+
+
+**Question 5.** What is the main point of a data "pipe"?
+
+<select class='webex-select'><option value='blank'></option><option value=''>The code runs faster</option><option value='answer'>The code is easier to read</option></select>
+
+
+**Question 6.** The naming convention outputted by the function `janitor::clean_names() is 
+<select class='webex-select'><option value='blank'></option><option value='answer'>snake_case</option><option value=''>camelCase</option><option value=''>SCREAMING_SNAKE_CASE</option><option value=''>kebab-case</option></select>
+
+
+**Question 7.** Which package provides useful functions for manipulating character strings? 
+
+<select class='webex-select'><option value='blank'></option><option value='answer'>stringr</option><option value=''>ggplot2</option><option value=''>lubridate</option><option value=''>forcats</option></select>
+
+**Question 8.** Which package provides useful functions for manipulating dates? 
+
+<select class='webex-select'><option value='blank'></option><option value=''>stringr</option><option value=''>ggplot2</option><option value='answer'>lubridate</option><option value=''>forcats</option></select>
+
+
+**Question 9.** If we do not specify a character variable as a factor, then ordering will default to what?
+
+<select class='webex-select'><option value='blank'></option><option value=''>numerical</option><option value='answer'>alphabetical</option><option value=''>order in the dataframe</option></select>
+
+
+
+# (PART\*) BONUS: Automated Exploratory Analysis {.unnumbered}
+
+# Packages for Automated Exploratory Data Analysis
+
+In the realm of data science, the use of automated exploratory analysis is gaining prominence as a powerful approach. This methodology offers a way for data analysts and scientists to rapidly gain insights into their datasets, particularly when they have been working with tidyverse tools, without the need for laborious manual inspections of individual variables or the creation of numerous plots. The aim is to streamline and speed up the workflow, making data exploration more efficient and effective. To achieve this, data professionals turn to specific R packages such as skimr, ggally, and dataxray.
+
+`skimr`: The skimr package is tailored to provide a concise and informative summary of a dataset's variables. It supplies a variety of functions for generating descriptive statistics, data type details, and visual representations. This empowers you to efficiently grasp the structure and characteristics of your data, aligning with the tidyverse principles. Skimr is particularly valuable for gaining an initial understanding of your dataset and for spotting potential issues or patterns.
+
+`ggally`: Known as the "ggplot2 extension for exploring correlations," ggally is an R package that extends the capabilities of the well-known ggplot2 package. If you're already familiar with tidyverse, you'll appreciate ggally's seamless integration with tidy data principles. It is primarily used to create visualizations and plots for exploring relationships and correlations among variables. With ggally, you can readily produce scatterplots, density plots, and other types of graphs that shed light on the connections within your data.
+
+`dataexplorer`: For data professionals who have been using tidyverse tools, the dataexplorer package is a natural extension of the workflow. This R package is designed to deliver comprehensive data profiling, surpassing basic summary statistics and visualization. Dataexplorer goes the extra mile by offering a range of automated checks and diagnostics for assessing data quality and integrity, complementing the tidyverse philosophy of data cleanliness and organization. It excels in detecting anomalies, outliers, and potential data-related issues during the exploratory analysis process.
+
+Together, these R packages serve to streamline and automate the exploratory analysis process within the tidyverse framework. They make data exploration more efficient and effective, enabling data scientists and analysts to swiftly gain insights into their datasets, pinpoint potential problems, and lay the foundation for more in-depth analyses and modeling. Automated exploratory analysis, when seamlessly integrated with tidyverse tools, plays a pivotal role in the data analysis workflow, providing a deeper understanding of the data and guiding informed decisions about subsequent steps in analysis and modeling tasks.
+
+## Skimr for automated data quality checking
+
+Skimr is my preferred R package for quickly assessing data quality, serving as my initial step in exploratory data analysis. Before proceeding with any other tasks, I rely on skimr to conduct a thorough data quality check.
+
+
+```r
+install.packages("skimr")
+library(skimr)
+```
+
+
+
+```r
+skimr::skim(penguins)
+```
+
+
+<table style='width: auto;'
+      class='table table-condensed'>
+<caption>(\#tab:unnamed-chunk-95)Data summary</caption>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Name </td>
+   <td style="text-align:left;"> penguins </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Number of rows </td>
+   <td style="text-align:left;"> 344 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Number of columns </td>
+   <td style="text-align:left;"> 19 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> _______________________ </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Column type frequency: </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> character </td>
+   <td style="text-align:left;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Date </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> factor </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> numeric </td>
+   <td style="text-align:left;"> 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ________________________ </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Group variables </td>
+   <td style="text-align:left;"> None </td>
+  </tr>
+</tbody>
+</table>
+
+
+**Variable type: character**
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> skim_variable </th>
+   <th style="text-align:right;"> n_missing </th>
+   <th style="text-align:right;"> complete_rate </th>
+   <th style="text-align:right;"> min </th>
+   <th style="text-align:right;"> max </th>
+   <th style="text-align:right;"> empty </th>
+   <th style="text-align:right;"> n_unique </th>
+   <th style="text-align:right;"> whitespace </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> study_name </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> species </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> region </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> island </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> stage </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> individual_id </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 190 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> clutch_completion </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> date_egg </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sex </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 0.97 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> comments </td>
+   <td style="text-align:right;"> 290 </td>
+   <td style="text-align:right;"> 0.16 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 68 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+
+
+**Variable type: Date**
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> skim_variable </th>
+   <th style="text-align:right;"> n_missing </th>
+   <th style="text-align:right;"> complete_rate </th>
+   <th style="text-align:left;"> min </th>
+   <th style="text-align:left;"> max </th>
+   <th style="text-align:left;"> median </th>
+   <th style="text-align:right;"> n_unique </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> date_egg_proper </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> 2007-11-09 </td>
+   <td style="text-align:left;"> 2009-12-01 </td>
+   <td style="text-align:left;"> 2008-11-09 </td>
+   <td style="text-align:right;"> 50 </td>
+  </tr>
+</tbody>
+</table>
+
+
+**Variable type: factor**
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> skim_variable </th>
+   <th style="text-align:right;"> n_missing </th>
+   <th style="text-align:right;"> complete_rate </th>
+   <th style="text-align:left;"> ordered </th>
+   <th style="text-align:right;"> n_unique </th>
+   <th style="text-align:left;"> top_counts </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> flipper_range </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> med: 152, sma: 99, lar: 91 </td>
+  </tr>
+</tbody>
+</table>
+
+
+**Variable type: numeric**
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> skim_variable </th>
+   <th style="text-align:right;"> n_missing </th>
+   <th style="text-align:right;"> complete_rate </th>
+   <th style="text-align:right;"> mean </th>
+   <th style="text-align:right;"> sd </th>
+   <th style="text-align:right;"> p0 </th>
+   <th style="text-align:right;"> p25 </th>
+   <th style="text-align:right;"> p50 </th>
+   <th style="text-align:right;"> p75 </th>
+   <th style="text-align:right;"> p100 </th>
+   <th style="text-align:left;"> hist </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> sample_number </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 63.15 </td>
+   <td style="text-align:right;"> 40.43 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 29.00 </td>
+   <td style="text-align:right;"> 58.00 </td>
+   <td style="text-align:right;"> 95.25 </td>
+   <td style="text-align:right;"> 152.00 </td>
+   <td style="text-align:left;"> ▇▇▆▅▃ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> culmen_length_mm </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 43.92 </td>
+   <td style="text-align:right;"> 5.46 </td>
+   <td style="text-align:right;"> 32.10 </td>
+   <td style="text-align:right;"> 39.23 </td>
+   <td style="text-align:right;"> 44.45 </td>
+   <td style="text-align:right;"> 48.50 </td>
+   <td style="text-align:right;"> 59.60 </td>
+   <td style="text-align:left;"> ▃▇▇▆▁ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> culmen_depth_mm </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 17.15 </td>
+   <td style="text-align:right;"> 1.97 </td>
+   <td style="text-align:right;"> 13.10 </td>
+   <td style="text-align:right;"> 15.60 </td>
+   <td style="text-align:right;"> 17.30 </td>
+   <td style="text-align:right;"> 18.70 </td>
+   <td style="text-align:right;"> 21.50 </td>
+   <td style="text-align:left;"> ▅▅▇▇▂ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> flipper_length_mm </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 200.92 </td>
+   <td style="text-align:right;"> 14.06 </td>
+   <td style="text-align:right;"> 172.00 </td>
+   <td style="text-align:right;"> 190.00 </td>
+   <td style="text-align:right;"> 197.00 </td>
+   <td style="text-align:right;"> 213.00 </td>
+   <td style="text-align:right;"> 231.00 </td>
+   <td style="text-align:left;"> ▂▇▃▅▂ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> body_mass_g </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 4201.75 </td>
+   <td style="text-align:right;"> 801.95 </td>
+   <td style="text-align:right;"> 2700.00 </td>
+   <td style="text-align:right;"> 3550.00 </td>
+   <td style="text-align:right;"> 4050.00 </td>
+   <td style="text-align:right;"> 4750.00 </td>
+   <td style="text-align:right;"> 6300.00 </td>
+   <td style="text-align:left;"> ▃▇▆▃▂ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> delta_15n </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> 8.73 </td>
+   <td style="text-align:right;"> 0.55 </td>
+   <td style="text-align:right;"> 7.63 </td>
+   <td style="text-align:right;"> 8.30 </td>
+   <td style="text-align:right;"> 8.65 </td>
+   <td style="text-align:right;"> 9.17 </td>
+   <td style="text-align:right;"> 10.03 </td>
+   <td style="text-align:left;"> ▃▇▆▅▂ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> delta_13c </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 0.96 </td>
+   <td style="text-align:right;"> -25.69 </td>
+   <td style="text-align:right;"> 0.79 </td>
+   <td style="text-align:right;"> -27.02 </td>
+   <td style="text-align:right;"> -26.32 </td>
+   <td style="text-align:right;"> -25.83 </td>
+   <td style="text-align:right;"> -25.06 </td>
+   <td style="text-align:right;"> -23.79 </td>
+   <td style="text-align:left;"> ▆▇▅▅▂ </td>
+  </tr>
+</tbody>
+</table>
+
+
+## GGally for exploratory analysis
+
+## Data Explorer
