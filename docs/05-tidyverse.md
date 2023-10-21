@@ -1,5 +1,6 @@
+# (PART\*) Getting the most out of tidyverse {.unnumbered}
 
-# Session 3: Getting the most out of tidyverse
+# Getting the most out of tidyverse
 
 ## https://modern-rstats.eu/defining-your-own-functions.html#control-flow
 

@@ -120,8 +120,10 @@
 <li><a class="" href="data-wrangling-part-two.html"><span class="header-section-number">5</span> Data wrangling part two</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
 <li><a class="active" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li class="book-part">Functional Programming</li>
 <li><a class="" href="functional-programming-in-r.html"><span class="header-section-number">7</span> 2. Functional programming in R:</a></li>
-<li><a class="" href="session-3-getting-the-most-out-of-tidyverse.html"><span class="header-section-number">8</span> Session 3: Getting the most out of tidyverse</a></li>
+<li class="book-part">Getting the most out of tidyverse</li>
+<li><a class="" href="getting-the-most-out-of-tidyverse.html"><span class="header-section-number">8</span> Getting the most out of tidyverse</a></li>
 <li class="book-part">Introduction to Shiny</li>
 <li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">9</span> Getting to work with Shiny</a></li>
 <li><a class="" href="layout.html"><span class="header-section-number">10</span> Layout</a></li>
@@ -156,7 +158,7 @@
 <p>In the realm of data science, the use of automated exploratory analysis is gaining prominence as a powerful approach. This methodology offers a way for data analysts and scientists to rapidly gain insights into their datasets, particularly when they have been working with tidyverse tools, without the need for laborious manual inspections of individual variables or the creation of numerous plots. The aim is to streamline and speed up the workflow, making data exploration more efficient and effective. To achieve this, data professionals turn to specific R packages such as skimr, ggally, and dataxray.</p>
 <p><code>skimr</code>: The skimr package is tailored to provide a concise and informative summary of a dataset's variables. It supplies a variety of functions for generating descriptive statistics, data type details, and visual representations. This empowers you to efficiently grasp the structure and characteristics of your data, aligning with the tidyverse principles. Skimr is particularly valuable for gaining an initial understanding of your dataset and for spotting potential issues or patterns.</p>
 <p><code>ggally</code>: Known as the "ggplot2 extension for exploring correlations," ggally is an R package that extends the capabilities of the well-known ggplot2 package. If you're already familiar with tidyverse, you'll appreciate ggally's seamless integration with tidy data principles. It is primarily used to create visualizations and plots for exploring relationships and correlations among variables. With ggally, you can readily produce scatterplots, density plots, and other types of graphs that shed light on the connections within your data.</p>
-<p><code>dataexplorer</code>: For data professionals who have been using tidyverse tools, the dataexplorer package is a natural extension of the workflow. This R package is designed to deliver comprehensive data profiling, surpassing basic summary statistics and visualization. Dataexplorer goes the extra mile by offering a range of automated checks and diagnostics for assessing data quality and integrity, complementing the tidyverse philosophy of data cleanliness and organization. It excels in detecting anomalies, outliers, and potential data-related issues during the exploratory analysis process.</p>
+<p><code>dataxray</code>: For data professionals who have been using tidyverse tools, the dataxray package is a natural extension of the workflow. This new R package provides quick statistical summaries in an interactive table inside of the Rstudio Viewer Pane.</p>
 <p>Together, these R packages serve to streamline and automate the exploratory analysis process within the tidyverse framework. They make data exploration more efficient and effective, enabling data scientists and analysts to swiftly gain insights into their datasets, pinpoint potential problems, and lay the foundation for more in-depth analyses and modeling. Automated exploratory analysis, when seamlessly integrated with tidyverse tools, plays a pivotal role in the data analysis workflow, providing a deeper understanding of the data and guiding informed decisions about subsequent steps in analysis and modeling tasks.</p>
 <div id="skimr-for-automated-data-quality-checking" class="section level2" number="6.1">
 <h2>
@@ -928,19 +930,144 @@ delta_13c
 </tr>
 </tbody>
 </table></div>
+<p>We can end up dedicating a significant amount of our time to tasks such as data comprehension, exploration, wrangling, and preparation for analysis.</p>
+<p>However, we can significantly expedite this process. In every single data project I undertake, I rely on <code>skimr</code>, which is my go-to solution for achieving efficiency and speed.</p>
+<div id="how-skimr-works" class="section level3" number="6.1.1">
+<h3>
+<span class="header-section-number">6.1.1</span> How Skimr works<a class="anchor" aria-label="anchor" href="#how-skimr-works"><i class="fas fa-link"></i></a>
+</h3>
+<p>One of the best features of Skimr is its capability to generate a comprehensive Data Quality Report with just a single line of code. This automation encompasses:</p>
+<ul>
+<li><p>Data Profiling</p></li>
+<li><p>Compatibility with Numeric, Categorical, Text, Date, Nested List Columns, and even dplyr groups</p></li>
+</ul>
+<p>In essence, this remarkable functionality translates to significant time savings for data scientists 🕒</p>
+<p>Assessing data with <code>skimr</code> makes simple quality checks easy!</p>
+</div>
+<div id="reporting" class="section level3" number="6.1.2">
+<h3>
+<span class="header-section-number">6.1.2</span> Reporting<a class="anchor" aria-label="anchor" href="#reporting"><i class="fas fa-link"></i></a>
+</h3>
+<p>The penguins dataset has a lot of information in it, 344 rows of data and 19 independent variables. It has multiple data types and frequent missing data. With <code><a href="https://docs.ropensci.org/skimr/reference/skim.html">skimr::skim()</a></code> we get an overall data summary of th number of rows, columns, data types by column and any group variables.</p>
+<div id="character-summaries" class="section level4" number="6.1.2.1">
+<h4>
+<span class="header-section-number">6.1.2.1</span> Character summaries<a class="anchor" aria-label="anchor" href="#character-summaries"><i class="fas fa-link"></i></a>
+</h4>
+<p>Missing/completion rate, number of unique observations, and text features.</p>
+</div>
+<div id="factor-summaries" class="section level4" number="6.1.2.2">
+<h4>
+<span class="header-section-number">6.1.2.2</span> Factor summaries<a class="anchor" aria-label="anchor" href="#factor-summaries"><i class="fas fa-link"></i></a>
+</h4>
+<p>If data is recognised as factorial we get missing/completion rate, whether the factor is ordered, numbr of unique levels and the number of observations for each factor</p>
+</div>
+<div id="date-summaries" class="section level4" number="6.1.2.3">
+<h4>
+<span class="header-section-number">6.1.2.3</span> Date summaries<a class="anchor" aria-label="anchor" href="#date-summaries"><i class="fas fa-link"></i></a>
+</h4>
+<p>Missing/completion rates, min/max dates, and the number of unique dates.</p>
+</div>
+<div id="numeric-summaries" class="section level4" number="6.1.2.4">
+<h4>
+<span class="header-section-number">6.1.2.4</span> Numeric summaries<a class="anchor" aria-label="anchor" href="#numeric-summaries"><i class="fas fa-link"></i></a>
+</h4>
+<p>Missing/completion rates and distributions.</p>
+</div>
+</div>
 </div>
 <div id="ggally-for-exploratory-analysis" class="section level2" number="6.2">
 <h2>
 <span class="header-section-number">6.2</span> GGally for exploratory analysis<a class="anchor" aria-label="anchor" href="#ggally-for-exploratory-analysis"><i class="fas fa-link"></i></a>
 </h2>
+<p><code>GGally</code> is another invaluable tool in a researcher's toolkit. It seamlessly extends the capabilities of the widely used <code>ggplot2</code> package. With <code>GGally</code>, you can effortlessly create a variety of visualizations to explore and understand distributions and correlations among your variables. Its flexibility and ease of use make it a go-to choice for streamlining the process of creating insightful plots and charts for data analysis.</p>
+<div id="pairs" class="section level3" number="6.2.1">
+<h3>
+<span class="header-section-number">6.2.1</span> pairs<a class="anchor" aria-label="anchor" href="#pairs"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">11</span>,<span class="fl">12</span>,<span class="fl">13</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-97-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
-<div id="data-explorer" class="section level2" number="6.3">
+<div id="ggally" class="section level3" number="6.2.2">
+<h3>
+<span class="header-section-number">6.2.2</span> GGally<a class="anchor" aria-label="anchor" href="#ggally"><i class="fas fa-link"></i></a>
+</h3>
+<p>So far, we have only used the pairs function that comes together with the base installation of R. However, the ggplot2 and GGally packages provide an even more advanced pairs function, which is called <code><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs()</a></code>. Let’s install and load the packages:</p>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">island</span>, <span class="va">culmen_length_mm</span>, <span class="va">culmen_depth_mm</span>, <span class="va">flipper_length_mm</span>, <span class="va">body_mass_g</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-99-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-100-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, upper <span class="op">=</span> <span class="st">"blank"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-101-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, columnLabels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bill length"</span>, <span class="st">"Bill depth"</span>, <span class="st">"Flipper length"</span>, <span class="st">"Body mass"</span>, <span class="st">"Sex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-102-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"density"</span>, combo <span class="op">=</span> <span class="st">"box_no_facet"</span><span class="op">)</span>,</span>
+<span>          lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"points"</span>, combo <span class="op">=</span> <span class="st">"dot_no_facet"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-103-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"density"</span>, combo <span class="op">=</span> <span class="st">"box_no_facet"</span><span class="op">)</span>,</span>
+<span>          lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"points"</span>, combo <span class="op">=</span> <span class="st">"dot_no_facet"</span><span class="op">)</span>,</span>
+<span>          <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-104-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, axisLabels <span class="op">=</span> <span class="st">"internal"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-105-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="dataxray" class="section level2" number="6.3">
 <h2>
-<span class="header-section-number">6.3</span> Data Explorer<a class="anchor" aria-label="anchor" href="#data-explorer"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3</span> dataxray<a class="anchor" aria-label="anchor" href="#dataxray"><i class="fas fa-link"></i></a>
 </h2>
+<p><code>dataxray</code> is a new R package that provides quick statistical summaries in an interactive table inside of the Rstudio Viewer Pane. To use this package we need to install from Github, which means we need the <code>devtools</code> package and <code><a href="https://remotes.r-lib.org/reference/install_github.html">devtools::install_github()</a></code></p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="co"># devtools::install_github("agstn/dataxray")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">dataxray</span><span class="op">)</span></span></code></pre></div>
+<p><code>dataxray</code> emphasises an interactive exploration of the exploratory summaries. This goes beyond what <code>skimr</code> can do by adding an interactive exploration element to feature summaries. So if you like interactivity, then try <code>dataxray</code>.</p>
+<p>There are just two functions we require with this package</p>
+<ul>
+<li><p><code><a href="https://rdrr.io/pkg/dataxray/man/make_xray.html">dataxray::make_xray()</a></code> to convert the raw data to preformatted data for the reactable interactive table</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/dataxray/man/view_xray.html">dataxray::view_xray()</a></code> to display the interactive exploratory table using the underlying reactable library.</p></li>
+</ul>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dataxray/man/make_xray.html">make_xray</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/dataxray/man/view_xray.html">view_xray</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Now you can explore each column to see:</p>
+<ul>
+<li><p>Count and Percent Missing - How many NA values</p></li>
+<li><p>Number of Distinct - How many unique observations</p></li>
+<li><p>Categorical Data - Bar charts for frequency by category</p></li>
+<li><p>Numeric Data - Distribution with histogram and quantiles</p></li>
+<li><p>Expandable Groups - You can expand the groups to find out more information about the features</p></li>
+<li><p>Search Features - Use regex to search the name. Great if you have a lot of features (columns)</p></li>
+</ul>
+</div>
+</div>
 
-</div>
-</div>
+
+
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -1127,9 +1254,19 @@ $( document ).ready(function() {
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#packages-for-automated-exploratory-data-analysis"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
-<li><a class="nav-link" href="#skimr-for-automated-data-quality-checking"><span class="header-section-number">6.1</span> Skimr for automated data quality checking</a></li>
-<li><a class="nav-link" href="#ggally-for-exploratory-analysis"><span class="header-section-number">6.2</span> GGally for exploratory analysis</a></li>
-<li><a class="nav-link" href="#data-explorer"><span class="header-section-number">6.3</span> Data Explorer</a></li>
+<li>
+<a class="nav-link" href="#skimr-for-automated-data-quality-checking"><span class="header-section-number">6.1</span> Skimr for automated data quality checking</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#how-skimr-works"><span class="header-section-number">6.1.1</span> How Skimr works</a></li>
+<li><a class="nav-link" href="#reporting"><span class="header-section-number">6.1.2</span> Reporting</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#ggally-for-exploratory-analysis"><span class="header-section-number">6.2</span> GGally for exploratory analysis</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#pairs"><span class="header-section-number">6.2.1</span> pairs</a></li>
+<li><a class="nav-link" href="#ggally"><span class="header-section-number">6.2.2</span> GGally</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#dataxray"><span class="header-section-number">6.3</span> dataxray</a></li>
 </ul>
 
       <div class="book-extra">
