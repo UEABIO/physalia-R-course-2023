@@ -523,7 +523,9 @@ penguins <- penguins |>
   mutate(species = case_when(species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
                              species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
                              species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap"))
-```</div><script> javascript:hide('option2unnamed-chunk-29') </script>
+```
+</div><script> javascript:hide('option2unnamed-chunk-29') </script>
+
 
 
 <div class="warning">
@@ -707,7 +709,8 @@ For example the below code will pull out only those observations of Adelie pengu
 
 ```r
 new_penguins[new_penguins$species == "Adelie" & new_penguins$flipper_length_mm > 190, ]
-```</div><div id="option2unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
+```
+</div><div id="option2unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
 
 ```r
 filter(.data = new_penguins, species == "Adelie", flipper_length_mm > 190)

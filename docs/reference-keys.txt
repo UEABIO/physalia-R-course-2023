@@ -122,6 +122,8 @@ rename-columns-manually
 check-data
 glimpse-check-data-format
 rename-text-values
+dplyr-verbs
+select
 filter
 arrange
 mutate

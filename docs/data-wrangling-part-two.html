@@ -194,12 +194,12 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">individual_id</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
-<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
@@ -227,14 +227,14 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-64" class="tabcontentunnamed-chunk-64">
-<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># note aggregate doesn't have functionality to deal with missing data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">individual_id</span> <span class="op">~</span> <span class="va">species</span> <span class="op">+</span> <span class="va">sex</span>, </span>
 <span>          data <span class="op">=</span> <span class="va">penguins</span>, </span>
 <span>          FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-64" class="tabcontentunnamed-chunk-64">
-<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -316,7 +316,7 @@ Count
 <li><p><code>sd</code> and <code>var</code> calculate standard deviation and variance of a numeric vector</p></li>
 </ul>
 <p>Using <code>summarise</code> we can calculate the mean flipper and bill lengths of our penguins:</p>
-<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    mean_flipper_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -339,7 +339,7 @@ What happens when you try to produce calculations that include
 </p>
 </div>
 <p>We can use several functions in <code>summarise</code>. Which means we can string several calculations together in a single step, and generate more insights into our data.</p>
-<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="co"># number of rows of data</span></span>
 <span>            num_penguins <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span>, <span class="co"># number of unique individuals</span></span>
@@ -362,7 +362,7 @@ Solution
 <li><p>The <code>.cols</code> argument lets you select the columns you wish to apply functions to</p></li>
 <li><p>The <code>.fns</code> argument applies the required function to all of the selected columns.</p></li>
 </ul>
-<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Across ----</span></span>
 <span><span class="co"># The mean of ALL numeric columns in the data, where(is.numeric == TRUE) hunts for numeric columns</span></span>
 <span></span>
@@ -371,7 +371,7 @@ Solution
 <span>                   .fns <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The above example calculates the means of any &amp; all numeric variables in the dataset.</p>
 <p>The below example is a slightly complicated way of running the n_distinct for summarise. The <code>.cols()</code> looks for any column that contains the word "penguin" and then runs the <code><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct()</a></code>command on these</p>
-<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of distinct penguins, as only one column contains the word penguin</span></span>
 <span><span class="co"># the argument contains looks for columns that match a character expression</span></span>
 <span></span>
@@ -386,7 +386,7 @@ Solution
 </h3>
 <p>The <code>group_by</code> function provides the ability to separate our summary functions according to any subgroups we wish to make. The real magic happens when we pair this with <code>summarise</code> and <code>mutate</code>.</p>
 <p>In this example, by grouping on the individual penguin ids, then summarising by n - we can see how many times each penguin was monitored in the course of this study.</p>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_stats</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>num<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -403,11 +403,11 @@ dataframe itself looks unchanged.
 </h4>
 <p>What if we need to calculate by more than one variable at a time?
 No problem we can submit several arguments:</p>
-<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_grouped</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">species</span><span class="op">)</span></span></code></pre></div>
 <p>We can then calculate the mean flipper length of penguins in each of the six combinations</p>
-<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_grouped</span> <span class="op">|&gt;</span> </span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_flipper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Now the first row of our summary table shows us the mean flipper length (in mm) for female Adelie penguins. There are eight rows in total, six unique combinations and two rows where the sex of the penguins was not recorded(<code>NA</code>)</p>
@@ -418,7 +418,7 @@ No problem we can submit several arguments:</p>
 </h4>
 <p>So far we have only used <code>group_by</code> with the <code>summarise</code> function, but this doesn't always have to be the case.
 When <code>mutate</code> is used with <code>group_by</code>, the calculations occur by 'group'. Here's an example:</p>
-<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Using mutate and group_by ----</span></span>
 <span><span class="va">centered_penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -442,7 +442,7 @@ When <code>mutate</code> is used with <code>group_by</code>, the calculations oc
  1 Adelie  Torge~           39.1          18.7              181        3750
  2 Adelie  Torge~           39.5          17.4              186        3800
  3 Adelie  Torge~           40.3          18                195        3250</code></pre>
-<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run this command will remove the groups - but this is only saved if assigned BACK to an object</span></span>
 <span></span>
 <span><span class="va">centered_penguins</span> <span class="op">&lt;-</span> <span class="va">centered_penguins</span> <span class="op">|&gt;</span> </span>
@@ -489,13 +489,13 @@ Pay attention to warning and error messages
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_egg_proper <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="va">date_egg</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Here we use the <code>mutate</code> function from <code>dplyr</code> to create a <em>new variable</em> called <code>date_egg_proper</code> based on the output of converting the characters in <code>date_egg</code> to date format. The original variable is left intact, if we had specified the "new" variable was also called <code>date_egg</code> then it would have overwritten the original variable.</p>
 </div>
 <p>Once we have established our date data, we are able to perform calculations. Such as the date range across which our data was collected.</p>
-<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>min_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">date_egg_proper</span><span class="op">)</span>,</span>
 <span>            max_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">date_egg_proper</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -504,7 +504,7 @@ Solution
 <span class="header-section-number">6.3.0.1</span> Calculations with dates<a class="anchor" aria-label="anchor" href="#calculations-with-dates"><i class="fas fa-link"></i></a>
 </h4>
 <p>How many times was each penguin measured, and across what total time period?</p>
-<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>first_observation<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">date_egg_proper</span><span class="op">)</span>, </span>
@@ -513,7 +513,7 @@ Solution
 <span>            n<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Cool we can also convert intervals such as days into weeks, months or years with <code>dweeks(1)</code>, <code>dmonths(1)</code>, <code>dyears(1)</code>.</p>
 <p>As with all cool functions, you should check out the RStudio <a href="https://www.rstudio.com/resources/cheatsheets/">cheat sheet</a> for more information. Date type data is common in datasets, and learning to work with it is a useful skill.</p>
-<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>first_observation<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">date_egg_proper</span><span class="op">)</span>, </span>
@@ -530,13 +530,13 @@ Solution
 <p>In R, factors are a class of data that allow for <strong>ordered categories</strong> with a fixed set of acceptable values.</p>
 <p>Typically, you would convert a column from character or numeric class to a factor if you want to set an intrinsic order to the values (“levels”) so they can be displayed non-alphabetically in plots and tables, or for use in linear model analyses (more on this later).</p>
 <p>Another common use of factors is to standardise the legends of plots so they do not fluctuate if certain values are temporarily absent from the data.</p>
-<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>flipper_range <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">flipper_length_mm</span> <span class="op">&lt;=</span> <span class="fl">190</span> <span class="op">~</span> <span class="st">"small"</span>,</span>
 <span>                                   <span class="va">flipper_length_mm</span> <span class="op">&gt;</span><span class="fl">190</span> <span class="op">&amp;</span> <span class="va">flipper_length_mm</span> <span class="op">&lt;</span> <span class="fl">213</span> <span class="op">~</span> <span class="st">"medium"</span>,</span>
 <span>                                   <span class="va">flipper_length_mm</span> <span class="op">&gt;=</span> <span class="fl">213</span> <span class="op">~</span> <span class="st">"large"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>If we make a barplot, the order of the values on the x axis will typically be in alphabetical order for any character data</p>
-<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_range</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -554,19 +554,19 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-85" class="tabcontentunnamed-chunk-85">
-<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span><span class="op">$</span><span class="va">flipper_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">flipper_range</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-85" class="tabcontentunnamed-chunk-85">
 
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="data-wrangling-part-two.html#cb162-1" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb162-2"><a href="data-wrangling-part-two.html#cb162-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flipper_range =</span> <span class="fu">fct_relevel</span>(flipper_range))</span>
-<span id="cb162-3"><a href="data-wrangling-part-two.html#cb162-3" tabindex="-1"></a><span class="st">```</span><span class="at">&lt;/div&gt;&lt;script&gt; javascript:hide('option2unnamed-chunk-85') &lt;/script&gt;</span></span>
-<span id="cb162-4"><a href="data-wrangling-part-two.html#cb162-4" tabindex="-1"></a></span>
-<span id="cb162-5"><a href="data-wrangling-part-two.html#cb162-5" tabindex="-1"></a></span>
-<span id="cb162-6"><a href="data-wrangling-part-two.html#cb162-6" tabindex="-1"></a></span>
-<span id="cb162-7"><a href="data-wrangling-part-two.html#cb162-7" tabindex="-1"></a><span class="st">```</span>r</span>
-<span id="cb162-8"><a href="data-wrangling-part-two.html#cb162-8" tabindex="-1"></a><span class="fu">levels</span>(penguins<span class="sc">$</span>flipper_range)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="data-wrangling-part-two.html#cb164-1" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb164-2"><a href="data-wrangling-part-two.html#cb164-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flipper_range =</span> <span class="fu">fct_relevel</span>(flipper_range))</span>
+<span id="cb164-3"><a href="data-wrangling-part-two.html#cb164-3" tabindex="-1"></a><span class="st">```</span><span class="at">&lt;/div&gt;&lt;script&gt; javascript:hide('option2unnamed-chunk-85') &lt;/script&gt;</span></span>
+<span id="cb164-4"><a href="data-wrangling-part-two.html#cb164-4" tabindex="-1"></a></span>
+<span id="cb164-5"><a href="data-wrangling-part-two.html#cb164-5" tabindex="-1"></a></span>
+<span id="cb164-6"><a href="data-wrangling-part-two.html#cb164-6" tabindex="-1"></a></span>
+<span id="cb164-7"><a href="data-wrangling-part-two.html#cb164-7" tabindex="-1"></a><span class="st">```</span>r</span>
+<span id="cb164-8"><a href="data-wrangling-part-two.html#cb164-8" tabindex="-1"></a><span class="fu">levels</span>(penguins<span class="sc">$</span>flipper_range)</span></code></pre></div>
 <pre><code>## [1] "large"  "medium" "small"</code></pre>
 <div class="tab">
 <button class="tablinksunnamed-chunk-87 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-87', 'unnamed-chunk-87');">
@@ -577,24 +577,24 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-87" class="tabcontentunnamed-chunk-87">
-<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span><span class="op">$</span><span class="va">flipper_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">flipper_range</span>,</span>
 <span>                                  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-87" class="tabcontentunnamed-chunk-87">
 
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="data-wrangling-part-two.html#cb165-1" tabindex="-1"></a><span class="co"># Correct the code in your script with this version</span></span>
-<span id="cb165-2"><a href="data-wrangling-part-two.html#cb165-2" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb165-3"><a href="data-wrangling-part-two.html#cb165-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flipper_range =</span> <span class="fu">fct_relevel</span>(flipper_range, <span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>))</span>
-<span id="cb165-4"><a href="data-wrangling-part-two.html#cb165-4" tabindex="-1"></a><span class="st">```</span><span class="at">&lt;/div&gt;&lt;script&gt; javascript:hide('option2unnamed-chunk-87') &lt;/script&gt;</span></span>
-<span id="cb165-5"><a href="data-wrangling-part-two.html#cb165-5" tabindex="-1"></a></span>
-<span id="cb165-6"><a href="data-wrangling-part-two.html#cb165-6" tabindex="-1"></a><span class="at">Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels. </span></span>
-<span id="cb165-7"><a href="data-wrangling-part-two.html#cb165-7" tabindex="-1"></a></span>
-<span id="cb165-8"><a href="data-wrangling-part-two.html#cb165-8" tabindex="-1"></a></span>
-<span id="cb165-9"><a href="data-wrangling-part-two.html#cb165-9" tabindex="-1"></a><span class="st">```</span>r</span>
-<span id="cb165-10"><a href="data-wrangling-part-two.html#cb165-10" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb165-11"><a href="data-wrangling-part-two.html#cb165-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_range))<span class="sc">+</span></span>
-<span id="cb165-12"><a href="data-wrangling-part-two.html#cb165-12" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="data-wrangling-part-two.html#cb167-1" tabindex="-1"></a><span class="co"># Correct the code in your script with this version</span></span>
+<span id="cb167-2"><a href="data-wrangling-part-two.html#cb167-2" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb167-3"><a href="data-wrangling-part-two.html#cb167-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flipper_range =</span> <span class="fu">fct_relevel</span>(flipper_range, <span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>))</span>
+<span id="cb167-4"><a href="data-wrangling-part-two.html#cb167-4" tabindex="-1"></a><span class="st">```</span><span class="at">&lt;/div&gt;&lt;script&gt; javascript:hide('option2unnamed-chunk-87') &lt;/script&gt;</span></span>
+<span id="cb167-5"><a href="data-wrangling-part-two.html#cb167-5" tabindex="-1"></a></span>
+<span id="cb167-6"><a href="data-wrangling-part-two.html#cb167-6" tabindex="-1"></a><span class="at">Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels. </span></span>
+<span id="cb167-7"><a href="data-wrangling-part-two.html#cb167-7" tabindex="-1"></a></span>
+<span id="cb167-8"><a href="data-wrangling-part-two.html#cb167-8" tabindex="-1"></a></span>
+<span id="cb167-9"><a href="data-wrangling-part-two.html#cb167-9" tabindex="-1"></a><span class="st">```</span>r</span>
+<span id="cb167-10"><a href="data-wrangling-part-two.html#cb167-10" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb167-11"><a href="data-wrangling-part-two.html#cb167-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_range))<span class="sc">+</span></span>
+<span id="cb167-12"><a href="data-wrangling-part-two.html#cb167-12" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
 <div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-88-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="info">
 <p>
@@ -647,7 +647,7 @@ Figure 6.2: My scripts and file subdirectory
 <option value="">arrange()</option></select></p>
 <p><strong>Question 4.</strong> Which operator should I use to send the output from line of code into the next line? <input class="webex-solveme nospaces" size="2" data-answer='["|&gt;"]'></p>
 <p><strong>Question 5.</strong> What will be the outcome of the following line of code?</p>
-<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span><span class="op">)</span></span></code></pre></div>
 <p><select class="webex-select"><option value="blank"></option>
@@ -658,7 +658,7 @@ Figure 6.2: My scripts and file subdirectory
 Explain this answer
 </button>
 <p>Unless the output of a series of functions is "assigned" to an object using <code>&lt;-</code> it will not be saved, the results will be immediately printed. This code would have to be modified to the below in order to create a new filtered object <code>penguins_filtered</code></p>
-<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_filtered</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span><span class="op">)</span></span></code></pre></div>
 </div>

@@ -511,7 +511,6 @@ Sometimes we may want to rename the values in our variables in order to make a s
 
 ``{r, eval = F, warning = F, message = F}
 
-
 penguins$species <- ifelse(penguins$species == "Adelie Penguin (Pygoscelis adeliae)", "Adelie",
                           ifelse(penguins$species == "Gentoo penguin (Pygoscelis papua)", "Gentoo",
                                  ifelse(penguins$species == "Chinstrap penguin (Pygoscelis antarctica)", "Chinstrap",
@@ -530,7 +529,9 @@ penguins <- penguins |>
                              species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap"))
 
 ``
+
 ```
+
 
 
 ```{block, type = "warning"}
@@ -625,8 +626,8 @@ We can do this with the equivalence operator `==`
 
 ``{r, eval = F}
 
-
 filtered_penguins <- new_penguins[new_penguins$species == "Adelie Penguin (Pygoscelis adeliae"), ]
+
 ``
 
 ####
@@ -677,10 +678,13 @@ For example the below code will pull out only those observations of Adelie pengu
 ``{r, eval =F}
 new_penguins[new_penguins$species == "Adelie" & new_penguins$flipper_length_mm > 190, ]
 ``
+
 ####
 
 ``{r, eval =F}
+
 filter(.data = new_penguins, species == "Adelie", flipper_length_mm > 190)
+
 ``
 
 ```
