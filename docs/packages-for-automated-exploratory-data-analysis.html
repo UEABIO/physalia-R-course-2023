@@ -166,10 +166,10 @@
 <span class="header-section-number">7.1</span> Skimr for automated data quality checking<a class="anchor" aria-label="anchor" href="#skimr-for-automated-data-quality-checking"><i class="fas fa-link"></i></a>
 </h2>
 <p>Skimr is my preferred R package for quickly assessing data quality, serving as my initial step in exploratory data analysis. Before proceeding with any other tasks, I rely on skimr to conduct a thorough data quality check.</p>
-<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"skimr"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/skimr/">skimr</a></span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">skimr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html">skim</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table style="width: auto;" class="table table-condensed">
 <caption>
@@ -985,11 +985,11 @@ delta_13_c_o_oo
 <h3>
 <span class="header-section-number">7.2.1</span> pairs<a class="anchor" aria-label="anchor" href="#pairs"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">11</span>,<span class="fl">12</span>,<span class="fl">13</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -1000,37 +1000,37 @@ delta_13_c_o_oo
 <span class="header-section-number">7.2.2</span> GGally<a class="anchor" aria-label="anchor" href="#ggally"><i class="fas fa-link"></i></a>
 </h3>
 <p>So far, we have only used the pairs function that comes together with the base installation of R. However, the ggplot2 and GGally packages provide an even more advanced pairs function, which is called <code><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs()</a></code>. Let’s install and load the packages:</p>
-<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">island</span>, <span class="va">culmen_length_mm</span>, <span class="va">culmen_depth_mm</span>, <span class="va">flipper_length_mm</span>, <span class="va">body_mass_g</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-100-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-101-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, upper <span class="op">=</span> <span class="st">"blank"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-102-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, columnLabels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bill length"</span>, <span class="st">"Bill depth"</span>, <span class="st">"Flipper length"</span>, <span class="st">"Body mass"</span>, <span class="st">"Sex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-103-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"density"</span>, combo <span class="op">=</span> <span class="st">"box_no_facet"</span><span class="op">)</span>,</span>
 <span>          lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"points"</span>, combo <span class="op">=</span> <span class="st">"dot_no_facet"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-104-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"density"</span>, combo <span class="op">=</span> <span class="st">"box_no_facet"</span><span class="op">)</span>,</span>
 <span>          lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"points"</span>, combo <span class="op">=</span> <span class="st">"dot_no_facet"</span><span class="op">)</span>,</span>
 <span>          <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-105-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, axisLabels <span class="op">=</span> <span class="st">"internal"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-106-1.png" width="100%" style="display: block; margin: auto;"></div>
@@ -1041,7 +1041,7 @@ delta_13_c_o_oo
 <span class="header-section-number">7.3</span> dataxray<a class="anchor" aria-label="anchor" href="#dataxray"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>dataxray</code> is a new R package that provides quick statistical summaries in an interactive table inside of the Rstudio Viewer Pane. To use this package we need to install from Github, which means we need the <code>devtools</code> package and <code><a href="https://remotes.r-lib.org/reference/install_github.html">devtools::install_github()</a></code></p>
-<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="co"># devtools::install_github("agstn/dataxray")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">dataxray</span><span class="op">)</span></span></code></pre></div>
@@ -1051,7 +1051,7 @@ delta_13_c_o_oo
 <li><p><code><a href="https://rdrr.io/pkg/dataxray/man/make_xray.html">dataxray::make_xray()</a></code> to convert the raw data to preformatted data for the reactable interactive table</p></li>
 <li><p><code><a href="https://rdrr.io/pkg/dataxray/man/view_xray.html">dataxray::view_xray()</a></code> to display the interactive exploratory table using the underlying reactable library.</p></li>
 </ul>
-<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/dataxray/man/make_xray.html">make_xray</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/dataxray/man/view_xray.html">view_xray</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>

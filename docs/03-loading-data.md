@@ -1469,7 +1469,8 @@ penguins$flipper_range <- factor(penguins$flipper_range,
 # Correct the code in your script with this version
 penguins <- penguins |> 
   mutate(flipper_range = fct_relevel(flipper_range, "small", "medium", "large"))
-```</div><script> javascript:hide('option2unnamed-chunk-87') </script>
+```
+</div><script> javascript:hide('option2unnamed-chunk-87') </script>
 
 Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels. 
 

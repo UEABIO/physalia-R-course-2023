@@ -582,19 +582,16 @@ Base R
 <span>                                  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-87" class="tabcontentunnamed-chunk-87">
-
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="data-wrangling-part-two.html#cb167-1" tabindex="-1"></a><span class="co"># Correct the code in your script with this version</span></span>
-<span id="cb167-2"><a href="data-wrangling-part-two.html#cb167-2" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb167-3"><a href="data-wrangling-part-two.html#cb167-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flipper_range =</span> <span class="fu">fct_relevel</span>(flipper_range, <span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>))</span>
-<span id="cb167-4"><a href="data-wrangling-part-two.html#cb167-4" tabindex="-1"></a><span class="st">```</span><span class="at">&lt;/div&gt;&lt;script&gt; javascript:hide('option2unnamed-chunk-87') &lt;/script&gt;</span></span>
-<span id="cb167-5"><a href="data-wrangling-part-two.html#cb167-5" tabindex="-1"></a></span>
-<span id="cb167-6"><a href="data-wrangling-part-two.html#cb167-6" tabindex="-1"></a><span class="at">Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels. </span></span>
-<span id="cb167-7"><a href="data-wrangling-part-two.html#cb167-7" tabindex="-1"></a></span>
-<span id="cb167-8"><a href="data-wrangling-part-two.html#cb167-8" tabindex="-1"></a></span>
-<span id="cb167-9"><a href="data-wrangling-part-two.html#cb167-9" tabindex="-1"></a><span class="st">```</span>r</span>
-<span id="cb167-10"><a href="data-wrangling-part-two.html#cb167-10" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb167-11"><a href="data-wrangling-part-two.html#cb167-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> flipper_range))<span class="sc">+</span></span>
-<span id="cb167-12"><a href="data-wrangling-part-two.html#cb167-12" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Correct the code in your script with this version</span></span>
+<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>flipper_range <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">flipper_range</span>, <span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<script> javascript:hide('option2unnamed-chunk-87') </script><p>Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels.</p>
+<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_range</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="03-loading-data_files/figure-html/unnamed-chunk-88-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="info">
 <p>
@@ -647,7 +644,7 @@ Figure 6.2: My scripts and file subdirectory
 <option value="">arrange()</option></select></p>
 <p><strong>Question 4.</strong> Which operator should I use to send the output from line of code into the next line? <input class="webex-solveme nospaces" size="2" data-answer='["|&gt;"]'></p>
 <p><strong>Question 5.</strong> What will be the outcome of the following line of code?</p>
-<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span><span class="op">)</span></span></code></pre></div>
 <p><select class="webex-select"><option value="blank"></option>
@@ -658,7 +655,7 @@ Figure 6.2: My scripts and file subdirectory
 Explain this answer
 </button>
 <p>Unless the output of a series of functions is "assigned" to an object using <code>&lt;-</code> it will not be saved, the results will be immediately printed. This code would have to be modified to the below in order to create a new filtered object <code>penguins_filtered</code></p>
-<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_filtered</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -877,6 +874,36 @@ $( document ).ready(function() {
 </script>
 
 </div>
+<div class="chapter-nav">
+<div class="prev"><a href="data-wrangling-part-one.html"><span class="header-section-number">5</span> Data wrangling part one</a></div>
+<div class="next"><a href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">7</span> Packages for Automated Exploratory Data Analysis</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-wrangling-part-two"><span class="header-section-number">6</span> Data wrangling part two</a></li>
+<li>
+<a class="nav-link" href="#load-your-workspace"><span class="header-section-number">6.1</span> Load your workspace</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#checklist"><span class="header-section-number">6.1.1</span> Checklist</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#more-summary-tools"><span class="header-section-number">6.2</span> More summary tools</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#summarise-1"><span class="header-section-number">6.2.1</span> summarise()</a></li>
+<li><a class="nav-link" href="#group_by-revisited"><span class="header-section-number">6.2.2</span> group_by revisited</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#working-with-dates"><span class="header-section-number">6.3</span> Working with dates</a></li>
+<li><a class="nav-link" href="#factors"><span class="header-section-number">6.4</span> Factors</a></li>
+<li><a class="nav-link" href="#finished-1"><span class="header-section-number">6.5</span> Finished</a></li>
+<li><a class="nav-link" href="#activity-test-yourself"><span class="header-section-number">6.6</span> Activity: Test yourself</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/03-loading-data.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/03-loading-data.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
 </div> <!-- .container -->
 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
@@ -918,37 +945,7 @@ for (let popover of popovers) {
     })
   }
 }
-</script><div class="chapter-nav">
-<div class="prev"><a href="data-wrangling-part-one.html"><span class="header-section-number">5</span> Data wrangling part one</a></div>
-<div class="next"><a href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">7</span> Packages for Automated Exploratory Data Analysis</a></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#data-wrangling-part-two"><span class="header-section-number">6</span> Data wrangling part two</a></li>
-<li>
-<a class="nav-link" href="#load-your-workspace"><span class="header-section-number">6.1</span> Load your workspace</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#checklist"><span class="header-section-number">6.1.1</span> Checklist</a></li></ul>
-</li>
-<li>
-<a class="nav-link" href="#more-summary-tools"><span class="header-section-number">6.2</span> More summary tools</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#summarise-1"><span class="header-section-number">6.2.1</span> summarise()</a></li>
-<li><a class="nav-link" href="#group_by-revisited"><span class="header-section-number">6.2.2</span> group_by revisited</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#working-with-dates"><span class="header-section-number">6.3</span> Working with dates</a></li>
-<li><a class="nav-link" href="#factors"><span class="header-section-number">6.4</span> Factors</a></li>
-<li><a class="nav-link" href="#finished-1"><span class="header-section-number">6.5</span> Finished</a></li>
-<li><a class="nav-link" href="#activity-test-yourself"><span class="header-section-number">6.6</span> Activity: Test yourself</a></li>
-</ul>
-
-      <div class="book-extra">
-        <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/03-loading-data.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/03-loading-data.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
-        </ul>
-</div>
-    </nav>
-</div>
-</div>
+</script>
 </div>
 </body>
 </html>
