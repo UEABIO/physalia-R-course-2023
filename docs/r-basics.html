@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 2 R Basics | Introduction to Statistics</title>
+<title>Chapter 2 R basics | Introduction to Statistics</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="To load packages we use the function library(). Typically you would start any analysis script by loading all of the packages you need. The tidyverse is an opinionated collection of R packages...">
+<meta name="description" content="Go to RStudio Cloud and enter the Project labelled Day One - this will clone the project and provide you with your own project workspace. Follow the instructions below to get used to the R command...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 2 R Basics | Introduction to Statistics">
+<meta property="og:title" content="Chapter 2 R basics | Introduction to Statistics">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/r-basics.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="To load packages we use the function library(). Typically you would start any analysis script by loading all of the packages you need. The tidyverse is an opinionated collection of R packages...">
+<meta property="og:description" content="Go to RStudio Cloud and enter the Project labelled Day One - this will clone the project and provide you with your own project workspace. Follow the instructions below to get used to the R command...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 2 R Basics | Introduction to Statistics">
-<meta name="twitter:description" content="To load packages we use the function library(). Typically you would start any analysis script by loading all of the packages you need. The tidyverse is an opinionated collection of R packages...">
+<meta name="twitter:title" content="Chapter 2 R basics | Introduction to Statistics">
+<meta name="twitter:description" content="Go to RStudio Cloud and enter the Project labelled Day One - this will clone the project and provide you with your own project workspace. Follow the instructions below to get used to the R command...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -113,37 +113,38 @@
 <li><a class="" href="index.html">Overview</a></li>
 <li class="book-part">Get Started in R</li>
 <li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
-<li><a class="active" href="r-basics.html"><span class="header-section-number">2</span> R Basics</a></li>
+<li><a class="active" href="r-basics.html"><span class="header-section-number">2</span> R basics</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">3</span> R Basics</a></li>
 <li class="book-part">Exploring Data</li>
-<li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
-<li><a class="" href="data-wrangling-part-one.html"><span class="header-section-number">4</span> Data wrangling part one</a></li>
-<li><a class="" href="data-wrangling-part-two.html"><span class="header-section-number">5</span> Data wrangling part two</a></li>
+<li><a class="" href="loading-data.html"><span class="header-section-number">4</span> Loading data</a></li>
+<li><a class="" href="data-wrangling-part-one.html"><span class="header-section-number">5</span> Data wrangling part one</a></li>
+<li><a class="" href="data-wrangling-part-two.html"><span class="header-section-number">6</span> Data wrangling part two</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">7</span> Packages for Automated Exploratory Data Analysis</a></li>
 <li class="book-part">Functional Programming</li>
-<li><a class="" href="functional-programming-in-r.html"><span class="header-section-number">7</span> 2. Functional programming in R:</a></li>
+<li><a class="" href="functional-programming-in-r.html"><span class="header-section-number">8</span> Functional programming in R:</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="getting-the-most-out-of-tidyverse.html"><span class="header-section-number">8</span> Getting the most out of tidyverse</a></li>
+<li><a class="" href="getting-the-most-out-of-tidyverse.html"><span class="header-section-number">9</span> Getting the most out of tidyverse</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">9</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">10</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">11</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">12</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">13</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">14</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">15</span> Customising</a></li>
-<li><a class="" href="modules.html"><span class="header-section-number">16</span> Modules</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">17</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">10</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">11</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">12</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">13</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">14</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">15</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">16</span> Customising</a></li>
+<li><a class="" href="modules.html"><span class="header-section-number">17</span> Modules</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">18</span> Sharing</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">18</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">19</span> Data visualisation with ggplot2</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="markdown.html"><span class="header-section-number">19</span> Markdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">20</span> Github</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">20</span> Markdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">21</span> Github</a></li>
 <li class="book-part">R Programming</li>
-<li><a class="" href="functions-1.html"><span class="header-section-number">21</span> Functions</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">22</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">23</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">24</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="functions-1.html"><span class="header-section-number">22</span> Functions</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">23</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">24</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">25</span> Session 1: Foundations of Programming in R</a></li>
 </ul>
 
         <div class="book-extra">
@@ -153,607 +154,1114 @@
 </div>
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-basics" class="section level1" number="2">
 <h1>
-<span class="header-section-number">2</span> R Basics<a class="anchor" aria-label="anchor" href="#r-basics"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2</span> R basics<a class="anchor" aria-label="anchor" href="#r-basics"><i class="fas fa-link"></i></a>
 </h1>
-<p>To load packages we use the function <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>. Typically you would start any analysis script by loading all of the packages you need.</p>
-<p>The <a href="https://www.tidyverse.org/">tidyverse</a> is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. This means the functions across the tidyverse are all designed to work together and make the process of data science easier.</p>
-<div id="using-packages" class="section level2" number="2.1">
+<p>Go to RStudio Cloud and enter the Project labelled <code>Day One</code> - this will clone the project and provide you with your own project workspace.</p>
+<p>Follow the instructions below to get used to the R command line, and how R works as a language.</p>
+<div id="your-first-r-command" class="section level2" number="2.1">
 <h2>
-<span class="header-section-number">2.1</span> Using packages<a class="anchor" aria-label="anchor" href="#using-packages"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1</span> Your first R command<a class="anchor" aria-label="anchor" href="#your-first-r-command"><i class="fas fa-link"></i></a>
 </h2>
-<p>Run the below code to load the tidyverse package. You can do this regardless of whether you are using your own computer or the cloud.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
-<p>You will get what looks like an error message - it's not. It's just R telling you what it's done. You should <strong>read this</strong> it gives you a full list of the packages it has made available to you. One of these should look familiar to you from last week?</p>
-<p><select class="webex-select"><option value="blank"></option>
-<option value="answer">ggplot2</option>
-<option value="">tibble</option>
-<option value="">tidyr</option>
-<option value="">dplyr</option></select></p>
-<p>Now that we've loaded the <code>tidyverse</code> package we can use <strong>any</strong> of the functions it contains but remember, you need to run the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function every time you start R.</p>
+<p>In the RStudio pane, navigate to the <strong>console</strong> (bottom left) and <code>type or copy</code> the below it should appear at the &gt;</p>
+<p>Hit Enter on your keyboard.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">10</span> <span class="op">+</span> <span class="fl">20</span></span></code></pre></div>
+<ul>
+<li>What answer did you get?</li>
+</ul>
 <div class="webex-solution">
 <button>
-Install the tidyverse. You DO NOT need to do this on RStudio Cloud.
+Solution
 </button>
-<p>In order to use a package, you must first install it. The following code installs the package tidyverse, a package we will use very frequently.</p>
-<p>If you are working on your own computer, use the below code to install the tidyverse.</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span></code></pre></div>
-<p>You only need to install a package once, however, each time you start R you need to load the packages you want to use, in a similar way that you need to install an app on your phone once, but you need to open it every time you want to use it.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">30</span></span></code></pre></div>
 </div>
-<p><br></p>
-<div class="danger">
-<p>
-If you get an error message that says something like “WARNING: Rtools
-is required to build R packages” you may need to download and install an
-extra bit of software called <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>.
-</p>
-</div>
-</div>
-<div id="package-updates" class="section level2" number="2.2">
-<h2>
-<span class="header-section-number">2.2</span> Package updates<a class="anchor" aria-label="anchor" href="#package-updates"><i class="fas fa-link"></i></a>
-</h2>
-<p>In addition to updates to R and R Studio, the creators of packages also sometimes update their code. This can be to add functions to a package, or it can be to fix errors. One thing to avoid is unintentionally updating an installed package. When you run <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> it will always install the latest version of the package and it will overwrite any older versions you may have installed. Sometimes this isn't a problem, however, sometimes you will find that the update means your code no longer works as the package has changed substantially. It is possible to revert back to an older version of a package but try to avoid this anyway.</p>
-<div class="danger">
-<p>
-To avoid accidentally overwriting a package with a later version, you
-should <strong>never</strong> include <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> in
-your analysis scripts in case you, or someone else runs the code by
-mistake. Remember, the server will already have all of the packages you
-need for this course so you only need to install packages if you are
-using your own machine.
-</p>
-</div>
-</div>
-<div id="package-conflicts" class="section level2" number="2.3">
-<h2>
-<span class="header-section-number">2.3</span> Package conflicts<a class="anchor" aria-label="anchor" href="#package-conflicts"><i class="fas fa-link"></i></a>
-</h2>
-<p>There are thousands of different R packages with even more functions. Unfortunately, sometimes different packages have the same function names. For example, the packages <code>dplyr</code> and <code>MASS</code> both have a function named <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>. If you load both of these packages, R will produce a warning telling you that there is a conflict.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code>package �dplyr� was built under R version 3.6.3
-Attaching package: �dplyr�
-
-The following objects are masked from �package:stats�:
-
-    filter, lag
-
-The following objects are masked from �package:base�:
-
-    intersect, setdiff, setequal, union
-
-
-Attaching package: �MASS�
-
-The following object is masked from �package:dplyr�:
-
-    select</code></pre>
-<p>In this case, R is telling you that the function <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> in the <code>dplyr</code> package is being hidden (or 'masked') by another function with the same name. If you were to try and use <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>, R would use the function from the package that was loaded most recently - in this case it would use the function from <code>MASS</code>.</p>
-<p>If you want to specify which package you want to use for a particular function you can use code in the format <code>package::function</code>, for example:</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/lm.ridge.html">select</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="info">
-<p>
-Why do we get naming conflicts?
-</p>
-<p>
-This is because R is open source software. Anyone can write and
-submit useful R packages. As a result it is impossible to make sure that
-there are NEVER any functions with identical names.
-</p>
-</div>
-</div>
-<div id="objects" class="section level2" number="2.4">
-<h2>
-<span class="header-section-number">2.4</span> Objects<a class="anchor" aria-label="anchor" href="#objects"><i class="fas fa-link"></i></a>
-</h2>
-<p>A large part of your coding will involve creating and manipulating objects. Objects contain stuff, and we made our first R objects in the previous chapter. The values contained in an object can be numbers, words, or the result of operations and analyses.You assign content to an object using <code>&lt;-</code>.</p>
-<div id="activity-1-create-some-objects" class="section level3" number="2.4.1">
+<p>The first line shows the request you made to R, the next line is R's response</p>
+<p>You didn't type the <code>&gt;</code> symbol: that's just the R command prompt and isn't part of the actual command.</p>
+<p>When a complete expression is entered at the prompt, it is evaluated and the result of the evaluated expression is returned. The result may be auto-printed.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">20</span><span class="op">)</span> <span class="co">## explicit printing</span></span>
+<span></span>
+<span><span class="fl">10</span> <span class="op">+</span> <span class="fl">20</span> <span class="co">## autoprinting</span></span></code></pre></div>
+<p>Usually, with interactive work, we do not explicitly print objects with the print function; it is much easier to auto-print them by typing the name of the object and hitting return/enter. However, when writing scripts, functions, or more extended programs, there is sometimes a need to explicitly print objects.</p>
+<p>When an R vector is printed, you will notice that an index for the vector is printed in square brackets <code>[]</code> on the side. For example, see this integer sequence</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span></span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+## [26] 26 27 28 29 30</code></pre>
+<p>The numbers in the square brackets are not part of the vector itself; they are merely part of the printed output.</p>
+<blockquote>
+<p>Note that the : operator is used to create integer sequences</p>
+</blockquote>
+<div id="operators" class="section level3" number="2.1.1">
 <h3>
-<span class="header-section-number">2.4.1</span> Activity 1: Create some objects<a class="anchor" aria-label="anchor" href="#activity-1-create-some-objects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1.1</span> Operators<a class="anchor" aria-label="anchor" href="#operators"><i class="fas fa-link"></i></a>
 </h3>
-<p>Copy and paste the following code into the console, change the code so that it uses your own name and age and run it. You should see that <code>name</code>, <code>age</code>, <code>today</code>, <code>new_year</code>, and <code>data</code> appear in the environment pane.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"emily"</span></span>
-<span><span class="va">age</span> <span class="op">&lt;-</span> <span class="fl">16</span> <span class="op">+</span> <span class="fl">19</span> </span>
-<span><span class="va">today</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">new_year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2022-01-01"</span><span class="op">)</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">15</span>, sd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p>What command should we use if you need <code>help</code> to understand the function <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code>?</p>
-<p><input class="webex-solveme nospaces" size="11" data-answer='["help(rnorm)"]'></p>
-<p>`</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:img-objects-enviro"></span>
-<img src="images/objects-enviro.png" alt="Objects in the environment" width="100%"><p class="caption">
-Figure 2.1: Objects in the environment
-</p>
-</div>
-<p>Note that in these examples, <code>name</code>,<code>age</code>, and <code>new_year</code> would always contain the values <code>emily</code>, <code>35</code>, and the date of New Year's Day 2021, however, <code>today</code> will draw the date from the operating system and <code>data</code> will be a randomly generated set of data so the values of these objects will not be static.</p>
-<p>As a side note, if you ever have to teach programming and statistics, don't use your age as an example because every time you have to update your teaching materials you get a reminder of the fragility of existence and your advancing age. 2021 update: I have now given up updating my age, I will remain forever 35.</p>
-<p>Importantly, objects can be involved in calculations and can interact with each other. For example:</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">age</span> <span class="op">+</span> <span class="fl">10</span></span>
-<span><span class="va">new_year</span> <span class="op">-</span> <span class="va">today</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] 45
-## Time difference of -534 days
-## [1] 15.27983</code></pre>
-<p>Finally, you can store the result of these operations in a new object:</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">decade</span> <span class="op">&lt;-</span> <span class="va">age</span> <span class="op">+</span> <span class="fl">10</span></span></code></pre></div>
-<div class="info">
-<p>
-You may find it helpful to read <code>&lt;-</code> as
-<code>contains</code>, e.g., <code>name</code> contains the text
-<code>emily</code>.
-</p>
-</div>
-<p>You will constantly be creating objects throughout this course and you will learn more about them and how they behave as we go along, however, for now it is enough to understand that they are a way of saving values, that these values can be numbers, text, or the result of operations, and that they can be used in further operations to create new variables.</p>
-<div class="info">
-<p>
-You may also see objects referred to as ‘variables’. There is a
-difference between the two in programming terms, however, they are used
-synonymously very frequently.
-</p>
-</div>
-</div>
-</div>
-<div id="vectors" class="section level2" number="2.5">
-<h2>
-<span class="header-section-number">2.5</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
-</h2>
-<p>We have been working with R objects containing a single element of data, but we will more commonly work with vectors. A vector is a <em>sequence</em> of elements, <strong>all of the same data type</strong>. These could be logical, numerical, character etc.</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">numeric_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">character_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"fruits"</span>, <span class="st">"vegetables"</span>, <span class="st">"seeds"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">logical_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p>The function <code>c</code> lets you 'concatenate' or link each of these separate elements together into a single vector.</p>
-</div>
-<div id="dataframes-and-tibbles" class="section level2" number="2.6">
-<h2>
-<span class="header-section-number">2.6</span> Dataframes and tibbles<a class="anchor" aria-label="anchor" href="#dataframes-and-tibbles"><i class="fas fa-link"></i></a>
-</h2>
-<p>No we have looked at R objects that contain:</p>
-<ul>
-<li><p>single elements of data</p></li>
-<li><p>multiple elements of the same data type - vectors</p></li>
-</ul>
-<p>But most often when we import data into R it is put into an object called a <strong>tibble</strong> which is a type of <strong>dataframe</strong>.</p>
-<div class="info">
-<p>
-A dataframe is data structure that organises data into a table.
-Dataframes can have a mix of different types of data in them. Each
-column in a dataframe is a different vector, and each row is a different
-element within the vectors.
-</p>
-</div>
-<p>Let's have a quick go at making our own <strong>tibble</strong> from scratch.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># make some variables/ vectors</span></span>
-<span><span class="va">person</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Mark"</span>, <span class="st">"Phil"</span>, <span class="st">"Becky"</span>, <span class="st">"Tony"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">hobby</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"kickboxing"</span>, <span class="st">"coding"</span>, <span class="st">"dog walking"</span>, <span class="st">"car boot sales"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">awesomeness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">100</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<div class="try">
-<p>
-Use <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> on an object or vector to find out important
-information, like the data type of each vector and how many elements it
-contains.
-</p>
-</div>
-<p>Now we put these vectors together, where they become the variables in a new tibble using the function <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code></p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># make a tibble</span></span>
-<span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">person</span>, <span class="va">hobby</span>, <span class="va">awesomeness</span><span class="op">)</span></span>
-<span><span class="va">my_data</span></span></code></pre></div>
-<pre><code># A tibble: 4 x 3
-  person hobby          awesomeness
-  &lt;chr&gt;  &lt;chr&gt;                &lt;dbl&gt;
-1 Mark   kickboxing               1
-2 Phil   coding                 100
-3 Becky  dog walking              1
-4 Tony   car boot sales           1</code></pre>
-<p>Have a go at messing about with your script and figure out what each of the functions below does.</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Some R functions for looking at tibbles and dataframes</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">my_data</span>, n<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">my_data</span>, n<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/view.html">view</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div id="organising-data-in-wide-and-long-formats" class="section level2" number="2.7">
-<h2>
-<span class="header-section-number">2.7</span> Organising data in wide and long formats<a class="anchor" aria-label="anchor" href="#organising-data-in-wide-and-long-formats"><i class="fas fa-link"></i></a>
-</h2>
-<p>There are two main conventions for dataframes in R, these are <em>wide</em> and <em>long</em> formats.</p>
-<ul>
-<li><p>A wide data format does not repeat values in the first column, data relating to the same "measured thing" are found in different columns</p></li>
-<li><p>A long data format is where we have a <strong>different</strong> column for each type of thing we have measures in our data. Each <em>variable</em> has a unique column.</p></li>
-</ul>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:img-shapes"></span>
-<img src="images/data_shapes.png" alt="A visual representation of long and wide format data shapes" width="100%"><p class="caption">
-Figure 2.2: A visual representation of long and wide format data shapes
-</p>
-</div>
-<p>While neither <em>wide</em> or <em>long</em> data is more correct than the other, we will work with <em>long</em> data as it is clearer how many distinct types of variables there are in our data <em>and</em> the tools we will be using from the <code>tidyverse</code> are designed to work with <em>long</em> data.</p>
-</div>
-<div id="using-pivot-functions" class="section level2" number="2.8">
-<h2>
-<span class="header-section-number">2.8</span> Using <code>pivot</code> functions<a class="anchor" aria-label="anchor" href="#using-pivot-functions"><i class="fas fa-link"></i></a>
-</h2>
-<p>There are functions found as part of the <code>tidyverse</code> that can help us to reshape data.</p>
-<ul>
-<li><p><code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">tidyr::pivot_wider()</a></code> - from <em>long</em> to <em>wide</em> format</p></li>
-<li><p><code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">tidyr::pivot_longer()</a></code> - from <em>wide</em> to <em>long</em> format</p></li>
-</ul>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="va">country</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span></span>
-<span> <span class="va">yr1960</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span></span>
-<span> <span class="va">yr1970</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">13</span>, <span class="fl">23</span>, <span class="fl">33</span><span class="op">)</span></span>
-<span> <span class="va">yr2010</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">25</span>, <span class="fl">35</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">country_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">country</span>, <span class="va">yr1960</span>, <span class="va">yr1970</span>, <span class="va">yr2010</span><span class="op">)</span></span>
-<span><span class="va">country_data</span></span></code></pre></div>
-<div class="kable-table">
+<p>There are a few different types of operators to consider in R</p>
+<div id="assignment-operator" class="section level4" number="2.1.1.1">
+<h4>
+<span class="header-section-number">2.1.1.1</span> Assignment Operator<a class="anchor" aria-label="anchor" href="#assignment-operator"><i class="fas fa-link"></i></a>
+</h4>
 <div class="inline-table"><table class="table table-sm">
-<thead><tr>
-<th style="text-align:left;">
-country
-</th>
-<th style="text-align:right;">
-yr1960
-</th>
-<th style="text-align:right;">
-yr1970
-</th>
-<th style="text-align:right;">
-yr2010
-</th>
+<thead><tr class="header">
+<th>Operator</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td>&lt;-</td>
+<td>used to assign values to variables</td>
+</tr></tbody>
+</table></div>
+</div>
+<div id="arithmetic-operators" class="section level4" number="2.1.1.2">
+<h4>
+<span class="header-section-number">2.1.1.2</span> Arithmetic Operators<a class="anchor" aria-label="anchor" href="#arithmetic-operators"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Operator</th>
+<th>Description</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-x
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-15
-</td>
+<tr class="odd">
+<td>+</td>
+<td>addition</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-y
-</td>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:right;">
-23
-</td>
-<td style="text-align:right;">
-25
-</td>
+<tr class="even">
+<td>-</td>
+<td>subtraction</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-z
-</td>
-<td style="text-align:right;">
-30
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-35
-</td>
+<tr class="odd">
+<td>*</td>
+<td>multiplication</td>
+</tr>
+<tr class="even">
+<td>/</td>
+<td>division</td>
+</tr>
+<tr class="odd">
+<td>^</td>
+<td>exponentiation</td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">country_data</span>,</span>
-<span>             cols <span class="op">=</span> <span class="va">yr1960</span><span class="op">:</span><span class="va">yr2010</span>,</span>
-<span>             names_to <span class="op">=</span> <span class="st">"year"</span>,</span>
-<span>             names_prefix <span class="op">=</span> <span class="st">"yr"</span>,</span>
-<span>             values_to <span class="op">=</span> <span class="st">"metric"</span><span class="op">)</span></span></code></pre></div>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:img-pivot"></span>
-<img src="images/tidyr_pivot.png" alt="Reshaping data with pivot" width="100%"><p class="caption">
-Figure 2.3: Reshaping data with pivot
-</p>
+<div id="logical-operators" class="section level4" number="2.1.1.3">
+<h4>
+<span class="header-section-number">2.1.1.3</span> Logical Operators<a class="anchor" aria-label="anchor" href="#logical-operators"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Operator</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>&lt;</td>
+<td>less than</td>
+</tr>
+<tr class="even">
+<td>&lt;=</td>
+<td>less than or equal to</td>
+</tr>
+<tr class="odd">
+<td>&gt;</td>
+<td>greater than</td>
+</tr>
+<tr class="even">
+<td>&gt;=</td>
+<td>greater than or equal to</td>
+</tr>
+<tr class="odd">
+<td>==</td>
+<td>exactly equal to</td>
+</tr>
+<tr class="even">
+<td>!=</td>
+<td>not equal to</td>
+</tr>
+</tbody>
+</table></div>
 </div>
-<p>To <em>save</em> these changes to your data format, you must assign this to an object, and you have two options</p>
-<ul>
-<li><p>Use the same name as the original R object, this will <em>overwrite</em> the original with the new format</p></li>
-<li><p>Use a <em>new</em> name for the reformatted data both R objects will exist in your Environment</p></li>
-</ul>
-<p>Neither is more <em>correct</em> than the other but be aware of what you are doing.</p>
-<div id="overwrite-the-original-object" class="section level3" number="2.8.1">
+<div id="membership-operators" class="section level4" number="2.1.1.4">
+<h4>
+<span class="header-section-number">2.1.1.4</span> Membership Operators<a class="anchor" aria-label="anchor" href="#membership-operators"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Operator</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td>%in%</td>
+<td>used to check if an element is in a vector or list</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div id="typos" class="section level3" number="2.1.2">
 <h3>
-<span class="header-section-number">2.8.1</span> Overwrite the original object<a class="anchor" aria-label="anchor" href="#overwrite-the-original-object"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1.2</span> Typos<a class="anchor" aria-label="anchor" href="#typos"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">country_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">country_data</span>,</span>
-<span>             cols <span class="op">=</span> <span class="va">yr1960</span><span class="op">:</span><span class="va">yr2010</span>,</span>
-<span>             names_to <span class="op">=</span> <span class="st">"year"</span>,</span>
-<span>             names_prefix <span class="op">=</span> <span class="st">"yr"</span>,</span>
-<span>             values_to <span class="op">=</span> <span class="st">"metric"</span><span class="op">)</span></span></code></pre></div>
+<div class="warning">
+<p>
+Before we go on to talk about other types of calculations that we can
+do with R, there’s a few other things I want to point out. The first
+thing is that, while R is good software, it’s still software. It’s
+pretty stupid, and because it’s stupid it can’t handle typos. It takes
+it on faith that you meant to type exactly what you did type.
+</p>
 </div>
-<div id="create-a-new-r-object" class="section level3" number="2.8.2">
+<p>Suppose you forget to hit the shift key when trying to type <code>+</code>, and as a result your command ended up being <code>10 = 20</code> rather than <code>10 + 20</code>. Try it for yourself and replicate this error message:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">10</span> <span class="op">=</span> <span class="fl">20</span></span></code></pre></div>
+<div class="webex-solution">
+<button>
+What answer did you get?
+</button>
+<p>Error in 10 = 20 : invalid (do_set) left-hand side to assignment</p>
+</div>
+<p>What's going on: R tries to interpret <code>10 = 20</code> as a command, but it doesn't make sense, so it gives you an error message.</p>
+<p>When a person sees this, they might realize it's a typo because the <code>+</code> and <code>=</code> keys are right next to each other on the keyboard. But R doesn't have that insight, so it just gets confused.</p>
+<p>What's even trickier is that some typos won't create errors because they accidentally form valid R commands. For example, if I meant to type <code>10 + 20</code> but mistakenly pressed a neighboring key, I'd end up with <code>10 - 20</code>. Now, R can't read your mind to know you wanted to add, not subtract, so something different happens:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">10</span> <span class="op">-</span> <span class="fl">20</span></span></code></pre></div>
+<pre><code>## [1] -10</code></pre>
+<p>In this case, R produces the right answer, but to the the wrong question.</p>
+</div>
+<div id="more-simple-arithmetic" class="section level3" number="2.1.3">
 <h3>
-<span class="header-section-number">2.8.2</span> Create a new r object<a class="anchor" aria-label="anchor" href="#create-a-new-r-object"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1.3</span> More simple arithmetic<a class="anchor" aria-label="anchor" href="#more-simple-arithmetic"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">long_country_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">country_data</span>,</span>
-<span>             cols <span class="op">=</span> <span class="va">yr1960</span><span class="op">:</span><span class="va">yr2010</span>,</span>
-<span>             names_to <span class="op">=</span> <span class="st">"year"</span>,</span>
-<span>             names_prefix <span class="op">=</span> <span class="st">"yr"</span>,</span>
-<span>             values_to <span class="op">=</span> <span class="st">"metric"</span><span class="op">)</span></span></code></pre></div>
+<p>One of the best ways to get familiar with R is to experiment with it. The good news is that it's quite hard to mess things up, so don't stress too much. Just type whatever you like into the console and see what happens.</p>
+<p>Now, if your console's last line looks like this:</p>
+<pre><code>&gt; 10+
++ </code></pre>
+<p>And there's a <em>blinking cursor</em> next to that plus sign, it means R is patiently waiting for you to complete your command. It believes you're still typing, so it hasn't tried to run anything yet. This plus sign is a bit different from the usual prompt (the <code>&gt;</code> symbol). It's there to nudge you that R is ready to "add" what you're typing now to what you typed before. For example, type <code>20</code> and hit enter, and then R will complete the command like this:</p>
+<pre><code>&gt; 10 +
++ 20
+[1] 30</code></pre>
+<p><em>Alternatively</em> hit the escape key, and R will forget what you were trying to do and return to a blank line.</p>
 </div>
+<div id="try-some-simple-maths" class="section level3" number="2.1.4">
+<h3>
+<span class="header-section-number">2.1.4</span> Try some simple maths<a class="anchor" aria-label="anchor" href="#try-some-simple-maths"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">1</span><span class="op">+</span><span class="fl">7</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">13</span><span class="op">-</span><span class="fl">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">4</span><span class="op">*</span><span class="fl">6</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">12</span><span class="op">/</span><span class="fl">3</span></span></code></pre></div>
+<p>Raise a number to the power of another</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">5</span><span class="op">^</span><span class="fl">4</span></span></code></pre></div>
+<p>Multiplying a number <span class="math inline">\(x\)</span> by itself <span class="math inline">\(n\)</span> times is called "raising <span class="math inline">\(x\)</span> to the <span class="math inline">\(n\)</span>-th power". Mathematically, this is written as <span class="math inline">\(x^n\)</span>. Some values of <span class="math inline">\(n\)</span> have special names: in particular <span class="math inline">\(x^2\)</span> is called <span class="math inline">\(x\)</span>-squared, and <span class="math inline">\(x^3\)</span> is called <span class="math inline">\(x\)</span>-cubed. So, the 4th power of 5 is calculated like this:</p>
+<p><span class="math display">\[5^4 = 5 \times 5 \times 5 \times 5 \]</span></p>
 </div>
-<div id="looking-after-the-environment" class="section level2" number="2.9">
-<h2>
-<span class="header-section-number">2.9</span> Looking after the environment<a class="anchor" aria-label="anchor" href="#looking-after-the-environment"><i class="fas fa-link"></i></a>
-</h2>
-<p>If you've been writing a lot of code you may find that the environment pane (or workspace) has become cluttered with many objects. This can make it difficult to figure out which object you need and therefore you run the risk of using the wrong data frame. If you're working on a new dataset, or if you've tried lots of different code before getting the final version, it is good practice to remember to clear the environment to avoid using the wrong object. You can do this in several way.</p>
-<ol style="list-style-type: decimal">
-<li>To remove individual objects, you can type <code>rm(object_name)</code> in the console. Try this now to remove one of the objects you created in the previous section.</li>
-<li>To clear all objects from the environment run <code>rm(list = ls())</code> in the console.</li>
-<li>To clear all objects from the environment you can also click the broom icon in the environment pane.</li>
-</ol>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:img-broom"></span>
-<img src="images/broom.png" alt="Clearing the workspace" width="100%"><p class="caption">
-Figure 2.4: Clearing the workspace
-</p>
-</div>
-</div>
-<div id="global-options" class="section level2" number="2.10">
-<h2>
-<span class="header-section-number">2.10</span> Global options<a class="anchor" aria-label="anchor" href="#global-options"><i class="fas fa-link"></i></a>
-</h2>
-<p>By default, when you open R Studio it will show you what you were last working on, including your code and any objects you have created. This might sound helpful, but actually it tends to cause more problems than it's worth because it means that you risk accidentally using an old version of an object. We recommend changing the settings so that each time you start R Studio, it opens a fresh copy. You can do this by clicking <code>Tools</code> - <code>Global Options</code> and then deselecting boxes so that it looks like the below.</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:img-options"></span>
-<img src="images/session.png" alt="Set these options to increase reproducibility" width="100%"><p class="caption">
-Figure 2.5: Set these options to increase reproducibility
-</p>
-</div>
-<p>Restore .RData into workspace at startup <select class="webex-select"><option value="blank"></option>
-<option value="">checked</option>
-<option value="answer">unchecked</option></select></p>
-<p>Save workspace to .RData on exit <select class="webex-select"><option value="blank"></option>
-<option value="">Always</option>
-<option value="answer">Never</option>
-<option value="">Ask</option></select></p>
-</div>
-<div id="r-sessions" class="section level2" number="2.11">
-<h2>
-<span class="header-section-number">2.11</span> R sessions<a class="anchor" aria-label="anchor" href="#r-sessions"><i class="fas fa-link"></i></a>
-</h2>
-<p>When you open up R and start writing code, loading packages, and creating objects, you're doing so in a new <strong>session</strong>. In addition to clearing the workspace, it can sometimes be useful to start a new session. This will happen automatically each time you start R on your computer, although sessions can persist on the cloud. If you find that your code isn't working and you can't figure out why, it might be worth starting a new session. This will clear the environment and detach all loaded packages - think of it like restarting your phone.</p>
-</div>
-<div id="activity-2" class="section level2" number="2.12">
-<h2>
-<span class="header-section-number">2.12</span> Activity 2<a class="anchor" aria-label="anchor" href="#activity-2"><i class="fas fa-link"></i></a>
-</h2>
-<p>Click 'Session - Restart R'.</p>
-<p>Have you tried turning it off and on again? It is vital to restart R regularly. Restarting R helps to avoid accidentally using the wrong data or functions stored in the environment. Restarting R only takes a second and we do it several times per day! Once you get used to saving everything in a script, you’ll always be happy to restart R. This will help you develop robust and reproducible data analysis skills.</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:img-session"></span>
-<img src="images/new_session.png" alt="The truth about programming" width="100%"><p class="caption">
-Figure 2.6: The truth about programming
-</p>
-</div>
+<div id="perform-some-combos" class="section level3" number="2.1.5">
+<h3>
+<span class="header-section-number">2.1.5</span> Perform some combos<a class="anchor" aria-label="anchor" href="#perform-some-combos"><i class="fas fa-link"></i></a>
+</h3>
+<p>R follows the standard order of operations (BODMAS/BIDMAS), which means it first calculates within brackets, then deals with exponents, followed by division and multiplication, and finally addition and subtraction.</p>
+<p>Let's look at two examples to see how the order of operations affects the results:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">3</span><span class="op">^</span><span class="fl">2</span><span class="op">-</span><span class="fl">5</span><span class="op">/</span><span class="fl">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="fl">3</span><span class="op">^</span><span class="fl">2</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span></span></code></pre></div>
+<p>Similarly if we want to raise a number to a fraction, we need to surround the fraction with parentheses <code>()</code></p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">16</span><span class="op">^</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">16</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p>The first one calculates 16 raised to the power of 1, then divided this answer by two. The second one raises 16 to the power of a half. A big difference in the output.</p>
 <div class="info">
 <p>
-This does not mean you can’t or shouldn’t ever save your work in
-.RData/.rda files.
+While the cursor is in the console, you can press the up arrow to see
+all your previous commands.
 </p>
 <p>
-But it is best to do it consciously and load exactly what you want to
-load. Letting R silently save and load everything for you may also
-include broken data or objects.
+You can run them again, or edit them. Later on we will look at
+scripts, as an essential way to re-use, store and edit commands.
 </p>
 </div>
 </div>
-<div id="how-to-cite-r-and-rstudio" class="section level2" number="2.13">
-<h2>
-<span class="header-section-number">2.13</span> How to cite R and RStudio<a class="anchor" aria-label="anchor" href="#how-to-cite-r-and-rstudio"><i class="fas fa-link"></i></a>
-</h2>
-<p>You may be some way off writing a scientific report where you have to cite and reference R, however, when the time comes it is important to do so to the people who built it (most of them for free!) credit. You should provide separate citations for R, RStudio, and the packages you use.</p>
-<p>To get the citation for the version of R you are using, simply run the <code><a href="https://rdrr.io/r/utils/citation.html">citation()</a></code> function which will always provide you with he most recent citation.</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## To cite R in publications use:
-## 
-##   R Core Team (2023). _R: A Language and Environment for Statistical
-##   Computing_. R Foundation for Statistical Computing, Vienna, Austria.
-##   &lt;https://www.R-project.org/&gt;.
-## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Manual{,
-##     title = {R: A Language and Environment for Statistical Computing},
-##     author = {{R Core Team}},
-##     organization = {R Foundation for Statistical Computing},
-##     address = {Vienna, Austria},
-##     year = {2023},
-##     url = {https://www.R-project.org/},
-##   }
-## 
-## We have invested a lot of time and effort in creating R, please cite it
-## when using it for data analysis. See also 'citation("pkgname")' for
-## citing R packages.</code></pre>
-<p>To generate the citation for any packages you are using, you can also use the <code><a href="https://rdrr.io/r/utils/citation.html">citation()</a></code> function with the name of the package you wish to cite.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## To cite package 'tidyverse' in publications use:
-## 
-##   Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R,
-##   Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller
-##   E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V,
-##   Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). "Welcome to
-##   the tidyverse." _Journal of Open Source Software_, *4*(43), 1686.
-##   doi:10.21105/joss.01686 &lt;https://doi.org/10.21105/joss.01686&gt;.
-## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Article{,
-##     title = {Welcome to the {tidyverse}},
-##     author = {Hadley Wickham and Mara Averick and Jennifer Bryan and Winston Chang and Lucy D'Agostino McGowan and Romain François and Garrett Grolemund and Alex Hayes and Lionel Henry and Jim Hester and Max Kuhn and Thomas Lin Pedersen and Evan Miller and Stephan Milton Bache and Kirill Müller and Jeroen Ooms and David Robinson and Dana Paige Seidel and Vitalie Spinu and Kohske Takahashi and Davis Vaughan and Claus Wilke and Kara Woo and Hiroaki Yutani},
-##     year = {2019},
-##     journal = {Journal of Open Source Software},
-##     volume = {4},
-##     number = {43},
-##     pages = {1686},
-##     doi = {10.21105/joss.01686},
-##   }</code></pre>
-<p>To generate the citation for the version of RStudio you are using, you can use the <code>RStudio.Version()</code> function:</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">RStudio.Version</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Finally, here's an example of how that might look in the write-up of your method section:</p>
-<blockquote>
-<p>Analysis was conducted using R ver 4.0.0 (R Core Team, 2020), RStudio (Rstudio Team, 2020), and the tidyverse range of packages (Wickham, 2017).</p>
-</blockquote>
-<p>As noted, you may not have to do this for a while, but come back to this when you do as it's important to give the open-source community credit for their work.</p>
 </div>
-<div id="help-and-additional-resources" class="section level2" number="2.14">
+<div id="true-or-false-data" class="section level2" number="2.2">
 <h2>
-<span class="header-section-number">2.14</span> Help and additional resources<a class="anchor" aria-label="anchor" href="#help-and-additional-resources"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2</span> "TRUE or FALSE" data<a class="anchor" aria-label="anchor" href="#true-or-false-data"><i class="fas fa-link"></i></a>
 </h2>
+<p>Time to make a sidebar onto another kind of data. Many concepts in programming rely on the idea of a <strong><em>logical value</em></strong>. A logical value is an assertion about whether something is true or false. This is implemented in R in a pretty straightforward way. There are two logical values, namely <code>TRUE</code> and <code>FALSE</code>. Despite the simplicity, logical values are very useful things. Let's see how they work.</p>
+<div id="assessing-mathematical-truths" class="section level3" number="2.2.1">
+<h3>
+<span class="header-section-number">2.2.1</span> Assessing mathematical truths<a class="anchor" aria-label="anchor" href="#assessing-mathematical-truths"><i class="fas fa-link"></i></a>
+</h3>
+<p>Time to explore a different kind of data. In programming, many concepts rely on logical values. A logical value is a statement about whether something is true or false. In R, this is pretty straightforward. There are two logical values: <code>TRUE</code> and <code>FALSE</code>. Despite their simplicity, these logical values are incredibly useful. Let's dive into how they work.</p>
+<p>In R, basic mathematics is solid, and there's no room for manipulation. When you ask R to calculate <code>2 + 2</code>, it always provides the same answer,</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<p>up to this point, R has been performing calculations without explicitly asserting whether <span class="math inline">\(2 + 2 = 4\)</span> is a true statement. If I want R to make an explicit judgment, I can use a command like this:</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">4</span></span></code></pre></div>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<p>TRUE</p>
+</div>
+<p>What I've done here is use the <strong><em>equality operator</em></strong>, <code>==</code>, to force R to make a "true or false" judgement.</p>
+<div class="warning">
+<p>
+This is a very different operator to the assignment operator
+<code>=</code> you saw previously.
+</p>
+<p>
+A common typo that people make when trying to write logical commands
+in R (or other languages, since the “<code>=</code> versus
+<code>==</code>” distinction is important in most programming languages)
+is to accidentally type <code>=</code> when you really mean
+<code>==</code>.
+</p>
+</div>
+<p>Okay, let's see what R thinks of <code>2 +2 ==5</code>:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">2</span><span class="op">+</span><span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Now, let's see what happens when I attempt to make R believe that two plus two equals five by using an assignment statement like <code>2 + 2 = 5</code> or <code>2 + 2 &lt;- 5</code>. Here's the outcome:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">=</span> <span class="fl">5</span></span></code></pre></div>
+<pre><code>Error in 2 + 2 = 5 : target of assignment expands to non-language object</code></pre>
+<p>Indeed, R isn't too fond of this idea. It quickly realizes that <code>2 + 2</code> is not a variable (that's what the "non-language object" part is saying), and it refuses to let you "reassign" it. While R can be quite flexible and allows you to do some remarkable things to redefine parts of itself, there are fundamental truths it simply won't budge on. It won't tamper with the laws of addition, and it won't redefine the number <code>2</code>.</p>
+<p>That's probably for the best.</p>
+</div>
+</div>
+<div id="storing-outputs" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Storing outputs<a class="anchor" aria-label="anchor" href="#storing-outputs"><i class="fas fa-link"></i></a>
+</h2>
+<p>When dealing with more complex questions, it's often helpful to store our answers and use them in later steps. Fortunately, this is quite easy to do in R. We can assign the results to a name with the <strong>assignment operator</strong>:</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">+</span><span class="fl">2</span></span></code></pre></div>
+<p>This literally means please <em>assign</em> the value of <code>1+2</code> to the name <code>a</code>. We use the <strong>assignment operator</strong> <code>&lt;-</code> to make this assignment.</p>
+<div class="info">
+<p>
+Note the shortcut key for &lt;- is Alt + - (Windows) or Option + -
+(Mac)
+</p>
+</div>
+<p>By performing this action, you'll achieve two things:</p>
+<p>You will notice in the top right-hand pane within the <strong>Environment</strong> tab that there is now an <strong>object</strong> labeled a with a value of <code>3</code>.</p>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:img-kitteh"></span>
-<img src="images/kitteh.png" alt="The truth about programming" width="100%"><p class="caption">
-Figure 2.7: The truth about programming
+<span style="display:block;" id="fig:img-environment"></span>
+<img src="images/environment.png" alt="object a is now visible withe a value of 3 in the Environment Pane" width="100%"><p class="caption">
+Figure 2.1: object a is now visible withe a value of 3 in the Environment Pane
 </p>
 </div>
-<p>Getting good at programming really means getting good trying stuff out, searching for help online, and finding examples of code to copy. If you are having difficulty with any of the exercises contained in this book then you can ask for help on Teams, however, learning to problem-solve effectively is a key skill that you need to develop throughout this course.</p>
 <ul>
-<li><p>Use the help documentation. If you're struggling to understand how a function works, remember the <code>?function</code> and <code><a href="https://rdrr.io/r/utils/help.html">help()</a></code> command.</p></li>
-<li><p>If you get an error message, copy and paste it in to Google - it's very likely someone else has had the same problem.</p></li>
-<li><p>If you are struggling to produce a particular output or process - try organising your google searches to include key terms such as "in R" or "tidyverse". - e.g. <em>"how to change character strings into NA values with tidyverse"</em></p></li>
-<li><p>The official <a href="https://posit.co/resources/cheatsheets/">Cheatsheets</a> are a great resource to keep bookmarked.</p></li>
-<li><p><strong>Remember to ask for help</strong></p></li>
+<li><p>You can check what the variable a contains by typing it into your Console and pressing Enter.</p></li>
+<li><p>Keep in mind that you won't see the result of your operations until you type the object into the R console and press Enter.</p></li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a</span>  <span class="co">## autoprinting</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="co">## explicit printing</span></span></code></pre></div>
+<div class="webex-solution">
+<button>
+What output do you get when you type a into your console?
+</button>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">3</span></span></code></pre></div>
+</div>
+<p>You can now call this object at <em>any time</em> during your R session and perform calculations with it.</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">2</span> <span class="op">*</span> <span class="va">a</span></span></code></pre></div>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">6</span></span></code></pre></div>
+</div>
+<p>What happens if we assign a value to a named object that <strong>already</strong> exists in our R environment??? for example</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span><span class="va">a</span></span></code></pre></div>
+<p>The value of <code>a</code> is now 10.</p>
+<p>You should see that the previous assignment is lost, <em>gone forever</em> and has been replaced by the new value.</p>
+<p>We can assign lots of things to objects, and use them in calculations to build more objects.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span><span class="va">c</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span></span></code></pre></div>
+<div class="warning">
+<p>
+Remember: If you now change the value of b, the value of c does
+<em>not</em> change.
+</p>
+<p>
+Objects are totally <strong>independent</strong> from each other once
+they are made.
+</p>
+<p>
+Overwriting objects with new values means the old value is lost.
+</p>
+</div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">7</span></span>
+<span><span class="va">b</span></span>
+<span><span class="va">c</span></span></code></pre></div>
+<ul>
+<li>What is the value of <code>c</code>?</li>
+</ul>
+<div class="webex-solution">
+<button>
+What is the value of c ?
+</button>
+<p>[1] 15</p>
+<p>When <code>c</code> was created it was a product of <code>a</code> and <code>b</code> having values of 10 and 15 respectively.
+If we re-ran the command <code>c &lt;- a + b</code> <em>after</em> changing the value of <code>b</code> <strong>then</strong> we would get a value of 17.</p>
+</div>
+<p>Look at the environment tab again - you should see it's starting to fill up now!</p>
+<div class="info">
+<p>
+RStudio will by default save the objects in its memory when you close
+a session.
+</p>
+<p>
+These will then be there the next time you logon. It might seem nice
+to be able to close things down and pick up where you left off, but its
+actually quite dangerous. It’s messy, and can cause lots of problems
+when we work with scripts later, so don’t do this!
+</p>
+<p>
+To stop RStudio from saving objects by default go to Tools &gt;
+Project Options option and change “Save workspace to .RData on exit” to
+“No” or “Never”.
+</p>
+<p>
+Instead we are going to learn how to use scripts to quickly re-run
+analyses we have been working on.
+</p>
+</div>
+<div id="choosing-names" class="section level3" number="2.3.1">
+<h3>
+<span class="header-section-number">2.3.1</span> Choosing names<a class="anchor" aria-label="anchor" href="#choosing-names"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Use informative variable names. As a general rule, using meaningful names like <code>orange</code> and <code>apple</code> is preferred over arbitrary ones like <code>variable1</code> and <code>variable2</code>. Otherwise it's very hard to remember what the contents of different variables actually are.</p></li>
+<li><p>Use short variable names. Typing is a pain and no-one likes doing it. So we much prefer to use a name like <code>apple</code> over a name like <code>pink_lady_apple</code>.</p></li>
+<li><p>Use one of the conventional naming styles for multi-word variable names. R only lets you use certain things as <strong>legal</strong> names. Legal names must start with a letter <strong>not</strong> a number, which can then be followed by a sequence of letters, numbers, ., or _. R does not like using spaces. Upper and lower case names are allowed, but R is case sensitive so <code>Apple</code> and <code>apple</code> are different.</p></li>
+<li><p>My favourite naming convention is <code>snake_case</code> short, lower case only, spaces between words are separated with a _. It's easy to read and easy to remember.</p></li>
+</ul>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-39"></span>
+<img src="images/snake_case.png" alt="snake_case" width="80%"><p class="caption">
+Figure 2.2: courtesy of Allison Horst
+</p>
+</div>
+</div>
+</div>
+<div id="r-objects" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> R objects<a class="anchor" aria-label="anchor" href="#r-objects"><i class="fas fa-link"></i></a>
+</h2>
+<p>In R, there are five fundamental or "atomic" classes of objects:</p>
+<ul>
+<li><p>Character: These represent text or character strings.</p></li>
+<li><p>Numeric (num) or Double (dbl): These are used for real numbers (e.g., decimal numbers).</p></li>
+<li><p>Integer: Used for whole numbers.</p></li>
+<li><p>Complex: For complex numbers.</p></li>
+<li><p>Logical: Represented as True or False, these are used for logical values.</p></li>
+</ul>
+<p>The most basic type of R object is a vector. You can create empty vectors using the <code><a href="https://rdrr.io/r/base/vector.html">vector()</a></code> function. The primary rule regarding vectors in R is that a vector can only contain objects of the same class.</p>
+<p>However, as with any good rule, there's an exception, which is the "list." Lists are represented as vectors but can hold objects of different classes, which is why they're often used.</p>
+<div id="numbers" class="section level3" number="2.4.1">
+<h3>
+<span class="header-section-number">2.4.1</span> Numbers<a class="anchor" aria-label="anchor" href="#numbers"><i class="fas fa-link"></i></a>
+</h3>
+<p>In R, both "dbl" and "num" refer to numeric data types, but there is a subtle difference between them:</p>
+<ul>
+<li><p>dbl ("double"): This refers to double-precision floating-point numbers, which are capable of storing real numbers with high precision. Double-precision numbers have more decimal places of accuracy and can represent a wider range of values without loss of precision. When you perform arithmetic operations, R typically returns results as "dbl" values by default.</p></li>
+<li><p>num ("numeric"): "Num" is a more general term that includes not only double-precision floating-point numbers but also integer values. In R, integers are a subtype of numeric data. Numeric data can include both integers and double-precision floating-point numbers, depending on the specific data and how it is represented.</p></li>
+</ul>
+<p>So, "dbl" specifically denotes double-precision floating-point numbers, while "num" encompasses a broader range of numeric data, including both integers and double-precision numbers. In most cases, you can use "num" to work with numeric data in a more general sense, while "dbl" focuses on the higher-precision representation of real numbers.</p>
+</div>
+</div>
+<div id="attributes" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Attributes<a class="anchor" aria-label="anchor" href="#attributes"><i class="fas fa-link"></i></a>
+</h2>
+<p>R objects can come with attributes, which are essentially metadata for the object. These metadata are handy because they help describe the object. For instance, in a data frame, column names serve as attributes, clarifying the data contained in each column. Here are a few examples of R object attributes:</p>
+<ul>
+<li><p><code><a href="https://rdrr.io/r/base/names.html">names()</a></code> and <code><a href="https://rdrr.io/r/base/dimnames.html">dimnames()</a></code></p></li>
+<li><p>dimensions (e.g., for matrices and arrays) <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code></p></li>
+<li><p><code><a href="https://rdrr.io/r/base/class.html">class()</a></code> (e.g., integer, numeric)</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/length.html">length()</a></code></p></li>
+<li><p>Other user-defined attributes or metadata</p></li>
+</ul>
+<p>You can access the attributes of an object, if it has any, by using the <code><a href="https://rdrr.io/r/base/attributes.html">attributes()</a></code> function. If an R object doesn't have any attributes, the <code><a href="https://rdrr.io/r/base/attributes.html">attributes()</a></code> function will return NULL.</p>
+</div>
+<div id="vectors" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
+</h2>
+<p>We have been working with R objects containing a single element of data, but we will more commonly work with vectors. A vector is a sequence of elements, all of the same data type. These could be logical, numerical, character etc.</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">numeric_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">character_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"fruits"</span>, <span class="st">"vegetables"</span>, <span class="st">"seeds"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">logical_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">integer_vector</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span></code></pre></div>
+<div id="coercion" class="section level3" number="2.6.1">
+<h3>
+<span class="header-section-number">2.6.1</span> Coercion<a class="anchor" aria-label="anchor" href="#coercion"><i class="fas fa-link"></i></a>
+</h3>
+<p>In R, when different classes of objects are mixed together in a vector, coercion occurs to ensure that every element in the vector belongs to the same class. Coercion is the process of converting objects to a common class to make the combination reasonable. Let's see the effects of implicit coercion in the provided examples:</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.3</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># Here, we're mixing a numeric value (1.7) with a character value ("a"). To make them compatible, R coerces both elements into character values. So, y becomes a character vector.</span></span>
+<span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># In this case, we're combining a logical value (TRUE) with a numeric value (2). R coerces the logical value into 1, so y becomes a numeric vector.</span></span>
+<span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># We're mixing a character value ("a") with a logical value (TRUE). In this scenario, R coerces the logical value into a character value, resulting in y becoming a character vector.</span></span></code></pre></div>
+<p>So, the outcome depends on how R can reasonably represent all the objects in the vector. It aims to create a vector of the most inclusive class to accommodate the mixed objects. Keep in mind that this coercion can lead to unexpected results, so it's essential to be aware of the implicit type conversion when mixing different data types in R.</p>
+<p>Objects can also be <strong>explicitly coerced</strong> from one class to another using the as.* functions, if available.</p>
+<div class="panel panel-default">
+<div class="panel-heading">
+Task
+</div>
+<div class="panel-body">
+<p>Create the following vector and check its class, then note what happens when you attempt to coerce to numeric, logical and character</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">5</span></span></code></pre></div>
+</div>
+</div>
+<button id="displayTextunnamed-chunk-43" onclick="javascript:toggle('unnamed-chunk-43');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-43" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 0 1 2 3 4 5
+## [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [1] "0" "1" "2" "3" "4" "5"</code></pre>
+</div>
+</div>
+</div>
+<p>Sometimes, R can’t figure out how to coerce an object and this can result in <code>NA</code>s being produced</p>
+</div>
+</div>
+<div id="matrices" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Matrices<a class="anchor" aria-label="anchor" href="#matrices"><i class="fas fa-link"></i></a>
+</h2>
+<p>Matrices can be thought of as vectors with an added dimension attribute. This dimension attribute is a two-element integer vector specifying the number of rows and columns, which defines the shape and structure of the matrix.</p>
+<div class="info">
+<p>
+Data frames are also two-dimensional but can store columns of
+different data types - matrices are simpler as they consist of elements
+of the same data type.
+</p>
+</div>
+<p>Matrices are constructed "columns-first" so entries start in the "upper left" and and run down columns.</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> </span>
+<span><span class="va">m</span></span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6</code></pre>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## $dim
+## [1] 2 3</code></pre>
+<p>We can create matrices in several ways:</p>
+<ul>
+<li><p>Adding a <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> to existing vectors</p></li>
+<li><p>Column/row-binding vectors with <code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code> and <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code></p></li>
+</ul>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">m</span></span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6</code></pre>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">3</span><span class="op">:</span><span class="fl">4</span></span>
+<span><span class="va">c</span> <span class="op">&lt;-</span> <span class="fl">5</span><span class="op">:</span><span class="fl">6</span></span>
+<span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span>,<span class="va">c</span><span class="op">)</span></span>
+<span><span class="va">m</span></span></code></pre></div>
+<pre><code>##      a b c
+## [1,] 1 3 5
+## [2,] 2 4 6</code></pre>
+<p>You will see how in this last operation column names were added to the matrix, we can add, change or remove column and rownames on a matrix with <code><a href="https://rdrr.io/r/base/colnames.html">colnames()</a></code> and <code><a href="https://rdrr.io/r/base/colnames.html">rownames()</a></code></p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span></span>
+<span><span class="va">m</span></span></code></pre></div>
+<pre><code>##   a b c
+## y 1 3 5
+## z 2 4 6</code></pre>
+</div>
+<div id="lists" class="section level2" number="2.8">
+<h2>
+<span class="header-section-number">2.8</span> Lists<a class="anchor" aria-label="anchor" href="#lists"><i class="fas fa-link"></i></a>
+</h2>
+<p>Lists are a versatile and fundamental data type in R. They set themselves apart from regular vectors by allowing you to store elements of different classes within the same list. This flexibility is what makes lists so powerful for various data structures and data manipulation tasks.</p>
+<p>You can create lists explicitly using the <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> function, which can take an arbitrary number of arguments. Lists, when combined with functions like the "apply" family, enable you to perform complex and versatile data manipulations and analyses in R. Lists are often used to represent heterogeneous data structures, such as datasets where different columns can have different data types and structures.</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"apple"</span>, <span class="cn">TRUE</span> <span class="op">)</span></span>
+<span><span class="va">l</span></span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] "apple"
+## 
+## [[3]]
+## [1] TRUE</code></pre>
+<p>We can also create empty lists of set lengths with the <code><a href="https://rdrr.io/r/base/vector.html">vector()</a></code> function, this can be useful for preallocating memory for iterations - as we will see later</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, length <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">l</span></span></code></pre></div>
+<pre><code>## [[1]]
+## NULL
+## 
+## [[2]]
+## NULL
+## 
+## [[3]]
+## NULL</code></pre>
+<p>Lists can also have names</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple"</span>,<span class="st">"orange"</span>,<span class="st">"pear"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="dataframes" class="section level2" number="2.9">
+<h2>
+<span class="header-section-number">2.9</span> Dataframes<a class="anchor" aria-label="anchor" href="#dataframes"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data frames are essential for storing tabular data in R and find extensive use in various statistical modeling and data analysis applications. They offer a structured way to manage and work with data in R, and packages like dplyr, developed by Hadley Wickham, provide optimized functions for efficient data manipulation with data frames.</p>
+<p>Here are some key characteristics and advantages of data frames:</p>
+<ul>
+<li><p>Tabular Structure: Data frames are a type of list, where each element in the list represents a column. The number of rows in each column is the same, and this tabular structure makes them suitable for working with datasets.</p></li>
+<li><p>Mixed Data Types: Unlike matrices, data frames can contain columns with different classes of objects. This flexibility allows you to handle real-world datasets that often include variables of different data types.</p></li>
+<li><p>Column and Row Names: Data frames include column names, which describe the variables or predictors. Additionally, they have a special attribute called "row.names" that provides information about each row in the data frame.</p></li>
+<li><p>Creation and Conversion: Data frames can be created in various ways, such as reading data from files using functions like read.table() and read.csv(). You can also create data frames explicitly with data.frame().</p></li>
+<li><p>Working with Data: Data frames are especially useful when working with datasets that require data cleaning, transformation, or merging. They provide a high level of data organization, and many R packages are designed to work seamlessly with data frames.</p></li>
+<li><p>dplyr: The <code>dplyr</code> package is optimized for efficient data manipulation with data frames. It offers a set of functions to perform data operations quickly and intuitively.</p></li>
+</ul>
+<p>Data frames are a fundamental structure for managing tabular data in R. They excel in handling datasets with mixed data types and are essential for various data analysis and modeling tasks.</p>
+<div id="tibbles" class="section level3" number="2.9.1">
+<h3>
+<span class="header-section-number">2.9.1</span> Tibbles<a class="anchor" aria-label="anchor" href="#tibbles"><i class="fas fa-link"></i></a>
+</h3>
+<p>“Tibbles” are a new modern data frame. It keeps many important features of the original data frame</p>
+<ul>
+<li><p>A tibble never changes the input type.</p></li>
+<li><p>A tibble can have columns that are lists.</p></li>
 <li>
-<p>In addition to these course materials there are a number of excellent resources for learning R:</p>
+<p>A tibble can have non-standard variable names.</p>
 <ul>
-<li><a href="https://stackoverflow.com/">StackOverflow</a></li>
-<li><a href="https://r4ds.had.co.nz/">R for Data Science</a></li>
-<li>Search or use the <a href="https://twitter.com/search?f=tweets&amp;q=%23rstats&amp;src=typd">#rstats</a> hashtag on Twitter</li>
+<li>can start with a number or contain spaces.
+-to use this refer to these in a backtick.</li>
 </ul>
 </li>
+<li><p>Tibbles only print the first 10 rows and all the columns that fit on a screen. - Each column displays its data type</p></li>
 </ul>
 </div>
-<div id="debugging-tips" class="section level2" number="2.15">
-<h2>
-<span class="header-section-number">2.15</span> Debugging tips<a class="anchor" aria-label="anchor" href="#debugging-tips"><i class="fas fa-link"></i></a>
-</h2>
-<p>A large part of coding is trying to figure why your code doesn't work and this is true whether you are a novice or an expert. As you progress through this course you should keep a record of mistakes you make and how you fixed them. In each chapter we will provide a number of common mistakes to look out for but you will undoubtedly make (and fix!) new mistakes yourself.</p>
-<div id="prevent-errors" class="section level3" number="2.15.1">
-<h3>
-<span class="header-section-number">2.15.1</span> Prevent errors<a class="anchor" aria-label="anchor" href="#prevent-errors"><i class="fas fa-link"></i></a>
-</h3>
-<p><strong>Read console outputs as you go</strong></p>
-<p><strong>Check that functions are producing the output you expect</strong></p>
-<p><strong>Build complex code in simple stages</strong></p>
 </div>
-<div id="fix-errors" class="section level3" number="2.15.2">
-<h3>
-<span class="header-section-number">2.15.2</span> Fix errors<a class="anchor" aria-label="anchor" href="#fix-errors"><i class="fas fa-link"></i></a>
-</h3>
+<div id="error-debugging" class="section level2" number="2.10">
+<h2>
+<span class="header-section-number">2.10</span> Error/ Debugging<a class="anchor" aria-label="anchor" href="#error-debugging"><i class="fas fa-link"></i></a>
+</h2>
+<p>Things will go wrong eventually, they always do...</p>
+<p>R is <em>very</em> pedantic, even the smallest typo can result in failure and typos are impossilbe to avoid. So we will make mistakes. One type of mistake we will make is an <strong>error</strong>. The code fails to run. The most common causes for an error are:</p>
 <ul>
-<li><p>Have you loaded the correct packages for the functions you are trying to use? One very common mistake is to write the code to load the package, e.g., <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code> but then forget to run it.</p></li>
-<li><p>Have you made a typo? Remember <code>data</code> is not the same as <code>DATA</code> and <code>t.test</code> is not the same as <code>t_test</code>.</p></li>
-<li><p>Is there a package conflict? Have you tried specifying the package and function with <code>package::function</code>?</p></li>
-<li><p>Is it definitely an error? Not all red text in R means an error - sometimes it is just giving you a message with information.</p></li>
+<li><p>typos</p></li>
+<li><p>missing commas</p></li>
+<li><p>missing brackets</p></li>
+</ul>
+<p>There's nothing wrong with making <em>lots</em> of errors. The trick is not to panic or get frustrated, but to read the error message and our script carefully and start to <em>debug</em>...</p>
+<p>... and sometimes we need to walk away and come back later!</p>
+<div class="try">
+<p>
+Try typing the command <code><a href="https://rdrr.io/r/utils/help.html">help()</a></code> into the R console, it
+should open a new tab on the bottom right.
+</p>
+<p>
+Put a function or package into the brackets to get help with a
+specific topic
+</p>
+</div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-55"></span>
+<img src="images/Error.jpg" alt="R Error" width="80%"><p class="caption">
+Figure 2.3: courtesy of Allison Horst
+</p>
+</div>
+</div>
+<div id="functions" class="section level2" number="2.11">
+<h2>
+<span class="header-section-number">2.11</span> Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
+</h2>
+<p>Functions are the tools of R. Each one helps us to do a different task.</p>
+<p>Take for example the function that we use to round a number to a certain number of digits - this function is called <code>round</code></p>
+<p>Here's an example:</p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>x  <span class="op">=</span> <span class="fl">2.4326782647</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p>We start the command with the function name <code>round</code>. The name is followed by parentheses <code>()</code>. Within these we place the <em>arguments</em> for the function, each of which is separated by a comma.</p>
+<p>The arguments:</p>
+<ul>
+<li><p><code>x =</code> 2.4326782647 (the number we would like to round)</p></li>
+<li><p><code>digits =</code> 2 (the number of decimal places we would like to round to)</p></li>
+</ul>
+<p><strong>Arguments are the inputs we give to a function</strong>. These arguments are in the form <code>name = value</code> the name specifies the argument, and the value is what we are providing to define the input. That is the first argument <code>x</code> is the number we would like to round, it has a value of 2.4326782647. The second argument <code>digits</code> is how we would like the number to be rounded and we specify 2. There is no limit to how many arguments a function <em>could</em> have.</p>
+<div class="try">
+<p>
+Copy and paste the following code into the console.
+</p>
+</div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/help.html">help</a></span><span class="op">(</span><span class="va">round</span><span class="op">)</span></span></code></pre></div>
+<p>The help documentation for <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>should appear in the bottom right help panel. In the usage section, we see that <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>takes the following form:</p>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<p>In the arguments section, there are explanations for each of the arguments. <code>x</code>is the number or vector where we wish to round values. <code>digits</code> is the number of decimal places to be used. In the description we can see that if no value is supplied for <code>digits</code> it will default to 0 or whole number rounding.</p>
+<p>Read the 'Details' section to find out what happens when rounding when the last digit is a 5.</p>
+<p>Let's try an example and just change the required argument <code>digits</code></p>
+<div class="try">
+<p>
+Copy and paste the following code into the console.
+</p>
+</div>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>x  <span class="op">=</span> <span class="fl">2.4326782647</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>Now we can change the additional arguments to produce a different set of numbers.</p>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>x  <span class="op">=</span> <span class="fl">2.4326782647</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 2.43</code></pre>
+<p>This time R has still rounded the number, but it has done so to a set number of 'decimal places'.</p>
+<p>Always remember to use the help documentation to help you understand what arguments a function requires.</p>
+<div id="storing-the-output-of-functions" class="section level3" number="2.11.1">
+<h3>
+<span class="header-section-number">2.11.1</span> Storing the output of functions<a class="anchor" aria-label="anchor" href="#storing-the-output-of-functions"><i class="fas fa-link"></i></a>
+</h3>
+<p>What if we need the answer from a function in a later calculation. The answer is to use the assignment operator again <code>&lt;-</code>.</p>
+<p>In this example we assign values to two R objects that we can then call inside our R function <strong>as though we were putting numbers in directly</strong>.</p>
+<div class="try">
+<p>
+Copy and paste the following code into the console.
+</p>
+</div>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">number_of_digits</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span></span>
+<span><span class="va">my_number</span> <span class="op">&lt;-</span> <span class="fl">2.4326782647</span></span>
+<span></span>
+<span><span class="va">rounded_number</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>x  <span class="op">=</span> <span class="va">my_number</span>, </span>
+<span>                        digits <span class="op">=</span> <span class="va">number_of_digits</span><span class="op">)</span></span></code></pre></div>
+<p><strong>What value is assigned to the R object <code>rounded_number</code></strong> <strong>?</strong></p>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<p>[1] 2.433</p>
+</div>
+</div>
+<div id="more-fun-with-functions" class="section level3" number="2.11.2">
+<h3>
+<span class="header-section-number">2.11.2</span> More fun with functions<a class="anchor" aria-label="anchor" href="#more-fun-with-functions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Copy and paste this:</p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2.4326782647</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p>Looks like we don't even <em>have</em> to give the names of arguments for a function to still work. This works because the function <code>round</code> expects us to give the number value first, and the argument for rounding digits second. <em>But</em> this assumes we know the expected ordering within a function, this might be the case for functions we use a lot. If you give arguments their proper names <em>then</em> you can actually introduce them in <strong>any order you want</strong>.</p>
+<p>Try this:</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span>, x  <span class="op">=</span> <span class="fl">2.4326782647</span><span class="op">)</span></span></code></pre></div>
+<p>But this gives a different answer</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2.4326782647</span><span class="op">)</span></span></code></pre></div>
+<div class="warning">
+<p>
+Remember naming arguments overrides the position defaults
+</p>
+</div>
+<p>How do we <strong>know</strong> the argument orders and defaults? Well we get to know how a lot of functions work through practice, but we can also use <code><a href="https://rdrr.io/r/utils/help.html">help()</a></code> .</p>
+</div>
+</div>
+<div id="packages-1" class="section level2" number="2.12">
+<h2>
+<span class="header-section-number">2.12</span> Packages<a class="anchor" aria-label="anchor" href="#packages-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>When you install R you will have access to a range of functions including options for data wrangling and statistical analysis. The functions that are included in the default installation are typically referred to as <strong>Base R</strong> and there is a useful cheat sheet that shows many Base R functions <a href="%5Bhttps://www.rstudio.com/wp-content/uploads/2016/05/base-r.pdf">here</a></p>
+<p>However, the power of R is that it is extendable and open source - anyone can create a new <strong>package</strong> that extends the functions of R.</p>
+<p>An R package is a container for various things including functions and data. These make it easy to do very complicated protocols by using custom-built functions. Later we will see how we can write our own simple functions. Packages are a lot like new apps extending the functionality of what your phone can do.</p>
+<p>On RStudio Cloud I have already installed several add-on packages, all we need to do is use a simple function <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> to load these packages into our workspace. Once this is complete we will have access to all the custom functions they contain.</p>
+<div class="try">
+<p>
+Copy and paste the following code into the console.
+</p>
+</div>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li><p><code>ggplot2</code> - is one of the most popular packages to use in R. This "grammar of graphics" packages is dedicated to making data visualisations, and contains lots of dedicated functions for this.</p></li>
+<li><p><code>palmerpenguins</code> - is a good example of a data-heavy package, it contains no functions, but instead datasets that we can use.</p></li>
+</ul>
+<div class="warning">
+<p>
+A common source of errors is to call a function that is part of a
+package but forgetting to load the package.
+</p>
+<p>
+If R says something like “Error in”function-name”: could not find X”
+then most likely the function was misspelled or the package containing
+the function hasn’t been loaded.
+</p>
+</div>
+</div>
+<div id="my-first-data-visualisation" class="section level2" number="2.13">
+<h2>
+<span class="header-section-number">2.13</span> My first data visualisation<a class="anchor" aria-label="anchor" href="#my-first-data-visualisation"><i class="fas fa-link"></i></a>
+</h2>
+<p>Let's run our first data visualisation using the functions and data we have now loaded - this produces a plot using functions from the <code>ggplot2</code> package and data from the <code>palmerpenguins</code> package.</p>
+<p>Data visualisation is a core part of data science, and generating insights from your data - we will spend a lot of time on this course working on our data visualisations.</p>
+<p>Today let's use some simple functions to produce a figure. We specify the data source, the variables to be used for the x and y axis and then the type of visual object to produce, colouring them by the species.</p>
+<div class="try">
+<p>
+Copy and paste the following code into the console.
+</p>
+</div>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bill_length_mm</span>, y <span class="op">=</span> <span class="va">bill_depth_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="01-intro-to-r_files/figure-html/unnamed-chunk-71-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="info">
+<p>
+You may have noticed R gave you a warning. Not the same as a big
+scary error, but R wants you to be aware of something.
+</p>
+<p>
+In this case that two of the observations had missing data in them
+(either bill length or bill depth), so couldn’t be plotted.
+</p>
+<p>
+It is a good thing to take note of all warnings and errors - they
+provide useful information.
+</p>
+</div>
+<p>The above command can also be written as below, its in a longer style with each new line for each argument in the function. This style can be easier to read, and makes it easier to write comments with <code>#</code>. Copy this longer command into your console then hit Enter.</p>
+<p>Note that R ignores anything that comes after <code>#</code> on a line of code - this means we can add notes to our work.</p>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>, <span class="co"># calls ggplot function, data is penguins</span></span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bill_length_mm</span>, <span class="co"># sets x axis as bill length</span></span>
+<span>           y <span class="op">=</span> <span class="va">bill_depth_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="co"># sets y axis value as bill depth</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="co"># plot points coloured by penguin species</span></span></code></pre></div>
+</div>
+<div id="writing-scripts" class="section level2" number="2.14">
+<h2>
+<span class="header-section-number">2.14</span> Writing scripts<a class="anchor" aria-label="anchor" href="#writing-scripts"><i class="fas fa-link"></i></a>
+</h2>
+<p>Until now we have been typing words directly into the Console. This is fine for short/simple calculations - but as soon as we have a more complex, multi-step process this becomes time consuming, error-prone and <em>boring</em>. <strong>Scripts</strong> are a document containing all of your commands (in the order you want them to run), they are <em>repeatable, shareable, annotated records of what you have done</em>. In short they are incredibly useful - and a big step towards <strong>open</strong> and <strong>reproducible</strong> research.</p>
+<div class="panel panel-default">
+<div class="panel-heading">
+Task
+</div>
+<div class="panel-body">
+Create a script by going to File &gt; New File &gt; R Script.
+</div>
+</div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:script"></span>
+<img src="images/rstudio.png" alt="RStudio interface - top left script, botto  left console" width="100%"><p class="caption">
+Figure 2.4: RStudio interface - top left script, botto left console
+</p>
+</div>
+<p>This will open a pane in the top-left of RStudio with a tab name of <code>Untitled1</code>.</p>
+<div class="info">
+<p>
+A script is a way of organising all your R commands, in a sequence,
+to produce a desired output.
+</p>
+<p>
+When you write a script, nothing happens until you tell it to RUN,
+then you will see your commands appearing in the console.
+</p>
+<p>
+Make sure you include all of the commands you need to complete your
+analysis, in the correct order.
+</p>
+</div>
+<div id="organising-scripts" class="section level3" number="2.14.1">
+<h3>
+<span class="header-section-number">2.14.1</span> Organising scripts<a class="anchor" aria-label="anchor" href="#organising-scripts"><i class="fas fa-link"></i></a>
+</h3>
+<p>Scripts work best when they are well organised - and well documented. Simple tricks and consistent organisation can make your work easier to read and be reproduced by others.</p>
+<p>You should bookmark the <a href="https://style.tidyverse.org/files.html">Tidyverse Style Guide</a>, it is an opinionated way of organising your scripts and code so that it has a consistent style, that maximises readability. Later in the course we will use this as a benchmark for assessing your code writing.</p>
+<p>Annotating your instructions provides yourself and others insights into why you are doing what you are doing. This is a vital aspect of a robust and reproducible workflow. And when you come back to a script, one week, one month or one year from now you will often wonder what a command was for. It is very, very useful to make notes for yourself, and its useful in case anyone else will ever read your script. Make these comments helpful as they are for humans to read.</p>
+<p>We have already seen how to signal a comment with the <code>#</code> key. Everything in the line after a <code>#</code> is ignored by R and won't be treated as a command. You should also see that it is marked in a different colour in your script.</p>
+<div class="try">
+<p>
+Put the following comment in your script on line 1.
+</p>
+</div>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># I really love R</span></span></code></pre></div>
+<p>We can also use <code>#</code> to produce Headers of different levels, if we follow these with commented lines of <code>-</code> or <code>=</code> as shown in the figure below.</p>
+<div class="figure" style="text-align: center">
+<img src="images/organised%20script.png" alt="R script document outline. Push the button with five horizontal lines to reveal how R recognises headers and subheaders" width="100%"><p class="caption">
+(#fig:script outline)R script document outline. Push the button with five horizontal lines to reveal how R recognises headers and subheaders
+</p>
+</div>
+</div>
+<div id="loading-packages" class="section level3" number="2.14.2">
+<h3>
+<span class="header-section-number">2.14.2</span> Loading packages<a class="anchor" aria-label="anchor" href="#loading-packages"><i class="fas fa-link"></i></a>
+</h3>
+<p>To use the functions from a package in our script they must be loaded <em>before</em> we call on the functions or data they contain. So the most sensible place to put library calls for packages is at the very <strong>top</strong> of our script. So let's do that now,</p>
+<div class="try">
+<p>
+Add the commands<code><a href="https://ggplot2.tidyverse.org">library(ggplot2)</a></code> and
+<code><a href="https://allisonhorst.github.io/palmerpenguins/">library(palmerpenguins)</a></code> to your script.
+</p>
+<p>
+Think about how you would organise you script using the image above
+as a guide
+</p>
+<p>
+Put a comment next to each package explaining what it is for “Hint
+use the help() function”.
+</p>
+<p>
+Use the document outline button to help organise your script.
+</p>
+</div>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># I really love R</span></span>
+<span><span class="co"># _______________----</span></span>
+<span></span>
+<span><span class="co"># 📦 PACKAGES ----</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span> <span class="co"># create elegant data visualisations</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span> <span class="co"># Palmer Archipelago Penguin Data</span></span>
+<span></span>
+<span><span class="co"># ______________----</span></span></code></pre></div>
+<div class="info">
+<p>
+R Studio will interpret Unicode to present images that you can
+include in your scripts. It’s not necessary, but a fun way to help
+organise your scripts.
+</p>
+</div>
+</div>
+</div>
+<div id="adding-more-code" class="section level3" number="2.14.3">
+<h3>
+<span class="header-section-number">2.14.3</span> Adding more code<a class="anchor" aria-label="anchor" href="#adding-more-code"><i class="fas fa-link"></i></a>
+</h3>
+<div class="try">
+<p>
+Add the below code into your script, underneath the sections you
+already have
+</p>
+</div>
+<p>It is very similar to the code you ran earlier, but is preceded by <code>plot_1 &lt;-</code></p>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># DATA VISUAL ----</span></span>
+<span></span>
+<span><span class="va">plot_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>, <span class="co"># calls ggplot function, data is penguins</span></span>
+<span>           <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bill_length_mm</span>, <span class="co"># sets x axis as bill length</span></span>
+<span>               y <span class="op">=</span> <span class="va">bill_depth_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="co"># sets y axis value as bill depth</span></span>
+<span>          <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="co"># geometric to plot</span></span>
+<span></span>
+<span><span class="co"># ______________----</span></span></code></pre></div>
+</div>
+<div id="running-your-script" class="section level3" number="2.14.4">
+<h3>
+<span class="header-section-number">2.14.4</span> Running your script<a class="anchor" aria-label="anchor" href="#running-your-script"><i class="fas fa-link"></i></a>
+</h3>
+<p>To run the commands from your script, we need to get it <em>into</em> the Console. You could select and copy/paste this into the Console. But there are a couple of faster shortcuts.</p>
+<ul>
+<li><p>Hit the Run button in the top right of the script pane. Pressing this will run the line of code the cursor is sitting on.</p></li>
+<li><p>Pressing Ctrl+Enter will do the same thing as hitting the Run button</p></li>
+<li><p>If you want to run the whole script in one go then press Ctrl+A then either click Run or press Ctrl+Enter</p></li>
+</ul>
+<p>Try it now.</p>
+<p>You should notice that unlike when making previous data visuals, you <strong>do not</strong> immediately see your graph, this is because you assigned the output of your functions to an <strong>R object</strong>, instead of the default action where R would print the output. Check the "Environment" tab - you should be able to see <code>plot_1</code> there.</p>
+<ul>
+<li>To see the new plot you have made you should type <code>plot_1</code> into the R console. Or add it underneath the script and run it again!</li>
 </ul>
 </div>
+<div id="making-an-output" class="section level3" number="2.14.5">
+<h3>
+<span class="header-section-number">2.14.5</span> Making an output<a class="anchor" aria-label="anchor" href="#making-an-output"><i class="fas fa-link"></i></a>
+</h3>
+<p>For our next trick we will make a script that outputs a file. Underneath the lines of code to generate the figure we will add a new function <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code>. Then <strong>re-run your script</strong>. To find out more about this function (and the arguments it contains), type <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">help(ggsave)</a></code> into the console.</p>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># OUTPUT TO FILE ----</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"2022_10_01_5023Y_workshop_1_penguin_scatterplot.png"</span>, </span>
+<span>       plot <span class="op">=</span> <span class="va">plot_1</span>, </span>
+<span>       dpi <span class="op">=</span> <span class="fl">300</span>, </span>
+<span>       width <span class="op">=</span> <span class="fl">6</span>, </span>
+<span>       height <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
+<span><span class="co"># _________________----</span></span></code></pre></div>
+<p>Check the Files tab on RStudio Cloud, there should now be a new file in your workspace called "2022_10_01_5023Y_workshop_1_penguin_scatterplot.png".</p>
+<p>Wow that is a mouthful! Why have we made such a long filename? Well it contains information that should help you know what it is for the future.</p>
+<ul>
+<li><p>Date</p></li>
+<li><p>Module code</p></li>
+<li><p>Short description of the file contents</p></li>
+</ul>
+<div class="warning">
+<p>
+It is very important to have naming conventions for all files.
+</p>
+<p>
+Everything after the <code>.</code> is file extension information
+informing the computer how to process the contents of the file.
+<code>.png</code> stands for “Portable Graphics Format”, and it means
+the data is an uncompressed image format.
+</p>
+<p>
+Everything before the <code>.</code> is for humans, it is a good idea
+to make sure these have a naming convention.
+</p>
+<p>
+Avoid periods, spaces or slashes, instead use YYYYMMDD and
+underscores
+</p>
+<p>
+e.g. YYYYMMDD_short_image_description.fileextension
+</p>
 </div>
-<div id="activity-7-test-yourself" class="section level2" number="2.16">
+</div>
+<div id="saving-your-script" class="section level3" number="2.14.6">
+<h3>
+<span class="header-section-number">2.14.6</span> Saving your script<a class="anchor" aria-label="anchor" href="#saving-your-script"><i class="fas fa-link"></i></a>
+</h3>
+<p>Our script now contains code and comments from our first workshop. We need to save it.</p>
+<p>Alongside our data, our script is the most precious part of our analysis. We don't need to save anything else, any outputs etc. because our script can always be used to generate everything again. Note the colour of the script - the name changes colour when we have unsaved changes. Press the Save button or go to File &gt; Save as. Give the File a sensible name like "YYYYMMDD_5023Y_workshop_1_simple_commands" and in the bottom right pane under <code>Files</code> you should now be able to see your saved script, it should be saved with a <code>.R</code> file extension indicating this is an R Script.</p>
+<p>You could now safely quit R, and when you log on next time to this project, your script will be waiting for you.</p>
+<div class="webex-solution">
+<button>
+Check your script
+</button>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># I really love R</span></span>
+<span><span class="co"># _______________----</span></span>
+<span></span>
+<span><span class="co"># 📦 PACKAGES ----</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span> <span class="co"># create elegant data visualisations</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span> <span class="co"># Palmer Archipelago Penguin Data</span></span>
+<span></span>
+<span><span class="co"># ________________----</span></span>
+<span><span class="co"># DATA VISUAL ----</span></span>
+<span></span>
+<span><span class="va">plot_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>, <span class="co"># calls ggplot function, data is penguins</span></span>
+<span>           <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bill_length_mm</span>, <span class="co"># sets x axis as bill length</span></span>
+<span>               y <span class="op">=</span> <span class="va">bill_depth_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="co"># sets y axis value as bill depth</span></span>
+<span>          <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="co"># geometric to plot</span></span>
+<span></span>
+<span><span class="co"># ______________----</span></span>
+<span></span>
+<span><span class="co"># OUTPUT TO FILE ----</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"2022_10_01_5023Y_workshop_1_penguin_scatterplot.png"</span>, </span>
+<span>       plot <span class="op">=</span> <span class="va">plot_1</span>, </span>
+<span>       dpi <span class="op">=</span> <span class="fl">300</span>, </span>
+<span>       width <span class="op">=</span> <span class="fl">6</span>, </span>
+<span>       height <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
+<span><span class="co"># _________________----</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="quitting" class="section level2" number="2.15">
 <h2>
-<span class="header-section-number">2.16</span> Activity 7: Test yourself<a class="anchor" aria-label="anchor" href="#activity-7-test-yourself"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.15</span> Quitting<a class="anchor" aria-label="anchor" href="#quitting"><i class="fas fa-link"></i></a>
 </h2>
-<p><strong>Question 1.</strong> Why should you never include the code <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> in your analysis scripts? <select class="webex-select"><option value="blank"></option>
-<option value="">You should use library() instead</option>
-<option value="">Packages are already part of Base R</option>
-<option value="answer">You (or someone else) may accidentally install a package update that stops your code working</option>
-<option value="">You already have the latest version of the package</option></select></p>
-<div class="webex-solution">
-<button>
-Explain This Answer
-</button>
-<p>Remember, when you run <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> it will always install the latest version of the package and it will overwrite any older versions of the package you may have installed.</p>
+<ul>
+<li><p>Make sure you have saved any changes to your R script - that's all you need to make sure you've done!</p></li>
+<li><p>If you want me to take a look at your script let me know</p></li>
+<li><p>If you spotted any mistakes or errors let me know</p></li>
+<li><p>Close your RStudio Cloud Browser</p></li>
+<li><p>Complete this week's short quiz!</p></li>
+</ul>
 </div>
-<p><br><strong>Question 2.</strong> What will the following code produce?</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">50</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<div id="activity-1" class="section level2" number="2.16">
+<h2>
+<span class="header-section-number">2.16</span> Activity 1<a class="anchor" aria-label="anchor" href="#activity-1"><i class="fas fa-link"></i></a>
+</h2>
+<div id="complete-this-quiz" class="section level3" number="2.16.1">
+<h3>
+<span class="header-section-number">2.16.1</span> Complete this Quiz<a class="anchor" aria-label="anchor" href="#complete-this-quiz"><i class="fas fa-link"></i></a>
+</h3>
+<p>When you get the correct answer, the answer box will turn green. Sometimes this doesn't work on Internet Explorer or Edge so be sure to use Chrome or Firefox.</p>
+<p><strong>Question 1.</strong> What is the output from 5^4</p>
+<p><input class="webex-solveme nospaces" size="3" data-answer='["625"]'></p>
+<p><strong>Question 2.</strong> What answer will you get when you type <code>2+2 = 4</code> into the R console?</p>
 <p><select class="webex-select"><option value="blank"></option>
-<option value="">A dataset with 10 numbers that has a mean of 6 and an SD of 50</option>
-<option value="answer">A dataset with 6 numbers that has a mean of 50 and an SD of 10</option>
-<option value="">A dataset with 50 numbers that has a mean of 10 and an SD of 6</option>
-<option value="">A dataset with 50 numbers that has a mean of 10 and an SD of 6</option></select></p>
-<div class="webex-solution">
-<button>
-Explain This Answer
-</button>
-<p>The default form for <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> is <code>rnorm(n, mean, sd)</code>. If you need help remembering what each argument of a function does, look up the help documentation by running <code><a href="https://rdrr.io/r/stats/Normal.html">?rnorm</a></code></p>
-</div>
-<p><br><strong>Question 3.</strong> If you have two packages that have functions with the same name and you want to specify exactly which package to use, what code would you use?</p>
-<p><select class="webex-select"><option value="blank"></option>
-<option value="answer">package::function</option>
-<option value="">function::package</option>
-<option value="">library(package)</option>
-<option value="">install.packages(package)</option></select></p>
-<div class="webex-solution">
-<button>
-Explain This Answer
-</button>
-<p>You should use the form <code>package::function</code>, for example <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select</a></code>. Remember that when you first load your packages R will warn you if any functions have the same name - remember to look out for this!</p>
-</div>
-<p><strong>Question 4.</strong> Which of the following is most likely to be an argument? <select class="webex-select"><option value="blank"></option>
-<option value="">read_csv()</option>
-<option value="">&lt;-</option>
-<option value="answer">35</option></select></p>
-<p><strong>Question 5.</strong> An easy way to spot functions is to look for <select class="webex-select"><option value="blank"></option>
-<option value="">numbers</option>
-<option value="answer">brackets</option>
-<option value="">computers</option></select>.</p>
-<p><strong>Question 6.</strong> The job of <code>&lt;-</code> is to send the output from the function to a/an <select class="webex-select"><option value="blank"></option>
-<option value="">assignment</option>
-<option value="">argument</option>
-<option value="answer">object</option></select>.</p>
-<p><strong>Question 7.</strong> A vector must always contain elements of the same data type (e.g logical, character, numeric) <select class="webex-select"><option value="blank"></option>
+<option value="">TRUE</option>
 <option value="">FALSE</option>
-<option value="answer">TRUE</option></select>.</p>
-<p><strong>Question 8.</strong> A dataframe/tibble must always contain elements of the same data type <select class="webex-select"><option value="blank"></option>
-<option value="answer">FALSE</option>
-<option value="">TRUE</option></select></p>
+<option value="answer">Error</option></select></p>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<p>If we wanted R to make a judgement we must use == not = otherwise we will get an Error message</p>
+</div>
+<p><strong>Question 3.</strong> What symbol do I use if I want to <strong>assign</strong> a value or output of a function to an R object</p>
+<p><input class="webex-solveme nospaces" size="2" data-answer='["&lt;-"]'></p>
+<p><strong>Question 4.</strong> What is the value of <code>a</code> if I ran the following commands?</p>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span>  <span class="fl">12</span><span class="op">*</span><span class="fl">2</span></span>
+<span></span>
+<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></code></pre></div>
+<p><input class="webex-solveme nospaces" size="1" data-answer='["5"]'></p>
+<p><strong>Question 5.</strong> Which of these variable naming conventions is <strong>not</strong> written correctly?</p>
+<p><select class="webex-select"><option value="blank"></option>
+<option value="">snake_case</option>
+<option value="">camelCase</option>
+<option value="answer">Screaming_Snake_Case</option>
+<option value="">kebab-case</option></select></p>
+<p><strong>Question 6.</strong> What should I type into the R console if I want <code>help</code> with the <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function?</p>
+<p><input class="webex-solveme nospaces" size="11" data-answer='["help(round)"]'></p>
+<p><strong>Question 7.</strong> Which of these statements about function arguments <strong>is not true</strong></p>
+<p><select class="webex-select"><option value="blank"></option>
+<option value="">Arguments are the inputs we give to a function</option>
+<option value="answer">Values for R arguments must always be defined by the user</option>
+<option value="">Naming arguments supersedes position in a function</option>
+<option value="">There is no limit to the number of arguments a function could have</option></select></p>
+<p><strong>Question 8.</strong> Evaluate this statement "An R Package can contain code functions, data, or both."</p>
+<p><select class="webex-select"><option value="blank"></option>
+<option value="answer">TRUE</option>
+<option value="">FALSE</option></select></p>
 
 </div>
 </div>
-
-
-
+</div>
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -935,45 +1443,67 @@ $( document ).ready(function() {
 });
 </script><div class="chapter-nav">
 <div class="prev"><a href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></div>
-<div class="next"><a href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></div>
+<div class="next"><a href="r-basics-1.html"><span class="header-section-number">3</span> R Basics</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#r-basics"><span class="header-section-number">2</span> R Basics</a></li>
-<li><a class="nav-link" href="#using-packages"><span class="header-section-number">2.1</span> Using packages</a></li>
-<li><a class="nav-link" href="#package-updates"><span class="header-section-number">2.2</span> Package updates</a></li>
-<li><a class="nav-link" href="#package-conflicts"><span class="header-section-number">2.3</span> Package conflicts</a></li>
+<li><a class="nav-link" href="#r-basics"><span class="header-section-number">2</span> R basics</a></li>
 <li>
-<a class="nav-link" href="#objects"><span class="header-section-number">2.4</span> Objects</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#activity-1-create-some-objects"><span class="header-section-number">2.4.1</span> Activity 1: Create some objects</a></li></ul>
-</li>
-<li><a class="nav-link" href="#vectors"><span class="header-section-number">2.5</span> Vectors</a></li>
-<li><a class="nav-link" href="#dataframes-and-tibbles"><span class="header-section-number">2.6</span> Dataframes and tibbles</a></li>
-<li><a class="nav-link" href="#organising-data-in-wide-and-long-formats"><span class="header-section-number">2.7</span> Organising data in wide and long formats</a></li>
-<li>
-<a class="nav-link" href="#using-pivot-functions"><span class="header-section-number">2.8</span> Using pivot functions</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#overwrite-the-original-object"><span class="header-section-number">2.8.1</span> Overwrite the original object</a></li>
-<li><a class="nav-link" href="#create-a-new-r-object"><span class="header-section-number">2.8.2</span> Create a new r object</a></li>
+<a class="nav-link" href="#your-first-r-command"><span class="header-section-number">2.1</span> Your first R command</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#operators"><span class="header-section-number">2.1.1</span> Operators</a></li>
+<li><a class="nav-link" href="#typos"><span class="header-section-number">2.1.2</span> Typos</a></li>
+<li><a class="nav-link" href="#more-simple-arithmetic"><span class="header-section-number">2.1.3</span> More simple arithmetic</a></li>
+<li><a class="nav-link" href="#try-some-simple-maths"><span class="header-section-number">2.1.4</span> Try some simple maths</a></li>
+<li><a class="nav-link" href="#perform-some-combos"><span class="header-section-number">2.1.5</span> Perform some combos</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#looking-after-the-environment"><span class="header-section-number">2.9</span> Looking after the environment</a></li>
-<li><a class="nav-link" href="#global-options"><span class="header-section-number">2.10</span> Global options</a></li>
-<li><a class="nav-link" href="#r-sessions"><span class="header-section-number">2.11</span> R sessions</a></li>
-<li><a class="nav-link" href="#activity-2"><span class="header-section-number">2.12</span> Activity 2</a></li>
-<li><a class="nav-link" href="#how-to-cite-r-and-rstudio"><span class="header-section-number">2.13</span> How to cite R and RStudio</a></li>
-<li><a class="nav-link" href="#help-and-additional-resources"><span class="header-section-number">2.14</span> Help and additional resources</a></li>
 <li>
-<a class="nav-link" href="#debugging-tips"><span class="header-section-number">2.15</span> Debugging tips</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#prevent-errors"><span class="header-section-number">2.15.1</span> Prevent errors</a></li>
-<li><a class="nav-link" href="#fix-errors"><span class="header-section-number">2.15.2</span> Fix errors</a></li>
+<a class="nav-link" href="#true-or-false-data"><span class="header-section-number">2.2</span> "TRUE or FALSE" data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#assessing-mathematical-truths"><span class="header-section-number">2.2.1</span> Assessing mathematical truths</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#storing-outputs"><span class="header-section-number">2.3</span> Storing outputs</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#choosing-names"><span class="header-section-number">2.3.1</span> Choosing names</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#r-objects"><span class="header-section-number">2.4</span> R objects</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#numbers"><span class="header-section-number">2.4.1</span> Numbers</a></li></ul>
+</li>
+<li><a class="nav-link" href="#attributes"><span class="header-section-number">2.5</span> Attributes</a></li>
+<li>
+<a class="nav-link" href="#vectors"><span class="header-section-number">2.6</span> Vectors</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#coercion"><span class="header-section-number">2.6.1</span> Coercion</a></li></ul>
+</li>
+<li><a class="nav-link" href="#matrices"><span class="header-section-number">2.7</span> Matrices</a></li>
+<li><a class="nav-link" href="#lists"><span class="header-section-number">2.8</span> Lists</a></li>
+<li>
+<a class="nav-link" href="#dataframes"><span class="header-section-number">2.9</span> Dataframes</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#tibbles"><span class="header-section-number">2.9.1</span> Tibbles</a></li></ul>
+</li>
+<li><a class="nav-link" href="#error-debugging"><span class="header-section-number">2.10</span> Error/ Debugging</a></li>
+<li>
+<a class="nav-link" href="#functions"><span class="header-section-number">2.11</span> Functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#storing-the-output-of-functions"><span class="header-section-number">2.11.1</span> Storing the output of functions</a></li>
+<li><a class="nav-link" href="#more-fun-with-functions"><span class="header-section-number">2.11.2</span> More fun with functions</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#activity-7-test-yourself"><span class="header-section-number">2.16</span> Activity 7: Test yourself</a></li>
+<li><a class="nav-link" href="#packages-1"><span class="header-section-number">2.12</span> Packages</a></li>
+<li><a class="nav-link" href="#my-first-data-visualisation"><span class="header-section-number">2.13</span> My first data visualisation</a></li>
+<li>
+<a class="nav-link" href="#writing-scripts"><span class="header-section-number">2.14</span> Writing scripts</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#organising-scripts"><span class="header-section-number">2.14.1</span> Organising scripts</a></li>
+<li><a class="nav-link" href="#loading-packages"><span class="header-section-number">2.14.2</span> Loading packages</a></li>
+<li><a class="nav-link" href="#adding-more-code"><span class="header-section-number">2.14.3</span> Adding more code</a></li>
+<li><a class="nav-link" href="#running-your-script"><span class="header-section-number">2.14.4</span> Running your script</a></li>
+<li><a class="nav-link" href="#making-an-output"><span class="header-section-number">2.14.5</span> Making an output</a></li>
+<li><a class="nav-link" href="#saving-your-script"><span class="header-section-number">2.14.6</span> Saving your script</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#quitting"><span class="header-section-number">2.15</span> Quitting</a></li>
+<li>
+<a class="nav-link" href="#activity-1"><span class="header-section-number">2.16</span> Activity 1</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#complete-this-quiz"><span class="header-section-number">2.16.1</span> Complete this Quiz</a></li></ul>
+</li>
 </ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/02-programming-basics.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/02-programming-basics.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/01-intro-to-r.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/01-intro-to-r.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -985,7 +1515,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-21.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -108,7 +108,7 @@ on your early mistakes, or laugh about the mistakes you still
 occasionally make!</p>
 </div>
 
-## Get Started
+# R basics
 
 Go to RStudio Cloud and enter the Project labelled `Day One` - this will clone the project and provide you with your own project workspace.
 
@@ -144,11 +144,43 @@ The first line shows the request you made to R, the next line is R's response
 
 You didn't type the `>` symbol: that's just the R command prompt and isn't part of the actual command.
 
-It's important to understand how the output is formatted. Obviously, the correct answer to the sum `10 + 20` is `30`, and not surprisingly R has printed that out as part of its response. But it's also printed out this `[1]` part, which probably doesn't make a lot of sense to you right now. You're going to see that a lot. You can think of `[1] 30` as if R were saying "the answer to the 1st question you asked is 30".
+When a complete expression is entered at the prompt, it is evaluated and the result of the evaluated expression is returned. The result may be auto-printed.
+
+
+```r
+print(10 + 20) ## explicit printing
+
+10 + 20 ## autoprinting
+```
+
+Usually, with interactive work, we do not explicitly print objects with the print function; it is much easier to auto-print them by typing the name of the object and hitting return/enter. However, when writing scripts, functions, or more extended programs, there is sometimes a need to explicitly print objects.
+
+
+When an R vector is printed, you will notice that an index for the vector is printed in square brackets `[]` on the side. For example, see this integer sequence 
+
+
+```r
+1:30
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+## [26] 26 27 28 29 30
+```
+
+The numbers in the square brackets are not part of the vector itself; they are merely part of the printed output.
+
+> Note that the : operator is used to create integer sequences
 
 ### Operators
 
-There are two types of operators to consider
+There are a few different types of operators to consider in R
+
+#### Assignment Operator
+
+|Operator|Description
+|-----|-----|
+|<-|	used to assign values to variables|
 
 #### Arithmetic Operators
 
@@ -170,6 +202,12 @@ There are two types of operators to consider
 |>=|greater than or equal to|
 |==|exactly equal to|
 |!=|not equal to|
+
+#### Membership Operators
+
+|Operator|Description
+|-----|-----|
+|%in%|used to check if an element is in a vector or list|
 
 ### Typos
 
@@ -197,11 +235,11 @@ Error in 10 = 20 : invalid (do_set) left-hand side to assignment
 </div>
 
 
-What's happened here is that R has attempted to interpret `10 = 20` as a command, and spits out an error message because the command doesn't make any sense to it.
+What's going on: R tries to interpret `10 = 20` as a command, but it doesn't make sense, so it gives you an error message.
 
-When a *human* looks at this, and then looks down at his or her keyboard and sees that `+` and `=` are on the same key, it's pretty obvious that the command was a typo. But R doesn't know this, so it gets upset.
+When a person sees this, they might realize it's a typo because the `+` and `=` keys are right next to each other on the keyboard. But R doesn't have that insight, so it just gets confused.
 
-Even more subtle is the fact that some typos won't produce errors at all, because they happen to correspond to "well-formed" R commands. For instance, suppose that not only did I forget to hit the shift key when trying to type `10 + 20`, I also managed to press the key next to one I meant do. The resulting typo would produce the command `10 - 20`. Clearly, R has no way of knowing that you meant to *add* 20 to 10, not *subtract* 20 from 10, so what happens this time is this:
+What's even trickier is that some typos won't create errors because they accidentally form valid R commands. For example, if I meant to type `10 + 20` but mistakenly pressed a neighboring key, I'd end up with `10 - 20`. Now, R can't read your mind to know you wanted to add, not subtract, so something different happens:
 
 
 ```r
@@ -216,14 +254,14 @@ In this case, R produces the right answer, but to the the wrong question.
 
 ### More simple arithmetic
 
-One of the best ways to get to know R is to play with it, it's pretty difficult to break it so don't worry too much. Type whatever you want into to the console and see what happens.
+One of the best ways to get familiar with R is to experiment with it. The good news is that it's quite hard to mess things up, so don't stress too much. Just type whatever you like into the console and see what happens.
 
-If the last line of your console looks like this
+Now, if your console's last line looks like this:
 
     > 10+
     + 
 
-and there's a **blinking cursor** next to the plus sign. This means is that R is still waiting for you to finish. It "thinks" you're still typing your command, so it hasn't tried to execute it yet. In other words, this plus sign is actually another command prompt. It's different from the usual one (i.e., the `>` symbol) to remind you that R is going to "add" whatever you type now to what you typed last time. For example, type `20` and hit enter, then it finishes the command:
+And there's a *blinking cursor* next to that plus sign, it means R is patiently waiting for you to complete your command. It believes you're still typing, so it hasn't tried to run anything yet. This plus sign is a bit different from the usual prompt (the `>` symbol). It's there to nudge you that R is ready to "add" what you're typing now to what you typed before. For example, type `20` and hit enter, and then R will complete the command like this:
 
     > 10 +
     + 20
@@ -260,17 +298,15 @@ Raise a number to the power of another
 5^4
 ```
 
-As I'm sure everyone will probably remember the moment they read this, the act of multiplying a number $x$ by itself $n$ times is called "raising $x$ to the $n$-th power". Mathematically, this is written as $x^n$. Some values of $n$ have special names: in particular $x^2$ is called $x$-squared, and $x^3$ is called $x$-cubed. So, the 4th power of 5 is calculated like this: 
+Multiplying a number $x$ by itself $n$ times is called "raising $x$ to the $n$-th power". Mathematically, this is written as $x^n$. Some values of $n$ have special names: in particular $x^2$ is called $x$-squared, and $x^3$ is called $x$-cubed. So, the 4th power of 5 is calculated like this: 
 
 $$5^4 = 5 \times 5 \times 5 \times 5 $$
 
 ### Perform some combos
 
-Perform some mathematical combos, noting that the order in which R performs calculations is the standard one.
+R follows the standard order of operations (BODMAS/BIDMAS), which means it first calculates within brackets, then deals with exponents, followed by division and multiplication, and finally addition and subtraction.
 
-That is, first calculate things inside **B**rackets `()`, then calculate **O**rders of (exponents) `^`, then **D**ivision `/` and **M**ultiplication `*`, then **A**ddition `+` and **S**ubtraction `-`.
-
-Notice the different outputs of these two commands.
+Let's look at two examples to see how the order of operations affects the results:
 
 
 ```r
@@ -309,11 +345,9 @@ Time to make a sidebar onto another kind of data. Many concepts in programming r
 
 ### Assessing mathematical truths
 
-In George Orwell's classic book *1984*, one of the slogans used by the totalitarian Party was "two plus two equals five", the idea being that the political domination of human freedom becomes complete when it is possible to subvert even the most basic of truths.
+Time to explore a different kind of data. In programming, many concepts rely on logical values. A logical value is a statement about whether something is true or false. In R, this is pretty straightforward. There are two logical values: `TRUE` and `FALSE`. Despite their simplicity, these logical values are incredibly useful. Let's dive into how they work.
 
-But they didn't have R!
-
-R will not be subverted. It has rather firm opinions on the topic of what is and isn't true, at least as regards basic mathematics. If I ask it to calculate `2 + 2`, it always gives the same answer, and it's **not** 5:
+In R, basic mathematics is solid, and there's no room for manipulation. When you ask R to calculate `2 + 2`, it always provides the same answer,
 
 
 ```r
@@ -324,7 +358,7 @@ R will not be subverted. It has rather firm opinions on the topic of what is and
 ## [1] 4
 ```
 
-Of course, so far R is just doing the calculations. I haven't asked it to explicitly assert that $2+2 = 4$ is a true statement. If I want R to make an explicit judgement, I can use a command like this:
+up to this point, R has been performing calculations without explicitly asserting whether $2 + 2 = 4$ is a true statement. If I want R to make an explicit judgment, I can use a command like this:
 
 
 ```r
@@ -342,7 +376,7 @@ TRUE
 
 What I've done here is use the ***equality operator***, `==`, to force R to make a "true or false" judgement.
 
-<div class="info">
+<div class="warning">
 <p>This is a very different operator to the assignment operator
 <code>=</code> you saw previously.</p>
 <p>A common typo that people make when trying to write logical commands
@@ -352,7 +386,7 @@ is to accidentally type <code>=</code> when you really mean
 <code>==</code>.</p>
 </div>
 
-Okay, let's see what R thinks of the Party slogan:
+Okay, let's see what R thinks of `2 +2 ==5`:
 
 
 ```r
@@ -363,7 +397,7 @@ Okay, let's see what R thinks of the Party slogan:
 ## [1] FALSE
 ```
 
-Take that Big Brother! Anyway, it's worth having a look at what happens if I try to *force* R to believe that two plus two is five by making an assignment statement like `2 + 2 = 5` or `2 + 2 <- 5`. When I do this, here's what happens:
+Now, let's see what happens when I attempt to make R believe that two plus two equals five by using an assignment statement like `2 + 2 = 5` or `2 + 2 <- 5`. Here's the outcome:
 
 
 ```r
@@ -372,13 +406,13 @@ Take that Big Brother! Anyway, it's worth having a look at what happens if I try
 
     Error in 2 + 2 = 5 : target of assignment expands to non-language object
 
-R doesn't like this very much. It recognises that `2 + 2` is *not* a variable (that's what the "non-language object" part is saying), and it won't let you try to "reassign" it. While R is pretty flexible, and actually does let you do some quite remarkable things to redefine parts of R itself, there are just some basic, primitive truths that it refuses to give up. It won't change the laws of addition, and it won't change the definition of the number `2`.
+Indeed, R isn't too fond of this idea. It quickly realizes that `2 + 2` is not a variable (that's what the "non-language object" part is saying), and it refuses to let you "reassign" it. While R can be quite flexible and allows you to do some remarkable things to redefine parts of itself, there are fundamental truths it simply won't budge on. It won't tamper with the laws of addition, and it won't redefine the number `2`.
 
 That's probably for the best.
 
 ## Storing outputs
 
-With simple questions like the ones above we are happy to just see the answer, but our questions are often more complex than this. If we need to take multiple steps, we benefit from being able to store our answers and recall them for use in later steps. This is very simple to do we can *assign* outputs to a name:
+When dealing with more complex questions, it's often helpful to store our answers and use them in later steps. Fortunately, this is quite easy to do in R. We can assign the results to a name with the **assignment operator**:
 
 
 ```r
@@ -392,22 +426,25 @@ This literally means please *assign* the value of `1+2` to the name `a`. We use 
 (Mac)</p>
 </div>
 
-If you perform this action you should be able to do two things
 
--   You should be able to see that in the top right-hand pane in the **Environment** tab their is now an **object** called `a` with the value of `3`.
+By performing this action, you'll achieve two things:
+
+You will notice in the top right-hand pane within the **Environment** tab that there is now an **object** labeled a with a value of `3`.
 
 <div class="figure" style="text-align: center">
 <img src="images/environment.png" alt="object a is now visible withe a value of 3 in the Environment Pane" width="100%" />
 <p class="caption">(\#fig:img-environment)object a is now visible withe a value of 3 in the Environment Pane</p>
 </div>
 
--   You should be able to look at what a is by typing it into your Console and pressing Enter
+- You can check what the variable a contains by typing it into your Console and pressing Enter.
 
--   Note that you will not see the outcome of your functions *until* you type the object into the R console and hit Enter
+- Keep in mind that you won't see the result of your operations until you type the object into the R console and press Enter.
 
 
 ```r
-a
+a  ## autoprinting
+
+print(a) ## explicit printing
 ```
 
 
@@ -519,10 +556,288 @@ analyses we have been working on.</p>
 
 <div class="figure" style="text-align: center">
 <img src="images/snake_case.png" alt="snake_case" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-37)courtesy of Allison Horst</p>
+<p class="caption">(\#fig:unnamed-chunk-39)courtesy of Allison Horst</p>
 </div>
 
-## Error
+## R objects
+
+In R, there are five fundamental or "atomic" classes of objects:
+
+- Character: These represent text or character strings.
+
+- Numeric (num) or Double (dbl): These are used for real numbers (e.g., decimal numbers).
+
+- Integer: Used for whole numbers.
+
+- Complex: For complex numbers.
+
+- Logical: Represented as True or False, these are used for logical values.
+
+The most basic type of R object is a vector. You can create empty vectors using the `vector()` function. The primary rule regarding vectors in R is that a vector can only contain objects of the same class.
+
+However, as with any good rule, there's an exception, which is the "list." Lists are represented as vectors but can hold objects of different classes, which is why they're often used.
+
+### Numbers
+
+In R, both "dbl" and "num" refer to numeric data types, but there is a subtle difference between them:
+
+- dbl ("double"): This refers to double-precision floating-point numbers, which are capable of storing real numbers with high precision. Double-precision numbers have more decimal places of accuracy and can represent a wider range of values without loss of precision. When you perform arithmetic operations, R typically returns results as "dbl" values by default.
+
+- num ("numeric"): "Num" is a more general term that includes not only double-precision floating-point numbers but also integer values. In R, integers are a subtype of numeric data. Numeric data can include both integers and double-precision floating-point numbers, depending on the specific data and how it is represented.
+
+So, "dbl" specifically denotes double-precision floating-point numbers, while "num" encompasses a broader range of numeric data, including both integers and double-precision numbers. In most cases, you can use "num" to work with numeric data in a more general sense, while "dbl" focuses on the higher-precision representation of real numbers.
+
+
+## Attributes
+
+R objects can come with attributes, which are essentially metadata for the object. These metadata are handy because they help describe the object. For instance, in a data frame, column names serve as attributes, clarifying the data contained in each column. Here are a few examples of R object attributes:
+
+- `names()` and `dimnames()`
+
+- dimensions (e.g., for matrices and arrays) `dim()`
+
+- `class()` (e.g., integer, numeric)
+
+- `length()`
+
+- Other user-defined attributes or metadata
+
+You can access the attributes of an object, if it has any, by using the `attributes()` function. If an R object doesn't have any attributes, the `attributes()` function will return NULL.
+
+## Vectors
+
+We have been working with R objects containing a single element of data, but we will more commonly work with vectors. A vector is a sequence of elements, all of the same data type. These could be logical, numerical, character etc.
+
+
+```r
+numeric_vector <- c(1,2,3)
+
+character_vector <- c("fruits", "vegetables", "seeds")
+
+logical_vector <- c(TRUE, TRUE, FALSE)
+
+integer_vector <- 1:10
+```
+
+### Coercion
+
+In R, when different classes of objects are mixed together in a vector, coercion occurs to ensure that every element in the vector belongs to the same class. Coercion is the process of converting objects to a common class to make the combination reasonable. Let's see the effects of implicit coercion in the provided examples:
+
+
+```r
+y <- c(2.3, "a") # Here, we're mixing a numeric value (1.7) with a character value ("a"). To make them compatible, R coerces both elements into character values. So, y becomes a character vector.
+
+y <- c(TRUE, 2) # In this case, we're combining a logical value (TRUE) with a numeric value (2). R coerces the logical value into 1, so y becomes a numeric vector.
+
+y <- c("a", TRUE) # We're mixing a character value ("a") with a logical value (TRUE). In this scenario, R coerces the logical value into a character value, resulting in y becoming a character vector.
+```
+
+So, the outcome depends on how R can reasonably represent all the objects in the vector. It aims to create a vector of the most inclusive class to accommodate the mixed objects. Keep in mind that this coercion can lead to unexpected results, so it's essential to be aware of the implicit type conversion when mixing different data types in R.
+
+Objects can also be **explicitly coerced** from one class to another using the as.* functions, if available.
+
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+Create the following vector and check its class, then note what happens when you attempt to coerce to numeric, logical and character
+
+```r
+x <- 0:5
+```
+ </div></div>
+
+<button id="displayTextunnamed-chunk-43" onclick="javascript:toggle('unnamed-chunk-43');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-43" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+as.numeric(x)
+
+as.logical(x)
+
+as.character(x)
+```
+
+```
+## [1] 0 1 2 3 4 5
+## [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [1] "0" "1" "2" "3" "4" "5"
+```
+
+</div></div></div>
+
+Sometimes, R can’t figure out how to coerce an object and this can result in `NA`s being produced
+
+## Matrices
+
+Matrices can be thought of as vectors with an added dimension attribute. This dimension attribute is a two-element integer vector specifying the number of rows and columns, which defines the shape and structure of the matrix.
+
+<div class="info">
+<p>Data frames are also two-dimensional but can store columns of
+different data types - matrices are simpler as they consist of elements
+of the same data type.</p>
+</div>
+
+Matrices are constructed "columns-first" so entries start in the "upper left" and and run down columns. 
+
+
+```r
+m <- matrix(1:6, nrow = 2, ncol = 3) 
+m
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6
+```
+
+
+```r
+attributes(m)
+```
+
+```
+## $dim
+## [1] 2 3
+```
+
+We can create matrices in several ways:
+
+- Adding a `dim()` to existing vectors
+
+- Column/row-binding vectors with `cbind()` and `rbind()`
+
+
+```r
+m <- 1:6
+
+dim(m) <- c(2,3)
+
+m
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6
+```
+
+
+```r
+a <- 1:2
+b <- 3:4
+c <- 5:6
+
+m <- cbind(a,b,c)
+m
+```
+
+```
+##      a b c
+## [1,] 1 3 5
+## [2,] 2 4 6
+```
+
+You will see how in this last operation column names were added to the matrix, we can add, change or remove column and rownames on a matrix with `colnames()` and `rownames()`
+
+
+```r
+rownames(m) <- c("y","z")
+m
+```
+
+```
+##   a b c
+## y 1 3 5
+## z 2 4 6
+```
+
+## Lists
+
+Lists are a versatile and fundamental data type in R. They set themselves apart from regular vectors by allowing you to store elements of different classes within the same list. This flexibility is what makes lists so powerful for various data structures and data manipulation tasks.
+
+You can create lists explicitly using the `list()` function, which can take an arbitrary number of arguments. Lists, when combined with functions like the "apply" family, enable you to perform complex and versatile data manipulations and analyses in R. Lists are often used to represent heterogeneous data structures, such as datasets where different columns can have different data types and structures.
+
+
+```r
+l <- list(1, "apple", TRUE )
+l
+```
+
+```
+## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] "apple"
+## 
+## [[3]]
+## [1] TRUE
+```
+
+We can also create empty lists of set lengths with the `vector()` function, this can be useful for preallocating memory for iterations - as we will see later
+
+
+```r
+l <- vector("list", length = 3)
+l
+```
+
+```
+## [[1]]
+## NULL
+## 
+## [[2]]
+## NULL
+## 
+## [[3]]
+## NULL
+```
+
+Lists can also have names
+
+
+```r
+names(l) <- c("apple","orange","pear")
+```
+
+## Dataframes
+
+Data frames are essential for storing tabular data in R and find extensive use in various statistical modeling and data analysis applications. They offer a structured way to manage and work with data in R, and packages like dplyr, developed by Hadley Wickham, provide optimized functions for efficient data manipulation with data frames.
+
+Here are some key characteristics and advantages of data frames:
+
+- Tabular Structure: Data frames are a type of list, where each element in the list represents a column. The number of rows in each column is the same, and this tabular structure makes them suitable for working with datasets.
+
+- Mixed Data Types: Unlike matrices, data frames can contain columns with different classes of objects. This flexibility allows you to handle real-world datasets that often include variables of different data types.
+
+- Column and Row Names: Data frames include column names, which describe the variables or predictors. Additionally, they have a special attribute called "row.names" that provides information about each row in the data frame.
+
+- Creation and Conversion: Data frames can be created in various ways, such as reading data from files using functions like read.table() and read.csv(). You can also create data frames explicitly with data.frame().
+
+- Working with Data: Data frames are especially useful when working with datasets that require data cleaning, transformation, or merging. They provide a high level of data organization, and many R packages are designed to work seamlessly with data frames.
+
+- dplyr: The `dplyr` package is optimized for efficient data manipulation with data frames. It offers a set of functions to perform data operations quickly and intuitively.
+
+Data frames are a fundamental structure for managing tabular data in R. They excel in handling datasets with mixed data types and are essential for various data analysis and modeling tasks.
+
+
+
+
+### Tibbles
+
+“Tibbles” are a new modern data frame. It keeps many important features of the original data frame
+
+- A tibble never changes the input type.
+
+- A tibble can have columns that are lists.
+
+- A tibble can have non-standard variable names.
+    - can start with a number or contain spaces.
+    -to use this refer to these in a backtick.
+    
+- Tibbles only print the first 10 rows and all the columns that fit on a screen. - Each column displays its data type
+
+## Error/ Debugging
 
 Things will go wrong eventually, they always do...
 
@@ -547,7 +862,7 @@ specific topic</p>
 
 <div class="figure" style="text-align: center">
 <img src="images/Error.jpg" alt="R Error" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-39)courtesy of Allison Horst</p>
+<p class="caption">(\#fig:unnamed-chunk-55)courtesy of Allison Horst</p>
 </div>
 
 ## Functions
@@ -736,9 +1051,9 @@ Today let's use some simple functions to produce a figure. We specify the data s
 ggplot(data = penguins,aes(x = bill_length_mm, y = bill_depth_mm)) + geom_point(aes(colour=species)) 
 ```
 
-<img src="01-intro-to-r_files/figure-html/unnamed-chunk-55-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="01-intro-to-r_files/figure-html/unnamed-chunk-71-1.png" width="100%" style="display: block; margin: auto;" />
 
-<div class="information">
+<div class="info">
 <p>You may have noticed R gave you a warning. Not the same as a big
 scary error, but R wants you to be aware of something.</p>
 <p>In this case that two of the observations had missing data in them

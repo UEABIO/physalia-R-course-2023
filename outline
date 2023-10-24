@@ -8,9 +8,9 @@ Slides - https://www.apreshill.com/blog/2021-07-revealing-research/
 
 crash course: https://rwithoutstatistics.com/
 
-https://bookdown.org/rdpeng/rprogdatascience/
+https://bookdown.org/rdpeng/rprogdatascience/ - this book has LOADS of GOOD STUFF!
 
-http://modern-rstats.eu/
+http://modern-rstats.eu/ - good loop and maps chapter
 
 https://advanced-r-solutions.rbind.io/functionals.html
 
@@ -18,9 +18,15 @@ Simple debugging: https://uopsych-r-bootcamp-2020.netlify.app/post/03-functions/
 
 Complex debugging: https://rstats.wtf/debugging-r
 
-- USe 5023Y chapters???
-- Basic R, Basic tidyverse, working with a dataset and exploring data
+
+- Basic R - nuts and bolts,
+- Reading data in and out,
+- Subsetting
+- Managing dataframes - dplyr, Basic tidyverse
 - BONUS - exploratory data analysis
+
+- Control structures
+- Functions?
 
 # 2. Functional programming in R: Functional programming is an important concept, and it's great that you're dedicating a session to it. Covering loops, apply functions, and other functional programming principles will help participants write more efficient and concise code.
 
@@ -98,6 +104,7 @@ https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/
 
 Rmarkdown tips? Do they work with Quarto: https://posit.co/blog/r-markdown-tips-tricks-4-looks-better-works-better/
 
+R for the rest of us chapter
 
 # 7. Github: Version control and collaboration are critical skills, especially in a professional environment. This session will equip participants with the basics of using Github, which is essential for teamwork and code management.
 
@@ -107,6 +114,7 @@ https://eliocamp.github.io/reproducibility-with-r/materials/day2/02-git/
 
 https://github.com/brendanhcullen/git-tutorial
 
+https://intro2r.com/use_git.html
 
 ## Session 1: Foundations of Programming in R
 

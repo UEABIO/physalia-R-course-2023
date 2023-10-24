@@ -181,19 +181,34 @@ Now we can read in the data. To do this we will use the function `readr::read_cs
 * Add the following to your script, and check the document outline:
 
 
+<div class="tab"><button class="tablinksunnamed-chunk-16 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-16', 'unnamed-chunk-16');">Base R</button><button class="tablinksunnamed-chunk-16" onclick="javascript:openCode(event, 'option2unnamed-chunk-16', 'unnamed-chunk-16');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
+
+```r
+penguins <- read.csv ("data/penguins_raw.csv")
+
+attributes(penguins) # reads as data.frame
+
+head(penguins) # check the data has loaded, prints first 10 rows of dataframe
+```
+</div><div id="option2unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
+
 ```r
 # IMPORT DATA ----
 penguins <- read_csv ("data/penguins_raw.csv")
 
+attributes(penguins) # reads as tibble
+
 head(penguins) # check the data has loaded, prints first 10 rows of dataframe
 #__________________________----
 ```
+</div><script> javascript:hide('option2unnamed-chunk-16') </script>
 
 
 <div class="danger">
-<p>There is also a function called <code>read.csv()</code>. Be very
-careful NOT to use this function instead of <code>read_csv()</code> as
-they have different ways of naming columns.</p>
+<p>Note the differences between <code>read.csv()</code> and
+<code>read_csv</code>. We covered this in differences between tibbles
+and dataframes - here most obviously is a difference in column
+names.</p>
 </div>
 
 ## Filepaths
@@ -443,6 +458,14 @@ colnames(penguins) # quickly check the new variable names
 
 The `clean_names` function quickly converts all variable names into snake case. The N and C blood isotope ratio names are still quite long though, so let's clean those with `dplyr::rename()` where "new_name" = "old_name".
 
+<div class="tab"><button class="tablinksunnamed-chunk-27 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-27', 'unnamed-chunk-27');">Base R</button><button class="tablinksunnamed-chunk-27" onclick="javascript:openCode(event, 'option2unnamed-chunk-27', 'unnamed-chunk-27');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
+
+```r
+names(penguins)[names(penguins) == "delta_15_n_o_oo"] <- "delta_15n"
+
+names(penguins)[names(penguins) == "delta_13_c_o_oo"] <- "delta_13c"
+```
+</div><div id="option2unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
 
 ```r
 # shorten the variable names for N and C isotope blood samples
@@ -451,7 +474,7 @@ penguins <- rename(penguins,
          "delta_15n"="delta_15_n_o_oo",  # use rename from the dplyr package
          "delta_13c"="delta_13_c_o_oo")
 ```
-
+</div><script> javascript:hide('option2unnamed-chunk-27') </script>
 
 ## Check data
 
@@ -460,9 +483,17 @@ penguins <- rename(penguins,
 When we run `glimpse()` we get several lines of output. The number of observations "rows", the number of variables "columns". Check this against the csv file you have - they should be the same. In the next lines we see variable names and the type of data. 
 
 
+<div class="tab"><button class="tablinksunnamed-chunk-28 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-28', 'unnamed-chunk-28');">Base R</button><button class="tablinksunnamed-chunk-28" onclick="javascript:openCode(event, 'option2unnamed-chunk-28', 'unnamed-chunk-28');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-28" class="tabcontentunnamed-chunk-28">
+
+```r
+attributes(penguins)
+```
+</div><div id="option2unnamed-chunk-28" class="tabcontentunnamed-chunk-28">
+
 ```r
 glimpse(penguins)
 ```
+</div><script> javascript:hide('option2unnamed-chunk-28') </script>
 
 We can see a dataset with 345 rows (including the headers) and 17 variables
 It also provides information on the *type* of data in each column
@@ -476,13 +507,24 @@ It also provides information on the *type* of data in each column
 Sometimes we may want to rename the values in our variables in order to make a shorthand that is easier to follow. This is changing the **values** in our columns, not the column names. 
 
 
+<div class="tab"><button class="tablinksunnamed-chunk-29 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-29', 'unnamed-chunk-29');">Base R</button><button class="tablinksunnamed-chunk-29" onclick="javascript:openCode(event, 'option2unnamed-chunk-29', 'unnamed-chunk-29');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-29" class="tabcontentunnamed-chunk-29">
+
+```r
+penguins$species <- ifelse(penguins$species == "Adelie Penguin (Pygoscelis adeliae)", "Adelie",
+                          ifelse(penguins$species == "Gentoo penguin (Pygoscelis papua)", "Gentoo",
+                                 ifelse(penguins$species == "Chinstrap penguin (Pygoscelis antarctica)", "Chinstrap",
+                                        penguins$species)))
+```
+</div><div id="option2unnamed-chunk-29" class="tabcontentunnamed-chunk-29">
+
 ```r
 # use mutate and case_when for a statement that conditionally changes the names of the values in a variable
-penguins <- penguins %>% 
+penguins <- penguins |> 
   mutate(species = case_when(species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
                              species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
                              species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap"))
-```
+```</div><script> javascript:hide('option2unnamed-chunk-29') </script>
+
 
 <div class="warning">
 <p>Have you checked that the above code block worked? Inspect your new
@@ -541,6 +583,12 @@ For example I might wish to create a simplified dataset that only contains `spec
 
 Run the below code to select only those columns
 
+<div class="tab"><button class="tablinksunnamed-chunk-32 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-32', 'unnamed-chunk-32');">Base R</button><button class="tablinksunnamed-chunk-32" onclick="javascript:openCode(event, 'option2unnamed-chunk-32', 'unnamed-chunk-32');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-32" class="tabcontentunnamed-chunk-32">
+
+```r
+penguins[c("species", "sex", "flipper_length_mm", "body_mass_g")]
+```
+</div><div id="option2unnamed-chunk-32" class="tabcontentunnamed-chunk-32">
 
 ```r
 # DPLYR VERBS ----
@@ -548,14 +596,22 @@ Run the below code to select only those columns
 select(.data = penguins, # the data object
        species, sex, flipper_length_mm, body_mass_g) # the variables you want to select
 ```
+</div><script> javascript:hide('option2unnamed-chunk-32') </script>
 
 Alternatively you could tell R the columns you **don't** want e.g. 
 
+<div class="tab"><button class="tablinksunnamed-chunk-33 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-33', 'unnamed-chunk-33');">Base R</button><button class="tablinksunnamed-chunk-33" onclick="javascript:openCode(event, 'option2unnamed-chunk-33', 'unnamed-chunk-33');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
+
+```r
+penguins[, !colnames(penguins) %in% c("study_name", "sample_number")]
+```
+</div><div id="option2unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
 
 ```r
 select(.data = penguins,
        -study_name, -sample_number)
 ```
+</div><script> javascript:hide('option2unnamed-chunk-33') </script>
 
 Note that `select()` does **not** change the original `penguins` tibble. It spits out the new tibble directly into your console. 
 
@@ -575,15 +631,22 @@ Having previously used `select()` to select certain variables, we will now use `
 
 We can do this with the equivalence operator `==`
 
+<div class="tab"><button class="tablinksunnamed-chunk-35 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-35', 'unnamed-chunk-35');">Base R</button><button class="tablinksunnamed-chunk-35" onclick="javascript:openCode(event, 'option2unnamed-chunk-35', 'unnamed-chunk-35');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
+
+```r
+filtered_penguins <- new_penguins[new_penguins$species == "Adelie Penguin (Pygoscelis adeliae"), ]
+```
+</div><div id="option2unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
 
 ```r
 filter(.data = new_penguins, species == "Adelie Penguin (Pygoscelis adeliae)")
 ```
+</div><script> javascript:hide('option2unnamed-chunk-35') </script>
 
-Filter is quite a complicate function, and uses several differe operators to assess the way in which it should apply a filter.
+We can use several different operators to assess the way in which we should filter our data that work the same in tidyverse or base R.
 
 <table class="table" style="font-size: 16px; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-35)Boolean expressions</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-36)Boolean expressions</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Operator </th>
@@ -635,23 +698,37 @@ This is the same as
 ```r
 filter(.data = new_penguins, species %in% c("Chinstrap", "Gentoo"))
 ```
+
 You can include multiple expressions within `filter()` and it will pull out only those rows that evaluate to `TRUE` for all of your conditions. 
 
 For example the below code will pull out only those observations of Adelie penguins where flipper length was measured as greater than 190mm. 
 
+<div class="tab"><button class="tablinksunnamed-chunk-39 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-39', 'unnamed-chunk-39');">Base R</button><button class="tablinksunnamed-chunk-39" onclick="javascript:openCode(event, 'option2unnamed-chunk-39', 'unnamed-chunk-39');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
+
+```r
+new_penguins[new_penguins$species == "Adelie" & new_penguins$flipper_length_mm > 190, ]
+```</div><div id="option2unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
 
 ```r
 filter(.data = new_penguins, species == "Adelie", flipper_length_mm > 190)
 ```
+</div><script> javascript:hide('option2unnamed-chunk-39') </script>
 
 ### Arrange
 
 The function `arrange()` sorts the rows in the table according to the columns supplied. For example
 
+<div class="tab"><button class="tablinksunnamed-chunk-40 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-40', 'unnamed-chunk-40');">Base R</button><button class="tablinksunnamed-chunk-40" onclick="javascript:openCode(event, 'option2unnamed-chunk-40', 'unnamed-chunk-40');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-40" class="tabcontentunnamed-chunk-40">
+
+```r
+new_penguins[order(new_penguins$sex), ] # define columns to be arranged
+```
+</div><div id="option2unnamed-chunk-40" class="tabcontentunnamed-chunk-40">
 
 ```r
 arrange(.data = new_penguins, sex)
 ```
+</div><script> javascript:hide('option2unnamed-chunk-40') </script>
 
 The data is now arranged in alphabetical order by sex. So all of the observations of female penguins are listed before males. 
 
@@ -680,17 +757,24 @@ To create new variables we use the function `mutate()`.
 
 Note that as before, if you want to save your new column you must save it as an object. Here we are mutating a new column and attaching it to the `new_penguins` data oject.
 
+<div class="tab"><button class="tablinksunnamed-chunk-43 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-43', 'unnamed-chunk-43');">Base R</button><button class="tablinksunnamed-chunk-43" onclick="javascript:openCode(event, 'option2unnamed-chunk-43', 'unnamed-chunk-43');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-43" class="tabcontentunnamed-chunk-43">
+
+```r
+new_penguins$body_mass_kg <- new_penguins$body_mass_g / 1000
+```
+</div><div id="option2unnamed-chunk-43" class="tabcontentunnamed-chunk-43">
 
 ```r
 new_penguins <- mutate(.data = new_penguins,
-                       body_mass_kg = body_mass_g/1000)
+                     body_mass_kg = body_mass_g/1000)
 ```
+</div><script> javascript:hide('option2unnamed-chunk-43') </script>
 
 ## Pipes
 
 <img src="images/pipe_order.jpg" alt="Pipes make code more human readable" width="80%" style="display: block; margin: auto;" />
 
-Pipes look like this: `%>%` Pipes allow you to send the output from one function straight into another function. Specifically, they send the result of the function before `%>%` to be the **first** argument of the function after `%>%`. As usual, it's easier to show, rather than tell so let's look at an example.
+Pipes look like this: `|>` Pipes allow you to send the output from one function straight into another function. Specifically, they send the result of the function before `|>` to be the **first** argument of the function after `|>`. As usual, it's easier to show, rather than tell so let's look at an example.
 
 
 ```r
@@ -709,16 +793,16 @@ arrange(object_2, desc(flipper_length_mm))
 
 ```r
 # this example is human readable without intermediate objects
-penguins %>% 
-  select(species, sex, flipper_length_mm) %>% 
-  filter(sex == "MALE") %>% 
+penguins |>  
+  select(species, sex, flipper_length_mm) |>  
+  filter(sex == "MALE") |>  
   arrange(desc(flipper_length_mm))
 ```
 
 The reason that this function is called a pipe is because it 'pipes' the data through to the next function. When you wrote the code previously, the first argument of each function was the dataset you wanted to work on. When you use pipes it will automatically take the data from the previous line of code so you don't need to specify it again.
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-Try and write out as plain English what the %>% above is doing? You can read the %>% as THEN </div></div>
+Try and write out as plain English what the |>  above is doing? You can read the |>  as THEN </div></div>
 
 
 <div class='webex-solution'><button>Solution</button>
@@ -736,16 +820,15 @@ Arrange the data from HIGHEST to LOWEST flipper lengths.
 <div class="info">
 <p>From R version 4 onwards there is now a “native pipe”
 <code>|&gt;</code></p>
-<p>This doesn’t require the tidyverse <code>magrittr</code> package or
-any other packages to load and use.</p>
-<p>For this coursebook I have chosen to continue to use the
-<code>tidyverse</code> pipe <code>%&gt;%</code> for the time being it is
-likely to be much more familiar in other tutorials, and website usages.
-The native pipe also behaves “slightly” differently, and this could
-cause some confusion.</p>
-<p>If you want to read about some of the operational differences, <a
+<p>This doesn’t require the tidyverse <code>magrittr</code> package and
+the “old pipe” <code>%&gt;%</code> or any other packages to load and
+use.</p>
+<p>You may be familiar with the magrittr pipe or see it in other
+tutorials, and website usages. The native pipe works equivalntly in most
+situations but if you want to read about some of the operational
+differences, <a
 href="https://www.infoworld.com/article/3621369/use-the-new-r-pipe-built-into-r-41.html">this
-site</a> does a good job of explaining</p>
+site</a> does a good job of explaining .</p>
 </div>
 
 
@@ -758,8 +841,8 @@ It is very easy when inputting data to make mistakes, copy something in twice fo
 
 ```r
 # check for duplicate rows in the data
-penguins %>% 
-  duplicated() %>% # produces a list of TRUE/FALSE statements for duplicated or not
+penguins |> 
+  duplicated() |>  # produces a list of TRUE/FALSE statements for duplicated or not
   sum() # sums all the TRUE statements
 ```
 
@@ -775,7 +858,7 @@ We can also  explore our data for very obvious typos by checking for implausibly
 
 ```r
 # use summarise to make calculations
-penguins %>% 
+penguins |> 
   summarise(min=min(body_mass_g, na.rm=TRUE), 
             max=max(body_mass_g, na.rm=TRUE))
 ```
@@ -791,13 +874,25 @@ our dataset is nearly half the size of the largest penguin.</p>
 
 Many data analysis tasks can be approached using the “split-apply-combine” paradigm: split the data into groups, apply some analysis to each group, and then combine the results. `dplyr` makes this very easy with the `group_by()` function. In the `summarise` example above we were able to find the max-min body mass values for the penguins in our dataset. But what if we wanted to break that down by a grouping such as species of penguin. This is where `group_by()` comes in.
 
+<div class="tab"><button class="tablinksunnamed-chunk-53 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-53', 'unnamed-chunk-53');">Base R</button><button class="tablinksunnamed-chunk-53" onclick="javascript:openCode(event, 'option2unnamed-chunk-53', 'unnamed-chunk-53');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
 
 ```r
-penguins %>% 
-  group_by(species) %>%  # subsequent functions are perform "by group"
+#Things start to get more complicated with Base R
+
+split(penguins$body_mass_g, penguins$species) |> 
+    lapply(function(x) c(min(x, na.rm = TRUE), max(x, na.rm = TRUE))) |> 
+    do.call(rbind, args = _ ) |> 
+  as.data.frame()
+```
+</div><div id="option2unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
+
+```r
+penguins |> 
+  group_by(species) |>  # subsequent functions are perform "by group"
   summarise(min=min(body_mass_g, na.rm=TRUE), 
             max=max(body_mass_g, na.rm=TRUE))
 ```
+</div><script> javascript:hide('option2unnamed-chunk-53') </script>
 
 Now we know a little more about our data, the max weight of our Gentoo penguins is much larger than the other two species. In fact, the minimum weight of a Gentoo penguin is not far off the max weight of the other two species. 
 
@@ -806,11 +901,18 @@ Now we know a little more about our data, the max weight of our Gentoo penguins 
 
 We can also look for typos by asking R to produce all of the distinct values in a variable. This is more useful for categorical data, where we expect there to be only a few distinct categories
 
+<div class="tab"><button class="tablinksunnamed-chunk-54 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-54', 'unnamed-chunk-54');">Base R</button><button class="tablinksunnamed-chunk-54" onclick="javascript:openCode(event, 'option2unnamed-chunk-54', 'unnamed-chunk-54');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
 
 ```r
-penguins %>% 
+unique(penquins$sex) # only works on vectord
+```
+</div><div id="option2unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
+
+```r
+penguins |>  
   distinct(sex)
 ```
+</div><script> javascript:hide('option2unnamed-chunk-54') </script>
 
 Here if someone had mistyped e.g. 'FMALE' it would be obvious. We could do the same thing (and probably should have before we changed the names) for species. 
 
@@ -821,8 +923,8 @@ There are multiple ways to check for missing values in our data
 
 ```r
 # Get a sum of how many observations are missing in our dataframe
-penguins %>% 
-  is.na() %>% 
+penguins |> 
+  is.na() |> 
   sum()
 ```
 
@@ -917,20 +1019,55 @@ Very often we want to make calculations aobut groups of observations, such as th
 out # and add short descriptions of what you are achieving with them</p>
 </div>
 
+<div class="tab"><button class="tablinksunnamed-chunk-63 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-63', 'unnamed-chunk-63');">Base R</button><button class="tablinksunnamed-chunk-63" onclick="javascript:openCode(event, 'option2unnamed-chunk-63', 'unnamed-chunk-63');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
 
 ```r
-penguins %>% 
+unique(penguins$individual_id) |> 
+  length()
+```
+</div><div id="option2unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
+
+```r
+penguins |> 
   summarise(n_distinct(individual_id))
 ```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> n_distinct(individual_id) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 190 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div><script> javascript:hide('option2unnamed-chunk-63') </script>
 
 Now consider when the groups are subsets of observations, as when we find out the number of penguins in each species and sex.
 
+<div class="tab"><button class="tablinksunnamed-chunk-64 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-64', 'unnamed-chunk-64');">Base R</button><button class="tablinksunnamed-chunk-64" onclick="javascript:openCode(event, 'option2unnamed-chunk-64', 'unnamed-chunk-64');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-64" class="tabcontentunnamed-chunk-64">
 
 ```r
-penguins %>% 
-  group_by(species, sex) %>% 
+# note aggregate doesn't have functionality to deal with missing data
+aggregate(individual_id ~ species + sex, 
+          data = penguins, 
+          FUN = function(x) length(unique(x)))
+```
+</div><div id="option2unnamed-chunk-64" class="tabcontentunnamed-chunk-64">
+
+```r
+penguins |> 
+  group_by(species, sex) |> 
   summarise(n_distinct(individual_id))
 ```
+</div><script> javascript:hide('option2unnamed-chunk-64') </script>
 
 As we progress, not only are we learning how to use our data wrangling tools. We are also gaining insights into our data. 
 
@@ -1001,7 +1138,7 @@ Using `summarise` we can calculate the mean flipper and bill lengths of our peng
 
 
 ```r
-penguins %>% 
+penguins |> 
   summarise(
     mean_flipper_length = mean(flipper_length_mm, na.rm=TRUE),
      mean_culmen_length = mean(culmen_length_mm, na.rm=TRUE))
@@ -1025,7 +1162,7 @@ We can use several functions in `summarise`. Which means we can string several c
 
 
 ```r
-penguins %>% 
+penguins |> 
   summarise(n=n(), # number of rows of data
             num_penguins = n_distinct(individual_id), # number of unique individuals
             mean_flipper_length = mean(flipper_length_mm, na.rm=TRUE), # mean flipper length
@@ -1057,7 +1194,7 @@ penguins %>%
 # Across ----
 # The mean of ALL numeric columns in the data, where(is.numeric == TRUE) hunts for numeric columns
 
-penguins %>% 
+penguins |> 
   summarise(across(.cols = where(is.numeric), 
                    .fns = ~ mean(., na.rm=TRUE)))
 ```
@@ -1071,7 +1208,7 @@ The below example is a slightly complicated way of running the n_distinct for su
 # number of distinct penguins, as only one column contains the word penguin
 # the argument contains looks for columns that match a character expression
 
-penguins %>% 
+penguins |> 
   summarise(across(.cols = contains("individual"), 
                    .fns = ~n_distinct(.)))
 ```
@@ -1084,8 +1221,8 @@ In this example, by grouping on the individual penguin ids, then summarising by 
 
 
 ```r
-penguin_stats <- penguins %>% 
-  group_by(individual_id) %>% 
+penguin_stats <- penguins |> 
+  group_by(individual_id) |> 
   summarise(num=n())
 ```
 
@@ -1102,7 +1239,7 @@ No problem we can submit several arguments:
 
 
 ```r
-penguins_grouped <- penguins %>% 
+penguins_grouped <- penguins |> 
   group_by(sex, species)
 ```
 
@@ -1110,7 +1247,7 @@ penguins_grouped <- penguins %>%
 
 
 ```r
-penguins_grouped %>% 
+penguins_grouped |> 
 summarise(mean_flipper = mean(flipper_length_mm, na.rm=TRUE))
 ```
 
@@ -1124,11 +1261,11 @@ When `mutate` is used with `group_by`, the calculations occur by 'group'. Here's
 
 ```r
 # Using mutate and group_by ----
-centered_penguins <- penguins %>% 
-  group_by(sex, species) %>% 
+centered_penguins <- penguins |> 
+  group_by(sex, species) |> 
   mutate(flipper_centered = flipper_length_mm-mean(flipper_length_mm, na.rm=TRUE))
 
-centered_penguins %>% 
+centered_penguins |> 
   select(flipper_centered)
 # Each row now returns a value for EACH penguin of how much greater/lesser than the group average (sex and species) its flipper is. 
 ```
@@ -1155,7 +1292,7 @@ Look at our grouped dataframe, and we can see the information on groups is at th
 ```r
 # Run this command will remove the groups - but this is only saved if assigned BACK to an object
 
-centered_penguins <- centered_penguins %>% 
+centered_penguins <- centered_penguins |> 
   ungroup()
 
 centered_penguins
@@ -1196,7 +1333,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_BFKDXJLHDL'><label><input type="radio" autocomplete="off" name="radio_BFKDXJLHDL" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_BFKDXJLHDL" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_BFKDXJLHDL" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_BFKDXJLHDL" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_CILCQKVGAQ'><label><input type="radio" autocomplete="off" name="radio_CILCQKVGAQ" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_CILCQKVGAQ" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_CILCQKVGAQ" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_CILCQKVGAQ" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -1207,7 +1344,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 
 
 ```r
-penguins <- penguins %>%
+penguins <- penguins |>
   mutate(date_egg_proper = lubridate::dmy(date_egg))
 ```
 
@@ -1222,7 +1359,7 @@ Once we have established our date data, we are able to perform calculations. Suc
 
 
 ```r
-penguins %>% 
+penguins |> 
   summarise(min_date=min(date_egg_proper),
             max_date=max(date_egg_proper))
 ```
@@ -1233,8 +1370,8 @@ How many times was each penguin measured, and across what total time period?
 
 
 ```r
-penguins %>% 
-  group_by(individual_id) %>% 
+penguins |> 
+  group_by(individual_id) |> 
   summarise(first_observation=min(date_egg_proper), 
             last_observation=max(date_egg_proper), 
             study_duration = last_observation-first_observation, 
@@ -1248,12 +1385,12 @@ As with all cool functions, you should check out the RStudio [cheat sheet](https
 
 
 ```r
-penguins %>% 
-  group_by(individual_id) %>% 
+penguins |> 
+  group_by(individual_id) |> 
   summarise(first_observation=min(date_egg_proper), 
             last_observation=max(date_egg_proper), 
             study_duration_years = (last_observation-first_observation)/lubridate::dyears(1), 
-            n=n()) %>% 
+            n=n()) |> 
     arrange(desc(study_duration_years))
 ```
 
@@ -1270,7 +1407,7 @@ Another common use of factors is to standardise the legends of plots so they do 
 
 
 ```r
-penguins <- penguins %>% 
+penguins <- penguins |> 
   mutate(flipper_range = case_when(flipper_length_mm <= 190 ~ "small",
                                    flipper_length_mm >190 & flipper_length_mm < 213 ~ "medium",
                                    flipper_length_mm >= 213 ~ "large"))
@@ -1280,25 +1417,33 @@ If we make a barplot, the order of the values on the x axis will typically be in
 
 
 ```r
-penguins %>% 
+penguins |> 
   ggplot(aes(x = flipper_range))+
   geom_bar()
 ```
 
-<img src="03-loading-data_files/figure-html/unnamed-chunk-83-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-loading-data_files/figure-html/unnamed-chunk-84-1.png" width="100%" style="display: block; margin: auto;" />
 
 To convert a character or numeric column to class factor, you can use any function from the `forcats` package. They will convert to class factor and then also perform or allow certain ordering of the levels - for example using `forcats::fct_relevel()` lets you manually specify the level order. 
+
 The function `as_factor()` simply converts the class without any further capabilities.
 
 The `base R` function `factor()` converts a column to factor and allows you to manually specify the order of the levels, as a character vector to its `levels =` argument.
 
 Below we use `mutate()` and `fct_relevel()` to convert the column flipper_range from class character to class factor. 
 
+<div class="tab"><button class="tablinksunnamed-chunk-85 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-85', 'unnamed-chunk-85');">Base R</button><button class="tablinksunnamed-chunk-85" onclick="javascript:openCode(event, 'option2unnamed-chunk-85', 'unnamed-chunk-85');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-85" class="tabcontentunnamed-chunk-85">
 
 ```r
-penguins <- penguins %>% 
-  mutate(flipper_range = fct_relevel(flipper_range))
+penguins$flipper_range <- factor(penguins$flipper_range)
 ```
+</div><div id="option2unnamed-chunk-85" class="tabcontentunnamed-chunk-85">
+
+```r
+penguins <- penguins |> 
+  mutate(flipper_range = fct_relevel(flipper_range))
+```</div><script> javascript:hide('option2unnamed-chunk-85') </script>
+
 
 
 ```r
@@ -1309,23 +1454,30 @@ levels(penguins$flipper_range)
 ## [1] "large"  "medium" "small"
 ```
 
+<div class="tab"><button class="tablinksunnamed-chunk-87 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-87', 'unnamed-chunk-87');">Base R</button><button class="tablinksunnamed-chunk-87" onclick="javascript:openCode(event, 'option2unnamed-chunk-87', 'unnamed-chunk-87');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-87" class="tabcontentunnamed-chunk-87">
+
+```r
+penguins$flipper_range <- factor(penguins$flipper_range,
+                                  levels = c("small", "medium", "large"))
+```
+</div><div id="option2unnamed-chunk-87" class="tabcontentunnamed-chunk-87">
 
 ```r
 # Correct the code in your script with this version
-penguins <- penguins %>% 
+penguins <- penguins |> 
   mutate(flipper_range = fct_relevel(flipper_range, "small", "medium", "large"))
-```
+```</div><script> javascript:hide('option2unnamed-chunk-87') </script>
 
 Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels. 
 
 
 ```r
-penguins %>% 
+penguins |> 
   ggplot(aes(x = flipper_range))+
   geom_bar()
 ```
 
-<img src="03-loading-data_files/figure-html/unnamed-chunk-87-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-loading-data_files/figure-html/unnamed-chunk-88-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>Factors will also be important when we build linear models a bit
@@ -1345,12 +1497,12 @@ appropriate choice, and by changing this to an ordered
 
 <div class="figure" style="text-align: center">
 <img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-89)My neat project layout</p>
+<p class="caption">(\#fig:unnamed-chunk-90)My neat project layout</p>
 </div>
 
 <div class="figure" style="text-align: center">
 <img src="images/r_script.png" alt="My scripts and file subdirectory" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-90)My scripts and file subdirectory</p>
+<p class="caption">(\#fig:unnamed-chunk-91)My scripts and file subdirectory</p>
 </div>
 
 ## Activity: Test yourself
@@ -1362,13 +1514,13 @@ appropriate choice, and by changing this to an ordered
 
 **Question 3.** In order to make a new column I should use the function <select class='webex-select'><option value='blank'></option><option value=''>group_by()</option><option value=''>select()</option><option value='answer'>mutate()</option><option value=''>arrange()</option></select>
 
-**Question 4.** Which operator should I use to send the output from line of code into the next line? <input class='webex-solveme nospaces' size='3' data-answer='["%>%"]'/>
+**Question 4.** Which operator should I use to send the output from line of code into the next line? <input class='webex-solveme nospaces' size='2' data-answer='["|>"]'/>
 
 **Question 5.** What will be the outcome of the following line of code?
 
 
 ```r
-penguins %>% 
+penguins |> 
   filter(species == "Adelie")
 ```
 
@@ -1382,7 +1534,7 @@ Unless the output of a series of functions is "assigned" to an object using `<-`
 
 
 ```r
-penguins_filtered <- penguins %>% 
+penguins_filtered <- penguins |> 
   filter(species == "Adelie")
 ```
 
@@ -1450,7 +1602,7 @@ skimr::skim(penguins)
 
 <table style='width: auto;'
       class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-95)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-96)Data summary</caption>
 <tbody>
   <tr>
    <td style="text-align:left;"> Name </td>
@@ -1759,7 +1911,7 @@ skimr::skim(penguins)
    <td style="text-align:left;"> ▃▇▆▃▂ </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> delta_15n </td>
+   <td style="text-align:left;"> delta_15_n_o_oo </td>
    <td style="text-align:right;"> 14 </td>
    <td style="text-align:right;"> 0.96 </td>
    <td style="text-align:right;"> 8.73 </td>
@@ -1772,7 +1924,7 @@ skimr::skim(penguins)
    <td style="text-align:left;"> ▃▇▆▅▂ </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> delta_13c </td>
+   <td style="text-align:left;"> delta_13_c_o_oo </td>
    <td style="text-align:right;"> 13 </td>
    <td style="text-align:right;"> 0.96 </td>
    <td style="text-align:right;"> -25.69 </td>
@@ -1843,7 +1995,7 @@ penguins |>
   pairs()
 ```
 
-<img src="03-loading-data_files/figure-html/unnamed-chunk-97-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-loading-data_files/figure-html/unnamed-chunk-98-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### GGally
 
@@ -1861,7 +2013,7 @@ penguins |>
   ggpairs()
 ```
 
-<img src="03-loading-data_files/figure-html/unnamed-chunk-99-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-loading-data_files/figure-html/unnamed-chunk-100-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1870,14 +2022,14 @@ penguins |>
   ggpairs(columns = 10:12, ggplot2::aes(colour = species))
 ```
 
-<img src="03-loading-data_files/figure-html/unnamed-chunk-100-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-loading-data_files/figure-html/unnamed-chunk-101-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 penguins |> 
   ggpairs(columns = 10:12, upper = "blank")
 ```
 
-<img src="03-loading-data_files/figure-html/unnamed-chunk-101-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-loading-data_files/figure-html/unnamed-chunk-102-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1885,7 +2037,7 @@ penguins |>
   ggpairs(columns = 10:14, columnLabels = c("Bill length", "Bill depth", "Flipper length", "Body mass", "Sex"))
 ```
 
-<img src="03-loading-data_files/figure-html/unnamed-chunk-102-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-loading-data_files/figure-html/unnamed-chunk-103-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1894,7 +2046,7 @@ penguins |>
           lower = list(continuous = "points", combo = "dot_no_facet"))
 ```
 
-<img src="03-loading-data_files/figure-html/unnamed-chunk-103-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-loading-data_files/figure-html/unnamed-chunk-104-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1904,7 +2056,7 @@ penguins |>
           ggplot2::aes(colour = species))
 ```
 
-<img src="03-loading-data_files/figure-html/unnamed-chunk-104-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-loading-data_files/figure-html/unnamed-chunk-105-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1912,7 +2064,7 @@ penguins |>
   ggpairs(columns = 10:14, axisLabels = "internal")
 ```
 
-<img src="03-loading-data_files/figure-html/unnamed-chunk-105-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-loading-data_files/figure-html/unnamed-chunk-106-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## dataxray
 

@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 4 Data wrangling part one | Introduction to Statistics</title>
+<title>Chapter 5 Data wrangling part one | Introduction to Statistics</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="It may surprise you to learn that scientists actually spend far more time cleaning and preparing their data than they spend actually analysing it. This means completing tasks such as cleaning up...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 4 Data wrangling part one | Introduction to Statistics">
+<meta property="og:title" content="Chapter 5 Data wrangling part one | Introduction to Statistics">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/data-wrangling-part-one.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="It may surprise you to learn that scientists actually spend far more time cleaning and preparing their data than they spend actually analysing it. This means completing tasks such as cleaning up...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 4 Data wrangling part one | Introduction to Statistics">
+<meta name="twitter:title" content="Chapter 5 Data wrangling part one | Introduction to Statistics">
 <meta name="twitter:description" content="It may surprise you to learn that scientists actually spend far more time cleaning and preparing their data than they spend actually analysing it. This means completing tasks such as cleaning up...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -113,37 +113,38 @@
 <li><a class="" href="index.html">Overview</a></li>
 <li class="book-part">Get Started in R</li>
 <li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
-<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R Basics</a></li>
+<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R basics</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">3</span> R Basics</a></li>
 <li class="book-part">Exploring Data</li>
-<li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
-<li><a class="active" href="data-wrangling-part-one.html"><span class="header-section-number">4</span> Data wrangling part one</a></li>
-<li><a class="" href="data-wrangling-part-two.html"><span class="header-section-number">5</span> Data wrangling part two</a></li>
+<li><a class="" href="loading-data.html"><span class="header-section-number">4</span> Loading data</a></li>
+<li><a class="active" href="data-wrangling-part-one.html"><span class="header-section-number">5</span> Data wrangling part one</a></li>
+<li><a class="" href="data-wrangling-part-two.html"><span class="header-section-number">6</span> Data wrangling part two</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">7</span> Packages for Automated Exploratory Data Analysis</a></li>
 <li class="book-part">Functional Programming</li>
-<li><a class="" href="functional-programming-in-r.html"><span class="header-section-number">7</span> 2. Functional programming in R:</a></li>
+<li><a class="" href="functional-programming-in-r.html"><span class="header-section-number">8</span> Functional programming in R:</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="getting-the-most-out-of-tidyverse.html"><span class="header-section-number">8</span> Getting the most out of tidyverse</a></li>
+<li><a class="" href="getting-the-most-out-of-tidyverse.html"><span class="header-section-number">9</span> Getting the most out of tidyverse</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">9</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">10</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">11</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">12</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">13</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">14</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">15</span> Customising</a></li>
-<li><a class="" href="modules.html"><span class="header-section-number">16</span> Modules</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">17</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">10</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">11</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">12</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">13</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">14</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">15</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">16</span> Customising</a></li>
+<li><a class="" href="modules.html"><span class="header-section-number">17</span> Modules</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">18</span> Sharing</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">18</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">19</span> Data visualisation with ggplot2</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="markdown.html"><span class="header-section-number">19</span> Markdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">20</span> Github</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">20</span> Markdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">21</span> Github</a></li>
 <li class="book-part">R Programming</li>
-<li><a class="" href="functions-1.html"><span class="header-section-number">21</span> Functions</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">22</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">23</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">24</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="functions-1.html"><span class="header-section-number">22</span> Functions</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">23</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">24</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">25</span> Session 1: Foundations of Programming in R</a></li>
 </ul>
 
         <div class="book-extra">
@@ -151,27 +152,27 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="data-wrangling-part-one" class="section level1" number="4">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="data-wrangling-part-one" class="section level1" number="5">
 <h1>
-<span class="header-section-number">4</span> Data wrangling part one<a class="anchor" aria-label="anchor" href="#data-wrangling-part-one"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5</span> Data wrangling part one<a class="anchor" aria-label="anchor" href="#data-wrangling-part-one"><i class="fas fa-link"></i></a>
 </h1>
 <p>It may surprise you to learn that scientists actually spend far more time cleaning and preparing their data than they spend actually analysing it. This means completing tasks such as cleaning up bad values, changing the structure of dataframes, reducing the data down to a subset of observations, and producing data summaries.</p>
 <p>Many people seem to operate under the assumption that the only option for data cleaning is the painstaking and time-consuming cutting and pasting of data within a spreadsheet program like Excel. We have witnessed students and colleagues waste days, weeks, and even months manually transforming their data in Excel, cutting, copying, and pasting data. Fixing up your data by hand is not only a terrible use of your time, but it is error-prone and not reproducible. Additionally, in this age where we can easily collect massive datasets online, you will not be able to organise, clean, and prepare these by hand.</p>
 <p>In short, you will not thrive as a scientist if you do not learn some key data wrangling skills. Although every dataset presents unique challenges, there are some systematic principles you should follow that will make your analyses easier, less error-prone, more efficient, and more reproducible.</p>
 <p>In this chapter you will see how data science skills will allow you to efficiently get answers to nearly any question you might want to ask about your data. By learning how to properly make your computer do the hard and boring work for you, you can focus on the bigger issues.</p>
-<div id="activity-1-change-column-names" class="section level2" number="4.1">
+<div id="activity-1-change-column-names" class="section level2" number="5.1">
 <h2>
-<span class="header-section-number">4.1</span> Activity 1: Change column names<a class="anchor" aria-label="anchor" href="#activity-1-change-column-names"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1</span> Activity 1: Change column names<a class="anchor" aria-label="anchor" href="#activity-1-change-column-names"><i class="fas fa-link"></i></a>
 </h2>
 <p>We are going to learn how to organise data using the <em>tidy</em> format<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;(&lt;a href="http://vita.had.co.nz/papers/tidy-data.pdf" class="uri"&gt;http://vita.had.co.nz/papers/tidy-data.pdf&lt;/a&gt;)&lt;/p&gt;'><sup>2</sup></a>. This is because we are using the <code>tidyverse</code> packages <span class="citation">Wickham (<a href="session-1-foundations-of-programming-in-r.html#ref-R-tidyverse">2023</a>)</span>. This is an opinionated, but highly effective method for generating reproducible analyses with a wide-range of data manipulation tools. Tidy data is an easy format for computers to read. It is also the required data structure for our <strong>statistical tests</strong> that we will work with later.</p>
 <p>Here 'tidy' refers to a specific structure that lets us manipulate and visualise data with ease. In a tidy dataset each <em>variable</em> is in one column and each row contains one <em>observation</em>. Each cell of the table/spreadsheet contains the <em>values</em>. One observation you might make about tidy data is it is quite long - it generates a lot of rows of data - you might remember then that <em>tidy</em> data can be referred to as <em>long</em>-format data (as opposed to <em>wide</em> data).</p>
 <div class="inline-figure"><img src="images/tidy-1.png" alt="tidy data overview" width="80%" style="display: block; margin: auto;"></div>
 <p>So we know our data is in R, and we know the columns and names have been imported. But we still don't know whether all of our values imported correctly, or whether it captured all the rows.</p>
-<div id="add-this-to-your-script" class="section level4" number="4.1.0.1">
+<div id="add-this-to-your-script" class="section level4" number="5.1.0.1">
 <h4>
-<span class="header-section-number">4.1.0.1</span> Add this to your script<a class="anchor" aria-label="anchor" href="#add-this-to-your-script"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1.0.1</span> Add this to your script<a class="anchor" aria-label="anchor" href="#add-this-to-your-script"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># CHECK DATA----</span></span>
 <span><span class="co"># check the data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
@@ -194,9 +195,9 @@
 <li><p><strong>Delta 13C</strong>: the ratio of stable Carbon isotopes 13C:12C from blood sample</p></li>
 </ul>
 </div>
-<div id="clean-column-names" class="section level4" number="4.1.0.2">
+<div id="clean-column-names" class="section level4" number="5.1.0.2">
 <h4>
-<span class="header-section-number">4.1.0.2</span> Clean column names<a class="anchor" aria-label="anchor" href="#clean-column-names"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1.0.2</span> Clean column names<a class="anchor" aria-label="anchor" href="#clean-column-names"><i class="fas fa-link"></i></a>
 </h4>
 <p>Often we might want to change the names of our variables. They might be non-intuitive, or too long. Our data has a couple of issues:</p>
 <ul>
@@ -205,7 +206,7 @@
 <li><p>Some of the names contain brackets</p></li>
 </ul>
 <p>This dataframe does not like these so let's correct these quickly. R is case-sensitive and also doesn't like spaces or brackets in variable names</p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># CLEAN DATA ----</span></span>
 <span></span>
 <span><span class="co"># clean all variable names to snake_case using the clean_names function from the janitor package</span></span>
@@ -222,158 +223,216 @@
 ## [13] "body_mass_g"       "sex"               "delta_15_n_o_oo"  
 ## [16] "delta_13_c_o_oo"   "comments"</code></pre>
 </div>
-<div id="rename-columns-manually" class="section level4" number="4.1.0.3">
+<div id="rename-columns-manually" class="section level4" number="5.1.0.3">
 <h4>
-<span class="header-section-number">4.1.0.3</span> Rename columns (manually)<a class="anchor" aria-label="anchor" href="#rename-columns-manually"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1.0.3</span> Rename columns (manually)<a class="anchor" aria-label="anchor" href="#rename-columns-manually"><i class="fas fa-link"></i></a>
 </h4>
 <p>The <code>clean_names</code> function quickly converts all variable names into snake case. The N and C blood isotope ratio names are still quite long though, so let's clean those with <code><a href="https://dplyr.tidyverse.org/reference/rename.html">dplyr::rename()</a></code> where "new_name" = "old_name".</p>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="tab">
+<button class="tablinksunnamed-chunk-27 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-27', 'unnamed-chunk-27');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-27" onclick="javascript:openCode(event, 'option2unnamed-chunk-27', 'unnamed-chunk-27');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="op">==</span> <span class="st">"delta_15_n_o_oo"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"delta_15n"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="op">==</span> <span class="st">"delta_13_c_o_oo"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"delta_13c"</span></span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># shorten the variable names for N and C isotope blood samples</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="va">penguins</span>,</span>
 <span>         <span class="st">"delta_15n"</span><span class="op">=</span><span class="st">"delta_15_n_o_oo"</span>,  <span class="co"># use rename from the dplyr package</span></span>
 <span>         <span class="st">"delta_13c"</span><span class="op">=</span><span class="st">"delta_13_c_o_oo"</span><span class="op">)</span></span></code></pre></div>
 </div>
+<script> javascript:hide('option2unnamed-chunk-27') </script>
 </div>
-<div id="check-data" class="section level2" number="4.2">
+</div>
+<div id="check-data" class="section level2" number="5.2">
 <h2>
-<span class="header-section-number">4.2</span> Check data<a class="anchor" aria-label="anchor" href="#check-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2</span> Check data<a class="anchor" aria-label="anchor" href="#check-data"><i class="fas fa-link"></i></a>
 </h2>
-<div id="glimpse-check-data-format" class="section level4" number="4.2.0.1">
+<div id="glimpse-check-data-format" class="section level4" number="5.2.0.1">
 <h4>
-<span class="header-section-number">4.2.0.1</span> glimpse: check data format<a class="anchor" aria-label="anchor" href="#glimpse-check-data-format"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.0.1</span> glimpse: check data format<a class="anchor" aria-label="anchor" href="#glimpse-check-data-format"><i class="fas fa-link"></i></a>
 </h4>
 <p>When we run <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code> we get several lines of output. The number of observations "rows", the number of variables "columns". Check this against the csv file you have - they should be the same. In the next lines we see variable names and the type of data.</p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<div class="tab">
+<button class="tablinksunnamed-chunk-28 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-28', 'unnamed-chunk-28');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-28" onclick="javascript:openCode(event, 'option2unnamed-chunk-28', 'unnamed-chunk-28');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-28" class="tabcontentunnamed-chunk-28">
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-28" class="tabcontentunnamed-chunk-28">
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
-<p>We can see a dataset with 345 rows (including the headers) and 17 variables
+</div>
+<script> javascript:hide('option2unnamed-chunk-28') </script><p>We can see a dataset with 345 rows (including the headers) and 17 variables
 It also provides information on the <em>type</em> of data in each column</p>
 <ul>
 <li><p><code>&lt;chr&gt;</code> - means character or text data</p></li>
 <li><p><code>&lt;dbl&gt;</code> - means numerical data</p></li>
 </ul>
 </div>
-<div id="rename-text-values" class="section level4" number="4.2.0.2">
+<div id="rename-text-values" class="section level4" number="5.2.0.2">
 <h4>
-<span class="header-section-number">4.2.0.2</span> Rename text values<a class="anchor" aria-label="anchor" href="#rename-text-values"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.0.2</span> Rename text values<a class="anchor" aria-label="anchor" href="#rename-text-values"><i class="fas fa-link"></i></a>
 </h4>
 <p>Sometimes we may want to rename the values in our variables in order to make a shorthand that is easier to follow. This is changing the <strong>values</strong> in our columns, not the column names.</p>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># use mutate and case_when for a statement that conditionally changes the names of the values in a variable</span></span>
-<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span> <span class="op">~</span> <span class="st">"Adelie"</span>,</span>
-<span>                             <span class="va">species</span> <span class="op">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span> <span class="op">~</span> <span class="st">"Gentoo"</span>,</span>
-<span>                             <span class="va">species</span> <span class="op">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span> <span class="op">~</span> <span class="st">"Chinstrap"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="warning">
-<p>
-Have you checked that the above code block worked? Inspect your new
-tibble and check the variables have been renamed as you wanted.
-</p>
+<div class="tab">
+<button class="tablinksunnamed-chunk-29 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-29', 'unnamed-chunk-29');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-29" onclick="javascript:openCode(event, 'option2unnamed-chunk-29', 'unnamed-chunk-29');">
+<tt>tidyverse</tt>
+</button>
 </div>
+<div id="option1unnamed-chunk-29" class="tabcontentunnamed-chunk-29">
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span>, <span class="st">"Adelie"</span>,</span>
+<span>                          <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span>, <span class="st">"Gentoo"</span>,</span>
+<span>                                 <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span>, <span class="st">"Chinstrap"</span>,</span>
+<span>                                        <span class="va">penguins</span><span class="op">$</span><span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
+<div id="option2unnamed-chunk-29" class="tabcontentunnamed-chunk-29">
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="data-wrangling-part-one.html#cb113-1" tabindex="-1"></a><span class="co"># use mutate and case_when for a statement that conditionally changes the names of the values in a variable</span></span>
+<span id="cb113-2"><a href="data-wrangling-part-one.html#cb113-2" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb113-3"><a href="data-wrangling-part-one.html#cb113-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">case_when</span>(species <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span> <span class="sc">~</span> <span class="st">"Adelie"</span>,</span>
+<span id="cb113-4"><a href="data-wrangling-part-one.html#cb113-4" tabindex="-1"></a>                             species <span class="sc">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span> <span class="sc">~</span> <span class="st">"Gentoo"</span>,</span>
+<span id="cb113-5"><a href="data-wrangling-part-one.html#cb113-5" tabindex="-1"></a>                             species <span class="sc">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span> <span class="sc">~</span> <span class="st">"Chinstrap"</span>))</span>
+<span id="cb113-6"><a href="data-wrangling-part-one.html#cb113-6" tabindex="-1"></a><span class="st">```</span><span class="at">&lt;/div&gt;&lt;script&gt; javascript:hide('option2unnamed-chunk-29') &lt;/script&gt;</span></span>
+<span id="cb113-7"><a href="data-wrangling-part-one.html#cb113-7" tabindex="-1"></a></span>
+<span id="cb113-8"><a href="data-wrangling-part-one.html#cb113-8" tabindex="-1"></a></span>
+<span id="cb113-9"><a href="data-wrangling-part-one.html#cb113-9" tabindex="-1"></a><span class="at">&lt;div class="warning"&gt;</span></span>
+<span id="cb113-10"><a href="data-wrangling-part-one.html#cb113-10" tabindex="-1"></a><span class="at">&lt;p&gt;Have you checked that the above code block worked? Inspect your new</span></span>
+<span id="cb113-11"><a href="data-wrangling-part-one.html#cb113-11" tabindex="-1"></a><span class="at">tibble and check the variables have been renamed as you wanted.&lt;/p&gt;</span></span>
+<span id="cb113-12"><a href="data-wrangling-part-one.html#cb113-12" tabindex="-1"></a><span class="at">&lt;/div&gt;</span></span>
+<span id="cb113-13"><a href="data-wrangling-part-one.html#cb113-13" tabindex="-1"></a></span>
+<span id="cb113-14"><a href="data-wrangling-part-one.html#cb113-14" tabindex="-1"></a></span>
+<span id="cb113-15"><a href="data-wrangling-part-one.html#cb113-15" tabindex="-1"></a><span class="at">## dplyr verbs</span></span>
+<span id="cb113-16"><a href="data-wrangling-part-one.html#cb113-16" tabindex="-1"></a></span>
+<span id="cb113-17"><a href="data-wrangling-part-one.html#cb113-17" tabindex="-1"></a><span class="at">In this section we will be introduced to some of the most commonly used data wrangling functions, these come from the </span><span class="st">`</span>dplyr<span class="st">`</span><span class="at"> package (part of the </span><span class="st">`</span>tidyverse<span class="st">`</span><span class="at">). These are functions you are likely to become *very* familiar with. </span></span>
+<span id="cb113-18"><a href="data-wrangling-part-one.html#cb113-18" tabindex="-1"></a></span>
+<span id="cb113-19"><a href="data-wrangling-part-one.html#cb113-19" tabindex="-1"></a><span class="at">&lt;div class="kable-table"&gt;</span></span>
+<span id="cb113-20"><a href="data-wrangling-part-one.html#cb113-20" tabindex="-1"></a></span>
+<span id="cb113-21"><a href="data-wrangling-part-one.html#cb113-21" tabindex="-1"></a><span class="at">&lt;table&gt;</span></span>
+<span id="cb113-22"><a href="data-wrangling-part-one.html#cb113-22" tabindex="-1"></a><span class="at"> &lt;thead&gt;</span></span>
+<span id="cb113-23"><a href="data-wrangling-part-one.html#cb113-23" tabindex="-1"></a><span class="at">  &lt;tr&gt;</span></span>
+<span id="cb113-24"><a href="data-wrangling-part-one.html#cb113-24" tabindex="-1"></a><span class="at">   &lt;th style="text-align:left;"&gt; verb &lt;/th&gt;</span></span>
+<span id="cb113-25"><a href="data-wrangling-part-one.html#cb113-25" tabindex="-1"></a><span class="at">   &lt;th style="text-align:left;"&gt; action &lt;/th&gt;</span></span>
+<span id="cb113-26"><a href="data-wrangling-part-one.html#cb113-26" tabindex="-1"></a><span class="at">  &lt;/tr&gt;</span></span>
+<span id="cb113-27"><a href="data-wrangling-part-one.html#cb113-27" tabindex="-1"></a><span class="at"> &lt;/thead&gt;</span></span>
+<span id="cb113-28"><a href="data-wrangling-part-one.html#cb113-28" tabindex="-1"></a><span class="at">&lt;tbody&gt;</span></span>
+<span id="cb113-29"><a href="data-wrangling-part-one.html#cb113-29" tabindex="-1"></a><span class="at">  &lt;tr&gt;</span></span>
+<span id="cb113-30"><a href="data-wrangling-part-one.html#cb113-30" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; select() &lt;/td&gt;</span></span>
+<span id="cb113-31"><a href="data-wrangling-part-one.html#cb113-31" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; take a subset of columns &lt;/td&gt;</span></span>
+<span id="cb113-32"><a href="data-wrangling-part-one.html#cb113-32" tabindex="-1"></a><span class="at">  &lt;/tr&gt;</span></span>
+<span id="cb113-33"><a href="data-wrangling-part-one.html#cb113-33" tabindex="-1"></a><span class="at">  &lt;tr&gt;</span></span>
+<span id="cb113-34"><a href="data-wrangling-part-one.html#cb113-34" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; filter() &lt;/td&gt;</span></span>
+<span id="cb113-35"><a href="data-wrangling-part-one.html#cb113-35" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; take a subset of rows &lt;/td&gt;</span></span>
+<span id="cb113-36"><a href="data-wrangling-part-one.html#cb113-36" tabindex="-1"></a><span class="at">  &lt;/tr&gt;</span></span>
+<span id="cb113-37"><a href="data-wrangling-part-one.html#cb113-37" tabindex="-1"></a><span class="at">  &lt;tr&gt;</span></span>
+<span id="cb113-38"><a href="data-wrangling-part-one.html#cb113-38" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; arrange() &lt;/td&gt;</span></span>
+<span id="cb113-39"><a href="data-wrangling-part-one.html#cb113-39" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; reorder the rows &lt;/td&gt;</span></span>
+<span id="cb113-40"><a href="data-wrangling-part-one.html#cb113-40" tabindex="-1"></a><span class="at">  &lt;/tr&gt;</span></span>
+<span id="cb113-41"><a href="data-wrangling-part-one.html#cb113-41" tabindex="-1"></a><span class="at">  &lt;tr&gt;</span></span>
+<span id="cb113-42"><a href="data-wrangling-part-one.html#cb113-42" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; summarise() &lt;/td&gt;</span></span>
+<span id="cb113-43"><a href="data-wrangling-part-one.html#cb113-43" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; reduce raw data to user defined summaries &lt;/td&gt;</span></span>
+<span id="cb113-44"><a href="data-wrangling-part-one.html#cb113-44" tabindex="-1"></a><span class="at">  &lt;/tr&gt;</span></span>
+<span id="cb113-45"><a href="data-wrangling-part-one.html#cb113-45" tabindex="-1"></a><span class="at">  &lt;tr&gt;</span></span>
+<span id="cb113-46"><a href="data-wrangling-part-one.html#cb113-46" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; group_by() &lt;/td&gt;</span></span>
+<span id="cb113-47"><a href="data-wrangling-part-one.html#cb113-47" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; group the rows by a specified column &lt;/td&gt;</span></span>
+<span id="cb113-48"><a href="data-wrangling-part-one.html#cb113-48" tabindex="-1"></a><span class="at">  &lt;/tr&gt;</span></span>
+<span id="cb113-49"><a href="data-wrangling-part-one.html#cb113-49" tabindex="-1"></a><span class="at">  &lt;tr&gt;</span></span>
+<span id="cb113-50"><a href="data-wrangling-part-one.html#cb113-50" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; mutate() &lt;/td&gt;</span></span>
+<span id="cb113-51"><a href="data-wrangling-part-one.html#cb113-51" tabindex="-1"></a><span class="at">   &lt;td style="text-align:left;"&gt; create a new variable &lt;/td&gt;</span></span>
+<span id="cb113-52"><a href="data-wrangling-part-one.html#cb113-52" tabindex="-1"></a><span class="at">  &lt;/tr&gt;</span></span>
+<span id="cb113-53"><a href="data-wrangling-part-one.html#cb113-53" tabindex="-1"></a><span class="at">&lt;/tbody&gt;</span></span>
+<span id="cb113-54"><a href="data-wrangling-part-one.html#cb113-54" tabindex="-1"></a><span class="at">&lt;/table&gt;</span></span>
+<span id="cb113-55"><a href="data-wrangling-part-one.html#cb113-55" tabindex="-1"></a></span>
+<span id="cb113-56"><a href="data-wrangling-part-one.html#cb113-56" tabindex="-1"></a><span class="at">&lt;/div&gt;</span></span>
+<span id="cb113-57"><a href="data-wrangling-part-one.html#cb113-57" tabindex="-1"></a></span>
+<span id="cb113-58"><a href="data-wrangling-part-one.html#cb113-58" tabindex="-1"></a><span class="at">### Select</span></span>
+<span id="cb113-59"><a href="data-wrangling-part-one.html#cb113-59" tabindex="-1"></a></span>
+<span id="cb113-60"><a href="data-wrangling-part-one.html#cb113-60" tabindex="-1"></a><span class="at">If we wanted to create a dataset that only includes certain variables, we can use the </span><span class="st">`</span><span class="fu">select</span>()<span class="st">`</span><span class="at"> function from the </span><span class="st">`</span>dplyr<span class="st">`</span><span class="at"> package. </span></span>
+<span id="cb113-61"><a href="data-wrangling-part-one.html#cb113-61" tabindex="-1"></a></span>
+<span id="cb113-62"><a href="data-wrangling-part-one.html#cb113-62" tabindex="-1"></a><span class="at">For example I might wish to create a simplified dataset that only contains </span><span class="st">`</span>species<span class="st">`</span><span class="at">, </span><span class="st">`</span>sex<span class="st">`</span><span class="at">, </span><span class="st">`</span>flipper_length_mm<span class="st">`</span><span class="at"> and </span><span class="st">`</span>body_mass_g<span class="st">`</span><span class="at">. </span></span>
+<span id="cb113-63"><a href="data-wrangling-part-one.html#cb113-63" tabindex="-1"></a></span>
+<span id="cb113-64"><a href="data-wrangling-part-one.html#cb113-64" tabindex="-1"></a><span class="at">Run the below code to select only those columns</span></span>
+<span id="cb113-65"><a href="data-wrangling-part-one.html#cb113-65" tabindex="-1"></a></span>
+<span id="cb113-66"><a href="data-wrangling-part-one.html#cb113-66" tabindex="-1"></a><span class="at">&lt;div class="tab"&gt;&lt;button class="tablinksunnamed-chunk-32 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-32', 'unnamed-chunk-32');"&gt;Base R&lt;/button&gt;&lt;button class="tablinksunnamed-chunk-32" onclick="javascript:openCode(event, 'option2unnamed-chunk-32', 'unnamed-chunk-32');"&gt;&lt;tt&gt;tidyverse&lt;/tt&gt;&lt;/button&gt;&lt;/div&gt;&lt;div id="option1unnamed-chunk-32" class="tabcontentunnamed-chunk-32"&gt;</span></span>
+<span id="cb113-67"><a href="data-wrangling-part-one.html#cb113-67" tabindex="-1"></a></span>
+<span id="cb113-68"><a href="data-wrangling-part-one.html#cb113-68" tabindex="-1"></a><span class="st">```</span>r</span>
+<span id="cb113-69"><a href="data-wrangling-part-one.html#cb113-69" tabindex="-1"></a>penguins[<span class="fu">c</span>(<span class="st">"species"</span>, <span class="st">"sex"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span>)]</span></code></pre></div>
 </div>
-<div id="dplyr-verbs" class="section level2" number="4.3">
-<h2>
-<span class="header-section-number">4.3</span> dplyr verbs<a class="anchor" aria-label="anchor" href="#dplyr-verbs"><i class="fas fa-link"></i></a>
-</h2>
-<p>In this section we will be introduced to some of the most commonly used data wrangling functions, these come from the <code>dplyr</code> package (part of the <code>tidyverse</code>). These are functions you are likely to become <em>very</em> familiar with.</p>
-<div class="kable-table">
-<div class="inline-table"><table class="table table-sm">
-<thead><tr>
-<th style="text-align:left;">
-verb
-</th>
-<th style="text-align:left;">
-action
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-select()
-</td>
-<td style="text-align:left;">
-take a subset of columns
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-filter()
-</td>
-<td style="text-align:left;">
-take a subset of rows
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-arrange()
-</td>
-<td style="text-align:left;">
-reorder the rows
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-summarise()
-</td>
-<td style="text-align:left;">
-reduce raw data to user defined summaries
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-group_by()
-</td>
-<td style="text-align:left;">
-group the rows by a specified column
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-mutate()
-</td>
-<td style="text-align:left;">
-create a new variable
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div id="select" class="section level3" number="4.3.1">
-<h3>
-<span class="header-section-number">4.3.1</span> Select<a class="anchor" aria-label="anchor" href="#select"><i class="fas fa-link"></i></a>
-</h3>
-<p>If we wanted to create a dataset that only includes certain variables, we can use the <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> function from the <code>dplyr</code> package.</p>
-<p>For example I might wish to create a simplified dataset that only contains <code>species</code>, <code>sex</code>, <code>flipper_length_mm</code> and <code>body_mass_g</code>.</p>
-<p>Run the below code to select only those columns</p>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<div id="option2unnamed-chunk-32" class="tabcontentunnamed-chunk-32">
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># DPLYR VERBS ----</span></span>
 <span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>, <span class="co"># the data object</span></span>
 <span>       <span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span>, <span class="va">body_mass_g</span><span class="op">)</span> <span class="co"># the variables you want to select</span></span></code></pre></div>
-<p>Alternatively you could tell R the columns you <strong>don't</strong> want e.g.</p>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+</div>
+<script> javascript:hide('option2unnamed-chunk-32') </script><p>Alternatively you could tell R the columns you <strong>don't</strong> want e.g.</p>
+<div class="tab">
+<button class="tablinksunnamed-chunk-33 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-33', 'unnamed-chunk-33');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-33" onclick="javascript:openCode(event, 'option2unnamed-chunk-33', 'unnamed-chunk-33');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span><span class="op">[</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"study_name"</span>, <span class="st">"sample_number"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>,</span>
 <span>       <span class="op">-</span><span class="va">study_name</span>, <span class="op">-</span><span class="va">sample_number</span><span class="op">)</span></span></code></pre></div>
-<p>Note that <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> does <strong>not</strong> change the original <code>penguins</code> tibble. It spits out the new tibble directly into your console.</p>
+</div>
+<script> javascript:hide('option2unnamed-chunk-33') </script><p>Note that <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> does <strong>not</strong> change the original <code>penguins</code> tibble. It spits out the new tibble directly into your console.</p>
 <p>If you don't <strong>save</strong> this new tibble, it won't be stored. If you want to keep it, then you must create a new object.</p>
 <p>When you run this new code, you will not see anything in your console, but you will see a new object appear in your Environment pane.</p>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>, </span>
 <span>       <span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span>, <span class="va">body_mass_g</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="filter" class="section level3" number="4.3.2">
+<div id="filter" class="section level3" number="5.2.1">
 <h3>
-<span class="header-section-number">4.3.2</span> Filter<a class="anchor" aria-label="anchor" href="#filter"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.1</span> Filter<a class="anchor" aria-label="anchor" href="#filter"><i class="fas fa-link"></i></a>
 </h3>
 <p>Having previously used <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> to select certain variables, we will now use <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> to select only certain rows or observations. For example only Adelie penguins.</p>
 <p>We can do this with the equivalence operator <code>==</code></p>
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<div class="tab">
+<button class="tablinksunnamed-chunk-35 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-35', 'unnamed-chunk-35');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-35" onclick="javascript:openCode(event, 'option2unnamed-chunk-35', 'unnamed-chunk-35');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="data-wrangling-part-one.html#cb118-1" tabindex="-1"></a>filtered_penguins <span class="ot">&lt;-</span> new_penguins[new_penguins<span class="sc">$</span>species <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae"</span><span class="er">)</span>, ]</span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span><span class="op">)</span></span></code></pre></div>
-<p>Filter is quite a complicate function, and uses several differe operators to assess the way in which it should apply a filter.</p>
+</div>
+<script> javascript:hide('option2unnamed-chunk-35') </script><p>We can use several different operators to assess the way in which we should filter our data that work the same in tidyverse or base R.</p>
 <div class="inline-table"><table class="table" style="font-size: 16px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-35">Table 4.1: </span>Boolean expressions
+<span id="tab:unnamed-chunk-36">Table 5.1: </span>Boolean expressions
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -443,65 +502,108 @@ in
 </tbody>
 </table></div>
 <p>If you wanted to select all the Penguin species except Adelies, you use 'not equals'.</p>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">species</span> <span class="op">!=</span> <span class="st">"Adelie"</span><span class="op">)</span></span></code></pre></div>
 <p>This is the same as</p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Chinstrap"</span>, <span class="st">"Gentoo"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>You can include multiple expressions within <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> and it will pull out only those rows that evaluate to <code>TRUE</code> for all of your conditions.</p>
 <p>For example the below code will pull out only those observations of Adelie penguins where flipper length was measured as greater than 190mm.</p>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span>, <span class="va">flipper_length_mm</span> <span class="op">&gt;</span> <span class="fl">190</span><span class="op">)</span></span></code></pre></div>
+<div class="tab">
+<button class="tablinksunnamed-chunk-39 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-39', 'unnamed-chunk-39');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-39" onclick="javascript:openCode(event, 'option2unnamed-chunk-39', 'unnamed-chunk-39');">
+<tt>tidyverse</tt>
+</button>
 </div>
-<div id="arrange" class="section level3" number="4.3.3">
+<div id="option1unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="data-wrangling-part-one.html#cb122-1" tabindex="-1"></a>new_penguins[new_penguins<span class="sc">$</span>species <span class="sc">==</span> <span class="st">"Adelie"</span> <span class="sc">&amp;</span> new_penguins<span class="sc">$</span>flipper_length_mm <span class="sc">&gt;</span> <span class="dv">190</span>, ]</span>
+<span id="cb122-2"><a href="data-wrangling-part-one.html#cb122-2" tabindex="-1"></a><span class="st">```</span><span class="at">&lt;/div&gt;&lt;div id="option2unnamed-chunk-39" class="tabcontentunnamed-chunk-39"&gt;</span></span>
+<span id="cb122-3"><a href="data-wrangling-part-one.html#cb122-3" tabindex="-1"></a></span>
+<span id="cb122-4"><a href="data-wrangling-part-one.html#cb122-4" tabindex="-1"></a><span class="st">```</span>r</span>
+<span id="cb122-5"><a href="data-wrangling-part-one.html#cb122-5" tabindex="-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> new_penguins, species <span class="sc">==</span> <span class="st">"Adelie"</span>, flipper_length_mm <span class="sc">&gt;</span> <span class="dv">190</span>)</span></code></pre></div>
+</div>
+<script> javascript:hide('option2unnamed-chunk-39') </script>
+</div>
+<div id="arrange" class="section level3" number="5.2.2">
 <h3>
-<span class="header-section-number">4.3.3</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.2</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
 </h3>
 <p>The function <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> sorts the rows in the table according to the columns supplied. For example</p>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<div class="tab">
+<button class="tablinksunnamed-chunk-40 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-40', 'unnamed-chunk-40');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-40" onclick="javascript:openCode(event, 'option2unnamed-chunk-40', 'unnamed-chunk-40');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-40" class="tabcontentunnamed-chunk-40">
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">new_penguins</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">new_penguins</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span>, <span class="op">]</span> <span class="co"># define columns to be arranged</span></span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-40" class="tabcontentunnamed-chunk-40">
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">sex</span><span class="op">)</span></span></code></pre></div>
-<p>The data is now arranged in alphabetical order by sex. So all of the observations of female penguins are listed before males.</p>
+</div>
+<script> javascript:hide('option2unnamed-chunk-40') </script><p>The data is now arranged in alphabetical order by sex. So all of the observations of female penguins are listed before males.</p>
 <p>You can also reverse this with <code><a href="https://dplyr.tidyverse.org/reference/desc.html">desc()</a></code></p>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>You can also sort by more than one column, what do you think the code below does?</p>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>,</span>
 <span>        <span class="va">sex</span>,</span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span>,</span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="mutate" class="section level3" number="4.3.4">
+<div id="mutate" class="section level3" number="5.2.3">
 <h3>
-<span class="header-section-number">4.3.4</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.3</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sometimes we need to create a new variable that doesn't exist in our dataset. For example we might want to figure out what the flipper length is when factoring in body mass.</p>
 <p>To create new variables we use the function <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>.</p>
 <p>Note that as before, if you want to save your new column you must save it as an object. Here we are mutating a new column and attaching it to the <code>new_penguins</code> data oject.</p>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<div class="tab">
+<button class="tablinksunnamed-chunk-43 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-43', 'unnamed-chunk-43');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-43" onclick="javascript:openCode(event, 'option2unnamed-chunk-43', 'unnamed-chunk-43');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-43" class="tabcontentunnamed-chunk-43">
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">new_penguins</span><span class="op">$</span><span class="va">body_mass_kg</span> <span class="op">&lt;-</span> <span class="va">new_penguins</span><span class="op">$</span><span class="va">body_mass_g</span> <span class="op">/</span> <span class="fl">1000</span></span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-43" class="tabcontentunnamed-chunk-43">
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>,</span>
-<span>                       body_mass_kg <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
+<span>                     body_mass_kg <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
+</div>
+<script> javascript:hide('option2unnamed-chunk-43') </script>
 </div>
 </div>
-<div id="pipes" class="section level2" number="4.4">
+<div id="pipes" class="section level2" number="5.3">
 <h2>
-<span class="header-section-number">4.4</span> Pipes<a class="anchor" aria-label="anchor" href="#pipes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3</span> Pipes<a class="anchor" aria-label="anchor" href="#pipes"><i class="fas fa-link"></i></a>
 </h2>
 <div class="inline-figure"><img src="images/pipe_order.jpg" alt="Pipes make code more human readable" width="80%" style="display: block; margin: auto;"></div>
-<p>Pipes look like this: <code>%&gt;%</code> Pipes allow you to send the output from one function straight into another function. Specifically, they send the result of the function before <code>%&gt;%</code> to be the <strong>first</strong> argument of the function after <code>%&gt;%</code>. As usual, it's easier to show, rather than tell so let's look at an example.</p>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<p>Pipes look like this: <code>|&gt;</code> Pipes allow you to send the output from one function straight into another function. Specifically, they send the result of the function before <code>|&gt;</code> to be the <strong>first</strong> argument of the function after <code>|&gt;</code>. As usual, it's easier to show, rather than tell so let's look at an example.</p>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this example uses brackets to nest and order functions</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>, <span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span><span class="op">)</span>, <span class="va">sex</span> <span class="op">==</span> <span class="st">"MALE"</span><span class="op">)</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this example uses sequential R objects to make the code more readable</span></span>
 <span><span class="va">object_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>, <span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span><span class="op">)</span></span>
 <span><span class="va">object_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">object_1</span>, <span class="va">sex</span> <span class="op">==</span> <span class="st">"MALE"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">object_2</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this example is human readable without intermediate objects</span></span>
-<span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">"MALE"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">penguins</span> <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span><span class="op">)</span> <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">"MALE"</span><span class="op">)</span> <span class="op">|&gt;</span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The reason that this function is called a pipe is because it 'pipes' the data through to the next function. When you wrote the code previously, the first argument of each function was the dataset you wanted to work on. When you use pipes it will automatically take the data from the previous line of code so you don't need to specify it again.</p>
 <div class="panel panel-default">
@@ -509,7 +611,7 @@ in
 Task
 </div>
 <div class="panel-body">
-Try and write out as plain English what the %&gt;% above is doing? You can read the %&gt;% as THEN
+Try and write out as plain English what the |&gt; above is doing? You can read the |&gt; as THEN
 </div>
 </div>
 <div class="webex-solution">
@@ -527,47 +629,44 @@ From R version 4 onwards there is now a “native pipe”
 <code>|&gt;</code>
 </p>
 <p>
-This doesn’t require the tidyverse <code>magrittr</code> package or
-any other packages to load and use.
+This doesn’t require the tidyverse <code>magrittr</code> package and
+the “old pipe” <code>%&gt;%</code> or any other packages to load and
+use.
 </p>
 <p>
-For this coursebook I have chosen to continue to use the
-<code>tidyverse</code> pipe <code>%&gt;%</code> for the time being it is
-likely to be much more familiar in other tutorials, and website usages.
-The native pipe also behaves “slightly” differently, and this could
-cause some confusion.
-</p>
-<p>
-If you want to read about some of the operational differences, <a href="https://www.infoworld.com/article/3621369/use-the-new-r-pipe-built-into-r-41.html">this
-site</a> does a good job of explaining
+You may be familiar with the magrittr pipe or see it in other
+tutorials, and website usages. The native pipe works equivalntly in most
+situations but if you want to read about some of the operational
+differences, <a href="https://www.infoworld.com/article/3621369/use-the-new-r-pipe-built-into-r-41.html">this
+site</a> does a good job of explaining .
 </p>
 </div>
 </div>
-<div id="a-few-more-handy-functions" class="section level2" number="4.5">
+<div id="a-few-more-handy-functions" class="section level2" number="5.4">
 <h2>
-<span class="header-section-number">4.5</span> A few more handy functions<a class="anchor" aria-label="anchor" href="#a-few-more-handy-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.4</span> A few more handy functions<a class="anchor" aria-label="anchor" href="#a-few-more-handy-functions"><i class="fas fa-link"></i></a>
 </h2>
-<div id="check-for-duplication" class="section level3" number="4.5.1">
+<div id="check-for-duplication" class="section level3" number="5.4.1">
 <h3>
-<span class="header-section-number">4.5.1</span> Check for duplication<a class="anchor" aria-label="anchor" href="#check-for-duplication"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.4.1</span> Check for duplication<a class="anchor" aria-label="anchor" href="#check-for-duplication"><i class="fas fa-link"></i></a>
 </h3>
 <p>It is very easy when inputting data to make mistakes, copy something in twice for example, or if someone did a lot of copy-pasting to assemble a spreadsheet (yikes!). We can check this pretty quickly</p>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># check for duplicate rows in the data</span></span>
-<span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># produces a list of TRUE/FALSE statements for duplicated or not</span></span>
+<span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># produces a list of TRUE/FALSE statements for duplicated or not</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># sums all the TRUE statements</span></span></code></pre></div>
 <pre><code>[1] 0</code></pre>
 <p>Great!</p>
 </div>
-<div id="summarise" class="section level3" number="4.5.2">
+<div id="summarise" class="section level3" number="5.4.2">
 <h3>
-<span class="header-section-number">4.5.2</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.4.2</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can also explore our data for very obvious typos by checking for implausibly small or large values, this is a simple use of the <code>summarise</code> function.</p>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># use summarise to make calculations</span></span>
-<span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>min<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, </span>
 <span>            max<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The minimum weight for our penguins is 2.7kg, and the max is 6.3kg - not outrageous. If the min had come out at 27g we might have been suspicious. We will use <code>summarise</code> again to calculate other metrics in the future.</p>
@@ -578,46 +677,79 @@ our dataset is nearly half the size of the largest penguin.
 </p>
 </div>
 </div>
-<div id="group-by" class="section level3" number="4.5.3">
+<div id="group-by" class="section level3" number="5.4.3">
 <h3>
-<span class="header-section-number">4.5.3</span> Group By<a class="anchor" aria-label="anchor" href="#group-by"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.4.3</span> Group By<a class="anchor" aria-label="anchor" href="#group-by"><i class="fas fa-link"></i></a>
 </h3>
 <p>Many data analysis tasks can be approached using the “split-apply-combine” paradigm: split the data into groups, apply some analysis to each group, and then combine the results. <code>dplyr</code> makes this very easy with the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function. In the <code>summarise</code> example above we were able to find the max-min body mass values for the penguins in our dataset. But what if we wanted to break that down by a grouping such as species of penguin. This is where <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> comes in.</p>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># subsequent functions are perform "by group"</span></span>
+<div class="tab">
+<button class="tablinksunnamed-chunk-53 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-53', 'unnamed-chunk-53');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-53" onclick="javascript:openCode(event, 'option2unnamed-chunk-53', 'unnamed-chunk-53');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Things start to get more complicated with Base R</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">body_mass_g</span>, <span class="va">penguins</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, args <span class="op">=</span> <span class="va">_</span> <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># subsequent functions are perform "by group"</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>min<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, </span>
 <span>            max<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Now we know a little more about our data, the max weight of our Gentoo penguins is much larger than the other two species. In fact, the minimum weight of a Gentoo penguin is not far off the max weight of the other two species.</p>
 </div>
-<div id="distinct" class="section level3" number="4.5.4">
+<script> javascript:hide('option2unnamed-chunk-53') </script><p>Now we know a little more about our data, the max weight of our Gentoo penguins is much larger than the other two species. In fact, the minimum weight of a Gentoo penguin is not far off the max weight of the other two species.</p>
+</div>
+<div id="distinct" class="section level3" number="5.4.4">
 <h3>
-<span class="header-section-number">4.5.4</span> Distinct<a class="anchor" aria-label="anchor" href="#distinct"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.4.4</span> Distinct<a class="anchor" aria-label="anchor" href="#distinct"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can also look for typos by asking R to produce all of the distinct values in a variable. This is more useful for categorical data, where we expect there to be only a few distinct categories</p>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span></span></code></pre></div>
-<p>Here if someone had mistyped e.g. 'FMALE' it would be obvious. We could do the same thing (and probably should have before we changed the names) for species.</p>
+<div class="tab">
+<button class="tablinksunnamed-chunk-54 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-54', 'unnamed-chunk-54');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-54" onclick="javascript:openCode(event, 'option2unnamed-chunk-54', 'unnamed-chunk-54');">
+<tt>tidyverse</tt>
+</button>
 </div>
-<div id="missing-values-na" class="section level3" number="4.5.5">
+<div id="option1unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">penquins</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span> <span class="co"># only works on vectord</span></span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span></span></code></pre></div>
+</div>
+<script> javascript:hide('option2unnamed-chunk-54') </script><p>Here if someone had mistyped e.g. 'FMALE' it would be obvious. We could do the same thing (and probably should have before we changed the names) for species.</p>
+</div>
+<div id="missing-values-na" class="section level3" number="5.4.5">
 <h3>
-<span class="header-section-number">4.5.5</span> Missing values: NA<a class="anchor" aria-label="anchor" href="#missing-values-na"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.4.5</span> Missing values: NA<a class="anchor" aria-label="anchor" href="#missing-values-na"><i class="fas fa-link"></i></a>
 </h3>
 <p>There are multiple ways to check for missing values in our data</p>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get a sum of how many observations are missing in our dataframe</span></span>
-<span><span class="va">penguins</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>But this doesn't tell us where these are, fortunately the function <code>summary</code> does this easily</p>
 </div>
 </div>
-<div id="summary" class="section level2" number="4.6">
+<div id="summary" class="section level2" number="5.5">
 <h2>
-<span class="header-section-number">4.6</span> <code>Summary</code><a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.5</span> <code>Summary</code><a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># produce a summary of our data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
 <span><span class="co">#__________________________----</span></span></code></pre></div>
@@ -625,17 +757,17 @@ our dataset is nearly half the size of the largest penguin.
 <p>We will leave the NA's alone for now, but it's useful to know how many we have.</p>
 <p>We've now got a clean &amp; tidy dataset, with a handful of first insights into the data.</p>
 </div>
-<div id="finished" class="section level2" number="4.7">
+<div id="finished" class="section level2" number="5.6">
 <h2>
-<span class="header-section-number">4.7</span> Finished<a class="anchor" aria-label="anchor" href="#finished"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.6</span> Finished<a class="anchor" aria-label="anchor" href="#finished"><i class="fas fa-link"></i></a>
 </h2>
 <p>That was a lot of work! But remember you don't have to remember all of these functions, remember this chapter when you do more data wrangling in the future. Also bookmark the <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheatsheets Page</a>.</p>
-<p>Finally, make sure you have saved the changes made to your script 💾 &amp; make sure your workspace is set <strong>not</strong> to save objects from the environment <a href="r-basics.html#global-options"><em>between</em> sessions</a>.</p>
+<p>Finally, make sure you have saved the changes made to your script 💾 &amp; make sure your workspace is set <strong>not</strong> to save objects from the environment <a href="r-basics-1.html#global-options"><em>between</em> sessions</a>.</p>
 <p>We want our script to be our record of work and progress, and not to be confused by a cluttered R Environment.</p>
 </div>
-<div id="activity-reorganise-this-script" class="section level2" number="4.8">
+<div id="activity-reorganise-this-script" class="section level2" number="5.7">
 <h2>
-<span class="header-section-number">4.8</span> Activity: Reorganise this script<a class="anchor" aria-label="anchor" href="#activity-reorganise-this-script"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.7</span> Activity: Reorganise this script<a class="anchor" aria-label="anchor" href="#activity-reorganise-this-script"><i class="fas fa-link"></i></a>
 </h2>
 <p>Using the link below take the text and copy/paste into a <strong>new</strong> R script and save this as <code>YYYY_MM_DD_workshop_4_jumbled_script.R</code></p>
 <p>All of the correct lines of code, comments and document markers are present, but not in the correct order. Can you unscramble them to produce a sensible output and a clear document outline?</p>
@@ -834,35 +966,33 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></div>
-<div class="next"><a href="data-wrangling-part-two.html"><span class="header-section-number">5</span> Data wrangling part two</a></div>
+<div class="prev"><a href="loading-data.html"><span class="header-section-number">4</span> Loading data</a></div>
+<div class="next"><a href="data-wrangling-part-two.html"><span class="header-section-number">6</span> Data wrangling part two</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#data-wrangling-part-one"><span class="header-section-number">4</span> Data wrangling part one</a></li>
-<li><a class="nav-link" href="#activity-1-change-column-names"><span class="header-section-number">4.1</span> Activity 1: Change column names</a></li>
-<li><a class="nav-link" href="#check-data"><span class="header-section-number">4.2</span> Check data</a></li>
+<li><a class="nav-link" href="#data-wrangling-part-one"><span class="header-section-number">5</span> Data wrangling part one</a></li>
+<li><a class="nav-link" href="#activity-1-change-column-names"><span class="header-section-number">5.1</span> Activity 1: Change column names</a></li>
 <li>
-<a class="nav-link" href="#dplyr-verbs"><span class="header-section-number">4.3</span> dplyr verbs</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#select"><span class="header-section-number">4.3.1</span> Select</a></li>
-<li><a class="nav-link" href="#filter"><span class="header-section-number">4.3.2</span> Filter</a></li>
-<li><a class="nav-link" href="#arrange"><span class="header-section-number">4.3.3</span> Arrange</a></li>
-<li><a class="nav-link" href="#mutate"><span class="header-section-number">4.3.4</span> Mutate</a></li>
+<a class="nav-link" href="#check-data"><span class="header-section-number">5.2</span> Check data</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#filter"><span class="header-section-number">5.2.1</span> Filter</a></li>
+<li><a class="nav-link" href="#arrange"><span class="header-section-number">5.2.2</span> Arrange</a></li>
+<li><a class="nav-link" href="#mutate"><span class="header-section-number">5.2.3</span> Mutate</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#pipes"><span class="header-section-number">4.4</span> Pipes</a></li>
+<li><a class="nav-link" href="#pipes"><span class="header-section-number">5.3</span> Pipes</a></li>
 <li>
-<a class="nav-link" href="#a-few-more-handy-functions"><span class="header-section-number">4.5</span> A few more handy functions</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#check-for-duplication"><span class="header-section-number">4.5.1</span> Check for duplication</a></li>
-<li><a class="nav-link" href="#summarise"><span class="header-section-number">4.5.2</span> Summarise</a></li>
-<li><a class="nav-link" href="#group-by"><span class="header-section-number">4.5.3</span> Group By</a></li>
-<li><a class="nav-link" href="#distinct"><span class="header-section-number">4.5.4</span> Distinct</a></li>
-<li><a class="nav-link" href="#missing-values-na"><span class="header-section-number">4.5.5</span> Missing values: NA</a></li>
+<a class="nav-link" href="#a-few-more-handy-functions"><span class="header-section-number">5.4</span> A few more handy functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#check-for-duplication"><span class="header-section-number">5.4.1</span> Check for duplication</a></li>
+<li><a class="nav-link" href="#summarise"><span class="header-section-number">5.4.2</span> Summarise</a></li>
+<li><a class="nav-link" href="#group-by"><span class="header-section-number">5.4.3</span> Group By</a></li>
+<li><a class="nav-link" href="#distinct"><span class="header-section-number">5.4.4</span> Distinct</a></li>
+<li><a class="nav-link" href="#missing-values-na"><span class="header-section-number">5.4.5</span> Missing values: NA</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#summary"><span class="header-section-number">4.6</span> Summary</a></li>
-<li><a class="nav-link" href="#finished"><span class="header-section-number">4.7</span> Finished</a></li>
-<li><a class="nav-link" href="#activity-reorganise-this-script"><span class="header-section-number">4.8</span> Activity: Reorganise this script</a></li>
+<li><a class="nav-link" href="#summary"><span class="header-section-number">5.5</span> Summary</a></li>
+<li><a class="nav-link" href="#finished"><span class="header-section-number">5.6</span> Finished</a></li>
+<li><a class="nav-link" href="#activity-reorganise-this-script"><span class="header-section-number">5.7</span> Activity: Reorganise this script</a></li>
 </ul>
 
       <div class="book-extra">
@@ -880,7 +1010,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-21.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

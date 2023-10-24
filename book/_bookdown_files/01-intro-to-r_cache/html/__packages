@@ -1,4 +1,3 @@
-base
 extrafont
 tidyverse
 ggplot2
@@ -17,3 +16,4 @@ xml2
 kableExtra
 glossary
 palmerpenguins
+lubridate

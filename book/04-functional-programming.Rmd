@@ -1,6 +1,6 @@
 # (PART\*) Functional Programming {.unnumbered}
 
-# 2. Functional programming in R: 
+# Functional programming in R: 
 
 Functional programming is an important concept, and it's great that you're dedicating a session to it. Covering loops, apply functions, and other functional programming principles will help participants write more efficient and concise code.
 
