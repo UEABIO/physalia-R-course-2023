@@ -294,7 +294,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">""</span>,</span>
 <span>       y <span class="op">=</span> <span class="st">"Count"</span>,</span>
 <span>       title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span></span>
-<span>         <span class="st">'There are almost half the observations on &lt;span style = "color:#A034F0"&gt;Chinstrap&lt;/span&gt; penguins, &lt;br&gt; as there are on &lt;span style = "color:#FF8C00"&gt;Adelie&lt;/span&gt; and &lt;span style ="color:#159090"&gt;Gentoo&lt;/span&gt;penguins'</span></span>
+<span>         <span class="st">'There are almost half the observations on &lt;br&gt; &lt;span style = "color:#A034F0"&gt;Chinstrap&lt;/span&gt; penguins,  as there are &lt;br&gt; on &lt;span style = "color:#FF8C00"&gt;Adelie&lt;/span&gt; and &lt;span style ="color:#159090"&gt;Gentoo&lt;/span&gt;penguins'</span></span>
 <span>       <span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span></span>
 <span>    <span class="co"># when reordering levels - be careful about keeping colours consistent</span></span>
@@ -303,8 +303,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span>        axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span></span>
-<span>      color <span class="op">=</span> <span class="va">pal</span>,</span>
-<span>      size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>,</span>
+<span>      color <span class="op">=</span> <span class="va">pal</span><span class="op">)</span>,</span>
 <span>      plot.title <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="80%" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
@@ -391,7 +390,7 @@
 <span>  <span class="fu">ggtext</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/ggtext/reference/geom_textbox.html">geom_textbox</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">label</span><span class="op">)</span>,    <span class="co"># Map the 'label' column from the 'text' data to the text labels</span></span>
 <span>    box.color <span class="op">=</span> <span class="cn">NA</span>,         <span class="co"># Make the text box border color transparent</span></span>
-<span>    width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">15</span>, <span class="st">"lines"</span><span class="op">)</span>,  <span class="co"># Set the width of the text boxes to 15 lines</span></span>
+<span>    width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">10</span>, <span class="st">"lines"</span><span class="op">)</span>,  <span class="co"># Set the width of the text boxes to 15 lines</span></span>
 <span>    color <span class="op">=</span> <span class="st">"grey40"</span>,       <span class="co"># Set the text color to a light gray</span></span>
 <span>    size <span class="op">=</span> <span class="fl">3</span>,             <span class="co"># Set the text size to 4 (adjust as needed)</span></span>
 <span>    lineheight <span class="op">=</span> <span class="fl">1.4</span>        <span class="co"># Set the line height for text within the boxes</span></span>

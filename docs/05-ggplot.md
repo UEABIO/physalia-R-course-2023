@@ -1009,7 +1009,7 @@ ggplot(aes(x = species,
   labs(x = "",
        y = "Count",
        title = paste(
-         'There are almost half the observations on <span style = "color:#A034F0">Chinstrap</span> penguins, <br> as there are on <span style = "color:#FF8C00">Adelie</span> and <span style ="color:#159090">Gentoo</span>penguins'
+         'There are almost half the observations on <br> <span style = "color:#A034F0">Chinstrap</span> penguins,  as there are <br> on <span style = "color:#FF8C00">Adelie</span> and <span style ="color:#159090">Gentoo</span>penguins'
        ))+
   scale_fill_manual(
     # when reordering levels - be careful about keeping colours consistent
@@ -1018,8 +1018,7 @@ ggplot(aes(x = species,
   scale_y_continuous(limits = c(0, 200))+
   theme(legend.position = "none",
         axis.text.y = element_text(
-      color = pal,
-      size = 8),
+      color = pal),
       plot.title = element_markdown())
 ```
 
@@ -1115,7 +1114,7 @@ pt <- ggplot(text, aes(x = x, y = y)) +
   ggtext::geom_textbox(
     aes(label = label),    # Map the 'label' column from the 'text' data to the text labels
     box.color = NA,         # Make the text box border color transparent
-    width = unit(15, "lines"),  # Set the width of the text boxes to 15 lines
+    width = unit(10, "lines"),  # Set the width of the text boxes to 15 lines
     color = "grey40",       # Set the text color to a light gray
     size = 3,             # Set the text size to 4 (adjust as needed)
     lineheight = 1.4        # Set the line height for text within the boxes
