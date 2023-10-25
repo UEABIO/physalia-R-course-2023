@@ -294,7 +294,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">""</span>,</span>
 <span>       y <span class="op">=</span> <span class="st">"Count"</span>,</span>
 <span>       title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span></span>
-<span>         <span class="st">'There are almost half the observations on &lt;span style = "color:#FF8C00"&gt;Adelie&lt;/span&gt; penguins &lt;br&gt; as there are on &lt;span style ="color:#159090"&gt;Gentoo&lt;/span&gt;, and &lt;span style = "color:#A034F0"&gt;Chinstrap&lt;/span&gt; penguins'</span></span>
+<span>         <span class="st">'There are almost half the observations on &lt;span style = "color:#A034F0"&gt;Chinstrap&lt;/span&gt; penguins, &lt;br&gt; as there are on &lt;span style = "color:#FF8C00"&gt;Adelie&lt;/span&gt; and &lt;span style ="color:#159090"&gt;Gentoo&lt;/span&gt;penguins'</span></span>
 <span>       <span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span></span>
 <span>    <span class="co"># when reordering levels - be careful about keeping colours consistent</span></span>
@@ -304,9 +304,9 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span>        axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span></span>
 <span>      color <span class="op">=</span> <span class="va">pal</span>,</span>
-<span>      size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>,</span>
+<span>      size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>,</span>
 <span>      plot.title <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="80%" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ggbump</span><span class="op">)</span></span>
 <span></span>
@@ -393,7 +393,7 @@
 <span>    box.color <span class="op">=</span> <span class="cn">NA</span>,         <span class="co"># Make the text box border color transparent</span></span>
 <span>    width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">15</span>, <span class="st">"lines"</span><span class="op">)</span>,  <span class="co"># Set the width of the text boxes to 15 lines</span></span>
 <span>    color <span class="op">=</span> <span class="st">"grey40"</span>,       <span class="co"># Set the text color to a light gray</span></span>
-<span>    size <span class="op">=</span> <span class="fl">4</span>,             <span class="co"># Set the text size to 4 (adjust as needed)</span></span>
+<span>    size <span class="op">=</span> <span class="fl">3</span>,             <span class="co"># Set the text size to 4 (adjust as needed)</span></span>
 <span>    lineheight <span class="op">=</span> <span class="fl">1.4</span>        <span class="co"># Set the line height for text within the boxes</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># Customize the plot coordinate system</span></span>
@@ -406,10 +406,10 @@
 <div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-69-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">layout</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
-<span><span class="st">AACC</span></span>
-<span><span class="st">AACC</span></span>
-<span><span class="st">BBDD</span></span>
-<span><span class="st">BBDD</span></span>
+<span><span class="st">AACCC</span></span>
+<span><span class="st">AACCC</span></span>
+<span><span class="st">BBDDD</span></span>
+<span><span class="st">BBDDD</span></span>
 <span><span class="st">"</span></span>
 <span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">penguins</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span> <span class="va">culmen_length_mm</span>, </span>

@@ -1009,7 +1009,7 @@ ggplot(aes(x = species,
   labs(x = "",
        y = "Count",
        title = paste(
-         'There are almost half the observations on <span style = "color:#FF8C00">Adelie</span> penguins <br> as there are on <span style ="color:#159090">Gentoo</span>, and <span style = "color:#A034F0">Chinstrap</span> penguins'
+         'There are almost half the observations on <span style = "color:#A034F0">Chinstrap</span> penguins, <br> as there are on <span style = "color:#FF8C00">Adelie</span> and <span style ="color:#159090">Gentoo</span>penguins'
        ))+
   scale_fill_manual(
     # when reordering levels - be careful about keeping colours consistent
@@ -1019,11 +1019,11 @@ ggplot(aes(x = species,
   theme(legend.position = "none",
         axis.text.y = element_text(
       color = pal,
-      size = 14),
+      size = 8),
       plot.title = element_markdown())
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="80%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1117,7 +1117,7 @@ pt <- ggplot(text, aes(x = x, y = y)) +
     box.color = NA,         # Make the text box border color transparent
     width = unit(15, "lines"),  # Set the width of the text boxes to 15 lines
     color = "grey40",       # Set the text color to a light gray
-    size = 4,             # Set the text size to 4 (adjust as needed)
+    size = 3,             # Set the text size to 4 (adjust as needed)
     lineheight = 1.4        # Set the line height for text within the boxes
   ) +
   # Customize the plot coordinate system
@@ -1135,10 +1135,10 @@ pt
 
 ```r
 layout <- "
-AACC
-AACC
-BBDD
-BBDD
+AACCC
+AACCC
+BBDDD
+BBDDD
 "
 
 p1 <- ggplot(penguins, aes(x= culmen_length_mm, 
