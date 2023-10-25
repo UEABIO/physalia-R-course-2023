@@ -1336,7 +1336,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_XLEQMQWUDI'><label><input type="radio" autocomplete="off" name="radio_XLEQMQWUDI" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_XLEQMQWUDI" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_XLEQMQWUDI" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_XLEQMQWUDI" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_WHMGVBMWZQ'><label><input type="radio" autocomplete="off" name="radio_WHMGVBMWZQ" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_WHMGVBMWZQ" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_WHMGVBMWZQ" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_WHMGVBMWZQ" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -1445,7 +1445,8 @@ penguins$flipper_range <- factor(penguins$flipper_range)
 ```r
 penguins <- penguins |> 
   mutate(flipper_range = fct_relevel(flipper_range))
-```</div><script> javascript:hide('option2unnamed-chunk-85') </script>
+```
+</div><script> javascript:hide('option2unnamed-chunk-85') </script>
 
 
 

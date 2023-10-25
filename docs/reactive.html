@@ -4,19 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 17 Reactive | Introduction to Statistics</title>
+<title>Chapter 21 Reactive | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="Error in filter(., species == input$species) :  ℹ In argument: `species == input$species`. Caused by error in `input$species`: ! Can't access reactive value 'species' outside of reactive consumer....">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 17 Reactive | Introduction to Statistics">
+<meta property="og:title" content="Chapter 21 Reactive | Advancing in R">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/reactive.html">
-<meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
+<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/reactive.html">
+<meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="Error in filter(., species == input$species) :  ℹ In argument: `species == input$species`. Caused by error in `input$species`: ! Can't access reactive value 'species' outside of reactive consumer....">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 17 Reactive | Introduction to Statistics">
+<meta name="twitter:title" content="Chapter 21 Reactive | Advancing in R">
 <meta name="twitter:description" content="Error in filter(., species == input$species) :  ℹ In argument: `species == input$species`. Caused by error in `input$species`: ! Can't access reactive value 'species' outside of reactive consumer....">
-<meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
+<meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -97,7 +97,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="A guide for Biologists and Ecologists">Introduction to Statistics</a>:
+        <a href="index.html" title="A guide for Biologists and Ecologists">Advancing in R</a>:
         <small class="text-muted">A guide for Biologists and Ecologists</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
@@ -121,32 +121,36 @@
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
 <li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
 <li class="book-part">Functional Programming</li>
-<li><a class="" href="functional-programming-in-r.html"><span class="header-section-number">7</span> Functional programming in R:</a></li>
+<li><a class="" href="writing-functions.html"><span class="header-section-number">7</span> Writing Functions</a></li>
+<li><a class="" href="flow-control.html"><span class="header-section-number">8</span> Flow control</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">9</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">10</span> Purrr</a></li>
+<li><a class="" href="bonus-simulation.html"><span class="header-section-number">11</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="getting-the-most-out-of-tidyverse.html"><span class="header-section-number">8</span> Getting the most out of tidyverse</a></li>
+<li><a class="" href="getting-the-most-out-of-tidyverse.html"><span class="header-section-number">12</span> Getting the most out of tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">9</span> Data visualisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">10</span> Extensions for ggplot2</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">11</span> Making tables with gt</a></li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">13</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">14</span> Extensions for ggplot2</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">15</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">12</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">13</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">14</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">15</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">16</span> Outputs</a></li>
-<li><a class="active" href="reactive.html"><span class="header-section-number">17</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">18</span> Customising</a></li>
-<li><a class="" href="modules.html"><span class="header-section-number">19</span> Modules</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">20</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">16</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">17</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">18</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">19</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">20</span> Outputs</a></li>
+<li><a class="active" href="reactive.html"><span class="header-section-number">21</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">22</span> Customising</a></li>
+<li><a class="" href="modules.html"><span class="header-section-number">23</span> Modules</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">24</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="markdown.html"><span class="header-section-number">21</span> Markdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">22</span> Github</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">25</span> Markdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">26</span> Github</a></li>
 <li class="book-part">R Programming</li>
-<li><a class="" href="functions-1.html"><span class="header-section-number">23</span> Functions</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">24</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">25</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">26</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">27</span> R Basics</a></li>
+<li><a class="" href="functions-1.html"><span class="header-section-number">27</span> Functions</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">28</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">29</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">30</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">31</span> R Basics</a></li>
 </ul>
 
         <div class="book-extra">
@@ -154,9 +158,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="reactive" class="section level1" number="17">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="reactive" class="section level1" number="21">
 <h1>
-<span class="header-section-number">17</span> Reactive<a class="anchor" aria-label="anchor" href="#reactive"><i class="fas fa-link"></i></a>
+<span class="header-section-number">21</span> Reactive<a class="anchor" aria-label="anchor" href="#reactive"><i class="fas fa-link"></i></a>
 </h1>
 <pre><code>Error in filter(., species == input$species) : 
   ℹ In argument: `species == input$species`.
@@ -164,7 +168,7 @@ Caused by error in `input$species`:
 ! Can't access reactive value 'species' outside of reactive consumer.
 ℹ Do you need to wrap inside reactive() or observe()?
 </code></pre>
-<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -244,7 +248,7 @@ Caused by error in `input$species`:
 <span></span>
 <span><span class="co"># Run the app ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -330,13 +334,13 @@ Caused by error in `input$species`:
 <span><span class="co"># Run the app ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <p>My most common error is trying to use data or title as an object instead of as a function. Notice how the first argument to ggplot is no longer data, but data() and you set the value of data with data(newdata), not data &lt;- newdata. For now, just remember this as a quirk of shiny.</p>
-<div id="observable" class="section level2" number="17.1">
+<div id="observable" class="section level2" number="21.1">
 <h2>
-<span class="header-section-number">17.1</span> Observable<a class="anchor" aria-label="anchor" href="#observable"><i class="fas fa-link"></i></a>
+<span class="header-section-number">21.1</span> Observable<a class="anchor" aria-label="anchor" href="#observable"><i class="fas fa-link"></i></a>
 </h2>
 <p>What if you only want to update things when an update button is clicked, and not whenever the user changes an option?</p>
 <p><code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent()</a></code>. This function runs the code whenever the value of the first argument changes. If there are reactive values inside the function, they won't trigger the code to run when they change.</p>
-<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -610,13 +614,13 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="outputs.html"><span class="header-section-number">16</span> Outputs</a></div>
-<div class="next"><a href="customising.html"><span class="header-section-number">18</span> Customising</a></div>
+<div class="prev"><a href="outputs.html"><span class="header-section-number">20</span> Outputs</a></div>
+<div class="next"><a href="customising.html"><span class="header-section-number">22</span> Customising</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#reactive"><span class="header-section-number">17</span> Reactive</a></li>
-<li><a class="nav-link" href="#observable"><span class="header-section-number">17.1</span> Observable</a></li>
+<li><a class="nav-link" href="#reactive"><span class="header-section-number">21</span> Reactive</a></li>
+<li><a class="nav-link" href="#observable"><span class="header-section-number">21.1</span> Observable</a></li>
 </ul>
 
       <div class="book-extra">
@@ -634,7 +638,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-25.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

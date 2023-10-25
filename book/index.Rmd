@@ -1,5 +1,5 @@
 --- 
-title: "Introduction to Statistics"
+title: "Advancing in R"
 author: "Philip T. Leftwich"
 date: "`r Sys.Date()`"
 subtitle: A guide for Biologists and Ecologists
@@ -13,8 +13,8 @@ csl: include/apa.csl
 link-citations: yes
 description: |
   This book ...
-url: https://ueabio.github.io/physalia-intro-stats-2023/
-github-repo: UEABIO/physalia-intro-stats-2023
+url: https://ueabio.github.io/physalia-R-course-2023/
+github-repo: UEABIO/physalia-R-course-2023
 cover-image: images/logos/twitter_card.png
 apple-touch-icon: images/logos/apple-touch-icon.png
 apple-touch-icon-size: 180

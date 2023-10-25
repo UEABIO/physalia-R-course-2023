@@ -1,5 +1,4 @@
 
-
 HUGE DATAFRAMES
 SIMULATIONS
 MAPS???
@@ -29,15 +28,56 @@ Complex debugging: https://rstats.wtf/debugging-r
 - Basic R - nuts and bolts,
 - Reading data in and out,
 - Subsetting
+- Debugging - reprex??? https://github.com/luisDVA/physalia-gtmoR-course
 - Managing dataframes - dplyr, Basic tidyverse
+- IMPROVING R CODE - Exercises????
 - BONUS - exploratory data analysis
 
 - Control structures
 - Functions?
 
+Brief overview of R and its applications in data analysis and programming.
+Introduction to RStudio as an integrated development environment (IDE) for R.
+Navigating the RStudio interface: scripts, console, environment, and plots.
+Objects, Variables, and Data Types (1 hour)
+
+Understanding the concept of objects in R: vectors, matrices, data frames, lists.
+Assigning values to variables and creating different data types.
+Basic operations with objects: arithmetic, indexing, and subsetting.
+Good Coding Practices and Style (1 hour)
+
+Importance of clean and readable code.
+Naming conventions for variables, functions, and objects.
+Indentation, spacing, and commenting for code clarity.
+TIDYVERSE STYLE GUIDE
+
+Control Flow: If-Else Statements (1 hour)
+
+Introduction to control structures for conditional execution.
+Writing if-else statements for decision-making in code.
+Handling multiple conditions using nested if-else statements.
+Writing Functions in R (1 hour)
+
+Understanding the role and benefits of functions in programming.
+Creating custom functions using the function() keyword.
+Passing arguments to functions and returning values.
+Best practices for function design and documentation.
+Hands-On Exercises and Practice (30 minutes)
+
+Interactive coding exercises to reinforce concepts learned.
+Applying if-else statements and writing basic functions.
+Encouraging participants to practice coding in RStudio.
+Summary and Q&A (30 minutes)
+
+
+
 # 2. Functional programming in R: Functional programming is an important concept, and it's great that you're dedicating a session to it. Covering loops, apply functions, and other functional programming principles will help participants write more efficient and concise code.
 
 Good simple intro: https://github.com/tomjemmett/nhs-r_conf_21-fp_workshop
+
+https://modern-rstats.eu/defining-your-own-functions.html
+
+?? https://advanced-r-solutions.rbind.io/functionals.html
 
 Wickham: 
 https://dcl-prog.stanford.edu/
@@ -50,7 +90,6 @@ https://github.com/luisDVA/physalia-gtmoR-course
 https://www.r4epi.com/introduction-to-repeated-operations
 
 Faster loops: https://bookdown.org/content/d1e53ac9-28ce-472f-bc2c-f499f18264a3/speedtips.html
-
 
 Simulations: https://rstudio-education.github.io/hopr/
 
