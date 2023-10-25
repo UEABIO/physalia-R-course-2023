@@ -976,7 +976,7 @@ ggplot(aes(x = species,
   scale_y_continuous(limits = c(0, 200))+
   theme(legend.position = "none",
         axis.text.y = element_text(
-      color = pal),
+      color = c("#FF8C00", "#159090", "#A034F0")),
       plot.title = element_markdown())
 
 ```
