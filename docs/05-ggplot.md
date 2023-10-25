@@ -852,7 +852,81 @@ You have learned
 
 # Extensions for ggplot2
 
+- ggdist
+- ggridges
+- ggdensity
+- ggbump
+- gghighlight
+- text: geomtextpath, ggforce, ggtext
+- patchwork
+
+- functions on ggplot
+
 https://allancameron.github.io/geomtextpath/
+
+
+### GGdist
+
+#### Rainclouds
+
+
+```r
+library(ggdist)
+
+penguins |> 
+    ggplot(aes(x = species,
+               y = culmen_length_mm,
+              fill = species)) +
+  ggdist::stat_halfeye(
+    point_colour = NA,
+    .width = 0,
+    # shift raincloud up
+    justification = -.2)+
+  geom_boxplot(# remove outlier dots
+    outlier.shape = NA,
+    # shrink width of box
+    alpha = .4,
+    # fade box
+               width = .1)+
+  ggdist::stat_dots(aes(colour = species),
+                  # put dots underneath
+                    side = "left",
+                  # move position down
+                    justification = 1.1,
+                  # size of dots 
+                    dotsize = .2,
+                    
+                  # adjust bins (grouping) of dots
+                    binwidth = .4)+
+  scale_fill_manual(values = pal) +
+  scale_colour_manual(values = pal)+
+  guides(fill = "none")+
+  coord_flip() # rotate figure
+```
+
+<img src="05-ggplot_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+#### Interval stats
+
+
+```r
+penguins |> 
+  drop_na(sex) |> 
+    ggplot(aes(x = species,
+               y = culmen_length_mm))+
+  ggdist::stat_interval(.width = c(.5, .66, .95))+
+  ggdist::stat_halfeye(aes(fill = sex),
+                       .width = 0,
+                       shape = 21,
+                       colour = "white",
+                       slab_alpha = .4,
+                       size = .5,
+                       position = position_nudge(x = .05))+
+  scale_color_viridis_d(option = "mako", direction = -1, end = .9)
+```
+
+<img src="05-ggplot_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -866,7 +940,7 @@ penguins |>
   theme(legend.position = "none")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-ggplot_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;" />
 
 ggridges! 
 
@@ -879,10 +953,12 @@ penguins |>
                y = species,
                fill = species)) +
   geom_density_ridges() + # use hjust and vjust to position text
+  scale_fill_manual(values = pal) +
+  scale_colour_manual(values = pal)+
   theme(legend.position = "none")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-ggplot_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -905,7 +981,7 @@ ggplot(summary_counts,
        y = "")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-ggplot_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" />
 
 Coloured titles! 
 
@@ -933,19 +1009,21 @@ ggplot(aes(x = species,
   labs(x = "",
        y = "Count",
        title = paste(
-         'There are almost half the observations on <span style = "color:#159090">Adelie</span> penguins <br> as there are on <span style ="color:#A034F0">Gentoo</span>, and <span style = "color:#FF8C00">Chinstrap</span> penguins'
+         'There are almost half the observations on <span style = "color:#FF8C00">Adelie</span> penguins <br> as there are on <span style ="color:#159090">Gentoo</span>, and <span style = "color:#A034F0">Chinstrap</span> penguins'
        ))+
   scale_fill_manual(
-    values = pal)+
+    # when reordering levels - be careful about keeping colours consistent
+    values = c("#FF8C00", "#159090", "#A034F0"))+
   coord_flip()+
+  scale_y_continuous(limits = c(0, 200))+
   theme(legend.position = "none",
         axis.text.y = element_text(
       color = pal,
-      size = 18),
+      size = 14),
       plot.title = element_markdown())
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -971,11 +1049,30 @@ penguin_summary |>
             size = 5)+
   scale_x_continuous(limits = c(2007, 2009.5),
                      breaks = (2007:2009))+
-  theme(legend.position = "none")+
-  labs(y = "Total number of complete clutches")
+  labs(y = "Total number of complete clutches")+
+  scale_fill_manual(values = pal) +
+  scale_colour_manual(values = pal)+
+  theme(legend.position = "none")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-ggplot_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;" />
+
+### Density
+
+
+```r
+library(ggdensity)
+
+penguins |>  
+    ggplot(aes(x = culmen_length_mm, 
+               y = culmen_depth_mm,
+               colour = species)) +
+  geom_point(alpha = .2) +
+  ggdensity::geom_hdr_lines()+
+   scale_colour_manual(values = pal)
+```
+
+<img src="05-ggplot_files/figure-html/unnamed-chunk-66-1.png" width="100%" style="display: block; margin: auto;" />
 
 gghiglight
 
@@ -990,6 +1087,112 @@ maps!
 
 ## Layouts and compositions
 
+Patchwork, text and images!!!!
+
+
+
+
+```r
+library(patchwork)
+library(png)
+library(ggpubr)
+
+penguin_pic <- png::readPNG("images/lter_penguins.png")
+
+penguin_fig <- ggplot() +
+  background_image(penguin_pic)
+```
+
+
+```r
+text <- tibble(
+  x = 0, y = 0, label = 'Simpsons Paradox is a statistical phenomenon where an association between two variables in a population emerges, disappears or reverses when the population is divided into subpopulations such as <span style = "color:#FF8C00">Adelie</span>, <span style ="color:#159090">Gentoo</span>, and <span style = "color:#A034F0">Chinstrap</span> penguin species'
+)
+
+
+
+pt <- ggplot(text, aes(x = x, y = y)) +
+  ggtext::geom_textbox(
+    aes(label = label),    # Map the 'label' column from the 'text' data to the text labels
+    box.color = NA,         # Make the text box border color transparent
+    width = unit(15, "lines"),  # Set the width of the text boxes to 15 lines
+    color = "grey40",       # Set the text color to a light gray
+    size = 4,             # Set the text size to 4 (adjust as needed)
+    lineheight = 1.4        # Set the line height for text within the boxes
+  ) +
+  # Customize the plot coordinate system
+  coord_cartesian(expand = FALSE, clip = "off") +
+
+  # Apply a theme with a blank (void) background
+  theme_void()
+
+pt
+```
+
+<img src="05-ggplot_files/figure-html/unnamed-chunk-69-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+
+```r
+layout <- "
+AACC
+AACC
+BBDD
+BBDD
+"
+
+p1 <- ggplot(penguins, aes(x= culmen_length_mm, 
+                     y= culmen_depth_mm)) +
+    geom_point()+
+  geom_smooth(method="lm",
+              se=FALSE)+
+  theme(legend.position="none")+
+    labs(x="Bill length (mm)",
+         y="Bill depth (mm)")
+
+p2 <- ggplot(penguins, aes(x= culmen_length_mm, 
+                     y= culmen_depth_mm,
+                     colour=species)) +
+    geom_point()+
+  geom_smooth(method="lm",
+              se=FALSE)+
+  scale_colour_manual(values=pal)+
+  theme(legend.position="none")+
+    labs(x="Bill length (mm)",
+         y="Bill depth (mm)")
+
+p1 + p2 + pt +  penguin_fig + 
+  plot_layout(design = layout)
+```
+
+<img src="05-ggplot_files/figure-html/unnamed-chunk-70-1.png" width="100%" style="display: block; margin: auto;" />
+
+## Activity: Create a Publication-Style Multi-Panel Figure
+
+Objective: Design and create a multi-panel data visualization figure in the style of a research publication. This exercise will challenge your skills in data visualization, data manipulation, and creating complex figures.
+
+Steps:
+
+- Choose a Dataset: Select a dataset that is suitable for creating a multi-panel figure. It could be related to a scientific research topic, public data (e.g., from government sources or data repositories), or any other dataset that interests you.
+
+- Data Preprocessing: Use dplyr and tidyr to preprocess the data. You may need to aggregate, filter, or reshape the data to fit the structure you want for your figure.
+
+- Design the Figure: Decide on the structure of your multi-panel figure. You could create subplots or facets to represent different aspects of the data. For example, you might have multiple box plots, scatter plots, or other visualizations arranged in a grid.
+
+- Create the Plot: Use ggplot2 to create the individual panels or subplots. Customize the appearance of each panel, including labels, colors, and titles.
+
+- Combine the Panels: Use the patchwork package or another method to arrange the individual panels into a single figure. This may involve adjusting the layout, labeling, and legends to make the figure coherent.
+
+- Add Annotations: Add relevant annotations to the figure, such as titles, subtitles, captions, and any necessary notes to explain the data or results.
+
+- Customize the Theme: Apply a custom theme to the entire figure. You can modify fonts, colors, grid lines, and other elements to match the style of a publication.
+
+
+Tips:
+
+Plan your figure carefully, considering what story or message you want to convey.
+Experiment with different geoms, scales, and themes to achieve the desired visual effect.
+Use effective data visualization principles, such as avoiding misleading scales, providing clear labels and legends, and ensuring that the figure is accessible to a wide audience.
 
 # Making tables with gt
 

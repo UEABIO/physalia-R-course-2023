@@ -216,7 +216,7 @@ Encouraging participants to practice coding in RStudio.</p>
 <h3>
 <span class="header-section-number">26.7.1</span> Note use numbers<a class="anchor" aria-label="anchor" href="#note-use-numbers"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb542"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a vector representing the nucleotide bases A, T, C, and G</span></span>
 <span><span class="va">nucleotides</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"T"</span>, <span class="st">"C"</span>, <span class="st">"G"</span><span class="op">)</span></span>
 <span><span class="va">nucleotides</span></span></code></pre></div>
@@ -231,7 +231,7 @@ sample(x = nucleotides, size = 1)
 sample(x = nucleotides, size = 1)
 ## G</code></pre>
 <p>Every argument in every R function has a name. You can specify which data should be assigned to which argument by setting a name equal to data, as in the preceding code. This becomes important as you begin to pass multiple arguments to the same function; names help you avoid passing the wrong data to the wrong argument. However, using names is optional. You will notice that R users do not often use the name of the first argument in a function. So you might see the previous code written as:</p>
-<div class="sourceCode" id="cb539"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">nucleotides</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "G"</code></pre>
 <p>Often, the name of the first argument is not very descriptive, and it is usually obvious what the first piece of data refers to anyways.</p>
@@ -272,8 +272,8 @@ Type 'q()' to quit R.
 <span class="header-section-number">26.8</span> Typing commands at the R console<a class="anchor" aria-label="anchor" href="#firstcommand"><i class="fas fa-link"></i></a>
 </h2>
 <p>One of the easiest things you can do with R is use it as a simple calculator, so it's a good place to start. For instance, try typing <code>10 + 20</code>, and hitting enter.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Seriously. If you're in a position to do so, open up R and start typing. The simple act of typing it rather than &quot;just reading&quot; makes a big difference. It makes the concepts more concrete, and it ties the abstract ideas (programming and statistics) to the actual context in which you need to use them. Statistics is something you &lt;em&gt;do&lt;/em&gt;, not just something you read about in a textbook.&lt;/p&gt;"><sup>31</sup></a> When you do this, you've entered a <strong><em>command</em></strong>, and R will "execute" that command. What you see on screen now will be this:</p>
-<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="session-1-foundations-of-programming-in-r.html#cb543-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">20</span></span>
-<span id="cb543-2"><a href="session-1-foundations-of-programming-in-r.html#cb543-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">30</span></span></code></pre></div>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="session-1-foundations-of-programming-in-r.html#cb549-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">20</span></span>
+<span id="cb549-2"><a href="session-1-foundations-of-programming-in-r.html#cb549-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">30</span></span></code></pre></div>
 <p>Not a lot of surprises in this extract. But there's a few things worth talking about, even with such a simple example. Firstly, it's important that you understand how to read the extract. In this example, what <em>I</em> typed was the <code>10 + 20</code> part. I didn't type the <code>&gt;</code> symbol: that's just the R command prompt and isn't part of the actual command. And neither did I type the <code>[1] 30</code> part. That's what R printed out in response to my command.</p>
 <p>Secondly, it's important to understand how the output is formatted. Obviously, the correct answer to the sum <code>10 + 20</code> is <code>30</code>, and not surprisingly R has printed that out as part of its response. But it's also printed out this <code>[1]</code> part, which probably doesn't make a lot of sense to you right now. You're going to see that a lot. I'll talk about what this means in a bit more detail later on, but for now you can think of <code>[1] 30</code> as if R were saying "the answer to the 1st question you asked is 30". That's not quite the truth, but it's close enough for now. And in any case it's not really very interesting at the moment: we only asked R to calculate one thing, so obviously there's only one answer printed on the screen. Later on this will change, and the <code>[1]</code> part will start to make a bit more sense. For now, I just don't want you to get confused or concerned by it.</p>
 <div id="an-important-digression-about-formatting-1" class="section level3" number="26.8.1">
@@ -281,10 +281,10 @@ Type 'q()' to quit R.
 <span class="header-section-number">26.8.1</span> An important digression about formatting<a class="anchor" aria-label="anchor" href="#an-important-digression-about-formatting-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now that I've taught you these rules I'm going to change them pretty much immediately. That is because I want you to be able to copy code from the book directly into R if if you want to test things or conduct your own analyses. However, if you copy this kind of code (that shows the command prompt and the results) directly into R you will get an error</p>
-<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="session-1-foundations-of-programming-in-r.html#cb544-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">20</span></span>
-<span id="cb544-2"><a href="session-1-foundations-of-programming-in-r.html#cb544-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">30</span></span></code></pre></div>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="session-1-foundations-of-programming-in-r.html#cb550-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">20</span></span>
+<span id="cb550-2"><a href="session-1-foundations-of-programming-in-r.html#cb550-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">30</span></span></code></pre></div>
 <p>So instead, I'm going to provide code in a slightly different format so that it looks like this...</p>
-<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb551"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">10</span> <span class="op">+</span> <span class="fl">20</span></span></code></pre></div>
 <pre><code>## [1] 30</code></pre>
 <p>There are two main differences.</p>
@@ -295,7 +295,7 @@ Type 'q()' to quit R.
 </ul>
 <p>These two differences mean that if you’re working with an electronic version of the book, you can easily copy code out of the book and into the console.</p>
 <p>So for example if you copied the two lines of code from the book you'd get this</p>
-<div class="sourceCode" id="cb547"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb553"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">10</span> <span class="op">+</span> <span class="fl">20</span></span>
 <span><span class="co">## [1] 30</span></span></code></pre></div>
 <pre><code>## [1] 30</code></pre>
@@ -305,12 +305,12 @@ Type 'q()' to quit R.
 <span class="header-section-number">26.8.2</span> Be very careful to avoid typos<a class="anchor" aria-label="anchor" href="#be-very-careful-to-avoid-typos-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Before we go on to talk about other types of calculations that we can do with R, there's a few other things I want to point out. The first thing is that, while R is good software, it's still software. It's pretty stupid, and because it's stupid it can't handle typos. It takes it on faith that you meant to type <em>exactly</em> what you did type. For example, suppose that you forgot to hit the shift key when trying to type <code>+</code>, and as a result your command ended up being <code>10 = 20</code> rather than <code>10 + 20</code>. Here's what happens:</p>
-<div class="sourceCode" id="cb549"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb555"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">10</span> <span class="op">=</span> <span class="fl">20</span></span></code></pre></div>
 <pre><code>## Error in 10 = 20: invalid (do_set) left-hand side to assignment</code></pre>
 <p>What's happened here is that R has attempted to interpret <code>10 = 20</code> as a command, and spits out an error message because the command doesn't make any sense to it. When a <em>human</em> looks at this, and then looks down at his or her keyboard and sees that <code>+</code> and <code>=</code> are on the same key, it's pretty obvious that the command was a typo. But R doesn't know this, so it gets upset. And, if you look at it from its perspective, this makes sense. All that R "knows" is that <code>10</code> is a legitimate number, <code>20</code> is a legitimate number, and <code>=</code> is a legitimate part of the language too. In other words, from its perspective this really does look like the user meant to type <code>10 = 20</code>, since all the individual parts of that statement are legitimate and it's too stupid to realise that this is probably a typo. Therefore, R takes it on faith that this is exactly what you meant... it only "discovers" that the command is nonsense when it tries to follow your instructions, typo and all. And then it whinges, and spits out an error.</p>
 <p>Even more subtle is the fact that some typos won't produce errors at all, because they happen to correspond to "well-formed" R commands. For instance, suppose that not only did I forget to hit the shift key when trying to type <code>10 + 20</code>, I also managed to press the key next to one I meant do. The resulting typo would produce the command <code>10 - 20</code>. Clearly, R has no way of knowing that you meant to <em>add</em> 20 to 10, not <em>subtract</em> 20 from 10, so what happens this time is this:</p>
-<div class="sourceCode" id="cb551"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">10</span> <span class="op">-</span> <span class="fl">20</span></span></code></pre></div>
 <pre><code>## [1] -10</code></pre>
 <p>In this case, R produces the right answer, but to the the wrong question.</p>
@@ -321,15 +321,15 @@ Type 'q()' to quit R.
 <span class="header-section-number">26.8.3</span> R is (a bit) flexible with spacing<a class="anchor" aria-label="anchor" href="#r-is-a-bit-flexible-with-spacing-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Of course, now that I've been so uptight about the importance of always being precise, I should point out that there are some exceptions. Or, more accurately, there are some situations in which R does show a bit more flexibility than my previous description suggests. The first thing R is smart enough to do is ignore redundant spacing. What I mean by this is that, when I typed <code>10 + 20</code> before, I could equally have done this</p>
-<div class="sourceCode" id="cb553"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">10</span>    <span class="op">+</span> <span class="fl">20</span></span></code></pre></div>
 <pre><code>## [1] 30</code></pre>
 <p>or this</p>
-<div class="sourceCode" id="cb555"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">10</span><span class="op">+</span><span class="fl">20</span></span></code></pre></div>
 <pre><code>## [1] 30</code></pre>
 <p>and I would get exactly the same answer. However, that doesn't mean that you can insert spaces in any old place. When we looked at the startup documentation in Section <a href="startingR.html#startingR">25</a> it suggested that you could type <code><a href="https://rdrr.io/r/utils/citation.html">citation()</a></code> to get some information about how to cite R. If I do so...</p>
-<div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## To cite R in publications use:
 ## 
@@ -352,12 +352,12 @@ Type 'q()' to quit R.
 ## when using it for data analysis. See also 'citation("pkgname")' for
 ## citing R packages.</code></pre>
 <p>... it tells me to cite the R manual <span class="citation">(<a href="#ref-R2013"><strong>R2013?</strong></a>)</span>. Let's see what happens when I try changing the spacing. If I insert spaces in between the word and the parentheses, or inside the parentheses themselves, then all is well. That is, either of these two commands</p>
-<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span> <span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb566"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span>  <span class="op">)</span></span></code></pre></div>
 <p>will produce exactly the same response. However, what I can't do is insert spaces in the middle of the word. If I try to do this, R gets upset:</p>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="session-1-foundations-of-programming-in-r.html#cb561-1" tabindex="-1"></a>citat <span class="fu">ion</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="session-1-foundations-of-programming-in-r.html#cb567-1" tabindex="-1"></a>citat <span class="fu">ion</span>()</span></code></pre></div>
 <pre><code>## Error: &lt;text&gt;:1:7: unexpected symbol
 ## 1: citat ion
 ##           ^</code></pre>
@@ -453,7 +453,7 @@ BLAH BLAH BLAH</code></pre>
 </tbody>
 </table></div>
 <p>As you can see, R uses fairly standard symbols to denote each of the different operations you might want to perform: addition is done using the <code>+</code> operator, subtraction is performed by the <code>-</code> operator, and so on. So if I wanted to find out what 57 times 61 is (and who wouldn't?), I can use R instead of a calculator, like so:</p>
-<div class="sourceCode" id="cb569"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb575"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">57</span> <span class="op">*</span> <span class="fl">61</span></span></code></pre></div>
 <pre><code>## [1] 3477</code></pre>
 <p>So that's handy.</p>
@@ -468,11 +468,11 @@ BLAH BLAH BLAH</code></pre>
 5^4 = 5 \times 5 \times 5 \times 5
 \]</span></p>
 <p>One way that we could calculate <span class="math inline">\(5^4\)</span> in R would be to type in the complete multiplication as it is shown in the equation above. That is, we could do this</p>
-<div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">5</span> <span class="op">*</span> <span class="fl">5</span> <span class="op">*</span> <span class="fl">5</span> <span class="op">*</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] 625</code></pre>
 <p>but it does seem a bit tedious. It would be very annoying indeed if you wanted to calculate <span class="math inline">\(5^{15}\)</span>, since the command would end up being quite long. Therefore, to make our lives easier, we use the power operator instead. When we do that, our command to calculate <span class="math inline">\(5^4\)</span> goes like this:</p>
-<div class="sourceCode" id="cb573"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">5</span> <span class="op">^</span> <span class="fl">4</span></span></code></pre></div>
 <pre><code>## [1] 625</code></pre>
 <p>Much easier.</p>
@@ -483,16 +483,16 @@ BLAH BLAH BLAH</code></pre>
 </h3>
 <p>Okay. At this point, you know how to take one of the most powerful pieces of statistical software in the world, and use it as a $2 calculator. And as a bonus, you've learned a few very basic programming concepts. That's not nothing (you could argue that you've just saved yourself $2) but on the other hand, it's not very much either. In order to use R more effectively, we need to introduce more programming concepts.</p>
 <p>In most situations where you would want to use a calculator, you might want to do multiple calculations. R lets you do this, just by typing in longer commands. <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;If you're reading this with R open, a good learning trick is to try typing in a few different variations on what I've done here. If you experiment with your commands, you'll quickly learn what works and what doesn't&lt;/p&gt;"><sup>34</sup></a> In fact, we've already seen an example of this earlier, when I typed in <code>5 * 5 * 5 * 5</code>. However, let's try a slightly different example:</p>
-<div class="sourceCode" id="cb575"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb581"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">*</span> <span class="fl">4</span></span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <p>Clearly, this isn't a problem for R either. However, it's worth stopping for a second, and thinking about what R just did. Clearly, since it gave us an answer of <code>9</code> it must have multiplied <code>2 * 4</code> (to get an interim answer of 8) and then added 1 to that. But, suppose it had decided to just go from left to right: if R had decided instead to add <code>1+2</code> (to get an interim answer of 3) and then multiplied by 4, it would have come up with an answer of <code>12</code>.</p>
 <p>To answer this, you need to know the <strong><em>order of operations</em></strong> that R uses. If you remember back to your high school maths classes, it's actually the same order that you got taught when you were at school: the "<strong><em>BEDMAS</em></strong>" order.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;For advanced users: if you want a table showing the complete order of operator precedence in R, type &lt;code&gt;?Syntax&lt;/code&gt;. I haven't included it in this book since there are quite a few different operators, and we don't need that much detail. Besides, in practice most people seem to figure it out from seeing examples: until writing this book I never looked at the formal statement of operator precedence for any language I ever coded in, and never ran into any difficulties.&lt;/p&gt;"><sup>35</sup></a> That is, first calculate things inside <strong>B</strong>rackets <code>()</code>, then calculate <strong>E</strong>xponents <code>^</code>, then <strong>D</strong>ivision <code>/</code> and <strong>M</strong>ultiplication <code>*</code>, then <strong>A</strong>ddition <code>+</code> and <strong>S</strong>ubtraction <code>-</code>. So, to continue the example above, if we want to force R to calculate the <code>1+2</code> part before the multiplication, all we would have to do is enclose it in brackets:</p>
-<div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb583"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fl">4</span> </span></code></pre></div>
 <pre><code>## [1] 12</code></pre>
 <p>This is a fairly useful thing to be able to do. The only other thing I should point out about order of operations is what to expect when you have two operations that have the same priority: that is, how does R resolve ties? For instance, multiplication and division are actually the same priority, but what should we expect when we give R a problem like <code>4 / 2 * 3</code> to solve? If it evaluates the multiplication first and then the division, it would calculate a value of two-thirds. But if it evaluates the division first it calculates a value of 6. The answer, in this case, is that R goes from <em>left to right</em>, so in this case the division step would come first:</p>
-<div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb585"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">4</span> <span class="op">/</span> <span class="fl">2</span> <span class="op">*</span> <span class="fl">3</span></span></code></pre></div>
 <pre><code>## [1] 6</code></pre>
 <p>All of the above being said, it's helpful to remember that <em>brackets always come first</em>. So, if you're ever unsure about what order R will do things in, an easy solution is to enclose the thing <em>you</em> want it to do first in brackets. There's nothing stopping you from typing <code>(4 / 2) * 3</code>. By enclosing the division in brackets we make it clear which thing is supposed to happen first. In this instance you wouldn't have needed to, since R would have done the division first anyway, but when you're first starting out it's better to make sure R does what you want!</p>
@@ -508,15 +508,15 @@ BLAH BLAH BLAH</code></pre>
 <span class="header-section-number">26.10.1</span> Variable assignment using <code>&lt;-</code> and <code>-&gt;</code><a class="anchor" aria-label="anchor" href="#variable-assignment-using---and---1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Since we've been working with numbers so far, let's start by creating variables to store our numbers. And since most people like concrete examples, let's invent one. Suppose I'm trying to calculate how much money I'm going to make from this book. There's several different numbers I might want to store. Firstly, I need to figure out how many copies I'll sell. This isn't exactly <em>Harry Potter</em>, so let's assume I'm only going to sell one copy per student in my class. That's 350 sales, so let's create a variable called <code>sales</code>. What I want to do is assign a <strong><em>value</em></strong> to my variable <code>sales</code>, and that value should be <code>350</code>. We do this by using the <strong><em>assignment operator</em></strong>, which is <code>&lt;-</code>. Here's how we do it:</p>
-<div class="sourceCode" id="cb581"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb587"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fl">350</span></span></code></pre></div>
 <p>When you hit enter, R doesn't print out any output.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;If you are using RStudio, and the &quot;environment&quot; panel (formerly known as the &quot;workspace&quot; panel) is visible when you typed the command, then you probably saw something happening there. That's to be expected, and is quite helpful. However, there's two things to note here (1) I haven't yet explained what that panel does, so for now just ignore it, and (2) this is one of the helpful things RStudio does, not a part of R itself.&lt;/p&gt;"><sup>36</sup></a> It just gives you another command prompt. However, behind the scenes R has created a variable called <code>sales</code> and given it a value of <code>350</code>. You can check that this has happened by asking R to print the variable on screen. And the simplest way to do <em>that</em> is to type the name of the variable and hit enter<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;As we'll discuss later, by doing this we are implicitly using the &lt;code&gt;print()&lt;/code&gt; function&lt;/p&gt;"><sup>37</sup></a>.</p>
-<div class="sourceCode" id="cb582"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb588"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales</span></span></code></pre></div>
 <pre><code>## [1] 350</code></pre>
 <p>So that's nice to know. Anytime you can't remember what R has got stored in a particular variable, you can just type the name of the variable and hit enter.</p>
 <p>Okay, so now we know how to assign variables. Actually, there's a bit more you should know. Firstly, one of the curious features of R is that there are several different ways of making assignments. In addition to the <code>&lt;-</code> operator, we can also use <code>-&gt;</code> and <code>=</code>, and it's pretty important to understand the differences between them.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Actually, in keeping with the R tradition of providing you with a billion different screwdrivers (even when you're actually looking for a hammer) these aren't the only options. There's also the&lt;code&gt;assign()&lt;/code&gt; function, and the &lt;code&gt;&amp;lt;&amp;lt;-&lt;/code&gt; and &lt;code&gt;-&amp;gt;&amp;gt;&lt;/code&gt; operators. However, we won't be using these at all in this book.&lt;/p&gt;"><sup>38</sup></a> Let's start by considering <code>-&gt;</code>, since that's the easy one (we'll discuss the use of <code>=</code> in Section <a href="startingR.html#functionarguments">25.4.1</a>. As you might expect from just looking at the symbol, it's almost identical to <code>&lt;-</code>. It's just that the arrow (i.e., the assignment) goes from left to right. So if I wanted to define my <code>sales</code> variable using <code>-&gt;</code>, I would write it like this:</p>
-<div class="sourceCode" id="cb584"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb590"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">350</span> <span class="op">-&gt;</span> <span class="va">sales</span></span></code></pre></div>
 <p>This has the same effect: and it <em>still</em> means that I'm only going to sell <code>350</code> copies. Sigh. Apart from this superficial difference, <code>&lt;-</code> and <code>-&gt;</code> are identical. In fact, as far as R is concerned, they're actually the same operator, just in a "left form" and a "right form".<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A quick reminder: when using operators like &lt;code&gt;&amp;lt;-&lt;/code&gt; and &lt;code&gt;-&amp;gt;&lt;/code&gt; that span multiple characters, you can't insert spaces in the middle. That is, if you type &lt;code&gt;- &amp;gt;&lt;/code&gt; or &lt;code&gt;&amp;lt; -&lt;/code&gt;, R will interpret your command the wrong way. And I will cry.&lt;/p&gt;"><sup>39</sup></a></p>
 </div>
@@ -525,24 +525,24 @@ BLAH BLAH BLAH</code></pre>
 <span class="header-section-number">26.10.2</span> Doing calculations using variables<a class="anchor" aria-label="anchor" href="#doing-calculations-using-variables-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Okay, let's get back to my original story. In my quest to become rich, I've written this textbook. To figure out how good a strategy is, I've started creating some variables in R. In addition to defining a <code>sales</code> variable that counts the number of copies I'm going to sell, I can also create a variable called <code>royalty</code>, indicating how much money I get per copy. Let's say that my royalties are about $7 per book:</p>
-<div class="sourceCode" id="cb585"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb591"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fl">350</span></span>
 <span><span class="va">royalty</span> <span class="op">&lt;-</span> <span class="fl">7</span></span></code></pre></div>
 <p>The nice thing about variables (in fact, the whole point of having variables) is that we can do anything with a variable that we ought to be able to do with the information that it stores. That is, since R allows me to multiply <code>350</code> by <code>7</code></p>
-<div class="sourceCode" id="cb586"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">350</span> <span class="op">*</span> <span class="fl">7</span></span></code></pre></div>
 <pre><code>## [1] 2450</code></pre>
 <p>it also allows me to multiply <code>sales</code> by <code>royalty</code></p>
-<div class="sourceCode" id="cb588"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales</span> <span class="op">*</span> <span class="va">royalty</span></span></code></pre></div>
 <pre><code>## [1] 2450</code></pre>
 <p>As far as R is concerned, the <code>sales * royalty</code> command is the same as the <code>350 * 7</code> command. Not surprisingly, I can assign the output of this calculation to a new variable, which I'll call <code>revenue</code>. And when we do this, the new variable <code>revenue</code> gets the value <code>2450</code>. So let's do that, and then get R to print out the value of <code>revenue</code> so that we can verify that it's done what we asked:</p>
-<div class="sourceCode" id="cb590"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">revenue</span> <span class="op">&lt;-</span> <span class="va">sales</span> <span class="op">*</span> <span class="va">royalty</span></span>
 <span><span class="va">revenue</span></span></code></pre></div>
 <pre><code>## [1] 2450</code></pre>
 <p>That's fairly straightforward. A slightly more subtle thing we can do is reassign the value of my variable, based on its current value. For instance, suppose that one of my students (no doubt under the influence of psychotropic drugs) loves the book so much that he or she donates me an extra $550. The simplest way to capture this is by a command like this:</p>
-<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb598"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">revenue</span> <span class="op">&lt;-</span> <span class="va">revenue</span> <span class="op">+</span> <span class="fl">550</span></span>
 <span><span class="va">revenue</span></span></code></pre></div>
 <pre><code>## [1] 3000</code></pre>
@@ -580,25 +580,25 @@ BLAH BLAH BLAH</code></pre>
 <span class="math inline">\(25^{0.5} = 5.\)</span>
 This second way of writing it is kind of useful to "remind" you of the mathematical fact that "square root of <span class="math inline">\(x\)</span>" is actually the same as "raising <span class="math inline">\(x\)</span> to the power of 0.5". Personally, I've never found this to be terribly meaningful psychologically, though I have to admit it's quite convenient mathematically. Anyway, it's not important. What is important is that you remember what a square root is, since we're going to need it later on.</p>
 <p>To calculate the square root of 25, I can do it in my head pretty easily, since I memorised my multiplication tables when I was a kid. It gets harder when the numbers get bigger, and pretty much impossible if they're not whole numbers. This is where something like R comes in very handy. Let's say I wanted to calculate <span class="math inline">\(\sqrt{225}\)</span>, the square root of 225. There's two ways I could do this using R. Firstly, since the square root of 255 is the same thing as raising 225 to the power of 0.5, I could use the power operator <code>^</code>, just like we did earlier:</p>
-<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb600"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">225</span> <span class="op">^</span> <span class="fl">0.5</span></span></code></pre></div>
 <pre><code>## [1] 15</code></pre>
 <p>However, there's a second way that we can do this, since R also provides a <strong><em>square root function</em></strong>, <code><a href="https://rdrr.io/r/base/MathFun.html">sqrt()</a></code>. To calculate the square root of 255 using this function, what I do is insert the number <code>225</code> in the parentheses. That is, the command I type is this:</p>
-<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb602"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span> <span class="fl">225</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 15</code></pre>
 <p>and as you might expect from our previous discussion, the spaces in between the parentheses are purely cosmetic. I could have typed <code>sqrt(225)</code> or <code>sqrt( 225   )</code> and gotten the same result. When we use a function to do something, we generally refer to this as <strong><em>calling</em></strong> the function, and the values that we type into the function (there can be more than one) are referred to as the <strong><em>arguments</em></strong> of that function.</p>
 <p>Obviously, the <code><a href="https://rdrr.io/r/base/MathFun.html">sqrt()</a></code> function doesn't really give us any new functionality, since we already knew how to do square root calculations by using the power operator <code>^</code>, though I do think it looks nicer when we use <code><a href="https://rdrr.io/r/base/MathFun.html">sqrt()</a></code>. However, there are lots of other functions in R: in fact, almost everything of interest that I'll talk about in this book is an R function of some kind. For example, one function that we will need to use in this book is the <strong><em>absolute value function</em></strong>. Compared to the square root function, it's extremely simple: it just converts negative numbers to positive numbers, and leaves positive numbers alone. Mathematically, the absolute value of <span class="math inline">\(x\)</span> is written <span class="math inline">\(|x|\)</span> or sometimes <span class="math inline">\(\mbox{abs}(x)\)</span>. Calculating absolute values in R is pretty easy, since R provides the <code><a href="https://rdrr.io/r/base/MathFun.html">abs()</a></code> function that you can use for this purpose. When you feed it a positive number...</p>
-<div class="sourceCode" id="cb598"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span> <span class="fl">21</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 21</code></pre>
 <p>the absolute value function does nothing to it at all. But when you feed it a negative number, it spits out the positive version of the same number, like this:</p>
-<div class="sourceCode" id="cb600"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb606"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span> <span class="op">-</span><span class="fl">13</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 13</code></pre>
 <p>In all honesty, there's nothing that the absolute value function does that you couldn't do just by looking at the number and erasing the minus sign if there is one. However, there's a few places later in the book where we have to use absolute values, so I thought it might be a good idea to explain the meaning of the term early on.</p>
 <p>Before moving on, it's worth noting that -- in the same way that R allows us to put multiple operations together into a longer command, like <code>1 + 2*4</code> for instance -- it also lets us put functions together and even combine functions with operators if we so desire. For example, the following is a perfectly legitimate command:</p>
-<div class="sourceCode" id="cb602"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb608"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span> <span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="op">-</span><span class="fl">8</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>When R executes this command, starts out by calculating the value of <code>abs(-8)</code>, which produces an intermediate value of <code>8</code>. Having done so, the command simplifies to <code>sqrt( 1 + 8 )</code>. To solve the square root<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A note for the mathematically inclined: R does support complex numbers, but unless you explicitly specify that you want them it assumes all calculations must be real valued. By default, the square root of a negative number is treated as undefined: &lt;code&gt;sqrt(-9)&lt;/code&gt; will produce &lt;code&gt;NaN&lt;/code&gt; (not a number) as its output. To get complex numbers, you would type &lt;code&gt;sqrt(-9+0i)&lt;/code&gt; and R would now return &lt;code&gt;0+3i&lt;/code&gt;. However, since we won't have any need for complex numbers in this book, I won't refer to them again.&lt;/p&gt;"><sup>43</sup></a> it first needs to add <code>1 + 8</code> to get <code>9</code>, at which point it evaluates <code>sqrt(9)</code>, and so it finally outputs a value of <code>3</code>.</p>
@@ -607,20 +607,20 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.11.1</span> Function arguments, their names and their defaults<a class="anchor" aria-label="anchor" href="#functionarguments"><i class="fas fa-link"></i></a>
 </h3>
 <p>There's two more fairly important things that you need to understand about how functions work in R, and that's the use of "named" arguments, and default values" for arguments. Not surprisingly, that's not to say that this is the last we'll hear about how functions work, but they are the last things we desperately need to discuss in order to get you started. To understand what these two concepts are all about, I'll introduce another function. The <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function can be used to round some value to the nearest whole number. For example, I could type this:</p>
-<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb610"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span> <span class="fl">3.1415</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>Pretty straightforward, really. However, suppose I only wanted to round it to two decimal places: that is, I want to get <code>3.14</code> as the output. The <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function supports this, by allowing you to input a second argument to the function that specifies the number of decimal places that you want to round the number to. In other words, I could do this:</p>
-<div class="sourceCode" id="cb606"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb612"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span> <span class="fl">3.14165</span>, <span class="fl">2</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 3.14</code></pre>
 <p>What's happening here is that I've specified <em>two</em> arguments: the first argument is the number that needs to be rounded (i.e., <code>3.1415</code>), the second argument is the number of decimal places that it should be rounded to (i.e., <code>2</code>), and the two arguments are separated by a comma. In this simple example, it's quite easy to remember which one argument comes first and which one comes second, but for more complicated functions this is not easy. Fortunately, most R functions make use of <strong><em>argument names</em></strong>. For the <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function, for example the number that needs to be rounded is specified using the <code>x</code> argument, and the number of decimal points that you want it rounded to is specified using the <code>digits</code> argument. Because we have these names available to us, we can specify the arguments to the function by name. We do so like this:</p>
-<div class="sourceCode" id="cb608"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb614"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span> x <span class="op">=</span> <span class="fl">3.1415</span>, digits <span class="op">=</span> <span class="fl">2</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 3.14</code></pre>
 <p>Notice that this is kind of similar in spirit to variable assignment (Section <a href="startingR.html#assign">25.3</a>), except that I used <code>=</code> here, rather than <code>&lt;-</code>. In both cases we're specifying specific values to be associated with a label. However, there are some differences between what I was doing earlier on when creating variables, and what I'm doing here when specifying arguments, and so as a consequence it's important that you use <code>=</code> in this context.</p>
 <p>As you can see, specifying the arguments by name involves a lot more typing, but it's also a lot easier to read. Because of this, the commands in this book will usually specify arguments by name,<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The two functions discussed previously, &lt;code&gt;sqrt()&lt;/code&gt; and &lt;code&gt;abs()&lt;/code&gt;, both only have a single argument, &lt;code&gt;x&lt;/code&gt;. So I could have typed something like &lt;code&gt;sqrt(x = 225)&lt;/code&gt; or &lt;code&gt;abs(x = -13)&lt;/code&gt; earlier. The fact that all these functions use &lt;code&gt;x&lt;/code&gt; as the name of the argument that corresponds the &quot;main&quot; variable that you're working with is no coincidence. That's a fairly widely used convention. Quite often, the writers of R functions will try to use conventional names like this to make your life easier. Or at least that's the theory. In practice it doesn't always work as well as you'd hope.&lt;/p&gt;"><sup>44</sup></a> since that makes it clearer to you what I'm doing. However, one important thing to note is that when specifying the arguments using their names, it doesn't matter what order you type them in. But if you don't use the argument names, then you have to input the arguments in the correct order. In other words, these three commands all produce the same output...</p>
-<div class="sourceCode" id="cb610"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span> <span class="fl">3.14165</span>, <span class="fl">2</span> <span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span> x <span class="op">=</span> <span class="fl">3.1415</span>, digits <span class="op">=</span> <span class="fl">2</span> <span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span> digits <span class="op">=</span> <span class="fl">2</span>, x <span class="op">=</span> <span class="fl">3.1415</span> <span class="op">)</span></span></code></pre></div>
@@ -628,7 +628,7 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 ## [1] 3.14
 ## [1] 3.14</code></pre>
 <p>but this one does not...</p>
-<div class="sourceCode" id="cb612"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb618"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span> <span class="fl">2</span>, <span class="fl">3.14165</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>How do you find out what the correct order is? There's a few different ways, but the easiest one is to look at the help documentation for the function (see Section <a href="#help"><strong>??</strong></a>. However, if you're ever unsure, it's probably best to actually type in the argument name.</p>
@@ -667,7 +667,7 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.13.1</span> Creating a vector<a class="anchor" aria-label="anchor" href="#creating-a-vector-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let's stick to my silly "get rich quick by textbook writing" example. Suppose the textbook company (if I actually had one, that is) sends me sales data on a monthly basis. Since my class start in late February, we might expect most of the sales to occur towards the start of the year. Let's suppose that I have 100 sales in February, 200 sales in March and 50 sales in April, and no other sales for the rest of the year. What I would like to do is have a variable -- let's call it <code>sales.by.month</code> -- that stores all this sales data. The first number stored should be <code>0</code> since I had no sales in January, the second should be <code>100</code>, and so on. The simplest way to do this in R is to use the <strong><em>combine</em></strong> function, <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. To do so, all we have to do is type all the numbers you want to store in a comma separated list, like this:<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Notice that I didn't specify any argument names here. The &lt;code&gt;c()&lt;/code&gt; function is one of those cases where we don't use names. We just type all the numbers, and R just dumps them all in a single variable.&lt;/p&gt;"><sup>48</sup></a></p>
-<div class="sourceCode" id="cb614"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb620"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales.by.month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">50</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">sales.by.month</span></span></code></pre></div>
 <pre><code>##  [1]   0 100 200  50   0   0   0   0   0   0   0   0</code></pre>
@@ -678,7 +678,7 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.13.2</span> A handy digression<a class="anchor" aria-label="anchor" href="#a-handy-digression-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now that we've learned how to put information into a vector, the next thing to understand is how to pull that information back out again. However, before I do so it's worth taking a slight detour. If you've been following along, typing all the commands into R yourself, it's possible that the output that you saw when we printed out the <code>sales.by.month</code> vector was slightly different to what I showed above. This would have happened if the window (or the RStudio panel) that contains the R console is really, really narrow. If that were the case, you might have seen output that looks something like this:</p>
-<div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb622"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales.by.month</span></span></code></pre></div>
 <pre><code>##  [1]   0 100 200  50
 ##  [5]   0   0   0   0
@@ -690,11 +690,11 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.13.3</span> Getting information out of vectors<a class="anchor" aria-label="anchor" href="#vectorsubset"><i class="fas fa-link"></i></a>
 </h3>
 <p>To get back to the main story, let's consider the problem of how to get information out of a vector. At this point, you might have a sneaking suspicion that the answer has something to do with the <code>[1]</code> and <code>[9]</code> things that R has been printing out. And of course you are correct. Suppose I want to pull out the February sales data only. February is the second month of the year, so let's try this:</p>
-<div class="sourceCode" id="cb618"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb624"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales.by.month</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] 100</code></pre>
 <p>Yep, that's the February sales all right. But there's a subtle detail to be aware of here: notice that R outputs <code>[1] 100</code>, <em>not</em> <code>[2] 100</code>. This is because R is being extremely literal. When we typed in <code>sales.by.month[2]</code>, we asked R to find exactly <em>one</em> thing, and that one thing happens to be the second element of our <code>sales.by.month</code> vector. So, when it outputs <code>[1] 100</code> what R is saying is that the first number <em>that we just asked for</em> is <code>100</code>. This behaviour makes more sense when you realise that we can use this trick to create new variables. For example, I could create a <code>february.sales</code> variable like this:</p>
-<div class="sourceCode" id="cb620"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb626"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">february.sales</span> <span class="op">&lt;-</span> <span class="va">sales.by.month</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="va">february.sales</span></span></code></pre></div>
 <pre><code>## [1] 100</code></pre>
@@ -705,7 +705,7 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.13.4</span> Altering the elements of a vector<a class="anchor" aria-label="anchor" href="#altering-the-elements-of-a-vector-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sometimes you'll want to change the values stored in a vector. Imagine my surprise when the publisher rings me up to tell me that the sales data for May are wrong. There were actually an additional 25 books sold in May, but there was an error or something so they hadn't told me about it. How can I fix my <code>sales.by.month</code> variable? One possibility would be to assign the whole vector again from the beginning, using <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. But that's a lot of typing. Also, it's a little wasteful: why should R have to redefine the sales figures for all 12 months, when only the 5th one is wrong? Fortunately, we can tell R to change only the 5th element, using this trick:</p>
-<div class="sourceCode" id="cb622"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb628"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales.by.month</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">25</span></span>
 <span><span class="va">sales.by.month</span></span></code></pre></div>
 <pre><code>##  [1]   0 100 200  50  25   0   0   0   0   0   0   0</code></pre>
@@ -716,19 +716,19 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.13.5</span> Useful things to know about vectors<a class="anchor" aria-label="anchor" href="#veclength"><i class="fas fa-link"></i></a>
 </h3>
 <p>Before moving on, I want to mention a couple of other things about vectors. Firstly, you often find yourself wanting to know how many elements there are in a vector (usually because you've forgotten). You can use the <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> function to do this. It's quite straightforward:</p>
-<div class="sourceCode" id="cb624"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb630"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span> x <span class="op">=</span> <span class="va">sales.by.month</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 12</code></pre>
 <p>Secondly, you often want to alter all of the elements of a vector at once. For instance, suppose I wanted to figure out how much money I made in each month. Since I'm earning an exciting $7 per book (no seriously, that's actually pretty close to what authors get on the very expensive textbooks that you're expected to purchase), what I want to do is multiply each element in the <code>sales.by.month</code> vector by <code>7</code>. R makes this pretty easy, as the following example shows:</p>
-<div class="sourceCode" id="cb626"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales.by.month</span> <span class="op">*</span> <span class="fl">7</span></span></code></pre></div>
 <pre><code>##  [1]    0  700 1400  350  175    0    0    0    0    0    0    0</code></pre>
 <p>In other words, when you multiply a vector by a single number, all elements in the vector get multiplied. The same is true for addition, subtraction, division and taking powers. So that's neat. On the other hand, suppose I wanted to know how much money I was making per day, rather than per month. Since not every month has the same number of days, I need to do something slightly different. Firstly, I'll create two new vectors:</p>
-<div class="sourceCode" id="cb628"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">days.per.month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">31</span>, <span class="fl">28</span>, <span class="fl">31</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">31</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">30</span>, <span class="fl">31</span><span class="op">)</span></span>
 <span><span class="va">profit</span> <span class="op">&lt;-</span> <span class="va">sales.by.month</span> <span class="op">*</span> <span class="fl">7</span></span></code></pre></div>
 <p>Obviously, the <code>profit</code> variable is the same one we created earlier, and the <code>days.per.month</code> variable is pretty straightforward. What I want to do is divide every element of <code>profit</code> by the <em>corresponding</em> element of <code>days.per.month</code>. Again, R makes this pretty easy:</p>
-<div class="sourceCode" id="cb629"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb635"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">profit</span> <span class="op">/</span> <span class="va">days.per.month</span></span></code></pre></div>
 <pre><code>##  [1]  0.000000 25.000000 45.161290 11.666667  5.645161  0.000000  0.000000
 ##  [8]  0.000000  0.000000  0.000000  0.000000  0.000000</code></pre>
@@ -740,22 +740,22 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.14</span> Storing text data<a class="anchor" aria-label="anchor" href="#text"><i class="fas fa-link"></i></a>
 </h2>
 <p>A lot of the time your data will be numeric in nature, but not always. Sometimes your data really needs to be described using text, not using numbers. To address this, we need to consider the situation where our variables store text. To create a variable that stores the word "hello", we can type this:</p>
-<div class="sourceCode" id="cb631"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb637"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="st">"hello"</span></span>
 <span><span class="va">greeting</span></span></code></pre></div>
 <pre><code>## [1] "hello"</code></pre>
 <p>When interpreting this, it's important to recognise that the quote marks here <em>aren't</em> part of the string itself. They're just something that we use to make sure that R knows to treat the characters that they enclose as a piece of text data, known as a <strong><em>character string</em></strong>. In other words, R treats <code>"hello"</code> as a string containing the word "hello"; but if I had typed <code>hello</code> instead, R would go looking for a variable by that name! You can also use <code>'hello'</code> to specify a character string.</p>
 <p>Okay, so that's how we store the text. Next, it's important to recognise that when we do this, R stores the entire word <code>"hello"</code> as a <em>single</em> element: our <code>greeting</code> variable is <em>not</em> a vector of five different letters. Rather, it has only the one element, and that element corresponds to the entire character string <code>"hello"</code>. To illustrate this, if I actually ask R to find the first element of <code>greeting</code>, it prints the whole string:</p>
-<div class="sourceCode" id="cb633"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb639"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">greeting</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] "hello"</code></pre>
 <p>Of course, there's no reason why I can't create a vector of character strings. For instance, if we were to continue with the example of my attempts to look at the monthly sales data for my book, one variable I might want would include the names of all 12 <code>months</code>.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Though actually there's no real need to do this, since R has an inbuilt variable called &lt;code&gt;month.name&lt;/code&gt; that you can use for this purpose.&lt;/p&gt;"><sup>49</sup></a> To do so, I could type in a command like this</p>
-<div class="sourceCode" id="cb635"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">months</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"January"</span>, <span class="st">"February"</span>, <span class="st">"March"</span>, <span class="st">"April"</span>, <span class="st">"May"</span>, <span class="st">"June"</span>,</span>
 <span>            <span class="st">"July"</span>, <span class="st">"August"</span>, <span class="st">"September"</span>, <span class="st">"October"</span>, <span class="st">"November"</span>, </span>
 <span>            <span class="st">"December"</span><span class="op">)</span></span></code></pre></div>
 <p>This is a <strong><em>character vector</em></strong> containing 12 elements, each of which is the name of a month. So if I wanted R to tell me the name of the fourth month, all I would do is this:</p>
-<div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb642"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">months</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] "April"</code></pre>
 <div id="simpletext" class="section level3" number="26.14.1">
@@ -764,11 +764,11 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 </h3>
 <p>Working with text data is somewhat more complicated than working with numeric data, and I discuss some of the basic ideas in Section <a href="#textprocessing"><strong>??</strong></a>, but for purposes of the current chapter we only need this bare bones sketch. The only other thing I want to do before moving on is show you an example of a function that can be applied to text data. So far, most of the functions that we have seen (i.e., <code><a href="https://rdrr.io/r/base/MathFun.html">sqrt()</a></code>, <code><a href="https://rdrr.io/r/base/MathFun.html">abs()</a></code> and <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>) only make sense when applied to numeric data (e.g., you can't calculate the square root of "hello"), and we've seen one function that can be applied to pretty much any variable or vector (i.e., <code><a href="https://rdrr.io/r/base/length.html">length()</a></code>). So it might be nice to see an example of a function that can be applied to text.</p>
 <p>The function I'm going to introduce you to is called <code><a href="https://rdrr.io/r/base/nchar.html">nchar()</a></code>, and what it does is count the number of individual characters that make up a string. Recall earlier that when we tried to calculate the <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> of our <code>greeting</code> variable it returned a value of <code>1</code>: the <code>greeting</code> variable contains only the one string, which happens to be <code>"hello"</code>. But what if I want to know how many letters there are in the word? Sure, I could <em>count</em> them, but that's boring, and more to the point it's a terrible strategy if what I wanted to know was the number of letters in <em>War and Peace</em>. That's where the <code><a href="https://rdrr.io/r/base/nchar.html">nchar()</a></code> function is helpful:</p>
-<div class="sourceCode" id="cb638"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb644"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span> x <span class="op">=</span> <span class="va">greeting</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <p>That makes sense, since there are in fact 5 letters in the string <code>"hello"</code>. Better yet, you can apply <code><a href="https://rdrr.io/r/base/nchar.html">nchar()</a></code> to whole vectors. So, for instance, if I want R to tell me how many letters there are in the names of each of the 12 months, I can do this:</p>
-<div class="sourceCode" id="cb640"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb646"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span> x <span class="op">=</span> <span class="va">months</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>##  [1] 7 8 5 5 3 4 4 6 9 7 8 8</code></pre>
 <p>So that's nice to know. The <code><a href="https://rdrr.io/r/base/nchar.html">nchar()</a></code> function can do a bit more than this, and there's a lot of other functions that you can do to extract more information from text or do all sorts of fancy things. However, the goal here is not to teach any of that! The goal right now is just to see an example of a function that actually does work when applied to text.</p>
@@ -784,19 +784,19 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.15.1</span> Assessing mathematical truths<a class="anchor" aria-label="anchor" href="#assessing-mathematical-truths-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>In George Orwell's classic book <em>1984</em>, one of the slogans used by the totalitarian Party was "two plus two equals five", the idea being that the political domination of human freedom becomes complete when it is possible to subvert even the most basic of truths. It's a terrifying thought, especially when the protagonist Winston Smith finally breaks down under torture and agrees to the proposition. "Man is infinitely malleable", the book says. I'm pretty sure that this isn't true of humans<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;I offer up my teenage attempts to be &quot;cool&quot; as evidence that some things just can't be done.&lt;/p&gt;"><sup>50</sup></a> but it's definitely not true of R. R is not infinitely malleable. It has rather firm opinions on the topic of what is and isn't true, at least as regards basic mathematics. If I ask it to calculate <code>2 + 2</code>, it always gives the same answer, and it's not bloody 5:</p>
-<div class="sourceCode" id="cb642"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb648"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span></span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <p>Of course, so far R is just doing the calculations. I haven't asked it to explicitly assert that <span class="math inline">\(2+2 = 4\)</span> is a true statement. If I want R to make an explicit judgement, I can use a command like this:</p>
-<div class="sourceCode" id="cb644"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb650"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">4</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>What I've done here is use the <strong><em>equality operator</em></strong>, <code>==</code>, to force R to make a "true or false" judgement.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Note that this is a very different operator to the assignment operator &lt;code&gt;=&lt;/code&gt; that I talked about in Section &lt;a href=&quot;startingR.html#assign&quot;&gt;25.3&lt;/a&gt;. A common typo that people make when trying to write logical commands in R (or other languages, since the &quot;&lt;code&gt;=&lt;/code&gt; versus &lt;code&gt;==&lt;/code&gt;&quot; distinction is important in most programming languages) is to accidentally type &lt;code&gt;=&lt;/code&gt; when you really mean &lt;code&gt;==&lt;/code&gt;. Be especially cautious with this -- I've been programming in various languages since I was a teenager, and I &lt;em&gt;still&lt;/em&gt; screw this up a lot. Hm. I think I see why I wasn't cool as a teenager. And why I'm still not cool.&lt;/p&gt;"><sup>51</sup></a> Okay, let's see what R thinks of the Party slogan:</p>
-<div class="sourceCode" id="cb646"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb652"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span><span class="op">+</span><span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Booyah! Freedom and ponies for all! Or something like that. Anyway, it's worth having a look at what happens if I try to <em>force</em> R to believe that two plus two is five by making an assignment statement like <code>2 + 2 = 5</code> or <code>2 + 2 &lt;- 5</code>. When I do this, here's what happens:</p>
-<div class="sourceCode" id="cb648"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb654"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">=</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## Error in 2 + 2 = 5: target of assignment expands to non-language object</code></pre>
 <p>R doesn't like this very much. It recognises that <code>2 + 2</code> is <em>not</em> a variable (that's what the "non-language object" part is saying), and it won't let you try to "reassign" it. While R is pretty flexible, and actually does let you do some quite remarkable things to redefine parts of R itself, there are just some basic, primitive truths that it refuses to give up. It won't change the laws of addition, and it won't change the definition of the number <code>2</code>.</p>
@@ -807,11 +807,11 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.15.2</span> Logical operations<a class="anchor" aria-label="anchor" href="#logical-operations-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>So now we've seen logical operations at work, but so far we've only seen the simplest possible example. You probably won't be surprised to discover that we can combine logical operations with other operations and functions in a more complicated way, like this:</p>
-<div class="sourceCode" id="cb650"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb656"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">3</span><span class="op">*</span><span class="fl">3</span> <span class="op">+</span> <span class="fl">4</span><span class="op">*</span><span class="fl">4</span> <span class="op">==</span> <span class="fl">5</span><span class="op">*</span><span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>or this</p>
-<div class="sourceCode" id="cb652"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb658"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span> <span class="fl">25</span> <span class="op">)</span> <span class="op">==</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Not only that, but as Table <a href="startingR.html#tab:logicals">25.2</a> illustrates, there are several other logical operators that you can use, corresponding to some basic mathematical concepts.</p>
@@ -864,25 +864,25 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 </tbody>
 </table></div>
 <p>Hopefully these are all pretty self-explanatory: for example, the <strong><em>less than</em></strong> operator <code>&lt;</code> checks to see if the number on the left is less than the number on the right. If it's less, then R returns an answer of <code>TRUE</code>:</p>
-<div class="sourceCode" id="cb654"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb660"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">99</span> <span class="op">&lt;</span> <span class="fl">100</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>but if the two numbers are equal, or if the one on the right is larger, then R returns an answer of <code>FALSE</code>, as the following two examples illustrate:</p>
-<div class="sourceCode" id="cb656"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb662"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">100</span> <span class="op">&lt;</span> <span class="fl">100</span></span>
 <span></span>
 <span><span class="fl">100</span> <span class="op">&lt;</span> <span class="fl">99</span></span></code></pre></div>
 <pre><code>## [1] FALSE
 ## [1] FALSE</code></pre>
 <p>In contrast, the <strong><em>less than or equal to</em></strong> operator <code>&lt;=</code> will do exactly what it says. It returns a value of <code>TRUE</code> if the number of the left hand side is less than or equal to the number on the right hand side. So if we repeat the previous two examples using <code>&lt;=</code>, here's what we get:</p>
-<div class="sourceCode" id="cb658"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb664"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">100</span> <span class="op">&lt;=</span> <span class="fl">100</span></span>
 <span></span>
 <span><span class="fl">100</span> <span class="op">&lt;=</span> <span class="fl">99</span></span></code></pre></div>
 <pre><code>## [1] TRUE
 ## [1] FALSE</code></pre>
 <p>And at this point I hope it's pretty obvious what the <strong><em>greater than</em></strong> operator <code>&gt;</code> and the <strong><em>greater than or equal to</em></strong> operator <code>&gt;=</code> do! Next on the list of logical operators is the <strong><em>not equal to</em></strong> operator <code>!=</code> which -- as with all the others -- does what it says it does. It returns a value of <code>TRUE</code> when things on either side are not identical to each other. Therefore, since <span class="math inline">\(2+2\)</span> isn't equal to <span class="math inline">\(5\)</span>, we get:</p>
-<div class="sourceCode" id="cb660"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb666"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">!=</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>We're not quite done yet. There are three more logical operations that are worth knowing about, listed in Table <a href="startingR.html#tab:logicals2">25.3</a>.</p>
@@ -917,23 +917,23 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 </tbody>
 </table></div>
 <p>These are the <strong><em>not</em></strong> operator <code>!</code>, the <strong><em>and</em></strong> operator <code>&amp;</code>, and the <strong><em>or</em></strong> operator <code>|</code>. Like the other logical operators, their behaviour is more or less exactly what you'd expect given their names. For instance, if I ask you to assess the claim that "either <span class="math inline">\(2+2 = 4\)</span> <em>or</em> <span class="math inline">\(2+2 = 5\)</span>" you'd say that it's true. Since it's an "either-or" statement, all we need is for one of the two parts to be true. That's what the <code>|</code> operator does:</p>
-<div class="sourceCode" id="cb662"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb668"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="fl">2</span><span class="op">+</span><span class="fl">2</span> <span class="op">==</span> <span class="fl">4</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="fl">2</span><span class="op">+</span><span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>On the other hand, if I ask you to assess the claim that "both <span class="math inline">\(2+2 = 4\)</span> <em>and</em> <span class="math inline">\(2+2 = 5\)</span>" you'd say that it's false. Since this is an <em>and</em> statement we need both parts to be true. And that's what the <code>&amp;</code> operator does:</p>
-<div class="sourceCode" id="cb664"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb670"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="fl">2</span><span class="op">+</span><span class="fl">2</span> <span class="op">==</span> <span class="fl">4</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="fl">2</span><span class="op">+</span><span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Finally, there's the <em>not</em> operator, which is simple but annoying to describe in English. If I ask you to assess my claim that "it is not true that <span class="math inline">\(2+2 = 5\)</span>" then you would say that my claim is true; because my claim is that "<span class="math inline">\(2+2 = 5\)</span> is false". And I'm right. If we write this as an R command we get this:</p>
-<div class="sourceCode" id="cb666"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb672"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">!</span> <span class="op">(</span><span class="fl">2</span><span class="op">+</span><span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>In other words, since <code>2+2 == 5</code> is a <code>FALSE</code> statement, it must be the case that <code>!(2+2 == 5)</code> is a <code>TRUE</code> one. Essentially, what we've really done is claim that "not false" is the same thing as "true". Obviously, this isn't really quite right in real life. But R lives in a much more black or white world: for R everything is either true or false. No shades of gray are allowed. We can actually see this much more explicitly, like this:</p>
-<div class="sourceCode" id="cb668"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb674"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">!</span> <span class="cn">FALSE</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Of course, in our <span class="math inline">\(2+2 = 5\)</span> example, we didn't really need to use "not" <code>!</code> and "equals to" <code>==</code> as two separate operators. We could have just used the "not equals to" operator <code>!=</code> like this:</p>
-<div class="sourceCode" id="cb670"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb676"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span><span class="op">+</span><span class="fl">2</span> <span class="op">!=</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>But there are many situations where you really do need to use the <code>!</code> operator. We'll see some later on.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A note for those of you who have taken a computer science class: yes, R does have a function for exclusive-or, namely &lt;code&gt;xor()&lt;/code&gt;. Also worth noting is the fact that R makes the distinction between element-wise operators &lt;code&gt;&amp;amp;&lt;/code&gt; and &lt;code&gt;|&lt;/code&gt; and operators that look only at the first element of the vector, namely &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; and &lt;code&gt;||&lt;/code&gt;. To see the distinction, compare the behaviour of a command like &lt;code&gt;c(FALSE,TRUE) &amp;amp; c(TRUE,TRUE)&lt;/code&gt; to the behaviour of something like &lt;code&gt;c(FALSE,TRUE) &amp;amp;&amp;amp; c(TRUE,TRUE)&lt;/code&gt;. If this doesn't mean anything to you, ignore this footnote entirely. It's not important for the content of this book.&lt;/p&gt;"><sup>52</sup></a></p>
@@ -943,22 +943,22 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.15.3</span> Storing and using logical data<a class="anchor" aria-label="anchor" href="#storing-and-using-logical-data-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Up to this point, I've introduced <em>numeric data</em> (in Sections <a href="startingR.html#assign">25.3</a> and <a href="r-basics.html#vectors">2.6</a>) and <em>character data</em> (in Section <a href="outputs.html#text">16.1</a>). So you might not be surprised to discover that these <code>TRUE</code> and <code>FALSE</code> values that R has been producing are actually a third kind of data, called <em>logical data</em>. That is, when I asked R if <code>2 + 2 == 5</code> and it said <code>[1] FALSE</code> in reply, it was actually producing information that we can store in variables. For instance, I could create a variable called <code>is.the.Party.correct</code>, which would store R's opinion:</p>
-<div class="sourceCode" id="cb672"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">is.the.Party.correct</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span></span>
 <span><span class="va">is.the.Party.correct</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Alternatively, you can assign the value directly, by typing <code>TRUE</code> or <code>FALSE</code> in your command. Like this:</p>
-<div class="sourceCode" id="cb674"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb680"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">is.the.Party.correct</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
 <span><span class="va">is.the.Party.correct</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Better yet, because it's kind of tedious to type <code>TRUE</code> or <code>FALSE</code> over and over again, R provides you with a shortcut: you can use <code>T</code> and <code>F</code> instead (but it's case sensitive: <code>t</code> and <code>f</code> won't work).<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Warning! &lt;code&gt;TRUE&lt;/code&gt; and &lt;code&gt;FALSE&lt;/code&gt; are reserved keywords in R, so you can trust that they always mean what they say they do. Unfortunately, the shortcut versions &lt;code&gt;T&lt;/code&gt; and &lt;code&gt;F&lt;/code&gt; do not have this property. It's even possible to create variables that set up the reverse meanings, by typing commands like &lt;code&gt;T &amp;lt;- FALSE&lt;/code&gt; and &lt;code&gt;F &amp;lt;- TRUE&lt;/code&gt;. This is kind of insane, and something that is generally thought to be a design flaw in R. Anyway, the long and short of it is that it's safer to use &lt;code&gt;TRUE&lt;/code&gt; and &lt;code&gt;FALSE&lt;/code&gt;.&lt;/p&gt;"><sup>53</sup></a> So this works:</p>
-<div class="sourceCode" id="cb676"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb682"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">is.the.Party.correct</span> <span class="op">&lt;-</span> <span class="cn">F</span></span>
 <span><span class="va">is.the.Party.correct</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>but this doesn't:</p>
-<div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb684"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">is.the.Party.correct</span> <span class="op">&lt;-</span> <span class="va">f</span></span></code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): object 'f' not found</code></pre>
 </div>
@@ -967,17 +967,17 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.15.4</span> Vectors of logicals<a class="anchor" aria-label="anchor" href="#vectors-of-logicals-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>The next thing to mention is that you can store vectors of logical values in exactly the same way that you can store vectors of numbers (Section <a href="r-basics.html#vectors">2.6</a>) and vectors of text data (Section <a href="outputs.html#text">16.1</a>). Again, we can define them directly via the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function, like this:</p>
-<div class="sourceCode" id="cb680"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb686"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">x</span></span></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE FALSE</code></pre>
 <p>or you can produce a vector of logicals by applying a logical operator to a vector. This might not make a lot of sense to you, so let's unpack it slowly. First, let's suppose we have a vector of numbers (i.e., a "non-logical vector"). For instance, we could use the <code>sales.by.month</code> vector that we were using in Section <a href="r-basics.html#vectors">2.6</a>. Suppose I wanted R to tell me, for each month of the year, whether I actually sold a book in that month. I can do that by typing this:</p>
-<div class="sourceCode" id="cb682"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb688"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales.by.month</span> <span class="op">&gt;</span> <span class="fl">0</span></span></code></pre></div>
 <pre><code>##  [1] FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [12] FALSE</code></pre>
 <p>and again, I can store this in a vector if I want, as the example below illustrates:</p>
-<div class="sourceCode" id="cb684"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb690"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">any.sales.this.month</span> <span class="op">&lt;-</span> <span class="va">sales.by.month</span> <span class="op">&gt;</span> <span class="fl">0</span></span>
 <span><span class="va">any.sales.this.month</span></span></code></pre></div>
 <pre><code>##  [1] FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -990,15 +990,15 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 </h3>
 <p>In a moment (Section <a href="startingR.html#indexing">25.9</a>) I'll show you why these logical operations and logical vectors are so handy, but before I do so I want to very briefly point out that you can apply them to text as well as to logical data. It's just that we need to be a bit more careful in understanding how R interprets the different operations. In this section I'll talk about how the equal to operator <code>==</code> applies to text, since this is the most important one. Obviously, the not equal to operator <code>!=</code> gives the exact opposite answers to <code>==</code> so I'm implicitly talking about that one too, but I won't give specific commands showing the use of <code>!=</code>. As for the other operators, I'll defer a more detailed discussion of this topic to Section <a href="#logictext2"><strong>??</strong></a>.</p>
 <p>Okay, let's see how it works. In one sense, it's very simple. For instance, I can ask R if the word <code>"cat"</code> is the same as the word <code>"dog"</code>, like this:</p>
-<div class="sourceCode" id="cb686"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb692"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">"cat"</span> <span class="op">==</span> <span class="st">"dog"</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>That's pretty obvious, and it's good to know that even R can figure that out. Similarly, R does recognise that a <code>"cat"</code> is a <code>"cat"</code>:</p>
-<div class="sourceCode" id="cb688"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb694"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">"cat"</span> <span class="op">==</span> <span class="st">"cat"</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Again, that's exactly what we'd expect. However, what you need to keep in mind is that R is not at all tolerant when it comes to grammar and spacing. If two strings differ in any way whatsoever, R will say that they're not equal to each other, as the following examples indicate:</p>
-<div class="sourceCode" id="cb690"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb696"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">" cat"</span> <span class="op">==</span> <span class="st">"cat"</span></span>
 <span></span>
 <span><span class="st">"cat"</span> <span class="op">==</span> <span class="st">"CAT"</span></span>
@@ -1019,23 +1019,23 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.16.1</span> Extracting multiple elements<a class="anchor" aria-label="anchor" href="#extracting-multiple-elements-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>One very useful thing we can do is pull out more than one element at a time. In the previous example, we only used a single number (i.e., <code>2</code>) to indicate which element we wanted. Alternatively, we can use a vector. So, suppose I wanted the data for February, March and April. What I could do is use the vector <code>c(2,3,4)</code> to indicate which elements I want R to pull out. That is, I'd type this:</p>
-<div class="sourceCode" id="cb692"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb698"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales.by.month</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span> <span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] 100 200  50</code></pre>
 <p>Notice that the order matters here. If I asked for the data in the reverse order (i.e., April first, then March, then February) by using the vector <code>c(4,3,2)</code>, then R outputs the data in the reverse order:</p>
-<div class="sourceCode" id="cb694"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb700"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales.by.month</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span> <span class="op">]</span></span></code></pre></div>
 <pre><code>## [1]  50 200 100</code></pre>
 <p>A second thing to be aware of is that R provides you with handy shortcuts for very common situations. For instance, suppose that I wanted to extract everything from the 2nd month through to the 8th month. One way to do this is to do the same thing I did above, and use the vector <code>c(2,3,4,5,6,7,8)</code> to indicate the elements that I want. That works just fine</p>
-<div class="sourceCode" id="cb696"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb702"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales.by.month</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">8</span><span class="op">)</span> <span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] 100 200  50  25   0   0   0</code></pre>
 <p>but it's kind of a lot of typing. To help make this easier, R lets you use <code>2:8</code> as shorthand for <code>c(2,3,4,5,6,7,8)</code>, which makes things a lot simpler. First, let's just check that this is true:</p>
-<div class="sourceCode" id="cb698"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb704"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span><span class="op">:</span><span class="fl">8</span></span></code></pre></div>
 <pre><code>## [1] 2 3 4 5 6 7 8</code></pre>
 <p>Next, let's check that we can use the <code>2:8</code> shorthand as a way to pull out the 2nd through 8th elements of <code>sales.by.months</code>:</p>
-<div class="sourceCode" id="cb700"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb706"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales.by.month</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] 100 200  50  25   0   0   0</code></pre>
 <p>So that's kind of neat.</p>
@@ -1045,19 +1045,19 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <span class="header-section-number">26.16.2</span> Logical indexing<a class="anchor" aria-label="anchor" href="#logical-indexing-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>At this point, I can introduce an extremely useful tool called <strong><em>logical indexing</em></strong>. In the last section, I created a logical vector <code>any.sales.this.month</code>, whose elements are <code>TRUE</code> for any month in which I sold at least one book, and <code>FALSE</code> for all the others. However, that big long list of <code>TRUE</code>s and <code>FALSE</code>s is a little bit hard to read, so what I'd like to do is to have R select the names of the <code>months</code> for which I sold any books. Earlier on, I created a vector <code>months</code> that contains the names of each of the months. This is where logical indexing is handy. What I need to do is this:</p>
-<div class="sourceCode" id="cb702"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb708"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">months</span><span class="op">[</span> <span class="va">sales.by.month</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] "February" "March"    "April"    "May"</code></pre>
 <p>To understand what's happening here, it's helpful to notice that <code>sales.by.month &gt; 0</code> is the same logical expression that we used to create the <code>any.sales.this.month</code> vector in the last section. In fact, I could have just done this:</p>
-<div class="sourceCode" id="cb704"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb710"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">months</span><span class="op">[</span> <span class="va">any.sales.this.month</span> <span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] "February" "March"    "April"    "May"</code></pre>
 <p>and gotten exactly the same result. In order to figure out which elements of <code>months</code> to include in the output, what R does is look to see if the corresponding element in <code>any.sales.this.month</code> is <code>TRUE</code>. Thus, since element 1 of <code>any.sales.this.month</code> is <code>FALSE</code>, R does not include <code>"January"</code> as part of the output; but since element 2 of <code>any.sales.this.month</code> is <code>TRUE</code>, R does include <code>"February"</code> in the output. Note that there's no reason why I can't use the same trick to find the actual sales numbers for those months. The command to do that would just be this:</p>
-<div class="sourceCode" id="cb706"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb712"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales.by.month</span> <span class="op">[</span> <span class="va">sales.by.month</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] 100 200  50  25</code></pre>
 <p>In fact, we can do the same thing with text. Here's an example. Suppose that -- to continue the saga of the textbook sales -- I later find out that the bookshop only had sufficient stocks for a few months of the year. They tell me that early in the year they had <code>"high"</code> stocks, which then dropped to <code>"low"</code> levels, and in fact for one month they were <code>"out"</code> of copies of the book for a while before they were able to replenish them. Thus I might have a variable called <code>stock.levels</code> which looks like this:</p>
-<div class="sourceCode" id="cb708"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb714"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stock.levels</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"high"</span>, <span class="st">"high"</span>, <span class="st">"low"</span>, <span class="st">"out"</span>, <span class="st">"out"</span>, <span class="st">"high"</span>,</span>
 <span>                <span class="st">"high"</span>, <span class="st">"high"</span>, <span class="st">"high"</span>, <span class="st">"high"</span>, <span class="st">"high"</span>, <span class="st">"high"</span><span class="op">)</span></span>
 <span></span>
@@ -1065,15 +1065,15 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <pre><code>##  [1] "high" "high" "low"  "out"  "out"  "high" "high" "high" "high" "high"
 ## [11] "high" "high"</code></pre>
 <p>Thus, if I want to know the months for which the bookshop was out of my book, I could apply the logical indexing trick, but with the character vector <code>stock.levels</code>, like this:</p>
-<div class="sourceCode" id="cb710"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb716"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">months</span><span class="op">[</span><span class="va">stock.levels</span> <span class="op">==</span> <span class="st">"out"</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] "April" "May"</code></pre>
 <p>Alternatively, if I want to know when the bookshop was either low on copies or out of copies, I could do this:</p>
-<div class="sourceCode" id="cb712"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb718"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">months</span><span class="op">[</span><span class="va">stock.levels</span> <span class="op">==</span> <span class="st">"out"</span> <span class="op">|</span> <span class="va">stock.levels</span> <span class="op">==</span> <span class="st">"low"</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] "March" "April" "May"</code></pre>
 <p>or this</p>
-<div class="sourceCode" id="cb714"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb720"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">months</span><span class="op">[</span><span class="va">stock.levels</span> <span class="op">!=</span> <span class="st">"high"</span> <span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] "March" "April" "May"</code></pre>
 <p>Either way, I get the answer I want.</p>
@@ -1086,7 +1086,7 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 </h2>
 <p>There's one last thing I should cover in this chapter: how to quit R. When I say this, I'm not trying to imply that R is some kind of pathological addition and that you need to call the R QuitLine or wear patches to control the cravings (although you certainly might argue that there's something seriously pathological about being addicted to R). I just mean how to exit the program. Assuming you're running R in the usual way (i.e., through RStudio or the default GUI on a Windows or Mac computer), then you can just shut down the application in the normal way. However, R also has a function, called <code><a href="https://rdrr.io/r/base/quit.html">q()</a></code> that you can use to quit, which is pretty handy if you're running R in a terminal window.</p>
 <p>Regardless of what method you use to quit R, when you do so for the first time R will probably ask you if you want to save the "workspace image". We'll talk a lot more about loading and saving data in Section <a href="#load"><strong>??</strong></a>, but I figured we'd better quickly cover this now otherwise you're going to get annoyed when you close R at the end of the chapter. If you're using RStudio, you'll see a dialog box that looks like the one shown in Figure <a href="#fig:quitR"><strong>??</strong></a>. If you're using a text based interface you'll see this:</p>
-<div class="sourceCode" id="cb716"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb722"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/quit.html">q</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Save workspace image? [y/n/c]: </span></span></code></pre></div>
@@ -1389,7 +1389,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-24.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

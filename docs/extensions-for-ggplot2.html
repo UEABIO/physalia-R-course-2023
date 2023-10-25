@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 10 Extensions for ggplot2 | Introduction to Statistics</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="https://allancameron.github.io/geomtextpath/ library(geomtextpath) penguins |&gt;   ggplot(aes(x = culmen_length_mm,         colour = species,        label = species))+  geom_textdensity( hjust =...">
+<meta name="description" content="ggdist ggridges ggdensity ggbump gghighlight text: geomtextpath, ggforce, ggtext patchwork functions on ggplot https://allancameron.github.io/geomtextpath/  10.0.1 GGdist  10.0.1.1 Rainclouds...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
 <meta property="og:title" content="Chapter 10 Extensions for ggplot2 | Introduction to Statistics">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-intro-stats-2023/extensions-for-ggplot2.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="https://allancameron.github.io/geomtextpath/ library(geomtextpath) penguins |&gt;   ggplot(aes(x = culmen_length_mm,         colour = species,        label = species))+  geom_textdensity( hjust =...">
+<meta property="og:description" content="ggdist ggridges ggdensity ggbump gghighlight text: geomtextpath, ggforce, ggtext patchwork functions on ggplot https://allancameron.github.io/geomtextpath/  10.0.1 GGdist  10.0.1.1 Rainclouds...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 10 Extensions for ggplot2 | Introduction to Statistics">
-<meta name="twitter:description" content="https://allancameron.github.io/geomtextpath/ library(geomtextpath) penguins |&gt;   ggplot(aes(x = culmen_length_mm,         colour = species,        label = species))+  geom_textdensity( hjust =...">
+<meta name="twitter:description" content="ggdist ggridges ggdensity ggbump gghighlight text: geomtextpath, ggforce, ggtext patchwork functions on ggplot https://allancameron.github.io/geomtextpath/  10.0.1 GGdist  10.0.1.1 Rainclouds...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-intro-stats-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -158,8 +158,79 @@
 <h1>
 <span class="header-section-number">10</span> Extensions for ggplot2<a class="anchor" aria-label="anchor" href="#extensions-for-ggplot2"><i class="fas fa-link"></i></a>
 </h1>
+<ul>
+<li><p>ggdist</p></li>
+<li><p>ggridges</p></li>
+<li><p>ggdensity</p></li>
+<li><p>ggbump</p></li>
+<li><p>gghighlight</p></li>
+<li><p>text: geomtextpath, ggforce, ggtext</p></li>
+<li><p>patchwork</p></li>
+<li><p>functions on ggplot</p></li>
+</ul>
 <p><a href="https://allancameron.github.io/geomtextpath/" class="uri">https://allancameron.github.io/geomtextpath/</a></p>
+<div id="ggdist" class="section level3" number="10.0.1">
+<h3>
+<span class="header-section-number">10.0.1</span> GGdist<a class="anchor" aria-label="anchor" href="#ggdist"><i class="fas fa-link"></i></a>
+</h3>
+<div id="rainclouds" class="section level4" number="10.0.1.1">
+<h4>
+<span class="header-section-number">10.0.1.1</span> Rainclouds<a class="anchor" aria-label="anchor" href="#rainclouds"><i class="fas fa-link"></i></a>
+</h4>
 <div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mjskay.github.io/ggdist/">ggdist</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>,</span>
+<span>               y <span class="op">=</span> <span class="va">culmen_length_mm</span>,</span>
+<span>              fill <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggdist</span><span class="fu">::</span><span class="fu"><a href="http://mjskay.github.io/ggdist/reference/stat_halfeye.html">stat_halfeye</a></span><span class="op">(</span></span>
+<span>    point_colour <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    .width <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    <span class="co"># shift raincloud up</span></span>
+<span>    justification <span class="op">=</span> <span class="op">-</span><span class="fl">.2</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="co"># remove outlier dots</span></span>
+<span>    outlier.shape <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    <span class="co"># shrink width of box</span></span>
+<span>    alpha <span class="op">=</span> <span class="fl">.4</span>,</span>
+<span>    <span class="co"># fade box</span></span>
+<span>               width <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">ggdist</span><span class="fu">::</span><span class="fu"><a href="http://mjskay.github.io/ggdist/reference/stat_dots.html">stat_dots</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
+<span>                  <span class="co"># put dots underneath</span></span>
+<span>                    side <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>                  <span class="co"># move position down</span></span>
+<span>                    justification <span class="op">=</span> <span class="fl">1.1</span>,</span>
+<span>                  <span class="co"># size of dots </span></span>
+<span>                    dotsize <span class="op">=</span> <span class="fl">.2</span>,</span>
+<span>                    </span>
+<span>                  <span class="co"># adjust bins (grouping) of dots</span></span>
+<span>                    binwidth <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># rotate figure</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="interval-stats" class="section level4" number="10.0.1.2">
+<h4>
+<span class="header-section-number">10.0.1.2</span> Interval stats<a class="anchor" aria-label="anchor" href="#interval-stats"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>,</span>
+<span>               y <span class="op">=</span> <span class="va">culmen_length_mm</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">ggdist</span><span class="fu">::</span><span class="fu"><a href="http://mjskay.github.io/ggdist/reference/stat_interval.html">stat_interval</a></span><span class="op">(</span>.width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.66</span>, <span class="fl">.95</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">ggdist</span><span class="fu">::</span><span class="fu"><a href="http://mjskay.github.io/ggdist/reference/stat_halfeye.html">stat_halfeye</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">sex</span><span class="op">)</span>,</span>
+<span>                       .width <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>                       shape <span class="op">=</span> <span class="fl">21</span>,</span>
+<span>                       colour <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>                       slab_alpha <span class="op">=</span> <span class="fl">.4</span>,</span>
+<span>                       size <span class="op">=</span> <span class="fl">.5</span>,</span>
+<span>                       position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html">position_nudge</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_color_viridis_d</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"mako"</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, end <span class="op">=</span> <span class="fl">.9</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allancameron.github.io/geomtextpath/">geomtextpath</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -168,9 +239,9 @@
 <span>               label <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://allancameron.github.io/geomtextpath/reference/geom_textdensity.html">geom_textdensity</a></span><span class="op">(</span> hjust <span class="op">=</span> <span class="fl">0.35</span>, vjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">+</span> <span class="co"># use hjust and vjust to position text</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>ggridges!</p>
-<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/">ggridges</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span>  </span>
@@ -178,9 +249,11 @@
 <span>               y <span class="op">=</span> <span class="va">species</span>,</span>
 <span>               fill <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://wilkelab.org/ggridges/reference/geom_density_ridges.html">geom_density_ridges</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="co"># use hjust and vjust to position text</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hrbrmstr/ggalt">ggalt</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">summary_counts</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -198,11 +271,11 @@
 <span>             color<span class="op">=</span><span class="st">"#bad744"</span>, size<span class="op">=</span><span class="fl">3</span>, vjust<span class="op">=</span><span class="op">-</span><span class="fl">2</span>, fontface<span class="op">=</span><span class="st">"bold"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Body mass (g)"</span>,</span>
 <span>       y <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Coloured titles!</p>
 <p>Easy annotation</p>
 <p><a href="https://rfortherestofus.com/2020/05/color-titles-ggtext#" class="uri">https://rfortherestofus.com/2020/05/color-titles-ggtext#</a>:~:text=Adding%20color%20to%20titles%20using,HTML%2C%20not%20as%20raw%20text.</p>
-<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggtext/">ggtext</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -221,18 +294,20 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">""</span>,</span>
 <span>       y <span class="op">=</span> <span class="st">"Count"</span>,</span>
 <span>       title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span></span>
-<span>         <span class="st">'There are almost half the observations on &lt;span style = "color:#159090"&gt;Adelie&lt;/span&gt; penguins &lt;br&gt; as there are on &lt;span style ="color:#A034F0"&gt;Gentoo&lt;/span&gt;, and &lt;span style = "color:#FF8C00"&gt;Chinstrap&lt;/span&gt; penguins'</span></span>
+<span>         <span class="st">'There are almost half the observations on &lt;span style = "color:#FF8C00"&gt;Adelie&lt;/span&gt; penguins &lt;br&gt; as there are on &lt;span style ="color:#159090"&gt;Gentoo&lt;/span&gt;, and &lt;span style = "color:#A034F0"&gt;Chinstrap&lt;/span&gt; penguins'</span></span>
 <span>       <span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span></span>
-<span>    values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="co"># when reordering levels - be careful about keeping colours consistent</span></span>
+<span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#FF8C00"</span>, <span class="st">"#159090"</span>, <span class="st">"#A034F0"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span>        axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span></span>
 <span>      color <span class="op">=</span> <span class="va">pal</span>,</span>
-<span>      size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span>,</span>
+<span>      size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>,</span>
 <span>      plot.title <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html">element_markdown</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ggbump</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguin_summary</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -255,12 +330,32 @@
 <span>            size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2007</span>, <span class="fl">2009.5</span><span class="op">)</span>,</span>
 <span>                     breaks <span class="op">=</span> <span class="op">(</span><span class="fl">2007</span><span class="op">:</span><span class="fl">2009</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Total number of complete clutches"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;"></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Total number of complete clutches"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="density" class="section level3" number="10.0.2">
+<h3>
+<span class="header-section-number">10.0.2</span> Density<a class="anchor" aria-label="anchor" href="#density"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://jamesotto852.github.io/ggdensity/">ggdensity</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">penguins</span> <span class="op">|&gt;</span>  </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">culmen_length_mm</span>, </span>
+<span>               y <span class="op">=</span> <span class="va">culmen_depth_mm</span>,</span>
+<span>               colour <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggdensity</span><span class="fu">::</span><span class="fu"><a href="https://jamesotto852.github.io/ggdensity/reference/geom_hdr.html">geom_hdr_lines</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-66-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>gghiglight</p>
 <p>functions!</p>
 <p>maps!</p>
+</div>
 <div id="labels-and-annotations" class="section level2" number="10.1">
 <h2>
 <span class="header-section-number">10.1</span> Labels and annotations<a class="anchor" aria-label="anchor" href="#labels-and-annotations"><i class="fas fa-link"></i></a>
@@ -275,6 +370,91 @@
 <h2>
 <span class="header-section-number">10.3</span> Layouts and compositions<a class="anchor" aria-label="anchor" href="#layouts-and-compositions"><i class="fas fa-link"></i></a>
 </h2>
+<p>Patchwork, text and images!!!!</p>
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.rforge.net/png/">png</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">penguin_pic</span> <span class="op">&lt;-</span> <span class="fu">png</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/png/man/readPNG.html">readPNG</a></span><span class="op">(</span><span class="st">"images/lter_penguins.png"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">penguin_fig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/background_image.html">background_image</a></span><span class="op">(</span><span class="va">penguin_pic</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span>, label <span class="op">=</span> <span class="st">'Simpsons Paradox is a statistical phenomenon where an association between two variables in a population emerges, disappears or reverses when the population is divided into subpopulations such as &lt;span style = "color:#FF8C00"&gt;Adelie&lt;/span&gt;, &lt;span style ="color:#159090"&gt;Gentoo&lt;/span&gt;, and &lt;span style = "color:#A034F0"&gt;Chinstrap&lt;/span&gt; penguin species'</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="va">pt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">text</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtext</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/ggtext/reference/geom_textbox.html">geom_textbox</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">label</span><span class="op">)</span>,    <span class="co"># Map the 'label' column from the 'text' data to the text labels</span></span>
+<span>    box.color <span class="op">=</span> <span class="cn">NA</span>,         <span class="co"># Make the text box border color transparent</span></span>
+<span>    width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">15</span>, <span class="st">"lines"</span><span class="op">)</span>,  <span class="co"># Set the width of the text boxes to 15 lines</span></span>
+<span>    color <span class="op">=</span> <span class="st">"grey40"</span>,       <span class="co"># Set the text color to a light gray</span></span>
+<span>    size <span class="op">=</span> <span class="fl">4</span>,             <span class="co"># Set the text size to 4 (adjust as needed)</span></span>
+<span>    lineheight <span class="op">=</span> <span class="fl">1.4</span>        <span class="co"># Set the line height for text within the boxes</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># Customize the plot coordinate system</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="cn">FALSE</span>, clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span> <span class="op">+</span></span>
+<span></span>
+<span>  <span class="co"># Apply a theme with a blank (void) background</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pt</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-69-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">layout</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
+<span><span class="st">AACC</span></span>
+<span><span class="st">AACC</span></span>
+<span><span class="st">BBDD</span></span>
+<span><span class="st">BBDD</span></span>
+<span><span class="st">"</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">penguins</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span> <span class="va">culmen_length_mm</span>, </span>
+<span>                     y<span class="op">=</span> <span class="va">culmen_depth_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="st">"lm"</span>,</span>
+<span>              se<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"Bill length (mm)"</span>,</span>
+<span>         y<span class="op">=</span><span class="st">"Bill depth (mm)"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">penguins</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span> <span class="va">culmen_length_mm</span>, </span>
+<span>                     y<span class="op">=</span> <span class="va">culmen_depth_mm</span>,</span>
+<span>                     colour<span class="op">=</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="st">"lm"</span>,</span>
+<span>              se<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values<span class="op">=</span><span class="va">pal</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"Bill length (mm)"</span>,</span>
+<span>         y<span class="op">=</span><span class="st">"Bill depth (mm)"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">pt</span> <span class="op">+</span>  <span class="va">penguin_fig</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html">plot_layout</a></span><span class="op">(</span>design <span class="op">=</span> <span class="va">layout</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-70-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="activity-create-a-publication-style-multi-panel-figure" class="section level2" number="10.4">
+<h2>
+<span class="header-section-number">10.4</span> Activity: Create a Publication-Style Multi-Panel Figure<a class="anchor" aria-label="anchor" href="#activity-create-a-publication-style-multi-panel-figure"><i class="fas fa-link"></i></a>
+</h2>
+<p>Objective: Design and create a multi-panel data visualization figure in the style of a research publication. This exercise will challenge your skills in data visualization, data manipulation, and creating complex figures.</p>
+<p>Steps:</p>
+<ul>
+<li><p>Choose a Dataset: Select a dataset that is suitable for creating a multi-panel figure. It could be related to a scientific research topic, public data (e.g., from government sources or data repositories), or any other dataset that interests you.</p></li>
+<li><p>Data Preprocessing: Use dplyr and tidyr to preprocess the data. You may need to aggregate, filter, or reshape the data to fit the structure you want for your figure.</p></li>
+<li><p>Design the Figure: Decide on the structure of your multi-panel figure. You could create subplots or facets to represent different aspects of the data. For example, you might have multiple box plots, scatter plots, or other visualizations arranged in a grid.</p></li>
+<li><p>Create the Plot: Use ggplot2 to create the individual panels or subplots. Customize the appearance of each panel, including labels, colors, and titles.</p></li>
+<li><p>Combine the Panels: Use the patchwork package or another method to arrange the individual panels into a single figure. This may involve adjusting the layout, labeling, and legends to make the figure coherent.</p></li>
+<li><p>Add Annotations: Add relevant annotations to the figure, such as titles, subtitles, captions, and any necessary notes to explain the data or results.</p></li>
+<li><p>Customize the Theme: Apply a custom theme to the entire figure. You can modify fonts, colors, grid lines, and other elements to match the style of a publication.</p></li>
+</ul>
+<p>Tips:</p>
+<p>Plan your figure carefully, considering what story or message you want to convey.
+Experiment with different geoms, scales, and themes to achieve the desired visual effect.
+Use effective data visualization principles, such as avoiding misleading scales, providing clear labels and legends, and ensuring that the figure is accessible to a wide audience.</p>
 </div>
 </div>
 <script>
@@ -462,10 +642,16 @@ $( document ).ready(function() {
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#extensions-for-ggplot2"><span class="header-section-number">10</span> Extensions for ggplot2</a></li>
+<li>
+<a class="nav-link" href="#extensions-for-ggplot2"><span class="header-section-number">10</span> Extensions for ggplot2</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#ggdist"><span class="header-section-number">10.0.1</span> GGdist</a></li>
+<li><a class="nav-link" href="#density"><span class="header-section-number">10.0.2</span> Density</a></li>
+</ul>
+</li>
 <li><a class="nav-link" href="#labels-and-annotations"><span class="header-section-number">10.1</span> Labels and annotations</a></li>
 <li><a class="nav-link" href="#titles"><span class="header-section-number">10.2</span> Titles</a></li>
 <li><a class="nav-link" href="#layouts-and-compositions"><span class="header-section-number">10.3</span> Layouts and compositions</a></li>
+<li><a class="nav-link" href="#activity-create-a-publication-style-multi-panel-figure"><span class="header-section-number">10.4</span> Activity: Create a Publication-Style Multi-Panel Figure</a></li>
 </ul>
 
       <div class="book-extra">
@@ -483,7 +669,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-24.</p>
+    <p>"<strong>Introduction to Statistics</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
