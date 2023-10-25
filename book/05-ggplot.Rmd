@@ -1126,7 +1126,8 @@ p2 <- ggplot(penguins, aes(x= culmen_length_mm,
     labs(x="Bill length (mm)",
          y="Bill depth (mm)")
 
-p1 + p2 + pt +  penguin_fig + 
+p1 + p2 + 
+  pt +  penguin_fig + 
   plot_layout(design = layout)
 
 
