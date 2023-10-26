@@ -165,10 +165,10 @@
 <p><a href="https://modern-rstats.eu/defining-your-own-functions.html#control-flow" class="uri">https://modern-rstats.eu/defining-your-own-functions.html#control-flow</a></p>
 <p><a href="https://bookdown.org/rdpeng/rprogdatascience/control-structures.html" class="uri">https://bookdown.org/rdpeng/rprogdatascience/control-structures.html</a></p>
 <p>Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical problem that requires the <code>if</code> and <code>else</code> construct. For instance:</p>
-<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></code></pre></div>
-<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;</span> <span class="va">b</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">f</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
 <span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
@@ -178,22 +178,22 @@
 <span><span class="va">f</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p>Another way to achieve this is by using the <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> function:</p>
-<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">a</span> <span class="op">&gt;</span> <span class="va">b</span>, <span class="fl">20</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">f</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p><code>if</code> and <code>else</code> might seem interchangeable with <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>, but they’re not. <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> is vectorized. Let’s try the following:</p>
-<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="st">"yes"</span>, <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "no"  "yes" "yes"</code></pre>
 <p>Trying to attempt the same with <code>if</code> and <code>else</code> will result in an error as only the first element can be evaluated</p>
-<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"yes"</span><span class="op">)</span> <span class="kw">else</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Error in if (c(1, 2, 4) &gt; c(3, 1, 0)) print("yes") else print("no") : 
   the condition has length &gt; 1
 </code></pre>
 <p>The work around for this would to be use a loop, so that each element along the vector can be evaluated in turn. We will revisit loops shortly.</p>
-<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vector1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">vector2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
@@ -216,13 +216,13 @@
 <p><code>case_when</code> is a powerful <code>tidyverse</code> function in R that serves as an extension of <code>if_else</code>, providing a flexible way to create conditional transformations on multiple values within a dataset. While <code>if_else</code> is primarily used for a single condition, <code>case_when</code> is designed to handle multiple conditions and allows you to assign specific values or perform operations based on these conditions.</p>
 <p>Here's a simple introduction to case_when as an extension of <code>if_else</code>:</p>
 <p>Imagine you have a dataset with a column called "temperature," and you want to create a new column called "weather" based on different temperature ranges. With if_else, you might write something like this:</p>
-<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">5</span>, <span class="fl">30</span>, <span class="fl">15</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">10</span>, <span class="st">"Cold"</span>,</span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;=</span> <span class="fl">10</span> <span class="op">&amp;</span> <span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">25</span>, <span class="st">"Moderate"</span>, <span class="st">"Hot"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "Moderate" "Hot"      "Cold"     "Hot"      "Moderate"</code></pre>
-<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
 <span>    <span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">10</span> <span class="op">~</span> <span class="st">"Cold"</span>,</span>
 <span>    <span class="va">temperature</span> <span class="op">&gt;=</span> <span class="fl">10</span> <span class="op">&amp;</span> <span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">25</span> <span class="op">~</span> <span class="st">"Moderate"</span>,</span>
@@ -237,7 +237,7 @@
 <p>Let's make a function that reports p-values in APA format (with "p = [rounded value]" when p &gt;= .001 and "p &lt; .001" when p &lt; .001).</p>
 <p>You can add a default value to any argument. If that argument is skipped, then the function uses the default argument.</p>
 <p>First we could make a function that rounds any value to three digits.</p>
-<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">roundp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span></span>
 <span>    <span class="va">reported</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">roundp</span><span class="op">)</span></span>
@@ -245,7 +245,7 @@
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>But we would like this to have a conditional response as well: so we need an <code>if</code> <code>else</code> statement.</p>
-<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="kw">if</span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span><span class="op">)</span><span class="op">{</span></span>
 <span>             <span class="st">"p &lt; 0.001"</span><span class="op">}</span> <span class="kw">else</span><span class="op">{</span></span>
@@ -255,7 +255,7 @@
 <span>     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
 <span> <span class="op">}</span></span></code></pre></div>
 <p>However we soon hit our first problem, this function works well when provided a single numeric value, but when applied to a vector or a dataframe we encounter an error:</p>
-<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.05</span>,<span class="fl">0.3</span>,<span class="fl">0.4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">report_p</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
@@ -270,7 +270,7 @@ Base R
 </button>
 </div>
 <div id="option1= T" class="tabcontent= T">
-<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span>,</span>
 <span>             <span class="st">"p &lt; 0.001"</span>,</span>
@@ -280,7 +280,7 @@ Base R
 <span> <span class="op">}</span></span></code></pre></div>
 </div>
 <div id="option2= T" class="tabcontent= T">
-<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span>,</span>
 <span>             <span class="st">"p &lt; 0.001"</span>,</span>
@@ -323,7 +323,7 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
-<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>   </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
@@ -337,7 +337,7 @@ Base R
 <span> <span class="op">}</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
-<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span> </span>
 <span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
@@ -581,7 +581,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-25.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

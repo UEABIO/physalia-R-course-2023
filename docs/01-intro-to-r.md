@@ -192,7 +192,7 @@ There are a few different types of operators to consider in R
 |/|	division|
 |^|	exponentiation|
 
-#### Logical Operators
+#### Relational Operators
 
 |Operator|Description
 |-----|-----|
@@ -202,6 +202,14 @@ There are a few different types of operators to consider in R
 |>=|greater than or equal to|
 |==|exactly equal to|
 |!=|not equal to|
+
+#### Logical Operators
+
+|Operator|Description
+|-----|-----|
+|!|not|
+|&|AND|
+|⎮|  OR|
 
 #### Membership Operators
 

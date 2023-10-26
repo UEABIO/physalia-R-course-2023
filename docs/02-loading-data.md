@@ -1303,6 +1303,143 @@ centered_penguins
 
 Look at this output - you can see the information on groups has now been removed from the data. 
 
+## Working with character strings
+
+Datasets often contain words, and we call these words "(character) strings". 
+
+Often these aren't quite how we want them to be, but we can manipulate these as much as we like. Functions in the package `stringr`, are fantastic. And the number of different types of manipulations are endless!
+
+
+```r
+# Stringr ----
+
+str_replace_all(names(penguins), c("e"= "E"))
+# replace all character "e" with "E"
+```
+
+
+### More stringr
+
+
+```r
+penguins %>% 
+  mutate(species=str_to_upper(species))
+# Capitalise all letters
+```
+
+
+```r
+penguins %>% 
+  mutate(species=str_remove_all(species, "e"))
+# remove every character "e" from selected variables
+```
+
+We can also trim leading or trailing empty spaces with `str_trim`. These are often problematic and difficult to spot e.g.
+
+
+```r
+df2 <- tibble(label=c("penguin", " penguin", "penguin ")) 
+df2 # make a test dataframe
+```
+
+We can easily imagine a scenario where data is manually input, and trailing or leading spaces are left in. These are difficult to spot by eye - but problematic because as far as R is concerned these are different values. We can use the function `distinct` to return the names of all the different levels it can find in this dataframe.
+
+
+```r
+df2 %>% 
+  distinct()
+```
+
+If we pipe the data throught the `str_trim` function to remove any gaps, then pipe this on to `distinct` again - by removing the whitespace, R now recognises just one level to this data. 
+
+
+```r
+df2 %>% 
+  mutate(label=str_trim(label, side="both")) %>% 
+  distinct()
+```
+
+A quick example of how to extract partial strings according to a pattern is to use `str_detect`. Combined with `filter` it is possible to subset a dataframe by searching for all the strings that match provided information, such as all the penguin IDs that start with "N1"
+
+
+```r
+penguins %>% 
+  filter(str_detect(individual_id, "N1"))
+```
+
+### separate
+
+Sometimes a string might contain two pieces of information in one. This does not confirm to our tidy data principles. But we can easily separate the information with `separate()` from the `tidyr` package.
+
+First we produce some made-up data
+
+
+```r
+df <- tibble(label=c("a-1", "a-2", "a-3")) 
+#make a one column tibble
+df
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> label </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> a-1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> a-2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> a-3 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+
+```r
+df %>% 
+  separate(label, # name of variable
+           c("treatment", "replicate"), # new column names
+           sep="-") # the character to mark where the separation occurs
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> treatment </th>
+   <th style="text-align:left;"> replicate </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> a </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> a </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> a </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+We started with one variable called `label` and then split it into two variables, `treatment` and `replicate`, with the split made where `-` occurs. 
+The opposite of this function is `unite()`
 
 
 ## Working with dates
@@ -1336,7 +1473,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_WHMGVBMWZQ'><label><input type="radio" autocomplete="off" name="radio_WHMGVBMWZQ" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_WHMGVBMWZQ" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_WHMGVBMWZQ" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_WHMGVBMWZQ" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_KRWXYUNFTX'><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -1425,7 +1562,7 @@ penguins |>
   geom_bar()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-84-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-93-1.png" width="100%" style="display: block; margin: auto;" />
 
 To convert a character or numeric column to class factor, you can use any function from the `forcats` package. They will convert to class factor and then also perform or allow certain ordering of the levels - for example using `forcats::fct_relevel()` lets you manually specify the level order. 
 
@@ -1435,18 +1572,18 @@ The `base R` function `factor()` converts a column to factor and allows you to m
 
 Below we use `mutate()` and `fct_relevel()` to convert the column flipper_range from class character to class factor. 
 
-<div class="tab"><button class="tablinksunnamed-chunk-85 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-85', 'unnamed-chunk-85');">Base R</button><button class="tablinksunnamed-chunk-85" onclick="javascript:openCode(event, 'option2unnamed-chunk-85', 'unnamed-chunk-85');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-85" class="tabcontentunnamed-chunk-85">
+<div class="tab"><button class="tablinksunnamed-chunk-94 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-94', 'unnamed-chunk-94');">Base R</button><button class="tablinksunnamed-chunk-94" onclick="javascript:openCode(event, 'option2unnamed-chunk-94', 'unnamed-chunk-94');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-94" class="tabcontentunnamed-chunk-94">
 
 ```r
 penguins$flipper_range <- factor(penguins$flipper_range)
 ```
-</div><div id="option2unnamed-chunk-85" class="tabcontentunnamed-chunk-85">
+</div><div id="option2unnamed-chunk-94" class="tabcontentunnamed-chunk-94">
 
 ```r
 penguins <- penguins |> 
   mutate(flipper_range = fct_relevel(flipper_range))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-85') </script>
+</div><script> javascript:hide('option2unnamed-chunk-94') </script>
 
 
 
@@ -1458,20 +1595,20 @@ levels(penguins$flipper_range)
 ## [1] "large"  "medium" "small"
 ```
 
-<div class="tab"><button class="tablinksunnamed-chunk-87 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-87', 'unnamed-chunk-87');">Base R</button><button class="tablinksunnamed-chunk-87" onclick="javascript:openCode(event, 'option2unnamed-chunk-87', 'unnamed-chunk-87');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-87" class="tabcontentunnamed-chunk-87">
+<div class="tab"><button class="tablinksunnamed-chunk-96 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-96', 'unnamed-chunk-96');">Base R</button><button class="tablinksunnamed-chunk-96" onclick="javascript:openCode(event, 'option2unnamed-chunk-96', 'unnamed-chunk-96');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-96" class="tabcontentunnamed-chunk-96">
 
 ```r
 penguins$flipper_range <- factor(penguins$flipper_range,
                                   levels = c("small", "medium", "large"))
 ```
-</div><div id="option2unnamed-chunk-87" class="tabcontentunnamed-chunk-87">
+</div><div id="option2unnamed-chunk-96" class="tabcontentunnamed-chunk-96">
 
 ```r
 # Correct the code in your script with this version
 penguins <- penguins |> 
   mutate(flipper_range = fct_relevel(flipper_range, "small", "medium", "large"))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-87') </script>
+</div><script> javascript:hide('option2unnamed-chunk-96') </script>
 
 Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels. 
 
@@ -1482,7 +1619,7 @@ penguins |>
   geom_bar()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-88-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-97-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>Factors will also be important when we build linear models a bit
@@ -1502,12 +1639,12 @@ appropriate choice, and by changing this to an ordered
 
 <div class="figure" style="text-align: center">
 <img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-90)My neat project layout</p>
+<p class="caption">(\#fig:unnamed-chunk-99)My neat project layout</p>
 </div>
 
 <div class="figure" style="text-align: center">
 <img src="images/r_script.png" alt="My scripts and file subdirectory" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-91)My scripts and file subdirectory</p>
+<p class="caption">(\#fig:unnamed-chunk-100)My scripts and file subdirectory</p>
 </div>
 
 ## Activity: Test yourself
@@ -1607,7 +1744,7 @@ skimr::skim(penguins)
 
 <table style='width: auto;'
       class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-96)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-105)Data summary</caption>
 <tbody>
   <tr>
    <td style="text-align:left;"> Name </td>
@@ -1687,8 +1824,8 @@ skimr::skim(penguins)
    <td style="text-align:left;"> species </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 41 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 3 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1916,7 +2053,7 @@ skimr::skim(penguins)
    <td style="text-align:left;"> ▃▇▆▃▂ </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> delta_15n </td>
+   <td style="text-align:left;"> delta_15_n_o_oo </td>
    <td style="text-align:right;"> 14 </td>
    <td style="text-align:right;"> 0.96 </td>
    <td style="text-align:right;"> 8.73 </td>
@@ -1929,7 +2066,7 @@ skimr::skim(penguins)
    <td style="text-align:left;"> ▃▇▆▅▂ </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> delta_13c </td>
+   <td style="text-align:left;"> delta_13_c_o_oo </td>
    <td style="text-align:right;"> 13 </td>
    <td style="text-align:right;"> 0.96 </td>
    <td style="text-align:right;"> -25.69 </td>
@@ -2000,7 +2137,7 @@ penguins |>
   pairs()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-98-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-107-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### GGally
 
@@ -2018,7 +2155,7 @@ penguins |>
   ggpairs()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-100-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-109-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -2027,14 +2164,14 @@ penguins |>
   ggpairs(columns = 10:12, ggplot2::aes(colour = species))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-101-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-110-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 penguins |> 
   ggpairs(columns = 10:12, upper = "blank")
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-102-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-111-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2042,7 +2179,7 @@ penguins |>
   ggpairs(columns = 10:14, columnLabels = c("Bill length", "Bill depth", "Flipper length", "Body mass", "Sex"))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-103-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-112-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2051,7 +2188,7 @@ penguins |>
           lower = list(continuous = "points", combo = "dot_no_facet"))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-104-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-113-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2061,7 +2198,7 @@ penguins |>
           ggplot2::aes(colour = species))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-105-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-114-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2069,7 +2206,7 @@ penguins |>
   ggpairs(columns = 10:14, axisLabels = "internal")
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-106-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-115-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## dataxray
 

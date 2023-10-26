@@ -1,7 +1,39 @@
 
-HUGE DATAFRAMES
+HUGE DATAFRAMES - Some blurb getting data in and out of R - direct to https://bookdown.org/csgillespie/efficientR/preface.html
+
+SQL??? https://github.com/sbreitbart/DataSci_for_Ecologists/blob/main/SQL_intro/SQL_intro.rmd
+
+https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/#the-database-file-strategy
+
+MAYBE? https://hbs-rcs.github.io/large_data_in_R/#convert-csv-to-parquet
+
+SUBSETTING [] and [[]]
+DEBUGGING
 SIMULATIONS
-MAPS???
+
+MASTERING TIDYVERSE - 
+# create raw data folder
+dir.create("data_raw",
+           showWarnings = FALSE)
+           
+
+GETTING DATA IN AND OUT OF R?    
+GGPLOT EXTENSIONS 
+REWORK DATA WRANGLING  - ADD SCRIPT TIDY TASK
+SIMPLE REPETITION
+LOOPS
+APPLY
+PURRR
+TIDYVERSE 
+TIDYVERSE FUNCTIONS
+GGPLOT MAPS???
+GT
+QUARTO
+  PARAMETERS
+GITHUB
+BONUS: BIG DATA? 
+
+SLIDES!
 
 
 
