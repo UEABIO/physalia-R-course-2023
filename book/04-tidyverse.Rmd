@@ -682,16 +682,42 @@ summary(model)
 
 Now we know that there are important covariates to consider - and the most appropriate method from an analysis perspective would be to include these as covariates within a single model
 
-```{r}
+```{r, eval = F}
 model <- lm(culmen_depth_mm ~ culmen_length_mm * species, data = penguins)
 
 summary(model)
 
 ```
 
+```
+Call:
+lm(formula = culmen_depth_mm ~ culmen_length_mm * species, data = penguins)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.6574 -0.6675 -0.0524  0.5383  3.5032 
+
+Coefficients:
+                                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                       11.40912    1.13812  10.025  < 2e-16 ***
+culmen_length_mm                   0.17883    0.02927   6.110 2.76e-09 ***
+speciesChinstrap                  -3.83998    2.05398  -1.870 0.062419 .  
+speciesGentoo                     -6.15812    1.75451  -3.510 0.000509 ***
+culmen_length_mm:speciesChinstrap  0.04338    0.04558   0.952 0.341895    
+culmen_length_mm:speciesGentoo     0.02601    0.04054   0.642 0.521590    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9548 on 336 degrees of freedom
+  (2 observations deleted due to missingness)
+Multiple R-squared:  0.7697,	Adjusted R-squared:  0.7662 
+F-statistic: 224.5 on 5 and 336 DF,  p-value: < 2.2e-16
+
+```
+
 However, there may be occasions where we wish to apply simple models to each subpopulation in turn:
 
-```{r}
+```{r, eval = F}
 penguins |> 
   group_by(species) |> 
   nest() |> 
@@ -700,8 +726,19 @@ penguins |>
   unnest(tidy)
 
 ```
+```
+A tibble:6 × 8
+Groups:species [3]
 
+Adelie	<tibble>	<S3: lm>	(Intercept)	11.4091245	1.33893250	
+Adelie	<tibble>	<S3: lm>	culmen_length_mm	0.1788343	0.03443569	
+Gentoo	<tibble>	<S3: lm>	(Intercept)	5.2510084	1.05480901	
+Gentoo	<tibble>	<S3: lm>	culmen_length_mm	0.2048443	0.02215802	
+Chinstrap	<tibble>	<S3: lm>	(Intercept)	7.5691401	1.55052928	
+Chinstrap	<tibble>	<S3: lm>	culmen_length_mm	0.2222117	0.03167825	
+6 rows | 1-6 of 8 columns
 
+```
 
 ## Pivot
 

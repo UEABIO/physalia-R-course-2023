@@ -195,7 +195,7 @@ repository into RStudio Cloud.
 <span class="header-section-number">27.1</span> Structuring a function<a class="anchor" aria-label="anchor" href="#structuring-a-function-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>R makes it easy to create user defined functions by using <code>function()</code>. Here is how it works:</p>
-<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">my_args</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># code to run</span></span>
 <span>  <span class="co"># return (some value)</span></span>
@@ -212,16 +212,16 @@ repository into RStudio Cloud.
 <span class="header-section-number">27.2</span> Activity 1: Understand the function<a class="anchor" aria-label="anchor" href="#activity-1-understand-the-function"><i class="fas fa-link"></i></a>
 </h2>
 <p>Here is a very simple function. Can you guess what it does?</p>
-<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">add_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input_data</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">input_data</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">add_one</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 11</code></pre>
 <p>What value did you get when running the function above? <input class="webex-solveme nospaces" size="2" data-answer='["11"]'></p>
 <p>Now try applying your function to this vector:</p>
-<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">number_series</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p>You should see it worked on <em>each element</em> inside the vector. This emphasises that R is a vector based language (it will by default apply functions on all elements in an object).</p>
 </div>
@@ -269,7 +269,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">variance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input_data</span><span class="op">)</span><span class="op">{</span></span>
 <span>     <span class="va">square</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">input_data</span><span class="op">)</span></span>
 <span>     <span class="va">ss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">square</span><span class="op">)</span></span>
@@ -306,7 +306,7 @@ separate script and use source(“scripts/functions.R”)
 <span class="header-section-number">27.4</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults-2"><i class="fas fa-link"></i></a>
 </h2>
 <p>This is an example of a very simple function that just prints the string "Hello World" whenever you type the function <code>say_hello()</code></p>
-<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">say_hello</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Hello World"</span><span class="op">)</span> </span>
 <span><span class="op">}</span></span>
@@ -340,7 +340,7 @@ Error in say_hello( or something similar, this function has not been set with an
 </div>
 </div>
 <p>Now lets try a similar function, but we include an argument:</p>
-<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">say_morning</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Good morning"</span>, <span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -365,8 +365,8 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="functions-1.html#cb397-1" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">paste</span>(<span class="st">"Good morning"</span>, x) <span class="sc">:</span> </span>
-<span id="cb397-2"><a href="functions-1.html#cb397-2" tabindex="-1"></a>  argument <span class="st">"x"</span> is missing, with no default</span></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="functions-1.html#cb398-1" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">paste</span>(<span class="st">"Good morning"</span>, x) <span class="sc">:</span> </span>
+<span id="cb398-2"><a href="functions-1.html#cb398-2" tabindex="-1"></a>  argument <span class="st">"x"</span> is missing, with no default</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -376,7 +376,7 @@ Solution
 <span class="header-section-number">27.4.1.1</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults-3"><i class="fas fa-link"></i></a>
 </h4>
 <p>However, you are probably used to the idea that many functions have "default" values for arguments, and we can easily set these.</p>
-<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">say_morning_default</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span> <span class="op">=</span> <span class="st">"you"</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Good morning"</span>, <span class="va">name</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -399,7 +399,7 @@ should still be able to changed when running the function. Try it!
 <p>Let's make a function that reports p-values in APA format (with "p = [rounded value]" when p &gt;= .001 and "p &lt; .001" when p &lt; .001).</p>
 <p>You can add a default value to any argument. If that argument is skipped, then the function uses the default argument.</p>
 <p>First we could make a function that rounds any value to three digits.</p>
-<div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">roundp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span></span>
 <span>    <span class="va">reported</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">roundp</span><span class="op">)</span></span>
@@ -433,7 +433,7 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-21" class="tabcontentunnamed-chunk-21">
-<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span>,</span>
 <span>             <span class="st">"p &lt; 0.001"</span>,</span>
@@ -443,7 +443,7 @@ Base R
 <span> <span class="op">}</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-21" class="tabcontentunnamed-chunk-21">
-<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">.001</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">reported</span> <span class="op">=</span> <span class="st">"p &lt; .001"</span></span>
@@ -480,7 +480,7 @@ character “a”?
 <p>For <code>p = 1.5</code> it probably <em>shouldn't</em> run (p = 1.5 makes no sense), but it does!</p>
 <p>For <code>p = "a"</code> there is a warning but perhaps not a very intuitive one.</p>
 <p>We can make our own custom/specific warnings, try this and run it with the arguments above again!</p>
-<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>   </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
@@ -498,7 +498,7 @@ character “a”?
 <span class="header-section-number">27.8</span> Anonymous functions<a class="anchor" aria-label="anchor" href="#anonymous-functions"><i class="fas fa-link"></i></a>
 </h2>
 <p>Anonymous functions are ones where the function definiton is not bound to an R object. That is the function may be created and used but never assigned to a variable. We don't normally encounter these out in the "wild", but may be quite common when used with Iteration (see next chapter).</p>
-<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">function</span><span class="op">(</span><span class="va">input_data</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">input_data</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
@@ -508,7 +508,7 @@ character “a”?
 <span class="header-section-number">27.9</span> Activity 3 : Stretch Exercise<a class="anchor" aria-label="anchor" href="#activity-3-stretch-exercise"><i class="fas fa-link"></i></a>
 </h2>
 <p>We are going to try and write a custom function called <code>find_largest_male()</code>, it will be used to identify the largest male <em>Drosophila</em> from a small dataset.</p>
-<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Make some fake data into a tibble</span></span>
 <span></span>
 <span><span class="va">vial</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>,<span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -530,7 +530,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">dros_weight</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">"male"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">weight_mg</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -579,7 +579,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">find_largest_male</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">{</span> </span>
 <span>  <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">"male"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -607,7 +607,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">find_largest_fly</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>,  <span class="va">n</span><span class="op">=</span><span class="fl">1</span>, <span class="va">s</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"male"</span>, <span class="st">"female"</span><span class="op">)</span> <span class="op">)</span><span class="op">{</span> </span>
 <span>  <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="va">s</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -631,7 +631,7 @@ Solution
 </h2>
 <p>It is often the case that we start to default to a particular 'style' for our figures, or you may be making several similar figures within a research paper. Creating custom functions can extend to making our own custom ggplot themes. You have probably already used theme variants such as <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> - these are incredibly useful, but you might find you still wish to make consistent changes.</p>
 <p>Here is a plot we can make with the <code>dros_weight</code> tibble:</p>
-<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="va">dros_weight</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">sex</span>,</span>
 <span>         y<span class="op">=</span><span class="va">weight_mg</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
@@ -640,7 +640,7 @@ Solution
 <span><span class="va">plot</span></span></code></pre></div>
 <div class="inline-figure"><img src="09-writing-functions_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>With the addition of a title and <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code> we can improve the style quickly</p>
-<div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Comparison of weights (mg) between \nmale and female Drosophila"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -658,7 +658,7 @@ theme_classic + theme() # is correct
 theme() + theme_classic() # will not work as intended
 </p>
 </div>
-<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># custom theme sets defaults for font and size, but these can be changed without changing the function</span></span>
 <span><span class="va">theme_custom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">base_size</span><span class="op">=</span><span class="fl">12</span>, <span class="va">base_family</span><span class="op">=</span><span class="st">"serif"</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="va">base_size</span>, </span>
@@ -695,7 +695,7 @@ theme() + theme_classic() # will not work as intended
 <span><span class="op">}</span></span></code></pre></div>
 <p>With this function set, I can now use it for as many figures as I wish. To use it in the future I should probably save it in a unique script, with a clear title and comments for future use.</p>
 <p>I could then easily use <code>source("custom_theme_function.R")</code> to make this available to any scripts I was using.</p>
-<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot</span><span class="op">+</span></span>
 <span><span class="fu">theme_custom</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="09-writing-functions_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;"></div>
