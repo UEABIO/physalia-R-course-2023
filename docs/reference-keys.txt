@@ -245,10 +245,14 @@ rainclouds
 interval-stats
 ggridges
 dumbell-charts
+facets-1
+highlighting
 text
+ggforce
 textpaths
 ggtext
 layouts-and-compositions
+scales
 activity-create-a-publication-style-multi-panel-figure
 custom-ggplot-themes
 making-tables-with-gt

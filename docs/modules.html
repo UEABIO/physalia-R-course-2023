@@ -183,7 +183,7 @@
 <span class="header-section-number">32.1</span> Modularizing the UI<a class="anchor" aria-label="anchor" href="#modularizing-the-ui"><i class="fas fa-link"></i></a>
 </h2>
 <p>The two tabPanels below follow nearly identical patterns. You can often identify a place where modules might be useful when you use a naming convention like <code>dt("{base}_{type}")</code> for the <code>arg("id")</code>s.</p>
-<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
 <span>  <span class="st">"iris"</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"iris_dv"</span>, <span class="st">"DV"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>,</span>
@@ -199,7 +199,7 @@
 <span><span class="op">)</span></span></code></pre></div>
 <p>The first step in modularising your code is to make a function that creates the UIs above from the base ID and any other changing aspects. In the example above, the choices are different for each <code>func("selectInput")</code>, so we'll make a function that has the arguments <code>arg("id")</code> and <code>arg("choices")</code>.</p>
 <p>The first line of a UI module function is always <code>ns &lt;- NS(id)</code>, which creates a shorthand way to add the base id to the id type. So instead of the <code>func("selectInput")</code>'s name being <code>dt("iris_dv")</code> or <code>dt("mtcars_dv")</code>, we set it as <code>func("ns", "dv")</code>. All ids need to use <code>func("ns")</code> to add the namespace to their ID.</p>
-<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tabPanelUI</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">choices</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span>    </span>
@@ -211,7 +211,7 @@
 <span>    <span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Now, you can replace two tabPanel definitions with just the following code.</p>
-<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_tab</span> <span class="op">&lt;-</span> <span class="fu">tabPanelUI</span><span class="op">(</span><span class="st">"iris"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">penguins_tab</span> <span class="op">&lt;-</span> <span class="fu">tabPanelUI</span><span class="op">(</span><span class="st">"penguins"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bill_length_mm"</span>, <span class="st">"bill_depth_mm"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -220,7 +220,7 @@
 <span class="header-section-number">32.2</span> Modularizing server functions<a class="anchor" aria-label="anchor" href="#modularizing-server-functions"><i class="fas fa-link"></i></a>
 </h2>
 <p>In our original code, we have four functions that create the two output tables and two output plots, but these are also largely redundant.</p>
-<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output</span><span class="op">$</span><span class="va">iris_table</span> <span class="op">&lt;-</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">renderDataTable</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="va">iris</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
@@ -249,14 +249,14 @@
 <p>The second step to modularising code is creating a server function. You can put all the functions the relate to the inputs and outputs in the UI function here, so we will include one to make the output table and one to make the output plot.</p>
 <p>The server function takes the base id as the first argument, and then any arguments you need to specify things that change between base implementations. Above, the tables show different data and the plots use different groupings for the x axis and fill, so we'll add arguments for <code>arg("data")</code> and <code>arg("group_by")</code>.</p>
 <p>A server function <strong>always</strong> contains <code><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer()</a></code> set up like below.</p>
-<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tabPanelServer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span>, <span class="va">group_by</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="co"># code ...</span></span>
 <span>    <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>No you can copy in one set of server functions above, remove the base name (e.g., "iris_" or "mtcars_") from and inputs or outputs, and replace specific instances of the data or grouping columns with <code>data</code> and <code>group_by</code>.</p>
-<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tabPanelServer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span>, <span class="va">group_by</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">renderDataTable</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -289,7 +289,7 @@ required for the <code>mtcars</code> grouping column
 </p>
 </div>
 <p>Now, you can replace the four functions inside the server function with these two lines of code.</p>
-<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"iris"</span>, data <span class="op">=</span> <span class="va">iris</span>, group_by <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span>
 <span><span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"penguins"</span>, data <span class="op">=</span> <span class="va">penguins</span>, group_by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre></div>
 <p>Our example only reduced our code by 4 lines, but it can save a lot of time, effort, and debugging on projects with many similar modules. For example, if you want to change the plots in your app to use a different geom, now you only have to change one function instead of two.</p>
@@ -331,7 +331,7 @@ required for the <code>mtcars</code> grouping column
 UI Solution
 </button>
 <p>You can choose any of the numeric columns for the choices.</p>
-<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diamonds_tab</span> <span class="op">&lt;-</span> <span class="fu">tabPanelUI</span><span class="op">(</span><span class="st">"diamonds"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"carat"</span>, <span class="st">"depth"</span>, <span class="st">"table"</span>, <span class="st">"price"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="webex-solution">
@@ -339,7 +339,7 @@ UI Solution
 Server Solution
 </button>
 <p>You can group by any of the categorical columns: cut, color, or clarity.</p>
-<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"diamonds"</span>, data <span class="op">=</span> <span class="va">diamonds</span>, group_by <span class="op">=</span> <span class="st">"cut"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -354,7 +354,7 @@ Server Solution
 UI Solution
 </button>
 <p>You need to add a new <code>func("selectInput")</code> to the <code>func("tabPanel")</code>. Remember to use <code>func("ns")</code> for the id. The choices for this select will also differ by data set, so you need to add <code>arg("group_choices")</code> to the arguments of this function.</p>
-<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tabPanelUI</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">choices</span>, <span class="va">group_choices</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span>    </span>
@@ -376,7 +376,7 @@ Server Solution
 </button>
 <p>You no longer need <code>group_by</code> in the arguments for this function because you are getting that info from an input.</p>
 <p>Instead of changing <code>arg("group_by")</code> to <code>input$group_by</code> in three places in the code below, I just added the line <code>group_by &lt;- input$group_by</code> at the top of <code>func("moduleServer")</code>.</p>
-<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tabPanelServer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="va">group_by</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">group_by</span></span>
@@ -395,7 +395,7 @@ Server Solution
 <button>
 UI Function
 </button>
-<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">infoBoxUI</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">width</span> <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span></span>
@@ -406,7 +406,7 @@ UI Function
 <button>
 Server Function
 </button>
-<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">infoBoxServer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">title</span>, <span class="va">fmt</span>, <span class="va">icon</span>, <span class="va">color</span> <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="va">output</span><span class="op">$</span><span class="va">box</span> <span class="op">&lt;-</span> <span class="fu">renderInfoBox</span><span class="op">(</span><span class="op">{</span></span>
@@ -423,7 +423,7 @@ Server Function
 UI Code
 </button>
 <p>In the <code>ui</code>, replace the <code>func("fluidRow")</code> with this:</p>
-<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow</a></span><span class="op">(</span></span>
 <span>    <span class="fu">infoBoxUI</span><span class="op">(</span><span class="st">"day"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">infoBoxUI</span><span class="op">(</span><span class="st">"month"</span><span class="op">)</span>,</span>
@@ -435,7 +435,7 @@ UI Code
 Server Code
 </button>
 <p>In <code>func("server")</code>, replace the three <code>func("renderInfoBox")</code> with this:</p>
-<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">infoBoxServer</span><span class="op">(</span><span class="st">"year"</span>, <span class="st">"Year"</span>, <span class="st">"%Y"</span>, <span class="st">"calendar"</span><span class="op">)</span></span>
 <span><span class="fu">infoBoxServer</span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"Month"</span>, <span class="st">"%m"</span>, <span class="st">"calendar-alt"</span><span class="op">)</span></span>
 <span><span class="fu">infoBoxServer</span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"Day"</span>, <span class="st">"%d"</span>, <span class="st">"calendar-day"</span><span class="op">)</span></span></code></pre></div>

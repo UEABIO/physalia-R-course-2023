@@ -857,9 +857,6 @@ https://exts.ggplot2.tidyverse.org/
 - gghighlight
 - ggforce
 
-- functions on ggplot
-
-
 
 ## ggdist
 
@@ -957,6 +954,40 @@ penguins |>
 ```
 
 <img src="05-ggplot_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
+## Bump charts
+
+
+```r
+library(ggbump)
+
+penguin_summary <- penguins |> 
+  mutate(date_egg = dmy(date_egg)) |> 
+  filter(clutch_completion == "Yes") |> 
+  mutate(year = year(date_egg)) |> 
+  group_by(species, year) |> 
+  summarise(n = n())
+
+penguin_summary |>
+  ggplot(aes(x = year, 
+             y = n,
+             colour = species))+
+  geom_point(size = 7)+
+  geom_bump()+
+  geom_text(data = penguin_summary |> filter(year == max(year)),
+                                             aes(x = year + 0.1,
+                                                 label = species,
+                                                  hjust = 0),
+            size = 5)+
+  scale_x_continuous(limits = c(2007, 2009.5),
+                     breaks = (2007:2009))+
+  labs(y = "Total number of complete clutches")+
+  scale_fill_manual(values = pal) +
+  scale_colour_manual(values = pal)+
+  theme(legend.position = "none")
+```
+
+<img src="05-ggplot_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" />
+
 
 ## Dumbell charts
 
@@ -981,9 +1012,90 @@ ggplot(summary_counts,
        y = "")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;" />
+
+## Facets
+
+The `ggh4x` package adds some awesome features for easy facet work including `facet_nested()`:
+
+
+```r
+library(ggh4x)
+
+penguins |> 
+  mutate(Nester = ifelse(species=="Gentoo", "Crustaceans", "Fish & Krill")) |> 
+  ggplot(aes(x = culmen_length_mm,
+             y = culmen_depth_mm,
+             colour = species))+
+  geom_point()+
+  facet_nested(~ Nester + species)+
+  scale_colour_manual(values = pal)+
+  theme(legend.position = "none")
+```
+
+<img src="05-ggplot_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;" />
+
+## Highlighting
+
+
+```r
+library(gghighlight)
+
+penguins |> 
+  ggplot(aes(body_mass_g,
+             fill = species),
+         position = "identity")+
+  geom_histogram()+
+  gghighlight()+
+  scale_fill_manual(values = pal)+
+  facet_wrap(~ species)
+```
+
+<img src="05-ggplot_files/figure-html/unnamed-chunk-66-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+library(ggbeeswarm)
+library(gghighlight)
+penguins |> 
+    ggplot(aes(x = species,
+               y = body_mass_g,
+               fill = species))+
+    geom_beeswarm(shape = 21, 
+                  colour = "white")+
+    scale_fill_manual(values = pal)+
+    gghighlight(body_mass_g > 4000)
+```
+
+<img src="05-ggplot_files/figure-html/unnamed-chunk-67-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Text
+
+### ggforce
+
+
+```r
+penguins |> 
+    ggplot(
+        aes(x = culmen_length_mm,
+            y= body_mass_g,
+            colour = species)) +
+    geom_point(aes(fill = species), shape = 21, colour = "white") +
+    geom_smooth(method = "lm", se = FALSE,linetype = "dashed", alpha = .4)+
+ggforce::geom_mark_ellipse(aes(
+    label = species,
+    filter = species == 'Adelie'),
+    con.colour  = "#526A83",
+    con.cap = 0,
+    con.arrow = arrow(ends = "last",
+                      length = unit(0.5, "cm")),
+    show.legend = FALSE) +
+    gghighlight(species == "Adelie")+
+  scale_colour_manual(values = pal)+
+  scale_fill_manual(values = pal)
+```
+
+<img src="05-ggplot_files/figure-html/unnamed-chunk-68-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### textpaths
 
@@ -999,7 +1111,7 @@ penguins |>
   theme(legend.position = "none")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-ggplot_files/figure-html/unnamed-chunk-69-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### ggtext
 
@@ -1038,47 +1150,8 @@ ggplot(aes(x = species,
       plot.title = element_markdown())
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-65-1.png" width="80%" style="display: block; margin: auto;" />
-## Bump charts
+<img src="05-ggplot_files/figure-html/unnamed-chunk-70-1.png" width="80%" style="display: block; margin: auto;" />
 
-
-```r
-library(ggbump)
-
-penguin_summary <- penguins |> 
-  mutate(date_egg = dmy(date_egg)) |> 
-  filter(clutch_completion == "Yes") |> 
-  mutate(year = year(date_egg)) |> 
-  group_by(species, year) |> 
-  summarise(n = n())
-
-penguin_summary |>
-  ggplot(aes(x = year, 
-             y = n,
-             colour = species))+
-  geom_point(size = 7)+
-  geom_bump()+
-  geom_text(data = penguin_summary |> filter(year == max(year)),
-                                             aes(x = year + 0.1,
-                                                 label = species,
-                                                  hjust = 0),
-            size = 5)+
-  scale_x_continuous(limits = c(2007, 2009.5),
-                     breaks = (2007:2009))+
-  labs(y = "Total number of complete clutches")+
-  scale_fill_manual(values = pal) +
-  scale_colour_manual(values = pal)+
-  theme(legend.position = "none")
-```
-
-<img src="05-ggplot_files/figure-html/unnamed-chunk-66-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-gghiglight
-
-functions! 
-
-maps! 
 
 
 ## Layouts and compositions
@@ -1126,7 +1199,7 @@ pt <- ggplot(text, aes(x = x, y = y)) +
 pt
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-69-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-ggplot_files/figure-html/unnamed-chunk-73-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1163,7 +1236,10 @@ p1 + p2 +
   plot_layout(design = layout)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-70-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-ggplot_files/figure-html/unnamed-chunk-74-1.png" width="100%" style="display: block; margin: auto;" />
+
+## Scales
+
 
 ## Activity: Create a Publication-Style Multi-Panel Figure
 

@@ -857,7 +857,7 @@ The goal here is to understand how to use tidy evaluation to write functions tha
 
 Below is an example of some code to select a variable:
 
-```{r}
+```{r, eval = F}
 penguins |> 
   select(species)
 
