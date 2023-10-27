@@ -365,7 +365,7 @@ $ species           <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Penguin
 
 penguins |> 
   separate(species,
-          into = c("common name", "latin name"),
+          into = c("species", "full_latin_name"),
           sep = "\\("
           )
 
@@ -375,14 +375,14 @@ This approach reaches its limits quite quickly - note here it has left an ugly `
 
 Now suppose you want to separate the common names and latin names of the species variable by regex:
 
-```{r, eval = F}
+```{r, eval = T}
 
-penguins |> 
+penguins <- penguins |> 
   extract(species,
-          into = c("common name", "latin name"),
+          into = c("species", "full_latin_name"),
           regex = "(\\w+) .* \\(([^)]+)\\)"
           )
-
+penguins |> colnames()
 ```
 
 - The first group captures at least 1 letter (\\w+).
@@ -853,7 +853,260 @@ penguins |>
 
 # Writing Functions in Tidyverse
 
-Understanding the Tidyverse's consistent syntax and style.
-Writing functions using the tidy evaluation framework (quo, !!).
-Creating custom functions that integrate seamlessly with the Tidyverse.
+The goal here is to understand how to use tidy evaluation to write functions that incorporate `{tidyverse}` functions e.g. (mutate, select, filter) etc. 
 
+Below is an example of some code to select a variable:
+
+```{r}
+penguins |> 
+  select(species)
+
+```
+
+Put that exact working code into a function
+
+```{r, eval = F}
+
+test_function <- function(select_var){
+  penguins |> 
+  select(select_var)
+}
+
+test_function(select_var = species)
+
+```
+```
+Error: object 'species' not found
+
+```
+
+This error occurs becaus of *tidy evaluation*
+
+```{block, type = "info"}
+
+Tidy evaluation: A framework for controlling how expressions and variables in your code are evaluated by tidyverse functions.
+
+- Allows programmers to select variables based on their position, name, or type
+
+- Useful for passing variable names as inputs to functions that use tidyverse packages like dplyr and ggplot2
+
+- {dplyr} verbs rely on tidy evaluation to resolve programming commands
+
+```
+
+## Data masking
+
+Data masking is a handy feature of tidyverse that makes it easier to program with dataframes. It allows you to reference columns wihout using `$`, whereas almost all base R functions use unmasked programming.
+
+However, this makes it harder to create functions
+
+Data masking is used by `arrange()`, `count()`, `filter()`, `group_by()`, `mutate()`, and `summarise()`. To check which type of tidy evaluation a function uses, check the help file. 
+
+```{r}
+
+test_filter_species <- function(filter_var) {
+  penguins %>%
+    filter(species == filter_var)
+}
+
+test_filter_species("Adelie") %>%
+  glimpse()
+
+```
+
+By passing quoted arguments to the function, you can use it directly in the expression, and the function will evaluate it as if it were part of the data frame. 
+
+```{r, eval = F}
+test_filter_general <- function(filter_condition) {
+  penguins %>%
+    filter(filter_condition)
+}
+
+test_filter_general("flipper_length_mm > 180") %>%
+  glimpse()
+
+```
+
+```
+Error in `filter()`:
+ℹ In argument: `filter_condition`.
+Caused by error:
+! `..1` must be a logical vector, not the string "fliper_length_mm > 180".
+Backtrace:
+  1. test_filter_general("flipper_length_mm > 180") %>% glimpse()
+ 12. dplyr:::dplyr_internal_error(...)
+
+```
+
+However, we can avoid this by embracing the curly operators `{{.}}` this allows the data-masked argument to have its evaluation delayed until after the data frame columns are defined. With the `{{` operator you can tunnel data-variables (i.e. columns from the data frames) through arg-variables (function arguments). 
+
+```{r, eval = T}
+test_filter_general <- function(filter_condition) {
+  penguins %>%
+    filter({{filter_condition}})
+}
+
+test_filter_general(flipper_length_mm > 180) %>%
+  glimpse()
+
+```
+
+Let's try another data-masked function
+
+```{r}
+
+summary_table <- function(df, var){
+  df |> 
+    summarise(mean = mean({{var}}, na.rm = T),
+              sd = sd({{var}}, na.rm = T))
+}
+
+summary_table(penguins, body_mass_g)
+
+
+```
+
+### Alternative to `{{}}`
+
+The `{{.}}` is a shortcut for `!!enquo(.)` Where `rlang::enquo()` captures and quote an argument or an expression. The result of `enquo()` is a **quosure**, which is a combination of the quoted expression and its associated environment. 
+
+`!!` This is the unquote operator. It's used to unquote or unsplice the contents of a quosure. In other words, it takes the quoted expression out of the quosure and evaluates it. We can see how this would work for one of our previous examples: 
+
+```{r}
+test_filter_general <- function(filter_condition) {
+  
+  filter_quo <- enquo(filter_condition)
+  
+  penguins %>%
+    filter(!!filter_quo)
+}
+
+test_filter_general(flipper_length_mm > 180) %>%
+  glimpse()
+
+```
+
+## tidy-select
+
+When using functions that use tidy-select, we put variable names in quotes and use th `all_of` and `any_of` functions.
+
+```{r, eval = F}
+my_select_function <- function(select_variable){
+  penguins |> 
+    dplyr::select(select_variable)
+  }
+
+my_select_function(species) |> 
+  glimpse()
+```
+
+```
+Error: object 'species' not found
+
+```
+
+```{r, eval = F}
+my_select_function <- function(select_variable){
+  penguins |> 
+    dplyr::select(select_variable)
+  }
+
+my_select_function("species") |> 
+  glimpse()
+```
+
+```
+Warning: Using an external vector in selections was deprecated in tidyselect 1.1.0.
+Please use `all_of()` or `any_of()` instead.
+# Was:
+data %>% select(select_variable)
+
+# Now:
+data %>% select(all_of(select_variable))
+
+```
+
+- `any_of()`: selecting any of the listed variables
+
+- `all_of()`: for strict selection. If any of the variables in the character vector is missing, an error is thrown
+
+- Can also use `!all_of()` to select all variables not found in the character vector supplied to all_of()
+
+
+```{r}
+
+my_select_function <- function(select_variable){
+  penguins |> 
+    dplyr::select(dplyr::all_of(select_variable))
+  }
+
+my_select_function(select_variable = c("species", "sex")) |> 
+  glimpse()
+
+```
+## Practice
+
+```{task}
+
+Write a `function` that uses filter to take any two of the penguin species then selects one numeric variable e.g. body_mass_g and compares them with a violin plot (`geom_violin()`)
+
+
+```
+
+
+```{solution}
+
+``{r}
+compare_species_plot <- function(data, species_1, species_2, feature) {
+    
+  filtered_data <- data |> 
+        filter(species %in% c(species_1, species_2))
+    
+    # Create a conditional ggplot
+    ggplot(filtered_data, aes(x = species, y = {{feature}}))+ 
+      geom_violin()
+        
+
+}
+
+compare_species_plot(penguins, "Adelie", "Chinstrap", culmen_length_mm)
+
+``
+
+```
+
+In the example below I have used `enquo` to enable conversion to character strings, this means all of the function arguments can be provided without "quotes". 
+
+```{solution}
+
+``{r, eval = F, warning = "FALSE"}
+
+compare_species_plot <- function(data, species_1, species_2, feature) {
+    
+   
+    
+    # Quote species_1 and species_2 using quosures
+    species_1_quo <- quo_name(enquo(species_1))
+    species_2_quo <- quo_name(enquo(species_2))
+    
+
+    filtered_data <- data |> 
+        filter(species %in% c(species_1_quo, species_2_quo))
+    
+    # Create a conditional ggplot
+    ggplot(filtered_data, aes(x = species, y = {{feature}})) +
+        geom_violin()
+}
+
+# Example usage without quotes for species names
+
+compare_species_plot(penguins, Adelie, Chinstrap, culmen_length_mm)
+
+``
+
+```
+
+
+## Practice
+
+Can you write your own custom function in tidyverse? 

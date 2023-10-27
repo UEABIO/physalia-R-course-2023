@@ -852,22 +852,18 @@ You have learned
 
 # Extensions for ggplot2
 
-- ggdist
-- ggridges
-- ggdensity
-- ggbump
+https://exts.ggplot2.tidyverse.org/
+
 - gghighlight
-- text: geomtextpath, ggforce, ggtext
-- patchwork
+- ggforce
 
 - functions on ggplot
 
-https://allancameron.github.io/geomtextpath/
 
 
-### GGdist
+## ggdist
 
-#### Rainclouds
+### Rainclouds
 
 
 ```r
@@ -907,7 +903,7 @@ penguins |>
 <img src="05-ggplot_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-#### Interval stats
+### Interval stats
 
 
 ```r
@@ -927,22 +923,24 @@ penguins |>
 ```
 
 <img src="05-ggplot_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;" />
+## Density
 
 
 ```r
-library(geomtextpath)
+library(ggdensity)
 
-penguins |> 
+penguins |>  
     ggplot(aes(x = culmen_length_mm, 
-               colour = species,
-               label = species))+
-  geom_textdensity( hjust = 0.35, vjust = 0.5)+ # use hjust and vjust to position text
-  theme(legend.position = "none")
+               y = culmen_depth_mm,
+               colour = species)) +
+  geom_point(alpha = .2) +
+  ggdensity::geom_hdr_lines()+
+   scale_colour_manual(values = pal)
 ```
 
 <img src="05-ggplot_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;" />
 
-ggridges! 
+## ggridges
 
 
 ```r
@@ -959,6 +957,8 @@ penguins |>
 ```
 
 <img src="05-ggplot_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
+
+## Dumbell charts
 
 
 ```r
@@ -983,9 +983,25 @@ ggplot(summary_counts,
 
 <img src="05-ggplot_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" />
 
-Coloured titles! 
+## Text
 
-Easy annotation
+### textpaths
+
+
+```r
+library(geomtextpath)
+
+penguins |> 
+    ggplot(aes(x = culmen_length_mm, 
+               colour = species,
+               label = species))+
+  geom_textdensity( hjust = 0.35, vjust = .1)+ # use hjust and vjust to position text
+  theme(legend.position = "none")
+```
+
+<img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;" />
+
+### ggtext
 
 https://rfortherestofus.com/2020/05/color-titles-ggtext#:~:text=Adding%20color%20to%20titles%20using,HTML%2C%20not%20as%20raw%20text.
 
@@ -1022,7 +1038,8 @@ ggplot(aes(x = species,
       plot.title = element_markdown())
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="05-ggplot_files/figure-html/unnamed-chunk-65-1.png" width="80%" style="display: block; margin: auto;" />
+## Bump charts
 
 
 ```r
@@ -1054,24 +1071,8 @@ penguin_summary |>
   theme(legend.position = "none")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;" />
-
-### Density
-
-
-```r
-library(ggdensity)
-
-penguins |>  
-    ggplot(aes(x = culmen_length_mm, 
-               y = culmen_depth_mm,
-               colour = species)) +
-  geom_point(alpha = .2) +
-  ggdensity::geom_hdr_lines()+
-   scale_colour_manual(values = pal)
-```
-
 <img src="05-ggplot_files/figure-html/unnamed-chunk-66-1.png" width="100%" style="display: block; margin: auto;" />
+
 
 gghiglight
 
@@ -1080,13 +1081,10 @@ functions!
 maps! 
 
 
-## Labels and annotations
-
-## Titles
-
 ## Layouts and compositions
 
 Patchwork, text and images!!!!
+
 
 
 
@@ -1193,6 +1191,92 @@ Tips:
 Plan your figure carefully, considering what story or message you want to convey.
 Experiment with different geoms, scales, and themes to achieve the desired visual effect.
 Use effective data visualization principles, such as avoiding misleading scales, providing clear labels and legends, and ensuring that the figure is accessible to a wide audience.
+
+
+# Custom ggplot themes
+
+Custom ggplot themes
+
+It is often the case that we start to default to a particular 'style' for our figures, or you may be making several similar figures within a research paper. Creating custom functions can extend to making our own custom ggplot themes. You have probably already used theme variants such as `theme_bw()`, `theme_void()`, `theme_minimal()` - these are incredibly useful, but you might find you still wish to make consistent changes. 
+
+Here is a plot we can make with the `dros_weight` tibble:
+
+
+```r
+plot <- dros_weight %>% 
+  ggplot(aes(x=sex,
+         y=weight_mg))+
+  geom_jitter(width = 0.1)
+
+plot
+```
+
+With the addition of a title and `theme_classic()` we can improve the style quickly
+
+
+```r
+plot+
+  ggtitle("Comparison of weights (mg) between \nmale and female Drosophila")+
+  theme_classic()
+```
+
+But I **still** want to make some more changes, rather than do this work for one figure, and potentially have to repeat this several times for subsequent figures, I can decide to make a new function instead. See [here](https://ggplot2.tidyverse.org/reference/theme.html) for a full breakdown of the arguments for the `theme()` function. 
+
+<div class="info">
+<p>Note when using a pre-set theme, and then modifying it further, it is
+important to get the order of syntax correct e.g</p>
+<p>theme_classic + theme() # is correct</p>
+<p>theme() + theme_classic() # will not work as intended</p>
+</div>
+
+
+```r
+# custom theme sets defaults for font and size, but these can be changed without changing the function
+theme_custom <- function(base_size=12, base_family="serif"){
+  theme_classic(base_size = base_size, 
+                base_family = base_family,
+                )  %+replace%
+# update theme minimal 
+theme(
+  # specify default settings for plot titles - use rel to set titles relative to base size
+  plot.title=element_text(size=rel(1.5),
+      face="bold",
+      family=base_family),
+  #specify defaults for axis titles
+  axis.title=element_text(
+    size=rel(1),
+    family=base_family),
+  # specify position for y axis title
+  axis.title.y=element_text(margin = margin(r = 10, l= 10)),
+  # specify position for x axis title
+  axis.title.x = element_text(margin = margin( t = 10, b = 10)),
+  # set major y grid lines
+  panel.grid.major.y = element_line(colour="gray", size=0.5),
+  # add axis lines
+  axis.line=element_line(),
+   # Adding a 0.5cm margin around the plot
+  plot.margin = unit(c(0.2, 0.5, 0.5, 0.5), units = , "cm"),    
+   # Setting the font for the legend text
+  legend.text = element_text(face = "italic"),   
+    # Removing the legend title
+          legend.title = element_blank(),    
+   # Setting the position for the legend - 0 is left/bottom, 1 is top/right
+          legend.position = c(0.9, 0.8)             
+)
+  
+}
+```
+
+With this function set, I can now use it for as many figures as I wish. To use it in the future I should probably save it in a unique script, with a clear title and comments for future use. 
+
+I could then easily use `source("custom_theme_function.R")` to make this available to any scripts I was using. 
+
+
+```r
+plot+
+theme_custom()
+```
+
 
 # Making tables with gt
 

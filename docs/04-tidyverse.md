@@ -354,7 +354,7 @@ $ species           <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Penguin
 ```r
 penguins |> 
   separate(species,
-          into = c("common name", "latin name"),
+          into = c("species", "full_latin_name"),
           sep = "\\("
           )
 ```
@@ -365,11 +365,22 @@ Now suppose you want to separate the common names and latin names of the species
 
 
 ```r
-penguins |> 
+penguins <- penguins |> 
   extract(species,
-          into = c("common name", "latin name"),
+          into = c("species", "full_latin_name"),
           regex = "(\\w+) .* \\(([^)]+)\\)"
           )
+penguins |> colnames()
+```
+
+```
+##  [1] "study_name"        "sample_number"     "species"          
+##  [4] "full_latin_name"   "region"            "island"           
+##  [7] "stage"             "individual_id"     "clutch_completion"
+## [10] "date_egg"          "culmen_length_mm"  "culmen_depth_mm"  
+## [13] "flipper_length_mm" "body_mass_g"       "sex"              
+## [16] "delta_15_n_o_oo"   "delta_13_c_o_oo"   "comments"         
+## [19] "date_egg_proper"   "flipper_range"
 ```
 
 - The first group captures at least 1 letter (\\w+).
@@ -1045,7 +1056,696 @@ penguins |>
 
 # Writing Functions in Tidyverse
 
-Understanding the Tidyverse's consistent syntax and style.
-Writing functions using the tidy evaluation framework (quo, !!).
-Creating custom functions that integrate seamlessly with the Tidyverse.
+The goal here is to understand how to use tidy evaluation to write functions that incorporate `{tidyverse}` functions e.g. (mutate, select, filter) etc. 
 
+Below is an example of some code to select a variable:
+
+
+```r
+penguins |> 
+  select(species)
+```
+
+<div class="kable-table">
+
+|species                                   |
+|:-----------------------------------------|
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Adelie Penguin (Pygoscelis adeliae)       |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Gentoo penguin (Pygoscelis papua)         |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+|Chinstrap penguin (Pygoscelis antarctica) |
+
+</div>
+
+Put that exact working code into a function
+
+
+```r
+test_function <- function(select_var){
+  penguins |> 
+  select(select_var)
+}
+
+test_function(select_var = species)
+```
+```
+Error: object 'species' not found
+
+```
+
+This error occurs becaus of *tidy evaluation*
+
+<div class="info">
+<p>Tidy evaluation: A framework for controlling how expressions and
+variables in your code are evaluated by tidyverse functions.</p>
+<ul>
+<li><p>Allows programmers to select variables based on their position,
+name, or type</p></li>
+<li><p>Useful for passing variable names as inputs to functions that use
+tidyverse packages like dplyr and ggplot2</p></li>
+<li><p>{dplyr} verbs rely on tidy evaluation to resolve programming
+commands</p></li>
+</ul>
+</div>
+
+## Data masking
+
+Data masking is a handy feature of tidyverse that makes it easier to program with dataframes. It allows you to reference columns wihout using `$`, whereas almost all base R functions use unmasked programming.
+
+However, this makes it harder to create functions
+
+Data masking is used by `arrange()`, `count()`, `filter()`, `group_by()`, `mutate()`, and `summarise()`. To check which type of tidy evaluation a function uses, check the help file. 
+
+
+```r
+test_filter_species <- function(filter_var) {
+  penguins %>%
+    filter(species == filter_var)
+}
+
+test_filter_species("Adelie") %>%
+  glimpse()
+```
+
+```
+## Rows: 0
+## Columns: 19
+## $ study_name        <chr> 
+## $ sample_number     <dbl> 
+## $ species           <chr> 
+## $ region            <chr> 
+## $ island            <chr> 
+## $ stage             <chr> 
+## $ individual_id     <chr> 
+## $ clutch_completion <chr> 
+## $ date_egg          <chr> 
+## $ culmen_length_mm  <dbl> 
+## $ culmen_depth_mm   <dbl> 
+## $ flipper_length_mm <dbl> 
+## $ body_mass_g       <dbl> 
+## $ sex               <chr> 
+## $ delta_15_n_o_oo   <dbl> 
+## $ delta_13_c_o_oo   <dbl> 
+## $ comments          <chr> 
+## $ date_egg_proper   <date> 
+## $ flipper_range     <fct>
+```
+
+By passing quoted arguments to the function, you can use it directly in the expression, and the function will evaluate it as if it were part of the data frame. 
+
+
+```r
+test_filter_general <- function(filter_condition) {
+  penguins %>%
+    filter(filter_condition)
+}
+
+test_filter_general("flipper_length_mm > 180") %>%
+  glimpse()
+```
+
+```
+Error in `filter()`:
+ℹ In argument: `filter_condition`.
+Caused by error:
+! `..1` must be a logical vector, not the string "fliper_length_mm > 180".
+Backtrace:
+  1. test_filter_general("flipper_length_mm > 180") %>% glimpse()
+ 12. dplyr:::dplyr_internal_error(...)
+
+```
+
+However, we can avoid this by embracing the curly operators `{{.}}` this allows the data-masked argument to have its evaluation delayed until after the data frame columns are defined. With the `{{` operator you can tunnel data-variables (i.e. columns from the data frames) through arg-variables (function arguments). 
+
+
+```r
+test_filter_general <- function(filter_condition) {
+  penguins %>%
+    filter({{filter_condition}})
+}
+
+test_filter_general(flipper_length_mm > 180) %>%
+  glimpse()
+```
+
+```
+## Rows: 329
+## Columns: 19
+## $ study_name        <chr> "PAL0708", "PAL0708", "PAL0708", "PAL0708", "PAL0708…
+## $ sample_number     <dbl> 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, …
+## $ species           <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Pengu…
+## $ region            <chr> "Anvers", "Anvers", "Anvers", "Anvers", "Anvers", "A…
+## $ island            <chr> "Torgersen", "Torgersen", "Torgersen", "Torgersen", …
+## $ stage             <chr> "Adult, 1 Egg Stage", "Adult, 1 Egg Stage", "Adult, …
+## $ individual_id     <chr> "N1A1", "N1A2", "N2A1", "N3A1", "N3A2", "N4A1", "N4A…
+## $ clutch_completion <chr> "Yes", "Yes", "Yes", "Yes", "Yes", "No", "No", "Yes"…
+## $ date_egg          <chr> "11/11/2007", "11/11/2007", "16/11/2007", "16/11/200…
+## $ culmen_length_mm  <dbl> 39.1, 39.5, 40.3, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0…
+## $ culmen_depth_mm   <dbl> 18.7, 17.4, 18.0, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2…
+## $ flipper_length_mm <dbl> 181, 186, 195, 193, 190, 181, 195, 193, 190, 186, 18…
+## $ body_mass_g       <dbl> 3750, 3800, 3250, 3450, 3650, 3625, 4675, 3475, 4250…
+## $ sex               <chr> "MALE", "FEMALE", "FEMALE", "FEMALE", "MALE", "FEMAL…
+## $ delta_15_n_o_oo   <dbl> NA, 8.94956, 8.36821, 8.76651, 8.66496, 9.18718, 9.4…
+## $ delta_13_c_o_oo   <dbl> NA, -24.69454, -25.33302, -25.32426, -25.29805, -25.…
+## $ comments          <chr> "Not enough blood for isotopes.", NA, NA, NA, NA, "N…
+## $ date_egg_proper   <date> 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 200…
+## $ flipper_range     <fct> small, small, medium, medium, small, small, medium, …
+```
+
+Let's try another data-masked function
+
+
+```r
+summary_table <- function(df, var){
+  df |> 
+    summarise(mean = mean({{var}}, na.rm = T),
+              sd = sd({{var}}, na.rm = T))
+}
+
+summary_table(penguins, body_mass_g)
+```
+
+<div class="kable-table">
+
+|     mean|       sd|
+|--------:|--------:|
+| 4201.754| 801.9545|
+
+</div>
+
+### Alternative to `{{}}`
+
+The `{{.}}` is a shortcut for `!!enquo(.)` Where `rlang::enquo()` captures and quote an argument or an expression. The result of `enquo()` is a **quosure**, which is a combination of the quoted expression and its associated environment. 
+
+`!!` This is the unquote operator. It's used to unquote or unsplice the contents of a quosure. In other words, it takes the quoted expression out of the quosure and evaluates it. We can see how this would work for one of our previous examples: 
+
+
+```r
+test_filter_general <- function(filter_condition) {
+  
+  filter_quo <- enquo(filter_condition)
+  
+  penguins %>%
+    filter(!!filter_quo)
+}
+
+test_filter_general(flipper_length_mm > 180) %>%
+  glimpse()
+```
+
+```
+## Rows: 329
+## Columns: 19
+## $ study_name        <chr> "PAL0708", "PAL0708", "PAL0708", "PAL0708", "PAL0708…
+## $ sample_number     <dbl> 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, …
+## $ species           <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Pengu…
+## $ region            <chr> "Anvers", "Anvers", "Anvers", "Anvers", "Anvers", "A…
+## $ island            <chr> "Torgersen", "Torgersen", "Torgersen", "Torgersen", …
+## $ stage             <chr> "Adult, 1 Egg Stage", "Adult, 1 Egg Stage", "Adult, …
+## $ individual_id     <chr> "N1A1", "N1A2", "N2A1", "N3A1", "N3A2", "N4A1", "N4A…
+## $ clutch_completion <chr> "Yes", "Yes", "Yes", "Yes", "Yes", "No", "No", "Yes"…
+## $ date_egg          <chr> "11/11/2007", "11/11/2007", "16/11/2007", "16/11/200…
+## $ culmen_length_mm  <dbl> 39.1, 39.5, 40.3, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0…
+## $ culmen_depth_mm   <dbl> 18.7, 17.4, 18.0, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2…
+## $ flipper_length_mm <dbl> 181, 186, 195, 193, 190, 181, 195, 193, 190, 186, 18…
+## $ body_mass_g       <dbl> 3750, 3800, 3250, 3450, 3650, 3625, 4675, 3475, 4250…
+## $ sex               <chr> "MALE", "FEMALE", "FEMALE", "FEMALE", "MALE", "FEMAL…
+## $ delta_15_n_o_oo   <dbl> NA, 8.94956, 8.36821, 8.76651, 8.66496, 9.18718, 9.4…
+## $ delta_13_c_o_oo   <dbl> NA, -24.69454, -25.33302, -25.32426, -25.29805, -25.…
+## $ comments          <chr> "Not enough blood for isotopes.", NA, NA, NA, NA, "N…
+## $ date_egg_proper   <date> 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 200…
+## $ flipper_range     <fct> small, small, medium, medium, small, small, medium, …
+```
+
+## tidy-select
+
+When using functions that use tidy-select, we put variable names in quotes and use th `all_of` and `any_of` functions.
+
+
+```r
+my_select_function <- function(select_variable){
+  penguins |> 
+    dplyr::select(select_variable)
+  }
+
+my_select_function(species) |> 
+  glimpse()
+```
+
+```
+Error: object 'species' not found
+
+```
+
+
+```r
+my_select_function <- function(select_variable){
+  penguins |> 
+    dplyr::select(select_variable)
+  }
+
+my_select_function("species") |> 
+  glimpse()
+```
+
+```
+Warning: Using an external vector in selections was deprecated in tidyselect 1.1.0.
+Please use `all_of()` or `any_of()` instead.
+# Was:
+data %>% select(select_variable)
+
+# Now:
+data %>% select(all_of(select_variable))
+
+```
+
+- `any_of()`: selecting any of the listed variables
+
+- `all_of()`: for strict selection. If any of the variables in the character vector is missing, an error is thrown
+
+- Can also use `!all_of()` to select all variables not found in the character vector supplied to all_of()
+
+
+
+```r
+my_select_function <- function(select_variable){
+  penguins |> 
+    dplyr::select(dplyr::all_of(select_variable))
+  }
+
+my_select_function(select_variable = c("species", "sex")) |> 
+  glimpse()
+```
+
+```
+## Rows: 344
+## Columns: 2
+## $ species <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Penguin (Pygosc…
+## $ sex     <chr> "MALE", "FEMALE", "FEMALE", NA, "FEMALE", "MALE", "FEMALE", "M…
+```
+## Practice
+
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+
+Write a `function` that uses filter to take any two of the penguin species then selects one numeric variable e.g. body_mass_g and compares them with a violin plot (`geom_violin()`)
+
+ </div></div>
+
+
+<button id="displayTextunnamed-chunk-68" onclick="javascript:toggle('unnamed-chunk-68');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-68" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+compare_species_plot <- function(data, species_1, species_2, feature) {
+    
+  filtered_data <- data |> 
+        filter(species %in% c(species_1, species_2))
+    
+    # Create a conditional ggplot
+    ggplot(filtered_data, aes(x = species, y = {{feature}}))+ 
+      geom_violin()
+        
+
+}
+
+compare_species_plot(penguins, "Adelie", "Chinstrap", culmen_length_mm)
+```
+
+<img src="04-tidyverse_files/figure-html/unnamed-chunk-71-1.png" width="100%" style="display: block; margin: auto;" />
+</div></div></div>
+
+In the example below I have used `enquo` to enable conversion to character strings, this means all of the function arguments can be provided without "quotes". 
+
+<button id="displayTextunnamed-chunk-69" onclick="javascript:toggle('unnamed-chunk-69');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-69" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+compare_species_plot <- function(data, species_1, species_2, feature) {
+    
+   
+    
+    # Quote species_1 and species_2 using quosures
+    species_1_quo <- quo_name(enquo(species_1))
+    species_2_quo <- quo_name(enquo(species_2))
+    
+
+    filtered_data <- data |> 
+        filter(species %in% c(species_1_quo, species_2_quo))
+    
+    # Create a conditional ggplot
+    ggplot(filtered_data, aes(x = species, y = {{feature}})) +
+        geom_violin()
+}
+
+# Example usage without quotes for species names
+
+compare_species_plot(penguins, Adelie, Chinstrap, culmen_length_mm)
+```
+</div></div></div>
+
+
+## Practice
+
+Can you write your own custom function in tidyverse? 
