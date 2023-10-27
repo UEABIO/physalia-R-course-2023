@@ -1,6 +1,6 @@
 # (PART\*) Getting the most out of tidyverse {.unnumbered}
 
-# Getting the most out of tidyverse
+
 
 
 
@@ -11,9 +11,9 @@
 Quick recap of the key components of the Tidyverse ecosystem.
 Emphasizing the principles of tidy data and data manipulation.
 
-## Reading files with `readr`
+# Reading files with `readr`
 
-### Cleaning column names
+## Cleaning column names
 
 Reading a CSV file often requires some data cleaning. For example, let's say I want to import data and convert all column names to `snake_case`. 
 
@@ -40,7 +40,7 @@ penguins <- read_csv ("data/penguins_raw.csv",
 
 By default the `janitor::make_clean_names` function has a default argument of `snake_case` but within the function there is also a `case` argument where other common naming conventions can be used. 
 
-### Selecting columns
+## Selecting columns
 
 
 In addition to cleaning your column names, you can also directly select columns while using the "read_csv" function by utilizing the "col_select" argument. This can be extremely useful when working with large files, selecting only the columns you need can be memory-efficient. 
@@ -102,7 +102,7 @@ glimpse(df)
 ```
 
 
-#### Selecting files
+### Selecting files
 
 `stringr::str_detect()`
 
@@ -132,7 +132,7 @@ csv_files_list_files[str_detect(csv_files_list_files, pattern = "[24]\\.csv$")]
 
 ```
 
-## Working across columns
+# Working across columns
 
 In this section we will go through the following functions:
 
@@ -152,7 +152,7 @@ In this section we will go through the following functions:
 
 - `where()`
 
-### Select the last column
+## Select the last column
 
 
 ```r
@@ -187,7 +187,7 @@ penguins |>
 </div>
 
 
-### Selecting columns based on string
+## Selecting columns based on string
 
 
 ```r
@@ -228,7 +228,7 @@ $ culmen_depth_mm   <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20
 $ comments          <chr> "Not enough blood for isotopes.", NA, NA, "Adult not sampled.", NA, NA, "Nest neve…
 ```
 
-#### Contains
+### Contains
 
 We can also use the `contains()` function to search for columns that contain a specific string, it searches for an exact match to your string (no regular expressions) but is case-insensitive
 
@@ -246,7 +246,7 @@ $ culmen_length_mm  <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42
 $ flipper_length_mm <dbl> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180, 182, 191, 198, 185, 195…
 ```
 
-#### Regular expressions
+### Regular expressions
 
 https://help.relativity.com/RelativityOne/Content/Relativity/Regular_expressions/Searching_with_regular_expressions.htm#:~:text=For%20example%2C%20%E2%80%9C%5Cd%E2%80%9D,that%20follow%20a%20specific%20pattern.
 
@@ -280,7 +280,7 @@ penguins |>
 ```
 
 
-#### Selecting by column type
+## Selecting by column type
 
 The where function is used when you want to select variables of a specific data type in a dataset. For example, you can use it to select character variables.
 
@@ -319,7 +319,7 @@ Other "predicate functions" include
 - is.integer
 
 
-#### Combos
+## Combos
 
 Using standard logical operators such as `|` and `&` we can string toether different combinations of selection criteria
 
@@ -343,11 +343,12 @@ $ species           <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Penguin
 
 ```
 
-## Modifying variables
 
-### count
+# Modifying variables
 
-### extract
+## count
+
+## extract
 
 
 ```r
@@ -378,9 +379,9 @@ another space: .*
 
 - The last group contains anything found inside brackets `()`
 
-## Factors
+# Factors
 
-### anonymising factors
+## Anonymising factors
 
 Sometimes you want to make your data completely anonymous so that other people can’t see sensitive information. Or because you wish to blind you own analyses.
 
@@ -393,7 +394,7 @@ penguins |>
          prefix = "species_"))
 ```
 
-### lump factors
+## lump factors
 
 
 ```r
@@ -404,7 +405,7 @@ penguins |>
   geom_boxplot()
 ```
 
-### ordering factors
+## ordering factors
 
 
 ```r
@@ -464,9 +465,9 @@ penguins |>
 <img src="04-tidyverse_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-### applying functions across columns
+# Applying functions across columns
 
-#### calculate summary statistics across columns
+## calculate summary statistics across columns
 
 
 ```r
@@ -500,7 +501,7 @@ penguins |>
 
 </div>
 
-#### change variable types across columns
+## Change variable types across columns
 
 
 ```r
@@ -531,7 +532,7 @@ $ island  <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen
 ```
 
 
-#### correct typos
+## Correct typos
 
 
 ```r
@@ -566,9 +567,10 @@ typo_df |>
 
 </div>
 
-## Working with rows
 
-### Filtering rows based on conditions across multiple columns
+# Working with rows
+
+## Filtering rows based on conditions across multiple columns
 
 
 
@@ -592,7 +594,7 @@ penguins |>
   glimpse()
 ```
 
-### filter rows based on missing values
+## filter rows based on missing values
 
 
 ```r
@@ -611,7 +613,7 @@ whether all columns meet the condition of NOT containing NA.</p>
 operator</p>
 </div>
 
-### slicing
+## slicing
 
 
 ```r
@@ -712,7 +714,7 @@ penguins |>
 
 </div>
 
-#### groupwise slicing
+## groupwise slicing
 
 
 ```r
@@ -741,7 +743,7 @@ penguins |>
 
 </div>
 
-#### bootstrapping with slice
+## bootstrapping with slice
 
 
 ```r
@@ -761,7 +763,8 @@ geom_histogram(fill = "grey80", color = "black")+
 <img src="04-tidyverse_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-## Group work
+
+# Group work
 
 The R4DS book demonstrates how functions can be used to run multiple models simultaneously. This technique is valuable for extracting meaningful insights from your data. A well-known example of this approach involves the Gapminder dataset. We will cover a brief version here: 
 
@@ -860,9 +863,9 @@ Chinstrap	<tibble>	<S3: lm>	culmen_length_mm	0.2222117	0.03167825
 
 ```
 
-## Pivot
+# Pivot
 
-### pivot wider
+## pivot wider
 
 <div class="info">
 <p>Un-tidy data violates one of these three principles in one way or
@@ -982,7 +985,7 @@ peng_obs |>
 
 </div>
 
-### pivot longer
+## pivot longer
 
 Suppose you would like to make a data frame wider because you would like to present the results in a human-readable table. To do this, you can use pivot_wider and provide arguments for its main parameters:
 
@@ -999,7 +1002,7 @@ newly created column names will be a combination of the column values.
 names_from.
 
 
-#### pivot wider for summary tables
+## pivot wider for summary tables
 
 
 ```r
@@ -1040,7 +1043,7 @@ penguins |>
 
 </div>
 
-## Writing Functions in Tidyverse
+# Writing Functions in Tidyverse
 
 Understanding the Tidyverse's consistent syntax and style.
 Writing functions using the tidy evaluation framework (quo, !!).

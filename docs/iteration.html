@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 28 Iteration | Advancing in R</title>
+<title>Chapter 36 Iteration | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="We’ve seen how to write a function and how they can be used to create concise re-usable operations that can be applied multiple times in a script without having to copy and paste, but where...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 28 Iteration | Advancing in R">
+<meta property="og:title" content="Chapter 36 Iteration | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/iteration.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="We’ve seen how to write a function and how they can be used to create concise re-usable operations that can be applied multiple times in a script without having to copy and paste, but where...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 28 Iteration | Advancing in R">
+<meta name="twitter:title" content="Chapter 36 Iteration | Advancing in R">
 <meta name="twitter:description" content="We’ve seen how to write a function and how they can be used to create concise re-usable operations that can be applied multiple times in a script without having to copy and paste, but where...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -127,30 +127,38 @@
 <li><a class="" href="purrr.html"><span class="header-section-number">10</span> Purrr</a></li>
 <li><a class="" href="bonus-simulation.html"><span class="header-section-number">11</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="getting-the-most-out-of-tidyverse.html"><span class="header-section-number">12</span> Getting the most out of tidyverse</a></li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">12</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">13</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">14</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">15</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">16</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">17</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">18</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">19</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">20</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">13</span> Data visualisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">14</span> Extensions for ggplot2</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">15</span> Making tables with gt</a></li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">21</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">22</span> Extensions for ggplot2</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">23</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">16</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">17</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">18</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">19</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">20</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">21</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">22</span> Customising</a></li>
-<li><a class="" href="modules.html"><span class="header-section-number">23</span> Modules</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">24</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">24</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">25</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">26</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">27</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">28</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">29</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">30</span> Customising</a></li>
+<li><a class="" href="modules.html"><span class="header-section-number">31</span> Modules</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">32</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="markdown.html"><span class="header-section-number">25</span> Markdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">26</span> Github</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">33</span> Markdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">34</span> Github</a></li>
 <li class="book-part">R Programming</li>
-<li><a class="" href="functions-1.html"><span class="header-section-number">27</span> Functions</a></li>
-<li><a class="active" href="iteration.html"><span class="header-section-number">28</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">29</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">30</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">31</span> R Basics</a></li>
+<li><a class="" href="functions-1.html"><span class="header-section-number">35</span> Functions</a></li>
+<li><a class="active" href="iteration.html"><span class="header-section-number">36</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">37</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">38</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">39</span> R Basics</a></li>
 </ul>
 
         <div class="book-extra">
@@ -158,14 +166,14 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="iteration" class="section level1" number="28">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="iteration" class="section level1" number="36">
 <h1>
-<span class="header-section-number">28</span> Iteration<a class="anchor" aria-label="anchor" href="#iteration"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36</span> Iteration<a class="anchor" aria-label="anchor" href="#iteration"><i class="fas fa-link"></i></a>
 </h1>
 <p>We’ve seen how to write a function and how they can be used to create concise re-usable operations that can be applied multiple times in a script without having to copy and paste, but where functions really come into their own is when combined with iteration. Iteration is the process of running the same operation on a group of objects, further minimising code replication.</p>
-<div id="data-structures" class="section level2" number="28.1">
+<div id="data-structures" class="section level2" number="36.1">
 <h2>
-<span class="header-section-number">28.1</span> Data structures<a class="anchor" aria-label="anchor" href="#data-structures"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.1</span> Data structures<a class="anchor" aria-label="anchor" href="#data-structures"><i class="fas fa-link"></i></a>
 </h2>
 <p>Functional programming in R requires a good understanding of the types of data structure available in R. Here we have a quick introduction</p>
 <div class="inline-table"><table class="table table-sm">
@@ -201,27 +209,27 @@
 </tr>
 </tbody>
 </table></div>
-<div id="vector" class="section level3" number="28.1.1">
+<div id="vector" class="section level3" number="36.1.1">
 <h3>
-<span class="header-section-number">28.1.1</span> Vector<a class="anchor" aria-label="anchor" href="#vector"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.1.1</span> Vector<a class="anchor" aria-label="anchor" href="#vector"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vector_one</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">vector_two</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apples"</span>, <span class="st">"bananas"</span>, <span class="st">"pears"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="list" class="section level3" number="28.1.2">
+<div id="list" class="section level3" number="36.1.2">
 <h3>
-<span class="header-section-number">28.1.2</span> List<a class="anchor" aria-label="anchor" href="#list"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.1.2</span> List<a class="anchor" aria-label="anchor" href="#list"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">vector_one</span>, <span class="va">vector_two</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">new_list</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"numbers"</span>, <span class="st">"fruit"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="matrix" class="section level3" number="28.1.3">
+<div id="matrix" class="section level3" number="36.1.3">
 <h3>
-<span class="header-section-number">28.1.3</span> Matrix<a class="anchor" aria-label="anchor" href="#matrix"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.1.3</span> Matrix<a class="anchor" aria-label="anchor" href="#matrix"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">vector_one</span>, <span class="va">vector_two</span><span class="op">)</span></span>
@@ -235,28 +243,28 @@
 ## [1,]   NA   NA
 ## [2,]   NA   NA</code></pre>
 </div>
-<div id="dataframe" class="section level3" number="28.1.4">
+<div id="dataframe" class="section level3" number="36.1.4">
 <h3>
-<span class="header-section-number">28.1.4</span> Dataframe<a class="anchor" aria-label="anchor" href="#dataframe"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.1.4</span> Dataframe<a class="anchor" aria-label="anchor" href="#dataframe"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_dataframe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">vector_one</span>, <span class="va">vector_two</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="tibble" class="section level3" number="28.1.5">
+<div id="tibble" class="section level3" number="36.1.5">
 <h3>
-<span class="header-section-number">28.1.5</span> tibble<a class="anchor" aria-label="anchor" href="#tibble"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.1.5</span> tibble<a class="anchor" aria-label="anchor" href="#tibble"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">vector_one</span>, <span class="va">vector_two</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
-<div id="simple-iteration-functions" class="section level2" number="28.2">
+<div id="simple-iteration-functions" class="section level2" number="36.2">
 <h2>
-<span class="header-section-number">28.2</span> Simple iteration functions<a class="anchor" aria-label="anchor" href="#simple-iteration-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.2</span> Simple iteration functions<a class="anchor" aria-label="anchor" href="#simple-iteration-functions"><i class="fas fa-link"></i></a>
 </h2>
-<div id="rep" class="section level3" number="28.2.1">
+<div id="rep" class="section level3" number="36.2.1">
 <h3>
-<span class="header-section-number">28.2.1</span> <code>rep()</code><a class="anchor" aria-label="anchor" href="#rep"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.2.1</span> <code>rep()</code><a class="anchor" aria-label="anchor" href="#rep"><i class="fas fa-link"></i></a>
 </h3>
 <p>The function <code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code> lets you repeat the first argument a set number of times.</p>
 <div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
@@ -294,9 +302,9 @@ Solution
 </div>
 </div>
 </div>
-<div id="seq" class="section level3" number="28.2.2">
+<div id="seq" class="section level3" number="36.2.2">
 <h3>
-<span class="header-section-number">28.2.2</span> <code>seq()</code><a class="anchor" aria-label="anchor" href="#seq"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.2.2</span> <code>seq()</code><a class="anchor" aria-label="anchor" href="#seq"><i class="fas fa-link"></i></a>
 </h3>
 <p>The function <code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code> is useful for generating a sequence of numbers with some pattern.</p>
 <p>Use <code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code> to create a vector of the integers 0 to 10.</p>
@@ -317,9 +325,9 @@ Solution
 <pre><code>##  [1]   0.000000   9.090909  18.181818  27.272727  36.363636  45.454545
 ##  [7]  54.545455  63.636364  72.727273  81.818182  90.909091 100.000000</code></pre>
 </div>
-<div id="replicate" class="section level3" number="28.2.3">
+<div id="replicate" class="section level3" number="36.2.3">
 <h3>
-<span class="header-section-number">28.2.3</span> <code>replicate()</code><a class="anchor" aria-label="anchor" href="#replicate"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.2.3</span> <code>replicate()</code><a class="anchor" aria-label="anchor" href="#replicate"><i class="fas fa-link"></i></a>
 </h3>
 <p>Replicate is our first example of a function whose purpose is to iterate <em>other</em> functions</p>
 <p>For example the <code>rnorm</code> function generates numbers from a normal distribution.</p>
@@ -342,9 +350,9 @@ Solution
 </ol>
 </div>
 </div>
-<div id="for-loops" class="section level2" number="28.3">
+<div id="for-loops" class="section level2" number="36.3">
 <h2>
-<span class="header-section-number">28.3</span> For Loops<a class="anchor" aria-label="anchor" href="#for-loops"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.3</span> For Loops<a class="anchor" aria-label="anchor" href="#for-loops"><i class="fas fa-link"></i></a>
 </h2>
 <p>For loops are an <strong>essential</strong> part of many programming languages, but they are often less utilised in R because of our ability to apply functions to all elements of a vector. However, I will include them here for completeness.</p>
 <p>A for loop has three core parts:</p>
@@ -574,9 +582,9 @@ d
 <pre><code>## [1] -0.3831574 -0.1181707 -0.3879468 -0.7661931</code></pre>
 <p>Each time the mean is calculate for one column in <code>df</code> this is then stored as an element in the previously empty <code>output</code> vector.</p>
 <p><code>for()</code> loops are very useful for quickly iterating over a list, but because R prefers to store everything as a new object with each loop iteration, loops can become quite slow if they are complex, or running many processes and many iterations. As an alternative the <code>apply</code> family of functions from base R and <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map</a></code> from tidyverse more broadly can be used as an alternative to loops.</p>
-<div id="activity-1-loop-exercise" class="section level3" number="28.3.1">
+<div id="activity-1-loop-exercise" class="section level3" number="36.3.1">
 <h3>
-<span class="header-section-number">28.3.1</span> Activity 1: Loop exercise<a class="anchor" aria-label="anchor" href="#activity-1-loop-exercise"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.3.1</span> Activity 1: Loop exercise<a class="anchor" aria-label="anchor" href="#activity-1-loop-exercise"><i class="fas fa-link"></i></a>
 </h3>
 <p>We have made a function that converts values with a normal distribution into their z scores:</p>
 <div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
@@ -767,9 +775,9 @@ d
 </div>
 </div>
 </div>
-<div id="apply-1" class="section level2" number="28.4">
+<div id="apply-1" class="section level2" number="36.4">
 <h2>
-<span class="header-section-number">28.4</span> apply<a class="anchor" aria-label="anchor" href="#apply-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.4</span> apply<a class="anchor" aria-label="anchor" href="#apply-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>We can perform exactly the same action with <code>apply</code> - the <code>apply</code> functions in R allow iteration without the use of loop constructs. They can be used for an input list or matrix.</p>
 <p><code>MARGIN = 1</code> means apply function over rows</p>
@@ -831,9 +839,9 @@ d
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">is.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">df</span>, <span class="fl">2</span>,  <span class="va">z_score</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="map" class="section level2" number="28.5">
+<div id="map" class="section level2" number="36.5">
 <h2>
-<span class="header-section-number">28.5</span> map<a class="anchor" aria-label="anchor" href="#map"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.5</span> map<a class="anchor" aria-label="anchor" href="#map"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>map</code> is the tidyverse equivalent of <code>apply</code> it work well with %&gt;% and there are a few extended functions to it works better with tibbles and dataframes</p>
 <p>The basic syntax is map(<code>.x</code> = SEQUENCE, <code>.f</code> = FUNCTION, OTHER ARGUMENTS). In a bit more detail:</p>
@@ -1366,9 +1374,9 @@ d
 </table></div>
 </div>
 </div>
-<div id="anonymous-functions-1" class="section level2" number="28.6">
+<div id="anonymous-functions-1" class="section level2" number="36.6">
 <h2>
-<span class="header-section-number">28.6</span> Anonymous functions<a class="anchor" aria-label="anchor" href="#anonymous-functions-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.6</span> Anonymous functions<a class="anchor" aria-label="anchor" href="#anonymous-functions-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>In the previous chapter we were introduced to anonymous functions, if we do not plan to use a function outside of this particular iteration example, we might choose just to write it in directly</p>
 <div class="sourceCode" id="cb455"><pre class="downlit sourceCode r">
@@ -1538,9 +1546,9 @@ d
 </tbody>
 </table></div>
 </div>
-<div id="exercise-for-for-loops" class="section level3" number="28.6.1">
+<div id="exercise-for-for-loops" class="section level3" number="36.6.1">
 <h3>
-<span class="header-section-number">28.6.1</span> Exercise for For Loops<a class="anchor" aria-label="anchor" href="#exercise-for-for-loops"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.6.1</span> Exercise for For Loops<a class="anchor" aria-label="anchor" href="#exercise-for-for-loops"><i class="fas fa-link"></i></a>
 </h3>
 <p>This part of the exercise is a real world example of using simple <code>for()</code> loops to create graphs. This data comes from the <a href="https://livingplanetindex.org/home/index">Living Planet Index</a>, which holds data on various vertebrate species collected from 1974 to 2014.</p>
 <a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv">
@@ -1667,13 +1675,13 @@ Solution
 </div>
 </div>
 </div>
-<div id="automating-analyses-with-map" class="section level2" number="28.7">
+<div id="automating-analyses-with-map" class="section level2" number="36.7">
 <h2>
-<span class="header-section-number">28.7</span> Automating analyses with <code>map</code><a class="anchor" aria-label="anchor" href="#automating-analyses-with-map"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.7</span> Automating analyses with <code>map</code><a class="anchor" aria-label="anchor" href="#automating-analyses-with-map"><i class="fas fa-link"></i></a>
 </h2>
-<div id="writing-a-dataframe-into-multiple-csv-files" class="section level3" number="28.7.1">
+<div id="writing-a-dataframe-into-multiple-csv-files" class="section level3" number="36.7.1">
 <h3>
-<span class="header-section-number">28.7.1</span> Writing a dataframe into multiple csv files<a class="anchor" aria-label="anchor" href="#writing-a-dataframe-into-multiple-csv-files"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.7.1</span> Writing a dataframe into multiple csv files<a class="anchor" aria-label="anchor" href="#writing-a-dataframe-into-multiple-csv-files"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb465"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">LPI_list</span> <span class="op">&lt;-</span> <span class="va">LPI</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1696,9 +1704,9 @@ Solution
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">.x</span>, </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"data/"</span>, <span class="va">.x</span><span class="op">$</span><span class="va">Class</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">".csv"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="reading-multiple-csv-files-into-one-object" class="section level3" number="28.7.2">
+<div id="reading-multiple-csv-files-into-one-object" class="section level3" number="36.7.2">
 <h3>
-<span class="header-section-number">28.7.2</span> Reading multiple csv files into one object<a class="anchor" aria-label="anchor" href="#reading-multiple-csv-files-into-one-object"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.7.2</span> Reading multiple csv files into one object<a class="anchor" aria-label="anchor" href="#reading-multiple-csv-files-into-one-object"><i class="fas fa-link"></i></a>
 </h3>
 <p>The method for reading CSV files into a directory is slightly different, as you’ll need to find a way to identify or create a character vector of names of all the files that you want to load into R. To do this, we’ll use <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>, which produces a character vector of the names of files or directories in the named directory:</p>
 <div class="sourceCode" id="cb468"><pre class="downlit sourceCode r">
@@ -1730,9 +1738,9 @@ Solution
 <div class="sourceCode" id="cb472"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="plotting-with-map" class="section level3" number="28.7.3">
+<div id="plotting-with-map" class="section level3" number="36.7.3">
 <h3>
-<span class="header-section-number">28.7.3</span> Plotting with <code>map</code><a class="anchor" aria-label="anchor" href="#plotting-with-map"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.7.3</span> Plotting with <code>map</code><a class="anchor" aria-label="anchor" href="#plotting-with-map"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb473"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># map the plots to a dataframe</span></span>
@@ -1759,9 +1767,9 @@ Solution
 ## [[4]]</code></pre>
 </div>
 </div>
-<div id="activity-4-test-yourself" class="section level2" number="28.8">
+<div id="activity-4-test-yourself" class="section level2" number="36.8">
 <h2>
-<span class="header-section-number">28.8</span> Activity 4: Test yourself<a class="anchor" aria-label="anchor" href="#activity-4-test-yourself"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.8</span> Activity 4: Test yourself<a class="anchor" aria-label="anchor" href="#activity-4-test-yourself"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Question 1.</strong> Predict the output of the following when executed in R:</p>
 <div class="sourceCode" id="cb475"><pre class="downlit sourceCode r">
@@ -1842,15 +1850,15 @@ Solution
 </div>
 </div>
 </div>
-<div id="activity-5" class="section level2" number="28.9">
+<div id="activity-5" class="section level2" number="36.9">
 <h2>
-<span class="header-section-number">28.9</span> Activity 5<a class="anchor" aria-label="anchor" href="#activity-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.9</span> Activity 5<a class="anchor" aria-label="anchor" href="#activity-5"><i class="fas fa-link"></i></a>
 </h2>
 <p>If you are hungry for more <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> then check out <a href="https://www.rebeccabarter.com/blog/2019-08-19_purrr/#simplest-usage-repeated-looping-with-map">this blogpost</a></p>
 </div>
-<div id="summary-1" class="section level2" number="28.10">
+<div id="summary-1" class="section level2" number="36.10">
 <h2>
-<span class="header-section-number">28.10</span> Summary<a class="anchor" aria-label="anchor" href="#summary-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.10</span> Summary<a class="anchor" aria-label="anchor" href="#summary-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>Making functions and iterations are advanced R skills, and can often seem daunting. I do not expect you to HAVE to implement these for this course, but I do want to give you an insight into some core programming skills that you might be interested in and want to develop.</p>
 <p>Below are some links you may find useful</p>
@@ -2041,46 +2049,46 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="functions-1.html"><span class="header-section-number">27</span> Functions</a></div>
-<div class="next"><a href="startingR.html"><span class="header-section-number">29</span> Starting up R</a></div>
+<div class="prev"><a href="functions-1.html"><span class="header-section-number">35</span> Functions</a></div>
+<div class="next"><a href="startingR.html"><span class="header-section-number">37</span> Starting up R</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#iteration"><span class="header-section-number">28</span> Iteration</a></li>
+<li><a class="nav-link" href="#iteration"><span class="header-section-number">36</span> Iteration</a></li>
 <li>
-<a class="nav-link" href="#data-structures"><span class="header-section-number">28.1</span> Data structures</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#vector"><span class="header-section-number">28.1.1</span> Vector</a></li>
-<li><a class="nav-link" href="#list"><span class="header-section-number">28.1.2</span> List</a></li>
-<li><a class="nav-link" href="#matrix"><span class="header-section-number">28.1.3</span> Matrix</a></li>
-<li><a class="nav-link" href="#dataframe"><span class="header-section-number">28.1.4</span> Dataframe</a></li>
-<li><a class="nav-link" href="#tibble"><span class="header-section-number">28.1.5</span> tibble</a></li>
+<a class="nav-link" href="#data-structures"><span class="header-section-number">36.1</span> Data structures</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#vector"><span class="header-section-number">36.1.1</span> Vector</a></li>
+<li><a class="nav-link" href="#list"><span class="header-section-number">36.1.2</span> List</a></li>
+<li><a class="nav-link" href="#matrix"><span class="header-section-number">36.1.3</span> Matrix</a></li>
+<li><a class="nav-link" href="#dataframe"><span class="header-section-number">36.1.4</span> Dataframe</a></li>
+<li><a class="nav-link" href="#tibble"><span class="header-section-number">36.1.5</span> tibble</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#simple-iteration-functions"><span class="header-section-number">28.2</span> Simple iteration functions</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#rep"><span class="header-section-number">28.2.1</span> rep()</a></li>
-<li><a class="nav-link" href="#seq"><span class="header-section-number">28.2.2</span> seq()</a></li>
-<li><a class="nav-link" href="#replicate"><span class="header-section-number">28.2.3</span> replicate()</a></li>
+<a class="nav-link" href="#simple-iteration-functions"><span class="header-section-number">36.2</span> Simple iteration functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#rep"><span class="header-section-number">36.2.1</span> rep()</a></li>
+<li><a class="nav-link" href="#seq"><span class="header-section-number">36.2.2</span> seq()</a></li>
+<li><a class="nav-link" href="#replicate"><span class="header-section-number">36.2.3</span> replicate()</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#for-loops"><span class="header-section-number">28.3</span> For Loops</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#activity-1-loop-exercise"><span class="header-section-number">28.3.1</span> Activity 1: Loop exercise</a></li></ul>
+<a class="nav-link" href="#for-loops"><span class="header-section-number">36.3</span> For Loops</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#activity-1-loop-exercise"><span class="header-section-number">36.3.1</span> Activity 1: Loop exercise</a></li></ul>
 </li>
-<li><a class="nav-link" href="#apply-1"><span class="header-section-number">28.4</span> apply</a></li>
-<li><a class="nav-link" href="#map"><span class="header-section-number">28.5</span> map</a></li>
+<li><a class="nav-link" href="#apply-1"><span class="header-section-number">36.4</span> apply</a></li>
+<li><a class="nav-link" href="#map"><span class="header-section-number">36.5</span> map</a></li>
 <li>
-<a class="nav-link" href="#anonymous-functions-1"><span class="header-section-number">28.6</span> Anonymous functions</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#exercise-for-for-loops"><span class="header-section-number">28.6.1</span> Exercise for For Loops</a></li></ul>
+<a class="nav-link" href="#anonymous-functions-1"><span class="header-section-number">36.6</span> Anonymous functions</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#exercise-for-for-loops"><span class="header-section-number">36.6.1</span> Exercise for For Loops</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#automating-analyses-with-map"><span class="header-section-number">28.7</span> Automating analyses with map</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#writing-a-dataframe-into-multiple-csv-files"><span class="header-section-number">28.7.1</span> Writing a dataframe into multiple csv files</a></li>
-<li><a class="nav-link" href="#reading-multiple-csv-files-into-one-object"><span class="header-section-number">28.7.2</span> Reading multiple csv files into one object</a></li>
-<li><a class="nav-link" href="#plotting-with-map"><span class="header-section-number">28.7.3</span> Plotting with map</a></li>
+<a class="nav-link" href="#automating-analyses-with-map"><span class="header-section-number">36.7</span> Automating analyses with map</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#writing-a-dataframe-into-multiple-csv-files"><span class="header-section-number">36.7.1</span> Writing a dataframe into multiple csv files</a></li>
+<li><a class="nav-link" href="#reading-multiple-csv-files-into-one-object"><span class="header-section-number">36.7.2</span> Reading multiple csv files into one object</a></li>
+<li><a class="nav-link" href="#plotting-with-map"><span class="header-section-number">36.7.3</span> Plotting with map</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#activity-4-test-yourself"><span class="header-section-number">28.8</span> Activity 4: Test yourself</a></li>
-<li><a class="nav-link" href="#activity-5"><span class="header-section-number">28.9</span> Activity 5</a></li>
-<li><a class="nav-link" href="#summary-1"><span class="header-section-number">28.10</span> Summary</a></li>
+<li><a class="nav-link" href="#activity-4-test-yourself"><span class="header-section-number">36.8</span> Activity 4: Test yourself</a></li>
+<li><a class="nav-link" href="#activity-5"><span class="header-section-number">36.9</span> Activity 5</a></li>
+<li><a class="nav-link" href="#summary-1"><span class="header-section-number">36.10</span> Summary</a></li>
 </ul>
 
       <div class="book-extra">
@@ -2098,7 +2106,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-26.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-27.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

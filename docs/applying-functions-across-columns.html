@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 26 Make our own App | Advancing in R</title>
+<title>Chapter 16 Applying functions across columns | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="Now that you've seen a basic Shiny app in actin, let's return to the beginning and create our own app.R file. A basic app.R consists of five key parts: Package Loading: At the top of the script,...">
+<meta name="description" content="16.1 calculate summary statistics across columns penguins |&gt;  group_by(species) |&gt;  summarise(   mean_body_mass = mean(body_mass_g, na.rm = T),   mean_flipper_length = mean(flipper_length_mm,...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 26 Make our own App | Advancing in R">
+<meta property="og:title" content="Chapter 16 Applying functions across columns | Advancing in R">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/make-our-own-app.html">
+<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/applying-functions-across-columns.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="Now that you've seen a basic Shiny app in actin, let's return to the beginning and create our own app.R file. A basic app.R consists of five key parts: Package Loading: At the top of the script,...">
+<meta property="og:description" content="16.1 calculate summary statistics across columns penguins |&gt;  group_by(species) |&gt;  summarise(   mean_body_mass = mean(body_mass_g, na.rm = T),   mean_flipper_length = mean(flipper_length_mm,...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 26 Make our own App | Advancing in R">
-<meta name="twitter:description" content="Now that you've seen a basic Shiny app in actin, let's return to the beginning and create our own app.R file. A basic app.R consists of five key parts: Package Loading: At the top of the script,...">
+<meta name="twitter:title" content="Chapter 16 Applying functions across columns | Advancing in R">
+<meta name="twitter:description" content="16.1 calculate summary statistics across columns penguins |&gt;  group_by(species) |&gt;  summarise(   mean_body_mass = mean(body_mass_g, na.rm = T),   mean_flipper_length = mean(flipper_length_mm,...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -131,7 +131,7 @@
 <li><a class="" href="working-across-columns.html"><span class="header-section-number">13</span> Working across columns</a></li>
 <li><a class="" href="modifying-variables.html"><span class="header-section-number">14</span> Modifying variables</a></li>
 <li><a class="" href="factors-1.html"><span class="header-section-number">15</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">16</span> Applying functions across columns</a></li>
+<li><a class="active" href="applying-functions-across-columns.html"><span class="header-section-number">16</span> Applying functions across columns</a></li>
 <li><a class="" href="working-with-rows.html"><span class="header-section-number">17</span> Working with rows</a></li>
 <li><a class="" href="group-work.html"><span class="header-section-number">18</span> Group work</a></li>
 <li><a class="" href="pivot.html"><span class="header-section-number">19</span> Pivot</a></li>
@@ -143,7 +143,7 @@
 <li class="book-part">Introduction to Shiny</li>
 <li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">24</span> Getting to work with Shiny</a></li>
 <li><a class="" href="layout.html"><span class="header-section-number">25</span> Layout</a></li>
-<li><a class="active" href="make-our-own-app.html"><span class="header-section-number">26</span> Make our own App</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">26</span> Make our own App</a></li>
 <li><a class="" href="inputs.html"><span class="header-section-number">27</span> Inputs</a></li>
 <li><a class="" href="outputs.html"><span class="header-section-number">28</span> Outputs</a></li>
 <li><a class="" href="reactive.html"><span class="header-section-number">29</span> Reactive</a></li>
@@ -166,72 +166,157 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="make-our-own-app" class="section level1" number="26">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="applying-functions-across-columns" class="section level1" number="16">
 <h1>
-<span class="header-section-number">26</span> Make our own App<a class="anchor" aria-label="anchor" href="#make-our-own-app"><i class="fas fa-link"></i></a>
+<span class="header-section-number">16</span> Applying functions across columns<a class="anchor" aria-label="anchor" href="#applying-functions-across-columns"><i class="fas fa-link"></i></a>
 </h1>
-<p>Now that you've seen a basic Shiny app in actin, let's return to the beginning and create our own app.R file. A basic app.R consists of five key parts:</p>
-<p><strong>Package Loading:</strong> At the top of the script, load any necessary R packages for your app to function. <code>shiny</code> is a requirement, but you can add others like <code>dplyr</code> or <code>ggplot2</code> as needed. If any packages are missing, you'll encounter an error, so ensure that you have them installed.</p>
-<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the required packages</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>  <span class="co"># Contains readr, dplyr and ggplot2</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>    <span class="co"># The source of your data</span></span></code></pre></div>
-<p><strong>Data Loading:</strong> Next, load any data necessary for your app. This typically involves reading datasets into R objects. Ensure that you have the data file or source available in the specified format.</p>
-<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the data</span></span>
-<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
-<p><strong>UI Object:</strong> Create an object called ui that defines the app's user interface. This specifies how the app will appear in the web browser. The <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage()</a></code> function creates a responsive layout that adjusts to the browser window's size. All of your UI code will go inside the curly braces.</p>
-<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Define the UI</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="co"># Your UI components will be defined here</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><strong>Server Object:</strong> Create another object called server, which contains the app's logic. Here, you specify how your app computes and creates plots, tables, maps, or any other content based on the user's input. All of the app's logic code will be placed inside the server function.</p>
-<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Define the server logic</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># Your server logic will be defined here</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<p><strong>App Execution:</strong> Finally, include a command at the end of app.R to run your app. This informs Shiny that the user interface is defined by the ui object, and the server logic (data, plots, tables, etc.) is defined by the server object.</p>
-<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Run the app</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<p>To create your own Shiny app, you should remove any example code generated automatically when you created app.R and replace it with the structure provided above. Check that your final app.R script resembles the following:</p>
-<button id="displayTextunnamed-chunk-7" onclick="javascript:toggle('unnamed-chunk-7');">
-Show Solution
-</button>
-<div id="toggleTextunnamed-chunk-7" style="display: none">
-<div class="panel panel-default">
-<div class="panel-heading panel-heading1">
-Solution
+<div id="calculate-summary-statistics-across-columns" class="section level2" number="16.1">
+<h2>
+<span class="header-section-number">16.1</span> calculate summary statistics across columns<a class="anchor" aria-label="anchor" href="#calculate-summary-statistics-across-columns"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    mean_body_mass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>    mean_flipper_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
+<span>      .cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>,</span>
+<span>      .fns <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>      .names <span class="op">=</span> <span class="st">"mean_{.col}"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="22%">
+<col width="10%">
+<col width="11%">
+<col width="11%">
+<col width="12%">
+<col width="9%">
+<col width="11%">
+<col width="11%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">species</th>
+<th align="right">mean_sample_number</th>
+<th align="right">mean_culmen_length_mm</th>
+<th align="right">mean_culmen_depth_mm</th>
+<th align="right">mean_flipper_length_mm</th>
+<th align="right">mean_body_mass_g</th>
+<th align="right">mean_delta_15_n_o_oo</th>
+<th align="right">mean_delta_13_c_o_oo</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Adelie Penguin (Pygoscelis adeliae)</td>
+<td align="right">76.5</td>
+<td align="right">38.79139</td>
+<td align="right">18.34636</td>
+<td align="right">189.9536</td>
+<td align="right">3700.662</td>
+<td align="right">8.859733</td>
+<td align="right">-25.80419</td>
+</tr>
+<tr class="even">
+<td align="left">Chinstrap penguin (Pygoscelis antarctica)</td>
+<td align="right">34.5</td>
+<td align="right">48.83382</td>
+<td align="right">18.42059</td>
+<td align="right">195.8235</td>
+<td align="right">3733.088</td>
+<td align="right">9.356155</td>
+<td align="right">-24.54654</td>
+</tr>
+<tr class="odd">
+<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="right">62.5</td>
+<td align="right">47.50488</td>
+<td align="right">14.98211</td>
+<td align="right">217.1870</td>
+<td align="right">5076.016</td>
+<td align="right">8.245338</td>
+<td align="right">-26.18530</td>
+</tr>
+</tbody>
+</table></div>
 </div>
-<div class="panel-body">
-<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>    <span class="co"># The source of your data</span></span>
+</div>
+<div id="change-variable-types-across-columns" class="section level2" number="16.2">
+<h2>
+<span class="header-section-number">16.2</span> Change variable types across columns<a class="anchor" aria-label="anchor" href="#change-variable-types-across-columns"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span>.cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"island"</span>, <span class="st">"region"</span><span class="op">)</span>,</span>
+<span>           .fns <span class="op">=</span> <span class="va">as_factor</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.factor</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Rows: 344
+## Columns: 4
+## $ species       &lt;fct&gt; Adelie Penguin (Pygoscelis adeliae), Adelie Penguin (Pyg…
+## $ region        &lt;fct&gt; Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, …
+## $ island        &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, T…
+## $ flipper_range &lt;fct&gt; small, small, medium, NA, medium, small, small, medium, …</code></pre>
+<pre><code>Rows: 344
+Columns: 3
+$ species &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ region  &lt;fct&gt; Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anve…
+$ island  &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen,…</code></pre>
+</div>
+<div id="correct-typos" class="section level2" number="16.3">
+<h2>
+<span class="header-section-number">16.3</span> Correct typos<a class="anchor" aria-label="anchor" href="#correct-typos"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Adelie"</span>, <span class="st">"adelie"</span>, <span class="st">"pinstrap"</span>, <span class="st">"Chinstrap"</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"adelie"</span>, <span class="st">"Adelie"</span>, <span class="st">"Chinstrap"</span>,<span class="st">"Chinstrap"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Load the data</span></span>
-<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># ui.R ----</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="co"># Your UI components will be defined here</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># server.R ----</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># Your server logic will be defined here</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="co"># Run the app ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">typo_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">typo_df</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
+<span>    .cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    .fns <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"adelie"</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"adelie"</span>, <span class="st">"Adelie"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"pinstrap"</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"pinstrap"</span>, <span class="st">"Chinstrap"</span><span class="op">)</span>,</span>
+<span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">.</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">x</th>
+<th align="left">y</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Adelie</td>
+<td align="left">Adelie</td>
+</tr>
+<tr class="even">
+<td align="left">Adelie</td>
+<td align="left">Adelie</td>
+</tr>
+<tr class="odd">
+<td align="left">Chinstrap</td>
+<td align="left">Chinstrap</td>
+</tr>
+<tr class="even">
+<td align="left">Chinstrap</td>
+<td align="left">Chinstrap</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 </div>
-</div>
-<p>By following these steps, you'll have the basic structure of a Shiny app in place, ready for you to add your UI elements and server logic to create an interactive web application.</p>
 </div>
 <script>
 
@@ -413,16 +498,21 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="layout.html"><span class="header-section-number">25</span> Layout</a></div>
-<div class="next"><a href="inputs.html"><span class="header-section-number">27</span> Inputs</a></div>
+<div class="prev"><a href="factors-1.html"><span class="header-section-number">15</span> Factors</a></div>
+<div class="next"><a href="working-with-rows.html"><span class="header-section-number">17</span> Working with rows</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#make-our-own-app"><span class="header-section-number">26</span> Make our own App</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#applying-functions-across-columns"><span class="header-section-number">16</span> Applying functions across columns</a></li>
+<li><a class="nav-link" href="#calculate-summary-statistics-across-columns"><span class="header-section-number">16.1</span> calculate summary statistics across columns</a></li>
+<li><a class="nav-link" href="#change-variable-types-across-columns"><span class="header-section-number">16.2</span> Change variable types across columns</a></li>
+<li><a class="nav-link" href="#correct-typos"><span class="header-section-number">16.3</span> Correct typos</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/06-shiny.rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/06-shiny.rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/04-tidyverse.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/04-tidyverse.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

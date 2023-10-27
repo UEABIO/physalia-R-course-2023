@@ -164,7 +164,6 @@ speed
 apply
 purrr
 bonus-simulation
-getting-the-most-out-of-tidyverse
 reading-files-with-readr
 cleaning-column-names
 selecting-columns

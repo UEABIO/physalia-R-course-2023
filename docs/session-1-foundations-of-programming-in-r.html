@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 30 Session 1: Foundations of Programming in R | Advancing in R</title>
+<title>Chapter 38 Session 1: Foundations of Programming in R | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="30.1 Introduction to R and RStudio (30 minutes) Brief overview of R and its applications in data analysis and programming. Introduction to RStudio as an integrated development environment (IDE)...">
+<meta name="description" content="38.1 Introduction to R and RStudio (30 minutes) Brief overview of R and its applications in data analysis and programming. Introduction to RStudio as an integrated development environment (IDE)...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 30 Session 1: Foundations of Programming in R | Advancing in R">
+<meta property="og:title" content="Chapter 38 Session 1: Foundations of Programming in R | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/session-1-foundations-of-programming-in-r.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="30.1 Introduction to R and RStudio (30 minutes) Brief overview of R and its applications in data analysis and programming. Introduction to RStudio as an integrated development environment (IDE)...">
+<meta property="og:description" content="38.1 Introduction to R and RStudio (30 minutes) Brief overview of R and its applications in data analysis and programming. Introduction to RStudio as an integrated development environment (IDE)...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 30 Session 1: Foundations of Programming in R | Advancing in R">
-<meta name="twitter:description" content="30.1 Introduction to R and RStudio (30 minutes) Brief overview of R and its applications in data analysis and programming. Introduction to RStudio as an integrated development environment (IDE)...">
+<meta name="twitter:title" content="Chapter 38 Session 1: Foundations of Programming in R | Advancing in R">
+<meta name="twitter:description" content="38.1 Introduction to R and RStudio (30 minutes) Brief overview of R and its applications in data analysis and programming. Introduction to RStudio as an integrated development environment (IDE)...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -127,30 +127,38 @@
 <li><a class="" href="purrr.html"><span class="header-section-number">10</span> Purrr</a></li>
 <li><a class="" href="bonus-simulation.html"><span class="header-section-number">11</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="getting-the-most-out-of-tidyverse.html"><span class="header-section-number">12</span> Getting the most out of tidyverse</a></li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">12</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">13</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">14</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">15</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">16</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">17</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">18</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">19</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">20</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">13</span> Data visualisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">14</span> Extensions for ggplot2</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">15</span> Making tables with gt</a></li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">21</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">22</span> Extensions for ggplot2</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">23</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">16</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">17</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">18</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">19</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">20</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">21</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">22</span> Customising</a></li>
-<li><a class="" href="modules.html"><span class="header-section-number">23</span> Modules</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">24</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">24</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">25</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">26</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">27</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">28</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">29</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">30</span> Customising</a></li>
+<li><a class="" href="modules.html"><span class="header-section-number">31</span> Modules</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">32</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="markdown.html"><span class="header-section-number">25</span> Markdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">26</span> Github</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">33</span> Markdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">34</span> Github</a></li>
 <li class="book-part">R Programming</li>
-<li><a class="" href="functions-1.html"><span class="header-section-number">27</span> Functions</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">28</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">29</span> Starting up R</a></li>
-<li><a class="active" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">30</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">31</span> R Basics</a></li>
+<li><a class="" href="functions-1.html"><span class="header-section-number">35</span> Functions</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">36</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">37</span> Starting up R</a></li>
+<li><a class="active" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">38</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">39</span> R Basics</a></li>
 </ul>
 
         <div class="book-extra">
@@ -158,67 +166,67 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="session-1-foundations-of-programming-in-r" class="section level1" number="30">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="session-1-foundations-of-programming-in-r" class="section level1" number="38">
 <h1>
-<span class="header-section-number">30</span> Session 1: Foundations of Programming in R<a class="anchor" aria-label="anchor" href="#session-1-foundations-of-programming-in-r"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38</span> Session 1: Foundations of Programming in R<a class="anchor" aria-label="anchor" href="#session-1-foundations-of-programming-in-r"><i class="fas fa-link"></i></a>
 </h1>
-<div id="introduction-to-r-and-rstudio-30-minutes" class="section level2" number="30.1">
+<div id="introduction-to-r-and-rstudio-30-minutes" class="section level2" number="38.1">
 <h2>
-<span class="header-section-number">30.1</span> Introduction to R and RStudio (30 minutes)<a class="anchor" aria-label="anchor" href="#introduction-to-r-and-rstudio-30-minutes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.1</span> Introduction to R and RStudio (30 minutes)<a class="anchor" aria-label="anchor" href="#introduction-to-r-and-rstudio-30-minutes"><i class="fas fa-link"></i></a>
 </h2>
 <p>Brief overview of R and its applications in data analysis and programming.
 Introduction to RStudio as an integrated development environment (IDE) for R.
 Navigating the RStudio interface: scripts, console, environment, and plots.</p>
 </div>
-<div id="objects-variables-and-data-types-1-hour" class="section level2" number="30.2">
+<div id="objects-variables-and-data-types-1-hour" class="section level2" number="38.2">
 <h2>
-<span class="header-section-number">30.2</span> Objects, Variables, and Data Types (1 hour)<a class="anchor" aria-label="anchor" href="#objects-variables-and-data-types-1-hour"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.2</span> Objects, Variables, and Data Types (1 hour)<a class="anchor" aria-label="anchor" href="#objects-variables-and-data-types-1-hour"><i class="fas fa-link"></i></a>
 </h2>
 <p>Understanding the concept of objects in R: vectors, matrices, data frames, lists.
 Assigning values to variables and creating different data types.
 Basic operations with objects: arithmetic, indexing, and subsetting.</p>
 </div>
-<div id="good-coding-practices-and-style-1-hour" class="section level2" number="30.3">
+<div id="good-coding-practices-and-style-1-hour" class="section level2" number="38.3">
 <h2>
-<span class="header-section-number">30.3</span> Good Coding Practices and Style (1 hour)<a class="anchor" aria-label="anchor" href="#good-coding-practices-and-style-1-hour"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.3</span> Good Coding Practices and Style (1 hour)<a class="anchor" aria-label="anchor" href="#good-coding-practices-and-style-1-hour"><i class="fas fa-link"></i></a>
 </h2>
 <p>Importance of clean and readable code.
 Naming conventions for variables, functions, and objects.
 Indentation, spacing, and commenting for code clarity.
 Introduction to linting tools for code style checking.</p>
 </div>
-<div id="control-flow-if-else-statements-1-hour" class="section level2" number="30.4">
+<div id="control-flow-if-else-statements-1-hour" class="section level2" number="38.4">
 <h2>
-<span class="header-section-number">30.4</span> Control Flow: If-Else Statements (1 hour)<a class="anchor" aria-label="anchor" href="#control-flow-if-else-statements-1-hour"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.4</span> Control Flow: If-Else Statements (1 hour)<a class="anchor" aria-label="anchor" href="#control-flow-if-else-statements-1-hour"><i class="fas fa-link"></i></a>
 </h2>
 <p>Introduction to control structures for conditional execution.
 Writing if-else statements for decision-making in code.
 Handling multiple conditions using nested if-else statements.</p>
 </div>
-<div id="writing-functions-in-r-1-hour" class="section level2" number="30.5">
+<div id="writing-functions-in-r-1-hour" class="section level2" number="38.5">
 <h2>
-<span class="header-section-number">30.5</span> Writing Functions in R (1 hour)<a class="anchor" aria-label="anchor" href="#writing-functions-in-r-1-hour"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.5</span> Writing Functions in R (1 hour)<a class="anchor" aria-label="anchor" href="#writing-functions-in-r-1-hour"><i class="fas fa-link"></i></a>
 </h2>
 <p>Understanding the role and benefits of functions in programming.
 Creating custom functions using the function() keyword.
 Passing arguments to functions and returning values.
 Best practices for function design and documentation.</p>
 </div>
-<div id="hands-on-exercises-and-practice-30-minutes" class="section level2" number="30.6">
+<div id="hands-on-exercises-and-practice-30-minutes" class="section level2" number="38.6">
 <h2>
-<span class="header-section-number">30.6</span> Hands-On Exercises and Practice (30 minutes)<a class="anchor" aria-label="anchor" href="#hands-on-exercises-and-practice-30-minutes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.6</span> Hands-On Exercises and Practice (30 minutes)<a class="anchor" aria-label="anchor" href="#hands-on-exercises-and-practice-30-minutes"><i class="fas fa-link"></i></a>
 </h2>
 <p>Interactive coding exercises to reinforce concepts learned.
 Applying if-else statements and writing basic functions.
 Encouraging participants to practice coding in RStudio.</p>
 </div>
-<div id="nucleotide-generator" class="section level2" number="30.7">
+<div id="nucleotide-generator" class="section level2" number="38.7">
 <h2>
-<span class="header-section-number">30.7</span> Nucleotide generator<a class="anchor" aria-label="anchor" href="#nucleotide-generator"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.7</span> Nucleotide generator<a class="anchor" aria-label="anchor" href="#nucleotide-generator"><i class="fas fa-link"></i></a>
 </h2>
-<div id="note-use-numbers" class="section level3" number="30.7.1">
+<div id="note-use-numbers" class="section level3" number="38.7.1">
 <h3>
-<span class="header-section-number">30.7.1</span> Note use numbers<a class="anchor" aria-label="anchor" href="#note-use-numbers"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.7.1</span> Note use numbers<a class="anchor" aria-label="anchor" href="#note-use-numbers"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb658"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a vector representing the nucleotide bases A, T, C, and G</span></span>
@@ -242,9 +250,9 @@ sample(x = nucleotides, size = 1)
 <p>But how do you know which argument names to use? If you try to use a name that a function does not expect, you will likely get an error:</p>
 
 </div>
-<div id="startingR" class="section level3" number="30.7.2">
+<div id="startingR" class="section level3" number="38.7.2">
 <h3>
-<span class="header-section-number">30.7.2</span> Starting up R<a class="anchor" aria-label="anchor" href="#startingR"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.7.2</span> Starting up R<a class="anchor" aria-label="anchor" href="#startingR"><i class="fas fa-link"></i></a>
 </h3>
 <p>One way or another, regardless of what operating system you're using and regardless of whether you're using RStudio, or the default GUI, or even the command line, it's time to open R and get started. When you do that, the first thing you'll see (assuming that you're looking at the <strong><em>R console</em></strong>, that is) is a whole lot of text that doesn't make much sense. It should look something like this:</p>
 <pre><code>R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
@@ -271,18 +279,18 @@ Type 'q()' to quit R.
 <p>... which has a flashing cursor next to it. That's the <strong><em>command prompt</em></strong>. When you see this, it means that R is waiting patiently for you to do something!</p>
 </div>
 </div>
-<div id="firstcommand" class="section level2" number="30.8">
+<div id="firstcommand" class="section level2" number="38.8">
 <h2>
-<span class="header-section-number">30.8</span> Typing commands at the R console<a class="anchor" aria-label="anchor" href="#firstcommand"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.8</span> Typing commands at the R console<a class="anchor" aria-label="anchor" href="#firstcommand"><i class="fas fa-link"></i></a>
 </h2>
 <p>One of the easiest things you can do with R is use it as a simple calculator, so it's a good place to start. For instance, try typing <code>10 + 20</code>, and hitting enter.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Seriously. If you're in a position to do so, open up R and start typing. The simple act of typing it rather than &quot;just reading&quot; makes a big difference. It makes the concepts more concrete, and it ties the abstract ideas (programming and statistics) to the actual context in which you need to use them. Statistics is something you &lt;em&gt;do&lt;/em&gt;, not just something you read about in a textbook.&lt;/p&gt;"><sup>31</sup></a> When you do this, you've entered a <strong><em>command</em></strong>, and R will "execute" that command. What you see on screen now will be this:</p>
 <div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="session-1-foundations-of-programming-in-r.html#cb665-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">20</span></span>
 <span id="cb665-2"><a href="session-1-foundations-of-programming-in-r.html#cb665-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">30</span></span></code></pre></div>
 <p>Not a lot of surprises in this extract. But there's a few things worth talking about, even with such a simple example. Firstly, it's important that you understand how to read the extract. In this example, what <em>I</em> typed was the <code>10 + 20</code> part. I didn't type the <code>&gt;</code> symbol: that's just the R command prompt and isn't part of the actual command. And neither did I type the <code>[1] 30</code> part. That's what R printed out in response to my command.</p>
 <p>Secondly, it's important to understand how the output is formatted. Obviously, the correct answer to the sum <code>10 + 20</code> is <code>30</code>, and not surprisingly R has printed that out as part of its response. But it's also printed out this <code>[1]</code> part, which probably doesn't make a lot of sense to you right now. You're going to see that a lot. I'll talk about what this means in a bit more detail later on, but for now you can think of <code>[1] 30</code> as if R were saying "the answer to the 1st question you asked is 30". That's not quite the truth, but it's close enough for now. And in any case it's not really very interesting at the moment: we only asked R to calculate one thing, so obviously there's only one answer printed on the screen. Later on this will change, and the <code>[1]</code> part will start to make a bit more sense. For now, I just don't want you to get confused or concerned by it.</p>
-<div id="an-important-digression-about-formatting-1" class="section level3" number="30.8.1">
+<div id="an-important-digression-about-formatting-1" class="section level3" number="38.8.1">
 <h3>
-<span class="header-section-number">30.8.1</span> An important digression about formatting<a class="anchor" aria-label="anchor" href="#an-important-digression-about-formatting-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.8.1</span> An important digression about formatting<a class="anchor" aria-label="anchor" href="#an-important-digression-about-formatting-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now that I've taught you these rules I'm going to change them pretty much immediately. That is because I want you to be able to copy code from the book directly into R if if you want to test things or conduct your own analyses. However, if you copy this kind of code (that shows the command prompt and the results) directly into R you will get an error</p>
 <div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="session-1-foundations-of-programming-in-r.html#cb666-1" tabindex="-1"></a><span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">20</span></span>
@@ -304,9 +312,9 @@ Type 'q()' to quit R.
 <span><span class="co">## [1] 30</span></span></code></pre></div>
 <pre><code>## [1] 30</code></pre>
 </div>
-<div id="be-very-careful-to-avoid-typos-1" class="section level3" number="30.8.2">
+<div id="be-very-careful-to-avoid-typos-1" class="section level3" number="38.8.2">
 <h3>
-<span class="header-section-number">30.8.2</span> Be very careful to avoid typos<a class="anchor" aria-label="anchor" href="#be-very-careful-to-avoid-typos-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.8.2</span> Be very careful to avoid typos<a class="anchor" aria-label="anchor" href="#be-very-careful-to-avoid-typos-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Before we go on to talk about other types of calculations that we can do with R, there's a few other things I want to point out. The first thing is that, while R is good software, it's still software. It's pretty stupid, and because it's stupid it can't handle typos. It takes it on faith that you meant to type <em>exactly</em> what you did type. For example, suppose that you forgot to hit the shift key when trying to type <code>+</code>, and as a result your command ended up being <code>10 = 20</code> rather than <code>10 + 20</code>. Here's what happens:</p>
 <div class="sourceCode" id="cb671"><pre class="downlit sourceCode r">
@@ -320,9 +328,9 @@ Type 'q()' to quit R.
 <p>In this case, R produces the right answer, but to the the wrong question.</p>
 <p>To some extent, I'm stating the obvious here, but it's important. The people who wrote R are smart. You, the user, are smart. But R itself is dumb. And because it's dumb, it has to be mindlessly obedient. It does <em>exactly</em> what you ask it to do. There is no equivalent to "autocorrect" in R, and for good reason. When doing advanced stuff -- and even the simplest of statistics is pretty advanced in a lot of ways -- it's dangerous to let a mindless automaton like R try to overrule the human user. But because of this, it's your responsibility to be careful. Always make sure you type <em>exactly what you mean</em>. When dealing with computers, it's not enough to type "approximately" the right thing. In general, you absolutely <em>must</em> be precise in what you say to R ... like all machines it is too stupid to be anything other than absurdly literal in its interpretation.</p>
 </div>
-<div id="r-is-a-bit-flexible-with-spacing-1" class="section level3" number="30.8.3">
+<div id="r-is-a-bit-flexible-with-spacing-1" class="section level3" number="38.8.3">
 <h3>
-<span class="header-section-number">30.8.3</span> R is (a bit) flexible with spacing<a class="anchor" aria-label="anchor" href="#r-is-a-bit-flexible-with-spacing-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.8.3</span> R is (a bit) flexible with spacing<a class="anchor" aria-label="anchor" href="#r-is-a-bit-flexible-with-spacing-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Of course, now that I've been so uptight about the importance of always being precise, I should point out that there are some exceptions. Or, more accurately, there are some situations in which R does show a bit more flexibility than my previous description suggests. The first thing R is smart enough to do is ignore redundant spacing. What I mean by this is that, when I typed <code>10 + 20</code> before, I could equally have done this</p>
 <div class="sourceCode" id="cb675"><pre class="downlit sourceCode r">
@@ -332,7 +340,7 @@ Type 'q()' to quit R.
 <div class="sourceCode" id="cb677"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">10</span><span class="op">+</span><span class="fl">20</span></span></code></pre></div>
 <pre><code>## [1] 30</code></pre>
-<p>and I would get exactly the same answer. However, that doesn't mean that you can insert spaces in any old place. When we looked at the startup documentation in Section <a href="startingR.html#startingR">29</a> it suggested that you could type <code><a href="https://rdrr.io/r/utils/citation.html">citation()</a></code> to get some information about how to cite R. If I do so...</p>
+<p>and I would get exactly the same answer. However, that doesn't mean that you can insert spaces in any old place. When we looked at the startup documentation in Section <a href="startingR.html#startingR">37</a> it suggested that you could type <code><a href="https://rdrr.io/r/utils/citation.html">citation()</a></code> to get some information about how to cite R. If I do so...</p>
 <div class="sourceCode" id="cb679"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## To cite R in publications use:
@@ -367,9 +375,9 @@ Type 'q()' to quit R.
 ##           ^</code></pre>
 <p>Throughout this book I'll vary the way I use spacing a little bit, just to give you a feel for the different ways in which spacing can be used. I'll try not to do it too much though, since it's generally considered to be good practice to be consistent in how you format your commands.</p>
 </div>
-<div id="r-can-sometimes-tell-that-youre-not-finished-yet-but-not-often-1" class="section level3" number="30.8.4">
+<div id="r-can-sometimes-tell-that-youre-not-finished-yet-but-not-often-1" class="section level3" number="38.8.4">
 <h3>
-<span class="header-section-number">30.8.4</span> R can sometimes tell that you're not finished yet (but not often)<a class="anchor" aria-label="anchor" href="#r-can-sometimes-tell-that-youre-not-finished-yet-but-not-often-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.8.4</span> R can sometimes tell that you're not finished yet (but not often)<a class="anchor" aria-label="anchor" href="#r-can-sometimes-tell-that-youre-not-finished-yet-but-not-often-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>One more thing I should point out. If you hit enter in a situation where it's "obvious" to R that you haven't actually finished typing the command, R is just smart enough to keep waiting. For example, if you type <code>10 +</code> and then press enter, even R is smart enough to realise that you probably wanted to type in another number. So here's what happens (for illustrative purposes I'm breaking my own code formatting rules in this section):</p>
 <pre><code>&gt; 10+
@@ -404,19 +412,19 @@ BLAH BLAH BLAH</code></pre>
 <p>where the <code>BLAH BLAH BLAH</code> goes on for rather a long time, and you don't know enough R yet to understand what all this gibberish actually means (of course, it doesn't actually say BLAH BLAH BLAH - it says some other things we don't understand or need to know that I've edited for length) This incomprehensible output can be quite intimidating to novice users, and unfortunately it's very easy to forget to type the parentheses; so almost certainly you'll do this by accident. Do not panic when this happens. Simply ignore the gibberish. As you become more experienced this gibberish will start to make sense, and you'll find it quite handy to print this stuff out.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;For advanced users: yes, as you've probably guessed, R is printing out the source code for the function.&lt;/p&gt;"><sup>33</sup></a> But for now just try to remember to add the parentheses when typing your commands.</p>
 </div>
 </div>
-<div id="arithmetic" class="section level2" number="30.9">
+<div id="arithmetic" class="section level2" number="38.9">
 <h2>
-<span class="header-section-number">30.9</span> Doing simple calculations with R<a class="anchor" aria-label="anchor" href="#arithmetic"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.9</span> Doing simple calculations with R<a class="anchor" aria-label="anchor" href="#arithmetic"><i class="fas fa-link"></i></a>
 </h2>
 <p>Okay, now that we've discussed some of the tedious details associated with typing R commands, let's get back to learning how to use the most powerful piece of statistical software in the world as a $2 calculator. So far, all we know how to do is addition. Clearly, a calculator that only did addition would be a bit stupid, so I should tell you about how to perform other simple calculations using R. But first, some more terminology. Addition is an example of an "operation" that you can perform (specifically, an arithmetic operation), and the <strong><em>operator</em></strong> that performs it is <code>+</code>. To people with a programming or mathematics background, this terminology probably feels pretty natural, but to other people it might feel like I'm trying to make something very simple (addition) sound more complicated than it is (by calling it an arithmetic operation). To some extent, that's true: if addition was the only operation that we were interested in, it'd be a bit silly to introduce all this extra terminology. However, as we go along, we'll start using more and more different kinds of operations, so it's probably a good idea to get the language straight now, while we're still talking about very familiar concepts like addition!</p>
-<div id="adding-subtracting-multiplying-and-dividing-1" class="section level3" number="30.9.1">
+<div id="adding-subtracting-multiplying-and-dividing-1" class="section level3" number="38.9.1">
 <h3>
-<span class="header-section-number">30.9.1</span> Adding, subtracting, multiplying and dividing<a class="anchor" aria-label="anchor" href="#adding-subtracting-multiplying-and-dividing-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.9.1</span> Adding, subtracting, multiplying and dividing<a class="anchor" aria-label="anchor" href="#adding-subtracting-multiplying-and-dividing-1"><i class="fas fa-link"></i></a>
 </h3>
-<p>So, now that we have the terminology, let's learn how to perform some arithmetic operations in R. To that end, Table <a href="startingR.html#tab:arithmetic1">29.1</a> lists the operators that correspond to the basic arithmetic we learned in primary school: addition, subtraction, multiplication and division.</p>
+<p>So, now that we have the terminology, let's learn how to perform some arithmetic operations in R. To that end, Table <a href="startingR.html#tab:arithmetic1">37.1</a> lists the operators that correspond to the basic arithmetic we learned in primary school: addition, subtraction, multiplication and division.</p>
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:arithmetic1">Table 29.1: </span>Basic arithmetic operations in R. These five operators are used very frequently throughout the text, so it's important to be familiar with them at the outset.</caption>
+<span id="tab:arithmetic1">Table 37.1: </span>Basic arithmetic operations in R. These five operators are used very frequently throughout the text, so it's important to be familiar with them at the outset.</caption>
 <thead><tr class="header">
 <th align="left">operation</th>
 <th align="center">operator</th>
@@ -462,11 +470,11 @@ BLAH BLAH BLAH</code></pre>
 <pre><code>## [1] 3477</code></pre>
 <p>So that's handy.</p>
 </div>
-<div id="taking-powers-1" class="section level3" number="30.9.2">
+<div id="taking-powers-1" class="section level3" number="38.9.2">
 <h3>
-<span class="header-section-number">30.9.2</span> Taking powers<a class="anchor" aria-label="anchor" href="#taking-powers-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.9.2</span> Taking powers<a class="anchor" aria-label="anchor" href="#taking-powers-1"><i class="fas fa-link"></i></a>
 </h3>
-<p>The first four operations listed in Table <a href="startingR.html#tab:arithmetic1">29.1</a> are things we all learned in primary school, but they aren't the only arithmetic operations built into R. There are three other arithmetic operations that I should probably mention: taking powers, doing integer division, and calculating a modulus. Of the three, the only one that is of any real importance for the purposes of this book is taking powers, so I'll discuss that one here: the other two are discussed in Chapter <a href="#datahandling"><strong>??</strong></a>.</p>
+<p>The first four operations listed in Table <a href="startingR.html#tab:arithmetic1">37.1</a> are things we all learned in primary school, but they aren't the only arithmetic operations built into R. There are three other arithmetic operations that I should probably mention: taking powers, doing integer division, and calculating a modulus. Of the three, the only one that is of any real importance for the purposes of this book is taking powers, so I'll discuss that one here: the other two are discussed in Chapter <a href="#datahandling"><strong>??</strong></a>.</p>
 <p>For those of you who can still remember your high school maths, this should be familiar. But for some people high school maths was a long time ago, and others of us didn't listen very hard in high school. It's not complicated. As I'm sure everyone will probably remember the moment they read this, the act of multiplying a number <span class="math inline">\(x\)</span> by itself <span class="math inline">\(n\)</span> times is called "raising <span class="math inline">\(x\)</span> to the <span class="math inline">\(n\)</span>-th power". Mathematically, this is written as <span class="math inline">\(x^n\)</span>. Some values of <span class="math inline">\(n\)</span> have special names: in particular <span class="math inline">\(x^2\)</span> is called <span class="math inline">\(x\)</span>-squared, and <span class="math inline">\(x^3\)</span> is called <span class="math inline">\(x\)</span>-cubed. So, the 4th power of 5 is calculated like this:
 <span class="math display">\[
 5^4 = 5 \times 5 \times 5 \times 5
@@ -481,9 +489,9 @@ BLAH BLAH BLAH</code></pre>
 <pre><code>## [1] 625</code></pre>
 <p>Much easier.</p>
 </div>
-<div id="bedmas" class="section level3" number="30.9.3">
+<div id="bedmas" class="section level3" number="38.9.3">
 <h3>
-<span class="header-section-number">30.9.3</span> Doing calculations in the right order<a class="anchor" aria-label="anchor" href="#bedmas"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.9.3</span> Doing calculations in the right order<a class="anchor" aria-label="anchor" href="#bedmas"><i class="fas fa-link"></i></a>
 </h3>
 <p>Okay. At this point, you know how to take one of the most powerful pieces of statistical software in the world, and use it as a $2 calculator. And as a bonus, you've learned a few very basic programming concepts. That's not nothing (you could argue that you've just saved yourself $2) but on the other hand, it's not very much either. In order to use R more effectively, we need to introduce more programming concepts.</p>
 <p>In most situations where you would want to use a calculator, you might want to do multiple calculations. R lets you do this, just by typing in longer commands. <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;If you're reading this with R open, a good learning trick is to try typing in a few different variations on what I've done here. If you experiment with your commands, you'll quickly learn what works and what doesn't&lt;/p&gt;"><sup>34</sup></a> In fact, we've already seen an example of this earlier, when I typed in <code>5 * 5 * 5 * 5</code>. However, let's try a slightly different example:</p>
@@ -502,14 +510,14 @@ BLAH BLAH BLAH</code></pre>
 <p>All of the above being said, it's helpful to remember that <em>brackets always come first</em>. So, if you're ever unsure about what order R will do things in, an easy solution is to enclose the thing <em>you</em> want it to do first in brackets. There's nothing stopping you from typing <code>(4 / 2) * 3</code>. By enclosing the division in brackets we make it clear which thing is supposed to happen first. In this instance you wouldn't have needed to, since R would have done the division first anyway, but when you're first starting out it's better to make sure R does what you want!</p>
 </div>
 </div>
-<div id="assign" class="section level2" number="30.10">
+<div id="assign" class="section level2" number="38.10">
 <h2>
-<span class="header-section-number">30.10</span> Storing a number as a variable<a class="anchor" aria-label="anchor" href="#assign"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.10</span> Storing a number as a variable<a class="anchor" aria-label="anchor" href="#assign"><i class="fas fa-link"></i></a>
 </h2>
 <p>One of the most important things to be able to do in R (or any programming language, for that matter) is to store information in <strong><em>variables</em></strong>. Variables in R aren't exactly the same thing as the variables we talked about in the last chapter on research methods, but they are similar. At a conceptual level you can think of a variable as <em>label</em> for a certain piece of information, or even several different pieces of information. When doing statistical analysis in R all of your data (the variables you measured in your study) will be stored as variables in R, but as well see later in the book you'll find that you end up creating variables for other things too. However, before we delve into all the messy details of data sets and statistical analysis, let's look at the very basics for how we create variables and work with them.</p>
-<div id="variable-assignment-using---and---1" class="section level3" number="30.10.1">
+<div id="variable-assignment-using---and---1" class="section level3" number="38.10.1">
 <h3>
-<span class="header-section-number">30.10.1</span> Variable assignment using <code>&lt;-</code> and <code>-&gt;</code><a class="anchor" aria-label="anchor" href="#variable-assignment-using---and---1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.10.1</span> Variable assignment using <code>&lt;-</code> and <code>-&gt;</code><a class="anchor" aria-label="anchor" href="#variable-assignment-using---and---1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Since we've been working with numbers so far, let's start by creating variables to store our numbers. And since most people like concrete examples, let's invent one. Suppose I'm trying to calculate how much money I'm going to make from this book. There's several different numbers I might want to store. Firstly, I need to figure out how many copies I'll sell. This isn't exactly <em>Harry Potter</em>, so let's assume I'm only going to sell one copy per student in my class. That's 350 sales, so let's create a variable called <code>sales</code>. What I want to do is assign a <strong><em>value</em></strong> to my variable <code>sales</code>, and that value should be <code>350</code>. We do this by using the <strong><em>assignment operator</em></strong>, which is <code>&lt;-</code>. Here's how we do it:</p>
 <div class="sourceCode" id="cb703"><pre class="downlit sourceCode r">
@@ -519,14 +527,14 @@ BLAH BLAH BLAH</code></pre>
 <code class="sourceCode R"><span><span class="va">sales</span></span></code></pre></div>
 <pre><code>## [1] 350</code></pre>
 <p>So that's nice to know. Anytime you can't remember what R has got stored in a particular variable, you can just type the name of the variable and hit enter.</p>
-<p>Okay, so now we know how to assign variables. Actually, there's a bit more you should know. Firstly, one of the curious features of R is that there are several different ways of making assignments. In addition to the <code>&lt;-</code> operator, we can also use <code>-&gt;</code> and <code>=</code>, and it's pretty important to understand the differences between them.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Actually, in keeping with the R tradition of providing you with a billion different screwdrivers (even when you're actually looking for a hammer) these aren't the only options. There's also the&lt;code&gt;assign()&lt;/code&gt; function, and the &lt;code&gt;&amp;lt;&amp;lt;-&lt;/code&gt; and &lt;code&gt;-&amp;gt;&amp;gt;&lt;/code&gt; operators. However, we won't be using these at all in this book.&lt;/p&gt;"><sup>38</sup></a> Let's start by considering <code>-&gt;</code>, since that's the easy one (we'll discuss the use of <code>=</code> in Section <a href="startingR.html#functionarguments">29.4.1</a>. As you might expect from just looking at the symbol, it's almost identical to <code>&lt;-</code>. It's just that the arrow (i.e., the assignment) goes from left to right. So if I wanted to define my <code>sales</code> variable using <code>-&gt;</code>, I would write it like this:</p>
+<p>Okay, so now we know how to assign variables. Actually, there's a bit more you should know. Firstly, one of the curious features of R is that there are several different ways of making assignments. In addition to the <code>&lt;-</code> operator, we can also use <code>-&gt;</code> and <code>=</code>, and it's pretty important to understand the differences between them.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Actually, in keeping with the R tradition of providing you with a billion different screwdrivers (even when you're actually looking for a hammer) these aren't the only options. There's also the&lt;code&gt;assign()&lt;/code&gt; function, and the &lt;code&gt;&amp;lt;&amp;lt;-&lt;/code&gt; and &lt;code&gt;-&amp;gt;&amp;gt;&lt;/code&gt; operators. However, we won't be using these at all in this book.&lt;/p&gt;"><sup>38</sup></a> Let's start by considering <code>-&gt;</code>, since that's the easy one (we'll discuss the use of <code>=</code> in Section <a href="startingR.html#functionarguments">37.4.1</a>. As you might expect from just looking at the symbol, it's almost identical to <code>&lt;-</code>. It's just that the arrow (i.e., the assignment) goes from left to right. So if I wanted to define my <code>sales</code> variable using <code>-&gt;</code>, I would write it like this:</p>
 <div class="sourceCode" id="cb706"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">350</span> <span class="op">-&gt;</span> <span class="va">sales</span></span></code></pre></div>
 <p>This has the same effect: and it <em>still</em> means that I'm only going to sell <code>350</code> copies. Sigh. Apart from this superficial difference, <code>&lt;-</code> and <code>-&gt;</code> are identical. In fact, as far as R is concerned, they're actually the same operator, just in a "left form" and a "right form".<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A quick reminder: when using operators like &lt;code&gt;&amp;lt;-&lt;/code&gt; and &lt;code&gt;-&amp;gt;&lt;/code&gt; that span multiple characters, you can't insert spaces in the middle. That is, if you type &lt;code&gt;- &amp;gt;&lt;/code&gt; or &lt;code&gt;&amp;lt; -&lt;/code&gt;, R will interpret your command the wrong way. And I will cry.&lt;/p&gt;"><sup>39</sup></a></p>
 </div>
-<div id="doing-calculations-using-variables-1" class="section level3" number="30.10.2">
+<div id="doing-calculations-using-variables-1" class="section level3" number="38.10.2">
 <h3>
-<span class="header-section-number">30.10.2</span> Doing calculations using variables<a class="anchor" aria-label="anchor" href="#doing-calculations-using-variables-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.10.2</span> Doing calculations using variables<a class="anchor" aria-label="anchor" href="#doing-calculations-using-variables-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Okay, let's get back to my original story. In my quest to become rich, I've written this textbook. To figure out how good a strategy is, I've started creating some variables in R. In addition to defining a <code>sales</code> variable that counts the number of copies I'm going to sell, I can also create a variable called <code>royalty</code>, indicating how much money I get per copy. Let's say that my royalties are about $7 per book:</p>
 <div class="sourceCode" id="cb707"><pre class="downlit sourceCode r">
@@ -552,9 +560,9 @@ BLAH BLAH BLAH</code></pre>
 <pre><code>## [1] 3000</code></pre>
 <p>In this calculation, R has taken the old value of <code>revenue</code> (i.e., 2450) and added 550 to that value, producing a value of 3000. This new value is assigned to the <code>revenue</code> variable, overwriting its previous value. In any case, we now know that I'm expecting to make $3000 off this. Pretty sweet, I thinks to myself. Or at least, that's what I thinks until I do a few more calculation and work out what the implied hourly wage I'm making off this looks like.</p>
 </div>
-<div id="rules-and-conventions-for-naming-variables-1" class="section level3" number="30.10.3">
+<div id="rules-and-conventions-for-naming-variables-1" class="section level3" number="38.10.3">
 <h3>
-<span class="header-section-number">30.10.3</span> Rules and conventions for naming variables<a class="anchor" aria-label="anchor" href="#rules-and-conventions-for-naming-variables-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.10.3</span> Rules and conventions for naming variables<a class="anchor" aria-label="anchor" href="#rules-and-conventions-for-naming-variables-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>In the examples that we've seen so far, my variable names (<code>sales</code> and <code>revenue</code>) have just been English-language words written using lowercase letters. However, R allows a lot more flexibility when it comes to naming your variables, as the following list of rules<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Actually, you can override any of these rules if you want to, and quite easily. All you have to do is add quote marks or backticks around your non-standard variable name. For instance &lt;code&gt;`my sales ` &amp;lt;- 350&lt;/code&gt; would work just fine, but it's almost never a good idea to do this.&lt;/p&gt;"><sup>40</sup></a> illustrates:</p>
 <ul>
@@ -572,9 +580,9 @@ BLAH BLAH BLAH</code></pre>
 </ul>
 </div>
 </div>
-<div id="usingfunctions" class="section level2" number="30.11">
+<div id="usingfunctions" class="section level2" number="38.11">
 <h2>
-<span class="header-section-number">30.11</span> Using functions to do calculations<a class="anchor" aria-label="anchor" href="#usingfunctions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.11</span> Using functions to do calculations<a class="anchor" aria-label="anchor" href="#usingfunctions"><i class="fas fa-link"></i></a>
 </h2>
 <p>The symbols <code>+</code>, <code>-</code>, <code>*</code> and so on are examples of operators. As we've seen, you can do quite a lot of calculations just by using these operators. However, in order to do more advanced calculations (and later on, to do actual statistics), you're going to need to start using <strong><em>functions</em></strong>.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A side note for students with a programming background. Technically speaking, operators &lt;em&gt;are&lt;/em&gt; functions in R: the addition operator &lt;code&gt;+&lt;/code&gt; is actually a convenient way of calling the addition function &lt;code&gt;+()&lt;/code&gt;. Thus &lt;code&gt;10+20&lt;/code&gt; is equivalent to the function call &lt;code&gt;+(20, 30)&lt;/code&gt;. Not surprisingly, no-one ever uses this version. Because that would be stupid.&lt;/p&gt;"><sup>42</sup></a> I'll talk in more detail about functions and how they work in Section <a href="r-basics.html#functions">2.11</a>, but for now let's just dive in and use a few. To get started, suppose I wanted to take the square root of 225. The square root, in case your high school maths is a bit rusty, is just the opposite of squaring a number. So, for instance, since "5 squared is 25" I can say that "5 is the square root of 25". The usual notation for this is</p>
 <p><span class="math display">\[
@@ -606,9 +614,9 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span> <span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="op">-</span><span class="fl">8</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>When R executes this command, starts out by calculating the value of <code>abs(-8)</code>, which produces an intermediate value of <code>8</code>. Having done so, the command simplifies to <code>sqrt( 1 + 8 )</code>. To solve the square root<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A note for the mathematically inclined: R does support complex numbers, but unless you explicitly specify that you want them it assumes all calculations must be real valued. By default, the square root of a negative number is treated as undefined: &lt;code&gt;sqrt(-9)&lt;/code&gt; will produce &lt;code&gt;NaN&lt;/code&gt; (not a number) as its output. To get complex numbers, you would type &lt;code&gt;sqrt(-9+0i)&lt;/code&gt; and R would now return &lt;code&gt;0+3i&lt;/code&gt;. However, since we won't have any need for complex numbers in this book, I won't refer to them again.&lt;/p&gt;"><sup>43</sup></a> it first needs to add <code>1 + 8</code> to get <code>9</code>, at which point it evaluates <code>sqrt(9)</code>, and so it finally outputs a value of <code>3</code>.</p>
-<div id="functionarguments" class="section level3" number="30.11.1">
+<div id="functionarguments" class="section level3" number="38.11.1">
 <h3>
-<span class="header-section-number">30.11.1</span> Function arguments, their names and their defaults<a class="anchor" aria-label="anchor" href="#functionarguments"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.11.1</span> Function arguments, their names and their defaults<a class="anchor" aria-label="anchor" href="#functionarguments"><i class="fas fa-link"></i></a>
 </h3>
 <p>There's two more fairly important things that you need to understand about how functions work in R, and that's the use of "named" arguments, and default values" for arguments. Not surprisingly, that's not to say that this is the last we'll hear about how functions work, but they are the last things we desperately need to discuss in order to get you started. To understand what these two concepts are all about, I'll introduce another function. The <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function can be used to round some value to the nearest whole number. For example, I could type this:</p>
 <div class="sourceCode" id="cb726"><pre class="downlit sourceCode r">
@@ -622,7 +630,7 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <div class="sourceCode" id="cb730"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span> x <span class="op">=</span> <span class="fl">3.1415</span>, digits <span class="op">=</span> <span class="fl">2</span> <span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 3.14</code></pre>
-<p>Notice that this is kind of similar in spirit to variable assignment (Section <a href="startingR.html#assign">29.3</a>), except that I used <code>=</code> here, rather than <code>&lt;-</code>. In both cases we're specifying specific values to be associated with a label. However, there are some differences between what I was doing earlier on when creating variables, and what I'm doing here when specifying arguments, and so as a consequence it's important that you use <code>=</code> in this context.</p>
+<p>Notice that this is kind of similar in spirit to variable assignment (Section <a href="startingR.html#assign">37.3</a>), except that I used <code>=</code> here, rather than <code>&lt;-</code>. In both cases we're specifying specific values to be associated with a label. However, there are some differences between what I was doing earlier on when creating variables, and what I'm doing here when specifying arguments, and so as a consequence it's important that you use <code>=</code> in this context.</p>
 <p>As you can see, specifying the arguments by name involves a lot more typing, but it's also a lot easier to read. Because of this, the commands in this book will usually specify arguments by name,<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The two functions discussed previously, &lt;code&gt;sqrt()&lt;/code&gt; and &lt;code&gt;abs()&lt;/code&gt;, both only have a single argument, &lt;code&gt;x&lt;/code&gt;. So I could have typed something like &lt;code&gt;sqrt(x = 225)&lt;/code&gt; or &lt;code&gt;abs(x = -13)&lt;/code&gt; earlier. The fact that all these functions use &lt;code&gt;x&lt;/code&gt; as the name of the argument that corresponds the &quot;main&quot; variable that you're working with is no coincidence. That's a fairly widely used convention. Quite often, the writers of R functions will try to use conventional names like this to make your life easier. Or at least that's the theory. In practice it doesn't always work as well as you'd hope.&lt;/p&gt;"><sup>44</sup></a> since that makes it clearer to you what I'm doing. However, one important thing to note is that when specifying the arguments using their names, it doesn't matter what order you type them in. But if you don't use the argument names, then you have to input the arguments in the correct order. In other words, these three commands all produce the same output...</p>
 <div class="sourceCode" id="cb732"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span> <span class="fl">3.14165</span>, <span class="fl">2</span> <span class="op">)</span></span>
@@ -639,36 +647,36 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <p>Okay, so that's the first thing I said you'd need to know: argument names. The second thing you need to know about is default values. Notice that the first time I called the <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function I didn't actually specify the <code>digits</code> argument at all, and yet R somehow knew that this meant it should round to the nearest whole number. How did that happen? The answer is that the <code>digits</code> argument has a <strong><em>default value</em></strong> of <code>0</code>, meaning that if you decide not to specify a value for <code>digits</code> then R will act as if you had typed <code>digits = 0</code>. This is quite handy: the vast majority of the time when you want to round a number you want to round it to the nearest whole number, and it would be pretty annoying to have to specify the <code>digits</code> argument every single time. On the other hand, sometimes you actually do want to round to something other than the nearest whole number, and it would be even more annoying if R didn't allow this! Thus, by having <code>digits = 0</code> as the default value, we get the best of both worlds.</p>
 </div>
 </div>
-<div id="RStudio1" class="section level2" number="30.12">
+<div id="RStudio1" class="section level2" number="38.12">
 <h2>
-<span class="header-section-number">30.12</span> Letting RStudio help you with your commands<a class="anchor" aria-label="anchor" href="#RStudio1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.12</span> Letting RStudio help you with your commands<a class="anchor" aria-label="anchor" href="#RStudio1"><i class="fas fa-link"></i></a>
 </h2>
 <p>Time for a bit of a digression. At this stage you know how to type in basic commands, including how to use R functions. And it's probably beginning to dawn on you that there are a <em>lot</em> of R functions, all of which have their own arguments. You're probably also worried that you're going to have to remember all of them! Thankfully, it's not that bad. In fact, very few data analysts bother to try to remember all the commands. What they really do is use tricks to make their lives easier. The first (and arguably most important one) is to use the internet. If you don't know how a particular R function works, Google it. Second, you can look up the R help documentation. I'll talk more about these two tricks in Section <a href="#help"><strong>??</strong></a>. But right now I want to call your attention to a couple of simple tricks that RStudio makes available to you.</p>
-<div id="autocomplete-using-tab-1" class="section level3" number="30.12.1">
+<div id="autocomplete-using-tab-1" class="section level3" number="38.12.1">
 <h3>
-<span class="header-section-number">30.12.1</span> Autocomplete using "tab"<a class="anchor" aria-label="anchor" href="#autocomplete-using-tab-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.12.1</span> Autocomplete using "tab"<a class="anchor" aria-label="anchor" href="#autocomplete-using-tab-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>The first thing I want to call your attention to is the <em>autocomplete</em> ability in RStudio.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;For advanced users: obviously, this isn't just an RStudio thing. If you're running R in a terminal window, tab autocomplete still works, and does so in exactly the way you'd expect. It's not as visually pretty as the RStudio version, of course, and lacks some of the cooler features that RStudio provides. I don't bother to document that here: my assumption is that if you are running R in the terminal then you're already familiar with using tab autocomplete.&lt;/p&gt;"><sup>45</sup></a></p>
 <p>Let's stick to our example above and assume that what you want to do is to round a number. This time around, start typing the name of the function that you want, and then hit the "tab" key. RStudio will then display a little window like the one shown in Figure <a href="#fig:RStudiotab"><strong>??</strong></a>. In this figure, I've typed the letters <code>ro</code> at the command line, and then hit tab. The window has two panels. On the left, there's a list of variables and functions that start with the letters that I've typed shown in black text, and some grey text that tells you where that variable/function is stored. Ignore the grey text for now: it won't make much sense to you until we've talked about packages in Section <a href="#packageinstall"><strong>??</strong></a>. In Figure <a href="#fig:RStudiotab"><strong>??</strong></a> you can see that there's quite a few things that start with the letters <code>ro</code>: there's something called <code>rock</code>, something called <code>round</code>, something called <code>round.Date</code> and so on. The one we want is <code>round</code>, but if you're typing this yourself you'll notice that when you hit the tab key the window pops up with the top entry (i.e., <code>rock</code>) highlighted. You can use the up and down arrow keys to select the one that you want. Or, if none of the options look right to you, you can hit the escape key ("esc") or the left arrow key to make the window go away.</p>
 <p>In our case, the thing we want is the <code>round</code> option, so we'll select that. When you do this, you'll see that the panel on the right changes. Previously, it had been telling us something about the <code>rock</code> data set (i.e., "Measurements on 48 rock samples...") that is distributed as part of R. But when we select <code>round</code>, it displays information about the <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function, exactly as it is shown in Figure <a href="#fig:RStudiotab"><strong>??</strong></a>. This display is really handy. The very first thing it says is <code>round(x, digits = 0)</code>: what this is telling you is that the <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function has two arguments. The first argument is called <code>x</code>, and it doesn't have a default value. The second argument is <code>digits</code>, and it has a default value of 0. In a lot of situations, that's all the information you need. But RStudio goes a bit further, and provides some additional information about the function underneath. Sometimes that additional information is very helpful, sometimes it's not: RStudio pulls that text from the R help documentation, and my experience is that the helpfulness of that documentation varies wildly. Anyway, if you've decided that <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> is the function that you want to use, you can hit the right arrow or the enter key, and RStudio will finish typing the rest of the function name for you.</p>
 <p>The RStudio autocomplete tool works slightly differently if you've already got the name of the function typed and you're now trying to type the arguments. For instance, suppose I've typed <code>round(</code> into the console, and <em>then</em> I hit tab. RStudio is smart enough to recognise that I already know the name of the function that I want, because I've already typed it! Instead, it figures that what I'm interested in is the <em>arguments</em> to that function. So that's what pops up in the little window. You can see this in Figure <a href="#fig:RStudiotab2"><strong>??</strong></a>. Again, the window has two panels, and you can interact with this window in exactly the same way that you did with the window shown in Figure <a href="#fig:RStudiotab"><strong>??</strong></a>. On the left hand panel, you can see a list of the argument names. On the right hand side, it displays some information about what the selected argument does.</p>
 </div>
-<div id="browsing-your-command-history-1" class="section level3" number="30.12.2">
+<div id="browsing-your-command-history-1" class="section level3" number="38.12.2">
 <h3>
-<span class="header-section-number">30.12.2</span> Browsing your command history<a class="anchor" aria-label="anchor" href="#browsing-your-command-history-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.12.2</span> Browsing your command history<a class="anchor" aria-label="anchor" href="#browsing-your-command-history-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>One thing that R does automatically is keep track of your "command history". That is, it remembers all the commands that you've previously typed. You can access this history in a few different ways. The simplest way is to use the up and down arrow keys. If you hit the up key, the R console will show you the most recent command that you've typed. Hit it again, and it will show you the command before that. If you want the text on the screen to go away, hit escape<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Incidentally, that always works: if you've started typing a command and you want to clear it and start again, hit escape.&lt;/p&gt;"><sup>46</sup></a> Using the up and down keys can be really handy if you've typed a long command that had one typo in it. Rather than having to type it all again from scratch, you can use the up key to bring up the command and fix it.</p>
 <p>The second way to get access to your command history is to look at the history panel in RStudio. On the upper right hand side of the RStudio window you'll see a tab labelled "History". Click on that, and you'll see a list of all your recent commands displayed in that panel: it should look something like Figure <a href="#fig:RStudiohistory"><strong>??</strong></a>. If you double click on one of the commands, it will be copied to the R console. (You can achieve the same result by selecting the command you want with the mouse and then clicking the "To Console" button).<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Another method is to start typing some text and then hit the Control key and the up arrow together (on Windows or Linux) or the Command key and the up arrow together (on a Mac). This will bring up a window showing all your recent commands that started with the same text as what you've currently typed. That can come in quite handy sometimes.&lt;/p&gt;"><sup>47</sup></a></p>
 </div>
 </div>
-<div id="vectors" class="section level2" number="30.13">
+<div id="vectors" class="section level2" number="38.13">
 <h2>
-<span class="header-section-number">30.13</span> Storing many numbers as a vector<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.13</span> Storing many numbers as a vector<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
 </h2>
-<p>At this point we've covered functions in enough detail to get us safely through the next couple of chapters (with one small exception: see Section <a href="#generics"><strong>??</strong></a>, so let's return to our discussion of variables. When I introduced variables in Section <a href="startingR.html#assign">29.3</a> I showed you how we can use variables to store a single number. In this section, we'll extend this idea and look at how to store multiple numbers within the one variable. In R, the name for a variable that can store multiple values is a <strong><em>vector</em></strong>. So let's create one.</p>
-<div id="creating-a-vector-1" class="section level3" number="30.13.1">
+<p>At this point we've covered functions in enough detail to get us safely through the next couple of chapters (with one small exception: see Section <a href="#generics"><strong>??</strong></a>, so let's return to our discussion of variables. When I introduced variables in Section <a href="startingR.html#assign">37.3</a> I showed you how we can use variables to store a single number. In this section, we'll extend this idea and look at how to store multiple numbers within the one variable. In R, the name for a variable that can store multiple values is a <strong><em>vector</em></strong>. So let's create one.</p>
+<div id="creating-a-vector-1" class="section level3" number="38.13.1">
 <h3>
-<span class="header-section-number">30.13.1</span> Creating a vector<a class="anchor" aria-label="anchor" href="#creating-a-vector-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.13.1</span> Creating a vector<a class="anchor" aria-label="anchor" href="#creating-a-vector-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let's stick to my silly "get rich quick by textbook writing" example. Suppose the textbook company (if I actually had one, that is) sends me sales data on a monthly basis. Since my class start in late February, we might expect most of the sales to occur towards the start of the year. Let's suppose that I have 100 sales in February, 200 sales in March and 50 sales in April, and no other sales for the rest of the year. What I would like to do is have a variable -- let's call it <code>sales.by.month</code> -- that stores all this sales data. The first number stored should be <code>0</code> since I had no sales in January, the second should be <code>100</code>, and so on. The simplest way to do this in R is to use the <strong><em>combine</em></strong> function, <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. To do so, all we have to do is type all the numbers you want to store in a comma separated list, like this:<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Notice that I didn't specify any argument names here. The &lt;code&gt;c()&lt;/code&gt; function is one of those cases where we don't use names. We just type all the numbers, and R just dumps them all in a single variable.&lt;/p&gt;"><sup>48</sup></a></p>
 <div class="sourceCode" id="cb736"><pre class="downlit sourceCode r">
@@ -677,9 +685,9 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <pre><code>##  [1]   0 100 200  50   0   0   0   0   0   0   0   0</code></pre>
 <p>To use the correct terminology here, we have a single variable here called <code>sales.by.month</code>: this variable is a vector that consists of 12 <strong><em>elements</em></strong>.</p>
 </div>
-<div id="a-handy-digression-1" class="section level3" number="30.13.2">
+<div id="a-handy-digression-1" class="section level3" number="38.13.2">
 <h3>
-<span class="header-section-number">30.13.2</span> A handy digression<a class="anchor" aria-label="anchor" href="#a-handy-digression-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.13.2</span> A handy digression<a class="anchor" aria-label="anchor" href="#a-handy-digression-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now that we've learned how to put information into a vector, the next thing to understand is how to pull that information back out again. However, before I do so it's worth taking a slight detour. If you've been following along, typing all the commands into R yourself, it's possible that the output that you saw when we printed out the <code>sales.by.month</code> vector was slightly different to what I showed above. This would have happened if the window (or the RStudio panel) that contains the R console is really, really narrow. If that were the case, you might have seen output that looks something like this:</p>
 <div class="sourceCode" id="cb738"><pre class="downlit sourceCode r">
@@ -689,9 +697,9 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 ##  [9]   0   0   0   0</code></pre>
 <p>Because there wasn't much room on the screen, R has printed out the results over three lines. But that's not the important thing to notice. The important point is that the first line has a <code>[1]</code> in front of it, whereas the second line starts with <code>[5]</code> and the third with <code>[9]</code>. It's pretty clear what's happening here. For the first row, R has printed out the 1st element through to the 4th element, so it starts that row with a <code>[1]</code>. For the second row, R has printed out the 5th element of the vector through to the 8th one, and so it begins that row with a <code>[5]</code> so that you can tell where it's up to at a glance. It might seem a bit odd to you that R does this, but in some ways it's a kindness, especially when dealing with larger data sets!</p>
 </div>
-<div id="vectorsubset" class="section level3" number="30.13.3">
+<div id="vectorsubset" class="section level3" number="38.13.3">
 <h3>
-<span class="header-section-number">30.13.3</span> Getting information out of vectors<a class="anchor" aria-label="anchor" href="#vectorsubset"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.13.3</span> Getting information out of vectors<a class="anchor" aria-label="anchor" href="#vectorsubset"><i class="fas fa-link"></i></a>
 </h3>
 <p>To get back to the main story, let's consider the problem of how to get information out of a vector. At this point, you might have a sneaking suspicion that the answer has something to do with the <code>[1]</code> and <code>[9]</code> things that R has been printing out. And of course you are correct. Suppose I want to pull out the February sales data only. February is the second month of the year, so let's try this:</p>
 <div class="sourceCode" id="cb740"><pre class="downlit sourceCode r">
@@ -702,11 +710,11 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <code class="sourceCode R"><span><span class="va">february.sales</span> <span class="op">&lt;-</span> <span class="va">sales.by.month</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="va">february.sales</span></span></code></pre></div>
 <pre><code>## [1] 100</code></pre>
-<p>Obviously, the new variable <code>february.sales</code> should only have one element and so when I print it out this new variable, the R output begins with a <code>[1]</code> because <code>100</code> is the value of the first (and only) element of <code>february.sales</code>. The fact that this also happens to be the value of the second element of <code>sales.by.month</code> is irrelevant. We'll pick this topic up again shortly (Section <a href="startingR.html#indexing">29.9</a>).</p>
+<p>Obviously, the new variable <code>february.sales</code> should only have one element and so when I print it out this new variable, the R output begins with a <code>[1]</code> because <code>100</code> is the value of the first (and only) element of <code>february.sales</code>. The fact that this also happens to be the value of the second element of <code>sales.by.month</code> is irrelevant. We'll pick this topic up again shortly (Section <a href="startingR.html#indexing">37.9</a>).</p>
 </div>
-<div id="altering-the-elements-of-a-vector-1" class="section level3" number="30.13.4">
+<div id="altering-the-elements-of-a-vector-1" class="section level3" number="38.13.4">
 <h3>
-<span class="header-section-number">30.13.4</span> Altering the elements of a vector<a class="anchor" aria-label="anchor" href="#altering-the-elements-of-a-vector-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.13.4</span> Altering the elements of a vector<a class="anchor" aria-label="anchor" href="#altering-the-elements-of-a-vector-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sometimes you'll want to change the values stored in a vector. Imagine my surprise when the publisher rings me up to tell me that the sales data for May are wrong. There were actually an additional 25 books sold in May, but there was an error or something so they hadn't told me about it. How can I fix my <code>sales.by.month</code> variable? One possibility would be to assign the whole vector again from the beginning, using <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. But that's a lot of typing. Also, it's a little wasteful: why should R have to redefine the sales figures for all 12 months, when only the 5th one is wrong? Fortunately, we can tell R to change only the 5th element, using this trick:</p>
 <div class="sourceCode" id="cb744"><pre class="downlit sourceCode r">
@@ -715,9 +723,9 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <pre><code>##  [1]   0 100 200  50  25   0   0   0   0   0   0   0</code></pre>
 <p>Another way to edit variables is to use the <code><a href="https://rdrr.io/r/utils/edit.html">edit()</a></code> or <code><a href="https://rdrr.io/r/utils/fix.html">fix()</a></code> functions. I won't discuss them in detail right now, but you can check them out on your own.</p>
 </div>
-<div id="veclength" class="section level3" number="30.13.5">
+<div id="veclength" class="section level3" number="38.13.5">
 <h3>
-<span class="header-section-number">30.13.5</span> Useful things to know about vectors<a class="anchor" aria-label="anchor" href="#veclength"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.13.5</span> Useful things to know about vectors<a class="anchor" aria-label="anchor" href="#veclength"><i class="fas fa-link"></i></a>
 </h3>
 <p>Before moving on, I want to mention a couple of other things about vectors. Firstly, you often find yourself wanting to know how many elements there are in a vector (usually because you've forgotten). You can use the <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> function to do this. It's quite straightforward:</p>
 <div class="sourceCode" id="cb746"><pre class="downlit sourceCode r">
@@ -739,9 +747,9 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <p>I still don't like all those zeros, but that's not what matters here. Notice that the second element of the output is 25, because R has divided the second element of <code>profit</code> (i.e. 700) by the second element of <code>days.per.month</code> (i.e. 28). Similarly, the third element of the output is equal to 1400 divided by 31, and so on. We'll talk more about calculations involving vectors later on (and in particular a thing called the "recycling rule"; Section <a href="#recycling"><strong>??</strong></a>), but that's enough detail for now.</p>
 </div>
 </div>
-<div id="text" class="section level2" number="30.14">
+<div id="text" class="section level2" number="38.14">
 <h2>
-<span class="header-section-number">30.14</span> Storing text data<a class="anchor" aria-label="anchor" href="#text"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.14</span> Storing text data<a class="anchor" aria-label="anchor" href="#text"><i class="fas fa-link"></i></a>
 </h2>
 <p>A lot of the time your data will be numeric in nature, but not always. Sometimes your data really needs to be described using text, not using numbers. To address this, we need to consider the situation where our variables store text. To create a variable that stores the word "hello", we can type this:</p>
 <div class="sourceCode" id="cb753"><pre class="downlit sourceCode r">
@@ -762,9 +770,9 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <div class="sourceCode" id="cb758"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">months</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] "April"</code></pre>
-<div id="simpletext" class="section level3" number="30.14.1">
+<div id="simpletext" class="section level3" number="38.14.1">
 <h3>
-<span class="header-section-number">30.14.1</span> Working with text<a class="anchor" aria-label="anchor" href="#simpletext"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.14.1</span> Working with text<a class="anchor" aria-label="anchor" href="#simpletext"><i class="fas fa-link"></i></a>
 </h3>
 <p>Working with text data is somewhat more complicated than working with numeric data, and I discuss some of the basic ideas in Section <a href="#textprocessing"><strong>??</strong></a>, but for purposes of the current chapter we only need this bare bones sketch. The only other thing I want to do before moving on is show you an example of a function that can be applied to text data. So far, most of the functions that we have seen (i.e., <code><a href="https://rdrr.io/r/base/MathFun.html">sqrt()</a></code>, <code><a href="https://rdrr.io/r/base/MathFun.html">abs()</a></code> and <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>) only make sense when applied to numeric data (e.g., you can't calculate the square root of "hello"), and we've seen one function that can be applied to pretty much any variable or vector (i.e., <code><a href="https://rdrr.io/r/base/length.html">length()</a></code>). So it might be nice to see an example of a function that can be applied to text.</p>
 <p>The function I'm going to introduce you to is called <code><a href="https://rdrr.io/r/base/nchar.html">nchar()</a></code>, and what it does is count the number of individual characters that make up a string. Recall earlier that when we tried to calculate the <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> of our <code>greeting</code> variable it returned a value of <code>1</code>: the <code>greeting</code> variable contains only the one string, which happens to be <code>"hello"</code>. But what if I want to know how many letters there are in the word? Sure, I could <em>count</em> them, but that's boring, and more to the point it's a terrible strategy if what I wanted to know was the number of letters in <em>War and Peace</em>. That's where the <code><a href="https://rdrr.io/r/base/nchar.html">nchar()</a></code> function is helpful:</p>
@@ -778,14 +786,14 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <p>So that's nice to know. The <code><a href="https://rdrr.io/r/base/nchar.html">nchar()</a></code> function can do a bit more than this, and there's a lot of other functions that you can do to extract more information from text or do all sorts of fancy things. However, the goal here is not to teach any of that! The goal right now is just to see an example of a function that actually does work when applied to text.</p>
 </div>
 </div>
-<div id="logicals" class="section level2" number="30.15">
+<div id="logicals" class="section level2" number="38.15">
 <h2>
-<span class="header-section-number">30.15</span> Storing "true or false" data<a class="anchor" aria-label="anchor" href="#logicals"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.15</span> Storing "true or false" data<a class="anchor" aria-label="anchor" href="#logicals"><i class="fas fa-link"></i></a>
 </h2>
 <p>Time to move onto a third kind of data. A key concept in that a lot of R relies on is the idea of a <strong><em>logical value</em></strong>. A logical value is an assertion about whether something is true or false. This is implemented in R in a pretty straightforward way. There are two logical values, namely <code>TRUE</code> and <code>FALSE</code>. Despite the simplicity, a logical values are very useful things. Let's see how they work.</p>
-<div id="assessing-mathematical-truths-2" class="section level3" number="30.15.1">
+<div id="assessing-mathematical-truths-2" class="section level3" number="38.15.1">
 <h3>
-<span class="header-section-number">30.15.1</span> Assessing mathematical truths<a class="anchor" aria-label="anchor" href="#assessing-mathematical-truths-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.15.1</span> Assessing mathematical truths<a class="anchor" aria-label="anchor" href="#assessing-mathematical-truths-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>In George Orwell's classic book <em>1984</em>, one of the slogans used by the totalitarian Party was "two plus two equals five", the idea being that the political domination of human freedom becomes complete when it is possible to subvert even the most basic of truths. It's a terrifying thought, especially when the protagonist Winston Smith finally breaks down under torture and agrees to the proposition. "Man is infinitely malleable", the book says. I'm pretty sure that this isn't true of humans<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;I offer up my teenage attempts to be &quot;cool&quot; as evidence that some things just can't be done.&lt;/p&gt;"><sup>50</sup></a> but it's definitely not true of R. R is not infinitely malleable. It has rather firm opinions on the topic of what is and isn't true, at least as regards basic mathematics. If I ask it to calculate <code>2 + 2</code>, it always gives the same answer, and it's not bloody 5:</p>
 <div class="sourceCode" id="cb764"><pre class="downlit sourceCode r">
@@ -795,7 +803,7 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <div class="sourceCode" id="cb766"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">4</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<p>What I've done here is use the <strong><em>equality operator</em></strong>, <code>==</code>, to force R to make a "true or false" judgement.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Note that this is a very different operator to the assignment operator &lt;code&gt;=&lt;/code&gt; that I talked about in Section &lt;a href=&quot;startingR.html#assign&quot;&gt;29.3&lt;/a&gt;. A common typo that people make when trying to write logical commands in R (or other languages, since the &quot;&lt;code&gt;=&lt;/code&gt; versus &lt;code&gt;==&lt;/code&gt;&quot; distinction is important in most programming languages) is to accidentally type &lt;code&gt;=&lt;/code&gt; when you really mean &lt;code&gt;==&lt;/code&gt;. Be especially cautious with this -- I've been programming in various languages since I was a teenager, and I &lt;em&gt;still&lt;/em&gt; screw this up a lot. Hm. I think I see why I wasn't cool as a teenager. And why I'm still not cool.&lt;/p&gt;"><sup>51</sup></a> Okay, let's see what R thinks of the Party slogan:</p>
+<p>What I've done here is use the <strong><em>equality operator</em></strong>, <code>==</code>, to force R to make a "true or false" judgement.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Note that this is a very different operator to the assignment operator &lt;code&gt;=&lt;/code&gt; that I talked about in Section &lt;a href=&quot;startingR.html#assign&quot;&gt;37.3&lt;/a&gt;. A common typo that people make when trying to write logical commands in R (or other languages, since the &quot;&lt;code&gt;=&lt;/code&gt; versus &lt;code&gt;==&lt;/code&gt;&quot; distinction is important in most programming languages) is to accidentally type &lt;code&gt;=&lt;/code&gt; when you really mean &lt;code&gt;==&lt;/code&gt;. Be especially cautious with this -- I've been programming in various languages since I was a teenager, and I &lt;em&gt;still&lt;/em&gt; screw this up a lot. Hm. I think I see why I wasn't cool as a teenager. And why I'm still not cool.&lt;/p&gt;"><sup>51</sup></a> Okay, let's see what R thinks of the Party slogan:</p>
 <div class="sourceCode" id="cb768"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span><span class="op">+</span><span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
@@ -806,9 +814,9 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <p>R doesn't like this very much. It recognises that <code>2 + 2</code> is <em>not</em> a variable (that's what the "non-language object" part is saying), and it won't let you try to "reassign" it. While R is pretty flexible, and actually does let you do some quite remarkable things to redefine parts of R itself, there are just some basic, primitive truths that it refuses to give up. It won't change the laws of addition, and it won't change the definition of the number <code>2</code>.</p>
 <p>That's probably for the best.</p>
 </div>
-<div id="logical-operations-1" class="section level3" number="30.15.2">
+<div id="logical-operations-1" class="section level3" number="38.15.2">
 <h3>
-<span class="header-section-number">30.15.2</span> Logical operations<a class="anchor" aria-label="anchor" href="#logical-operations-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.15.2</span> Logical operations<a class="anchor" aria-label="anchor" href="#logical-operations-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>So now we've seen logical operations at work, but so far we've only seen the simplest possible example. You probably won't be surprised to discover that we can combine logical operations with other operations and functions in a more complicated way, like this:</p>
 <div class="sourceCode" id="cb772"><pre class="downlit sourceCode r">
@@ -818,10 +826,10 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <div class="sourceCode" id="cb774"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span> <span class="fl">25</span> <span class="op">)</span> <span class="op">==</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<p>Not only that, but as Table <a href="startingR.html#tab:logicals">29.2</a> illustrates, there are several other logical operators that you can use, corresponding to some basic mathematical concepts.</p>
+<p>Not only that, but as Table <a href="startingR.html#tab:logicals">37.2</a> illustrates, there are several other logical operators that you can use, corresponding to some basic mathematical concepts.</p>
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:logicals">Table 29.2: </span>Some logical operators. Technically I should be calling these "binary relational operators", but quite frankly I don't want to. It's my book so no-one can make me.</caption>
+<span id="tab:logicals">Table 37.2: </span>Some logical operators. Technically I should be calling these "binary relational operators", but quite frankly I don't want to. It's my book so no-one can make me.</caption>
 <thead><tr class="header">
 <th align="left">operation</th>
 <th align="left">operator</th>
@@ -889,10 +897,10 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <div class="sourceCode" id="cb782"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">!=</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<p>We're not quite done yet. There are three more logical operations that are worth knowing about, listed in Table <a href="startingR.html#tab:logicals2">29.3</a>.</p>
+<p>We're not quite done yet. There are three more logical operations that are worth knowing about, listed in Table <a href="startingR.html#tab:logicals2">37.3</a>.</p>
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:logicals2">Table 29.3: </span>Some more logical operators.</caption>
+<span id="tab:logicals2">Table 37.3: </span>Some more logical operators.</caption>
 <thead><tr class="header">
 <th align="left">operation</th>
 <th align="left">operator</th>
@@ -942,11 +950,11 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <pre><code>## [1] TRUE</code></pre>
 <p>But there are many situations where you really do need to use the <code>!</code> operator. We'll see some later on.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;A note for those of you who have taken a computer science class: yes, R does have a function for exclusive-or, namely &lt;code&gt;xor()&lt;/code&gt;. Also worth noting is the fact that R makes the distinction between element-wise operators &lt;code&gt;&amp;amp;&lt;/code&gt; and &lt;code&gt;|&lt;/code&gt; and operators that look only at the first element of the vector, namely &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; and &lt;code&gt;||&lt;/code&gt;. To see the distinction, compare the behaviour of a command like &lt;code&gt;c(FALSE,TRUE) &amp;amp; c(TRUE,TRUE)&lt;/code&gt; to the behaviour of something like &lt;code&gt;c(FALSE,TRUE) &amp;amp;&amp;amp; c(TRUE,TRUE)&lt;/code&gt;. If this doesn't mean anything to you, ignore this footnote entirely. It's not important for the content of this book.&lt;/p&gt;"><sup>52</sup></a></p>
 </div>
-<div id="storing-and-using-logical-data-1" class="section level3" number="30.15.3">
+<div id="storing-and-using-logical-data-1" class="section level3" number="38.15.3">
 <h3>
-<span class="header-section-number">30.15.3</span> Storing and using logical data<a class="anchor" aria-label="anchor" href="#storing-and-using-logical-data-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.15.3</span> Storing and using logical data<a class="anchor" aria-label="anchor" href="#storing-and-using-logical-data-1"><i class="fas fa-link"></i></a>
 </h3>
-<p>Up to this point, I've introduced <em>numeric data</em> (in Sections <a href="startingR.html#assign">29.3</a> and <a href="r-basics.html#vectors">2.6</a>) and <em>character data</em> (in Section <a href="outputs.html#text">20.1</a>). So you might not be surprised to discover that these <code>TRUE</code> and <code>FALSE</code> values that R has been producing are actually a third kind of data, called <em>logical data</em>. That is, when I asked R if <code>2 + 2 == 5</code> and it said <code>[1] FALSE</code> in reply, it was actually producing information that we can store in variables. For instance, I could create a variable called <code>is.the.Party.correct</code>, which would store R's opinion:</p>
+<p>Up to this point, I've introduced <em>numeric data</em> (in Sections <a href="startingR.html#assign">37.3</a> and <a href="r-basics.html#vectors">2.6</a>) and <em>character data</em> (in Section <a href="outputs.html#text">28.1</a>). So you might not be surprised to discover that these <code>TRUE</code> and <code>FALSE</code> values that R has been producing are actually a third kind of data, called <em>logical data</em>. That is, when I asked R if <code>2 + 2 == 5</code> and it said <code>[1] FALSE</code> in reply, it was actually producing information that we can store in variables. For instance, I could create a variable called <code>is.the.Party.correct</code>, which would store R's opinion:</p>
 <div class="sourceCode" id="cb794"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">is.the.Party.correct</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">5</span></span>
 <span><span class="va">is.the.Party.correct</span></span></code></pre></div>
@@ -966,11 +974,11 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <code class="sourceCode R"><span><span class="va">is.the.Party.correct</span> <span class="op">&lt;-</span> <span class="va">f</span></span></code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): object 'f' not found</code></pre>
 </div>
-<div id="vectors-of-logicals-1" class="section level3" number="30.15.4">
+<div id="vectors-of-logicals-1" class="section level3" number="38.15.4">
 <h3>
-<span class="header-section-number">30.15.4</span> Vectors of logicals<a class="anchor" aria-label="anchor" href="#vectors-of-logicals-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.15.4</span> Vectors of logicals<a class="anchor" aria-label="anchor" href="#vectors-of-logicals-1"><i class="fas fa-link"></i></a>
 </h3>
-<p>The next thing to mention is that you can store vectors of logical values in exactly the same way that you can store vectors of numbers (Section <a href="r-basics.html#vectors">2.6</a>) and vectors of text data (Section <a href="outputs.html#text">20.1</a>). Again, we can define them directly via the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function, like this:</p>
+<p>The next thing to mention is that you can store vectors of logical values in exactly the same way that you can store vectors of numbers (Section <a href="r-basics.html#vectors">2.6</a>) and vectors of text data (Section <a href="outputs.html#text">28.1</a>). Again, we can define them directly via the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function, like this:</p>
 <div class="sourceCode" id="cb802"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">x</span></span></code></pre></div>
@@ -988,11 +996,11 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 ## [12] FALSE</code></pre>
 <p>In other words, <code>any.sales.this.month</code> is a logical vector whose elements are <code>TRUE</code> only if the corresponding element of <code>sales.by.month</code> is greater than zero. For instance, since I sold zero books in January, the first element is <code>FALSE</code>.</p>
 </div>
-<div id="logictext" class="section level3" number="30.15.5">
+<div id="logictext" class="section level3" number="38.15.5">
 <h3>
-<span class="header-section-number">30.15.5</span> Applying logical operation to text<a class="anchor" aria-label="anchor" href="#logictext"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.15.5</span> Applying logical operation to text<a class="anchor" aria-label="anchor" href="#logictext"><i class="fas fa-link"></i></a>
 </h3>
-<p>In a moment (Section <a href="startingR.html#indexing">29.9</a>) I'll show you why these logical operations and logical vectors are so handy, but before I do so I want to very briefly point out that you can apply them to text as well as to logical data. It's just that we need to be a bit more careful in understanding how R interprets the different operations. In this section I'll talk about how the equal to operator <code>==</code> applies to text, since this is the most important one. Obviously, the not equal to operator <code>!=</code> gives the exact opposite answers to <code>==</code> so I'm implicitly talking about that one too, but I won't give specific commands showing the use of <code>!=</code>. As for the other operators, I'll defer a more detailed discussion of this topic to Section <a href="#logictext2"><strong>??</strong></a>.</p>
+<p>In a moment (Section <a href="startingR.html#indexing">37.9</a>) I'll show you why these logical operations and logical vectors are so handy, but before I do so I want to very briefly point out that you can apply them to text as well as to logical data. It's just that we need to be a bit more careful in understanding how R interprets the different operations. In this section I'll talk about how the equal to operator <code>==</code> applies to text, since this is the most important one. Obviously, the not equal to operator <code>!=</code> gives the exact opposite answers to <code>==</code> so I'm implicitly talking about that one too, but I won't give specific commands showing the use of <code>!=</code>. As for the other operators, I'll defer a more detailed discussion of this topic to Section <a href="#logictext2"><strong>??</strong></a>.</p>
 <p>Okay, let's see how it works. In one sense, it's very simple. For instance, I can ask R if the word <code>"cat"</code> is the same as the word <code>"dog"</code>, like this:</p>
 <div class="sourceCode" id="cb808"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">"cat"</span> <span class="op">==</span> <span class="st">"dog"</span></span></code></pre></div>
@@ -1013,14 +1021,14 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 ## [1] FALSE</code></pre>
 </div>
 </div>
-<div id="indexing" class="section level2" number="30.16">
+<div id="indexing" class="section level2" number="38.16">
 <h2>
-<span class="header-section-number">30.16</span> Indexing vectors<a class="anchor" aria-label="anchor" href="#indexing"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.16</span> Indexing vectors<a class="anchor" aria-label="anchor" href="#indexing"><i class="fas fa-link"></i></a>
 </h2>
 <p>One last thing to add before finishing up this chapter. So far, whenever I've had to get information out of a vector, all I've done is typed something like <code>months[4]</code>; and when I do this R prints out the fourth element of the <code>months</code> vector. In this section, I'll show you two additional tricks for getting information out of the vector.</p>
-<div id="extracting-multiple-elements-1" class="section level3" number="30.16.1">
+<div id="extracting-multiple-elements-1" class="section level3" number="38.16.1">
 <h3>
-<span class="header-section-number">30.16.1</span> Extracting multiple elements<a class="anchor" aria-label="anchor" href="#extracting-multiple-elements-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.16.1</span> Extracting multiple elements<a class="anchor" aria-label="anchor" href="#extracting-multiple-elements-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>One very useful thing we can do is pull out more than one element at a time. In the previous example, we only used a single number (i.e., <code>2</code>) to indicate which element we wanted. Alternatively, we can use a vector. So, suppose I wanted the data for February, March and April. What I could do is use the vector <code>c(2,3,4)</code> to indicate which elements I want R to pull out. That is, I'd type this:</p>
 <div class="sourceCode" id="cb814"><pre class="downlit sourceCode r">
@@ -1044,9 +1052,9 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <pre><code>## [1] 100 200  50  25   0   0   0</code></pre>
 <p>So that's kind of neat.</p>
 </div>
-<div id="logical-indexing-1" class="section level3" number="30.16.2">
+<div id="logical-indexing-1" class="section level3" number="38.16.2">
 <h3>
-<span class="header-section-number">30.16.2</span> Logical indexing<a class="anchor" aria-label="anchor" href="#logical-indexing-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.16.2</span> Logical indexing<a class="anchor" aria-label="anchor" href="#logical-indexing-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>At this point, I can introduce an extremely useful tool called <strong><em>logical indexing</em></strong>. In the last section, I created a logical vector <code>any.sales.this.month</code>, whose elements are <code>TRUE</code> for any month in which I sold at least one book, and <code>FALSE</code> for all the others. However, that big long list of <code>TRUE</code>s and <code>FALSE</code>s is a little bit hard to read, so what I'd like to do is to have R select the names of the <code>months</code> for which I sold any books. Earlier on, I created a vector <code>months</code> that contains the names of each of the months. This is where logical indexing is handy. What I need to do is this:</p>
 <div class="sourceCode" id="cb824"><pre class="downlit sourceCode r">
@@ -1084,9 +1092,9 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <p>At this point, I hope you can see why logical indexing is such a useful thing. It's a very basic, yet very powerful way to manipulate data. We'll talk a lot more about how to manipulate data in Chapter <a href="#datahandling"><strong>??</strong></a>, since it's a critical skill for real world research that is often overlooked in introductory research methods classes (or at least, that's been my experience). It does take a bit of practice to become completely comfortable using logical indexing, so it's a good idea to play around with these sorts of commands. Try creating a few different variables of your own, and then ask yourself questions like "how do I get R to spit out all the elements that are [blah]". Practice makes perfect, and it's only by practicing logical indexing that you'll perfect the art of yelling frustrated insults at your computer.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Well, I say that... but in my personal experience it wasn't until I started learning &quot;regular expressions&quot; that my loathing of computers reached its peak.&lt;/p&gt;"><sup>54</sup></a></p>
 </div>
 </div>
-<div id="quitting-r-1" class="section level2" number="30.17">
+<div id="quitting-r-1" class="section level2" number="38.17">
 <h2>
-<span class="header-section-number">30.17</span> Quitting R<a class="anchor" aria-label="anchor" href="#quitting-r-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.17</span> Quitting R<a class="anchor" aria-label="anchor" href="#quitting-r-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>There's one last thing I should cover in this chapter: how to quit R. When I say this, I'm not trying to imply that R is some kind of pathological addition and that you need to call the R QuitLine or wear patches to control the cravings (although you certainly might argue that there's something seriously pathological about being addicted to R). I just mean how to exit the program. Assuming you're running R in the usual way (i.e., through RStudio or the default GUI on a Windows or Mac computer), then you can just shut down the application in the normal way. However, R also has a function, called <code><a href="https://rdrr.io/r/base/quit.html">q()</a></code> that you can use to quit, which is pretty handy if you're running R in a terminal window.</p>
 <p>Regardless of what method you use to quit R, when you do so for the first time R will probably ask you if you want to save the "workspace image". We'll talk a lot more about loading and saving data in Section <a href="#load"><strong>??</strong></a>, but I figured we'd better quickly cover this now otherwise you're going to get annoyed when you close R at the end of the chapter. If you're using RStudio, you'll see a dialog box that looks like the one shown in Figure <a href="#fig:quitR"><strong>??</strong></a>. If you're using a text based interface you'll see this:</p>
@@ -1098,9 +1106,9 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <p>What does this actually <em>mean</em>? What's going on is that R wants to know if you want to save all those variables that you've been creating, so that you can use them later. This sounds like a great idea, so it's really tempting to type <code>y</code> or click the "Save" button. To be honest though, I very rarely do this, and it kind of annoys me a little bit... what R is <em>really</em> asking is if you want it to store these variables in a "default" data file, which it will automatically reload for you next time you open R. And quite frankly, if I'd wanted to save the variables, then I'd have already saved them before trying to quit. Not only that, I'd have saved them to a location of <em>my</em> choice, so that I can find it again later. So I personally never bother with this.</p>
 <p>In fact, every time I install R on a new machine one of the first things I do is change the settings so that it never asks me again. You can do this in RStudio really easily: use the menu system to find the RStudio option; the dialog box that comes up will give you an option to tell R never to whine about this again (see Figure <a href="#fig:RStudiooptions"><strong>??</strong></a>. On a Mac, you can open this window by going to the "RStudio" menu and selecting "Preferences". On a Windows machine you go to the "Tools" menu and select "Global Options". Under the "General" tab you'll see an option that reads "Save workspace to .Rdata on exit". By default this is set to "ask". If you want R to stop asking, change it to "never".</p>
 </div>
-<div id="summary-3" class="section level2" number="30.18">
+<div id="summary-3" class="section level2" number="38.18">
 <h2>
-<span class="header-section-number">30.18</span> Summary<a class="anchor" aria-label="anchor" href="#summary-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">38.18</span> Summary<a class="anchor" aria-label="anchor" href="#summary-3"><i class="fas fa-link"></i></a>
 </h2>
 <p>Every book that tries to introduce basic programming ideas to novices has to cover roughly the same topics, and in roughly the same order. Mine is no exception, and so in the grand tradition of doing it just the same way everyone else did it, this chapter covered the following topics:</p>
 <ul>
@@ -1109,11 +1117,11 @@ This second way of writing it is kind of useful to "remind" you of the mathemati
 <li>
 <a href="startingR.html#arithmetic">Basic commands</a>. We talked a bit about the logic of how R works and in particular how to type commands into the R console (Section @ref(#firstcommand), and in doing so learned how to perform basic calculations using the arithmetic operators <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> and <code>^</code>.</li>
 <li>
-<a href="startingR.html#usingfunctions">Introduction to functions</a>. We saw several different functions, three that are used to perform numeric calculations (<code><a href="https://rdrr.io/r/base/MathFun.html">sqrt()</a></code>, <code><a href="https://rdrr.io/r/base/MathFun.html">abs()</a></code>, <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>, one that applies to text (<code><a href="https://rdrr.io/r/base/nchar.html">nchar()</a></code>; Section <a href="startingR.html#simpletext">29.7.1</a>), and one that works on any variable (<code><a href="https://rdrr.io/r/base/length.html">length()</a></code>; Section <a href="startingR.html#veclength">29.6.5</a>). In doing so, we talked a bit about how argument names work, and learned about default values for arguments. (Section <a href="startingR.html#functionarguments">29.4.1</a>)</li>
-<li>Introduction to variables. We learned the basic idea behind variables, and how to assign values to variables using the assignment operator <code>&lt;-</code> (Section <a href="startingR.html#assign">29.3</a>). We also learned how to create vectors using the combine function <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> (Section <a href="r-basics.html#vectors">2.6</a>).</li>
-<li>Data types. Learned the distinction between numeric, character and logical data; including the basics of how to enter and use each of them. (Sections <a href="startingR.html#assign">29.3</a> to <a href="startingR.html#logicals">29.8</a>)</li>
+<a href="startingR.html#usingfunctions">Introduction to functions</a>. We saw several different functions, three that are used to perform numeric calculations (<code><a href="https://rdrr.io/r/base/MathFun.html">sqrt()</a></code>, <code><a href="https://rdrr.io/r/base/MathFun.html">abs()</a></code>, <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>, one that applies to text (<code><a href="https://rdrr.io/r/base/nchar.html">nchar()</a></code>; Section <a href="startingR.html#simpletext">37.7.1</a>), and one that works on any variable (<code><a href="https://rdrr.io/r/base/length.html">length()</a></code>; Section <a href="startingR.html#veclength">37.6.5</a>). In doing so, we talked a bit about how argument names work, and learned about default values for arguments. (Section <a href="startingR.html#functionarguments">37.4.1</a>)</li>
+<li>Introduction to variables. We learned the basic idea behind variables, and how to assign values to variables using the assignment operator <code>&lt;-</code> (Section <a href="startingR.html#assign">37.3</a>). We also learned how to create vectors using the combine function <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> (Section <a href="r-basics.html#vectors">2.6</a>).</li>
+<li>Data types. Learned the distinction between numeric, character and logical data; including the basics of how to enter and use each of them. (Sections <a href="startingR.html#assign">37.3</a> to <a href="startingR.html#logicals">37.8</a>)</li>
 <li>
-<a href="startingR.html#logicals">Logical operations</a>. Learned how to use the logical operators <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>=&gt;</code>, <code>!</code>, <code>&amp;</code> and <code>|</code>. And learned how to use logical indexing. (Section <a href="startingR.html#indexing">29.9</a>)</li>
+<a href="startingR.html#logicals">Logical operations</a>. Learned how to use the logical operators <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>=&gt;</code>, <code>!</code>, <code>&amp;</code> and <code>|</code>. And learned how to use logical indexing. (Section <a href="startingR.html#indexing">37.9</a>)</li>
 </ul>
 </div>
 </div>
@@ -1298,84 +1306,84 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="startingR.html"><span class="header-section-number">29</span> Starting up R</a></div>
-<div class="next"><a href="r-basics-1.html"><span class="header-section-number">31</span> R Basics</a></div>
+<div class="prev"><a href="startingR.html"><span class="header-section-number">37</span> Starting up R</a></div>
+<div class="next"><a href="r-basics-1.html"><span class="header-section-number">39</span> R Basics</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#session-1-foundations-of-programming-in-r"><span class="header-section-number">30</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="nav-link" href="#introduction-to-r-and-rstudio-30-minutes"><span class="header-section-number">30.1</span> Introduction to R and RStudio (30 minutes)</a></li>
-<li><a class="nav-link" href="#objects-variables-and-data-types-1-hour"><span class="header-section-number">30.2</span> Objects, Variables, and Data Types (1 hour)</a></li>
-<li><a class="nav-link" href="#good-coding-practices-and-style-1-hour"><span class="header-section-number">30.3</span> Good Coding Practices and Style (1 hour)</a></li>
-<li><a class="nav-link" href="#control-flow-if-else-statements-1-hour"><span class="header-section-number">30.4</span> Control Flow: If-Else Statements (1 hour)</a></li>
-<li><a class="nav-link" href="#writing-functions-in-r-1-hour"><span class="header-section-number">30.5</span> Writing Functions in R (1 hour)</a></li>
-<li><a class="nav-link" href="#hands-on-exercises-and-practice-30-minutes"><span class="header-section-number">30.6</span> Hands-On Exercises and Practice (30 minutes)</a></li>
+<li><a class="nav-link" href="#session-1-foundations-of-programming-in-r"><span class="header-section-number">38</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="nav-link" href="#introduction-to-r-and-rstudio-30-minutes"><span class="header-section-number">38.1</span> Introduction to R and RStudio (30 minutes)</a></li>
+<li><a class="nav-link" href="#objects-variables-and-data-types-1-hour"><span class="header-section-number">38.2</span> Objects, Variables, and Data Types (1 hour)</a></li>
+<li><a class="nav-link" href="#good-coding-practices-and-style-1-hour"><span class="header-section-number">38.3</span> Good Coding Practices and Style (1 hour)</a></li>
+<li><a class="nav-link" href="#control-flow-if-else-statements-1-hour"><span class="header-section-number">38.4</span> Control Flow: If-Else Statements (1 hour)</a></li>
+<li><a class="nav-link" href="#writing-functions-in-r-1-hour"><span class="header-section-number">38.5</span> Writing Functions in R (1 hour)</a></li>
+<li><a class="nav-link" href="#hands-on-exercises-and-practice-30-minutes"><span class="header-section-number">38.6</span> Hands-On Exercises and Practice (30 minutes)</a></li>
 <li>
-<a class="nav-link" href="#nucleotide-generator"><span class="header-section-number">30.7</span> Nucleotide generator</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#note-use-numbers"><span class="header-section-number">30.7.1</span> Note use numbers</a></li>
-<li><a class="nav-link" href="#startingR"><span class="header-section-number">30.7.2</span> Starting up R</a></li>
+<a class="nav-link" href="#nucleotide-generator"><span class="header-section-number">38.7</span> Nucleotide generator</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#note-use-numbers"><span class="header-section-number">38.7.1</span> Note use numbers</a></li>
+<li><a class="nav-link" href="#startingR"><span class="header-section-number">38.7.2</span> Starting up R</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#firstcommand"><span class="header-section-number">30.8</span> Typing commands at the R console</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#an-important-digression-about-formatting-1"><span class="header-section-number">30.8.1</span> An important digression about formatting</a></li>
-<li><a class="nav-link" href="#be-very-careful-to-avoid-typos-1"><span class="header-section-number">30.8.2</span> Be very careful to avoid typos</a></li>
-<li><a class="nav-link" href="#r-is-a-bit-flexible-with-spacing-1"><span class="header-section-number">30.8.3</span> R is (a bit) flexible with spacing</a></li>
-<li><a class="nav-link" href="#r-can-sometimes-tell-that-youre-not-finished-yet-but-not-often-1"><span class="header-section-number">30.8.4</span> R can sometimes tell that you're not finished yet (but not often)</a></li>
+<a class="nav-link" href="#firstcommand"><span class="header-section-number">38.8</span> Typing commands at the R console</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#an-important-digression-about-formatting-1"><span class="header-section-number">38.8.1</span> An important digression about formatting</a></li>
+<li><a class="nav-link" href="#be-very-careful-to-avoid-typos-1"><span class="header-section-number">38.8.2</span> Be very careful to avoid typos</a></li>
+<li><a class="nav-link" href="#r-is-a-bit-flexible-with-spacing-1"><span class="header-section-number">38.8.3</span> R is (a bit) flexible with spacing</a></li>
+<li><a class="nav-link" href="#r-can-sometimes-tell-that-youre-not-finished-yet-but-not-often-1"><span class="header-section-number">38.8.4</span> R can sometimes tell that you're not finished yet (but not often)</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#arithmetic"><span class="header-section-number">30.9</span> Doing simple calculations with R</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#adding-subtracting-multiplying-and-dividing-1"><span class="header-section-number">30.9.1</span> Adding, subtracting, multiplying and dividing</a></li>
-<li><a class="nav-link" href="#taking-powers-1"><span class="header-section-number">30.9.2</span> Taking powers</a></li>
-<li><a class="nav-link" href="#bedmas"><span class="header-section-number">30.9.3</span> Doing calculations in the right order</a></li>
+<a class="nav-link" href="#arithmetic"><span class="header-section-number">38.9</span> Doing simple calculations with R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#adding-subtracting-multiplying-and-dividing-1"><span class="header-section-number">38.9.1</span> Adding, subtracting, multiplying and dividing</a></li>
+<li><a class="nav-link" href="#taking-powers-1"><span class="header-section-number">38.9.2</span> Taking powers</a></li>
+<li><a class="nav-link" href="#bedmas"><span class="header-section-number">38.9.3</span> Doing calculations in the right order</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#assign"><span class="header-section-number">30.10</span> Storing a number as a variable</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#variable-assignment-using---and---1"><span class="header-section-number">30.10.1</span> Variable assignment using &lt;- and -&gt;</a></li>
-<li><a class="nav-link" href="#doing-calculations-using-variables-1"><span class="header-section-number">30.10.2</span> Doing calculations using variables</a></li>
-<li><a class="nav-link" href="#rules-and-conventions-for-naming-variables-1"><span class="header-section-number">30.10.3</span> Rules and conventions for naming variables</a></li>
+<a class="nav-link" href="#assign"><span class="header-section-number">38.10</span> Storing a number as a variable</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#variable-assignment-using---and---1"><span class="header-section-number">38.10.1</span> Variable assignment using &lt;- and -&gt;</a></li>
+<li><a class="nav-link" href="#doing-calculations-using-variables-1"><span class="header-section-number">38.10.2</span> Doing calculations using variables</a></li>
+<li><a class="nav-link" href="#rules-and-conventions-for-naming-variables-1"><span class="header-section-number">38.10.3</span> Rules and conventions for naming variables</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#usingfunctions"><span class="header-section-number">30.11</span> Using functions to do calculations</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#functionarguments"><span class="header-section-number">30.11.1</span> Function arguments, their names and their defaults</a></li></ul>
+<a class="nav-link" href="#usingfunctions"><span class="header-section-number">38.11</span> Using functions to do calculations</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#functionarguments"><span class="header-section-number">38.11.1</span> Function arguments, their names and their defaults</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#RStudio1"><span class="header-section-number">30.12</span> Letting RStudio help you with your commands</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#autocomplete-using-tab-1"><span class="header-section-number">30.12.1</span> Autocomplete using "tab"</a></li>
-<li><a class="nav-link" href="#browsing-your-command-history-1"><span class="header-section-number">30.12.2</span> Browsing your command history</a></li>
+<a class="nav-link" href="#RStudio1"><span class="header-section-number">38.12</span> Letting RStudio help you with your commands</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#autocomplete-using-tab-1"><span class="header-section-number">38.12.1</span> Autocomplete using "tab"</a></li>
+<li><a class="nav-link" href="#browsing-your-command-history-1"><span class="header-section-number">38.12.2</span> Browsing your command history</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#vectors"><span class="header-section-number">30.13</span> Storing many numbers as a vector</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#creating-a-vector-1"><span class="header-section-number">30.13.1</span> Creating a vector</a></li>
-<li><a class="nav-link" href="#a-handy-digression-1"><span class="header-section-number">30.13.2</span> A handy digression</a></li>
-<li><a class="nav-link" href="#vectorsubset"><span class="header-section-number">30.13.3</span> Getting information out of vectors</a></li>
-<li><a class="nav-link" href="#altering-the-elements-of-a-vector-1"><span class="header-section-number">30.13.4</span> Altering the elements of a vector</a></li>
-<li><a class="nav-link" href="#veclength"><span class="header-section-number">30.13.5</span> Useful things to know about vectors</a></li>
+<a class="nav-link" href="#vectors"><span class="header-section-number">38.13</span> Storing many numbers as a vector</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#creating-a-vector-1"><span class="header-section-number">38.13.1</span> Creating a vector</a></li>
+<li><a class="nav-link" href="#a-handy-digression-1"><span class="header-section-number">38.13.2</span> A handy digression</a></li>
+<li><a class="nav-link" href="#vectorsubset"><span class="header-section-number">38.13.3</span> Getting information out of vectors</a></li>
+<li><a class="nav-link" href="#altering-the-elements-of-a-vector-1"><span class="header-section-number">38.13.4</span> Altering the elements of a vector</a></li>
+<li><a class="nav-link" href="#veclength"><span class="header-section-number">38.13.5</span> Useful things to know about vectors</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#text"><span class="header-section-number">30.14</span> Storing text data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#simpletext"><span class="header-section-number">30.14.1</span> Working with text</a></li></ul>
+<a class="nav-link" href="#text"><span class="header-section-number">38.14</span> Storing text data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#simpletext"><span class="header-section-number">38.14.1</span> Working with text</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#logicals"><span class="header-section-number">30.15</span> Storing "true or false" data</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#assessing-mathematical-truths-2"><span class="header-section-number">30.15.1</span> Assessing mathematical truths</a></li>
-<li><a class="nav-link" href="#logical-operations-1"><span class="header-section-number">30.15.2</span> Logical operations</a></li>
-<li><a class="nav-link" href="#storing-and-using-logical-data-1"><span class="header-section-number">30.15.3</span> Storing and using logical data</a></li>
-<li><a class="nav-link" href="#vectors-of-logicals-1"><span class="header-section-number">30.15.4</span> Vectors of logicals</a></li>
-<li><a class="nav-link" href="#logictext"><span class="header-section-number">30.15.5</span> Applying logical operation to text</a></li>
+<a class="nav-link" href="#logicals"><span class="header-section-number">38.15</span> Storing "true or false" data</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#assessing-mathematical-truths-2"><span class="header-section-number">38.15.1</span> Assessing mathematical truths</a></li>
+<li><a class="nav-link" href="#logical-operations-1"><span class="header-section-number">38.15.2</span> Logical operations</a></li>
+<li><a class="nav-link" href="#storing-and-using-logical-data-1"><span class="header-section-number">38.15.3</span> Storing and using logical data</a></li>
+<li><a class="nav-link" href="#vectors-of-logicals-1"><span class="header-section-number">38.15.4</span> Vectors of logicals</a></li>
+<li><a class="nav-link" href="#logictext"><span class="header-section-number">38.15.5</span> Applying logical operation to text</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#indexing"><span class="header-section-number">30.16</span> Indexing vectors</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#extracting-multiple-elements-1"><span class="header-section-number">30.16.1</span> Extracting multiple elements</a></li>
-<li><a class="nav-link" href="#logical-indexing-1"><span class="header-section-number">30.16.2</span> Logical indexing</a></li>
+<a class="nav-link" href="#indexing"><span class="header-section-number">38.16</span> Indexing vectors</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#extracting-multiple-elements-1"><span class="header-section-number">38.16.1</span> Extracting multiple elements</a></li>
+<li><a class="nav-link" href="#logical-indexing-1"><span class="header-section-number">38.16.2</span> Logical indexing</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#quitting-r-1"><span class="header-section-number">30.17</span> Quitting R</a></li>
-<li><a class="nav-link" href="#summary-3"><span class="header-section-number">30.18</span> Summary</a></li>
+<li><a class="nav-link" href="#quitting-r-1"><span class="header-section-number">38.17</span> Quitting R</a></li>
+<li><a class="nav-link" href="#summary-3"><span class="header-section-number">38.18</span> Summary</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1393,7 +1401,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-26.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-27.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

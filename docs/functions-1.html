@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 27 Functions | Advancing in R</title>
+<title>Chapter 35 Functions | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="Today’s workshop can be carried out in any R project.  Why not try and set up a project on Github and open it on RStudio Cloud?  First - go to (https://github.com) and log in.  Near repositories...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 27 Functions | Advancing in R">
+<meta property="og:title" content="Chapter 35 Functions | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/functions-1.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="Today’s workshop can be carried out in any R project.  Why not try and set up a project on Github and open it on RStudio Cloud?  First - go to (https://github.com) and log in.  Near repositories...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 27 Functions | Advancing in R">
+<meta name="twitter:title" content="Chapter 35 Functions | Advancing in R">
 <meta name="twitter:description" content="Today’s workshop can be carried out in any R project.  Why not try and set up a project on Github and open it on RStudio Cloud?  First - go to (https://github.com) and log in.  Near repositories...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -127,30 +127,38 @@
 <li><a class="" href="purrr.html"><span class="header-section-number">10</span> Purrr</a></li>
 <li><a class="" href="bonus-simulation.html"><span class="header-section-number">11</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="getting-the-most-out-of-tidyverse.html"><span class="header-section-number">12</span> Getting the most out of tidyverse</a></li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">12</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">13</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">14</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">15</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">16</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">17</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">18</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">19</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">20</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">13</span> Data visualisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">14</span> Extensions for ggplot2</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">15</span> Making tables with gt</a></li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">21</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">22</span> Extensions for ggplot2</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">23</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">16</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">17</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">18</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">19</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">20</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">21</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">22</span> Customising</a></li>
-<li><a class="" href="modules.html"><span class="header-section-number">23</span> Modules</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">24</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">24</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">25</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">26</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">27</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">28</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">29</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">30</span> Customising</a></li>
+<li><a class="" href="modules.html"><span class="header-section-number">31</span> Modules</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">32</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="markdown.html"><span class="header-section-number">25</span> Markdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">26</span> Github</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">33</span> Markdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">34</span> Github</a></li>
 <li class="book-part">R Programming</li>
-<li><a class="active" href="functions-1.html"><span class="header-section-number">27</span> Functions</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">28</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">29</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">30</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">31</span> R Basics</a></li>
+<li><a class="active" href="functions-1.html"><span class="header-section-number">35</span> Functions</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">36</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">37</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">38</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">39</span> R Basics</a></li>
 </ul>
 
         <div class="book-extra">
@@ -158,9 +166,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="functions-1" class="section level1" number="27">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="functions-1" class="section level1" number="35">
 <h1>
-<span class="header-section-number">27</span> Functions<a class="anchor" aria-label="anchor" href="#functions-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35</span> Functions<a class="anchor" aria-label="anchor" href="#functions-1"><i class="fas fa-link"></i></a>
 </h1>
 <div class="try">
 <p>
@@ -190,9 +198,9 @@ repository into RStudio Cloud.
 </div>
 <p>Most of the time when we work in R, we will use functions; often pre-written functions that we access from baseR or installed packages. But you can also write your own functions. Eventually you could even turn a collection of your own functions into a package (for yourself or others).</p>
 <p><strong>Functions</strong> make it easy to use sets of code instructions repeatedly (without filling our scripts with the code underlying the function) and help us carry out multiple tasks in a single step without having to go through the details of how the steps are executed.</p>
-<div id="structuring-a-function-1" class="section level2" number="27.1">
+<div id="structuring-a-function-1" class="section level2" number="35.1">
 <h2>
-<span class="header-section-number">27.1</span> Structuring a function<a class="anchor" aria-label="anchor" href="#structuring-a-function-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.1</span> Structuring a function<a class="anchor" aria-label="anchor" href="#structuring-a-function-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>R makes it easy to create user defined functions by using <code>function()</code>. Here is how it works:</p>
 <div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
@@ -207,9 +215,9 @@ repository into RStudio Cloud.
 <li><p>Use <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> to specify what you want to your function to output once it is done running the code.</p></li>
 </ul>
 </div>
-<div id="activity-1-understand-the-function" class="section level2" number="27.2">
+<div id="activity-1-understand-the-function" class="section level2" number="35.2">
 <h2>
-<span class="header-section-number">27.2</span> Activity 1: Understand the function<a class="anchor" aria-label="anchor" href="#activity-1-understand-the-function"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.2</span> Activity 1: Understand the function<a class="anchor" aria-label="anchor" href="#activity-1-understand-the-function"><i class="fas fa-link"></i></a>
 </h2>
 <p>Here is a very simple function. Can you guess what it does?</p>
 <div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
@@ -225,9 +233,9 @@ repository into RStudio Cloud.
 <code class="sourceCode R"><span><span class="va">number_series</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p>You should see it worked on <em>each element</em> inside the vector. This emphasises that R is a vector based language (it will by default apply functions on all elements in an object).</p>
 </div>
-<div id="activity-2-write-your-own-function" class="section level2" number="27.3">
+<div id="activity-2-write-your-own-function" class="section level2" number="35.3">
 <h2>
-<span class="header-section-number">27.3</span> Activity 2: Write your own function:<a class="anchor" aria-label="anchor" href="#activity-2-write-your-own-function"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.3</span> Activity 2: Write your own function:<a class="anchor" aria-label="anchor" href="#activity-2-write-your-own-function"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li><p>I’ve started writing a function for you that will square values, sum them and divide by <code>n-1</code>. To take the square root, we use the <code><a href="https://rdrr.io/r/base/MathFun.html">sqrt()</a></code> function.</p></li>
@@ -301,9 +309,9 @@ separate script and use source(“scripts/functions.R”)
 </p>
 </div>
 </div>
-<div id="argument-defaults-2" class="section level2" number="27.4">
+<div id="argument-defaults-2" class="section level2" number="35.4">
 <h2>
-<span class="header-section-number">27.4</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.4</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults-2"><i class="fas fa-link"></i></a>
 </h2>
 <p>This is an example of a very simple function that just prints the string "Hello World" whenever you type the function <code>say_hello()</code></p>
 <div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
@@ -313,9 +321,9 @@ separate script and use source(“scripts/functions.R”)
 <span></span>
 <span><span class="fu">say_hello</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "Hello World"</code></pre>
-<div id="activity-3-understand-arguments" class="section level3" number="27.4.1">
+<div id="activity-3-understand-arguments" class="section level3" number="35.4.1">
 <h3>
-<span class="header-section-number">27.4.1</span> Activity 3: Understand arguments<a class="anchor" aria-label="anchor" href="#activity-3-understand-arguments"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.4.1</span> Activity 3: Understand arguments<a class="anchor" aria-label="anchor" href="#activity-3-understand-arguments"><i class="fas fa-link"></i></a>
 </h3>
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -371,9 +379,9 @@ Solution
 </div>
 </div>
 <p>So that was an example where we included an argument for our function. But now it requires a value be provided in order to work.</p>
-<div id="argument-defaults-3" class="section level4" number="27.4.1.1">
+<div id="argument-defaults-3" class="section level4" number="35.4.1.1">
 <h4>
-<span class="header-section-number">27.4.1.1</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.4.1.1</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults-3"><i class="fas fa-link"></i></a>
 </h4>
 <p>However, you are probably used to the idea that many functions have "default" values for arguments, and we can easily set these.</p>
 <div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
@@ -392,9 +400,9 @@ should still be able to changed when running the function. Try it!
 </div>
 </div>
 </div>
-<div id="conditonal-functions" class="section level2" number="27.5">
+<div id="conditonal-functions" class="section level2" number="35.5">
 <h2>
-<span class="header-section-number">27.5</span> Conditonal functions<a class="anchor" aria-label="anchor" href="#conditonal-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.5</span> Conditonal functions<a class="anchor" aria-label="anchor" href="#conditonal-functions"><i class="fas fa-link"></i></a>
 </h2>
 <p>Let's make a function that reports p-values in APA format (with "p = [rounded value]" when p &gt;= .001 and "p &lt; .001" when p &lt; .001).</p>
 <p>You can add a default value to any argument. If that argument is skipped, then the function uses the default argument.</p>
@@ -460,15 +468,15 @@ Base R
 </div>
 </div>
 </div>
-<div id="scope" class="section level2" number="27.6">
+<div id="scope" class="section level2" number="35.6">
 <h2>
-<span class="header-section-number">27.6</span> Scope<a class="anchor" aria-label="anchor" href="#scope"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.6</span> Scope<a class="anchor" aria-label="anchor" href="#scope"><i class="fas fa-link"></i></a>
 </h2>
 <p>Note that any objects created <em>inside</em> a function, stay in the function. So it is possible to have variables with the same name (one inside a function, one in the R environment). Changing the values of one will have <strong>no effect</strong> on the other.</p>
 </div>
-<div id="warnings-and-errors-1" class="section level2" number="27.7">
+<div id="warnings-and-errors-1" class="section level2" number="35.7">
 <h2>
-<span class="header-section-number">27.7</span> Warnings and errors<a class="anchor" aria-label="anchor" href="#warnings-and-errors-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.7</span> Warnings and errors<a class="anchor" aria-label="anchor" href="#warnings-and-errors-1"><i class="fas fa-link"></i></a>
 </h2>
 <div class="try">
 <p>
@@ -493,9 +501,9 @@ character “a”?
 <span>     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<div id="anonymous-functions" class="section level2" number="27.8">
+<div id="anonymous-functions" class="section level2" number="35.8">
 <h2>
-<span class="header-section-number">27.8</span> Anonymous functions<a class="anchor" aria-label="anchor" href="#anonymous-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.8</span> Anonymous functions<a class="anchor" aria-label="anchor" href="#anonymous-functions"><i class="fas fa-link"></i></a>
 </h2>
 <p>Anonymous functions are ones where the function definiton is not bound to an R object. That is the function may be created and used but never assigned to a variable. We don't normally encounter these out in the "wild", but may be quite common when used with Iteration (see next chapter).</p>
 <div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
@@ -503,9 +511,9 @@ character “a”?
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">input_data</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<div id="activity-3-stretch-exercise" class="section level2" number="27.9">
+<div id="activity-3-stretch-exercise" class="section level2" number="35.9">
 <h2>
-<span class="header-section-number">27.9</span> Activity 3 : Stretch Exercise<a class="anchor" aria-label="anchor" href="#activity-3-stretch-exercise"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.9</span> Activity 3 : Stretch Exercise<a class="anchor" aria-label="anchor" href="#activity-3-stretch-exercise"><i class="fas fa-link"></i></a>
 </h2>
 <p>We are going to try and write a custom function called <code>find_largest_male()</code>, it will be used to identify the largest male <em>Drosophila</em> from a small dataset.</p>
 <div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
@@ -516,9 +524,9 @@ character “a”?
 <span><span class="va">weight_mg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, mean<span class="op">=</span><span class="fl">0.2</span>, sd<span class="op">=</span><span class="fl">0.02</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, mean<span class="op">=</span><span class="fl">0.21</span>, sd<span class="op">=</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dros_weight</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">vial</span>, <span class="va">sex</span>, <span class="va">weight_mg</span><span class="op">)</span></span></code></pre></div>
-<div id="step-1." class="section level4" number="27.9.0.1">
+<div id="step-1." class="section level4" number="35.9.0.1">
 <h4>
-<span class="header-section-number">27.9.0.1</span> Step 1.<a class="anchor" aria-label="anchor" href="#step-1."><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.9.0.1</span> Step 1.<a class="anchor" aria-label="anchor" href="#step-1."><i class="fas fa-link"></i></a>
 </h4>
 <p>What functions would you use to extract the heaviest male from this dataset? Try and think that through first.</p>
 <button id="displayTextunnamed-chunk-26" onclick="javascript:toggle('unnamed-chunk-26');">
@@ -565,9 +573,9 @@ male
 </div>
 </div>
 </div>
-<div id="step-2." class="section level4" number="27.9.0.2">
+<div id="step-2." class="section level4" number="35.9.0.2">
 <h4>
-<span class="header-section-number">27.9.0.2</span> Step 2.<a class="anchor" aria-label="anchor" href="#step-2."><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.9.0.2</span> Step 2.<a class="anchor" aria-label="anchor" href="#step-2."><i class="fas fa-link"></i></a>
 </h4>
 <p>Abstract your lines of code to make a function. How could you remove the data and introduce a placeholder instead?</p>
 <button id="displayTextunnamed-chunk-27" onclick="javascript:toggle('unnamed-chunk-27');">
@@ -590,9 +598,9 @@ Solution
 </div>
 </div>
 </div>
-<div id="step-3." class="section level4" number="27.9.0.3">
+<div id="step-3." class="section level4" number="35.9.0.3">
 <h4>
-<span class="header-section-number">27.9.0.3</span> Step 3.<a class="anchor" aria-label="anchor" href="#step-3."><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.9.0.3</span> Step 3.<a class="anchor" aria-label="anchor" href="#step-3."><i class="fas fa-link"></i></a>
 </h4>
 <p>Now we have a basic function we can work to refine and extend it.</p>
 <p>What if we made a function that could pick the largest Drosophila overall, or filter by male or female depending on what we need?</p>
@@ -618,16 +626,16 @@ Solution
 </div>
 </div>
 </div>
-<div id="step-4.-stretch-exercise" class="section level4" number="27.9.0.4">
+<div id="step-4.-stretch-exercise" class="section level4" number="35.9.0.4">
 <h4>
-<span class="header-section-number">27.9.0.4</span> Step 4. Stretch exercise<a class="anchor" aria-label="anchor" href="#step-4.-stretch-exercise"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.9.0.4</span> Step 4. Stretch exercise<a class="anchor" aria-label="anchor" href="#step-4.-stretch-exercise"><i class="fas fa-link"></i></a>
 </h4>
 <p>Can you add any useful warning messages? Perhaps if a fruitfly weight is above 0.4mg that this is an unusual value? Or warnings against the wrong types of data being supplied <code>is.numeric</code>?</p>
 </div>
 </div>
-<div id="activity-4-custom-ggplot-themes" class="section level2" number="27.10">
+<div id="activity-4-custom-ggplot-themes" class="section level2" number="35.10">
 <h2>
-<span class="header-section-number">27.10</span> Activity 4: Custom ggplot themes<a class="anchor" aria-label="anchor" href="#activity-4-custom-ggplot-themes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.10</span> Activity 4: Custom ggplot themes<a class="anchor" aria-label="anchor" href="#activity-4-custom-ggplot-themes"><i class="fas fa-link"></i></a>
 </h2>
 <p>It is often the case that we start to default to a particular 'style' for our figures, or you may be making several similar figures within a research paper. Creating custom functions can extend to making our own custom ggplot themes. You have probably already used theme variants such as <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> - these are incredibly useful, but you might find you still wish to make consistent changes.</p>
 <p>Here is a plot we can make with the <code>dros_weight</code> tibble:</p>
@@ -708,17 +716,17 @@ problem. Then work backwards to turn this into a function.
 </p>
 </div>
 </div>
-<div id="writing-packages" class="section level2" number="27.11">
+<div id="writing-packages" class="section level2" number="35.11">
 <h2>
-<span class="header-section-number">27.11</span> Writing Packages<a class="anchor" aria-label="anchor" href="#writing-packages"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.11</span> Writing Packages<a class="anchor" aria-label="anchor" href="#writing-packages"><i class="fas fa-link"></i></a>
 </h2>
 <p>You should be familiar by now with the idea that R packages add data and functions to your workspace. They are bundles of code that anyone can write, most commonly you will be downloading packages from CRAN. However development stage packages can also be downloaded directly from GitHub.</p>
 <p>In the previous section we walked through some very basic writing of new functions. We can save these as R scripts and move them from project to project. Or we could choose to write them into a documented R package.
 <a href="https://ourcodingclub.github.io/tutorials/writing-r-package/">This tutorial</a> shows you just how to do that. Writing packages is a useful thing to do, even if you think the only person that will ever use them is yourself, as you then more easily access these functions across different workspaces and projects.</p>
 </div>
-<div id="resources" class="section level2" number="27.12">
+<div id="resources" class="section level2" number="35.12">
 <h2>
-<span class="header-section-number">27.12</span> Resources<a class="anchor" aria-label="anchor" href="#resources"><i class="fas fa-link"></i></a>
+<span class="header-section-number">35.12</span> Resources<a class="anchor" aria-label="anchor" href="#resources"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li><a href="https://r4ds.had.co.nz/functions.html">R4DS: Functions</a></li>
@@ -905,26 +913,26 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="github.html"><span class="header-section-number">26</span> Github</a></div>
-<div class="next"><a href="iteration.html"><span class="header-section-number">28</span> Iteration</a></div>
+<div class="prev"><a href="github.html"><span class="header-section-number">34</span> Github</a></div>
+<div class="next"><a href="iteration.html"><span class="header-section-number">36</span> Iteration</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#functions-1"><span class="header-section-number">27</span> Functions</a></li>
-<li><a class="nav-link" href="#structuring-a-function-1"><span class="header-section-number">27.1</span> Structuring a function</a></li>
-<li><a class="nav-link" href="#activity-1-understand-the-function"><span class="header-section-number">27.2</span> Activity 1: Understand the function</a></li>
-<li><a class="nav-link" href="#activity-2-write-your-own-function"><span class="header-section-number">27.3</span> Activity 2: Write your own function:</a></li>
+<li><a class="nav-link" href="#functions-1"><span class="header-section-number">35</span> Functions</a></li>
+<li><a class="nav-link" href="#structuring-a-function-1"><span class="header-section-number">35.1</span> Structuring a function</a></li>
+<li><a class="nav-link" href="#activity-1-understand-the-function"><span class="header-section-number">35.2</span> Activity 1: Understand the function</a></li>
+<li><a class="nav-link" href="#activity-2-write-your-own-function"><span class="header-section-number">35.3</span> Activity 2: Write your own function:</a></li>
 <li>
-<a class="nav-link" href="#argument-defaults-2"><span class="header-section-number">27.4</span> Argument defaults</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#activity-3-understand-arguments"><span class="header-section-number">27.4.1</span> Activity 3: Understand arguments</a></li></ul>
+<a class="nav-link" href="#argument-defaults-2"><span class="header-section-number">35.4</span> Argument defaults</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#activity-3-understand-arguments"><span class="header-section-number">35.4.1</span> Activity 3: Understand arguments</a></li></ul>
 </li>
-<li><a class="nav-link" href="#conditonal-functions"><span class="header-section-number">27.5</span> Conditonal functions</a></li>
-<li><a class="nav-link" href="#scope"><span class="header-section-number">27.6</span> Scope</a></li>
-<li><a class="nav-link" href="#warnings-and-errors-1"><span class="header-section-number">27.7</span> Warnings and errors</a></li>
-<li><a class="nav-link" href="#anonymous-functions"><span class="header-section-number">27.8</span> Anonymous functions</a></li>
-<li><a class="nav-link" href="#activity-3-stretch-exercise"><span class="header-section-number">27.9</span> Activity 3 : Stretch Exercise</a></li>
-<li><a class="nav-link" href="#activity-4-custom-ggplot-themes"><span class="header-section-number">27.10</span> Activity 4: Custom ggplot themes</a></li>
-<li><a class="nav-link" href="#writing-packages"><span class="header-section-number">27.11</span> Writing Packages</a></li>
-<li><a class="nav-link" href="#resources"><span class="header-section-number">27.12</span> Resources</a></li>
+<li><a class="nav-link" href="#conditonal-functions"><span class="header-section-number">35.5</span> Conditonal functions</a></li>
+<li><a class="nav-link" href="#scope"><span class="header-section-number">35.6</span> Scope</a></li>
+<li><a class="nav-link" href="#warnings-and-errors-1"><span class="header-section-number">35.7</span> Warnings and errors</a></li>
+<li><a class="nav-link" href="#anonymous-functions"><span class="header-section-number">35.8</span> Anonymous functions</a></li>
+<li><a class="nav-link" href="#activity-3-stretch-exercise"><span class="header-section-number">35.9</span> Activity 3 : Stretch Exercise</a></li>
+<li><a class="nav-link" href="#activity-4-custom-ggplot-themes"><span class="header-section-number">35.10</span> Activity 4: Custom ggplot themes</a></li>
+<li><a class="nav-link" href="#writing-packages"><span class="header-section-number">35.11</span> Writing Packages</a></li>
+<li><a class="nav-link" href="#resources"><span class="header-section-number">35.12</span> Resources</a></li>
 </ul>
 
       <div class="book-extra">
@@ -942,7 +950,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-26.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-27.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

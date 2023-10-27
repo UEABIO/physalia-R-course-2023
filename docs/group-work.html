@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 26 Make our own App | Advancing in R</title>
+<title>Chapter 18 Group work | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="Now that you've seen a basic Shiny app in actin, let's return to the beginning and create our own app.R file. A basic app.R consists of five key parts: Package Loading: At the top of the script,...">
+<meta name="description" content="The R4DS book demonstrates how functions can be used to run multiple models simultaneously. This technique is valuable for extracting meaningful insights from your data. A well-known example of...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 26 Make our own App | Advancing in R">
+<meta property="og:title" content="Chapter 18 Group work | Advancing in R">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/make-our-own-app.html">
+<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/group-work.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="Now that you've seen a basic Shiny app in actin, let's return to the beginning and create our own app.R file. A basic app.R consists of five key parts: Package Loading: At the top of the script,...">
+<meta property="og:description" content="The R4DS book demonstrates how functions can be used to run multiple models simultaneously. This technique is valuable for extracting meaningful insights from your data. A well-known example of...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 26 Make our own App | Advancing in R">
-<meta name="twitter:description" content="Now that you've seen a basic Shiny app in actin, let's return to the beginning and create our own app.R file. A basic app.R consists of five key parts: Package Loading: At the top of the script,...">
+<meta name="twitter:title" content="Chapter 18 Group work | Advancing in R">
+<meta name="twitter:description" content="The R4DS book demonstrates how functions can be used to run multiple models simultaneously. This technique is valuable for extracting meaningful insights from your data. A well-known example of...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -133,7 +133,7 @@
 <li><a class="" href="factors-1.html"><span class="header-section-number">15</span> Factors</a></li>
 <li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">16</span> Applying functions across columns</a></li>
 <li><a class="" href="working-with-rows.html"><span class="header-section-number">17</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">18</span> Group work</a></li>
+<li><a class="active" href="group-work.html"><span class="header-section-number">18</span> Group work</a></li>
 <li><a class="" href="pivot.html"><span class="header-section-number">19</span> Pivot</a></li>
 <li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">20</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
@@ -143,7 +143,7 @@
 <li class="book-part">Introduction to Shiny</li>
 <li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">24</span> Getting to work with Shiny</a></li>
 <li><a class="" href="layout.html"><span class="header-section-number">25</span> Layout</a></li>
-<li><a class="active" href="make-our-own-app.html"><span class="header-section-number">26</span> Make our own App</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">26</span> Make our own App</a></li>
 <li><a class="" href="inputs.html"><span class="header-section-number">27</span> Inputs</a></li>
 <li><a class="" href="outputs.html"><span class="header-section-number">28</span> Outputs</a></li>
 <li><a class="" href="reactive.html"><span class="header-section-number">29</span> Reactive</a></li>
@@ -166,72 +166,85 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="make-our-own-app" class="section level1" number="26">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="group-work" class="section level1" number="18">
 <h1>
-<span class="header-section-number">26</span> Make our own App<a class="anchor" aria-label="anchor" href="#make-our-own-app"><i class="fas fa-link"></i></a>
+<span class="header-section-number">18</span> Group work<a class="anchor" aria-label="anchor" href="#group-work"><i class="fas fa-link"></i></a>
 </h1>
-<p>Now that you've seen a basic Shiny app in actin, let's return to the beginning and create our own app.R file. A basic app.R consists of five key parts:</p>
-<p><strong>Package Loading:</strong> At the top of the script, load any necessary R packages for your app to function. <code>shiny</code> is a requirement, but you can add others like <code>dplyr</code> or <code>ggplot2</code> as needed. If any packages are missing, you'll encounter an error, so ensure that you have them installed.</p>
-<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the required packages</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>  <span class="co"># Contains readr, dplyr and ggplot2</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>    <span class="co"># The source of your data</span></span></code></pre></div>
-<p><strong>Data Loading:</strong> Next, load any data necessary for your app. This typically involves reading datasets into R objects. Ensure that you have the data file or source available in the specified format.</p>
-<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the data</span></span>
-<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
-<p><strong>UI Object:</strong> Create an object called ui that defines the app's user interface. This specifies how the app will appear in the web browser. The <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage()</a></code> function creates a responsive layout that adjusts to the browser window's size. All of your UI code will go inside the curly braces.</p>
-<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Define the UI</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="co"># Your UI components will be defined here</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><strong>Server Object:</strong> Create another object called server, which contains the app's logic. Here, you specify how your app computes and creates plots, tables, maps, or any other content based on the user's input. All of the app's logic code will be placed inside the server function.</p>
-<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Define the server logic</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># Your server logic will be defined here</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<p><strong>App Execution:</strong> Finally, include a command at the end of app.R to run your app. This informs Shiny that the user interface is defined by the ui object, and the server logic (data, plots, tables, etc.) is defined by the server object.</p>
-<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Run the app</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<p>To create your own Shiny app, you should remove any example code generated automatically when you created app.R and replace it with the structure provided above. Check that your final app.R script resembles the following:</p>
-<button id="displayTextunnamed-chunk-7" onclick="javascript:toggle('unnamed-chunk-7');">
-Show Solution
-</button>
-<div id="toggleTextunnamed-chunk-7" style="display: none">
-<div class="panel panel-default">
-<div class="panel-heading panel-heading1">
-Solution
-</div>
-<div class="panel-body">
-<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>    <span class="co"># The source of your data</span></span>
+<p>The R4DS book demonstrates how functions can be used to run multiple models simultaneously. This technique is valuable for extracting meaningful insights from your data. A well-known example of this approach involves the Gapminder dataset. We will cover a brief version here:</p>
+<p>To find out how well culmen length can predict culmen depth we build a linear regression model.</p>
+<p>Once we have created the model, we can retrieve the results parameters and test statistics
+with the summary function:
+<code>summary(model)</code></p>
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">culmen_depth_mm</span> <span class="op">~</span> <span class="va">culmen_length_mm</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Load the data</span></span>
-<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = culmen_depth_mm ~ culmen_length_mm, data = penguins)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.1381 -1.4263  0.0164  1.3841  4.5255 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      20.88547    0.84388  24.749  &lt; 2e-16 ***
+## culmen_length_mm -0.08502    0.01907  -4.459 1.12e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.922 on 340 degrees of freedom
+##   (2 observations deleted due to missingness)
+## Multiple R-squared:  0.05525,    Adjusted R-squared:  0.05247 
+## F-statistic: 19.88 on 1 and 340 DF,  p-value: 1.12e-05</code></pre>
+<p>Now we know that there are important covariates to consider - and the most appropriate method from an analysis perspective would be to include these as covariates within a single model</p>
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">culmen_depth_mm</span> <span class="op">~</span> <span class="va">culmen_length_mm</span> <span class="op">*</span> <span class="va">species</span>, data <span class="op">=</span> <span class="va">penguins</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># ui.R ----</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="co"># Your UI components will be defined here</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># server.R ----</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># Your server logic will be defined here</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="co"># Run the app ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-</div>
-<p>By following these steps, you'll have the basic structure of a Shiny app in place, ready for you to add your UI elements and server logic to create an interactive web application.</p>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Call:
+lm(formula = culmen_depth_mm ~ culmen_length_mm * species, data = penguins)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.6574 -0.6675 -0.0524  0.5383  3.5032 
+
+Coefficients:
+                                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                       11.40912    1.13812  10.025  &lt; 2e-16 ***
+culmen_length_mm                   0.17883    0.02927   6.110 2.76e-09 ***
+speciesChinstrap                  -3.83998    2.05398  -1.870 0.062419 .  
+speciesGentoo                     -6.15812    1.75451  -3.510 0.000509 ***
+culmen_length_mm:speciesChinstrap  0.04338    0.04558   0.952 0.341895    
+culmen_length_mm:speciesGentoo     0.02601    0.04054   0.642 0.521590    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9548 on 336 degrees of freedom
+  (2 observations deleted due to missingness)
+Multiple R-squared:  0.7697,    Adjusted R-squared:  0.7662 
+F-statistic: 224.5 on 5 and 336 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+<p>However, there may be occasions where we wish to apply simple models to each subpopulation in turn:</p>
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>model <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">data</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">culmen_depth_mm</span> <span class="op">~</span> <span class="va">culmen_length_mm</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>tidy <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu">broom</span><span class="fu">::</span><span class="va"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">tidy</span><span class="op">)</span></span></code></pre></div>
+<pre><code>A tibble:6 × 8
+Groups:species [3]
+
+Adelie  &lt;tibble&gt;    &lt;S3: lm&gt;    (Intercept) 11.4091245  1.33893250  
+Adelie  &lt;tibble&gt;    &lt;S3: lm&gt;    culmen_length_mm    0.1788343   0.03443569  
+Gentoo  &lt;tibble&gt;    &lt;S3: lm&gt;    (Intercept) 5.2510084   1.05480901  
+Gentoo  &lt;tibble&gt;    &lt;S3: lm&gt;    culmen_length_mm    0.2048443   0.02215802  
+Chinstrap   &lt;tibble&gt;    &lt;S3: lm&gt;    (Intercept) 7.5691401   1.55052928  
+Chinstrap   &lt;tibble&gt;    &lt;S3: lm&gt;    culmen_length_mm    0.2222117   0.03167825  
+6 rows | 1-6 of 8 columns
+</code></pre>
 </div>
 <script>
 
@@ -413,16 +426,16 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="layout.html"><span class="header-section-number">25</span> Layout</a></div>
-<div class="next"><a href="inputs.html"><span class="header-section-number">27</span> Inputs</a></div>
+<div class="prev"><a href="working-with-rows.html"><span class="header-section-number">17</span> Working with rows</a></div>
+<div class="next"><a href="pivot.html"><span class="header-section-number">19</span> Pivot</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#make-our-own-app"><span class="header-section-number">26</span> Make our own App</a></li></ul>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#group-work"><span class="header-section-number">18</span> Group work</a></li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/06-shiny.rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/06-shiny.rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/04-tidyverse.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/04-tidyverse.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
