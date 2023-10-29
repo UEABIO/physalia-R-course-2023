@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 12 Reading files with readr | Advancing in R</title>
+<title>Chapter 14 Reading files with readr | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="12.1 Cleaning column names Reading a CSV file often requires some data cleaning. For example, let's say I want to import data and convert all column names to snake_case. Most of us would probably...">
+<meta name="description" content="14.1 Cleaning column names Reading a CSV file often requires some data cleaning. For example, let's say I want to import data and convert all column names to snake_case. Most of us would probably...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 12 Reading files with readr | Advancing in R">
+<meta property="og:title" content="Chapter 14 Reading files with readr | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/reading-files-with-readr.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="12.1 Cleaning column names Reading a CSV file often requires some data cleaning. For example, let's say I want to import data and convert all column names to snake_case. Most of us would probably...">
+<meta property="og:description" content="14.1 Cleaning column names Reading a CSV file often requires some data cleaning. For example, let's say I want to import data and convert all column names to snake_case. Most of us would probably...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 12 Reading files with readr | Advancing in R">
-<meta name="twitter:description" content="12.1 Cleaning column names Reading a CSV file often requires some data cleaning. For example, let's say I want to import data and convert all column names to snake_case. Most of us would probably...">
+<meta name="twitter:title" content="Chapter 14 Reading files with readr | Advancing in R">
+<meta name="twitter:description" content="14.1 Cleaning column names Reading a CSV file often requires some data cleaning. For example, let's say I want to import data and convert all column names to snake_case. Most of us would probably...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -123,49 +123,51 @@
 <li class="book-part">Functional Programming</li>
 <li><a class="" href="writing-functions.html"><span class="header-section-number">7</span> Writing Functions</a></li>
 <li><a class="" href="flow-control.html"><span class="header-section-number">8</span> Flow control</a></li>
-<li><a class="" href="apply.html"><span class="header-section-number">9</span> Apply</a></li>
-<li><a class="" href="purrr.html"><span class="header-section-number">10</span> Purrr</a></li>
-<li><a class="" href="bonus-simulation.html"><span class="header-section-number">11</span> Bonus: Simulation</a></li>
+<li><a class="" href="simple-iteration.html"><span class="header-section-number">9</span> Simple iteration</a></li>
+<li><a class="" href="loops.html"><span class="header-section-number">10</span> Loops</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">11</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">12</span> Purrr</a></li>
+<li><a class="" href="bonus-simulation.html"><span class="header-section-number">13</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="active" href="reading-files-with-readr.html"><span class="header-section-number">12</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">13</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">14</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">15</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">16</span> Applying functions across columns</a></li>
-<li><a class="" href="working-with-rows.html"><span class="header-section-number">17</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">18</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">19</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">20</span> Writing Functions in Tidyverse</a></li>
+<li><a class="active" href="reading-files-with-readr.html"><span class="header-section-number">14</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">15</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">16</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">17</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">18</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">19</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">20</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">21</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">22</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">21</span> Data visualisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">22</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">23</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">24</span> Making tables with gt</a></li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">23</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">24</span> Extensions for ggplot2</a></li>
+<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">25</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">26</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">25</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">26</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">27</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">28</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">29</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">30</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">31</span> Customising</a></li>
-<li><a class="" href="modules.html"><span class="header-section-number">32</span> Modules</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">33</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">27</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">28</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">29</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">30</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
+<li><a class="" href="modules.html"><span class="header-section-number">34</span> Modules</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="markdown.html"><span class="header-section-number">34</span> Markdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">35</span> Github</a></li>
+<li><a class="" href="markdown.html"><span class="header-section-number">36</span> Markdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">37</span> Github</a></li>
 <li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data.html"><span class="header-section-number">36</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql.html"><span class="header-section-number">37</span> write to sql</a></li>
-<li><a class="" href="querying-sql.html"><span class="header-section-number">38</span> querying sql</a></li>
+<li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
+<li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
+<li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
 <li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data-1.html"><span class="header-section-number">39</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql-1.html"><span class="header-section-number">40</span> write to sql</a></li>
-<li><a class="" href="querying-sql-1.html"><span class="header-section-number">41</span> querying sql</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">42</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">43</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">44</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">45</span> R Basics</a></li>
+<li><a class="" href="reading-in-data-1.html"><span class="header-section-number">41</span> Reading in data</a></li>
+<li><a class="" href="write-to-sql-1.html"><span class="header-section-number">42</span> write to sql</a></li>
+<li><a class="" href="querying-sql-1.html"><span class="header-section-number">43</span> querying sql</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">44</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">45</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">46</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">47</span> R Basics</a></li>
 </ul>
 
         <div class="book-extra">
@@ -173,17 +175,17 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="reading-files-with-readr" class="section level1" number="12">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="reading-files-with-readr" class="section level1" number="14">
 <h1>
-<span class="header-section-number">12</span> Reading files with <code>readr</code><a class="anchor" aria-label="anchor" href="#reading-files-with-readr"><i class="fas fa-link"></i></a>
+<span class="header-section-number">14</span> Reading files with <code>readr</code><a class="anchor" aria-label="anchor" href="#reading-files-with-readr"><i class="fas fa-link"></i></a>
 </h1>
-<div id="cleaning-column-names" class="section level2" number="12.1">
+<div id="cleaning-column-names" class="section level2" number="14.1">
 <h2>
-<span class="header-section-number">12.1</span> Cleaning column names<a class="anchor" aria-label="anchor" href="#cleaning-column-names"><i class="fas fa-link"></i></a>
+<span class="header-section-number">14.1</span> Cleaning column names<a class="anchor" aria-label="anchor" href="#cleaning-column-names"><i class="fas fa-link"></i></a>
 </h2>
 <p>Reading a CSV file often requires some data cleaning. For example, let's say I want to import data and convert all column names to <code>snake_case</code>.</p>
 <p>Most of us would probably read the .CSV file first, then start data cleaning - for example with the <code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">janitor::clean_names()</a></code> function.</p>
-<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
 <span><span class="co">#load data</span></span>
@@ -192,36 +194,36 @@
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> </span></code></pre></div>
 <p>In my previous example, I used the <code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names()</a></code> function from the "janitor" package to convert the column names to lowercase. You can achieve the same result by using the <code><a href="https://sfirke.github.io/janitor/reference/make_clean_names.html">make_clean_names()</a></code> function within the <code>read_csv</code> function, specifying it in the <code>name_repair</code> argument.</p>
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span> <span class="op">(</span><span class="st">"data/penguins_raw.csv"</span>,</span>
 <span>                      name_repair <span class="op">=</span> <span class="fu">janitor</span><span class="fu">::</span><span class="va"><a href="https://sfirke.github.io/janitor/reference/make_clean_names.html">make_clean_names</a></span><span class="op">)</span></span></code></pre></div>
 <p>By default the <code><a href="https://sfirke.github.io/janitor/reference/make_clean_names.html">janitor::make_clean_names</a></code> function has a default argument of <code>snake_case</code> but within the function there is also a <code>case</code> argument where other common naming conventions can be used.</p>
 </div>
-<div id="selecting-columns" class="section level2" number="12.2">
+<div id="selecting-columns" class="section level2" number="14.2">
 <h2>
-<span class="header-section-number">12.2</span> Selecting columns<a class="anchor" aria-label="anchor" href="#selecting-columns"><i class="fas fa-link"></i></a>
+<span class="header-section-number">14.2</span> Selecting columns<a class="anchor" aria-label="anchor" href="#selecting-columns"><i class="fas fa-link"></i></a>
 </h2>
 <p>In addition to cleaning your column names, you can also directly select columns while using the "read_csv" function by utilizing the "col_select" argument. This can be extremely useful when working with large files, selecting only the columns you need can be memory-efficient.</p>
-<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span> <span class="op">(</span><span class="st">"data/penguins_raw.csv"</span>,</span>
 <span>                      name_repair <span class="op">=</span> <span class="fu">janitor</span><span class="fu">::</span><span class="va"><a href="https://sfirke.github.io/janitor/reference/make_clean_names.html">make_clean_names</a></span>,</span>
 <span>                      col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">body_mass_g</span>, <span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="reading-multiple-files" class="section level2" number="12.3">
+<div id="reading-multiple-files" class="section level2" number="14.3">
 <h2>
-<span class="header-section-number">12.3</span> Reading multiple files<a class="anchor" aria-label="anchor" href="#reading-multiple-files"><i class="fas fa-link"></i></a>
+<span class="header-section-number">14.3</span> Reading multiple files<a class="anchor" aria-label="anchor" href="#reading-multiple-files"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"data/many_files"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">peng_samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span>, <span class="op">~</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span><span class="va">penguins</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://purrr.tidyverse.org/reference/imap.html">iwalk</a></span><span class="op">(</span><span class="va">peng_samples</span>, <span class="op">~</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"data/many_files/"</span>, <span class="va">.y</span>, <span class="st">".csv"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div id="create-a-vector-of-file-paths" class="section level3" number="12.3.1">
+<div id="create-a-vector-of-file-paths" class="section level3" number="14.3.1">
 <h3>
-<span class="header-section-number">12.3.1</span> Create a vector of file paths<a class="anchor" aria-label="anchor" href="#create-a-vector-of-file-paths"><i class="fas fa-link"></i></a>
+<span class="header-section-number">14.3.1</span> Create a vector of file paths<a class="anchor" aria-label="anchor" href="#create-a-vector-of-file-paths"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">csv_files_list_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data/many_files"</span>,</span>
 <span>                                    pattern <span class="op">=</span> <span class="st">"csv"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code> [1] "data/many_files/1.csv"  "data/many_files/10.csv" "data/many_files/11.csv" "data/many_files/12.csv"
@@ -238,30 +240,30 @@
 <li><p>"full.names": Setting this argument to <code>TRUE</code> indicates that you want to store the full paths of the files, not just their names. This is important for ensuring you can correctly access and read these files later. If "full.names" is not set to <code>TRUE</code>, you may encounter difficulties when attempting to read the files because the file paths would be incomplete.</p></li>
 </ul>
 </div>
-<div id="read-multiple-files" class="section level3" number="12.3.2">
+<div id="read-multiple-files" class="section level3" number="14.3.2">
 <h3>
-<span class="header-section-number">12.3.2</span> Read multiple files<a class="anchor" aria-label="anchor" href="#read-multiple-files"><i class="fas fa-link"></i></a>
+<span class="header-section-number">14.3.2</span> Read multiple files<a class="anchor" aria-label="anchor" href="#read-multiple-files"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now that we have obtained the file paths, we can proceed to load the files into R. The preferred method in the tidyverse is to use the <code>map_dfr</code> function from the <code>purrr</code> package. This function iterates through all the file paths and combines the data frames into a single, unified data frame. In the following code, <code>.x</code> represents the file name or path. To read and output the actual content of the CSV files (not just the filenames), you should include <code>.x</code> (the path) within a <code>readr</code> function. While this example deals with CSV files, this approach works similarly for other rectangular file formats.</p>
-<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html">map_dfr</a></span><span class="op">(</span><span class="va">csv_files_list_files</span>,</span>
 <span>              <span class="op">~</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="selecting-files" class="section level3" number="12.3.3">
+<div id="selecting-files" class="section level3" number="14.3.3">
 <h3>
-<span class="header-section-number">12.3.3</span> Selecting files<a class="anchor" aria-label="anchor" href="#selecting-files"><i class="fas fa-link"></i></a>
+<span class="header-section-number">14.3.3</span> Selecting files<a class="anchor" aria-label="anchor" href="#selecting-files"><i class="fas fa-link"></i></a>
 </h3>
 <p><code><a href="https://stringr.tidyverse.org/reference/str_detect.html">stringr::str_detect()</a></code></p>
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">csv_files_list_files</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">csv_files_list_files</span>, pattern <span class="op">=</span> <span class="st">"[2-4]"</span>,</span>
 <span>negate <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code> [1] "data/many_files/12.csv" "data/many_files/13.csv" "data/many_files/14.csv"
  [4] "data/many_files/2.csv"  "data/many_files/20.csv" "data/many_files/21.csv"
  [7] "data/many_files/22.csv" "data/many_files/23.csv" "data/many_files/24.csv"
 [10] "data/many_files/25.csv" "data/many_files/3.csv"  "data/many_files/4.csv"</code></pre>
-<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">csv_files_list_files</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">csv_files_list_files</span>, pattern <span class="op">=</span> <span class="st">"[24]\\.csv$"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code>[1] "data/many_files/12.csv" "data/many_files/14.csv" "data/many_files/2.csv" 
 [4] "data/many_files/22.csv" "data/many_files/24.csv" "data/many_files/4.csv"
@@ -449,19 +451,19 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="bonus-simulation.html"><span class="header-section-number">11</span> Bonus: Simulation</a></div>
-<div class="next"><a href="working-across-columns.html"><span class="header-section-number">13</span> Working across columns</a></div>
+<div class="prev"><a href="bonus-simulation.html"><span class="header-section-number">13</span> Bonus: Simulation</a></div>
+<div class="next"><a href="working-across-columns.html"><span class="header-section-number">15</span> Working across columns</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#reading-files-with-readr"><span class="header-section-number">12</span> Reading files with readr</a></li>
-<li><a class="nav-link" href="#cleaning-column-names"><span class="header-section-number">12.1</span> Cleaning column names</a></li>
-<li><a class="nav-link" href="#selecting-columns"><span class="header-section-number">12.2</span> Selecting columns</a></li>
+<li><a class="nav-link" href="#reading-files-with-readr"><span class="header-section-number">14</span> Reading files with readr</a></li>
+<li><a class="nav-link" href="#cleaning-column-names"><span class="header-section-number">14.1</span> Cleaning column names</a></li>
+<li><a class="nav-link" href="#selecting-columns"><span class="header-section-number">14.2</span> Selecting columns</a></li>
 <li>
-<a class="nav-link" href="#reading-multiple-files"><span class="header-section-number">12.3</span> Reading multiple files</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#create-a-vector-of-file-paths"><span class="header-section-number">12.3.1</span> Create a vector of file paths</a></li>
-<li><a class="nav-link" href="#read-multiple-files"><span class="header-section-number">12.3.2</span> Read multiple files</a></li>
-<li><a class="nav-link" href="#selecting-files"><span class="header-section-number">12.3.3</span> Selecting files</a></li>
+<a class="nav-link" href="#reading-multiple-files"><span class="header-section-number">14.3</span> Reading multiple files</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#create-a-vector-of-file-paths"><span class="header-section-number">14.3.1</span> Create a vector of file paths</a></li>
+<li><a class="nav-link" href="#read-multiple-files"><span class="header-section-number">14.3.2</span> Read multiple files</a></li>
+<li><a class="nav-link" href="#selecting-files"><span class="header-section-number">14.3.3</span> Selecting files</a></li>
 </ul>
 </li>
 </ul>
@@ -481,7 +483,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-27.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-29.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

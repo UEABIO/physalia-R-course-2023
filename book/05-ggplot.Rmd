@@ -879,6 +879,7 @@ penguins |>
   scale_color_viridis_d(option = "mako", direction = -1, end = .9)
 
 ```
+
 ## Density
 
 ```{r, warning = FALSE}
@@ -911,6 +912,7 @@ penguins |>
     
 
 ```
+
 ## Bump charts
 
 ```{r}
@@ -1199,6 +1201,7 @@ p1 + p2 +
 
 
 ```
+
 
 ## Scales
 

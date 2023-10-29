@@ -283,7 +283,7 @@ This book was printed on `` `r Sys.Date()` ``
 
 When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead: 
 
-This book was printed on 2023-10-27
+This book was printed on 2023-10-29
 
 ## Activity 3: Make some markdown edits
 

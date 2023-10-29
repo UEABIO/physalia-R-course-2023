@@ -533,18 +533,433 @@ report_p <- function(p, digits = 3) {
  
 ```
 
+# Simple iteration
 
-## Loops
+We’ve seen how to write a function and how they can be used to create concise re-usable operations that can be applied multiple times in a script without having to copy and paste, but where functions really come into their own is when combined with iteration. Iteration is the process of running the same operation on a group of objects, further minimising code replication. 
 
-https://intro2r.com/loops.html#for-loop
+Functional programming in R requires a good understanding of the types of data structure available in R. So make sure you remember the distinctions between vectors, lists, matrices and dataframes.
 
-### Speed? 
+In the section below we will start with simple functions that allow you to replicate arguments
 
-https://bookdown.org/content/d1e53ac9-28ce-472f-bc2c-f499f18264a3/loops.html
+## `rep()`
 
-https://bookdown.org/csgillespie/efficientR/programming.html#top-5-tips-for-efficient-programming
+The function `rep()` lets you repeat the first argument a set number of times.
+
+```{r}
+rep(1:5, 5)
+
+rep(c("Adelie", "Gentoo", "Chinstrap"), 2)
+
+```
+
+The default for the amount of repetition is `times = ` it will print the entire vector start to finish THEN repeat.
+
+If the second argument is a vector with the same number of elements as the *first* vector, then it will repeat to the specified values for each
+
+```{r}
+rep(c("Adelie", "Gentoo", "Chinstrap"), c(2, 1, 3))
+
+```
+
+Or if you use the argument `each` then it will rep all of the first element *first* followed by the second etc.
+
+
+```{r}
+rep(c("Adelie", "Gentoo", "Chinstrap"), each = 3)
+```
+What do you think will happen if you set both times to 3 and each to 2?
+
+```{r, eval = F}
+
+rep(c("Adelie", "Gentoo", "Chinstrap"), times = 2, each = 3)
+
+```
+
+```{solution}
+
+``{r, echo = FALSE}
+
+rep(c("Adelie", "Gentoo", "Chinstrap"), times = 2, each = 3)
+
+``
+
+```
+
+
+## `seq()`
+
+The function `seq()` is useful for generating a sequence of numbers with some pattern.
+
+Use `seq()` to create a vector of the integers 0 to 10.
+
+
+```{r}
+
+seq(1,5)
+
+```
+
+This is initially very similar to just making a vector with
+
+```{r}
+
+c(1:5)
+
+```
+
+But with `seq` we have extra functions. You can set the by argument to count by numbers other than 1 (the default). Use `seq()` to create a vector of the numbers 0 to 100 by 10s.
+
+```{r}
+seq(0, 100, by = 10)
+
+```
+
+
+We also have the argument `length.out`, which is useful when you want to know how to many steps to divide something into
+
+```{r}
+seq(0, 100, length.out = 12)
+
+```
+
+## `replicate()`
+
+Replicate is our first example of a function whose purpose is to iterate *other* functions
+
+For example the `rnorm` function generates numbers from a normal distribution.
+
+Nesting this inside the `replicate()` function will repeat this command a specified number of times
+
+```{r}
+replicate(3, # times to replicate function
+          expr = rnorm(n = 5, 
+                       mean = 1,
+                       sd = 1))
+
+```
+
+https://www.r-bloggers.com/2023/07/the-replicate-function-in-r/
+
+# Loops
+
+Loops are one of the staples of all programming languages, not just R, and can be a powerful tool; though we will see later there are a suite of alternative to loops in R. 
+
+For loops make it possible to repeat a set of instructions i times. For example, try the following:
+
+```{r}
+for (i in 1:5){
+  print("hello")
+}
+```
+
+Or
+
+```{r}
+for (i in 1:3) {
+  print(i+1)
+}
+```
+
+This is a dynamic piece of code where an index 'i' is iteratively replaced by each value in the vector 1:5. 
+
+Let's break it down. Since the first value in our sequence (1:3) is 1, the loop begins by substituting 'i' with 1 and executing everything within the curly braces {1+1}. Loops conventionally use 'i' as the counter, which is short for iteration. However, you are free to use any variable name you prefer:
+
+so the first loop is essentially: 
+
+```
+i <- 1 + 1
+print(i)
+
+```
+
+Once this first iteration is complete, it loops back to the beginning and replaces i with the next value in our 1:3 sequence (2 in this case):
+
+```
+i <- 2 + 1
+print(i)
+
+```
+
+This process is then repeated until the loop reaches the final value in the sequence 
+
+```
+for (i in 1:3) { # the SEQUENCE is defined (numbers 1 to 5) and loop is opened with "{"
+  print(i + 1)    # The OPERATIONS (add 1 to each sequence number and print)
+}                            # The loop is closed with "}"
+
+```
+
+## Functions in for loops
+
+Whilst above we have been using simple addition in the body of the loop, you can also combine loops with functions.
+
+```{r}
+
+# Define a function to calculate the square of a number
+square <- function(x) {
+  return(x * x)
+}
+
+# Use a for loop to calculate and print the squares of numbers from 1 to 5
+for (num in 1:5) { # Here I have replace i with num
+  result <- square(num)
+  cat("The square of", num, "is", result, "\n")
+}
+
+
+```
+
+## For loops in dataframes
+
+Let's create a somewhat more intricate function. Initially, we generate a new tibble by creating four vectors, each consisting of 10 randomly generated numbers. These numbers are designed to be approximately centered around a mean of 0 with a standard deviation of 1. Afterward, we combine these vectors to form the final tibble.
+
+```{r}
+set.seed(1234)
+
+# a simple tibble
+df <- tibble(
+  a =  rnorm(10),
+  b =  rnorm(10),
+  c =  rnorm(10),
+  d = rnorm(10),
+  e = rnorm(10),
+  f = rnorm(10),
+  g = rnorm(10),
+  h = rnorm(10),
+)
+
+df
+
+```
+
+Each vector is randomly generated so the actual averages will be slightly different, we can test that here:
+
+```{r}
+
+mean(df$a)
+
+mean(df$b)
+
+mean(df$c)
+
+mean(df$d)
+
+```
+
+So the above code works, but it is repetitive, applying the same function again and again.
+
+Below we have a simple for loop:
+
+```{r}
+#1. Having a predefined empty vector to receive the values is good practice, we will see why a bit later
+
+output <- vector("double", ncol(df)) # this will have four empty elements the same as the number of columns for the dataframe. The vector is set to receive numeric data
+
+```
+
+Now we run our loop: 
+
+```{r}
+
+for (i in 1:ncol(df)) {            # 2. sequence - determines what to loop over 
+  
+  output[[i]] <- mean(df[[i]])      # 3. body - each time the loop runs it allocates a value to output, 
+}
+output
+
+```
+
+Each time the mean is calculate for one column in df this is then stored as an element in the previously empty output vector.
+
+`for()` loops are very useful for quickly iterating over a list, but because R prefers to store everything as a new object with each loop iteration, loops can become quite slow if they are complex, or running many processes and many iterations.
+
+
+
+## Speed
+
+### Initialise objects
+
+Pre-allocating the output with the appropriate length before the loop avoids reallocation of memory inside the loop, which can be inefficient for large data. For example:
+
+
+```{r, eval = F}
+
+output2 <- NULL
+
+microbenchmark::microbenchmark(
+  for (i in 1:ncol(df)){             
+  
+  output2 <- c(output2, mean(df[[i]])) # each new calculation is concatenated onto the end of the growing vector
+}
+)
+output2 # note because we did not predefine our vector length it continues to grow! 
+
+```
+
+| |Built inside loop|pre-initialised vector|
+|-----|-----|-----|
+|min|2.41ms	| 2.37ms|
+|max|	9.73ms|8.99ms|
+|mean|	2.71ms|2.72 ms|
+|median|	2.56ms|2.49ms|
+
+
+### simple datatypes
+
+
+```{r, include = F}
+output2 <- NULL
+df_list <- as.list(df)
+
+```
+
+```{r, eval = F}
+
+df_list <- as.list(df)
+
+
+microbenchmark::microbenchmark( # check average processing time
+for (i in length(df_list)) {           
+  
+  output[[i]] <- mean(df_list[[i]])      
+}
+)
+
+
+```
+
+Depending on your own computer processing power you may get different results - but here
+
+| |List|Tibble|
+|-----|-----|-----|
+|min|1.92ms	| 2.37ms|
+|max|	8.49ms|8.99ms|
+|mean|	2.07ms|2.72 ms|
+|median|	1.99ms|2.49ms|
+
+### Visualise speed
+
+The `microbenchmark` package has some other useful features including the ability to run multiple functions for comparison simultaneously and with integration with ggplot2 we can plot these results
+
+```{r}
+
+
+output_vector <- vector("double", ncol(df))
+output_list <- vector(mode = "list", length = ncol(df))
+new_output_vector <- NULL
+new_output_vector2 <- NULL
+
+
+mbm <- microbenchmark::microbenchmark(
+df_input_vector_output = for (i in 1:ncol(df)) {
+  output_vector[[i]] <- mean(df[[i]]) 
+}, 
+list_input_vector_output = for (i in length(df_list)) {           
+    output_vector[[i]] <- mean(df_list[[i]])      
+}, 
+df_input_build_vector =  for (i in 1:ncol(df)){             
+    
+    new_output_vector <- c(new_output_vector, mean(df[[i]])) # each new calculation is concatenated onto the end of the growing vector
+}, 
+list_input_build_vector = for (i in 1:length(df_list)){             
+    
+   new_output_vector2 <- c(new_output_vector2, mean(df[[i]])) # each new calculation is concatenated onto the end of the growing vector
+}
+)
+
+mbm
+
+```
+
+
+```{r}
+
+autoplot(mbm)
+
+```
+
+
+
+### Do as little as possible inside a loop
+
+R is an interpreted language every thing you write inside a loop runs multiple times. The best thing you can do is to be parsimonious while writing code inside a loop. There are a number of steps that you can do to speed up a loop a bit more.
+
+- Calculate results before the loop
+
+- Initialize objects before the loop
+
+- Iterate on as few numbers as possible
+
+- Write as few functions inside a loop as possible
+
+The main tip is to *Get out of loop* as quickly as possible.
+
+See also https://bookdown.org/csgillespie/efficientR/programming.html#top-5-tips-for-efficient-programming
+
+
+## Activity
 
 # Apply
+
+We can recreate the output from our loops in the previous chapter with the `apply` function in R. 
+
+The apply functions can be an alternative to writing for loops. The general idea is to apply (or map) a function to each element of an object. For example, you can apply a function to each row or column of a matrix. 
+
+Each function takes at least two arguments: an object and another function. The function is passed as an argument.
+
+Every apply function has the dots, ..., argument that is used to pass on arguments to the function that is given as an argument.
+
+Using apply functions when possible, can lead to shorter, more succinct R code. In this section, we will cover the three main functions, `apply()`, `lapply()`, and `sapply()`. 
+
+
+- `lapply()`: Loop over a list and evaluate a function on each element
+
+- `sapply()`: Same as lapply but try to simplify the result
+
+- `apply()`: Apply a function over the margins of an array
+
+It is (I think) important to not that the apply family is still looping - but the actual looping is done internally in C code for efficiency reasons. Apply functions are loops under the hood and they are meant for convenience not for speed.
+
+
+## lapply
+
+The `lapply()` function does the following simple series of operations:
+
+it loops over a list, iterating over each element in that list
+
+it applies a function to each element of the list (a function that you specify)
+
+and returns a list (the l is for “list”).
+
+We can see the operation of an `lapply()` function here:
+
+```{r}
+
+lapply(df_list, mean)
+
+```
+
+```{r}
+
+empty_list <- vector(mode = "list", length = length(df_list))
+
+microbenchmark::microbenchmark(
+ 
+  forloop = for (i in length(df_list)) {           
+  
+  empty_list[[i]] <- mean(df_list[[i]])      
+  },
+ apply = lapply(df_list, mean)
+)
+
+```
+
+Notice that here we are passing the `mean()` function as an argument to the `lapply()` function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses.
+
+## sapply
+
+## apply
+
 
 # Purrr
 

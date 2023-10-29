@@ -1,0 +1,2427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 10 Loops | Advancing in R</title>
+<meta name="author" content="Philip T. Leftwich">
+<meta name="description" content="Loops are one of the staples of all programming languages, not just R, and can be a powerful tool; though we will see later there are a suite of alternative to loops in R. For loops make it...">
+<meta name="generator" content="bookdown 0.34 with bs4_book()">
+<meta property="og:title" content="Chapter 10 Loops | Advancing in R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/loops.html">
+<meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
+<meta property="og:description" content="Loops are one of the staples of all programming languages, not just R, and can be a powerful tool; though we will see later there are a suite of alternative to loops in R. For loops make it...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 10 Loops | Advancing in R">
+<meta name="twitter:description" content="Loops are one of the staples of all programming languages, not just R, and can be a powerful tool; though we will see later there are a suite of alternative to loops in R. For loops make it...">
+<meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6NP3MF25W3');
+    </script><script language="javascript"> 
+        function toggle(id) {
+            var ele = document.getElementById("toggleText" + id);
+            var text = document.getElementById("displayText" + id);
+            var buttonText = text.innerHTML.replace("Show ", "");
+            buttonText = buttonText.replace("Hide ", "");
+            if(ele.style.display == "block") {
+                ele.style.display = "none";
+                text.innerHTML = "Show " + buttonText;
+            } else {
+                ele.style.display = "block";
+                text.innerHTML = "Hide " + buttonText;
+            }
+        } 
+    </script><script language="javascript">
+        function openCode(evt, codeName, id) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent" + id);
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks" + id);
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(codeName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script><script language="javascript">
+        function hide(id){
+            document.getElementById(id).style.display = "none";
+        }
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="A guide for Biologists and Ecologists">Advancing in R</a>:
+        <small class="text-muted">A guide for Biologists and Ecologists</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li class="book-part">Get Started in R</li>
+<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R basics</a></li>
+<li class="book-part">Exploring Data</li>
+<li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
+<li><a class="" href="data-wrangling-part-one.html"><span class="header-section-number">4</span> Data wrangling part one</a></li>
+<li><a class="" href="data-wrangling-part-two.html"><span class="header-section-number">5</span> Data wrangling part two</a></li>
+<li class="book-part">BONUS: Automated Exploratory Analysis</li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li class="book-part">Functional Programming</li>
+<li><a class="" href="writing-functions.html"><span class="header-section-number">7</span> Writing Functions</a></li>
+<li><a class="" href="flow-control.html"><span class="header-section-number">8</span> Flow control</a></li>
+<li><a class="" href="simple-iteration.html"><span class="header-section-number">9</span> Simple iteration</a></li>
+<li><a class="active" href="loops.html"><span class="header-section-number">10</span> Loops</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">11</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">12</span> Purrr</a></li>
+<li><a class="" href="bonus-simulation.html"><span class="header-section-number">13</span> Bonus: Simulation</a></li>
+<li class="book-part">Getting the most out of tidyverse</li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">14</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">15</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">16</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">17</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">18</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">19</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">20</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">21</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">22</span> Writing Functions in Tidyverse</a></li>
+<li class="book-part">Data Presentation</li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">23</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">24</span> Extensions for ggplot2</a></li>
+<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">25</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">26</span> Making tables with gt</a></li>
+<li class="book-part">Introduction to Shiny</li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">27</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">28</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">29</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">30</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
+<li><a class="" href="modules.html"><span class="header-section-number">34</span> Modules</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
+<li class="book-part">Literate Programming and Reproducibility</li>
+<li><a class="" href="markdown.html"><span class="header-section-number">36</span> Markdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">37</span> Github</a></li>
+<li class="book-part">BONUS: Working with big data</li>
+<li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
+<li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
+<li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
+<li class="book-part">BONUS: Working with big data</li>
+<li><a class="" href="reading-in-data-1.html"><span class="header-section-number">41</span> Reading in data</a></li>
+<li><a class="" href="write-to-sql-1.html"><span class="header-section-number">42</span> write to sql</a></li>
+<li><a class="" href="querying-sql-1.html"><span class="header-section-number">43</span> querying sql</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">44</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">45</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">46</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">47</span> R Basics</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/UEABIO/physalia-intro-stats-2023">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="loops" class="section level1" number="10">
+<h1>
+<span class="header-section-number">10</span> Loops<a class="anchor" aria-label="anchor" href="#loops"><i class="fas fa-link"></i></a>
+</h1>
+<p>Loops are one of the staples of all programming languages, not just R, and can be a powerful tool; though we will see later there are a suite of alternative to loops in R.</p>
+<p>For loops make it possible to repeat a set of instructions i times. For example, try the following:</p>
+<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"hello"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] "hello"
+## [1] "hello"
+## [1] "hello"
+## [1] "hello"
+## [1] "hello"</code></pre>
+<p>Or</p>
+<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] 2
+## [1] 3
+## [1] 4</code></pre>
+<p>This is a dynamic piece of code where an index 'i' is iteratively replaced by each value in the vector 1:5.</p>
+<p>Let's break it down. Since the first value in our sequence (1:3) is 1, the loop begins by substituting 'i' with 1 and executing everything within the curly braces {1+1}. Loops conventionally use 'i' as the counter, which is short for iteration. However, you are free to use any variable name you prefer:</p>
+<p>so the first loop is essentially:</p>
+<pre><code>i &lt;- 1 + 1
+print(i)
+</code></pre>
+<p>Once this first iteration is complete, it loops back to the beginning and replaces i with the next value in our 1:3 sequence (2 in this case):</p>
+<pre><code>i &lt;- 2 + 1
+print(i)
+</code></pre>
+<p>This process is then repeated until the loop reaches the final value in the sequence</p>
+<pre><code>for (i in 1:3) { # the SEQUENCE is defined (numbers 1 to 5) and loop is opened with "{"
+  print(i + 1)    # The OPERATIONS (add 1 to each sequence number and print)
+}                            # The loop is closed with "}"
+</code></pre>
+<div id="functions-in-for-loops" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">10.1</span> Functions in for loops<a class="anchor" aria-label="anchor" href="#functions-in-for-loops"><i class="fas fa-link"></i></a>
+</h2>
+<p>Whilst above we have been using simple addition in the body of the loop, you can also combine loops with functions.</p>
+<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Define a function to calculate the square of a number</span></span>
+<span><span class="va">square</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Use a for loop to calculate and print the squares of numbers from 1 to 5</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">num</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">{</span> <span class="co"># Here I have replace i with num</span></span>
+<span>  <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">square</span><span class="op">(</span><span class="va">num</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"The square of"</span>, <span class="va">num</span>, <span class="st">"is"</span>, <span class="va">result</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## The square of 1 is 1 
+## The square of 2 is 4 
+## The square of 3 is 9 
+## The square of 4 is 16 
+## The square of 5 is 25</code></pre>
+</div>
+<div id="for-loops-in-dataframes" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">10.2</span> For loops in dataframes<a class="anchor" aria-label="anchor" href="#for-loops-in-dataframes"><i class="fas fa-link"></i></a>
+</h2>
+<p>Let's create a somewhat more intricate function. Initially, we generate a new tibble by creating four vectors, each consisting of 10 randomly generated numbers. These numbers are designed to be approximately centered around a mean of 0 with a standard deviation of 1. Afterward, we combine these vectors to form the final tibble.</p>
+<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># a simple tibble</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  a <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  b <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  c <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  e <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  g <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+</colgroup>
+<thead><tr class="header">
+<th align="right">a</th>
+<th align="right">b</th>
+<th align="right">c</th>
+<th align="right">d</th>
+<th align="right">e</th>
+<th align="right">f</th>
+<th align="right">g</th>
+<th align="right">h</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">-1.2070657</td>
+<td align="right">-0.4771927</td>
+<td align="right">0.1340882</td>
+<td align="right">1.1022975</td>
+<td align="right">1.4494963</td>
+<td align="right">-1.8060313</td>
+<td align="right">0.6565885</td>
+<td align="right">0.0068928</td>
+</tr>
+<tr class="even">
+<td align="right">0.2774292</td>
+<td align="right">-0.9983864</td>
+<td align="right">-0.4906859</td>
+<td align="right">-0.4755931</td>
+<td align="right">-1.0686427</td>
+<td align="right">-0.5820759</td>
+<td align="right">2.5489911</td>
+<td align="right">-0.4554687</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0844412</td>
+<td align="right">-0.7762539</td>
+<td align="right">-0.4405479</td>
+<td align="right">-0.7094400</td>
+<td align="right">-0.8553646</td>
+<td align="right">-1.1088896</td>
+<td align="right">-0.0347604</td>
+<td align="right">-0.3665239</td>
+</tr>
+<tr class="even">
+<td align="right">-2.3456977</td>
+<td align="right">0.0644588</td>
+<td align="right">0.4595894</td>
+<td align="right">-0.5012581</td>
+<td align="right">-0.2806230</td>
+<td align="right">-1.0149620</td>
+<td align="right">-0.6696336</td>
+<td align="right">0.6482866</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4291247</td>
+<td align="right">0.9594941</td>
+<td align="right">-0.6937202</td>
+<td align="right">-1.6290935</td>
+<td align="right">-0.9943401</td>
+<td align="right">-0.1623095</td>
+<td align="right">-0.0076048</td>
+<td align="right">2.0702709</td>
+</tr>
+<tr class="even">
+<td align="right">0.5060559</td>
+<td align="right">-0.1102855</td>
+<td align="right">-1.4482049</td>
+<td align="right">-1.1676193</td>
+<td align="right">-0.9685143</td>
+<td align="right">0.5630558</td>
+<td align="right">1.7770844</td>
+<td align="right">-0.1533984</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.5747400</td>
+<td align="right">-0.5110095</td>
+<td align="right">0.5747557</td>
+<td align="right">-2.1800396</td>
+<td align="right">-1.1073182</td>
+<td align="right">1.6478175</td>
+<td align="right">-1.1386077</td>
+<td align="right">-1.3907009</td>
+</tr>
+<tr class="even">
+<td align="right">-0.5466319</td>
+<td align="right">-0.9111954</td>
+<td align="right">-1.0236557</td>
+<td align="right">-1.3409932</td>
+<td align="right">-1.2519859</td>
+<td align="right">-0.7733534</td>
+<td align="right">1.3678272</td>
+<td align="right">-0.7235818</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.5644520</td>
+<td align="right">-0.8371717</td>
+<td align="right">-0.0151383</td>
+<td align="right">-0.2942939</td>
+<td align="right">-0.5238281</td>
+<td align="right">1.6059096</td>
+<td align="right">1.3295648</td>
+<td align="right">0.2582618</td>
+</tr>
+<tr class="even">
+<td align="right">-0.8900378</td>
+<td align="right">2.4158352</td>
+<td align="right">-0.9359486</td>
+<td align="right">-0.4658975</td>
+<td align="right">-0.4968500</td>
+<td align="right">-1.1578085</td>
+<td align="right">0.3364728</td>
+<td align="right">-0.3170591</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Each vector is randomly generated so the actual averages will be slightly different, we can test that here:</p>
+<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">b</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">c</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">d</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] -0.3831574
+## [1] -0.1181707
+## [1] -0.3879468
+## [1] -0.7661931</code></pre>
+<p>So the above code works, but it is repetitive, applying the same function again and again.</p>
+<p>Below we have a simple for loop:</p>
+<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#1. Having a predefined empty vector to receive the values is good practice, we will see why a bit later</span></span>
+<span></span>
+<span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"double"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span> <span class="co"># this will have four empty elements the same as the number of columns for the dataframe. The vector is set to receive numeric data</span></span></code></pre></div>
+<p>Now we run our loop:</p>
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>            <span class="co"># 2. sequence - determines what to loop over </span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>      <span class="co"># 3. body - each time the loop runs it allocates a value to output, </span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">output</span></span></code></pre></div>
+<pre><code>## [1] -0.38315741 -0.11817071 -0.38794682 -0.76619306 -0.60979706 -0.27886474
+## [7]  0.61659223 -0.04230209</code></pre>
+<p>Each time the mean is calculate for one column in df this is then stored as an element in the previously empty output vector.</p>
+<p><code>for()</code> loops are very useful for quickly iterating over a list, but because R prefers to store everything as a new object with each loop iteration, loops can become quite slow if they are complex, or running many processes and many iterations.</p>
+</div>
+<div id="speed" class="section level2" number="10.3">
+<h2>
+<span class="header-section-number">10.3</span> Speed<a class="anchor" aria-label="anchor" href="#speed"><i class="fas fa-link"></i></a>
+</h2>
+<div id="initialise-objects" class="section level3" number="10.3.1">
+<h3>
+<span class="header-section-number">10.3.1</span> Initialise objects<a class="anchor" aria-label="anchor" href="#initialise-objects"><i class="fas fa-link"></i></a>
+</h3>
+<p>Pre-allocating the output with the appropriate length before the loop avoids reallocation of memory inside the loop, which can be inefficient for large data. For example:</p>
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">output2</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span><span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>             </span>
+<span>  </span>
+<span>  <span class="va">output2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">output2</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="co"># each new calculation is concatenated onto the end of the growing vector</span></span>
+<span><span class="op">}</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">output2</span> <span class="co"># note because we did not predefine our vector length it continues to grow! </span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th></th>
+<th>Built inside loop</th>
+<th>pre-initialised vector</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>min</td>
+<td>2.41ms</td>
+<td>2.37ms</td>
+</tr>
+<tr class="even">
+<td>max</td>
+<td>9.73ms</td>
+<td>8.99ms</td>
+</tr>
+<tr class="odd">
+<td>mean</td>
+<td>2.71ms</td>
+<td>2.72 ms</td>
+</tr>
+<tr class="even">
+<td>median</td>
+<td>2.56ms</td>
+<td>2.49ms</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="simple-datatypes" class="section level3" number="10.3.2">
+<h3>
+<span class="header-section-number">10.3.2</span> simple datatypes<a class="anchor" aria-label="anchor" href="#simple-datatypes"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span> <span class="co"># check average processing time</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">df_list</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>           </span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df_list</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>      </span>
+<span><span class="op">}</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Depending on your own computer processing power you may get different results - but here</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th></th>
+<th>List</th>
+<th>Tibble</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>min</td>
+<td>1.92ms</td>
+<td>2.37ms</td>
+</tr>
+<tr class="even">
+<td>max</td>
+<td>8.49ms</td>
+<td>8.99ms</td>
+</tr>
+<tr class="odd">
+<td>mean</td>
+<td>2.07ms</td>
+<td>2.72 ms</td>
+</tr>
+<tr class="even">
+<td>median</td>
+<td>1.99ms</td>
+<td>2.49ms</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="visualise-speed" class="section level3" number="10.3.3">
+<h3>
+<span class="header-section-number">10.3.3</span> Visualise speed<a class="anchor" aria-label="anchor" href="#visualise-speed"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>microbenchmark</code> package has some other useful features including the ability to run multiple functions for comparison simultaneously and with integration with ggplot2 we can plot these results</p>
+<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">output_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"double"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">output_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"list"</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">new_output_vector</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span><span class="va">new_output_vector2</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span></span>
+<span><span class="va">mbm</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
+<span>df_input_vector_output <span class="op">=</span> <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output_vector</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> </span>
+<span><span class="op">}</span>, </span>
+<span>list_input_vector_output <span class="op">=</span> <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">df_list</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>           </span>
+<span>    <span class="va">output_vector</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df_list</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>      </span>
+<span><span class="op">}</span>, </span>
+<span>df_input_build_vector <span class="op">=</span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>             </span>
+<span>    </span>
+<span>    <span class="va">new_output_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">new_output_vector</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="co"># each new calculation is concatenated onto the end of the growing vector</span></span>
+<span><span class="op">}</span>, </span>
+<span>list_input_build_vector <span class="op">=</span> <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">df_list</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>             </span>
+<span>    </span>
+<span>   <span class="va">new_output_vector2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">new_output_vector2</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="co"># each new calculation is concatenated onto the end of the growing vector</span></span>
+<span><span class="op">}</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mbm</span></span></code></pre></div>
+<div class="kable-table">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">expr</th>
+<th align="right">time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">3207650</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2619020</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">4313560</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2366080</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">2044229</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2415340</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">2080040</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2477000</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2513980</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2134001</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">2024210</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2594140</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2578260</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2450460</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2432170</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">3070580</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">3011750</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2524730</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">2491250</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">3067710</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2950230</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2479970</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">3025120</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2932120</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">3063850</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2875750</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2996600</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">3016760</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2854530</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2916060</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">3000180</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2456100</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2853820</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2978080</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">3007540</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">6271440</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2387680</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2434230</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1945690</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1995310</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1928050</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2395960</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2406590</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2241480</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2576530</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2262680</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2284290</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2472560</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2356070</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2432840</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2375570</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2446120</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1943700</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1968970</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1913360</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1950140</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2401600</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2263669</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2448280</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1972471</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2422289</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2374510</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2324130</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2431630</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2358890</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2425260</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2375260</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1991770</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2224370</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2448080</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2433690</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">8040690</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2260110</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2419950</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2265870</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1973570</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2372790</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2568870</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2472520</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2373980</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2477400</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1925820</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2423631</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2461689</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2247489</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2510291</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2453880</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2479080</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2517640</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1978330</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2355060</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2413780</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2339870</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2450470</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2423800</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2461430</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1991510</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2512270</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2330220</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2042490</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2485890</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2002120</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2435130</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2430060</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1993680</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1930020</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2466500</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">5515820</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2304330</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2338841</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2402129</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1995780</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2360740</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1995120</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1918629</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2411831</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2442320</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2410780</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1933760</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1959470</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2459860</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2386510</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2284890</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2397110</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">2101860</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2428730</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2454070</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2464110</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2404140</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2312410</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1954390</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2351630</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">2000230</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2426750</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1985820</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2267520</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">2016650</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2263970</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2470370</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1982350</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2470720</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2463211</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2476340</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">5849651</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2405840</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2464660</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2418860</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1990130</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1947930</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1993130</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1918770</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2512440</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2527450</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2400210</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2293900</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2000320</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2452570</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2443590</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2262430</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2327250</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2354610</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2419600</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2473260</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2398290</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2274210</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2372940</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1977400</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2373761</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2433249</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1952209</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2385500</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1978120</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2257041</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2424360</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2371510</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1968340</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1906940</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2427860</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">5522800</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2368960</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2443600</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1960490</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1945120</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2472240</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1985070</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2268520</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2426140</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2035120</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2503860</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2428850</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1943610</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1967440</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2416800</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2283980</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2404370</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2290660</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2256791</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2279700</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2283140</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2256640</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2301549</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2369450</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2421750</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1945150</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2413520</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1969230</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2318400</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2406870</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2378250</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2356320</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1957460</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1960090</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2347560</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2302600</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2424170</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">5470190</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2424320</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2381940</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2481110</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2403960</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2320850</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2405800</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2457770</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2533181</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2419640</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2442380</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1999040</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2269229</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1988981</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2264290</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2339620</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2271400</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2336100</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1938490</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2462350</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1949390</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2294280</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2327570</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1948790</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2477690</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2266360</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1999500</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2368120</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1993960</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2437020</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1940670</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1943900</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2440420</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2513110</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1955860</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1977510</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">5794470</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2345471</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2266469</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2435940</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2458349</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2423620</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2327990</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2420050</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2465220</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2365700</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2359430</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2502690</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1975190</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2447080</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2402180</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2321530</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1988750</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2451060</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2453960</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1966030</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2359220</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2286230</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2339210</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2353280</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2413120</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2483950</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2421880</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2457280</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2452620</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2345271</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2330371</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1952391</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2473171</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2292060</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2306151</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">6023301</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2299880</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2391800</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2446680</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">2015150</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1947080</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2322650</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2429410</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2525490</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2398980</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2517560</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2447190</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2510170</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2267800</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">2000340</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2372910</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2306480</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2411320</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2429800</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2419390</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2357310</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2420720</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2417549</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2457680</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2311200</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2261931</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2430389</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1940650</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2311270</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1990970</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1993390</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2467270</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2489160</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2495500</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1957660</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">5845050</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2406090</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1983340</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2411910</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2478600</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">2000200</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2426430</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1997470</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1964570</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2487170</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2016160</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2312490</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2260800</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">2002880</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2403690</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1952060</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2336271</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2508131</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2506980</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2380580</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2453741</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2319690</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2400250</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2412910</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1939740</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2426980</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2423930</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2284580</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2305640</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2255400</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1971780</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2425110</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2320680</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2480680</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2440250</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2430200</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">5197530</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1982750</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2038880</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1976630</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2404110</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2473320</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2371180</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2302089</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">1931691</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2563131</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2533420</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2258109</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2313100</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1963720</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_build_vector</td>
+<td align="right">2463470</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_build_vector</td>
+<td align="right">2479580</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2274450</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2442680</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2277560</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2430360</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2396200</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2264800</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2437680</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2467010</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2017320</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2363900</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2416650</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2419330</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2278510</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1984150</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2352880</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2413720</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2350500</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_build_vector</td>
+<td align="right">2275380</td>
+</tr>
+<tr class="even">
+<td align="left">df_input_vector_output</td>
+<td align="right">2403150</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2370890</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">5636711</td>
+</tr>
+<tr class="odd">
+<td align="left">list_input_vector_output</td>
+<td align="right">1974651</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_build_vector</td>
+<td align="right">2328211</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2420190</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2016380</td>
+</tr>
+<tr class="odd">
+<td align="left">df_input_vector_output</td>
+<td align="right">2396860</td>
+</tr>
+<tr class="even">
+<td align="left">list_input_vector_output</td>
+<td align="right">2014970</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mbm</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-functional-programming_files/figure-html/unnamed-chunk-57-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="do-as-little-as-possible-inside-a-loop" class="section level3" number="10.3.4">
+<h3>
+<span class="header-section-number">10.3.4</span> Do as little as possible inside a loop<a class="anchor" aria-label="anchor" href="#do-as-little-as-possible-inside-a-loop"><i class="fas fa-link"></i></a>
+</h3>
+<p>R is an interpreted language every thing you write inside a loop runs multiple times. The best thing you can do is to be parsimonious while writing code inside a loop. There are a number of steps that you can do to speed up a loop a bit more.</p>
+<ul>
+<li><p>Calculate results before the loop</p></li>
+<li><p>Initialize objects before the loop</p></li>
+<li><p>Iterate on as few numbers as possible</p></li>
+<li><p>Write as few functions inside a loop as possible</p></li>
+</ul>
+<p>The main tip is to <em>Get out of loop</em> as quickly as possible.</p>
+<p>See also <a href="https://bookdown.org/csgillespie/efficientR/programming.html#top-5-tips-for-efficient-programming" class="uri">https://bookdown.org/csgillespie/efficientR/programming.html#top-5-tips-for-efficient-programming</a></p>
+</div>
+</div>
+<div id="activity" class="section level2" number="10.4">
+<h2>
+<span class="header-section-number">10.4</span> Activity<a class="anchor" aria-label="anchor" href="#activity"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+    
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+  
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+  
+  var cl = this.classList
+  
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+  
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+  
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+  
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+$( document ).ready(function() {
+  var cite = ' ';
+  var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
+
+  $("footer div.row div:eq(1) p").html(
+    license
+  );
+});
+</script><div class="chapter-nav">
+<div class="prev"><a href="simple-iteration.html"><span class="header-section-number">9</span> Simple iteration</a></div>
+<div class="next"><a href="apply.html"><span class="header-section-number">11</span> Apply</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#loops"><span class="header-section-number">10</span> Loops</a></li>
+<li><a class="nav-link" href="#functions-in-for-loops"><span class="header-section-number">10.1</span> Functions in for loops</a></li>
+<li><a class="nav-link" href="#for-loops-in-dataframes"><span class="header-section-number">10.2</span> For loops in dataframes</a></li>
+<li>
+<a class="nav-link" href="#speed"><span class="header-section-number">10.3</span> Speed</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#initialise-objects"><span class="header-section-number">10.3.1</span> Initialise objects</a></li>
+<li><a class="nav-link" href="#simple-datatypes"><span class="header-section-number">10.3.2</span> simple datatypes</a></li>
+<li><a class="nav-link" href="#visualise-speed"><span class="header-section-number">10.3.3</span> Visualise speed</a></li>
+<li><a class="nav-link" href="#do-as-little-as-possible-inside-a-loop"><span class="header-section-number">10.3.4</span> Do as little as possible inside a loop</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#activity"><span class="header-section-number">10.4</span> Activity</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/03-functional-programming.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/03-functional-programming.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-29.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

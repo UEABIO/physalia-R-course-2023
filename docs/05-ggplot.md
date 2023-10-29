@@ -920,6 +920,7 @@ penguins |>
 ```
 
 <img src="05-ggplot_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;" />
+
 ## Density
 
 
@@ -954,6 +955,7 @@ penguins |>
 ```
 
 <img src="05-ggplot_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
+
 ## Bump charts
 
 
@@ -1237,6 +1239,7 @@ p1 + p2 +
 ```
 
 <img src="05-ggplot_files/figure-html/unnamed-chunk-74-1.png" width="100%" style="display: block; margin: auto;" />
+
 
 ## Scales
 
