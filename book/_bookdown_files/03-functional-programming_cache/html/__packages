@@ -12,3 +12,4 @@ glossary
 webexercises
 knitr
 testthat
+microbenchmark

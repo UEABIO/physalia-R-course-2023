@@ -5,6 +5,11 @@
 ```{r, child='_setup.Rmd'}
 ```
 
+```{r, include = FALSE}
+library(microbenchmark)
+
+```
+
 Good simple intro: https://github.com/tomjemmett/nhs-r_conf_21-fp_workshop
 
 https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/
@@ -1110,6 +1115,11 @@ Each time the mean is calculate for one column in df this is then stored as an e
 
 Pre-allocating the output with the appropriate length before the loop avoids reallocation of memory inside the loop, which can be inefficient for large data. For example:
 
+```{r, include = F}
+output2 <- NULL
+df_list <- as.list(df)
+
+```
 
 ```{r, eval = F}
 
@@ -1125,22 +1135,19 @@ output2 # note because we did not predefine our vector length it continues to gr
 
 ```
 
+Depending on your own computer processing power you may get different results - but here
+
 | |Built inside loop|pre-initialised vector|
 |-----|-----|-----|
-|min|2.41ms	| 2.37ms|
-|max|	9.73ms|8.99ms|
-|mean|	2.71ms|2.72 ms|
-|median|	2.56ms|2.49ms|
+|min|2.38ms	| 2.29ms|
+|max|	19.19ms|12.64ms|
+|mean|	3.4ms|2.55 ms|
+|median|	2.71ms|2.42ms|
 
 
 ### simple datatypes
 
 
-```{r, include = F}
-output2 <- NULL
-df_list <- as.list(df)
-
-```
 
 ```{r, eval = F}
 
@@ -1161,16 +1168,28 @@ Depending on your own computer processing power you may get different results - 
 
 | |List|Tibble|
 |-----|-----|-----|
-|min|1.92ms	| 2.37ms|
-|max|	8.49ms|8.99ms|
-|mean|	2.07ms|2.72 ms|
-|median|	1.99ms|2.49ms|
+|min|1.92ms	| 2.38ms|
+|max|	12.6ms|19.19ms|
+|mean|	2.53ms|2.55 ms|
+|median|	2.41ms|2.42ms|
 
 ### Visualise speed
 
 The `microbenchmark` package has some other useful features including the ability to run multiple functions for comparison simultaneously and with integration with ggplot2 we can plot these results
 
-```{r}
+```{r, include = FALSE}
+
+
+output_vector <- vector("double", ncol(df))
+output_list <- vector(mode = "list", length = ncol(df))
+new_output_vector <- NULL
+new_output_vector2 <- NULL
+
+```
+
+
+
+```{r, include = F}
 
 
 output_vector <- vector("double", ncol(df))
@@ -1197,13 +1216,52 @@ list_input_build_vector = for (i in 1:length(df_list)){
 )
 
 
+
+```
+
+```{r, eval = F}
+
+output_vector <- vector("double", ncol(df))
+output_list <- vector(mode = "list", length = ncol(df))
+new_output_vector <- NULL
+new_output_vector2 <- NULL
+
+
+mbm <- microbenchmark::microbenchmark(
+df_input_vector_output = for (i in 1:ncol(df)) {
+  output_vector[[i]] <- mean(df[[i]]) 
+}, 
+list_input_vector_output = for (i in length(df_list)) {           
+    output_vector[[i]] <- mean(df_list[[i]])      
+}, 
+df_input_build_vector =  for (i in 1:ncol(df)){             
+    
+    new_output_vector <- c(new_output_vector, mean(df[[i]])) # each new calculation is concatenated onto the end of the growing vector
+}, 
+list_input_build_vector = for (i in 1:length(df_list)){             
+    
+   new_output_vector2 <- c(new_output_vector2, mean(df[[i]])) # each new calculation is concatenated onto the end of the growing vector
+}
+)
+
 mbm
+
+```
+
+```
+Unit: milliseconds
+                     expr      min       lq     mean   median       uq      max neval
+   df_input_vector_output 2.295303 2.401428 2.617219 2.447673 2.556309 12.36447   100
+ list_input_vector_output 1.877293 1.946628 2.135324 1.997003 2.071233 12.31188   100
+    df_input_build_vector 2.351764 2.411968 2.604022 2.455673 2.531924 13.46052   100
+  list_input_build_vector 2.204953 2.297524 2.691931 2.351203 2.419803 12.77457   100
 
 ```
 
 
 
 ```{r}
+
 
 autoplot(mbm)
 

@@ -184,7 +184,7 @@
 <h2>
 <span class="header-section-number">16.2</span> extract<a class="anchor" aria-label="anchor" href="#extract"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">species</span>,</span>
 <span>          into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"full_latin_name"</span><span class="op">)</span>,</span>
@@ -192,7 +192,7 @@
 <span>          <span class="op">)</span></span></code></pre></div>
 <p>This approach reaches its limits quite quickly - note here it has left an ugly <code>)</code> on the end of the second column. There are also issues when we lack a clear separator to distinguish the columns we want to create. For these use cases we have extract.</p>
 <p>Now suppose you want to separate the common names and latin names of the species variable by regex:</p>
-<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">species</span>,</span>
 <span>          into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"full_latin_name"</span><span class="op">)</span>,</span>

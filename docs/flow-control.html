@@ -318,67 +318,6 @@ character “a”?
 <p>For <code>p = 1.5</code> it probably <em>shouldn't</em> run (p = 1.5 makes no sense), but it does!</p>
 <p>For <code>p = "a"</code> there is a warning but perhaps not a very intuitive one.</p>
 <p>We can make our own custom/specific warnings, try this and run it with the arguments above again!</p>
-<button id="displayTextunnamed-chunk-44" onclick="javascript:toggle('unnamed-chunk-44');">
-Show Solution
-</button>
-<div id="toggleTextunnamed-chunk-44" style="display: none">
-<div class="panel panel-default">
-<div class="panel-heading panel-heading1">
-Solution
-</div>
-<div class="panel-body">
-<div class="tab">
-<button class="tablinksunnamed-chunk-44 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-44', 'unnamed-chunk-44');">
-Base R
-</button>
-<button class="tablinksunnamed-chunk-44" onclick="javascript:openCode(event, 'option2unnamed-chunk-44', 'unnamed-chunk-44');">
-<tt>tidyverse</tt>
-</button>
-</div>
-<div id="option1unnamed-chunk-44" class="tabcontentunnamed-chunk-44">
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   </span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">p</span> <span class="op">&lt;=</span> <span class="fl">0</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot less 0"</span><span class="op">)</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">p</span> <span class="op">&gt;=</span> <span class="fl">1</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot be greater than 1"</span><span class="op">)</span></span>
-<span>   </span>
-<span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span>,</span>
-<span>             <span class="st">"p &lt; 0.001"</span>,</span>
-<span>             <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
-<span> <span class="op">}</span></span></code></pre></div>
-</div>
-<div id="option2unnamed-chunk-44" class="tabcontentunnamed-chunk-44">
-<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span> </span>
-<span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
-<span> </span>
-<span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
-<span>       <span class="va">p</span> <span class="op">&lt;=</span> <span class="fl">0</span> <span class="op">~</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot be less than or equal to 0"</span><span class="op">)</span>,</span>
-<span>       <span class="va">p</span> <span class="op">&gt;=</span> <span class="fl">1</span> <span class="op">~</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot be greater than or equal to 1"</span><span class="op">)</span>,</span>
-<span>       <span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span> <span class="op">~</span> <span class="st">"p &lt; 0.001"</span>,</span>
-<span>       <span class="cn">TRUE</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span><span class="op">)</span></span>
-<span>   <span class="op">)</span></span>
-<span>   </span>
-<span>   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-</div>
-<script> javascript:hide('option2unnamed-chunk-44') </script>
-</div>
-</div>
-</div>
-</div>
-<div id="activities" class="section level2" number="8.3">
-<h2>
-<span class="header-section-number">8.3</span> Activities<a class="anchor" aria-label="anchor" href="#activities"><i class="fas fa-link"></i></a>
-</h2>
-<p>Exercise 1: Write a Simple Function
-We'll create a function that calculates the GC content of a DNA sequence, and the result melting temperature of the sequence and returns both in a list. GC content is the percentage of the DNA molecule's nitrogenous bases that are either guanine (G) or cytosine (C). This is a common metric used in molecular biology and genetics to analyze DNA sequences. Each GC base addes 4 degrees to melting temp while each AT base adds 2 degrees.</p>
-<blockquote>
-<p>Hint<code>stringr</code> and associated functions will be very helpful here</p>
-</blockquote>
 <button id="displayTextunnamed-chunk-45" onclick="javascript:toggle('unnamed-chunk-45');">
 Show Solution
 </button>
@@ -397,6 +336,67 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
+<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
+<span>   </span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">p</span> <span class="op">&lt;=</span> <span class="fl">0</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot less 0"</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">p</span> <span class="op">&gt;=</span> <span class="fl">1</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot be greater than 1"</span><span class="op">)</span></span>
+<span>   </span>
+<span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span>,</span>
+<span>             <span class="st">"p &lt; 0.001"</span>,</span>
+<span>             <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
+<span> <span class="op">}</span></span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
+<span> </span>
+<span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
+<span> </span>
+<span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>       <span class="va">p</span> <span class="op">&lt;=</span> <span class="fl">0</span> <span class="op">~</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot be less than or equal to 0"</span><span class="op">)</span>,</span>
+<span>       <span class="va">p</span> <span class="op">&gt;=</span> <span class="fl">1</span> <span class="op">~</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot be greater than or equal to 1"</span><span class="op">)</span>,</span>
+<span>       <span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span> <span class="op">~</span> <span class="st">"p &lt; 0.001"</span>,</span>
+<span>       <span class="cn">TRUE</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span><span class="op">)</span></span>
+<span>   <span class="op">)</span></span>
+<span>   </span>
+<span>   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<script> javascript:hide('option2unnamed-chunk-45') </script>
+</div>
+</div>
+</div>
+</div>
+<div id="activities" class="section level2" number="8.3">
+<h2>
+<span class="header-section-number">8.3</span> Activities<a class="anchor" aria-label="anchor" href="#activities"><i class="fas fa-link"></i></a>
+</h2>
+<p>Exercise 1: Write a Simple Function
+We'll create a function that calculates the GC content of a DNA sequence, and the result melting temperature of the sequence and returns both in a list. GC content is the percentage of the DNA molecule's nitrogenous bases that are either guanine (G) or cytosine (C). This is a common metric used in molecular biology and genetics to analyze DNA sequences. Each GC base addes 4 degrees to melting temp while each AT base adds 2 degrees.</p>
+<blockquote>
+<p>Hint<code>stringr</code> and associated functions will be very helpful here</p>
+</blockquote>
+<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-46" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="tab">
+<button class="tablinksunnamed-chunk-46 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-46', 'unnamed-chunk-46');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-46" onclick="javascript:openCode(event, 'option2unnamed-chunk-46', 'unnamed-chunk-46');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
 <div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
@@ -430,7 +430,7 @@ Base R
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
+<div id="option2unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
 <div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
@@ -463,16 +463,16 @@ Base R
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-45') </script>
+<script> javascript:hide('option2unnamed-chunk-46') </script>
 </div>
 </div>
 </div>
 <p>Exercise 2: Document the Function
 Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.</p>
-<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">
+<button id="displayTextunnamed-chunk-47" onclick="javascript:toggle('unnamed-chunk-47');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-46" style="display: none">
+<div id="toggleTextunnamed-chunk-47" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
@@ -484,10 +484,10 @@ Solution
 </div>
 <p>Exercise 3: Test the Function
 Create a test script that uses test_that to check if the function returns the correct GC percentage and melting temps</p>
-<button id="displayTextunnamed-chunk-47" onclick="javascript:toggle('unnamed-chunk-47');">
+<button id="displayTextunnamed-chunk-48" onclick="javascript:toggle('unnamed-chunk-48');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-47" style="display: none">
+<div id="toggleTextunnamed-chunk-48" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
@@ -500,30 +500,30 @@ Solution
 <span>    <span class="va">result1</span> <span class="op">&lt;-</span> <span class="fu">gc_content</span><span class="op">(</span><span class="va">dna_seq1</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">`GC Percentage`</span>, <span class="fl">50</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">`Melting temp (celsius)`</span>, <span class="fl">30</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Test passed 🎉</code></pre>
+<pre><code>## Test passed 😸</code></pre>
 </div>
 </div>
 </div>
 <p>Exercise 4: Handle Errors
 You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?</p>
-<button id="displayTextunnamed-chunk-48" onclick="javascript:toggle('unnamed-chunk-48');">
+<button id="displayTextunnamed-chunk-49" onclick="javascript:toggle('unnamed-chunk-49');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-48" style="display: none">
+<div id="toggleTextunnamed-chunk-49" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
 <div class="tab">
-<button class="tablinksunnamed-chunk-48 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-48', 'unnamed-chunk-48');">
+<button class="tablinksunnamed-chunk-49 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-49', 'unnamed-chunk-49');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-48" onclick="javascript:openCode(event, 'option2unnamed-chunk-48', 'unnamed-chunk-48');">
+<button class="tablinksunnamed-chunk-49" onclick="javascript:openCode(event, 'option2unnamed-chunk-49', 'unnamed-chunk-49');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-48" class="tabcontentunnamed-chunk-48">
+<div id="option1unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
 <div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
@@ -561,7 +561,7 @@ Base R
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-48" class="tabcontentunnamed-chunk-48">
+<div id="option2unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
 <div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
@@ -598,7 +598,7 @@ Base R
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-48') </script>
+<script> javascript:hide('option2unnamed-chunk-49') </script>
 </div>
 </div>
 </div>

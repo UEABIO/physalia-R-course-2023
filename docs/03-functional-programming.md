@@ -5,6 +5,8 @@
 
 
 
+
+
 Good simple intro: https://github.com/tomjemmett/nhs-r_conf_21-fp_workshop
 
 https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/
@@ -107,9 +109,9 @@ create a function called `fahr_to_kelvin` that converts temperature values from 
 The conversion is `temp_in_kelvin <- (temp_fahr - 32) * (5 / 9)) + 273.15`
  </div></div>
 
-<button id="displayTextunnamed-chunk-8" onclick="javascript:toggle('unnamed-chunk-8');">Show Solution</button>
+<button id="displayTextunnamed-chunk-9" onclick="javascript:toggle('unnamed-chunk-9');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-8" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-9" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 fahr_to_kelvin <- function(fahr) {
@@ -131,9 +133,9 @@ Write a function that performs this conversion and returns "both" kelvin and cel
  </div></div>
 
 
-<button id="displayTextunnamed-chunk-10" onclick="javascript:toggle('unnamed-chunk-10');">Show Solution</button>
+<button id="displayTextunnamed-chunk-11" onclick="javascript:toggle('unnamed-chunk-11');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-10" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-11" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 fahr_to_kelvin <- function(fahr) {
@@ -190,9 +192,9 @@ What happens when you try to put something in the brackets when **using** this f
 e.g. say_hello("Phil")
  </div></div>
 
-<button id="displayTextunnamed-chunk-14" onclick="javascript:toggle('unnamed-chunk-14');">Show Solution</button>
+<button id="displayTextunnamed-chunk-15" onclick="javascript:toggle('unnamed-chunk-15');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-14" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-15" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 Error in say_hello( or something similar, this function has not been set with any arguments, therefore it doesn't know what to do with any values provided to it. </div></div></div>
 
 Now lets try a similar function, but we include an argument:
@@ -214,9 +216,9 @@ say_morning("Phil")
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 What happens when you DO NOT put something in the brackets when using this function? </div></div>
 
-<button id="displayTextunnamed-chunk-17" onclick="javascript:toggle('unnamed-chunk-17');">Show Solution</button>
+<button id="displayTextunnamed-chunk-18" onclick="javascript:toggle('unnamed-chunk-18');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-17" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-18" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 Error in paste("Good morning", x) : 
@@ -267,9 +269,9 @@ Now, you can use `my_mean(x)` to calculate the mean while always ignoring `NA` v
 
 What happens when you try to use your new function `my_mean` and set na.rm  = F?
 
-<button id="displayTextunnamed-chunk-21" onclick="javascript:toggle('unnamed-chunk-21');">Show Solution</button>
+<button id="displayTextunnamed-chunk-22" onclick="javascript:toggle('unnamed-chunk-22');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-21" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-22" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```
 Error in my_mean(c(5, 6, 7, 8), na.rm = F) : unused argument (na.rm = F)
@@ -641,9 +643,9 @@ For `p = "a"` there is a warning but perhaps not a very intuitive one.
 We can make our own custom/specific warnings, try this and run it with the arguments above again! 
 
 
-<button id="displayTextunnamed-chunk-44" onclick="javascript:toggle('unnamed-chunk-44');">Show Solution</button>
+<button id="displayTextunnamed-chunk-45" onclick="javascript:toggle('unnamed-chunk-45');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-44" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-44 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-44', 'unnamed-chunk-44');">Base R</button><button class="tablinksunnamed-chunk-44" onclick="javascript:openCode(event, 'option2unnamed-chunk-44', 'unnamed-chunk-44');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-44" class="tabcontentunnamed-chunk-44">
+<div id="toggleTextunnamed-chunk-45" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-45 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-45', 'unnamed-chunk-45');">Base R</button><button class="tablinksunnamed-chunk-45" onclick="javascript:openCode(event, 'option2unnamed-chunk-45', 'unnamed-chunk-45');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
 
 ```r
  report_p <- function(p, digits = 3) {
@@ -658,7 +660,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
      return(reported)
  }
 ```
- </div><div id="option2unnamed-chunk-44" class="tabcontentunnamed-chunk-44">
+ </div><div id="option2unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
  
  
  ```r
@@ -676,7 +678,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
     return(result)
  }
  ```
- </div><script> javascript:hide('option2unnamed-chunk-44') </script></div></div></div>
+ </div><script> javascript:hide('option2unnamed-chunk-45') </script></div></div></div>
 
 
 ## Activities
@@ -686,9 +688,9 @@ We'll create a function that calculates the GC content of a DNA sequence, and th
 
 > Hint`stringr` and associated functions will be very helpful here
 
-<button id="displayTextunnamed-chunk-45" onclick="javascript:toggle('unnamed-chunk-45');">Show Solution</button>
+<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-45" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-45 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-45', 'unnamed-chunk-45');">Base R</button><button class="tablinksunnamed-chunk-45" onclick="javascript:openCode(event, 'option2unnamed-chunk-45', 'unnamed-chunk-45');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
+<div id="toggleTextunnamed-chunk-46" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-46 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-46', 'unnamed-chunk-46');">Base R</button><button class="tablinksunnamed-chunk-46" onclick="javascript:openCode(event, 'option2unnamed-chunk-46', 'unnamed-chunk-46');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -723,7 +725,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
+</div><div id="option2unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -757,14 +759,14 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-45') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-46') </script></div></div></div>
 
 Exercise 2: Document the Function
 Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.
 
-<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">Show Solution</button>
+<button id="displayTextunnamed-chunk-47" onclick="javascript:toggle('unnamed-chunk-47');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-46" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-47" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 
 </div></div></div>
@@ -772,9 +774,9 @@ Add documentation to the factorial function using roxygen2-style comments. Inclu
 Exercise 3: Test the Function
 Create a test script that uses test_that to check if the function returns the correct GC percentage and melting temps
 
-<button id="displayTextunnamed-chunk-47" onclick="javascript:toggle('unnamed-chunk-47');">Show Solution</button>
+<button id="displayTextunnamed-chunk-48" onclick="javascript:toggle('unnamed-chunk-48');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-47" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-48" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 test_that("gc_content function tests", {
@@ -786,16 +788,16 @@ test_that("gc_content function tests", {
 ```
 
 ```
-## Test passed 🎉
+## Test passed 😸
 ```
 </div></div></div>
 
 Exercise 4: Handle Errors
 You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?
 
-<button id="displayTextunnamed-chunk-48" onclick="javascript:toggle('unnamed-chunk-48');">Show Solution</button>
+<button id="displayTextunnamed-chunk-49" onclick="javascript:toggle('unnamed-chunk-49');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-48" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-48 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-48', 'unnamed-chunk-48');">Base R</button><button class="tablinksunnamed-chunk-48" onclick="javascript:openCode(event, 'option2unnamed-chunk-48', 'unnamed-chunk-48');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-48" class="tabcontentunnamed-chunk-48">
+<div id="toggleTextunnamed-chunk-49" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-49 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-49', 'unnamed-chunk-49');">Base R</button><button class="tablinksunnamed-chunk-49" onclick="javascript:openCode(event, 'option2unnamed-chunk-49', 'unnamed-chunk-49');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -834,7 +836,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-48" class="tabcontentunnamed-chunk-48">
+</div><div id="option2unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -872,7 +874,7 @@ if (!str_detect(dna_sequence, "^[ATCG]+$")) stop("Invalid DNA sequence. Only A, 
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-48') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-49') </script></div></div></div>
 
 
 
@@ -933,9 +935,9 @@ What do you think will happen if you set both times to 3 and each to 2?
 rep(c("Adelie", "Gentoo", "Chinstrap"), times = 2, each = 3)
 ```
 
-<button id="displayTextunnamed-chunk-53" onclick="javascript:toggle('unnamed-chunk-53');">Show Solution</button>
+<button id="displayTextunnamed-chunk-54" onclick="javascript:toggle('unnamed-chunk-54');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-53" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-54" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```
 ##  [1] "Adelie"    "Adelie"    "Adelie"    "Gentoo"    "Gentoo"    "Gentoo"   
@@ -1013,12 +1015,12 @@ replicate(3, # times to replicate function
 ```
 
 ```
-##            [,1]       [,2]       [,3]
-## [1,]  1.2177639  2.3008201  0.9717606
-## [2,] -0.3614238 -0.3141361  0.8596532
-## [3,]  0.9482401  4.5944154 -0.3462956
-## [4,]  0.9304984 -0.4653099  0.5355213
-## [5,]  0.8044913  0.6334838  0.5171776
+##             [,1]     [,2]     [,3]
+## [1,]  1.18613253 2.507322 1.248218
+## [2,]  0.22056437 1.175584 1.518531
+## [3,]  3.30310412 1.297505 3.273196
+## [4,]  0.81799170 1.889960 1.797920
+## [5,] -0.02319488 2.138748 2.156007
 ```
 
 https://www.r-bloggers.com/2023/07/the-replicate-function-in-r/
@@ -1215,6 +1217,7 @@ Pre-allocating the output with the appropriate length before the loop avoids rea
 
 
 
+
 ```r
 output2 <- NULL
 
@@ -1227,16 +1230,17 @@ microbenchmark::microbenchmark(
 output2 # note because we did not predefine our vector length it continues to grow! 
 ```
 
+Depending on your own computer processing power you may get different results - but here
+
 | |Built inside loop|pre-initialised vector|
 |-----|-----|-----|
-|min|2.41ms	| 2.37ms|
-|max|	9.73ms|8.99ms|
-|mean|	2.71ms|2.72 ms|
-|median|	2.56ms|2.49ms|
+|min|2.38ms	| 2.29ms|
+|max|	19.19ms|12.64ms|
+|mean|	3.4ms|2.55 ms|
+|median|	2.71ms|2.42ms|
 
 
 ### simple datatypes
-
 
 
 
@@ -1257,14 +1261,20 @@ Depending on your own computer processing power you may get different results - 
 
 | |List|Tibble|
 |-----|-----|-----|
-|min|1.92ms	| 2.37ms|
-|max|	8.49ms|8.99ms|
-|mean|	2.07ms|2.72 ms|
-|median|	1.99ms|2.49ms|
+|min|1.92ms	| 2.38ms|
+|max|	12.6ms|19.19ms|
+|mean|	2.53ms|2.55 ms|
+|median|	2.41ms|2.42ms|
 
 ### Visualise speed
 
 The `microbenchmark` package has some other useful features including the ability to run multiple functions for comparison simultaneously and with integration with ggplot2 we can plot these results
+
+
+
+
+
+
 
 
 ```r
@@ -1291,416 +1301,18 @@ list_input_build_vector = for (i in 1:length(df_list)){
 }
 )
 
-
 mbm
 ```
 
-<div class="kable-table">
+```
+Unit: milliseconds
+                     expr      min       lq     mean   median       uq      max neval
+   df_input_vector_output 2.295303 2.401428 2.617219 2.447673 2.556309 12.36447   100
+ list_input_vector_output 1.877293 1.946628 2.135324 1.997003 2.071233 12.31188   100
+    df_input_build_vector 2.351764 2.411968 2.604022 2.455673 2.531924 13.46052   100
+  list_input_build_vector 2.204953 2.297524 2.691931 2.351203 2.419803 12.77457   100
 
-|expr                     |     time|
-|:------------------------|--------:|
-|df_input_vector_output   |  3700455|
-|df_input_vector_output   |  2736544|
-|list_input_vector_output |  4887727|
-|list_input_build_vector  |  2648324|
-|list_input_vector_output |  2050003|
-|df_input_build_vector    |  2644714|
-|list_input_vector_output |  2289893|
-|df_input_build_vector    |  2781254|
-|df_input_build_vector    |  2944694|
-|list_input_vector_output |  2345794|
-|list_input_vector_output |  2488113|
-|df_input_build_vector    |  2888934|
-|df_input_build_vector    |  2632414|
-|df_input_build_vector    |  2496594|
-|list_input_build_vector  |  2843114|
-|df_input_build_vector    |  3140114|
-|df_input_build_vector    |  3353495|
-|list_input_vector_output |  2587624|
-|list_input_vector_output |  2585574|
-|df_input_build_vector    |  3164345|
-|list_input_build_vector  |  2961914|
-|list_input_vector_output |  2567674|
-|df_input_vector_output   |  3123275|
-|list_input_build_vector  |  2989364|
-|df_input_build_vector    |  3052294|
-|list_input_build_vector  |  3162885|
-|df_input_vector_output   |  3509025|
-|df_input_vector_output   |  3152144|
-|list_input_build_vector  |  3035225|
-|list_input_build_vector  |  3027884|
-|df_input_build_vector    |  3643455|
-|list_input_vector_output |  2696574|
-|list_input_build_vector  |  3133235|
-|df_input_vector_output   |  3239244|
-|df_input_vector_output   |  3142195|
-|df_input_build_vector    |  7204220|
-|df_input_vector_output   |  2649514|
-|df_input_build_vector    |  2458113|
-|list_input_vector_output |  2202103|
-|list_input_vector_output |  2009902|
-|list_input_vector_output |  2350934|
-|df_input_vector_output   |  2839884|
-|df_input_vector_output   |  2897504|
-|list_input_build_vector  |  2860694|
-|df_input_vector_output   |  3219855|
-|list_input_build_vector  |  2602344|
-|list_input_build_vector  |  2401003|
-|df_input_vector_output   |  2585544|
-|df_input_vector_output   |  2891994|
-|df_input_build_vector    |  2606854|
-|df_input_build_vector    |  2700984|
-|df_input_build_vector    |  2762624|
-|list_input_vector_output |  1986554|
-|list_input_vector_output |  2121183|
-|list_input_vector_output |  2251294|
-|list_input_vector_output |  2136683|
-|df_input_build_vector    |  2513773|
-|list_input_build_vector  |  2431144|
-|df_input_build_vector    |  2615294|
-|list_input_vector_output |  2016122|
-|df_input_build_vector    |  2579313|
-|df_input_vector_output   |  3399755|
-|list_input_build_vector  |  2756874|
-|df_input_build_vector    |  2518774|
-|df_input_vector_output   |  2559903|
-|df_input_build_vector    |  2575914|
-|df_input_build_vector    |  2745074|
-|list_input_vector_output |  2017633|
-|list_input_build_vector  |  2549043|
-|df_input_build_vector    |  2538143|
-|df_input_build_vector    |  2469084|
-|list_input_vector_output | 10142374|
-|list_input_build_vector  |  2451834|
-|df_input_vector_output   |  2683584|
-|list_input_build_vector  |  2942724|
-|list_input_vector_output |  2317333|
-|list_input_build_vector  |  2532974|
-|df_input_build_vector    |  2969014|
-|df_input_vector_output   |  2516734|
-|list_input_build_vector  |  2796254|
-|df_input_vector_output   |  3104334|
-|list_input_vector_output |  2131963|
-|df_input_build_vector    |  2711834|
-|df_input_build_vector    |  2794434|
-|list_input_build_vector  |  2313394|
-|df_input_build_vector    |  2613764|
-|df_input_build_vector    |  2593604|
-|df_input_build_vector    |  2534574|
-|df_input_vector_output   |  2543703|
-|list_input_vector_output |  2335784|
-|list_input_build_vector  |  2381283|
-|df_input_vector_output   |  2684194|
-|list_input_build_vector  |  2440663|
-|df_input_vector_output   |  2558093|
-|df_input_build_vector    |  2594044|
-|df_input_vector_output   |  2507104|
-|list_input_vector_output |  2101894|
-|df_input_vector_output   |  2705215|
-|list_input_build_vector  |  2469473|
-|list_input_vector_output |  2234813|
-|df_input_build_vector    |  2601504|
-|list_input_vector_output |  2102283|
-|df_input_vector_output   |  2527443|
-|df_input_vector_output   |  3058944|
-|list_input_vector_output |  2252713|
-|list_input_vector_output |  2019533|
-|df_input_build_vector    |  6476979|
-|list_input_build_vector  |  2357254|
-|list_input_build_vector  |  2532223|
-|list_input_build_vector  |  2555293|
-|df_input_build_vector    |  2399883|
-|list_input_vector_output |  2032354|
-|df_input_vector_output   |  2606533|
-|list_input_vector_output |  2145553|
-|list_input_vector_output |  2177973|
-|list_input_build_vector  |  2401183|
-|df_input_build_vector    |  2694284|
-|df_input_vector_output   |  2522213|
-|list_input_vector_output |  2536354|
-|list_input_vector_output |  2124073|
-|df_input_build_vector    |  3281905|
-|df_input_build_vector    |  2884884|
-|list_input_build_vector  |  4015206|
-|df_input_build_vector    |  4030805|
-|list_input_vector_output |  2240374|
-|df_input_vector_output   |  2717064|
-|df_input_build_vector    |  2626913|
-|df_input_build_vector    |  3032285|
-|df_input_build_vector    |  3679035|
-|list_input_build_vector  |  4033676|
-|list_input_vector_output |  3732035|
-|list_input_build_vector  |  2550214|
-|list_input_vector_output |  2562264|
-|df_input_vector_output   |  2835973|
-|list_input_vector_output |  2137234|
-|list_input_build_vector  |  2429013|
-|list_input_vector_output |  1999653|
-|list_input_build_vector  |  2662044|
-|df_input_vector_output   |  2644444|
-|list_input_vector_output |  1974963|
-|df_input_build_vector    |  2537334|
-|df_input_vector_output   |  2606274|
-|df_input_build_vector    |  6374999|
-|df_input_vector_output   |  2626604|
-|df_input_build_vector    |  2463003|
-|df_input_build_vector    |  2517094|
-|df_input_build_vector    |  2535673|
-|list_input_vector_output |  1952562|
-|list_input_vector_output |  2100233|
-|list_input_vector_output |  1966042|
-|list_input_vector_output |  2041603|
-|df_input_vector_output   |  2531584|
-|df_input_build_vector    |  2702054|
-|df_input_vector_output   |  2494433|
-|list_input_build_vector  |  2273914|
-|list_input_vector_output |  2086183|
-|df_input_build_vector    |  2399964|
-|df_input_build_vector    |  2528424|
-|list_input_build_vector  |  2372973|
-|list_input_build_vector  |  2307133|
-|df_input_vector_output   |  2521154|
-|df_input_build_vector    |  2528084|
-|df_input_build_vector    |  2875874|
-|df_input_build_vector    |  2580244|
-|list_input_build_vector  |  2340363|
-|df_input_build_vector    |  2846904|
-|list_input_vector_output |  2324683|
-|df_input_vector_output   |  3573045|
-|df_input_build_vector    |  3372565|
-|list_input_vector_output |  2880254|
-|df_input_vector_output   |  3080405|
-|list_input_vector_output |  2250223|
-|list_input_build_vector  |  2694514|
-|df_input_build_vector    |  2657014|
-|df_input_build_vector    |  2500813|
-|list_input_vector_output |  2321574|
-|list_input_vector_output |  2181843|
-|df_input_build_vector    |  2898874|
-|df_input_vector_output   |  7032490|
-|list_input_build_vector  |  2465223|
-|df_input_build_vector    |  2535903|
-|list_input_vector_output |  2152283|
-|list_input_vector_output |  1984883|
-|df_input_vector_output   |  2540414|
-|list_input_vector_output |  1991743|
-|list_input_build_vector  |  2652283|
-|df_input_vector_output   |  2735553|
-|list_input_vector_output |  2191093|
-|df_input_build_vector    |  2626213|
-|df_input_build_vector    |  2517164|
-|list_input_vector_output |  1957193|
-|list_input_vector_output |  2216493|
-|df_input_build_vector    |  2521513|
-|list_input_build_vector  |  2403743|
-|df_input_build_vector    |  2495843|
-|list_input_build_vector  |  2285254|
-|list_input_build_vector  |  2365383|
-|list_input_build_vector  |  2256974|
-|list_input_build_vector  |  2351283|
-|list_input_build_vector  |  2337103|
-|list_input_build_vector  |  2420144|
-|df_input_vector_output   |  2560103|
-|df_input_vector_output   |  2638094|
-|list_input_vector_output |  2121443|
-|df_input_vector_output   |  2427324|
-|list_input_vector_output |  2097873|
-|list_input_build_vector  |  2696884|
-|df_input_vector_output   |  2459493|
-|df_input_build_vector    |  2549154|
-|list_input_build_vector  |  2397283|
-|list_input_vector_output |  2064673|
-|list_input_vector_output |  2625774|
-|df_input_vector_output   |  2728324|
-|list_input_build_vector  |  2520984|
-|df_input_build_vector    |  6528490|
-|df_input_vector_output   |  2435334|
-|df_input_build_vector    |  2478754|
-|df_input_vector_output   |  2419543|
-|df_input_build_vector    |  2547454|
-|df_input_build_vector    |  2571734|
-|list_input_build_vector  |  2912274|
-|df_input_vector_output   |  2568834|
-|df_input_build_vector    |  2685903|
-|df_input_vector_output   |  2511894|
-|df_input_build_vector    |  2563624|
-|df_input_vector_output   |  2491494|
-|list_input_vector_output |  2095103|
-|list_input_build_vector  |  2434993|
-|list_input_vector_output |  1954273|
-|list_input_build_vector  |  2393853|
-|list_input_build_vector  |  2594494|
-|list_input_build_vector  |  2677564|
-|list_input_build_vector  |  2442273|
-|list_input_vector_output |  1968543|
-|df_input_build_vector    |  2779834|
-|list_input_vector_output |  2026833|
-|list_input_build_vector  |  2453564|
-|list_input_build_vector  |  2758095|
-|list_input_vector_output |  2018702|
-|df_input_build_vector    |  2864585|
-|list_input_build_vector  |  2400573|
-|list_input_vector_output |  1964633|
-|df_input_vector_output   |  2560393|
-|list_input_vector_output |  1940572|
-|df_input_build_vector    |  2508424|
-|list_input_vector_output |  2009333|
-|list_input_vector_output |  2049333|
-|df_input_build_vector    |  2459483|
-|df_input_build_vector    |  2417694|
-|list_input_vector_output |  2148643|
-|list_input_vector_output |  5638548|
-|df_input_build_vector    |  2536744|
-|list_input_build_vector  |  2283333|
-|list_input_build_vector  |  2357543|
-|df_input_vector_output   |  2615054|
-|df_input_build_vector    |  2442244|
-|df_input_build_vector    |  2518153|
-|list_input_build_vector  |  2536234|
-|df_input_build_vector    |  2584183|
-|list_input_build_vector  |  2451654|
-|list_input_build_vector  |  2286493|
-|df_input_vector_output   |  2442214|
-|df_input_build_vector    |  2627103|
-|list_input_vector_output |  2070603|
-|df_input_vector_output   |  2513464|
-|df_input_vector_output   |  2413984|
-|list_input_build_vector  |  2381254|
-|list_input_vector_output |  1989263|
-|df_input_build_vector    |  2549274|
-|df_input_vector_output   |  2515734|
-|list_input_vector_output |  1955283|
-|list_input_build_vector  |  2472304|
-|list_input_build_vector  |  2308184|
-|list_input_build_vector  |  2416503|
-|list_input_build_vector  |  2264064|
-|df_input_vector_output   |  2455454|
-|list_input_build_vector  |  2337253|
-|df_input_vector_output   |  2370814|
-|df_input_vector_output   |  2707934|
-|df_input_vector_output   |  2428413|
-|list_input_build_vector  |  2293824|
-|list_input_build_vector  |  2452653|
-|list_input_vector_output |  2005103|
-|df_input_build_vector    |  2754964|
-|list_input_build_vector  |  2273353|
-|list_input_build_vector  |  6076879|
-|df_input_vector_output   |  2496343|
-|list_input_build_vector  |  2258634|
-|list_input_build_vector  |  2442183|
-|df_input_build_vector    |  2431924|
-|list_input_vector_output |  2173153|
-|list_input_vector_output |  2113413|
-|list_input_build_vector  |  2625744|
-|df_input_vector_output   |  2512024|
-|df_input_build_vector    |  2550714|
-|list_input_build_vector  |  2424833|
-|df_input_vector_output   |  2465634|
-|df_input_vector_output   |  2368923|
-|df_input_build_vector    |  2723844|
-|list_input_build_vector  |  2279043|
-|list_input_vector_output |  2006563|
-|df_input_vector_output   |  2493404|
-|list_input_build_vector  |  2466924|
-|df_input_build_vector    |  2501403|
-|df_input_build_vector    |  2468394|
-|df_input_vector_output   |  2451103|
-|df_input_vector_output   |  2480774|
-|df_input_vector_output   |  2436373|
-|df_input_build_vector    |  2491264|
-|df_input_vector_output   |  2495443|
-|list_input_build_vector  |  2322804|
-|list_input_build_vector  |  2542463|
-|df_input_vector_output   |  2465714|
-|list_input_vector_output |  2055243|
-|list_input_build_vector  |  2277413|
-|list_input_vector_output |  2018893|
-|list_input_vector_output |  1936383|
-|df_input_vector_output   |  2423303|
-|df_input_build_vector    |  2579664|
-|df_input_build_vector    |  2716054|
-|list_input_vector_output |  2123903|
-|df_input_vector_output   |  6220929|
-|df_input_build_vector    |  2507574|
-|list_input_vector_output |  2013782|
-|df_input_build_vector    |  2409034|
-|df_input_vector_output   |  2568093|
-|list_input_vector_output |  1951183|
-|df_input_build_vector    |  2516814|
-|list_input_vector_output |  2047913|
-|list_input_vector_output |  2198023|
-|list_input_build_vector  |  2408283|
-|list_input_vector_output |  1997953|
-|list_input_build_vector  |  2535644|
-|list_input_build_vector  |  2344553|
-|list_input_vector_output |  2447874|
-|df_input_vector_output   |  2504113|
-|list_input_vector_output |  1990822|
-|list_input_build_vector  |  2355184|
-|df_input_vector_output   |  2383523|
-|df_input_vector_output   |  2687314|
-|df_input_vector_output   |  2862074|
-|df_input_build_vector    |  2469694|
-|list_input_build_vector  |  2426113|
-|df_input_build_vector    |  2678184|
-|df_input_vector_output   |  2637264|
-|list_input_vector_output |  2097423|
-|df_input_vector_output   |  2607713|
-|df_input_vector_output   |  2606843|
-|list_input_build_vector  |  2521744|
-|list_input_build_vector  |  2344733|
-|list_input_build_vector  |  2443264|
-|list_input_vector_output |  1981673|
-|df_input_vector_output   |  2690124|
-|list_input_build_vector  |  2458913|
-|df_input_build_vector    |  2503514|
-|df_input_build_vector    |  2682554|
-|df_input_vector_output   |  6511660|
-|list_input_vector_output |  2011363|
-|list_input_vector_output |  2329833|
-|list_input_vector_output |  2842654|
-|list_input_vector_output |  2532014|
-|df_input_vector_output   |  2690234|
-|df_input_build_vector    |  2558473|
-|df_input_vector_output   |  3088985|
-|list_input_build_vector  |  2928324|
-|list_input_vector_output |  2484834|
-|df_input_vector_output   |  2626873|
-|df_input_build_vector    |  2605064|
-|list_input_build_vector  |  2297953|
-|list_input_build_vector  |  2422414|
-|list_input_vector_output |  2009833|
-|df_input_build_vector    |  2612143|
-|df_input_build_vector    |  2532054|
-|list_input_build_vector  |  2254173|
-|df_input_vector_output   |  2477084|
-|list_input_build_vector  |  2240823|
-|df_input_vector_output   |  2453414|
-|df_input_vector_output   |  2456393|
-|list_input_build_vector  |  2661014|
-|df_input_vector_output   |  3142685|
-|df_input_vector_output   |  2508654|
-|list_input_vector_output |  2628484|
-|df_input_vector_output   |  3874185|
-|df_input_vector_output   |  3048425|
-|df_input_vector_output   |  2498084|
-|list_input_build_vector  |  2435413|
-|list_input_vector_output |  3375955|
-|df_input_vector_output   |  2937134|
-|df_input_vector_output   |  3799935|
-|df_input_vector_output   |  3563286|
-|list_input_build_vector  |  2784994|
-|df_input_vector_output   |  2875404|
-|df_input_vector_output   |  6814820|
-|list_input_build_vector  |  2630433|
-|list_input_vector_output |  2067203|
-|list_input_build_vector  |  2365154|
-|df_input_vector_output   |  2404003|
-|list_input_vector_output |  2042573|
-|df_input_vector_output   |  2415383|
-|list_input_vector_output |  2103503|
-
-</div>
+```
 
 
 
@@ -1709,7 +1321,7 @@ mbm
 autoplot(mbm)
 ```
 
-<img src="03-functional-programming_files/figure-html/unnamed-chunk-70-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-functional-programming_files/figure-html/unnamed-chunk-73-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1806,206 +1418,206 @@ microbenchmark::microbenchmark(
 
 |expr    |    time|
 |:-------|-------:|
-|forloop | 2571784|
-|forloop | 2108043|
-|apply   |   33630|
-|apply   |   25410|
-|apply   |   24020|
-|forloop | 2121023|
-|apply   |   29250|
-|apply   |   26810|
-|forloop | 2095003|
-|forloop | 2058423|
-|forloop | 2046783|
-|forloop | 2155313|
-|forloop | 2088573|
-|forloop | 1914703|
-|apply   |   29270|
-|forloop | 1990803|
-|apply   |   29290|
-|forloop | 1918322|
-|forloop | 1980853|
-|forloop | 1899083|
-|forloop | 1993493|
-|apply   |   29270|
-|forloop | 1952543|
-|apply   |   29310|
-|forloop | 2208543|
-|apply   |   28240|
-|forloop | 2413514|
-|forloop | 2658243|
-|forloop | 2189484|
-|forloop | 2174832|
-|apply   |   29749|
-|apply   |   24431|
-|apply   |   24550|
-|apply   |   24350|
-|apply   |   24750|
-|forloop | 2026663|
-|apply   |   36980|
-|forloop | 1892713|
-|apply   |   27040|
-|apply   |   24511|
-|forloop | 2026443|
-|forloop | 1995073|
-|apply   |   30240|
+|forloop | 2404954|
+|forloop | 2140683|
+|apply   |   32030|
+|apply   |   25270|
+|apply   |   23700|
+|forloop | 1975383|
+|apply   |   29630|
+|apply   |   24010|
+|forloop | 1984303|
+|forloop | 1912572|
+|forloop | 1940523|
+|forloop | 1896973|
+|forloop | 1935873|
+|forloop | 1881422|
+|apply   |   30030|
+|forloop | 1930013|
+|apply   |   27400|
+|forloop | 1876993|
+|forloop | 1977443|
+|forloop | 1886953|
+|forloop | 1953472|
+|apply   |   27960|
+|forloop | 1897633|
+|apply   |   26400|
+|forloop | 1913903|
+|apply   |   27640|
+|forloop | 1895112|
+|forloop | 1869572|
+|forloop | 1951833|
+|forloop | 1902123|
+|apply   |   27660|
 |apply   |   24100|
-|apply   |   24000|
-|apply   |   23521|
-|apply   |   23820|
-|forloop | 2085543|
-|forloop | 1896732|
-|forloop | 2170313|
-|apply   |   29250|
-|forloop | 1980763|
-|forloop | 2141923|
-|forloop | 2318674|
-|apply   |   29611|
-|apply   |   26290|
-|apply   |   23990|
-|apply   |   24310|
-|apply   |   24770|
-|forloop | 2096553|
-|forloop | 2041333|
-|forloop | 2080633|
-|apply   |   28490|
-|forloop | 2242523|
-|apply   |   29120|
-|apply   |   26050|
-|apply   |   25080|
-|apply   |   24960|
-|forloop | 2166083|
-|forloop | 2178383|
-|apply   |   86910|
-|forloop | 2063952|
-|apply   |   28429|
-|forloop | 2058554|
-|apply   |   28640|
-|apply   |   24529|
-|apply   |   24800|
-|apply   |   25100|
-|forloop | 2254663|
-|forloop | 2563764|
-|forloop | 2141103|
-|forloop | 9190103|
-|apply   |   31740|
-|apply   |   25720|
-|forloop | 2207533|
-|apply   |   30670|
-|apply   |   24230|
-|apply   |   33020|
-|forloop | 2548634|
-|forloop | 2943604|
-|forloop | 2575144|
-|forloop | 2308653|
-|apply   |   43850|
-|apply   |   26340|
-|forloop | 2093123|
-|forloop | 2193533|
-|forloop | 2051633|
-|apply   |   29650|
-|apply   |   25100|
-|apply   |   24860|
-|forloop | 2309114|
-|forloop | 2192723|
-|apply   |   29910|
-|forloop | 1885773|
-|apply   |   29390|
-|forloop | 1954923|
-|forloop | 2301213|
-|apply   |   29290|
-|apply   |   25140|
-|apply   |   23940|
-|forloop | 2086943|
-|forloop | 1969823|
-|forloop | 2020323|
-|apply   |   28640|
-|apply   |   24110|
-|forloop | 1958462|
-|apply   |   53989|
-|forloop | 2000812|
-|apply   |   27440|
-|forloop | 2006742|
-|forloop | 2337614|
-|forloop | 2043933|
-|forloop | 1978323|
-|apply   |   28380|
-|apply   |   24890|
-|apply   |   24690|
-|forloop | 1875602|
-|forloop | 2231444|
-|apply   |   29480|
-|apply   |   26641|
-|apply   |   24900|
-|apply   |   24710|
-|apply   |   24750|
-|apply   |   24210|
-|apply   |   24540|
-|forloop | 2017563|
-|apply   |   27670|
-|apply   |   24880|
-|forloop | 2014493|
-|forloop | 2042413|
-|apply   |   29210|
-|forloop | 2163403|
-|apply   |   28490|
-|apply   |   25030|
-|forloop | 2106083|
-|apply   |   29430|
-|apply   |   25220|
-|forloop | 2065493|
-|forloop | 1989923|
-|apply   |   70730|
-|apply   |   46970|
-|apply   |   25140|
-|forloop | 2081693|
-|forloop | 2229893|
-|apply   |   31440|
-|forloop | 2351923|
-|forloop | 2454133|
-|apply   |   28440|
-|apply   |   24980|
-|apply   |   24670|
-|forloop | 1980953|
-|apply   |   28770|
-|forloop | 2281753|
-|forloop | 2196094|
-|forloop | 2244673|
-|apply   |   31370|
-|forloop | 6129599|
-|apply   |   28900|
-|apply   |   24420|
-|apply   |   23960|
-|forloop | 1936342|
-|forloop | 1964173|
-|forloop | 1865893|
-|forloop | 1860043|
-|apply   |   27650|
-|apply   |   24600|
-|forloop | 1998263|
-|apply   |   46690|
-|apply   |   42410|
-|forloop | 2288253|
-|forloop | 2264573|
-|forloop | 1976193|
-|forloop | 2345994|
-|apply   |   30391|
-|forloop | 1992632|
-|apply   |   28889|
-|forloop | 1873562|
-|forloop | 2491804|
-|apply   |   29530|
-|forloop | 2043923|
-|apply   |   28720|
-|forloop | 2026143|
-|apply   |   28500|
-|forloop | 1888623|
-|forloop | 2042172|
-|forloop | 2118553|
-|apply   |   28110|
-|forloop | 1994642|
-|apply   |   29000|
+|apply   |   24040|
 |apply   |   24200|
+|apply   |   23580|
+|forloop | 2033713|
+|apply   |   27710|
+|forloop | 1914523|
+|apply   |   29590|
+|apply   |   25230|
+|forloop | 1992153|
+|forloop | 1893472|
+|apply   |   27480|
+|apply   |   24810|
+|apply   |   24369|
+|apply   |   23660|
+|apply   |   24060|
+|forloop | 1926883|
+|forloop | 1892233|
+|forloop | 1967193|
+|apply   |   28360|
+|forloop | 2598294|
+|forloop | 2188823|
+|forloop | 2048503|
+|apply   |   28940|
+|apply   |   26780|
+|apply   |   26010|
+|apply   |   26550|
+|apply   |   26120|
+|forloop | 2390223|
+|forloop | 2116753|
+|forloop | 2119144|
+|apply   |   31789|
+|forloop | 5765809|
+|apply   |   29760|
+|apply   |   24770|
+|apply   |   22990|
+|apply   |   23820|
+|forloop | 2664154|
+|forloop | 2036553|
+|apply   |   27980|
+|forloop | 1880652|
+|apply   |   28400|
+|forloop | 1951932|
+|apply   |   27600|
+|apply   |   24820|
+|apply   |   24750|
+|apply   |   23100|
+|forloop | 1870803|
+|forloop | 1957883|
+|forloop | 1877183|
+|forloop | 1938133|
+|apply   |   27620|
+|apply   |   24731|
+|forloop | 1872623|
+|apply   |   26490|
+|apply   |   25340|
+|apply   |   23690|
+|forloop | 1979233|
+|forloop | 1865793|
+|forloop | 1949352|
+|forloop | 1861672|
+|apply   |   27080|
+|apply   |   24390|
+|forloop | 1929803|
+|forloop | 1855933|
+|forloop | 1969803|
+|apply   |   27170|
+|apply   |   24720|
+|apply   |   23780|
+|forloop | 1874892|
+|forloop | 1958153|
+|apply   |   27800|
+|forloop | 1901753|
+|apply   |   27450|
+|forloop | 1995253|
+|forloop | 1916453|
+|apply   |   28200|
+|apply   |   26190|
+|apply   |   24720|
+|forloop | 2009823|
+|forloop | 1899882|
+|forloop | 1979183|
+|apply   |   27470|
+|apply   |   23810|
+|forloop | 1879153|
+|apply   |   27590|
+|forloop | 1977263|
+|apply   |   29010|
+|forloop | 1903243|
+|forloop | 2066943|
+|forloop | 1935173|
+|forloop | 1997693|
+|apply   |   27670|
+|apply   |   25950|
+|apply   |   24330|
+|forloop | 1956083|
+|forloop | 2098293|
+|apply   |   30240|
+|apply   |   27310|
+|apply   |   26110|
+|apply   |   30740|
+|apply   |   29800|
+|apply   |   27110|
+|apply   |   27529|
+|forloop | 5482237|
+|apply   |   28250|
+|apply   |   23801|
+|forloop | 2035222|
+|forloop | 1912843|
+|apply   |   28050|
+|forloop | 1938863|
+|apply   |   26810|
+|apply   |   23580|
+|forloop | 1861283|
+|apply   |   26790|
+|apply   |   23850|
+|forloop | 1906992|
+|forloop | 1883912|
+|apply   |   27020|
+|apply   |   24820|
+|apply   |   24350|
+|forloop | 1913553|
+|forloop | 1881493|
+|apply   |   27620|
+|forloop | 1875502|
+|forloop | 1926212|
+|apply   |   29530|
+|apply   |   24530|
+|apply   |   24090|
+|forloop | 1863083|
+|apply   |   27510|
+|forloop | 1949573|
+|forloop | 1859512|
+|forloop | 1975483|
+|apply   |   27770|
+|forloop | 1867733|
+|apply   |   26500|
+|apply   |   23810|
+|apply   |   23990|
+|forloop | 1973713|
+|forloop | 1873813|
+|forloop | 1940633|
+|forloop | 1881413|
+|apply   |   26540|
+|apply   |   24700|
+|forloop | 1972783|
+|apply   |   28460|
+|apply   |   27250|
+|forloop | 1911503|
+|forloop | 1998543|
+|forloop | 1937993|
+|forloop | 1941712|
+|apply   |   27540|
+|forloop | 1868382|
+|apply   |   28030|
+|forloop | 1948073|
+|forloop | 1899073|
+|apply   |   27790|
+|forloop | 2024693|
+|apply   |   28430|
+|forloop | 1922363|
+|apply   |   28909|
+|forloop | 1962173|
+|forloop | 1975283|
+|forloop | 2083433|
+|apply   |   30430|
+|forloop | 9263593|
+|apply   |   48051|
+|apply   |   24280|
 
 </div>
 
@@ -2155,9 +1767,9 @@ apply(df, MARGIN = 1, mean)
 Make a function that converts values with a normal distribution into their z scores </div></div>
 
 
-<button id="displayTextunnamed-chunk-78" onclick="javascript:toggle('unnamed-chunk-78');">Show Solution</button>
+<button id="displayTextunnamed-chunk-81" onclick="javascript:toggle('unnamed-chunk-81');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-78" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-81" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 z_score <- function(x) {
@@ -2170,9 +1782,9 @@ z_score <- function(x) {
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Choose the appropriate apply function to calculate a matrix of z-scores for the dataframe `df` </div></div>
 
-<button id="displayTextunnamed-chunk-80" onclick="javascript:toggle('unnamed-chunk-80');">Show Solution</button>
+<button id="displayTextunnamed-chunk-83" onclick="javascript:toggle('unnamed-chunk-83');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-80" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-83" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 apply(df, MARGIN = 2,  z_score)
 </div></div></div>
@@ -2243,7 +1855,7 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
     theme_minimal()
 ```
 
-<img src="03-functional-programming_files/figure-html/unnamed-chunk-81-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-functional-programming_files/figure-html/unnamed-chunk-84-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -2299,7 +1911,7 @@ simulation_results <- map_dbl(sample_sizes, ~simulate_power(.x, effect_size))
 plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = "Power", main = "Power vs. Sample Size")
 ```
 
-<img src="03-functional-programming_files/figure-html/unnamed-chunk-82-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-functional-programming_files/figure-html/unnamed-chunk-85-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -2342,21 +1954,25 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] testthat_3.1.10    knitr_1.43         webexercises_1.1.0 glossary_1.0.0    
-##  [5] lubridate_1.9.2    forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2       
-##  [9] purrr_1.0.1        readr_2.1.4        tidyr_1.3.0        tibble_3.2.1      
-## [13] ggplot2_3.4.2      tidyverse_2.0.0   
+##  [1] microbenchmark_1.4.10 testthat_3.1.10       knitr_1.43           
+##  [4] webexercises_1.1.0    glossary_1.0.0        lubridate_1.9.2      
+##  [7] forcats_1.0.0         stringr_1.5.0         dplyr_1.1.2          
+## [10] purrr_1.0.1           readr_2.1.4           tidyr_1.3.0          
+## [13] tibble_3.2.1          ggplot2_3.4.2         tidyverse_2.0.0      
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
 ##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
 ##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    brio_1.1.3        fansi_1.0.4      
-## [17] scales_1.2.1      jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1      
-## [21] munsell_0.5.0     withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
-## [25] tools_4.3.1       tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0 
-## [29] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   fs_1.6.2         
-## [33] pkgconfig_2.0.3   pillar_1.9.0      bslib_0.5.0       gtable_0.3.3     
-## [37] glue_1.6.2        xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
-## [41] htmltools_0.5.5   rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
+## [13] pkgload_1.3.2.1   fastmap_1.1.1     rprojroot_2.0.3   jsonlite_1.8.7   
+## [17] backports_1.4.1   brio_1.1.3        fansi_1.0.4       scales_1.2.1     
+## [21] codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1      
+## [25] munsell_0.5.0     withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
+## [29] tools_4.3.1       tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0 
+## [33] broom_1.0.5       vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3  
+## [37] fs_1.6.2          waldo_0.5.1       desc_1.4.2        pkgconfig_2.0.3  
+## [41] pillar_1.9.0      bslib_0.5.0       gtable_0.3.3      glue_1.6.2       
+## [45] highr_0.10        xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
+## [49] farver_2.1.1      htmltools_0.5.5   labeling_0.4.2    rmarkdown_2.23   
+## [53] compiler_4.3.1    downlit_0.4.3
 ```
