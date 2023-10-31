@@ -2247,3 +2247,67 @@ Now you can explore each column to see:
 - Expandable Groups - You can expand the groups to find out more information about the features
 
 - Search Features - Use regex to search the name. Great if you have a lot of features (columns)
+
+
+
+```r
+sessionInfo()
+```
+
+```
+## R version 4.3.1 (2023-06-16)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.6 LTS
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+## 
+## time zone: UTC
+## tzcode source: system (glibc)
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] dataxray_0.1.0     GGally_2.1.2       kableExtra_1.3.4   here_1.0.1        
+##  [5] janitor_2.2.0      knitr_1.43         webexercises_1.1.0 glossary_1.0.0    
+##  [9] lubridate_1.9.2    forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2       
+## [13] purrr_1.0.1        readr_2.1.4        tidyr_1.3.0        tibble_3.2.1      
+## [17] ggplot2_3.4.2      tidyverse_2.0.0   
+## 
+## loaded via a namespace (and not attached):
+##  [1] tidyselect_1.2.0    viridisLite_0.4.2   fastmap_1.1.1      
+##  [4] lazyeval_0.2.2      reshape_0.8.9       promises_1.2.0.1   
+##  [7] digest_0.6.33       rpart_4.1.19        mime_0.12          
+## [10] timechange_0.2.0    lifecycle_1.0.3     cluster_2.1.4      
+## [13] ellipsis_0.3.2      magrittr_2.0.3      compiler_4.3.1     
+## [16] rlang_1.1.1         Hmisc_5.1-1         sass_0.4.6         
+## [19] tools_4.3.1         utf8_1.2.3          yaml_2.3.7         
+## [22] data.table_1.14.8   htmlwidgets_1.6.2   plyr_1.8.8         
+## [25] xml2_1.3.5          RColorBrewer_1.1-3  withr_2.5.0        
+## [28] foreign_0.8-84      nnet_7.3-19         grid_4.3.1         
+## [31] fansi_1.0.4         xtable_1.8-4        colorspace_2.1-0   
+## [34] scales_1.2.1        cli_3.6.1           rmarkdown_2.23     
+## [37] generics_0.1.3      rstudioapi_0.15.0   httr_1.4.6         
+## [40] tzdb_0.4.0          cachem_1.0.8        rvest_1.0.3        
+## [43] base64enc_0.1-3     vctrs_0.6.3         webshot_0.5.5      
+## [46] jsonlite_1.8.7      bookdown_0.34       hms_1.1.3          
+## [49] Formula_1.2-5       htmlTable_2.4.1     systemfonts_1.0.4  
+## [52] plotly_4.10.2       jquerylib_0.1.4     glue_1.6.2         
+## [55] stringi_1.7.12      gtable_0.3.3        later_1.3.1        
+## [58] downlit_0.4.3       munsell_0.5.0       pillar_1.9.0       
+## [61] htmltools_0.5.5     reactable_0.4.4     R6_2.5.1           
+## [64] reactablefmtr_2.0.0 rprojroot_2.0.3     evaluate_0.21      
+## [67] shiny_1.7.4.1       backports_1.4.1     memoise_2.0.1      
+## [70] snakecase_0.11.0    httpuv_1.6.11       bslib_0.5.0        
+## [73] Rcpp_1.0.11         svglite_2.1.1       gridExtra_2.3      
+## [76] checkmate_2.2.0     xfun_0.39           fs_1.6.2           
+## [79] pkgconfig_2.0.3
+```

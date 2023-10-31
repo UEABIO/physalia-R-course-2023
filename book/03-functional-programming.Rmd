@@ -1561,3 +1561,9 @@ https://aosmith.rbind.io/2019/07/22/automate-model-fitting-with-loops/
 
 https://aosmith.rbind.io/2017/12/31/many-datasets/#list-all-files-to-read-in
 
+
+```{r}
+
+sessionInfo()
+
+```

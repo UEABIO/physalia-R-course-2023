@@ -1365,3 +1365,70 @@ library(gt)
 library(gtExtras)
 ```
 
+
+
+```r
+sessionInfo()
+```
+
+```
+## R version 4.3.1 (2023-06-16)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.6 LTS
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+## 
+## time zone: UTC
+## tzcode source: system (glibc)
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] gtExtras_0.5.0       gt_0.10.0            ggbeeswarm_0.7.2    
+##  [4] gghighlight_0.4.0    ggh4x_0.2.6          ggpubr_0.6.0        
+##  [7] png_0.1-8            ggdensity_1.0.0      ggdist_3.3.0        
+## [10] ggbump_0.1.0         ggtext_0.1.2         ggalt_0.4.0         
+## [13] ggridges_0.5.4       geomtextpath_0.1.1   colorBlindness_0.1.9
+## [16] patchwork_1.1.2      janitor_2.2.0        knitr_1.43          
+## [19] webexercises_1.1.0   glossary_1.0.0       lubridate_1.9.2     
+## [22] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.2         
+## [25] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
+## [28] tibble_3.2.1         ggplot2_3.4.2        tidyverse_2.0.0     
+## 
+## loaded via a namespace (and not attached):
+##  [1] tidyselect_1.2.0     vipor_0.4.5          farver_2.1.1        
+##  [4] fastmap_1.1.1        ash_1.0-15           digest_0.6.33       
+##  [7] timechange_0.2.0     lifecycle_1.0.3      magrittr_2.0.3      
+## [10] compiler_4.3.1       rlang_1.1.1          sass_0.4.6          
+## [13] tools_4.3.1          utf8_1.2.3           yaml_2.3.7          
+## [16] ggsignif_0.6.4       xml2_1.3.5           RColorBrewer_1.1-3  
+## [19] abind_1.4-5          KernSmooth_2.23-21   withr_2.5.0         
+## [22] grid_4.3.1           proj4_1.0-13         fansi_1.0.4         
+## [25] colorspace_2.1-0     paletteer_1.5.0      extrafontdb_1.0     
+## [28] scales_1.2.1         MASS_7.3-60          cli_3.6.1           
+## [31] rmarkdown_2.23       generics_0.1.3       rstudioapi_0.15.0   
+## [34] tzdb_0.4.0           cachem_1.0.8         maps_3.4.1          
+## [37] vctrs_0.6.3          carData_3.0-5        jsonlite_1.8.7      
+## [40] car_3.1-2            bookdown_0.34        gridGraphics_0.5-1  
+## [43] hms_1.1.3            rstatix_0.7.2        beeswarm_0.4.0      
+## [46] systemfonts_1.0.4    fontawesome_0.5.1    jquerylib_0.1.4     
+## [49] glue_1.6.2           rematch2_2.1.2       cowplot_1.1.1       
+## [52] distributional_0.3.2 stringi_1.7.12       gtable_0.3.3        
+## [55] downlit_0.4.3        extrafont_0.19       munsell_0.5.0       
+## [58] pillar_1.9.0         htmltools_0.5.5      R6_2.5.1            
+## [61] textshaping_0.3.6    evaluate_0.21        backports_1.4.1     
+## [64] gridtext_0.1.5       memoise_2.0.1        broom_1.0.5         
+## [67] snakecase_0.11.0     bslib_0.5.0          Rcpp_1.0.11         
+## [70] Rttf2pt1_1.3.12      xfun_0.39            fs_1.6.2            
+## [73] pkgconfig_2.0.3
+```
+

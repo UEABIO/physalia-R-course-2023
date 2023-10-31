@@ -177,7 +177,7 @@
 </h1>
 <p>Loops are one of the staples of all programming languages, not just R, and can be a powerful tool; though we will see later there are a suite of alternative to loops in R.</p>
 <p>For loops make it possible to repeat a set of instructions i times. For example, try the following:</p>
-<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"hello"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
@@ -187,7 +187,7 @@
 ## [1] "hello"
 ## [1] "hello"</code></pre>
 <p>Or</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
@@ -214,7 +214,7 @@ print(i)
 <span class="header-section-number">10.1</span> Functions in for loops<a class="anchor" aria-label="anchor" href="#functions-in-for-loops"><i class="fas fa-link"></i></a>
 </h2>
 <p>Whilst above we have been using simple addition in the body of the loop, you can also combine loops with functions.</p>
-<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define a function to calculate the square of a number</span></span>
 <span><span class="va">square</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span></span>
@@ -236,7 +236,7 @@ print(i)
 <span class="header-section-number">10.2</span> For loops in dataframes<a class="anchor" aria-label="anchor" href="#for-loops-in-dataframes"><i class="fas fa-link"></i></a>
 </h2>
 <p>Let's create a somewhat more intricate function. Initially, we generate a new tibble by creating four vectors, each consisting of 10 randomly generated numbers. These numbers are designed to be approximately centered around a mean of 0 with a standard deviation of 1. Afterward, we combine these vectors to form the final tibble.</p>
-<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># a simple tibble</span></span>
@@ -379,7 +379,7 @@ print(i)
 </table></div>
 </div>
 <p>Each vector is randomly generated so the actual averages will be slightly different, we can test that here:</p>
-<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">b</span><span class="op">)</span></span>
@@ -393,12 +393,12 @@ print(i)
 ## [1] -0.7661931</code></pre>
 <p>So the above code works, but it is repetitive, applying the same function again and again.</p>
 <p>Below we have a simple for loop:</p>
-<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#1. Having a predefined empty vector to receive the values is good practice, we will see why a bit later</span></span>
 <span></span>
 <span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"double"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span> <span class="co"># this will have four empty elements the same as the number of columns for the dataframe. The vector is set to receive numeric data</span></span></code></pre></div>
 <p>Now we run our loop:</p>
-<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>            <span class="co"># 2. sequence - determines what to loop over </span></span>
 <span>  </span>
 <span>  <span class="va">output</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>      <span class="co"># 3. body - each time the loop runs it allocates a value to output, </span></span>
@@ -418,7 +418,7 @@ print(i)
 <span class="header-section-number">10.3.1</span> Initialise objects<a class="anchor" aria-label="anchor" href="#initialise-objects"><i class="fas fa-link"></i></a>
 </h3>
 <p>Pre-allocating the output with the appropriate length before the loop avoids reallocation of memory inside the loop, which can be inefficient for large data. For example:</p>
-<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output2</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span></span>
 <span><span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
@@ -462,7 +462,7 @@ print(i)
 <h3>
 <span class="header-section-number">10.3.2</span> simple datatypes<a class="anchor" aria-label="anchor" href="#simple-datatypes"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span></span>
 <span></span>
@@ -508,7 +508,7 @@ print(i)
 <span class="header-section-number">10.3.3</span> Visualise speed<a class="anchor" aria-label="anchor" href="#visualise-speed"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code>microbenchmark</code> package has some other useful features including the ability to run multiple functions for comparison simultaneously and with integration with ggplot2 we can plot these results</p>
-<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"double"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">output_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"list"</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">new_output_vector</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
@@ -2143,7 +2143,7 @@ print(i)
 </tbody>
 </table></div>
 </div>
-<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mbm</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="03-functional-programming_files/figure-html/unnamed-chunk-70-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>

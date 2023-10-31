@@ -1110,3 +1110,10 @@ compare_species_plot(penguins, Adelie, Chinstrap, culmen_length_mm)
 ## Practice
 
 Can you write your own custom function in tidyverse? 
+
+
+```{r}
+
+sessionInfo()
+
+```

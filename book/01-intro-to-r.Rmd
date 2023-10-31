@@ -1238,3 +1238,10 @@ a <- 5
 **Question 8.**  Evaluate this statement "An R Package can contain code functions, data, or both."
 
 `r mcq(c(answer = "TRUE", "FALSE"))`
+
+
+```{r}
+
+sessionInfo()
+
+```

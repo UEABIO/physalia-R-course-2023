@@ -1,6 +1,15 @@
 
 # Github
 
+```{r, include = FALSE}
+
+library(usethis)
+
+library(gitcreds)
+
+```
+
+
 ## Let's Git it started 
 
 Git is a **version control system**. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects - with tracked changes. 
@@ -811,3 +820,9 @@ git merge --abort
 
 Of course, after doing that you still haven’t synced with your collaborator’s changes, so things are still unresolved. But at least your repository is now usable on your local machine. Let me know asap and we can fix the issue
 
+
+```{r}
+
+sessionInfo()
+
+```

@@ -901,3 +901,9 @@ https://www.jumpingrivers.com/blog/r-shiny-customising-shinydashboard/#:~:text=T
 
 # Sharing
 
+
+```{r}
+
+sessionInfo()
+
+```

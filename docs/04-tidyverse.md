@@ -1398,3 +1398,50 @@ compare_species_plot(penguins, Adelie, Chinstrap, culmen_length_mm)
 ## Practice
 
 Can you write your own custom function in tidyverse? 
+
+
+
+```r
+sessionInfo()
+```
+
+```
+## R version 4.3.1 (2023-06-16)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.6 LTS
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+## 
+## time zone: UTC
+## tzcode source: system (glibc)
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] janitor_2.2.0      knitr_1.43         webexercises_1.1.0 glossary_1.0.0    
+##  [5] lubridate_1.9.2    forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2       
+##  [9] purrr_1.0.1        readr_2.1.4        tidyr_1.3.0        tibble_3.2.1      
+## [13] ggplot2_3.4.2      tidyverse_2.0.0   
+## 
+## loaded via a namespace (and not attached):
+##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
+##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
+##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
+## [13] fastmap_1.1.1     jsonlite_1.8.7    fansi_1.0.4       scales_1.2.1     
+## [17] jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1       munsell_0.5.0    
+## [21] withr_2.5.0       cachem_1.0.8      yaml_2.3.7        tools_4.3.1      
+## [25] tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0  vctrs_0.6.3      
+## [29] R6_2.5.1          lifecycle_1.0.3   snakecase_0.11.0  fs_1.6.2         
+## [33] pkgconfig_2.0.3   pillar_1.9.0      bslib_0.5.0       gtable_0.3.3     
+## [37] glue_1.6.2        xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
+## [41] htmltools_0.5.5   rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
+```

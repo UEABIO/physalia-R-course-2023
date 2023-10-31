@@ -1788,3 +1788,10 @@ Now you can explore each column to see:
 - Expandable Groups - You can expand the groups to find out more information about the features
 
 - Search Features - Use regex to search the name. Great if you have a lot of features (columns)
+
+
+```{r}
+
+sessionInfo()
+
+```

@@ -183,7 +183,7 @@
 <span class="header-section-number">7.1</span> Structuring a function<a class="anchor" aria-label="anchor" href="#structuring-a-function"><i class="fas fa-link"></i></a>
 </h2>
 <p>R makes it easy to create user defined functions by using <code>function()</code>. Here is how it works:</p>
-<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this is an example function</span></span>
 <span><span class="va">my_function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">my_args</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># document your function here</span></span>
@@ -204,16 +204,16 @@
 <span class="header-section-number">7.1.1</span> Activity: Understand the function<a class="anchor" aria-label="anchor" href="#activity-understand-the-function"><i class="fas fa-link"></i></a>
 </h3>
 <p>Here is a very simple function. Can you guess what it does?</p>
-<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">add_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">add_one</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 11</code></pre>
 <p>What value did you get when running the function above? <input class="webex-solveme nospaces" size="2" data-answer='["11"]'></p>
 <p>Now try applying your function to this vector:</p>
-<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">number_series</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p>You should see it worked on <em>each element</em> inside the vector. This emphasises that R is a vector based language (it will by default apply functions on all elements in an object).</p>
 </div>
@@ -228,7 +228,7 @@ along with any variables created in the function are stored in this new environm
 global environment. Variables that are created in the function's environment aren't visible from the global environment
 though.</p>
 <p>If we reassign a variable in a function it will take a copy of that variable rather than mutating the value in the global environment. If we want to update <code>x</code> in the global environment we need to use the <code>&lt;&lt;-</code> operator.</p>
-<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># x has a value of 1 in the global environment</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span> </span>
 <span></span>
@@ -262,7 +262,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fahr_to_kelvin</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fahr</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># function that converts temperature in degrees Fahrenheit to kelvin</span></span>
 <span>  <span class="co"># input: fahr: numeric value representing temp in degrees farh</span></span>
@@ -292,7 +292,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fahr_to_kelvin</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fahr</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># function that converts temperature in degrees Fahrenheit to kelvin</span></span>
 <span>  <span class="co"># input: fahr: numeric value representing temp in degrees farh</span></span>
@@ -334,7 +334,7 @@ separate script and use source(“scripts/functions.R”)
 <span class="header-section-number">7.2.1</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults"><i class="fas fa-link"></i></a>
 </h3>
 <p>This is an example of a very simple function that just prints the string "Hello World" whenever you type the function <code>say_hello()</code></p>
-<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">say_hello</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Hello World"</span><span class="op">)</span> </span>
 <span><span class="op">}</span></span>
@@ -369,7 +369,7 @@ Error in say_hello( or something similar, this function has not been set with an
 </div>
 </div>
 <p>Now lets try a similar function, but we include an argument:</p>
-<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">say_morning</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Good morning"</span>, <span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -394,8 +394,8 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="writing-functions.html#cb184-1" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">paste</span>(<span class="st">"Good morning"</span>, x) <span class="sc">:</span> </span>
-<span id="cb184-2"><a href="writing-functions.html#cb184-2" tabindex="-1"></a>  argument <span class="st">"x"</span> is missing, with no default</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="writing-functions.html#cb188-1" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">paste</span>(<span class="st">"Good morning"</span>, x) <span class="sc">:</span> </span>
+<span id="cb188-2"><a href="writing-functions.html#cb188-2" tabindex="-1"></a>  argument <span class="st">"x"</span> is missing, with no default</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -405,7 +405,7 @@ Solution
 <span class="header-section-number">7.2.2.1</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults-1"><i class="fas fa-link"></i></a>
 </h4>
 <p>However, you are probably used to the idea that many functions have "default" values for arguments, and we can easily set these.</p>
-<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">say_morning_default</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span> <span class="op">=</span> <span class="st">"you"</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Good morning"</span>, <span class="va">name</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -431,7 +431,7 @@ should still be able to changed when running the function. Try it!
 <span class="header-section-number">7.3.1</span> Default values<a class="anchor" aria-label="anchor" href="#default-values"><i class="fas fa-link"></i></a>
 </h3>
 <p>ou can create a wrapper function that calls an existing function with default argument values to simplify its usage. For instance, if you frequently use the <code>mean</code> function with a specific argument, you can create a wrapper like this:</p>
-<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
@@ -451,12 +451,12 @@ Solution
 </div>
 </div>
 <p>If we want to be able to allow users to specify their own values for <code>na.rm = T</code> then we need to modify the wrapper function</p>
-<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>With this modification, users can provide their own value for the na.rm argument when calling my_mean. For example:</p>
-<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">my_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="co"># By default, NA values are removed</span></span>
 <span><span class="fu">my_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># NA values are not removed</span></span></code></pre></div>
 <pre><code>## [1] 2.333333
@@ -474,16 +474,16 @@ Solution
 <li><p>or to pass arguments through to some underlying function, as in ?print().</p></li>
 </ul>
 <p>The <code>...</code> argument allows you to pass additional arguments directly to the underlying function. Here's how you can modify the <code>my_mean</code> function to maintain the flexibility of the mean() function's arguments:</p>
-<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">...</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Now we can pass arguments directly to mean, and we have a version that by default removes <code>NA</code> from our dataframe (but can be overidden if necessary)</p>
-<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">my_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 2.333333</code></pre>
 <p>And we can pass any additional arguments found in mean to our new function e.g. trim</p>
-<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">my_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span>, trim <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <div class="warning">
@@ -499,7 +499,7 @@ using … will result in an error, such as the “used in an incorrect
 context, no … to look in” error that you encountered.
 </p>
 </div>
-<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Custom Linear Regression Wrapper Function</span></span>
 <span><span class="va">my_lm</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Fit the linear regression model</span></span>
@@ -546,7 +546,7 @@ Mathematical functions are a specific type of pure function that perform mathema
 <p>Referential Transparency:
 Referential transparency is a property of pure functions and mathematical functions where the output of a function depends solely on its input, and there are no side effects. In other words, when you call a referentially transparent function with the same input, you will always get the same output. This property makes code easier to understand, test, and reason about.</p>
 <p>In R, many built-in functions and packages adhere to referential transparency, making them reliable and predictable for data manipulation and analysis tasks.</p>
-<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://testthat.r-lib.org">testthat</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">triangle_number</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
@@ -559,7 +559,7 @@ Referential transparency is a property of pure functions and mathematical functi
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">triangle_number</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span>  </span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">triangle_number</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">15</span><span class="op">)</span>  </span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"it works as expected"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">fahr_to_kelvin</span><span class="op">(</span><span class="fl">92</span><span class="op">)</span>, <span class="fl">306.483</span>, tolerance<span class="op">=</span><span class="fl">1e-2</span><span class="op">)</span>  </span>
 <span>   </span>

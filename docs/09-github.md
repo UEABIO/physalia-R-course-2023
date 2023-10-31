@@ -1,6 +1,9 @@
 
 # Github
 
+
+
+
 ## Let's Git it started 
 
 Git is a **version control system**. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects - with tracked changes. 
@@ -264,7 +267,7 @@ To **commit** these changes (take a snapshot) you must enter a mandatory commit 
 
 <div class="figure" style="text-align: center">
 <img src="images/stage_step_5.png" alt="Green = added content, Red = deleted content" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-15)Green = added content, Red = deleted content</p>
+<p class="caption">(\#fig:unnamed-chunk-16)Green = added content, Red = deleted content</p>
 </div>
 
 The commit message should be short but meaningful (to you or any collaborators)
@@ -406,7 +409,7 @@ ggplot(data = subset_infant_mortality) +
 
 **l.** Update your graph with direct labels (using `annotate`) and vertical or horizontal lines with `geom_vline` or `geom_hline`. 
 
-<img src="09-github_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="09-github_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 <div class='webex-solution'><button>Solution</button>
@@ -720,14 +723,14 @@ The *second* person trying to push a change to Github will get an error
 
 <div class="figure" style="text-align: center">
 <img src="images/git-conflict-01-push-error.png" alt="Git conflict" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-30)Git conflict</p>
+<p class="caption">(\#fig:unnamed-chunk-31)Git conflict</p>
 </div>
 
 Do what the message says and pull the changes from Github, this will generate a **different** error mesage. In this case indicating a merge conflict because of the differences on the same line of a file. In the Git pane, the file will now be flagged with an orange 'U'. This stands for 'unresolved'
 
 <div class="figure" style="text-align: center">
 <img src="images/git-conflict-03-conflict.png" alt="git conflict" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-31)git conflict</p>
+<p class="caption">(\#fig:unnamed-chunk-32)git conflict</p>
 </div>
 
 To resolve the conflict, this file now needs to be edited. Git has flagged the locations in which conflicts have occurred with `<<<<<<<`, `=======` and `>>>>>>>`. The file needs to be edited merging the appropriate changes until the file reads how it should and all conflict markers are removed. 
@@ -772,3 +775,54 @@ git merge --abort
 
 Of course, after doing that you still haven’t synced with your collaborator’s changes, so things are still unresolved. But at least your repository is now usable on your local machine. Let me know asap and we can fix the issue
 
+
+
+```r
+sessionInfo()
+```
+
+```
+## R version 4.3.1 (2023-06-16)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.6 LTS
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+## 
+## time zone: UTC
+## tzcode source: system (glibc)
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] kableExtra_1.3.4   here_1.0.1         janitor_2.2.0      gitcreds_0.1.2    
+##  [5] usethis_2.2.2      webexercises_1.1.0 glossary_1.0.0     lubridate_1.9.2   
+##  [9] forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2        purrr_1.0.1       
+## [13] readr_2.1.4        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.2     
+## [17] tidyverse_2.0.0   
+## 
+## loaded via a namespace (and not attached):
+##  [1] gtable_0.3.3      xfun_0.39         bslib_0.5.0       tzdb_0.4.0       
+##  [5] vctrs_0.6.3       tools_4.3.1       generics_0.1.3    parallel_4.3.1   
+##  [9] fansi_1.0.4       highr_0.10        pkgconfig_2.0.3   webshot_0.5.5    
+## [13] lifecycle_1.0.3   compiler_4.3.1    farver_2.1.1      munsell_0.5.0    
+## [17] snakecase_0.11.0  htmltools_0.5.5   sass_0.4.6        yaml_2.3.7       
+## [21] pillar_1.9.0      crayon_1.5.2      jquerylib_0.1.4   cachem_1.0.8     
+## [25] rvest_1.0.3       tidyselect_1.2.0  digest_0.6.33     stringi_1.7.12   
+## [29] bookdown_0.34     labeling_0.4.2    rprojroot_2.0.3   fastmap_1.1.1    
+## [33] grid_4.3.1        colorspace_2.1-0  cli_3.6.1         magrittr_2.0.3   
+## [37] utf8_1.2.3        withr_2.5.0       scales_1.2.1      bit64_4.0.5      
+## [41] timechange_0.2.0  httr_1.4.6        rmarkdown_2.23    bit_4.0.5        
+## [45] hms_1.1.3         memoise_2.0.1     evaluate_0.21     knitr_1.43       
+## [49] viridisLite_0.4.2 rlang_1.1.1       downlit_0.4.3     glue_1.6.2       
+## [53] xml2_1.3.5        svglite_2.1.1     rstudioapi_0.15.0 vroom_1.6.3      
+## [57] jsonlite_1.8.7    R6_2.5.1          systemfonts_1.0.4 fs_1.6.2
+```
