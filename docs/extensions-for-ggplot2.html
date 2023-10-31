@@ -151,7 +151,7 @@
 <li><a class="" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
 <li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
 <li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
-<li><a class="" href="modules.html"><span class="header-section-number">34</span> Modules</a></li>
+<li><a class="" href="download.html"><span class="header-section-number">34</span> Download?</a></li>
 <li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
 <li><a class="" href="markdown.html"><span class="header-section-number">36</span> Markdown</a></li>
@@ -160,14 +160,10 @@
 <li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
 <li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
 <li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
-<li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data-1.html"><span class="header-section-number">41</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql-1.html"><span class="header-section-number">42</span> write to sql</a></li>
-<li><a class="" href="querying-sql-1.html"><span class="header-section-number">43</span> querying sql</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">44</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">45</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">46</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">47</span> R Basics</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">41</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">42</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">43</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">44</span> R Basics</a></li>
 </ul>
 
         <div class="book-extra">
@@ -192,7 +188,7 @@
 <h3>
 <span class="header-section-number">24.1.1</span> Rainclouds<a class="anchor" aria-label="anchor" href="#rainclouds"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mjskay.github.io/ggdist/">ggdist</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -230,7 +226,7 @@
 <h3>
 <span class="header-section-number">24.1.2</span> Interval stats<a class="anchor" aria-label="anchor" href="#interval-stats"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>,</span>
@@ -251,7 +247,7 @@
 <h2>
 <span class="header-section-number">24.2</span> Density<a class="anchor" aria-label="anchor" href="#density"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://jamesotto852.github.io/ggdensity/">ggdensity</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span>  </span>
@@ -267,7 +263,7 @@
 <h2>
 <span class="header-section-number">24.3</span> ggridges<a class="anchor" aria-label="anchor" href="#ggridges"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/">ggridges</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span>  </span>
@@ -284,7 +280,7 @@
 <h2>
 <span class="header-section-number">24.4</span> Bump charts<a class="anchor" aria-label="anchor" href="#bump-charts"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ggbump</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguin_summary</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -317,7 +313,7 @@
 <h2>
 <span class="header-section-number">24.5</span> Dumbell charts<a class="anchor" aria-label="anchor" href="#dumbell-charts"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hrbrmstr/ggalt">ggalt</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">summary_counts</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -342,7 +338,7 @@
 <span class="header-section-number">24.6</span> Facets<a class="anchor" aria-label="anchor" href="#facets-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <code>ggh4x</code> package adds some awesome features for easy facet work including <code><a href="https://teunbrand.github.io/ggh4x/reference/facet_nested.html">facet_nested()</a></code>:</p>
-<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/teunbrand/ggh4x">ggh4x</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -360,7 +356,7 @@
 <h2>
 <span class="header-section-number">24.7</span> Highlighting<a class="anchor" aria-label="anchor" href="#highlighting"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yutannihilation.github.io/gghighlight/">gghighlight</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -372,7 +368,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-66-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/eclarke/ggbeeswarm">ggbeeswarm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yutannihilation.github.io/gghighlight/">gghighlight</a></span><span class="op">)</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -393,7 +389,7 @@
 <h3>
 <span class="header-section-number">24.8.1</span> ggforce<a class="anchor" aria-label="anchor" href="#ggforce"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">culmen_length_mm</span>,</span>
@@ -418,7 +414,7 @@
 <h3>
 <span class="header-section-number">24.8.2</span> textpaths<a class="anchor" aria-label="anchor" href="#textpaths"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allancameron.github.io/geomtextpath/">geomtextpath</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -434,7 +430,7 @@
 <span class="header-section-number">24.8.3</span> ggtext<a class="anchor" aria-label="anchor" href="#ggtext"><i class="fas fa-link"></i></a>
 </h3>
 <p><a href="https://rfortherestofus.com/2020/05/color-titles-ggtext#" class="uri">https://rfortherestofus.com/2020/05/color-titles-ggtext#</a>:~:text=Adding%20color%20to%20titles%20using,HTML%2C%20not%20as%20raw%20text.</p>
-<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggtext/">ggtext</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -472,7 +468,7 @@
 <span class="header-section-number">24.9</span> Layouts and compositions<a class="anchor" aria-label="anchor" href="#layouts-and-compositions"><i class="fas fa-link"></i></a>
 </h2>
 <p>Patchwork, text and images!!!!</p>
-<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.rforge.net/png/">png</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span></span>
@@ -481,7 +477,7 @@
 <span></span>
 <span><span class="va">penguin_fig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/background_image.html">background_image</a></span><span class="op">(</span><span class="va">penguin_pic</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span>, label <span class="op">=</span> <span class="st">'Simpsons Paradox is a statistical phenomenon where an association between two variables in a population emerges, disappears or reverses when the population is divided into subpopulations such as &lt;span style = "color:#FF8C00"&gt;Adelie&lt;/span&gt;, &lt;span style ="color:#159090"&gt;Gentoo&lt;/span&gt;, and &lt;span style = "color:#A034F0"&gt;Chinstrap&lt;/span&gt; penguin species'</span></span>
 <span><span class="op">)</span></span>
@@ -505,7 +501,7 @@
 <span></span>
 <span><span class="va">pt</span></span></code></pre></div>
 <div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-73-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">layout</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">AACCC</span></span>
 <span><span class="st">AACCC</span></span>
@@ -789,7 +785,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-29.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

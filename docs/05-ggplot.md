@@ -1360,4 +1360,8 @@ theme_custom()
 # Making tables with gt
 
 
+```r
+library(gt)
+library(gtExtras)
+```
 

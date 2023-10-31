@@ -789,3 +789,8 @@ Below are some links you may find useful
 * [EpiR handbook](https://epirhandbook.com/en/iteration-loops-and-lists.html)
 
 
+```{r}
+
+sessionInfo()
+
+```

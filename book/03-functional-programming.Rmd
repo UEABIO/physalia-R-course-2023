@@ -231,10 +231,134 @@ There is now a default value supplied to the argument, but this should still be 
 
 ```
 
+## Wrapper functions
+
+Wrapper functions in R are a powerful tool for simplifying and customizing the use of existing functions. These functions act as intermediaries between the user and the underlying function, allowing you to add additional functionality, handle errors, or make the function more user-friendly. They are especially useful when you want to streamline repetitive tasks, create more intuitive interfaces, or modify the behavior of built-in functions without altering their source code. In this brief introduction, we'll explore the concept of wrapper functions, their benefits, and how to create and use them effectively in R.
+
+### Default values
+
+ou can create a wrapper function that calls an existing function with default argument values to simplify its usage. For instance, if you frequently use the `mean` function with a specific argument, you can create a wrapper like this:
+
+```{r}
+my_mean <- function(x) {
+  mean(x, na.rm = TRUE)
+}
+
+```
+
+Now, you can use `my_mean(x)` to calculate the mean while always ignoring `NA` values.
+
+What happens when you try to use your new function `my_mean` and set na.rm  = F?
+
+```{solution}
+
+``
+Error in my_mean(c(5, 6, 7, 8), na.rm = F) : unused argument (na.rm = F)
+``
+
+```
+
+If we want to be able to allow users to specify their own values for `na.rm = T` then we need to modify the wrapper function
+
+```{r}
+
+my_mean <- function(x, na.rm = TRUE) {
+  mean(x, na.rm = na.rm)
+}
+
+
+```
+
+With this modification, users can provide their own value for the na.rm argument when calling my_mean. For example:
+
+```{r}
+my_mean(c(1, 2, NA, 4))# By default, NA values are removed
+my_mean(c(1, 2, NA, 4), na.rm = FALSE)  # NA values are not removed
+
+
+```
+
+This modification makes the na.rm argument in the my_mean function flexible and allows users to override the default behavior when needed.
+
+### Using "..."
+
+You can allow the user to access the original arguments of mean() by using the `...` (ellipsis) argument in your wrapper function.
+
+In R the ellipse, ..., is used by functions for one of two things.
+
+- to capture an unknown number of argmunts
+
+- or to pass arguments through to some underlying function, as in ?print().
+
+The `...` argument allows you to pass additional arguments directly to the underlying function. Here's how you can modify the `my_mean` function to maintain the flexibility of the mean() function's arguments:
+
+```{r}
+
+my_mean <- function(..., na.rm = TRUE) {
+  mean(..., na.rm = na.rm)
+}
+
+```
+
+Now we can pass arguments directly to mean, and we have a version that by default removes `NA` from our dataframe (but can be overidden if necessary)
+
+```{r}
+my_mean(c(1, 2, NA, 4))
+
+```
+And we can pass any additional arguments found in mean to our new function e.g. trim
+
+```{r}
+
+my_mean(c(1, 2, NA, 4), trim = 1) 
+
+```
+
+```{block, type = "warning"}
+
+Not all functions are designed to accept arbitrary or unspecified additional arguments via .... In the case of the lm() function for example, it does not have a formal ... argument that allows arbitrary additional arguments to be passed.
+
+If a function doesn't support ..., attempting to pass extra arguments using ... will result in an error, such as the "used in an incorrect context, no ... to look in" error that you encountered.
+
+```
+
+
+
+```{r}
+# Custom Linear Regression Wrapper Function
+my_lm <- function(...) {
+  # Fit the linear regression model
+  model <- lm(formula, data = data)
+  
+  # Summarize the model
+  summary_model <- summary(model)
+  
+  # Print the coefficients and statistics
+  cat("Coefficients:\n")
+  print(summary_model$coefficients)
+  
+  # Diagnostic plots
+  par(mfrow = c(2, 2))  # Arrange plots in a 2x2 grid
+  plot(model, which = 1)  # Residuals vs. Fitted
+  plot(model, which = 2)  # Normal Q-Q plot
+  plot(model, which = 3)  # Scale-Location plot
+  plot(model, which = 4)  # Residuals vs. Leverage
+  
+  # Return the fitted model
+  return(model)
+}
+
+
+
+
+```
+
 
 ## Documenting functions
 
 https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/
+
+Use roxygen-2 style???
 
 ## Checking functions
 
@@ -532,6 +656,211 @@ report_p <- function(p, digits = 3) {
  ``
  
 ```
+
+
+## Activities
+
+Exercise 1: Write a Simple Function
+We'll create a function that calculates the GC content of a DNA sequence, and the result melting temperature of the sequence and returns both in a list. GC content is the percentage of the DNA molecule's nitrogenous bases that are either guanine (G) or cytosine (C). This is a common metric used in molecular biology and genetics to analyze DNA sequences. Each GC base addes 4 degrees to melting temp while each AT base adds 2 degrees. 
+
+> Hint`stringr` and associated functions will be very helpful here
+
+```{solution, multCode = T}
+
+``{r}
+
+gc_content <- function(dna_sequence) {
+  # Convert the input sequence to uppercase to handle mixed-case input
+  dna_sequence <- toupper(dna_sequence)
+  
+ 
+  
+  # Calculate the number of GC bases (C and G) in the sequence
+ gc_positions <- unlist(gregexpr("[GC]", dna_sequence))
+ gc_count <- length(gc_positions)
+
+  # Calculate the total number of bases in the sequence
+  total_bases <- nchar(dna_sequence)
+  
+  # Calculate the GC content as a percentage
+  gc_percentage <- (gc_count / total_bases) * 100
+  
+  gc_percentage <- round(gc_percentage, 2)
+  
+  # Calculate AT numbers
+  at_count <- total_bases - gc_count
+  
+  # Calculate melting temp of sequence
+  melt_temp <- (gc_count*4) + (at_count*2)
+  
+  
+  dna_content <- list(gc_percentage, melt_temp)
+  names(dna_content) <- c("GC Percentage", "Melting temp (celsius)")
+  
+  
+  return(dna_content)
+}
+
+
+``
+
+####
+
+``{r}
+gc_content <- function(dna_sequence) {
+  # Convert the input sequence to uppercase to handle mixed-case input
+  dna_sequence <- str_to_upper(dna_sequence)
+  
+
+  
+  # Calculate the number of GC bases (C and G) in the sequence
+  gc_count <- sum(str_count(dna_sequence %in% c("G", "C")))
+  
+  # Calculate the total number of bases in the sequence
+  total_bases <- str_length(dna_sequence)
+  
+  # Calculate the GC content as a percentage
+  gc_percentage <- (gc_count / total_bases) * 100
+  
+  gc_percentage <- round(gc_percentage, 2)
+  
+   # Calculate AT numbers
+  at_count <- total_bases - gc_count
+  
+  # Calculate melting temp of sequence
+  melt_temp <- (gc_count*4) + (at_count*2)
+  
+  
+  dna_content <- list(gc_percentage, melt_temp)
+  names(dna_content) <- c("GC Percentage", "Melting temp (celsius)")
+  
+  
+  return(dna_content)
+}
+
+``
+
+```
+
+Exercise 2: Document the Function
+Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.
+
+```{solution}
+
+``{r}
+
+``
+
+```
+
+Exercise 3: Test the Function
+Create a test script that uses test_that to check if the function returns the correct GC percentage and melting temps
+
+```{solution}
+
+``{r}
+
+test_that("gc_content function tests", {
+    # Test valid input and GC content calculation
+    dna_seq1 <- "ATGCGTAGCT"
+    result1 <- gc_content(dna_seq1)
+    expect_equal(result1$`GC Percentage`, 50)
+    expect_equal(result1$`Melting temp (celsius)`, 30)})
+
+``
+
+```
+
+Exercise 4: Handle Errors
+You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?
+
+```{solution, multCode = T}
+
+``{r}
+
+gc_content <- function(dna_sequence) {
+  # Convert the input sequence to uppercase to handle mixed-case input
+  dna_sequence <- toupper(dna_sequence)
+  
+  # Check if the input sequence contains only valid DNA characters (A, T, C, G)
+  if (!grepl("^[ATCG]+$", dna_sequence)) stop("Invalid DNA sequence. Only A, T, C, and G are allowed.")
+  
+  if (nchar(dna_sequence) > 30 ) warning("Sequence is > 30 nt temperature predictions may be inaccurate")
+  
+  
+  # Calculate the number of GC bases (C and G) in the sequence
+ gc_positions <- unlist(gregexpr("[GC]", dna_sequence))
+ gc_count <- length(gc_positions)
+
+  # Calculate the total number of bases in the sequence
+  total_bases <- nchar(dna_sequence)
+  
+  # Calculate the GC content as a percentage
+  gc_percentage <- (gc_count / total_bases) * 100
+  
+  gc_percentage <- round(gc_percentage, 2)
+  
+  # Calculate AT numbers
+  at_count <- total_bases - gc_count
+  
+  # Calculate melting temp of sequence
+  melt_temp <- (gc_count*4) + (at_count*2)
+  
+  
+  dna_content <- list(gc_percentage, melt_temp)
+  names(dna_content) <- c("GC Percentage", "Melting temp (celsius)")
+  
+  
+  return(dna_content)
+}
+
+
+``
+
+####
+
+``{r}
+gc_content <- function(dna_sequence) {
+  # Convert the input sequence to uppercase to handle mixed-case input
+  dna_sequence <- str_to_upper(dna_sequence)
+  
+  # Check if the input sequence contains only valid DNA characters (A, T, C, G)
+if (!str_detect(dna_sequence, "^[ATCG]+$")) stop("Invalid DNA sequence. Only A, T, C, and G are allowed.")
+
+    if (str_length(dna_sequence) > 30 ) warning("Sequence is > 30 nt temperature predictions may be inaccurate")
+
+  
+  # Calculate the number of GC bases (C and G) in the sequence
+  gc_count <- sum(str_count(dna_sequence %in% c("G", "C")))
+  
+  # Calculate the total number of bases in the sequence
+  total_bases <- str_length(dna_sequence)
+  
+  # Calculate the GC content as a percentage
+  gc_percentage <- (gc_count / total_bases) * 100
+  
+  gc_percentage <- round(gc_percentage, 2)
+  
+   # Calculate AT numbers
+  at_count <- total_bases - gc_count
+  
+  # Calculate melting temp of sequence
+  melt_temp <- (gc_count*4) + (at_count*2)
+  
+  
+  dna_content <- list(gc_percentage, melt_temp)
+  names(dna_content) <- c("GC Percentage", "Melting temp (celsius)")
+  
+  
+  return(dna_content)
+}
+
+``
+
+```
+
+
+
 
 # Simple iteration
 
@@ -925,19 +1254,35 @@ It is (I think) important to not that the apply family is still looping - but th
 
 The `lapply()` function does the following simple series of operations:
 
-it loops over a list, iterating over each element in that list
+it loops over a list, vector or dataframe, iterating over each element in turn
 
 it applies a function to each element of the list (a function that you specify)
 
-and returns a list (the l is for “list”).
+it always returns a list (the l is for “list”).
+
+```
+> lapply
+function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+}
+<bytecode: 0x7f79498e5528>
+<environment: namespace:base>
+
+```
 
 We can see the operation of an `lapply()` function here:
 
-```{r}
+```{r, eval = F}
 
 lapply(df_list, mean)
 
 ```
+
+Notice that here we are passing the `mean()` function as an argument to the `lapply()` function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses.
 
 ```{r}
 
@@ -954,35 +1299,259 @@ microbenchmark::microbenchmark(
 
 ```
 
-Notice that here we are passing the `mean()` function as an argument to the `lapply()` function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses.
+As well as being slightly faster than the `for()` loop, arguably, `lapply` is also easier to read.
+
+
+### Run lapply with additional arguments
+
+The first argument of `lapply()` gives the list object to be iterated over. 
+The second argument defines an anonymous function.
+
+
+#### Functions with `lapply`
+
+In this example we define the list to run a function over `numbers`, then write our function as normal. Defined like this it is what we call an anonymous function, it has no name and cannot be used outside of this `lapply` function.
+
+```{r}
+
+# Create a list of numbers
+numbers <- list(1, 2, 3, 4, 5)
+
+
+# Use lapply to add 10 to each number in the list
+result <- lapply(numbers, function(x){
+  return(x + 10)
+})
+
+# Print the result
+print(result)
+
+```
+
+#### Using existing functions in `lapply`
+
+In this example we write a named function. Notice how we don't have to use curly brackets or an anonymous function, instead, we just passed `mean`add_value` as the second argument of `lapply()`. I also supply any necessary arguments required by the function by specifying it afterwards.
+
+```{r}
+
+# Create a list of numbers
+numbers <- list(1, 2, 3, 4, 5)
+
+# Define a custom function that adds a given value to each number
+add_value <- function(x, value) {
+  return(x + value)
+}
+
+# Use lapply to add 10 to each number in the list
+result <- lapply(numbers, add_value, value = 10)
+
+# Print the result
+print(result)
+
+```
 
 ## sapply
 
+The `sapply()` function behaves similarly to `lapply()`; the only real difference is in the return value. `sapply()` will try to simplify the result of `lapply()` if possible. Essentially, `sapply()` calls `lapply()` on its input and then applies the following algorithm:
+
+- If the result is a list where every element is length 1, then a vector is returned
+
+- If the result is a list where every element is a vector of the same length (> 1), a matrix is returned.
+
+- If it can’t figure things out, a list is returned.
+
+```{r}
+
+sapply(df_list, mean)
+
+```
+
+Notice that here `sapply()` returns a vector as each element had length of 1.
+
+
 ## apply
+
+The `apply()` function is used to a evaluate a function (often an anonymous one) over an array. It is most often used to apply a function to the rows or columns of a matrix or dataframe, in fact this function *cannot* be used on a list. Using `apply()` is often not really faster than writing a loop, but it works in one line and is highly compact.
+
+MARGIN = 1 means apply function over rows
+
+MARGIN = 2 means apply function over columns
+
+
+
+```{r}
+
+apply(df, MARGIN = 1, mean)
+
+```
+
+- If the result is a list where every element is length 1, then a vector is returned
+
+- If the result is a list where every element is a vector of the same length (> 1), a matrix is returned.
+
+### summary of apply functions
+
+|Function|Arguments|Objective|Input|Output|
+|---|---|---|---|---|
+|apply|apply(X, MARGIN, FUN)|Apply a function to the rows, columns or both| Dataframe or matrix| vector, list or matrix|
+|lapply| lapply(X,FUN)|Apply a function to all the elements of the input| List, vector or dataframe| list|
+|sapply| sapply(X,FUN)| Apply a function to all the elements of the input| List, vector or dataframe| vector or matrix|
+
+## Exercise 
+
+```{task}
+Make a function that converts values with a normal distribution into their z scores
+```
+
+
+```{solution}
+
+``{r}
+
+z_score <- function(x) {
+    (x - mean(x, na.rm = TRUE)) /  
+        sd(x, na.rm = TRUE)
+}
+
+``
+
+```
+
+```{task}
+Choose the appropriate apply function to calculate a matrix of z-scores for the dataframe `df`
+```
+
+```{solution}
+
+apply(df, MARGIN = 2,  z_score)
+
+```
 
 
 # Purrr
 
 # Bonus: Simulation
 
+https://stirlingcodingclub.github.io/simulating_data/index.html#sample
 
 
-Functional programming is an important concept, and it's great that you're dedicating a session to it. Covering loops, apply functions, and other functional programming principles will help participants write more efficient and concise code.
+```{r}
+library(ggplot2)
 
-Good simple intro: https://github.com/tomjemmett/nhs-r_conf_21-fp_workshop
+# Define a function to run the simulation for a given sample size and effect size
+simulate_difference <- function(sample_size, effect_size) {
+    set.seed(123)
+    
+    # Initialize a data frame to store the estimated differences
+    results <- data.frame(Simulated_Difference = numeric(100))
+    
+    for (i in 1:100) {  # Perform 100 simulations for the fixed sample size
+        # Generate data for two groups with a specified effect size
+        group1 <- rnorm(sample_size, mean = 0, sd = 1)
+        group2 <- rnorm(sample_size, mean = effect_size, sd = 1)
+        
+        # Create a data frame for the two groups
+        data_df <- data.frame(Group = rep(c("Group1", "Group2"), each = sample_size),
+                              Value = c(group1, group2))
+        
+        # Fit a linear model to estimate the difference in means
+        lm_model <- lm(Value ~ Group, data = data_df)
+        
+        # Extract the estimated difference from the model
+        estimated_difference <- coef(lm_model)[2]
+        
+        results$Simulated_Difference[i] <- estimated_difference
+    }
+    
+    # Return the data frame of estimated differences
+    return(results)
+}
 
-Wickham: 
-https://dcl-prog.stanford.edu/
+# Fixed sample size of 20
+sample_size <- 30
 
-Intro to purrr: https://d-rug.github.io/images/20171026/20171023_DRUG_map_walk.html#1
+# Set the effect size
+effect_size <- .8  # Adjust as needed
 
-Purrr and error work
-https://github.com/luisDVA/physalia-gtmoR-course
+# Run the simulation for the fixed sample size
+simulation_results <- simulate_difference(sample_size, effect_size)
 
-https://www.r4epi.com/introduction-to-repeated-operations
+# Calculate the mean and 2.5th and 97.5th percentiles for the confidence interval
+mean_difference <- mean(simulation_results$Simulated_Difference)
+lower_percentile <- quantile(simulation_results$Simulated_Difference, 0.025)
+upper_percentile <- quantile(simulation_results$Simulated_Difference, 0.975)
 
-Faster loops: https://bookdown.org/content/d1e53ac9-28ce-472f-bc2c-f499f18264a3/speedtips.html
+# Create a density histogram of the estimated differences with lines for percentiles
+ggplot(simulation_results, aes(x = Simulated_Difference)) +
+    geom_histogram(binwidth = 0.05, fill = "lightblue", color = "black") +
+    geom_vline(aes(xintercept = mean_difference), color = "red", linetype = "dashed") +
+    geom_vline(aes(xintercept = lower_percentile), color = "blue") +
+    geom_vline(aes(xintercept = upper_percentile), color = "blue") +
+    labs(x = "Estimated Difference", y = "Density") +
+    ggtitle(paste("Density Histogram of Estimated Differences (Sample Size = 20)")) +
+    theme_minimal()
 
+```
+
+
+
+```{r}
+
+# Load necessary libraries
+library(purrr)
+
+# Define a function to run the simulation for a given sample size and effect size
+simulate_power <- function(sample_size, effect_size) {
+  set.seed(123)
+  
+  # Initialize a counter for the number of significant t-tests
+  num_significant <- 0
+  
+  for (i in 1:100) {  # Perform 100 simulations for each sample size
+
+          # Generate data for two groups with a specified effect size
+    group1 <- rnorm(sample_size, mean = 0, sd = 1)
+    group2 <- rnorm(sample_size, mean = effect_size, sd = 1)
+
+     # Create a data frame for the two groups
+        data_df <- data.frame(Group = rep(c("Group1", "Group2"), each = sample_size),
+                              Value = c(group1, group2))
+        
+        # Fit a linear model to estimate the difference in means
+        lm_model <- lm(Value ~ Group, data = data_df)
+        
+        # Extract the p value from the model
+       
+      
+        
+    # Check if the null hypothesis is rejected (p-value < 0.05)
+    if ( broom::tidy(lm_model)[[2,5]] < 0.05) {
+      num_significant <- num_significant + 1
+    }
+  }
+  
+  # Return the proportion of significant t-tests (power)
+  return(num_significant / 100)
+}
+
+# Specify a range of sample sizes to test
+sample_sizes <- c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
+
+# Set the effect size
+effect_size <- 1  # Adjust as needed
+
+# Run the simulation for each sample size
+simulation_results <- map_dbl(sample_sizes, ~simulate_power(.x, effect_size))
+
+# Plot the power as a function of sample size
+plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = "Power", main = "Power vs. Sample Size")
+
+```
+
+
+
+
+## Further Reading:
 
 Simulations: https://rstudio-education.github.io/hopr/
 

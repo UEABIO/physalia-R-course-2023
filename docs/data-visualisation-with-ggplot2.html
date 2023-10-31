@@ -151,7 +151,7 @@
 <li><a class="" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
 <li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
 <li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
-<li><a class="" href="modules.html"><span class="header-section-number">34</span> Modules</a></li>
+<li><a class="" href="download.html"><span class="header-section-number">34</span> Download?</a></li>
 <li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
 <li><a class="" href="markdown.html"><span class="header-section-number">36</span> Markdown</a></li>
@@ -160,14 +160,10 @@
 <li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
 <li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
 <li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
-<li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data-1.html"><span class="header-section-number">41</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql-1.html"><span class="header-section-number">42</span> write to sql</a></li>
-<li><a class="" href="querying-sql-1.html"><span class="header-section-number">43</span> querying sql</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">44</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">45</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">46</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">47</span> R Basics</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">41</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">42</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">43</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">44</span> R Basics</a></li>
 </ul>
 
         <div class="book-extra">
@@ -216,7 +212,7 @@ follow</a>
 <li><p>Save this file <strong>in the scripts folder</strong> and call it <code>02_visualisation_penguins.R</code></p></li>
 <li><p>Add the following to your script and run it:</p></li>
 </ul>
-<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># LOAD R OBJECTS AND FUNCTIONS ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/01_import_penguins_data.R"</span><span class="op">)</span></span>
 <span><span class="co"># import tidied penguins data and functions</span></span>
@@ -264,7 +260,7 @@ Figure 23.3: If you have sucessfully saved 02_visualisation_penguins.R it should
 <button>
 Script adjustment
 </button>
-<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#___________________________----</span></span>
 <span><span class="co"># SET UP ----</span></span>
 <span><span class="co">## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----</span></span>
@@ -294,7 +290,7 @@ Script adjustment
 <ol style="list-style-type: decimal">
 <li>Here we are ‘sending the penguins data set into the ggplot function’:</li>
 </ol>
-<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Building a ggplot step by step ----</span></span>
 <span><span class="co">## Render a plot background ----</span></span>
 <span><span class="va">penguins</span>  <span class="op">|&gt;</span>  </span>
@@ -303,7 +299,7 @@ Script adjustment
 <li>Here we are specifying the dataframe <em>within</em> the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function</li>
 </ol>
 <p>The output is identical</p>
-<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div class="info">
@@ -326,7 +322,7 @@ Those interested in why quotes aren’t required can read about <a href="https:/
 evaluation</a>.
 </p>
 </div>
-<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Set axes ----</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
@@ -355,7 +351,7 @@ Figure 23.4: geom shapes
 <li>any summary of the data</li>
 <li>position</li>
 </ul>
-<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Add a geom ----</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
@@ -365,7 +361,7 @@ Figure 23.4: geom shapes
 <span>    stat<span class="op">=</span><span class="st">"identity"</span>,    <span class="co"># each individual data point gets a geom (no summaries)</span></span>
 <span>    position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_identity.html">position_identity</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># data points are not moved in any way e.g. we could specify jitter or dodge if we want to avoid busy overlapping data</span></span></code></pre></div>
 <p>This is quite a complicate way to write new layers - and it is more usual to see a simpler more compact approach</p>
-<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
 <span>             y <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
@@ -384,7 +380,7 @@ Figure 23.4: geom shapes
 <span class="header-section-number">23.3.2</span> Colour<a class="anchor" aria-label="anchor" href="#colour"><i class="fas fa-link"></i></a>
 </h3>
 <p>The colors of lines and points can be set directly using <code>colour="red"</code>, replacing “red” with a color name. The colors of filled objects, like bars, can be set using <code>fill="red"</code>.</p>
-<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
 <span>             y <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
@@ -409,7 +405,7 @@ data THEN it DOES go inside <code><a href="https://ggplot2.tidyverse.org/referen
 e.g. <code>aes(colour = species)</code>
 </p>
 </div>
-<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
 <span>             y <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
@@ -441,7 +437,7 @@ comments.
 <p>We can see the relationship between body size and flipper length. But what if we want to model this relationship with a trend line? We can add another ‘layer’ to this plot, using a different geometric representation of the data. In this case a trend line, which is in fact a summary of the data rather than a representation of each point.</p>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> function draws a trend line through the data. The default behaviour is to draw a local regression line (curve) through the points, however these can be hard to interpret. We want to add a straight line based on a linear model (‘lm’) of the relationship between x and y.</p>
 <p>This is our <strong>first</strong> encounter with linear models in this course, but we will learn a lot more about them later on.</p>
-<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Add a second geom ----</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
@@ -452,7 +448,7 @@ comments.
 <span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="co"># note layers inherit information from the top ggplot() function but not previous layers - if we want separate lines per species we need to either specify this again *or* move the color aesthetic to the top layer. </span></span></code></pre></div>
 <div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>In the example above we may notice that we are assigning colour to the same variable (species) in both geometric layers. This means we have the option to simplify our code. Aesthetics set in the "top layer" of <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> are inherited by all subsequent layers.</p>
-<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
 <span>             y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
@@ -481,7 +477,7 @@ line?
 </h3>
 <p>ggplot will automatically pick the scale for each axis, and the type of coordinate space. Most plots are in Cartesian (linear X vs linear Y) coordinate space.</p>
 <p>For this plot, let’s say we want the x and y origin to be set at 0. To do this we can add in <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim()</a></code> functions, which define the limits of the axes:</p>
-<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Set axis limits ----</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
@@ -493,7 +489,7 @@ line?
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">240</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">7000</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Further, we can control the coordinate space using <code>coord()</code> functions. Say we want to flip the x and y axes, we add <code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip()</a></code>:</p>
-<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
 <span>             y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
@@ -511,7 +507,7 @@ line?
 <span class="header-section-number">23.4</span> Labels<a class="anchor" aria-label="anchor" href="#labels"><i class="fas fa-link"></i></a>
 </h2>
 <p>By default, the axis labels will be the column names we gave as aesthetics aes(). We can change the axis labels using the xlab() and ylab() functions. Given that column names are often short and can be cryptic, this functionality is particularly important for effectively communicating results.</p>
-<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Custom labels ----</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
@@ -527,7 +523,7 @@ line?
 <h4>
 <span class="header-section-number">23.4.0.1</span> Titles and subtitles<a class="anchor" aria-label="anchor" href="#titles-and-subtitles"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Add titles ----</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
@@ -549,7 +545,7 @@ line?
 </h2>
 <p>Finally, the overall appearance of the plot can be modified using theme() functions. The default theme has a grey background.
 You may prefer <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code>, a <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> or even <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code>. Try them out.</p>
-<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Custom themes ----</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
@@ -599,7 +595,7 @@ what you can do.
 </h3>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code> command adds some random scatter to the points which can reduce over-plotting. Compare these two plots:</p>
 <div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## geom point</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, y <span class="op">=</span> <span class="va">culmen_length_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -622,7 +618,7 @@ what you can do.
 The whisker line extending above and below the IQR box define Q3 + (1.5 x IQR), and Q1 - (1.5 x IQR) respectively. You can watch a short video to learn more about box plots <a href="https://www.youtube.com/watch?v=fHLhBnmwUM0">here</a>.</p>
 <div class="inline-figure"><img src="images/boxplot.png" width="80%" style="display: block; margin: auto;"></div>
 <p>To create a box plot from our data we use (no prizes here) <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code></p>
-<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, y <span class="op">=</span> <span class="va">culmen_length_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
 <span>              alpha <span class="op">=</span> <span class="fl">0.7</span>, </span>
@@ -639,7 +635,7 @@ and note what happens.
 </div>
 <p>The points indicate outlier values [i.e., those greater than Q3 + (1.5 x IQR)].</p>
 <p>We can overlay a boxplot on the scatter plot for the entire dataset, to fully communicate both the raw and summary data. Here we reduce the width of the jitter points slightly.</p>
-<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, y <span class="op">=</span> <span class="va">culmen_length_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">species</span><span class="op">)</span>, <span class="co"># note fill is "inside" colour and colour is "edges" - try it for yourself</span></span>
 <span>              alpha <span class="op">=</span> <span class="fl">0.2</span>, <span class="co"># fainter boxes so the points "pop"</span></span>
@@ -665,14 +661,14 @@ errors!
 <span class="header-section-number">23.6.3</span> Density and histogram<a class="anchor" aria-label="anchor" href="#density-and-histogram"><i class="fas fa-link"></i></a>
 </h3>
 <p>Compare the following two sets of code:</p>
-<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">culmen_length_mm</span>, fill<span class="op">=</span><span class="va">species</span><span class="op">)</span>,</span>
 <span>           position <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span><span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins<span class="op">=</span><span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>At first you might struggle to see/understand the difference between these two charts. The shapes should be roughly the same.</p>
-<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">culmen_length_mm</span>, fill<span class="op">=</span><span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins<span class="op">=</span><span class="fl">50</span>, </span>
@@ -695,7 +691,7 @@ Explain this
 <p>There are two main differences when it comes to colors in <code>ggplot2</code>. Both arguments, color and fill, can be specified as single color or
 assigned to variables.</p>
 <p>As you have already seen in this tutorial, variables that are inside the aesthetics are encoded by variables and those that are outside are properties that are unrelated to the variables.</p>
-<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">culmen_length_mm</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins<span class="op">=</span><span class="fl">50</span>, </span>
@@ -716,7 +712,7 @@ assigned to variables.</p>
 </ul>
 <div class="inline-figure"><img src="images/palette.png" width="80%" style="display: block; margin: auto;"></div>
 <p>You can pick your own sets of colours and assign them to a categorical variable. The number of specified colours <strong>has</strong> to match the number of categories. You can use a wide number of preset colour <a href="https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/">names</a> or you can use <a href="https://www.datanovia.com/en/blog/awesome-list-of-hexadecimal-colors-you-should-have/">hexadecimals</a>.</p>
-<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Custom colours ----</span></span>
 <span></span>
 <span><span class="va">penguin_colours</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"darkolivegreen4"</span>, <span class="st">"darkorchid3"</span>, <span class="st">"goldenrod1"</span><span class="op">)</span></span>
@@ -729,7 +725,7 @@ assigned to variables.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="05-ggplot_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>You can also use a range of inbuilt colour palettes:</p>
-<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">flipper_length_mm</span>, </span>
 <span>             y <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
@@ -756,7 +752,7 @@ You can explore all schemes available with the command
 <span class="header-section-number">23.8.0.1</span> Colour blindness<a class="anchor" aria-label="anchor" href="#colour-blindness"><i class="fas fa-link"></i></a>
 </h4>
 <p>It's very easy to get carried away with colour palettes, but you should remember at all times that your figures must be accessible. One way to check how accessible your figures are is to use a colour blindness checker <a href="https://cran.r-project.org/web/packages/colorBlindness/vignettes/colorBlindness.html">colorBlindness</a></p>
-<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Check accessibility ----</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">colorBlindness</span><span class="op">)</span></span>
@@ -782,7 +778,7 @@ You can explore all schemes available with the command
 </h4>
 <p>Adding combinations of different aesthetics allows you to layer more information onto a 2D plot, sometimes though things will just become <em>too</em> busy. At the point where it becomes difficult to see the trends or differences in your plot then we want to break up a single plot into sub-plots; this is called ‘faceting’. Facets are commonly used when there is too much data to display clearly in a single plot. We will revisit faceting below, however for now, let’s try to facet the plot according to sex.</p>
 <p>To do this we use the tilde symbol ‘~’ to indicate the column name that will form each facet.</p>
-<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Facetting ----</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -800,7 +796,7 @@ You can explore all schemes available with the command
 <span class="header-section-number">23.9.0.2</span> Patchwork<a class="anchor" aria-label="anchor" href="#patchwork"><i class="fas fa-link"></i></a>
 </h4>
 <p>There are many times you might want to <em>combine</em> separate figures into multi-panel plots. Probably the easiest way to do this is with the <code>patchwork</code> package (<span class="citation">Pedersen (<a href="r-basics-1.html#ref-R-patchwork">2022</a>)</span>).</p>
-<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Patchwork ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span></span>
@@ -856,7 +852,7 @@ you are done save the file
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#FF8C00"</span>, <span class="st">"#A034F0"</span>, <span class="st">"#159090"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -884,7 +880,7 @@ Solution
 </h2>
 <p>One of the easiest ways to save a figure you have made is with the <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> function. By default it will save the last plot you made on the screen.</p>
 <p>You should specify the output path to your <strong>figures</strong> folder, then provide a file name. Here I have decided to call my plot <em>plot</em> (imaginative!) and I want to save it as a .PNG image file. I can also specify the resolution (dpi 300 is good enough for most computer screens).</p>
-<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># OUTPUT FIGURE TO FILE</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"outputs/YYYYMMDD_ggplot_workshop_final_plot.png"</span>, dpi<span class="op">=</span><span class="fl">300</span><span class="op">)</span></span></code></pre></div>
@@ -1191,7 +1187,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-29.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

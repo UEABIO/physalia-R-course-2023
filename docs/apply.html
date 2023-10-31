@@ -151,7 +151,7 @@
 <li><a class="" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
 <li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
 <li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
-<li><a class="" href="modules.html"><span class="header-section-number">34</span> Modules</a></li>
+<li><a class="" href="download.html"><span class="header-section-number">34</span> Download?</a></li>
 <li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
 <li><a class="" href="markdown.html"><span class="header-section-number">36</span> Markdown</a></li>
@@ -160,14 +160,10 @@
 <li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
 <li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
 <li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
-<li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data-1.html"><span class="header-section-number">41</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql-1.html"><span class="header-section-number">42</span> write to sql</a></li>
-<li><a class="" href="querying-sql-1.html"><span class="header-section-number">43</span> querying sql</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">44</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">45</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">46</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">47</span> R Basics</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">41</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">42</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">43</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">44</span> R Basics</a></li>
 </ul>
 
         <div class="book-extra">
@@ -195,36 +191,25 @@
 <span class="header-section-number">11.1</span> lapply<a class="anchor" aria-label="anchor" href="#lapply"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function does the following simple series of operations:</p>
-<p>it loops over a list, iterating over each element in that list</p>
+<p>it loops over a list, vector or dataframe, iterating over each element in turn</p>
 <p>it applies a function to each element of the list (a function that you specify)</p>
-<p>and returns a list (the l is for “list”).</p>
+<p>it always returns a list (the l is for “list”).</p>
+<pre><code>&gt; lapply
+function (X, FUN, ...) 
+{
+    FUN &lt;- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X &lt;- as.list(X)
+    .Internal(lapply(X, FUN))
+}
+&lt;bytecode: 0x7f79498e5528&gt;
+&lt;environment: namespace:base&gt;
+</code></pre>
 <p>We can see the operation of an <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function here:</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">df_list</span>, <span class="va">mean</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## $a
-## [1] -0.3831574
-## 
-## $b
-## [1] -0.1181707
-## 
-## $c
-## [1] -0.3879468
-## 
-## $d
-## [1] -0.7661931
-## 
-## $e
-## [1] -0.6097971
-## 
-## $f
-## [1] -0.2788647
-## 
-## $g
-## [1] 0.6165922
-## 
-## $h
-## [1] -0.04230209</code></pre>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<p>Notice that here we are passing the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function as an argument to the <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses.</p>
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">empty_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"list"</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">df_list</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span></span>
@@ -244,335 +229,399 @@
 <tbody>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">2551510</td>
+<td align="right">2476143</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2047790</td>
+<td align="right">2126851</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">34710</td>
+<td align="right">30160</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">26150</td>
+<td align="right">23760</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">24170</td>
+<td align="right">23490</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2031510</td>
+<td align="right">1968220</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">29360</td>
+<td align="right">28310</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">24130</td>
+<td align="right">23510</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1961970</td>
+<td align="right">2026271</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">1983200</td>
+<td align="right">1917740</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1910340</td>
+<td align="right">1981260</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">1956540</td>
+<td align="right">1888670</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1957960</td>
+<td align="right">2043291</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">1942270</td>
+<td align="right">1865140</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">28700</td>
+<td align="right">28040</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2010430</td>
+<td align="right">1935740</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">32250</td>
+<td align="right">28090</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2002680</td>
+<td align="right">1854310</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1999710</td>
+<td align="right">1933350</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2027240</td>
+<td align="right">1866810</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1987750</td>
+<td align="right">1923780</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">32260</td>
+<td align="right">28040</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">2007180</td>
+<td align="right">1856730</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">29410</td>
+<td align="right">27400</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1937420</td>
+<td align="right">1942670</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">29030</td>
+<td align="right">28330</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">2027530</td>
+<td align="right">1859920</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2327370</td>
+<td align="right">1990450</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">2509380</td>
+<td align="right">1862340</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2604350</td>
+<td align="right">1934340</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">37050</td>
+<td align="right">28520</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">37430</td>
+<td align="right">23770</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">31860</td>
+<td align="right">23840</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">32430</td>
+<td align="right">22991</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">43110</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">2595990</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">31800</td>
+<td align="right">23911</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2548600</td>
+<td align="right">1901870</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">37740</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">35080</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">2475470</td>
+<td align="right">27301</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2598900</td>
+<td align="right">1980540</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">37160</td>
+<td align="right">29390</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">32100</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">32460</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">31910</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">35570</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">2530470</td>
+<td align="right">24090</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">2460931</td>
+<td align="right">1865490</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2519869</td>
+<td align="right">1920770</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">31969</td>
+<td align="right">27240</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">24390</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">23481</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">23271</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">24560</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2501091</td>
+<td align="right">1844629</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">2451080</td>
+<td align="right">1907790</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2536411</td>
+<td align="right">1890800</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">49820</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">29211</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">33629</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">32929</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">34700</td>
+<td align="right">27300</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2482970</td>
+<td align="right">1882240</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">2474980</td>
+<td align="right">2008901</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2492660</td>
+<td align="right">1903340</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">49390</td>
+<td align="right">27360</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">25590</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">24320</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">63741</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">44320</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2444850</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">39700</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">28910</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">37270</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">29440</td>
+<td align="right">1925130</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">2533460</td>
+<td align="right">1907290</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2703360</td>
+<td align="right">2093411</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">41560</td>
+<td align="right">30370</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2467420</td>
+<td align="right">5642799</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">35200</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">2531130</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">44290</td>
+<td align="right">27941</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">29230</td>
+<td align="right">24809</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">35610</td>
+<td align="right">23041</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">28740</td>
+<td align="right">24240</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">2559300</td>
+<td align="right">1979850</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2468290</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">2500970</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">5448540</td>
+<td align="right">1833080</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">30170</td>
+<td align="right">26970</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1910920</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">27350</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1822850</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">27570</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">23910</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">23480</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">23610</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1947150</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1901880</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1953530</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1863310</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">28210</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">24241</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1926859</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">27361</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">24290</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">23980</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1864330</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1944300</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1902290</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1932250</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">27720</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">25060</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1858100</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">2002800</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1886010</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">27210</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">24151</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
@@ -580,239 +629,39 @@
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1958320</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">27810</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">25090</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">24310</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1911650</td>
+<td align="right">2106211</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">1967860</td>
+<td align="right">1875760</td>
 </tr>
 <tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1957560</td>
+<td align="left">apply</td>
+<td align="right">27081</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">1970680</td>
+<td align="right">1902361</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">28160</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">26850</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1880970</td>
+<td align="right">27490</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">1969720</td>
+<td align="right">1876469</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1952230</td>
+<td align="right">2111620</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">27110</td>
+<td align="right">27620</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">24400</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">24000</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1966010</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">2011770</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">30600</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">2014580</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">30220</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1906151</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1962620</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">31620</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">26091</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">25611</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1914260</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1912989</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1879729</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">28200</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">26111</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1935180</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">27400</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1887871</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">28280</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1971680</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1937350</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1996970</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1951810</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">28300</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">25530</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">24740</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1942900</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1890460</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">47010</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">30210</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">25390</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">25710</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">26660</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">24620</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">24210</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1973880</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">28800</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">25380</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1943350</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1933880</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">28380</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1903190</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">28220</td>
+<td align="right">26310</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
@@ -820,27 +669,91 @@
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1940870</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">27420</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">24180</td>
+<td align="right">1903320</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">1885480</td>
+<td align="right">1974150</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1948960</td>
+<td align="right">1929320</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">28870</td>
+<td align="right">27760</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">24561</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1989400</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">28470</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1863230</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">27280</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1957650</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1954980</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">2002311</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1903560</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">30160</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">25880</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">25450</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1994681</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1925370</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">28680</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">26910</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">25120</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">24250</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
@@ -848,43 +761,131 @@
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">24470</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1895650</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1981900</td>
+<td align="right">24931</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">30620</td>
+<td align="right">25041</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">1885280</td>
+<td align="right">2037170</td>
 </tr>
 <tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1919660</td>
+<td align="left">apply</td>
+<td align="right">34751</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">29500</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">25450</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">24560</td>
+<td align="right">25030</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1896170</td>
+<td align="right">5521378</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1926959</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">37210</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1858300</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">27130</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">23490</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1835419</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">26630</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">27741</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1885700</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1856560</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">27060</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">24711</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">23320</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1914990</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1857549</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">27400</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1925630</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1845899</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">27610</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">23750</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">23711</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1878850</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">26911</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1841459</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1892020</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1879270</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
@@ -892,170 +893,346 @@
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1906700</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1924230</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1885130</td>
+<td align="right">1894300</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">28470</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1971100</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">28770</td>
+<td align="right">28420</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">24620</td>
+<td align="right">23960</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">27740</td>
+<td align="right">23820</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">8105770</td>
+<td align="right">1831160</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2147800</td>
+<td align="right">1897270</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1960631</td>
+<td align="right">1854469</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">2011189</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">29640</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">24409</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1925771</td>
-</tr>
-<tr class="even">
-<td align="left">apply</td>
-<td align="right">31769</td>
+<td align="right">1902619</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">26100</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1947620</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1899560</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1874240</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">1929080</td>
+<td align="right">27711</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">28570</td>
+<td align="right">25661</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1891730</td>
+<td align="right">1857239</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">28790</td>
-</tr>
-<tr class="odd">
-<td align="left">forloop</td>
-<td align="right">2046190</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1952270</td>
+<td align="right">27269</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">28530</td>
+<td align="right">24330</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">1967710</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">27310</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1875980</td>
-</tr>
-<tr class="odd">
-<td align="left">apply</td>
-<td align="right">27000</td>
-</tr>
-<tr class="even">
-<td align="left">forloop</td>
-<td align="right">1990810</td>
+<td align="right">1966560</td>
 </tr>
 <tr class="odd">
 <td align="left">forloop</td>
-<td align="right">1897760</td>
+<td align="right">2569314</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">1948710</td>
+<td align="right">1949110</td>
 </tr>
 <tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1862469</td>
+</tr>
+<tr class="even">
 <td align="left">apply</td>
-<td align="right">29300</td>
+<td align="right">29570</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1962180</td>
+</tr>
+<tr class="even">
+<td align="left">apply</td>
+<td align="right">28100</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1855370</td>
 </tr>
 <tr class="even">
 <td align="left">forloop</td>
-<td align="right">1941170</td>
+<td align="right">1950960</td>
 </tr>
 <tr class="odd">
 <td align="left">apply</td>
-<td align="right">28120</td>
+<td align="right">28180</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1870660</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">26800</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1964570</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">27510</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1907490</td>
+</tr>
+<tr class="odd">
+<td align="left">forloop</td>
+<td align="right">1963520</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1911550</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">28481</td>
+</tr>
+<tr class="even">
+<td align="left">forloop</td>
+<td align="right">1962290</td>
+</tr>
+<tr class="odd">
+<td align="left">apply</td>
+<td align="right">28010</td>
 </tr>
 <tr class="even">
 <td align="left">apply</td>
-<td align="right">27460</td>
+<td align="right">26590</td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<p>Notice that here we are passing the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function as an argument to the <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses.</p>
+<p>As well as being slightly faster than the <code>for()</code> loop, arguably, <code>lapply</code> is also easier to read.</p>
+<div id="run-lapply-with-additional-arguments" class="section level3" number="11.1.1">
+<h3>
+<span class="header-section-number">11.1.1</span> Run lapply with additional arguments<a class="anchor" aria-label="anchor" href="#run-lapply-with-additional-arguments"><i class="fas fa-link"></i></a>
+</h3>
+<p>The first argument of <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> gives the list object to be iterated over.
+The second argument defines an anonymous function.</p>
+<div id="functions-with-lapply" class="section level4" number="11.1.1.1">
+<h4>
+<span class="header-section-number">11.1.1.1</span> Functions with <code>lapply</code><a class="anchor" aria-label="anchor" href="#functions-with-lapply"><i class="fas fa-link"></i></a>
+</h4>
+<p>In this example we define the list to run a function over <code>numbers</code>, then write our function as normal. Defined like this it is what we call an anonymous function, it has no name and cannot be used outside of this <code>lapply</code> function.</p>
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a list of numbers</span></span>
+<span><span class="va">numbers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Use lapply to add 10 to each number in the list</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">numbers</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print the result</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 11
+## 
+## [[2]]
+## [1] 12
+## 
+## [[3]]
+## [1] 13
+## 
+## [[4]]
+## [1] 14
+## 
+## [[5]]
+## [1] 15</code></pre>
+</div>
+<div id="using-existing-functions-in-lapply" class="section level4" number="11.1.1.2">
+<h4>
+<span class="header-section-number">11.1.1.2</span> Using existing functions in <code>lapply</code><a class="anchor" aria-label="anchor" href="#using-existing-functions-in-lapply"><i class="fas fa-link"></i></a>
+</h4>
+<p>In this example we write a named function. Notice how we don't have to use curly brackets or an anonymous function, instead, we just passed <code>mean</code>add_value<code>as the second argument of</code>lapply()`. I also supply any necessary arguments required by the function by specifying it afterwards.</p>
+<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a list of numbers</span></span>
+<span><span class="va">numbers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Define a custom function that adds a given value to each number</span></span>
+<span><span class="va">add_value</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">value</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Use lapply to add 10 to each number in the list</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">numbers</span>, <span class="va">add_value</span>, value <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print the result</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 11
+## 
+## [[2]]
+## [1] 12
+## 
+## [[3]]
+## [1] 13
+## 
+## [[4]]
+## [1] 14
+## 
+## [[5]]
+## [1] 15</code></pre>
+</div>
+</div>
 </div>
 <div id="sapply" class="section level2" number="11.2">
 <h2>
 <span class="header-section-number">11.2</span> sapply<a class="anchor" aria-label="anchor" href="#sapply"><i class="fas fa-link"></i></a>
 </h2>
+<p>The <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> function behaves similarly to <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>; the only real difference is in the return value. <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> will try to simplify the result of <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> if possible. Essentially, <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> calls <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> on its input and then applies the following algorithm:</p>
+<ul>
+<li><p>If the result is a list where every element is length 1, then a vector is returned</p></li>
+<li><p>If the result is a list where every element is a vector of the same length (&gt; 1), a matrix is returned.</p></li>
+<li><p>If it can’t figure things out, a list is returned.</p></li>
+</ul>
+<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">df_list</span>, <span class="va">mean</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##           a           b           c           d           e           f 
+## -0.38315741 -0.11817071 -0.38794682 -0.76619306 -0.60979706 -0.27886474 
+##           g           h 
+##  0.61659223 -0.04230209</code></pre>
+<p>Notice that here <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> returns a vector as each element had length of 1.</p>
 </div>
 <div id="apply-1" class="section level2" number="11.3">
 <h2>
 <span class="header-section-number">11.3</span> apply<a class="anchor" aria-label="anchor" href="#apply-1"><i class="fas fa-link"></i></a>
 </h2>
+<p>The <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> function is used to a evaluate a function (often an anonymous one) over an array. It is most often used to apply a function to the rows or columns of a matrix or dataframe, in fact this function <em>cannot</em> be used on a list. Using <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> is often not really faster than writing a loop, but it works in one line and is highly compact.</p>
+<p>MARGIN = 1 means apply function over rows</p>
+<p>MARGIN = 2 means apply function over columns</p>
+<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">df</span>, MARGIN <span class="op">=</span> <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1] -0.017615796 -0.155554062 -0.400917401 -0.454979941 -0.003522308
+##  [6] -0.125228280 -0.584980350 -0.650446262  0.119856528 -0.188911702</code></pre>
+<ul>
+<li><p>If the result is a list where every element is length 1, then a vector is returned</p></li>
+<li><p>If the result is a list where every element is a vector of the same length (&gt; 1), a matrix is returned.</p></li>
+</ul>
+<div id="summary-of-apply-functions" class="section level3" number="11.3.1">
+<h3>
+<span class="header-section-number">11.3.1</span> summary of apply functions<a class="anchor" aria-label="anchor" href="#summary-of-apply-functions"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="20%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
+</colgroup>
+<thead><tr class="header">
+<th>Function</th>
+<th>Arguments</th>
+<th>Objective</th>
+<th>Input</th>
+<th>Output</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>apply</td>
+<td>apply(X, MARGIN, FUN)</td>
+<td>Apply a function to the rows, columns or both</td>
+<td>Dataframe or matrix</td>
+<td>vector, list or matrix</td>
+</tr>
+<tr class="even">
+<td>lapply</td>
+<td>lapply(X,FUN)</td>
+<td>Apply a function to all the elements of the input</td>
+<td>List, vector or dataframe</td>
+<td>list</td>
+</tr>
+<tr class="odd">
+<td>sapply</td>
+<td>sapply(X,FUN)</td>
+<td>Apply a function to all the elements of the input</td>
+<td>List, vector or dataframe</td>
+<td>vector or matrix</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="exercise" class="section level2" number="11.4">
+<h2>
+<span class="header-section-number">11.4</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise"><i class="fas fa-link"></i></a>
+</h2>
+<div class="panel panel-default">
+<div class="panel-heading">
+Task
+</div>
+<div class="panel-body">
+Make a function that converts values with a normal distribution into their z scores
+</div>
+</div>
+<button id="displayTextunnamed-chunk-78" onclick="javascript:toggle('unnamed-chunk-78');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-78" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">z_score</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span>  </span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+Task
+</div>
+<div class="panel-body">
+Choose the appropriate apply function to calculate a matrix of z-scores for the dataframe <code>df</code>
+</div>
+</div>
+<button id="displayTextunnamed-chunk-80" onclick="javascript:toggle('unnamed-chunk-80');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-80" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<p>apply(df, MARGIN = 2, z_score)</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <script>
@@ -1244,9 +1421,14 @@ $( document ).ready(function() {
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#apply"><span class="header-section-number">11</span> Apply</a></li>
-<li><a class="nav-link" href="#lapply"><span class="header-section-number">11.1</span> lapply</a></li>
+<li>
+<a class="nav-link" href="#lapply"><span class="header-section-number">11.1</span> lapply</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#run-lapply-with-additional-arguments"><span class="header-section-number">11.1.1</span> Run lapply with additional arguments</a></li></ul>
+</li>
 <li><a class="nav-link" href="#sapply"><span class="header-section-number">11.2</span> sapply</a></li>
-<li><a class="nav-link" href="#apply-1"><span class="header-section-number">11.3</span> apply</a></li>
+<li>
+<a class="nav-link" href="#apply-1"><span class="header-section-number">11.3</span> apply</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#summary-of-apply-functions"><span class="header-section-number">11.3.1</span> summary of apply functions</a></li></ul>
+</li>
+<li><a class="nav-link" href="#exercise"><span class="header-section-number">11.4</span> Exercise</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1264,7 +1446,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-29.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

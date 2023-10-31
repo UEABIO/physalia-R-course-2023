@@ -1323,3 +1323,51 @@ Below are some links you may find useful
 * [EpiR handbook](https://epirhandbook.com/en/iteration-loops-and-lists.html)
 
 
+
+```r
+sessionInfo()
+```
+
+```
+## R version 4.3.1 (2023-06-16)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.6 LTS
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+## 
+## time zone: UTC
+## tzcode source: system (glibc)
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] here_1.0.1         patchwork_1.1.2    kableExtra_1.3.4   xml2_1.3.5        
+##  [5] rvest_1.0.3        faux_1.2.1         extrafont_0.19     knitr_1.43        
+##  [9] webexercises_1.1.0 glossary_1.0.0     lubridate_1.9.2    forcats_1.0.0     
+## [13] stringr_1.5.0      dplyr_1.1.2        purrr_1.0.1        readr_2.1.4       
+## [17] tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.2      tidyverse_2.0.0   
+## 
+## loaded via a namespace (and not attached):
+##  [1] gtable_0.3.3      xfun_0.39         bslib_0.5.0       tzdb_0.4.0       
+##  [5] vctrs_0.6.3       tools_4.3.1       generics_0.1.3    fansi_1.0.4      
+##  [9] pkgconfig_2.0.3   webshot_0.5.5     lifecycle_1.0.3   compiler_4.3.1   
+## [13] munsell_0.5.0     htmltools_0.5.5   sass_0.4.6        yaml_2.3.7       
+## [17] Rttf2pt1_1.3.12   pillar_1.9.0      jquerylib_0.1.4   extrafontdb_1.0  
+## [21] cachem_1.0.8      tidyselect_1.2.0  digest_0.6.33     stringi_1.7.12   
+## [25] bookdown_0.34     rprojroot_2.0.3   fastmap_1.1.1     grid_4.3.1       
+## [29] colorspace_2.1-0  cli_3.6.1         magrittr_2.0.3    utf8_1.2.3       
+## [33] withr_2.5.0       scales_1.2.1      timechange_0.2.0  rmarkdown_2.23   
+## [37] httr_1.4.6        hms_1.1.3         memoise_2.0.1     evaluate_0.21    
+## [41] viridisLite_0.4.2 rlang_1.1.1       downlit_0.4.3     glue_1.6.2       
+## [45] svglite_2.1.1     rstudioapi_0.15.0 jsonlite_1.8.7    R6_2.5.1         
+## [49] systemfonts_1.0.4 fs_1.6.2
+```

@@ -151,7 +151,7 @@
 <li><a class="" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
 <li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
 <li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
-<li><a class="" href="modules.html"><span class="header-section-number">34</span> Modules</a></li>
+<li><a class="" href="download.html"><span class="header-section-number">34</span> Download?</a></li>
 <li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
 <li><a class="" href="markdown.html"><span class="header-section-number">36</span> Markdown</a></li>
@@ -160,14 +160,10 @@
 <li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
 <li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
 <li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
-<li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data-1.html"><span class="header-section-number">41</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql-1.html"><span class="header-section-number">42</span> write to sql</a></li>
-<li><a class="" href="querying-sql-1.html"><span class="header-section-number">43</span> querying sql</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">44</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">45</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">46</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">47</span> R Basics</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">41</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">42</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">43</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">44</span> R Basics</a></li>
 </ul>
 
         <div class="book-extra">
@@ -182,10 +178,10 @@
 <p><a href="https://modern-rstats.eu/defining-your-own-functions.html#control-flow" class="uri">https://modern-rstats.eu/defining-your-own-functions.html#control-flow</a></p>
 <p><a href="https://bookdown.org/rdpeng/rprogdatascience/control-structures.html" class="uri">https://bookdown.org/rdpeng/rprogdatascience/control-structures.html</a></p>
 <p>Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical problem that requires the <code>if</code> and <code>else</code> construct. For instance:</p>
-<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></code></pre></div>
-<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;</span> <span class="va">b</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">f</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
 <span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
@@ -195,22 +191,22 @@
 <span><span class="va">f</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p>Another way to achieve this is by using the <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> function:</p>
-<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">a</span> <span class="op">&gt;</span> <span class="va">b</span>, <span class="fl">20</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">f</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p><code>if</code> and <code>else</code> might seem interchangeable with <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>, but they’re not. <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> is vectorized. Let’s try the following:</p>
-<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="st">"yes"</span>, <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "no"  "yes" "yes"</code></pre>
 <p>Trying to attempt the same with <code>if</code> and <code>else</code> will result in an error as only the first element can be evaluated</p>
-<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"yes"</span><span class="op">)</span> <span class="kw">else</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Error in if (c(1, 2, 4) &gt; c(3, 1, 0)) print("yes") else print("no") : 
   the condition has length &gt; 1
 </code></pre>
 <p>The work around for this would to be use a loop, so that each element along the vector can be evaluated in turn. We will revisit loops shortly.</p>
-<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vector1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">vector2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
@@ -233,13 +229,13 @@
 <p><code>case_when</code> is a powerful <code>tidyverse</code> function in R that serves as an extension of <code>if_else</code>, providing a flexible way to create conditional transformations on multiple values within a dataset. While <code>if_else</code> is primarily used for a single condition, <code>case_when</code> is designed to handle multiple conditions and allows you to assign specific values or perform operations based on these conditions.</p>
 <p>Here's a simple introduction to case_when as an extension of <code>if_else</code>:</p>
 <p>Imagine you have a dataset with a column called "temperature," and you want to create a new column called "weather" based on different temperature ranges. With if_else, you might write something like this:</p>
-<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">5</span>, <span class="fl">30</span>, <span class="fl">15</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">10</span>, <span class="st">"Cold"</span>,</span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;=</span> <span class="fl">10</span> <span class="op">&amp;</span> <span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">25</span>, <span class="st">"Moderate"</span>, <span class="st">"Hot"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "Moderate" "Hot"      "Cold"     "Hot"      "Moderate"</code></pre>
-<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
 <span>    <span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">10</span> <span class="op">~</span> <span class="st">"Cold"</span>,</span>
 <span>    <span class="va">temperature</span> <span class="op">&gt;=</span> <span class="fl">10</span> <span class="op">&amp;</span> <span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">25</span> <span class="op">~</span> <span class="st">"Moderate"</span>,</span>
@@ -254,7 +250,7 @@
 <p>Let's make a function that reports p-values in APA format (with "p = [rounded value]" when p &gt;= .001 and "p &lt; .001" when p &lt; .001).</p>
 <p>You can add a default value to any argument. If that argument is skipped, then the function uses the default argument.</p>
 <p>First we could make a function that rounds any value to three digits.</p>
-<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">roundp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span></span>
 <span>    <span class="va">reported</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">roundp</span><span class="op">)</span></span>
@@ -262,7 +258,7 @@
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>But we would like this to have a conditional response as well: so we need an <code>if</code> <code>else</code> statement.</p>
-<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="kw">if</span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span><span class="op">)</span><span class="op">{</span></span>
 <span>             <span class="st">"p &lt; 0.001"</span><span class="op">}</span> <span class="kw">else</span><span class="op">{</span></span>
@@ -272,7 +268,7 @@
 <span>     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
 <span> <span class="op">}</span></span></code></pre></div>
 <p>However we soon hit our first problem, this function works well when provided a single numeric value, but when applied to a vector or a dataframe we encounter an error:</p>
-<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.05</span>,<span class="fl">0.3</span>,<span class="fl">0.4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">report_p</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
@@ -287,7 +283,7 @@ Base R
 </button>
 </div>
 <div id="option1= T" class="tabcontent= T">
-<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span>,</span>
 <span>             <span class="st">"p &lt; 0.001"</span>,</span>
@@ -297,7 +293,7 @@ Base R
 <span> <span class="op">}</span></span></code></pre></div>
 </div>
 <div id="option2= T" class="tabcontent= T">
-<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span>,</span>
 <span>             <span class="st">"p &lt; 0.001"</span>,</span>
@@ -322,25 +318,25 @@ character “a”?
 <p>For <code>p = 1.5</code> it probably <em>shouldn't</em> run (p = 1.5 makes no sense), but it does!</p>
 <p>For <code>p = "a"</code> there is a warning but perhaps not a very intuitive one.</p>
 <p>We can make our own custom/specific warnings, try this and run it with the arguments above again!</p>
-<button id="displayTextunnamed-chunk-35" onclick="javascript:toggle('unnamed-chunk-35');">
+<button id="displayTextunnamed-chunk-44" onclick="javascript:toggle('unnamed-chunk-44');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-35" style="display: none">
+<div id="toggleTextunnamed-chunk-44" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
 <div class="tab">
-<button class="tablinksunnamed-chunk-35 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-35', 'unnamed-chunk-35');">
+<button class="tablinksunnamed-chunk-44 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-44', 'unnamed-chunk-44');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-35" onclick="javascript:openCode(event, 'option2unnamed-chunk-35', 'unnamed-chunk-35');">
+<button class="tablinksunnamed-chunk-44" onclick="javascript:openCode(event, 'option2unnamed-chunk-44', 'unnamed-chunk-44');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
-<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<div id="option1unnamed-chunk-44" class="tabcontentunnamed-chunk-44">
+<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>   </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
@@ -353,8 +349,8 @@ Base R
 <span>     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
 <span> <span class="op">}</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
-<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
+<div id="option2unnamed-chunk-44" class="tabcontentunnamed-chunk-44">
+<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span> </span>
 <span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
@@ -369,7 +365,240 @@ Base R
 <span>   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-35') </script>
+<script> javascript:hide('option2unnamed-chunk-44') </script>
+</div>
+</div>
+</div>
+</div>
+<div id="activities" class="section level2" number="8.3">
+<h2>
+<span class="header-section-number">8.3</span> Activities<a class="anchor" aria-label="anchor" href="#activities"><i class="fas fa-link"></i></a>
+</h2>
+<p>Exercise 1: Write a Simple Function
+We'll create a function that calculates the GC content of a DNA sequence, and the result melting temperature of the sequence and returns both in a list. GC content is the percentage of the DNA molecule's nitrogenous bases that are either guanine (G) or cytosine (C). This is a common metric used in molecular biology and genetics to analyze DNA sequences. Each GC base addes 4 degrees to melting temp while each AT base adds 2 degrees.</p>
+<blockquote>
+<p>Hint<code>stringr</code> and associated functions will be very helpful here</p>
+</blockquote>
+<button id="displayTextunnamed-chunk-45" onclick="javascript:toggle('unnamed-chunk-45');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-45" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="tab">
+<button class="tablinksunnamed-chunk-45 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-45', 'unnamed-chunk-45');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-45" onclick="javascript:openCode(event, 'option2unnamed-chunk-45', 'unnamed-chunk-45');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
+<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
+<span>  </span>
+<span> </span>
+<span>  </span>
+<span>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span> <span class="va">gc_positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gregexpr</a></span><span class="op">(</span><span class="st">"[GC]"</span>, <span class="va">dna_sequence</span><span class="op">)</span><span class="op">)</span></span>
+<span> <span class="va">gc_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">gc_positions</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span>  <span class="va">total_bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span> <span class="op">/</span> <span class="va">total_bases</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  </span>
+<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate AT numbers</span></span>
+<span>  <span class="va">at_count</span> <span class="op">&lt;-</span> <span class="va">total_bases</span> <span class="op">-</span> <span class="va">gc_count</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span>  <span class="va">melt_temp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span><span class="op">*</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">at_count</span><span class="op">*</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="va">dna_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="va">melt_temp</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GC Percentage"</span>, <span class="st">"Melting temp (celsius)"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
+<span>  </span>
+<span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span>  <span class="va">gc_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">dna_sequence</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"G"</span>, <span class="st">"C"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span>  <span class="va">total_bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span> <span class="op">/</span> <span class="va">total_bases</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  </span>
+<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>   <span class="co"># Calculate AT numbers</span></span>
+<span>  <span class="va">at_count</span> <span class="op">&lt;-</span> <span class="va">total_bases</span> <span class="op">-</span> <span class="va">gc_count</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span>  <span class="va">melt_temp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span><span class="op">*</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">at_count</span><span class="op">*</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="va">dna_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="va">melt_temp</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GC Percentage"</span>, <span class="st">"Melting temp (celsius)"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<script> javascript:hide('option2unnamed-chunk-45') </script>
+</div>
+</div>
+</div>
+<p>Exercise 2: Document the Function
+Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.</p>
+<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-46" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+
+</div>
+</div>
+</div>
+<p>Exercise 3: Test the Function
+Create a test script that uses test_that to check if the function returns the correct GC percentage and melting temps</p>
+<button id="displayTextunnamed-chunk-47" onclick="javascript:toggle('unnamed-chunk-47');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-47" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"gc_content function tests"</span>, <span class="op">{</span></span>
+<span>    <span class="co"># Test valid input and GC content calculation</span></span>
+<span>    <span class="va">dna_seq1</span> <span class="op">&lt;-</span> <span class="st">"ATGCGTAGCT"</span></span>
+<span>    <span class="va">result1</span> <span class="op">&lt;-</span> <span class="fu">gc_content</span><span class="op">(</span><span class="va">dna_seq1</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">`GC Percentage`</span>, <span class="fl">50</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">`Melting temp (celsius)`</span>, <span class="fl">30</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Test passed 🎉</code></pre>
+</div>
+</div>
+</div>
+<p>Exercise 4: Handle Errors
+You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?</p>
+<button id="displayTextunnamed-chunk-48" onclick="javascript:toggle('unnamed-chunk-48');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-48" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="tab">
+<button class="tablinksunnamed-chunk-48 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-48', 'unnamed-chunk-48');">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-48" onclick="javascript:openCode(event, 'option2unnamed-chunk-48', 'unnamed-chunk-48');">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-48" class="tabcontentunnamed-chunk-48">
+<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Check if the input sequence contains only valid DNA characters (A, T, C, G)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"^[ATCG]+$"</span>, <span class="va">dna_sequence</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Invalid DNA sequence. Only A, T, C, and G are allowed."</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">30</span> <span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"Sequence is &gt; 30 nt temperature predictions may be inaccurate"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span> <span class="va">gc_positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gregexpr</a></span><span class="op">(</span><span class="st">"[GC]"</span>, <span class="va">dna_sequence</span><span class="op">)</span><span class="op">)</span></span>
+<span> <span class="va">gc_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">gc_positions</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span>  <span class="va">total_bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span> <span class="op">/</span> <span class="va">total_bases</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  </span>
+<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate AT numbers</span></span>
+<span>  <span class="va">at_count</span> <span class="op">&lt;-</span> <span class="va">total_bases</span> <span class="op">-</span> <span class="va">gc_count</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span>  <span class="va">melt_temp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span><span class="op">*</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">at_count</span><span class="op">*</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="va">dna_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="va">melt_temp</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GC Percentage"</span>, <span class="st">"Melting temp (celsius)"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-48" class="tabcontentunnamed-chunk-48">
+<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Check if the input sequence contains only valid DNA characters (A, T, C, G)</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">dna_sequence</span>, <span class="st">"^[ATCG]+$"</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Invalid DNA sequence. Only A, T, C, and G are allowed."</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">30</span> <span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"Sequence is &gt; 30 nt temperature predictions may be inaccurate"</span><span class="op">)</span></span>
+<span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span>  <span class="va">gc_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">dna_sequence</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"G"</span>, <span class="st">"C"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span>  <span class="va">total_bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span> <span class="op">/</span> <span class="va">total_bases</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  </span>
+<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>   <span class="co"># Calculate AT numbers</span></span>
+<span>  <span class="va">at_count</span> <span class="op">&lt;-</span> <span class="va">total_bases</span> <span class="op">-</span> <span class="va">gc_count</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span>  <span class="va">melt_temp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span><span class="op">*</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">at_count</span><span class="op">*</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="va">dna_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="va">melt_temp</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GC Percentage"</span>, <span class="st">"Melting temp (celsius)"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<script> javascript:hide('option2unnamed-chunk-48') </script>
 </div>
 </div>
 </div>
@@ -565,6 +794,7 @@ $( document ).ready(function() {
 </li>
 <li><a class="nav-link" href="#conditional-functions"><span class="header-section-number">8.1</span> Conditional functions</a></li>
 <li><a class="nav-link" href="#warnings-and-errors"><span class="header-section-number">8.2</span> Warnings and errors</a></li>
+<li><a class="nav-link" href="#activities"><span class="header-section-number">8.3</span> Activities</a></li>
 </ul>
 
       <div class="book-extra">
@@ -582,7 +812,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-29.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
