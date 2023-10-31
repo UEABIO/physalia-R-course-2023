@@ -1196,9 +1196,11 @@ list_input_build_vector = for (i in 1:length(df_list)){
 }
 )
 
+
 mbm
 
 ```
+
 
 
 ```{r}
@@ -1287,6 +1289,7 @@ Notice that here we are passing the `mean()` function as an argument to the `lap
 ```{r}
 
 empty_list <- vector(mode = "list", length = length(df_list))
+
 
 microbenchmark::microbenchmark(
  
