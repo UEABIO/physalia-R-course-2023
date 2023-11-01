@@ -1,5 +1,11 @@
 bookdown::bs4_book:
   default: yes
+  config:
+    toc:
+      collapse: subsection
+      scroll_highlight: true
+      before: null
+      after: null
   md_extensions: -smart
   df_print: kable
   repo:
