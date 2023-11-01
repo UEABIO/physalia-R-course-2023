@@ -1,6 +1,6 @@
 # (PART\*) Literate Programming and Reproducibility {.unnumbered}
 
-# Markdown
+# RMarkdown
 
 
 
@@ -17,13 +17,83 @@ Documents produced with Rmarkdown, allow analyses to be included easily - and ma
 
 With Rmarkdown we can make reproducible html, word, pdf, powerpoints or websites and dashboards^[(https://rmarkdown.rstudio.com/gallery.html)]
 
+
+
+## How it works
+
+To create an R Markdown document in RStudio, go to **File > New File > R Markdown**. Choose a title, author, and date, as well as your default output format (HTML, PDF, or Word). These values can be changed later. Click OK, and RStudio will create an R Markdown document with some placeholder content. 
+
+<img src="images/templatermd.png" width="80%" style="display: block; margin: auto;" />
+
+
+Delete this content and replace it with your own. As an example, let’s create a report about penguins using data from the `palmerpenguins` package. I’ve separated the data by year, and we’ll use just the 2007 data. Add the following content to add to your R Markdown document:
+
+
+
+```markdown
+---
+title: "Penguins Report"
+author: "Phil"
+date: "2024-01-12"
+output: word_document
+---
+  
+``{r setup, include = FALSE}
+knitr::opts_chunk$set(include = TRUE, 
+                      echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+``
+
+``{r}
+library(tidyverse)
+``
+
+``{r}
+penguins_raw <- read_csv("https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/penguins_raw.csv")
+``
+
+# Introduction
+
+We are writing a report about the **Palmer Penguins**. These penguins are *really* amazing. There are three species:
+
+- Adelie
+- Gentoo
+- Chinstrap
+
+## Bill Length
+
+We can make a histogram to see the distribution of bill lengths.
+
+``{r}
+penguins_raw |> 
+  ggplot(aes(x = bill_length_mm)) +
+  geom_histogram() +
+  theme_minimal()
+``
+
+``{r}
+average_bill_length <- penguins_raw |> 
+  summarize(avg_bill_length = mean(bill_length_mm,
+                                   na.rm = TRUE)) |> 
+  pull(avg_bill_length)
+``
+
+The chart shows the distribution of bill lengths. The average bill length is `r average_bill_length` millimeters.
+```
+
+
+This document contains several sections, each of which we will discuss below. First, though, let’s skip to the finish line by doing what’s called *knitting* our document. The **Knit** button at the top of RStudio converts the R Markdown document into whatever format we selected.
+
+
 **To make your Rmd publish - hit the knit button at the top of the doc**
 
-### Format
+<img src="images/knit.png" width="80%" style="display: block; margin: auto;" />
 
-* Go to RStudio Cloud and open your workspace from last time.
+We’ve set the output format to be HTML (see the output_format: html). Some features are not immediately visible in R Markdown that do appear in the rendered document, including the histogram. This is because the R Markdown document doesn’t directly include this plot. Rather, it includes the code needed to produce the plot when knitted.
 
-* Follow the instructions carefully - and assemble your Rmarkdown file bit by bit - when prompted to 'knit' the document do it. We will then observed the results and might make changes.
+It may seem convoluted to constantly knit R Markdown documents to Word, but this workflow allows us to update our reports at any point with new code or data. This ability is known as reproducibility, and it is central to the value of R Markdown.
+
 
 ## Background to Rmarkdown
 
@@ -41,60 +111,10 @@ Most of this process happens in the background (you do not need to know all thes
 
 The .md file is then processed by pandoc to create the finished product: a Microsoft Word document, HTML file, Powerpoint document, pdf, etc. 
 
-When using RStudio Cloud - all of these features are pre-loaded - if you take your R journey further in the future and install a copy of R and RStudio on your own computer you might have to do a little setting up to get this working (see Appendices). 
 
 <img src="images/0_rmd.png" width="80%" style="display: block; margin: auto;" />
 
-## Starting a new Rmd file
-
-In RStudio, if you open a new R markdown file, start with ‘File’, then ‘New file’ then ‘R markdown…’.
-
-R Studio will give you some output options to pick from. In the example below we select “HTML” because we want to create an html document. The title and the author names are not important. If the output document type you want is not one of these, don’t worry - you can just pick any one and change it in the script later.
-
-## Activity 1: Make an Rmarkdown file
-
-
-<div class="try">
-<p>Try your first “knit” to make a document.</p>
-</div>
-
-* Create a new Rmarkdown file. It comes prepopulated with some example text and code.
-
-* Save this (without changes) to **the same location as your `.Rproj` file** name it `contained_report_penguins.Rmd`.
-
-* We have moved from visualisation to reproducible report making.
-
-* Try your first *knit* just hit the button and watch it work - see how the R code chunks are processed. 
-
-* Read the intro information below to learn more about how Markdown works. 
- 
-<div class="info">
-<p>The working directory for .rmd files is a little different to working
-with scripts.</p>
-<p>With a .Rmd file, the <strong>working directory is wherever the Rmd
-file itself is saved</strong>.</p>
-<p>For example if you have your .Rmd file in a subfolder
-~/markdownfiles/markdown.Rmd the code for read_csv(“data/data.csv”)
-within the markdown will look for a <code>.csv</code> file in a
-subfolder called data <em>inside</em> the ‘markdown’ folder and not the
-root project folder where the <code>.RProj</code> file lives.</p>
-<p>So we have two options when using .Rmd files</p>
-<ol style="list-style-type: decimal">
-<li><p>Don’t put the .Rmd file in a subfolder and make sure it lives in
-the same directory as your .RProj file - that way relative filepaths are
-the same between R scripts and Rmarkdown files</p></li>
-<li><p>Use the <code>here</code> package to describe file locations -
-more later</p></li>
-</ol>
-</div>
-
-## R Markdown parts
-
-An R Markdown document can be edited in RStudio just like a standard R script. When you start a new R Markdown script, RStudio tries to be helpful by showing a template which explains the different section of an R Markdown script.
-
-The below is what appears when starting a new Rmd script intended to produce an html output.
-
-<img src="images/templatermd.png" width="80%" style="display: block; margin: auto;" />
+## Rmarkdown parts
 
 As you can see, there are three basic components to any Rmd file: 
 
@@ -106,9 +126,23 @@ As you can see, there are three basic components to any Rmd file:
 
 <img src="images/rmarkdown_translation.png" width="100%" style="display: block; margin: auto;" />
 
-### YAML
+### YAML Metadata
 
-Referred to as the ‘YAML metadata’ or just ‘YAML’, it is a recursive acronym that stands for "YAML ain't Markdown Language". It is found at the top of the R Markdown document. This section of the script will tell your Rmd file **what type of output to produce**, formatting preferences, and other metadata such as document title, author, and date. 
+The YAML section is the very beginning of an R Markdown document. The name YAML comes from the recursive acronym YAML ain’t markup language, whose meaning isn’t important for our purposes. Three dashes indicate its beginning and end, and the text inside of it contains metadata about the R Markdown document. Here is my YAML:
+
+
+````md
+
+---
+title: "Penguins Report"
+author: "Philip Leftwich"
+date: "2024-01-12"
+output: html_document
+---
+
+````
+
+As you can see, it provides the title, author, date, and output format. All elements of the YAML are given in `key: value` syntax, where each key is a label for a piece of metadata (for example, the title) followed by a value in quotes.
 
 In the example above, because we clicked that our default output would be an html file, we can see that the YAML says output: `html_document`. However we can also change this to say `powerpoint_presentation` or `word_document` or even `pdf_document`.
 
@@ -117,6 +151,109 @@ In the example above, because we clicked that our default output would be an htm
 have your name as author, today’s date and the title of the file should
 be called “Penguins of the Palmer Archipelago, Antarctica”.</p>
 </div>
+
+### Code chunks
+
+R Markdown documents have a different structure from the R script files you might be familiar with (those with the .R extension). R script files treat all content as code unless you comment out a line by putting a pound sign (#) in front of it. In the following code, the first line is a comment while the second line is code.
+
+````md
+
+```{r}
+# Import our data
+data <- read_csv("data.csv")
+```
+
+````
+
+In R Markdown, the situation is reversed. Everything after the YAML is treated as text unless we specify otherwise by creating what are known as code chunks. Each chunk is opened with a line that starts with three back-ticks, and curly brackets that contain parameters for the chunk \{ \}. The chunk ends with three more back-ticks.
+
+````md
+
+```{r}
+library(tidyverse)
+```
+
+````
+
+R Markdown treats anything in the code chunk as R code when we knit. For example, this code chunk will produce a histogram in the final Word document.
+
+
+
+
+````md
+
+```{r}
+
+penguins_raw |>  
+  ggplot(aes(x = bill_length_mm)) +
+  geom_histogram() +
+  theme_minimal()
+```
+
+````
+
+
+<div class="info">
+<p>Some notes about the contents of the curly brackets { }:</p>
+<p>They start with ‘r’ to indicate that the language name within this
+chunk is <strong>R</strong>. It is possible to include other programming
+language chunks here such as <strong>SQL</strong>,
+<strong>Python</strong> or <strong>Bash</strong>.</p>
+<p>After the r you can optionally write a chunk “name” – these are not
+necessary but can help you organise your work. Note that if you name
+your chunks, you should ALWAYS use unique names or else R will
+<em>complain</em> when you try to render.</p>
+<p>After the language name and optional chunk name put a comma, then you
+can include other options too, written as <code>tag=value</code>, such
+as:</p>
+<ul>
+<li><p>eval = FALSE to not run the R code</p></li>
+<li><p>echo = FALSE to not print the chunk’s R source code in the output
+document</p></li>
+<li><p>warning = FALSE to not print warnings produced by the R
+code</p></li>
+<li><p>message = FALSE to not print any messages produced by the R
+code</p></li>
+<li><p>include = either TRUE/FALSE whether to include chunk outputs
+(e.g. plots) in the document</p></li>
+<li><p>out.width = and out.height = - size of ouput e.g. out.width =
+“75%”</p></li>
+<li><p>fig.align = “center” adjust how a figure is aligned across the
+page</p></li>
+<li><p>fig.show=‘hold’ if your chunk prints multiple figures and you
+want them printed next to each other (pair with out.width = c(“33%”,
+“67%”).</p></li>
+</ul>
+</div>
+
+A special code chunk at the top of each R Markdown document, known as the setup code chunk, gives instructions for what should happen when knitting a document. 
+
+In cases where you’re using R Markdown to generate a report for a non-R user, you likely want to hide the code, messages, and warnings but show the output (which would include any visualizations you generate). To do this, create a setup code chunk that looks like this:
+
+
+````md
+
+```{r}
+knitr::opts_chunk$set(include = TRUE, 
+                      echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+````
+
+The `include = FALSE` option on the first line applies to the setup code chunk itself. It tells R Markdown to not include the output of the setup code chunk when knitting. The options within `knitr::opts_chunk$set(`) apply to all future code chunks. **However, you can also override these global code chunk options on individual chunks**. If I wanted my document to show both the plot itself and the code used to make it, I could set `echo = TRUE` for that code chunk only:
+
+````md
+
+```{r}
+penguins %>% 
+  ggplot(aes(x = bill_length_mm)) +
+  geom_histogram() +
+  theme_minimal()
+```
+
+````
 
 ### Text
 
@@ -170,111 +307,6 @@ Here are my bullets (there are two spaces after this colon):
   * Sub-bullet 2 (followed by two spaces and Enter/Return)  
 ```
 
-### Code Chunks
-
-Sections of the script that are dedicated to running R code are called “chunks”. This is where you may load packages, import data, and perform the actual data management and visualisation. There may be many code chunks, so they can help you organize your R code into parts, perhaps interspersed with text. To note: These ‘chunks’ will appear to have a slightly different background colour from the narrative part of the document.
-
-Each chunk is opened with a line that starts with three back-ticks, and curly brackets that contain parameters for the chunk \{ \}. The chunk ends with three more back-ticks.
-
-````md
-```{r}
-code goes here
-```
-````
-
-You can create a new chunk by typing it out yourself, by using the keyboard shortcut “Ctrl + Alt + i” (or Cmd + Shift + r in Mac), or by clicking the green ‘insert a new code chunk’ icon at the top of your script editor.
-
-<div class="info">
-<p>Some notes about the contents of the curly brackets { }:</p>
-<p>They start with ‘r’ to indicate that the language name within this
-chunk is <strong>R</strong>. It is possible to include other programming
-language chunks here such as <strong>SQL</strong>,
-<strong>Python</strong> or <strong>Bash</strong>.</p>
-<p>After the r you can optionally write a chunk “name” – these are not
-necessary but can help you organise your work. Note that if you name
-your chunks, you should ALWAYS use unique names or else R will
-<em>complain</em> when you try to render.</p>
-<p>After the language name and optional chunk name put a comma, then you
-can include other options too, written as <code>tag=value</code>, such
-as:</p>
-<ul>
-<li><p>eval = FALSE to not run the R code</p></li>
-<li><p>echo = FALSE to not print the chunk’s R source code in the output
-document</p></li>
-<li><p>warning = FALSE to not print warnings produced by the R
-code</p></li>
-<li><p>message = FALSE to not print any messages produced by the R
-code</p></li>
-<li><p>include = either TRUE/FALSE whether to include chunk outputs
-(e.g. plots) in the document</p></li>
-<li><p>out.width = and out.height = - size of ouput e.g. out.width =
-“75%”</p></li>
-<li><p>fig.align = “center” adjust how a figure is aligned across the
-page</p></li>
-<li><p>fig.show=‘hold’ if your chunk prints multiple figures and you
-want them printed next to each other (pair with out.width = c(“33%”,
-“67%”).</p></li>
-</ul>
-</div>
-
-* A chunk header must be written in **one line**
-
-````md
-
-```{r optional-name , eval = TRUE, echo = FALSE}
-
-```
-
-````
-
-* Try to avoid periods, underscores, and spaces. Use hyphens ( - ) instead if you need a separator.
-
-Read more extensively about the knitr options here^[(https://yihui.org/knitr/options/)].
-
-There are also two arrows at the top right of each chunk, which are useful to run code within a chunk, or all code in prior chunks. Hover over them to see what they do.
-
-## Activity 2: Setting code chunks
-
-**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select>
-
-
-<div class='webex-solution'><button>Explain This Answer</button>
-
-knitr::opts_chunk$set(echo = TRUE)
-
-</div>
- 
-
-**Question 2.** Options set in individual code chunks override the global options <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select>
-
-
-<div class='webex-solution'><button>Explain This Answer</button>
-
-In the second chunk we see echo = FALSE and this has prevented the code from being printed, we only see the rendered output
-
-</div>
- 
-<br>
-**Question 3.** If we wanted to see the R code, but **not** its output we need to select what combo of code chunk options? <select class='webex-select'><option value='blank'></option><option value=''>echo = FALSE, eval = FALSE</option><option value=''>echo = FALSE, eval = TRUE</option><option value='answer'>echo = TRUE, eval = FALSE</option><option value=''>echo = TRUE, eval = TRUE</option></select>
-
-
-### Global options
-
-For global options to be applied to all chunks in the script, you can set this up within your very first R code chunk in the script. 
-This is very handy if you know you will want the majority of your code chunks to behave in the same way.
-For instance, so that only the outputs are shown for each code chunk and not the code itself, you can include this command in the R code chunk (and set this chunk to `include = false`):
-
-
-```r
-knitr::opts_chunk$set(echo = FALSE) 
-```
-
-
-<div class="info">
-<p>Global options are useful, but <em>each</em> code block can still be
-individually set.</p>
-</div>
-
 ### In-text code
 
 You can also include minimal R code within back-ticks. Within the back-ticks, begin the code with “r” and a space, so RStudio knows to evaluate the code as R code. See the example below.
@@ -285,13 +317,73 @@ When typed in-line within a section of what would otherwise be Markdown text, it
 
 This book was printed on 2023-11-01
 
-## Activity 3: Make some markdown edits
+### Running code
 
-<div class="try">
-<p>Having added some in-line code, try re-knitting your .Rmd file.</p>
+You can run the code in an R Markdown document in two ways. The first way is by knitting the entire document. The second way is to run code chunks manually (also known as interactively) by hitting the little green play button at the top-right of a code chunk. The down arrow next to the green play button will run all code until that point.
+
+
+<img src="images/green_button.png" width="100%" style="display: block; margin: auto;" />
+
+The one downside to running code interactively is that you can sometimes make mistakes that cause your R Markdown document to fail to knit. That is because, in order to knit, an R Markdown document must contain all the code it uses. If you are working interactively and, say, load data from a separate file, you will be unable to knit your document. When working in R Markdown, always keep all code within a single document.
+
+The code must also always appear in the right order. 
+
+
+## Useful tips
+ 
+<div class="info">
+<p>The working directory for .rmd files is a little different to working
+with scripts.</p>
+<p>With a .Rmd file, the <strong>working directory is wherever the Rmd
+file itself is saved</strong>.</p>
+<p>For example if you have your .Rmd file in a subfolder
+~/markdownfiles/markdown.Rmd the code for read_csv(“data/data.csv”)
+within the markdown will look for a <code>.csv</code> file in a
+subfolder called data <em>inside</em> the ‘markdown’ folder and not the
+root project folder where the <code>.RProj</code> file lives.</p>
+<p>So we have two options when using .Rmd files</p>
+<ol style="list-style-type: decimal">
+<li><p>Don’t put the .Rmd file in a subfolder and make sure it lives in
+the same directory as your .RProj file - that way relative filepaths are
+the same between R scripts and Rmarkdown files</p></li>
+<li><p>Use the <code>here</code> package to describe file locations -
+more later</p></li>
+</ol>
 </div>
 
-## Activity 4: Generating a self-contained report from data
+
+
+## Exercises: Setting code chunks
+
+
+**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select>
+
+
+<div class='webex-solution'><button>Explain This Answer</button>
+
+knitr::opts_chunk$set(echo = TRUE)
+
+</div>
+ 
+
+**Question 2.** Options set in individual code chunks override the global options <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select>
+
+
+<div class='webex-solution'><button>Explain This Answer</button>
+
+In the second chunk we see echo = FALSE and this has prevented the code from being printed, we only see the rendered output
+
+</div>
+ 
+<br>
+**Question 3.** If we wanted to see the R code, but **not** its output we need to select what combo of code chunk options? <select class='webex-select'><option value='blank'></option><option value=''>echo = FALSE, eval = FALSE</option><option value=''>echo = TRUE, eval = TRUE</option><option value=''>echo = FALSE, eval = TRUE</option><option value='answer'>echo = TRUE, eval = FALSE</option></select>
+
+
+
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+
+Generate a self-contained report from data
+ </div></div>
 
 For a relatively simple report, you may elect to organize your R Markdown script such that it is “self-contained” and does not involve any external scripts.
 
@@ -313,32 +405,6 @@ In this scenario, one logical organization of the R Markdown script might be:
 
 * Save outputs, *if applicable* (.csv, .png, etc.)
 
-<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-Remove your example code blocks from the document and replace them with the ones below, then knit. </div></div>
-
-
-````md
-```{r, include=FALSE}
-# GLOBAL KNITR OPTIONS ----
-knitr::opts_chunk$set(echo = TRUE)
-# ____________________----
-
-# PACKAGES ----
-library(tidyverse)
-
-```
-````
-
-````md
-```{r}
-# READ DATA ----
-
-penguins <- read_csv("data/penguins_raw.csv")
-
-head(penguins)
-
-```
-````
 
 
 ### Heuristic file paths with `here()`
@@ -358,6 +424,7 @@ This is how `here()` works within an R project:
 So when you use `here()` wrapped inside other functions for importing/exporting (like `read_csv()` or `ggsave()`) if you include `here()` you can still use the RProject location as the root directory when 'knitting' Rmarkdown files, even if your markdown is tidied away into a **separate sub-folder**.
 
 This means your previous relative filepaths should be replaced with:
+
 
 ````md
 ```{r, include=FALSE}
@@ -383,6 +450,8 @@ head(penguins)
 ```
 ````
 
+
+
 <div class="try">
 <p>Try replacing your previous code with the examples above then
 re-knitting your .Rmd file.</p>
@@ -397,7 +466,8 @@ file paths across <strong>all .R and .Rmd files in a project</strong> -
 otherwise you might encounter errors.</p>
 </div>
 
-## Activity 4: Can you change the global options of your Rmd file so that it doesn't display any code, warnings or messages?
+
+## Activity: Can you change the global options of your Rmd file so that it doesn't display any code, warnings or messages?
 
 Once you have made your edits to the [chunk options](#code-chunks) try hitting 'knit' again. 
 
@@ -406,26 +476,19 @@ Once you have made your edits to the [chunk options](#code-chunks) try hitting '
 
 ### Size options for figures
 
-Options `fig.width` and `fig.height` enable to set width and height of R produced figures. The default value is set to **7 (inches)**. When I play with these options, I prefer using only one of them (`fig.width`) in association with another one, `fig.asp`, which sets the *height-to-width* ratio of the figure. It’s easier in my mind to play with this ratio than to give a width and a height separately. The default value of fig.asp is NULL but I often set it to `(0.8)`, which often corresponds to the expected result.
+
+- `fig.width` and `fig.height` enable to set width and height of R produced figures.
+The default value is set to **7 (inches)**. When I play with these options, I prefer using only one of them (`fig.width`).
+
+- `fig.asp` sets the *height-to-width* ratio of the figure. It’s easier in my mind to play with this ratio than to give a width and a height separately. The default value of fig.asp is NULL but I often set it to `(0.8)`, which often corresponds to the expected result.
 
 Size options of figures produced by R have consequences on relative sizes of elements in this figures. For a `ggplot2` figure, these elements will remain to the size defined in the used theme, whatever the chosen size of the figure. Therefore a huge size can lead to a very small text and vice versa.
+
 
 <div class="info">
 <p>The base font size is 11 pts by default. You can change it with the
 <code>base_size</code> argument in the theme you’re using.</p>
 </div>
-
-<div class="warning">
-<p>The code below is likely to produce an error and cause the document
-to fail to knit. From the error message can you work out what is missing
-from our code that is causing this? Hint - there is a difference in the
-column names we are asking for and the ones in the actual spreadsheet we
-just imported</p>
-</div>
-
-
-
-<div class='webex-solution'><button>Solution</button>
 
 
 
@@ -447,13 +510,14 @@ plot <- penguins %>%
   theme_minimal(base_size = 11)
 ```
 
+
 ````md
 ```{r fig.asp = 0.8, fig.width = 3}
 plot
 # figure elements are too big
 ```
 ````
-<img src="08-reproducible-reports_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="08-reproducible-reports_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
 
 ````md
 ```{r fig.asp = 0.8, fig.width = 10}
@@ -462,7 +526,7 @@ plot
 ```
 ````
 
-<img src="08-reproducible-reports_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="08-reproducible-reports_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
 
 To find the result you like, you’ll need to combine sizes set in your theme and set in the chunk options. With my customised theme, the default size (`7`) looks good to me.
 
@@ -472,7 +536,7 @@ plot
 ```
 ````
 
-<img src="08-reproducible-reports_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="08-reproducible-reports_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" />
 
 When texts axis are longer or when figures is overloaded, you can choose bigger size (8 or 9) to relatively reduce the figure elements. it’s worth noting that for the text sizes, you can also modify the base size in your theme to obtain similar figures.
 
@@ -483,13 +547,16 @@ plot + theme(base_size = 14)
 ```
 ````
 
-<img src="08-reproducible-reports_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="08-reproducible-reports_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
+
 
 ### Size of final figure in document
 
+With the previous examples, you could see the relative size of the elements within th figures was changed - but the area occupied by the figures remained the same. In order to change this I need `out.width` or `out.height`
+
 Figures made with R in a R Markdown document are exported (by default in png format) and then inserted into the final rendered document. Options `out.width` and `out.height` enable us to choose the size of the figure in the final document.
 
-It is rare I need to re-scale height-to-width ratio after the figures were produced with R and this ratio is kept if you modify only one option therefore I only use `out.width`. i like to use percentage to define the size of output figures. For example with a size set to 50%
+It is rare I need to re-scale height-to-width ratio after the figures were produced with R and this ratio is kept if you modify only one option therefore I only use `out.width`. i like to use percentage to define the size of output figures. For example hre with a size set to 50%
 
 ````md
 ```{r fig.asp = 0.8, fig.width = 7, out.width = "50%"}
@@ -498,7 +565,7 @@ plot
 ```
 ````
 
-<img src="08-reproducible-reports_files/figure-html/unnamed-chunk-27-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="08-reproducible-reports_files/figure-html/unnamed-chunk-26-1.png" width="50%" style="display: block; margin: auto;" />
 
 ### Changing default values of chunk options
 
@@ -520,19 +587,13 @@ These values will be applied for all chunks unless you specify other value in a 
 
 ## Static images
 
-You can include images in your R Markdown in several ways:
+You can include images in your R Markdown:
 
+````md
+```{r setup, include=FALSE}
 knitr::include_graphics("path/to/image.png")
-
-
-
-```r
-# choose ONE of these
-knitr::include_graphics("../images/darwin.png")
-
-knitr::include_graphics(here("images", "darwin.png")
 ```
-
+````
 
 ## Tables
 
@@ -554,85 +615,37 @@ Which will render as this
 | Paragraph   | Text        |
 
 
-### knitr::kable()
-
-To create and manage able objects, we first pass the data frame through the `kable()` function from the `knitr` package. The package `kableExtra` @R-kableExtra gives us lots of extra styling options.^[(https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)]
-
-<div class="try">
-<p>Can you get this working? Add the library call for
-<code>kableExtra</code> to the first chunk of your Rmd file, then make a
-chunk for the below at the bottom of your file and hit knit to test.</p>
-</div>
-
-
-
-```r
-penguins %>% 
-  group_by(species) %>% 
-  summarise(`Body Mass (g)`= mean(body_mass_g, na.rm = T),
-            `Flipper Length (mm)`= mean(flipper_length_mm, na.rm = T)) %>% 
-  kbl(caption = "Mean Body mass (g) and flipper length (mm) for three species of Penguin in the Palmer Archipelago") %>% 
-  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
-```
-
-<table class="table table-striped" style="width: auto !important; ">
-<caption>(\#tab:unnamed-chunk-30)Mean Body mass (g) and flipper length (mm) for three species of Penguin in the Palmer Archipelago</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> species </th>
-   <th style="text-align:right;"> Body Mass (g) </th>
-   <th style="text-align:right;"> Flipper Length (mm) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Adelie </td>
-   <td style="text-align:right;"> 3700.662 </td>
-   <td style="text-align:right;"> 189.9536 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Chinstrap </td>
-   <td style="text-align:right;"> 3733.088 </td>
-   <td style="text-align:right;"> 195.8235 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Gentoo </td>
-   <td style="text-align:right;"> 5076.016 </td>
-   <td style="text-align:right;"> 217.1870 </td>
-  </tr>
-</tbody>
-</table>
-
 ### gt()
 
-The `gt` @R-gt package is all about making it simple to produce nice-looking display tables in HTML (so won't work for LaTex). [It has a lot of customisation options.](https://gt.rstudio.com/index.html) 
+The `gt` @R-gt package is all about making it simple to produce nice-looking display tables. [It has a lot of customisation options.](https://gt.rstudio.com/index.html) 
 
 
 ```r
-penguins %>% 
-    group_by(species) %>% 
+penguins |>  
+    group_by(species) |>  
     summarise(`Body Mass (g)`= mean(body_mass_g, na.rm = T),
-              `Flipper Length (mm)`= mean(flipper_length_mm, na.rm = T)) %>% gt::gt()
+              `Flipper Length (mm)`= mean(flipper_length_mm, na.rm = T)) |>  
+  gt::gt()
 ```
 
 ```{=html}
-<div id="agiqdzaicl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#agiqdzaicl table {
+<div id="zfzpgkupgs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zfzpgkupgs table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#agiqdzaicl thead, #agiqdzaicl tbody, #agiqdzaicl tfoot, #agiqdzaicl tr, #agiqdzaicl td, #agiqdzaicl th {
+#zfzpgkupgs thead, #zfzpgkupgs tbody, #zfzpgkupgs tfoot, #zfzpgkupgs tr, #zfzpgkupgs td, #zfzpgkupgs th {
   border-style: none;
 }
 
-#agiqdzaicl p {
+#zfzpgkupgs p {
   margin: 0;
   padding: 0;
 }
 
-#agiqdzaicl .gt_table {
+#zfzpgkupgs .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -658,12 +671,12 @@ penguins %>%
   border-left-color: #D3D3D3;
 }
 
-#agiqdzaicl .gt_caption {
+#zfzpgkupgs .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#agiqdzaicl .gt_title {
+#zfzpgkupgs .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -675,7 +688,7 @@ penguins %>%
   border-bottom-width: 0;
 }
 
-#agiqdzaicl .gt_subtitle {
+#zfzpgkupgs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -687,7 +700,7 @@ penguins %>%
   border-top-width: 0;
 }
 
-#agiqdzaicl .gt_heading {
+#zfzpgkupgs .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -699,13 +712,13 @@ penguins %>%
   border-right-color: #D3D3D3;
 }
 
-#agiqdzaicl .gt_bottom_border {
+#zfzpgkupgs .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#agiqdzaicl .gt_col_headings {
+#zfzpgkupgs .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -720,7 +733,7 @@ penguins %>%
   border-right-color: #D3D3D3;
 }
 
-#agiqdzaicl .gt_col_heading {
+#zfzpgkupgs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -740,7 +753,7 @@ penguins %>%
   overflow-x: hidden;
 }
 
-#agiqdzaicl .gt_column_spanner_outer {
+#zfzpgkupgs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -752,15 +765,15 @@ penguins %>%
   padding-right: 4px;
 }
 
-#agiqdzaicl .gt_column_spanner_outer:first-child {
+#zfzpgkupgs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#agiqdzaicl .gt_column_spanner_outer:last-child {
+#zfzpgkupgs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#agiqdzaicl .gt_column_spanner {
+#zfzpgkupgs .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -772,11 +785,11 @@ penguins %>%
   width: 100%;
 }
 
-#agiqdzaicl .gt_spanner_row {
+#zfzpgkupgs .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#agiqdzaicl .gt_group_heading {
+#zfzpgkupgs .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -802,7 +815,7 @@ penguins %>%
   text-align: left;
 }
 
-#agiqdzaicl .gt_empty_group_heading {
+#zfzpgkupgs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -817,15 +830,15 @@ penguins %>%
   vertical-align: middle;
 }
 
-#agiqdzaicl .gt_from_md > :first-child {
+#zfzpgkupgs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#agiqdzaicl .gt_from_md > :last-child {
+#zfzpgkupgs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#agiqdzaicl .gt_row {
+#zfzpgkupgs .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -844,7 +857,7 @@ penguins %>%
   overflow-x: hidden;
 }
 
-#agiqdzaicl .gt_stub {
+#zfzpgkupgs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -857,7 +870,7 @@ penguins %>%
   padding-right: 5px;
 }
 
-#agiqdzaicl .gt_stub_row_group {
+#zfzpgkupgs .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -871,15 +884,15 @@ penguins %>%
   vertical-align: top;
 }
 
-#agiqdzaicl .gt_row_group_first td {
+#zfzpgkupgs .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#agiqdzaicl .gt_row_group_first th {
+#zfzpgkupgs .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#agiqdzaicl .gt_summary_row {
+#zfzpgkupgs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -889,16 +902,16 @@ penguins %>%
   padding-right: 5px;
 }
 
-#agiqdzaicl .gt_first_summary_row {
+#zfzpgkupgs .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#agiqdzaicl .gt_first_summary_row.thick {
+#zfzpgkupgs .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#agiqdzaicl .gt_last_summary_row {
+#zfzpgkupgs .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -908,7 +921,7 @@ penguins %>%
   border-bottom-color: #D3D3D3;
 }
 
-#agiqdzaicl .gt_grand_summary_row {
+#zfzpgkupgs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -918,7 +931,7 @@ penguins %>%
   padding-right: 5px;
 }
 
-#agiqdzaicl .gt_first_grand_summary_row {
+#zfzpgkupgs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -928,7 +941,7 @@ penguins %>%
   border-top-color: #D3D3D3;
 }
 
-#agiqdzaicl .gt_last_grand_summary_row_top {
+#zfzpgkupgs .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -938,11 +951,11 @@ penguins %>%
   border-bottom-color: #D3D3D3;
 }
 
-#agiqdzaicl .gt_striped {
+#zfzpgkupgs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#agiqdzaicl .gt_table_body {
+#zfzpgkupgs .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -951,7 +964,7 @@ penguins %>%
   border-bottom-color: #D3D3D3;
 }
 
-#agiqdzaicl .gt_footnotes {
+#zfzpgkupgs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -965,7 +978,7 @@ penguins %>%
   border-right-color: #D3D3D3;
 }
 
-#agiqdzaicl .gt_footnote {
+#zfzpgkupgs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -974,7 +987,7 @@ penguins %>%
   padding-right: 5px;
 }
 
-#agiqdzaicl .gt_sourcenotes {
+#zfzpgkupgs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -988,7 +1001,7 @@ penguins %>%
   border-right-color: #D3D3D3;
 }
 
-#agiqdzaicl .gt_sourcenote {
+#zfzpgkupgs .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -996,63 +1009,63 @@ penguins %>%
   padding-right: 5px;
 }
 
-#agiqdzaicl .gt_left {
+#zfzpgkupgs .gt_left {
   text-align: left;
 }
 
-#agiqdzaicl .gt_center {
+#zfzpgkupgs .gt_center {
   text-align: center;
 }
 
-#agiqdzaicl .gt_right {
+#zfzpgkupgs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#agiqdzaicl .gt_font_normal {
+#zfzpgkupgs .gt_font_normal {
   font-weight: normal;
 }
 
-#agiqdzaicl .gt_font_bold {
+#zfzpgkupgs .gt_font_bold {
   font-weight: bold;
 }
 
-#agiqdzaicl .gt_font_italic {
+#zfzpgkupgs .gt_font_italic {
   font-style: italic;
 }
 
-#agiqdzaicl .gt_super {
+#zfzpgkupgs .gt_super {
   font-size: 65%;
 }
 
-#agiqdzaicl .gt_footnote_marks {
+#zfzpgkupgs .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#agiqdzaicl .gt_asterisk {
+#zfzpgkupgs .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#agiqdzaicl .gt_indent_1 {
+#zfzpgkupgs .gt_indent_1 {
   text-indent: 5px;
 }
 
-#agiqdzaicl .gt_indent_2 {
+#zfzpgkupgs .gt_indent_2 {
   text-indent: 10px;
 }
 
-#agiqdzaicl .gt_indent_3 {
+#zfzpgkupgs .gt_indent_3 {
   text-indent: 15px;
 }
 
-#agiqdzaicl .gt_indent_4 {
+#zfzpgkupgs .gt_indent_4 {
   text-indent: 20px;
 }
 
-#agiqdzaicl .gt_indent_5 {
+#zfzpgkupgs .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1066,13 +1079,13 @@ penguins %>%
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td headers="species" class="gt_row gt_left">Adelie</td>
+    <tr><td headers="species" class="gt_row gt_left">Adelie Penguin (Pygoscelis adeliae)</td>
 <td headers="Body Mass (g)" class="gt_row gt_right">3700.662</td>
 <td headers="Flipper Length (mm)" class="gt_row gt_right">189.9536</td></tr>
-    <tr><td headers="species" class="gt_row gt_left">Chinstrap</td>
+    <tr><td headers="species" class="gt_row gt_left">Chinstrap penguin (Pygoscelis antarctica)</td>
 <td headers="Body Mass (g)" class="gt_row gt_right">3733.088</td>
 <td headers="Flipper Length (mm)" class="gt_row gt_right">195.8235</td></tr>
-    <tr><td headers="species" class="gt_row gt_left">Gentoo</td>
+    <tr><td headers="species" class="gt_row gt_left">Gentoo penguin (Pygoscelis papua)</td>
 <td headers="Body Mass (g)" class="gt_row gt_right">5076.016</td>
 <td headers="Flipper Length (mm)" class="gt_row gt_right">217.1870</td></tr>
   </tbody>
@@ -1111,17 +1124,24 @@ scripts written outside of the document).</p>
 place as your .RProj file</p>
 </div>
 
-## Activity 5: Connecting scripts and reports
+## Activity: Connecting scripts and reports
+
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+
+Create a separate R script for data import and quick cleaning, then source this into a new .Rmd file.
+ </div></div>
 
 * Create a **new** Rmarkdown file.
 
-* Save this (without changes) to the same folder as your `.Rproj` file and call it `03_linked_report_penguins.Rmd`.
+* Create a new .R file
+
+* Save this (without changes) to the same folder as your `.Rproj` file and call it `linked_report_penguins.Rmd`.
 
 <div class="try">
-<p>We will now source the pre-written scripts for data loading and
-wrangling in your R project, just use the source command to read in this
-script - then you can call objects made externally - in this case a
-penguin plot - put the code block in and hit knit.</p>
+<p>We will now source pre-written scripts for data loading and wrangling
+in your R project, just use the source command to read in this script -
+then you can call objects made externally - in this case a penguin plot
+- put the code block in and hit knit.</p>
 </div>
 
 ````md
@@ -1130,10 +1150,6 @@ penguin plot - put the code block in and hit knit.</p>
 knitr::opts_chunk$set(echo = TRUE)
 # ____________________----
 
-# PACKAGES ----
-library(tidyverse)
-
-
 ```
 ````
 
@@ -1141,24 +1157,13 @@ library(tidyverse)
 ```{r read-data, include=FALSE}
 # READ DATA ----
 
-source("scripts/02_visualisation_penguins.R")
+source("scripts/penguins.R")
 
 ```
-
-```{r figure, include=FALSE}
-
- (p1+p2)/p3+
-  plot_layout(guides = "collect") 
-
-```
-````
+`````
 
 
-## Activity 6: Test yourself
-
-Let's make **another** reproducible report. 
-
-* Make a new Rmarkdown or RNotebook file `YYYYMMDD_surname_5023Y_rmd_workshop.Rmd`
+## Activity: Test yourself
 
 * Make any summary figure you want from the penguins data with `ggplot`
 
@@ -1241,6 +1246,7 @@ The Rmd document is in a different location the .Rproj file causing issues with 
 
 * Incorrectly evaluated R code
 
+
 ## Visual editor
 
 RStudio comes with a pretty nifty [Visual Markdown Editor](https://www.rstudio.com/blog/exploring-rstudio-visual-markdown-editor/) which includes:
@@ -1253,39 +1259,9 @@ RStudio comes with a pretty nifty [Visual Markdown Editor](https://www.rstudio.c
 
 You can switch between modes with a button push, try it out! 
 
-## Activity 7: Test yourself
+## Quarto
 
-<div class="try">
-<p>Submit your final knitted report
-YYYYMMDD_surname_5023Y_rmd_workshop.html to Blackboard</p>
-<p>You may need to send this to a zipped folder for submission at the
-Blackboard portal</p>
-</div>
-
-Find the doi for the `palmerpenguins` @R-palmerpenguins package, and use the **visual editor** to easily include a reference in your report.
-
-When completed and the document is reknit. Check the output document and your original markdown file + project space.
-
-You should find a new file in your project space `.bib` and new conditions in your YAML? 
-
-## Summing up Rmarkdown
-
-### What we learned
-
-You have learned
-
-* How to use markdown with `knitr`
-
-* How to embed R chunks, to produce code, figures and analyses
-
-* How to organise projects with `here`
-
-* How to knit to pdf and html outputs
-
-* How to make simple tables
-
-* How to size figure outputs for your documents
-
+The visual editor was a precursor to a new type of publishing tool - Quarto. this tool takes what R Markdown has done for R and extends it to other languages, including Python, Julia, and Observable JS. As I write this book, Quarto is gaining traction. Luckily, the concepts you’ve learned in this chapter apply to Quarto as well. Quarto documents have a YAML section, code chunks, and Markdown text. You can export Quarto documents to HTML, PDF, and Word. However, R Markdown and Quarto documents have some syntactic differences. 
 
 
 ### Further Reading, Guides and tips
@@ -1299,5 +1275,9 @@ You have learned
 (https://rmarkdown.rstudio.com/articles_intro.html)
 
 (https://rmarkdown.rstudio.com/authoring_quick_tour.html)
+
+* https://www.apreshill.com/blog/2022-04-we-dont-talk-about-quarto/
+
+* https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/
 
 

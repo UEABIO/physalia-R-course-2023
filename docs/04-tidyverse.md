@@ -8,8 +8,6 @@
 
 
 
-Quick recap of the key components of the Tidyverse ecosystem.
-Emphasizing the principles of tidy data and data manipulation.
 
 # Reading files with `readr`
 

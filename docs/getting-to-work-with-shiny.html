@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 26 Getting to work with Shiny | Advancing in R</title>
+<title>Chapter 27 Getting to work with Shiny | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="https://ourcodingclub.github.io/tutorials/shiny/ https://psyteachr.github.io/shiny-tutorials/ https://debruine.github.io/shinyintro/first-app.html Add change layouts:...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 26 Getting to work with Shiny | Advancing in R">
+<meta property="og:title" content="Chapter 27 Getting to work with Shiny | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/getting-to-work-with-shiny.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="https://ourcodingclub.github.io/tutorials/shiny/ https://psyteachr.github.io/shiny-tutorials/ https://debruine.github.io/shinyintro/first-app.html Add change layouts:...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 26 Getting to work with Shiny | Advancing in R">
+<meta name="twitter:title" content="Chapter 27 Getting to work with Shiny | Advancing in R">
 <meta name="twitter:description" content="https://ourcodingclub.github.io/tutorials/shiny/ https://psyteachr.github.io/shiny-tutorials/ https://debruine.github.io/shinyintro/first-app.html Add change layouts:...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -127,42 +127,43 @@
 <li><a class="" href="loops.html"><span class="header-section-number">10</span> Loops</a></li>
 <li><a class="" href="apply.html"><span class="header-section-number">11</span> Apply</a></li>
 <li><a class="" href="purrr.html"><span class="header-section-number">12</span> Purrr</a></li>
+<li><a class="" href="bonus-simulation.html"><span class="header-section-number">13</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">13</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">14</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">15</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">16</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">17</span> Applying functions across columns</a></li>
-<li><a class="" href="working-with-rows.html"><span class="header-section-number">18</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">19</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">20</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">21</span> Writing Functions in Tidyverse</a></li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">14</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">15</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">16</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">17</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">18</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">19</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">20</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">21</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">22</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">22</span> Data visualisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">23</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">24</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">25</span> Making tables with gt</a></li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">23</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">24</span> Extensions for ggplot2</a></li>
+<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">25</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">26</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="active" href="getting-to-work-with-shiny.html"><span class="header-section-number">26</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">27</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">28</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">29</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">30</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">31</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">32</span> Customising</a></li>
-<li><a class="" href="download.html"><span class="header-section-number">33</span> Download?</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">34</span> Sharing</a></li>
+<li><a class="active" href="getting-to-work-with-shiny.html"><span class="header-section-number">27</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">28</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">29</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">30</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
+<li><a class="" href="download.html"><span class="header-section-number">34</span> Download?</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="markdown.html"><span class="header-section-number">35</span> Markdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">36</span> Github</a></li>
+<li><a class="" href="rmarkdown.html"><span class="header-section-number">36</span> RMarkdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">37</span> Github</a></li>
 <li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data.html"><span class="header-section-number">37</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql.html"><span class="header-section-number">38</span> write to sql</a></li>
-<li><a class="" href="querying-sql.html"><span class="header-section-number">39</span> querying sql</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">40</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">41</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">42</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">43</span> R Basics</a></li>
+<li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
+<li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
+<li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
+<li><a class="" href="iteration.html"><span class="header-section-number">41</span> Iteration</a></li>
+<li><a class="" href="startingR.html"><span class="header-section-number">42</span> Starting up R</a></li>
+<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">43</span> Session 1: Foundations of Programming in R</a></li>
+<li><a class="" href="r-basics-1.html"><span class="header-section-number">44</span> R Basics</a></li>
 </ul>
 
         <div class="book-extra">
@@ -170,9 +171,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="getting-to-work-with-shiny" class="section level1" number="26">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="getting-to-work-with-shiny" class="section level1" number="27">
 <h1>
-<span class="header-section-number">26</span> Getting to work with Shiny<a class="anchor" aria-label="anchor" href="#getting-to-work-with-shiny"><i class="fas fa-link"></i></a>
+<span class="header-section-number">27</span> Getting to work with Shiny<a class="anchor" aria-label="anchor" href="#getting-to-work-with-shiny"><i class="fas fa-link"></i></a>
 </h1>
 <p><a href="https://ourcodingclub.github.io/tutorials/shiny/" class="uri">https://ourcodingclub.github.io/tutorials/shiny/</a></p>
 <p><a href="https://psyteachr.github.io/shiny-tutorials/" class="uri">https://psyteachr.github.io/shiny-tutorials/</a></p>
@@ -185,9 +186,9 @@
 <a href="https://rviews.rstudio.com/2021/10/20/a-beginner-s-guide-to-shiny-modules/" class="uri">https://rviews.rstudio.com/2021/10/20/a-beginner-s-guide-to-shiny-modules/</a></p>
 <p>At its core, Shiny is essentially an R package, similar to dplyr or ggplot2. However, Shiny is unique in that it allows you to build web applications using the R language, instead of relying on traditional web development technologies like JavaScript or HTML5. This R-based approach makes Shiny an efficient choice for creating web applications tailored for data presentation and analysis.</p>
 <p>To illustrate, let's take a look at an example of a basic Shiny app that we will recreate in today's tutorial</p>
-<div id="image" class="section level2" number="26.1">
+<div id="image" class="section level2" number="27.1">
 <h2>
-<span class="header-section-number">26.1</span> IMAGE<a class="anchor" aria-label="anchor" href="#image"><i class="fas fa-link"></i></a>
+<span class="header-section-number">27.1</span> IMAGE<a class="anchor" aria-label="anchor" href="#image"><i class="fas fa-link"></i></a>
 </h2>
 <p>Shiny apps are useful for several purposes:</p>
 <p><strong>Interactive Data Visualization for Presentations and Websites:</strong> Shiny apps allow you to create interactive data visualizations, which can enhance your presentations, reports, or websites. Users can explore data, change parameters, and see real-time updates, making the information more engaging and informative.</p>
@@ -195,21 +196,21 @@
 <p><strong>Communicating Science in an Accessible Way:</strong> Shiny apps can be a powerful tool for scientists, researchers, and educators to communicate complex scientific concepts or research findings to a broader audience. They provide an accessible and user-friendly interface to explore and understand data-driven insights.</p>
 <p><strong>Bridging the Gap Between R Users and Non-R Users:</strong> Shiny acts as a bridge between R users and individuals who may not be familiar with R programming. With Shiny, you can create applications that allow non-R users to interact with and benefit from R's data analysis capabilities without needing to write R code themselves.</p>
 </div>
-<div id="using-the-demo-app" class="section level2" number="26.2">
+<div id="using-the-demo-app" class="section level2" number="27.2">
 <h2>
-<span class="header-section-number">26.2</span> Using the Demo App<a class="anchor" aria-label="anchor" href="#using-the-demo-app"><i class="fas fa-link"></i></a>
+<span class="header-section-number">27.2</span> Using the Demo App<a class="anchor" aria-label="anchor" href="#using-the-demo-app"><i class="fas fa-link"></i></a>
 </h2>
 <p>New project…
 Under the File menu, choose New Project.... You will see a popup window like the one below. Choose New Directory.</p>
-<div id="run-the-app" class="section level3" number="26.2.1">
+<div id="run-the-app" class="section level3" number="27.2.1">
 <h3>
-<span class="header-section-number">26.2.1</span> Run the app<a class="anchor" aria-label="anchor" href="#run-the-app"><i class="fas fa-link"></i></a>
+<span class="header-section-number">27.2.1</span> Run the app<a class="anchor" aria-label="anchor" href="#run-the-app"><i class="fas fa-link"></i></a>
 </h3>
 <p>Click on Run App in the top right corner of the source pane. The app will open up in a new window. Play with the slider and watch the histogram change.</p>
 </div>
-<div id="modify-the-demo-app" class="section level3" number="26.2.2">
+<div id="modify-the-demo-app" class="section level3" number="27.2.2">
 <h3>
-<span class="header-section-number">26.2.2</span> Modify the Demo App<a class="anchor" aria-label="anchor" href="#modify-the-demo-app"><i class="fas fa-link"></i></a>
+<span class="header-section-number">27.2.2</span> Modify the Demo App<a class="anchor" aria-label="anchor" href="#modify-the-demo-app"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now we’re going to make a series of changes to the demo app until it’s all your own.</p>
 <p>You can close the app by closing the window or browser tab it’s running in, or leave it running while you edit the code. If you have multiple screens, it’s useful to have the app open on one screen and the code on another.</p>
@@ -396,17 +397,17 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="making-tables-with-gt.html"><span class="header-section-number">25</span> Making tables with gt</a></div>
-<div class="next"><a href="layout.html"><span class="header-section-number">27</span> Layout</a></div>
+<div class="prev"><a href="making-tables-with-gt.html"><span class="header-section-number">26</span> Making tables with gt</a></div>
+<div class="next"><a href="layout.html"><span class="header-section-number">28</span> Layout</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#getting-to-work-with-shiny"><span class="header-section-number">26</span> Getting to work with Shiny</a></li>
-<li><a class="nav-link" href="#image"><span class="header-section-number">26.1</span> IMAGE</a></li>
+<li><a class="nav-link" href="#getting-to-work-with-shiny"><span class="header-section-number">27</span> Getting to work with Shiny</a></li>
+<li><a class="nav-link" href="#image"><span class="header-section-number">27.1</span> IMAGE</a></li>
 <li>
-<a class="nav-link" href="#using-the-demo-app"><span class="header-section-number">26.2</span> Using the Demo App</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#run-the-app"><span class="header-section-number">26.2.1</span> Run the app</a></li>
-<li><a class="nav-link" href="#modify-the-demo-app"><span class="header-section-number">26.2.2</span> Modify the Demo App</a></li>
+<a class="nav-link" href="#using-the-demo-app"><span class="header-section-number">27.2</span> Using the Demo App</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#run-the-app"><span class="header-section-number">27.2.1</span> Run the app</a></li>
+<li><a class="nav-link" href="#modify-the-demo-app"><span class="header-section-number">27.2.2</span> Modify the Demo App</a></li>
 </ul>
 </li>
 </ul>

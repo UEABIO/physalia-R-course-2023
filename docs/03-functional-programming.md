@@ -2131,7 +2131,10 @@ df %>%
 
 df %>% 
     map_df(~z_score(.))
-```</div></div></div>
+```
+</div></div></div>
+
+
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 
@@ -2320,3 +2323,4 @@ sessionInfo()
 ## [45] farver_2.1.1      htmltools_0.5.5   labeling_0.4.2    rmarkdown_2.23   
 ## [49] compiler_4.3.1    downlit_0.4.3
 ```
+

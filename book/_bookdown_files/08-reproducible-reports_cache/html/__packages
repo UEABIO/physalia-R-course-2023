@@ -13,3 +13,5 @@ webexercises
 knitr
 janitor
 kableExtra
+gt
+palmerpenguins

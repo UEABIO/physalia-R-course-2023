@@ -2027,7 +2027,10 @@ df %>%
     map_df(~z_score(.))
 
 ``
+
 ```
+
+
 
 ```{task}
 
@@ -2171,3 +2174,4 @@ https://aosmith.rbind.io/2017/12/31/many-datasets/#list-all-files-to-read-in
 sessionInfo()
 
 ```
+
