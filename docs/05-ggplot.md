@@ -754,7 +754,10 @@ you are done save the file</p>
 
 
 ```r
-pal <- c("#FF8C00", "#A034F0", "#159090")
+pal <- c(
+  "Adelie" = "#FF8C00", 
+  "Chinstrap" = "#A034F0", 
+  "Gentoo" = "#159090")
 
 penguins |> 
   ggplot(aes(x = species,

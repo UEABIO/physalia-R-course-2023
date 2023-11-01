@@ -1,7 +1,7 @@
 --- 
 title: "Advancing in R"
 author: "Philip T. Leftwich"
-date: "2023-10-31"
+date: "2023-11-01"
 subtitle: A guide for Biologists and Ecologists
 site: bookdown::bookdown_site
 documentclass: book

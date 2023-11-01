@@ -1042,70 +1042,6 @@ then most likely the function was misspelled or the package containing
 the function hasn’t been loaded.</p>
 </div>
 
-## My first data visualisation
-
-Let's run our first data visualisation using the functions and data we have now loaded - this produces a plot using functions from the `ggplot2` package and data from the `palmerpenguins` package.
-
-Data visualisation is a core part of data science, and generating insights from your data - we will spend a lot of time on this course working on our data visualisations.
-
-Today let's use some simple functions to produce a figure. We specify the data source, the variables to be used for the x and y axis and then the type of visual object to produce, colouring them by the species.
-
-<div class="try">
-<p>Copy and paste the following code into the console.</p>
-</div>
-
-
-```r
-ggplot(data = penguins,aes(x = bill_length_mm, y = bill_depth_mm)) + geom_point(aes(colour=species)) 
-```
-
-<img src="01-intro-to-r_files/figure-html/unnamed-chunk-71-1.png" width="100%" style="display: block; margin: auto;" />
-
-<div class="info">
-<p>You may have noticed R gave you a warning. Not the same as a big
-scary error, but R wants you to be aware of something.</p>
-<p>In this case that two of the observations had missing data in them
-(either bill length or bill depth), so couldn’t be plotted.</p>
-<p>It is a good thing to take note of all warnings and errors - they
-provide useful information.</p>
-</div>
-
-The above command can also be written as below, its in a longer style with each new line for each argument in the function. This style can be easier to read, and makes it easier to write comments with `#`. Copy this longer command into your console then hit Enter.
-
-Note that R ignores anything that comes after `#` on a line of code - this means we can add notes to our work.
-
-
-```r
-ggplot(data = penguins, # calls ggplot function, data is penguins
-       aes(x = bill_length_mm, # sets x axis as bill length
-           y = bill_depth_mm)) + # sets y axis value as bill depth
-    geom_point(aes(colour=species)) # plot points coloured by penguin species
-```
-
-## Writing scripts
-
-Until now we have been typing words directly into the Console. This is fine for short/simple calculations - but as soon as we have a more complex, multi-step process this becomes time consuming, error-prone and *boring*. **Scripts** are a document containing all of your commands (in the order you want them to run), they are *repeatable, shareable, annotated records of what you have done*. In short they are incredibly useful - and a big step towards **open** and **reproducible** research.
-
-
-<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-Create a script by going to File \> New File \> R Script. </div></div>
-
-
-<div class="figure" style="text-align: center">
-<img src="images/rstudio.png" alt="RStudio interface - top left script, botto  left console" width="100%" />
-<p class="caption">(\#fig:script)RStudio interface - top left script, botto  left console</p>
-</div>
-
-This will open a pane in the top-left of RStudio with a tab name of `Untitled1`.
-
-<div class="info">
-<p>A script is a way of organising all your R commands, in a sequence,
-to produce a desired output.</p>
-<p>When you write a script, nothing happens until you tell it to RUN,
-then you will see your commands appearing in the console.</p>
-<p>Make sure you include all of the commands you need to complete your
-analysis, in the correct order.</p>
-</div>
 
 ### Organising scripts
 
@@ -1411,13 +1347,13 @@ sessionInfo()
 ##  [5] extrafontdb_1.0   hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
 ##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
 ## [13] fastmap_1.1.1     jsonlite_1.8.7    httr_1.4.6        fansi_1.0.4      
-## [17] viridisLite_0.4.2 scales_1.2.1      jquerylib_0.1.4   cli_3.6.1        
-## [21] rlang_1.1.1       munsell_0.5.0     withr_2.5.0       cachem_1.0.8     
-## [25] yaml_2.3.7        tools_4.3.1       tzdb_0.4.0        memoise_2.0.1    
-## [29] colorspace_2.1-0  webshot_0.5.5     vctrs_0.6.3       R6_2.5.1         
-## [33] lifecycle_1.0.3   fs_1.6.2          pkgconfig_2.0.3   pillar_1.9.0     
-## [37] bslib_0.5.0       gtable_0.3.3      glue_1.6.2        systemfonts_1.0.4
-## [41] xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0 htmltools_0.5.5  
-## [45] svglite_2.1.1     rmarkdown_2.23    Rttf2pt1_1.3.12   compiler_4.3.1   
-## [49] downlit_0.4.3
+## [17] viridisLite_0.4.2 scales_1.2.1      codetools_0.2-19  jquerylib_0.1.4  
+## [21] cli_3.6.1         rlang_1.1.1       munsell_0.5.0     withr_2.5.0      
+## [25] cachem_1.0.8      yaml_2.3.7        tools_4.3.1       tzdb_0.4.0       
+## [29] memoise_2.0.1     colorspace_2.1-0  webshot_0.5.5     vctrs_0.6.3      
+## [33] R6_2.5.1          lifecycle_1.0.3   fs_1.6.2          pkgconfig_2.0.3  
+## [37] pillar_1.9.0      bslib_0.5.0       gtable_0.3.3      glue_1.6.2       
+## [41] systemfonts_1.0.4 xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
+## [45] htmltools_0.5.5   svglite_2.1.1     rmarkdown_2.23    Rttf2pt1_1.3.12  
+## [49] compiler_4.3.1    downlit_0.4.3
 ```

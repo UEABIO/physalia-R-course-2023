@@ -7,6 +7,7 @@
 
 ```{r, include = FALSE}
 library(microbenchmark)
+library(palmerpenguins)
 
 ```
 
@@ -97,6 +98,7 @@ fn <- function(y) {
 fn(2)
 x
 ```
+
 ```{task}
 create a function called `fahr_to_kelvin` that converts temperature values from degrees Fahrenheit to Kelvin.
 
@@ -108,9 +110,7 @@ The conversion is `temp_in_kelvin <- (temp_fahr - 32) * (5 / 9)) + 273.15`
 
 ``{r}
 fahr_to_kelvin <- function(fahr) {
-  # function that converts temperature in degrees Fahrenheit to kelvin
-  # input: fahr: numeric value representing temp in degrees farh
-  # output: kelvin: numeric converted temp in kelvin
+
   kelvin <- ((fahr - 32) * (5 / 9)) + 273.15
   return(kelvin)
 }
@@ -132,10 +132,8 @@ Write a function that performs this conversion and returns "both" kelvin and cel
 
 ``{r}
 
-fahr_to_kelvin <- function(fahr) {
-  # function that converts temperature in degrees Fahrenheit to kelvin
-  # input: fahr: numeric value representing temp in degrees farh
-  # output: kelvin: numeric converted temp in kelvin
+fahr_to_kelvin_celsius <- function(fahr) {
+
   celsius <- ((fahr - 32) * (5 / 9))
   kelvin <- celsius +  + 273.15
   
@@ -291,7 +289,7 @@ You can allow the user to access the original arguments of mean() by using the `
 
 In R the ellipse, ..., is used by functions for one of two things.
 
-- to capture an unknown number of argmunts
+- to capture an unknown number of arguments
 
 - or to pass arguments through to some underlying function, as in ?print().
 
@@ -311,6 +309,7 @@ Now we can pass arguments directly to mean, and we have a version that by defaul
 my_mean(c(1, 2, NA, 4))
 
 ```
+
 And we can pass any additional arguments found in mean to our new function e.g. trim
 
 ```{r}
@@ -329,20 +328,93 @@ If a function doesn't support ..., attempting to pass extra arguments using ... 
 
 
 
-```{r}
-# Custom Linear Regression Wrapper Function
-my_lm <- function(...) {
-  # Fit the linear regression model
+## Documenting functions
+
+It is important to document your functions to:
+
+- Remind your future self what the function does
+
+- Show your future self and your colleagues how to use the function
+
+- Help anyone else looking at your code understand what you think the function does
+
+A common way to add documentation in software is to add comments to your function that specify
+
+- What does this function do?
+
+- What are the arguments (inputs) to the function, and what are these supposed to be (e.g., what class are they? Character, numeric, logical?)
+
+- What does the function return, and what kind of object is it?
+
+
+Like this: 
+
+```{r, eval = F}
+
+# Function: fahr_to_kelvin_celsius
+# Description: Converts a temperature in degrees Fahrenheit to degrees Celsius and Kelvin.
+#
+# Input:
+#   fahr: Numeric value representing temperature in degrees Fahrenheit.
+#
+# Output:
+#   A list containing two elements:
+#   - celsius: Numeric value representing temperature in degrees Celsius.
+#   - kelvin: Numeric value representing temperature in Kelvin.
+#
+# Example Output:
+#   If you call fahr_to_kelvin_celsius(32), the result would be:
+#   celsius: 0
+#   kelvin: 273.15
+  
+
+fahr_to_kelvin_celsius <- function(fahr) {
+
+ # Calculate the temperature in degrees Celsius  
+  celsius <- ((fahr - 32) * (5 / 9))
+  
+  # Calculate the temperature in Kelvin
+  kelvin <- celsius +  + 273.15
+  
+  # Create a list to store the results 
+  temps <- list(celsius, kelvin)
+  names(temps) <- c("celsius", "kelvin")
+ 
+  # Return the list of temperatures 
+  return(temps)
+}
+
+```
+
+```{block, type = "info"}
+
+Formal documentation for R functions that you see when you access the help in R is written in separate .Rd using a markup language similar to LaTeX. You see the result of this documentation when you look at the help file for a given function, e.g. ?read.csv. The `roxygen2` package allows R coders to write documentation alongside the function code and then process it into the appropriate .Rd files. You should consider switching this more formal method of writing documentation when you start working on more complicated R projects. Or if you aspire to write packages in R!
+[R packages 2nd Edition](https://r-pkgs.org/)
+```
+
+### Exercise
+
+```{task}
+
+Here is a custom script to print model diagnostics when running a linear model. Can you comment out this code to document it properly?
+
+```
+
+```{r, eval = F}
+
+
+my_lm <- function(formula, data) {
+ 
   model <- lm(formula, data = data)
   
-  # Summarize the model
+
   summary_model <- summary(model)
   
-  # Print the coefficients and statistics
+  
   cat("Coefficients:\n")
   print(summary_model$coefficients)
   
-  # Diagnostic plots
+  
   par(mfrow = c(2, 2))  # Arrange plots in a 2x2 grid
   plot(model, which = 1)  # Residuals vs. Fitted
   plot(model, which = 2)  # Normal Q-Q plot
@@ -353,19 +425,95 @@ my_lm <- function(...) {
   return(model)
 }
 
+```
 
+```{solution}
+
+``{r, eval = F}
+
+# Function: my_lm
+# Description: Fit a linear regression model and provide summary statistics and diagnostic plots.
+#
+# Input:
+#   formula: A formula specifying the regression model.
+#   data: The data frame containing the variables used in the model.
+#
+# Output:
+#   A linear regression model object fitted to the data.
+#
+# Example Usage:
+#   To fit a linear regression model to the 'body_mass_g' variable as a function of 'flipper_length_mm in the 'penguins' dataset,
+#   you can call:
+#   my_lm(body_mass_g ~ flipper_length_mm, data = penguins_raw)
+
+my_lm <- function(formula, data) {
+  # Fit a linear regression model
+  model <- lm(formula, data = data)
+
+  # Get summary statistics of the model
+  summary_model <- summary(model)
+
+  # Print model coefficients
+  cat("Coefficients:\n")
+  print(summary_model$coefficients)
+
+  # Arrange plots in a 2x2 grid
+  par(mfrow = c(2, 2))
+
+  # Plot diagnostics:
+  # 1. Residuals vs. Fitted
+  plot(model, which = 1)
+
+  # 2. Normal Q-Q plot
+  plot(model, which = 2)
+
+  # 3. Scale-Location plot
+  plot(model, which = 3)
+
+  # 4. Residuals vs. Leverage
+  plot(model, which = 4)
+
+  # Return the fitted model
+  return(model)
+}
+``
+
+```
+
+
+## Checking functions
+
+### print
+
+One simple and easy way to keep on top of your functions, and understand what they are doing is to use lots of print statements.
+
+
+
+```{r, eval = FALSE}
+
+# This edited function will now remind the user what the input value was
+
+fahr_to_kelvin_celsius <- function(fahr) {
+    # Calculate the temperature in degrees Celsius
+    celsius <- (fahr - 32) * (5 / 9)
+    
+    # Calculate the temperature in Kelvin
+    kelvin <- celsius + 273.15
+    
+    # Create a list to store the results
+    temps <- list(celsius = celsius, kelvin = kelvin)
+    
+    # Return the list of temperatures along with a message
+    print(paste("The temperature in Fahrenheit was", fahr))
+    return(temps)
+}
 
 
 ```
 
 
-## Documenting functions
 
-https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/
-
-Use roxygen-2 style???
-
-## Checking functions
+### testthat
 
 Pure Functions:
 A pure function is a concept in programming that describes a function with the following characteristics:
@@ -375,33 +523,10 @@ It has no side effects, meaning it doesn't modify external state or variables.
 It relies only on its input parameters to generate output.
 In R, pure functions are essential for creating clean and predictable code. They are often used in functional programming to perform operations on data without causing unexpected side effects.
 
-Mathematical Functions:
-Mathematical functions are a specific type of pure function that perform mathematical operations on their input parameters. Examples of mathematical functions in R include sqrt(), log(), sin(), and cos(). These functions take one or more arguments and return a result based solely on those arguments, making them referentially transparent.
-
-Referential Transparency:
-Referential transparency is a property of pure functions and mathematical functions where the output of a function depends solely on its input, and there are no side effects. In other words, when you call a referentially transparent function with the same input, you will always get the same output. This property makes code easier to understand, test, and reason about.
-
-In R, many built-in functions and packages adhere to referential transparency, making them reliable and predictable for data manipulation and analysis tasks.
+When our function is pure, we can run expectation tests using the `testthat` package:
 
 ```{r, include = FALSE}
 library(testthat)
-
-```
-
-```{r, eval = FALSE}
-
-library(testthat)
-
-triangle_number <- function(x) {
-    0.5 * x * (x + 1)
-}
-test_that("it works as expected", {
-    expect_equal(triangle_number(1),  1)  
-    expect_equal(triangle_number(2),  3)  
-    expect_equal(triangle_number(3),  6)  
-    expect_equal(triangle_number(4), 10)  
-    expect_equal(triangle_number(5), 15)  
-})
 
 ```
 
@@ -412,7 +537,119 @@ test_that("it works as expected", {
    
 })
 
+
 ```
+
+
+### debugging
+
+For more complex functions, we may need to go digging! Here there are three basic commands:
+
+- `debug()`
+
+- `browser()`
+
+- `undebug()`
+
+With `debug(function_name)` the next time you run `function_name()` an interactive session will open in Rstudio. 
+While you are in debug mode you can call the individual objects in your function, and run the commands line by line:
+
+```{r, eval=TRUE, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/debug_flow_1_zoom.gif")
+```
+
+Once we are done with debugging it is important to turn the debug mode off - close the interactive page and run `undebug(function_name)` so that the debugging panel doesn't reopen the next time you launch your function. 
+
+#### flow
+
+`flow` is a great package for helping to understand code structures - it visualizes a chart diagram of the functional architecture.
+
+```{r, eval = F}
+library(flow)
+
+flow_run(fahr_to_kelvin_celsius(92))
+
+```
+
+
+```{r, eval=TRUE, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/flow.png")
+```
+
+## Exercises
+
+This function is designed to calculate the [triangular numbers](https://en.wikipedia.org/wiki/Triangular_number)
+
+```{r, eval=TRUE, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/First_six_triangular_numbers.png")
+```
+
+Let's build it and check that it works:
+
+```{r, eval = FALSE}
+
+library(testthat)
+
+triangle_number <- function(x) {
+    0.5 * x * (x + 1)
+}
+
+
+
+```
+```{task}
+Run `testthat()` to make sure this function works for multiple inputs
+```
+
+```{solution}
+
+``{r, eval = F}
+
+test_that("it works as expected", {
+    expect_equal(triangle_number(1),  1)  
+    expect_equal(triangle_number(2),  3)  
+    expect_equal(triangle_number(3),  6)  
+    expect_equal(triangle_number(4), 10)  
+    expect_equal(triangle_number(5), 15)  
+})
+
+``
+
+Test passed 😸
+
+```
+
+```{task}
+This test fails, can you work out why?
+
+test_that("it works as expected", {
+    expect_equal(fahr_to_kelvin_celsius(92), list(33, 306), tolerance = 1)  
+    
+})
+```
+
+
+```{solution}
+
+``{r, eval = F}
+# the output is a named list
+named_list <- list(celsius = 33.3, kelvin = 306.4)
+
+
+test_that("it works as expected", {
+    expect_equal(fahr_to_kelvin_celsius(92), list(33, 306), tolerance = 1e-2)  
+    
+})
+
+
+``
+
+Test passed 😀
+
+```
+
+
+
 
 
 # Flow control
@@ -490,6 +727,7 @@ print(result)
 
 
 ```
+
 ### `case_when`
 
 `case_when` is a powerful `tidyverse` function in R that serves as an extension of `if_else`, providing a flexible way to create conditional transformations on multiple values within a dataset. While `if_else` is primarily used for a single condition, `case_when` is designed to handle multiple conditions and allows you to assign specific values or perform operations based on these conditions.
@@ -1344,7 +1582,13 @@ lapply(df_list, mean)
 
 Notice that here we are passing the `mean()` function as an argument to the `lapply()` function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses.
 
-```{r}
+
+```{r, include = F}
+empty_list <- vector(mode = "list", length = length(df_list))
+
+```
+
+```{r, eval = F}
 
 empty_list <- vector(mode = "list", length = length(df_list))
 
@@ -1360,6 +1604,14 @@ microbenchmark::microbenchmark(
 
 ```
 
+```
+Unit: microseconds
+    expr      min        lq       mean    median       uq      max neval
+ forloop 1908.053 1981.7625 2341.55928 2038.9475 2119.488 11949.11   100
+   apply   23.531   24.8655   29.73571   27.9205   30.050   119.41   100
+
+```
+
 As well as being slightly faster than the `for()` loop, arguably, `lapply` is also easier to read.
 
 
@@ -1371,7 +1623,7 @@ The second argument defines an anonymous function.
 
 #### Functions with `lapply`
 
-In this example we define the list to run a function over `numbers`, then write our function as normal. Defined like this it is what we call an anonymous function, it has no name and cannot be used outside of this `lapply` function.
+In this example we define the list to run a function over `numbers`, then write our function as normal. Defined like this it is what we call an **anonymous function**, it has no name and cannot be used outside of this `lapply` function.
 
 ```{r}
 
@@ -1491,9 +1743,302 @@ apply(df, MARGIN = 2,  z_score)
 
 # Purrr
 
+The `purrr::map()` family of functions are the tidyverse equivalent of `apply`
+
+The base equivalent to `map()` is `lapply()`. The only difference is that `lapply()` does not support the helpers that you’ll learn about below, so if you’re only using `map()` from purrr, you can skip the additional dependency and use `lapply()` directly.
+
+
+The basic syntax is map(`.x` = SEQUENCE, `.f` = FUNCTION, OTHER ARGUMENTS). In a bit more detail:
+
+* `.x` = are the inputs upon which the .f function will be iteratively applied - e.g. a vector of jurisdiction names, columns in a data frame, or a list of data frames
+
+* `.f` = is the function to apply to each element of the .x input - it could be a function like print() that already exists, or a custom function that you define. The function is often written after a tilde ~ (details below).
+A few more notes on syntax:
+
+* If the function needs no further arguments specified, it can be written with no parentheses and no tilde (e.g. `.f = mean`).
+
+* You can use `.x` (or simply `.`) within the `.f = function` as a placeholder for the `.x` value of that iteration
+
+
+**The output of using` map()` is a list** - a list is an object class like a vector but whose elements can be of different classes. So, a list produced by `map()` could contain many data frames, or many vectors, many single values, or even many lists! There are alternative versions of `map()` explained below that produce other types of outputs (e.g. `map_dfr()` to produce a data frame, `map_chr()` to produce character vectors, and `map_dbl()` to produce numeric vectors).
+
+Basic `map()` will *always* return a `list`, other variants return different data types.Unlike `apply`, `map` will ONLY return one type of data, removing the potential for changing data types that occasionally happens when using `apply`. 
+
+## Example
+
+```{multCode}
+
+``{r, eval = F}
+
+lapply(df_list, mean)
+
+``
+
+####
+
+``{r, eval = F}
+
+map(.x = df_list, .f = mean)
+
+map(df_list, mean)
+
+``
+
+```
+
+## more maps
+
+`map()` always returns a list, which makes it the most general of the map family because you can put anything in a list. But it is inconvenient to return a list when a simpler data structure would do, so there are four more specific variants: `map_lgl()`, `map_int()`, `map_dbl()`, and `map_chr()`. Each returns an atomic vector of the specified type:
+
+|Function| Data type returned|
+|------|------|
+|`map_lgl()`| returns a logical|
+|`map_int()`| returns an integer vector|
+|`map_dbl()`| returns a double vector|
+|`map_chr()`| returns a character vector|
+|`map_df()`| returns a data frame/tibble|
+
+
+```{block, type = "info"}
+
+These specialized map functions are "type-safe" and will fail with incorrect return type.
+
+This is safer than using functions like sapply() which tries to simplify results and could return a list, vector or matrix depending on input.
+
+```
+
+
+```{r, eval = F}
+
+# map lgl always returns a logical vector
+map_lgl(df_list, is.double)
+#   a    b    c    d    e    f    g    h 
+# TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+
+
+# map_dbl always returns a double vector
+map_dbl(df_list, mean)
+#          a           b           c           d           e           f           g           h 
+# -0.38315741 -0.11817071 -0.38794682 -0.76619306 -0.60979706 -0.27886474  0.61659223 -0.04230209 
+
+# map_int always returns an integer vector
+map_int(df_list, ~.x |>  mean() |> round())
+# a  b  c  d  e  f  g  h 
+# 0  0  0 -1 -1  0  1  0 
+
+# map_int always returns an integer vector - note this comes with a deprecated coercion warning - use as.character()
+ map_chr(df_list, mean)
+#          a           b           c           d           e           f           g           h 
+#"-0.383157" "-0.118171" "-0.387947" "-0.766193" "-0.609797" "-0.278865"  "0.616592" "-0.042302" 
+ 
+# map_df always returns a dataframe 
+ map_df(df_list, mean)
+#       a      b      c      d      e      f     g       h
+#   <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl> <dbl>   <dbl>
+#   1 -0.383 -0.118 -0.388 -0.766 -0.610 -0.279 0.617 -0.0423
+```
+
+purrr uses the convention that suffixes, like `_dbl()`, refer to the output. All `map_*()` functions can take any type of vector as input.
+
+
+
+## Anonymous functions
+
+There are multiple ways of structuring a `map()` call
+
+```{r, eval = F}
+
+map(df_list, mean)
+
+df_list |>  
+  map(mean)
+
+df_list |> 
+    map(~mean(.))
+
+```
+
+### What's up with `~`? 
+
+Instead of using `map()` with an exisiting function, we can use inline anonymous functions as demonstrated with `apply()`
+
+```{r}
+
+map_dbl(df_list, function(x) sum(x)/length(x))
+
+```
+
+But this is quite *verbose* we can use `~` to support a shortcut
+
+```{r}
+
+map_dbl(df_list, ~ sum(.x)/length(.x))
+
+```
+
+It look a little quirky but you to refer to `.` for argument functions.
+
+```{block, type = "info"}
+
+Reserve this syntax for short and simple functions. A good rule of thumb is that if your function spans lines or uses {}, it’s time to give it a name.
+
+```
+
+### Passing arguments
+
+`map`  functions all pass `...` along, so there are two ways we can pass additional arguments to functions
+
+```{r, eval = F}
+
+map_dbl(df_list, ~ mean(.x, na.rm = T))
+
+
+map_dbl(df_list, mean, na.rm = T)
+
+
+```
+
+## map with nested dataframes
+
+
+```{r}
+
+nested_penguins <- penguins |> 
+  nest(data = -species)
+
+nested_heavy_penguins <- penguins |> 
+    nest(data = -species) |> 
+  mutate(new_data = map(data, ~ .x 
+                        |> filter(body_mass_g > 3000))
+         )
+
+plots <- nested_heavy_penguins |> 
+    mutate(scatterplots = map(new_data, ~ 
+            ggplot(data = .x, aes(x = body_mass_g, y = flipper_length_mm)) +
+                geom_point()
+        ))
+
+
+```
+
+Plots can now be called in a number of ways
+
+```{r, eval = FALSE}
+plots[[1,4]]
+
+plots$scatterplots[[1]]
+
+```
+
+```{block, type = "info"}
+
+gg objects are not the only type of objects that can be created using map() and mutate(). Another application of these two functions is fitting models to our data and storing the results in a new column. For example, we could use map() and mutate() to fit a linear regression model to the x and y columns and store the model output in a new column
+
+```
+
+To view all the plots together, we can use the `patchwork::wrap_plots()` function
+
+```{r}
+library(patchwork)
+plots$scatterplots |> wrap_plots()
+
+```
+
+## map2
+
+`map2` is a versatile function in the `purrr` package for R that allows you to iterate over **two** input vectors or lists in parallel, applying a specified function to pairs of corresponding elements. It's particularly useful when you need to perform operations that depend on elements from two separate input sources simultaneously, offering a powerful way to combine and process data in a pairwise manner.
+
+Here is a quick example building on our plot making function - where we are able to alter the colour of the plots according to a 
+
+```{r}
+
+pal <- c(
+  "Adelie" = "#FF8C00", 
+  "Chinstrap" = "#A034F0", 
+  "Gentoo" = "#159090")
+
+
+plots <- nested_heavy_penguins |> 
+    mutate(scatterplots = map2(.x = new_data, .y = pal, ~ 
+            ggplot(data = .x, aes(x = body_mass_g, y = flipper_length_mm, colour = .y)) +
+                geom_point() +
+              scale_colour_identity()
+        ))
+
+
+plots$scatterplots |> 
+    wrap_plots(... = _, guides = "collect")
+
+
+
+```
+
+### Running different summary functions on each nested dataframe
+
+When working with nested data frames, `map2` provides the capability to apply distinct functions to each nested data frame, making it a versatile tool for performing customized and specialized operations on grouped data. This flexibility is distinct from simple operations with `group_by()`, as it allows you to tailor your computations to the unique characteristics of each subgroup within your nested data structure.
+
+```{r}
+
+summary_functions <- list(
+    Adelie <- function(data) {
+        summarise(data, 
+                  mean_bill_length = mean(bill_length_mm, na.rm = T),
+                  mean_flipper_length = mean(flipper_length_mm, na.rm = T))
+    },
+    Chinstrap <- function(data) {
+        summarise(data,
+                  max_bill_length = max(bill_length_mm, na.rm = T),
+                  max_flipper_length = max(flipper_length_mm, na.rm = T))
+    },
+    Gentoo <- function(data) {
+        summarise(data,
+                  min_bill_length = min(bill_length_mm, na.rm = T),
+                  min_flipper_length = min(flipper_length_mm, na.rm = T))
+    }
+)
+
+# Apply the summary functions to each species using map2
+result <- nested_penguins %>%
+    mutate(summaries = map2(data, summary_functions, ~ .y(.x)))
+
+result$summaries
+```
+
+
+
+## Exercises
+
+```{task}
+In the previous chapter with apply we wrote the `z_score()` function, can you apply this using map to our `df` tibble?
+```
+
+
+```{solution}
+
+``{r, eval = FALSE}
+
+map_df(.x = df, 
+       .f = z_score)
+
+df %>% 
+  map_df(z_score)
+
+df %>% 
+    map_df(~z_score(.))
+
+``
+```
+
+```{task}
+
+LPI data loops
+
+```
+
+
+
 # Bonus: Simulation
 
-https://stirlingcodingclub.github.io/simulating_data/index.html#sample
 
 
 ```{r}
@@ -1558,8 +2103,6 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
 
 ```{r}
 
-# Load necessary libraries
-library(purrr)
 
 # Define a function to run the simulation for a given sample size and effect size
 simulate_power <- function(sample_size, effect_size) {
@@ -1602,7 +2145,7 @@ sample_sizes <- c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
 effect_size <- 1  # Adjust as needed
 
 # Run the simulation for each sample size
-simulation_results <- map_dbl(sample_sizes, ~simulate_power(.x, effect_size))
+simulation_results <- map_dbl(sample_sizes, simulate_power, effect_size)
 
 # Plot the power as a function of sample size
 plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = "Power", main = "Power vs. Sample Size")

@@ -915,68 +915,6 @@ A common source of errors is to call a function that is part of a package but fo
 If R says something like "Error in "function-name": could not find X" then most likely the function was misspelled or the package containing the function hasn't been loaded. 
 ```
 
-## My first data visualisation
-
-Let's run our first data visualisation using the functions and data we have now loaded - this produces a plot using functions from the `ggplot2` package and data from the `palmerpenguins` package.
-
-Data visualisation is a core part of data science, and generating insights from your data - we will spend a lot of time on this course working on our data visualisations.
-
-Today let's use some simple functions to produce a figure. We specify the data source, the variables to be used for the x and y axis and then the type of visual object to produce, colouring them by the species.
-
-```{block, type = "try"}
-Copy and paste the following code into the console. 
-```
-
-```{r}
-ggplot(data = penguins,aes(x = bill_length_mm, y = bill_depth_mm)) + geom_point(aes(colour=species)) 
-```
-
-```{block, type = "info"}
-You may have noticed R gave you a warning. Not the same as a big scary error, but R wants you to be aware of something. 
-
-
-In this case that two of the observations had missing data in them (either bill length or bill depth), so couldn't be plotted. 
-
-It is a good thing to take note of all warnings and errors - they provide useful information.
-```
-
-The above command can also be written as below, its in a longer style with each new line for each argument in the function. This style can be easier to read, and makes it easier to write comments with `#`. Copy this longer command into your console then hit Enter.
-
-Note that R ignores anything that comes after `#` on a line of code - this means we can add notes to our work.
-
-```{r, eval = FALSE}
-ggplot(data = penguins, # calls ggplot function, data is penguins
-       aes(x = bill_length_mm, # sets x axis as bill length
-           y = bill_depth_mm)) + # sets y axis value as bill depth
-    geom_point(aes(colour=species)) # plot points coloured by penguin species
-```
-
-## Writing scripts
-
-Until now we have been typing words directly into the Console. This is fine for short/simple calculations - but as soon as we have a more complex, multi-step process this becomes time consuming, error-prone and *boring*. **Scripts** are a document containing all of your commands (in the order you want them to run), they are *repeatable, shareable, annotated records of what you have done*. In short they are incredibly useful - and a big step towards **open** and **reproducible** research.
-
-
-```{task}
-Create a script by going to File \> New File \> R Script.
-```
-
-
-```{r script, echo=FALSE, fig.cap="RStudio interface - top left script, botto  left console"}
-
-knitr::include_graphics("images/rstudio.png")
-```
-
-This will open a pane in the top-left of RStudio with a tab name of `Untitled1`.
-
-```{block, type = "info"}
-
-A script is a way of organising all your R commands, in a sequence, to produce a desired output. 
-
-When you write a script, nothing happens until you tell it to RUN, then you will see your commands appearing in the console. 
-
-Make sure you include all of the commands you need to complete your analysis, in the correct order.
-
-```
 
 ### Organising scripts
 

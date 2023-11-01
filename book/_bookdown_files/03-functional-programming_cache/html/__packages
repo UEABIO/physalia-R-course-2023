@@ -13,3 +13,5 @@ webexercises
 knitr
 testthat
 microbenchmark
+palmerpenguins
+patchwork

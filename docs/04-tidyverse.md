@@ -1332,6 +1332,10 @@ my_select_function(select_variable = c("species", "sex")) |>
 ## $ species <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Penguin (Pygosc…
 ## $ sex     <chr> "MALE", "FEMALE", "FEMALE", NA, "FEMALE", "MALE", "FEMALE", "M…
 ```
+
+
+
+
 ## Practice
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 

@@ -103,6 +103,7 @@ x
 ## [1] 4
 ## [1] 1
 ```
+
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 create a function called `fahr_to_kelvin` that converts temperature values from degrees Fahrenheit to Kelvin.
 
@@ -115,9 +116,7 @@ The conversion is `temp_in_kelvin <- (temp_fahr - 32) * (5 / 9)) + 273.15`
 
 ```r
 fahr_to_kelvin <- function(fahr) {
-  # function that converts temperature in degrees Fahrenheit to kelvin
-  # input: fahr: numeric value representing temp in degrees farh
-  # output: kelvin: numeric converted temp in kelvin
+
   kelvin <- ((fahr - 32) * (5 / 9)) + 273.15
   return(kelvin)
 }
@@ -138,10 +137,8 @@ Write a function that performs this conversion and returns "both" kelvin and cel
 <div id="toggleTextunnamed-chunk-11" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
-fahr_to_kelvin <- function(fahr) {
-  # function that converts temperature in degrees Fahrenheit to kelvin
-  # input: fahr: numeric value representing temp in degrees farh
-  # output: kelvin: numeric converted temp in kelvin
+fahr_to_kelvin_celsius <- function(fahr) {
+
   celsius <- ((fahr - 32) * (5 / 9))
   kelvin <- celsius +  + 273.15
   
@@ -308,7 +305,7 @@ You can allow the user to access the original arguments of mean() by using the `
 
 In R the ellipse, ..., is used by functions for one of two things.
 
-- to capture an unknown number of argmunts
+- to capture an unknown number of arguments
 
 - or to pass arguments through to some underlying function, as in ?print().
 
@@ -331,6 +328,7 @@ my_mean(c(1, 2, NA, 4))
 ```
 ## [1] 2.333333
 ```
+
 And we can pass any additional arguments found in mean to our new function e.g. trim
 
 
@@ -354,21 +352,97 @@ context, no … to look in” error that you encountered.</p>
 
 
 
+## Documenting functions
+
+It is important to document your functions to:
+
+- Remind your future self what the function does
+
+- Show your future self and your colleagues how to use the function
+
+- Help anyone else looking at your code understand what you think the function does
+
+A common way to add documentation in software is to add comments to your function that specify
+
+- What does this function do?
+
+- What are the arguments (inputs) to the function, and what are these supposed to be (e.g., what class are they? Character, numeric, logical?)
+
+- What does the function return, and what kind of object is it?
+
+
+Like this: 
+
 
 ```r
-# Custom Linear Regression Wrapper Function
-my_lm <- function(...) {
-  # Fit the linear regression model
+# Function: fahr_to_kelvin_celsius
+# Description: Converts a temperature in degrees Fahrenheit to degrees Celsius and Kelvin.
+#
+# Input:
+#   fahr: Numeric value representing temperature in degrees Fahrenheit.
+#
+# Output:
+#   A list containing two elements:
+#   - celsius: Numeric value representing temperature in degrees Celsius.
+#   - kelvin: Numeric value representing temperature in Kelvin.
+#
+# Example Output:
+#   If you call fahr_to_kelvin_celsius(32), the result would be:
+#   celsius: 0
+#   kelvin: 273.15
+  
+
+fahr_to_kelvin_celsius <- function(fahr) {
+
+ # Calculate the temperature in degrees Celsius  
+  celsius <- ((fahr - 32) * (5 / 9))
+  
+  # Calculate the temperature in Kelvin
+  kelvin <- celsius +  + 273.15
+  
+  # Create a list to store the results 
+  temps <- list(celsius, kelvin)
+  names(temps) <- c("celsius", "kelvin")
+ 
+  # Return the list of temperatures 
+  return(temps)
+}
+```
+
+<div class="info">
+<p>Formal documentation for R functions that you see when you access the
+help in R is written in separate .Rd using a markup language similar to
+LaTeX. You see the result of this documentation when you look at the
+help file for a given function, e.g. ?read.csv. The
+<code>roxygen2</code> package allows R coders to write documentation
+alongside the function code and then process it into the appropriate .Rd
+files. You should consider switching this more formal method of writing
+documentation when you start working on more complicated R projects. Or
+if you aspire to write packages in R! <a href="https://r-pkgs.org/">R
+packages 2nd Edition</a></p>
+</div>
+
+### Exercise
+
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+
+Here is a custom script to print model diagnostics when running a linear model. Can you comment out this code to document it properly?
+ </div></div>
+
+
+```r
+my_lm <- function(formula, data) {
+ 
   model <- lm(formula, data = data)
   
-  # Summarize the model
+
   summary_model <- summary(model)
   
-  # Print the coefficients and statistics
+  
   cat("Coefficients:\n")
   print(summary_model$coefficients)
   
-  # Diagnostic plots
+  
   par(mfrow = c(2, 2))  # Arrange plots in a 2x2 grid
   plot(model, which = 1)  # Residuals vs. Fitted
   plot(model, which = 2)  # Normal Q-Q plot
@@ -380,14 +454,91 @@ my_lm <- function(...) {
 }
 ```
 
+<button id="displayTextunnamed-chunk-33" onclick="javascript:toggle('unnamed-chunk-33');">Show Solution</button>
 
-## Documenting functions
+<div id="toggleTextunnamed-chunk-33" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
-https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/
+```r
+# Function: my_lm
+# Description: Fit a linear regression model and provide summary statistics and diagnostic plots.
+#
+# Input:
+#   formula: A formula specifying the regression model.
+#   data: The data frame containing the variables used in the model.
+#
+# Output:
+#   A linear regression model object fitted to the data.
+#
+# Example Usage:
+#   To fit a linear regression model to the 'body_mass_g' variable as a function of 'flipper_length_mm in the 'penguins' dataset,
+#   you can call:
+#   my_lm(body_mass_g ~ flipper_length_mm, data = penguins_raw)
 
-Use roxygen-2 style???
+my_lm <- function(formula, data) {
+  # Fit a linear regression model
+  model <- lm(formula, data = data)
+
+  # Get summary statistics of the model
+  summary_model <- summary(model)
+
+  # Print model coefficients
+  cat("Coefficients:\n")
+  print(summary_model$coefficients)
+
+  # Arrange plots in a 2x2 grid
+  par(mfrow = c(2, 2))
+
+  # Plot diagnostics:
+  # 1. Residuals vs. Fitted
+  plot(model, which = 1)
+
+  # 2. Normal Q-Q plot
+  plot(model, which = 2)
+
+  # 3. Scale-Location plot
+  plot(model, which = 3)
+
+  # 4. Residuals vs. Leverage
+  plot(model, which = 4)
+
+  # Return the fitted model
+  return(model)
+}
+```
+</div></div></div>
+
 
 ## Checking functions
+
+### print
+
+One simple and easy way to keep on top of your functions, and understand what they are doing is to use lots of print statements.
+
+
+
+
+```r
+# This edited function will now remind the user what the input value was
+
+fahr_to_kelvin_celsius <- function(fahr) {
+    # Calculate the temperature in degrees Celsius
+    celsius <- (fahr - 32) * (5 / 9)
+    
+    # Calculate the temperature in Kelvin
+    kelvin <- celsius + 273.15
+    
+    # Create a list to store the results
+    temps <- list(celsius = celsius, kelvin = kelvin)
+    
+    # Return the list of temperatures along with a message
+    print(paste("The temperature in Fahrenheit was", fahr))
+    return(temps)
+}
+```
+
+
+
+### testthat
 
 Pure Functions:
 A pure function is a concept in programming that describes a function with the following characteristics:
@@ -397,15 +548,57 @@ It has no side effects, meaning it doesn't modify external state or variables.
 It relies only on its input parameters to generate output.
 In R, pure functions are essential for creating clean and predictable code. They are often used in functional programming to perform operations on data without causing unexpected side effects.
 
-Mathematical Functions:
-Mathematical functions are a specific type of pure function that perform mathematical operations on their input parameters. Examples of mathematical functions in R include sqrt(), log(), sin(), and cos(). These functions take one or more arguments and return a result based solely on those arguments, making them referentially transparent.
-
-Referential Transparency:
-Referential transparency is a property of pure functions and mathematical functions where the output of a function depends solely on its input, and there are no side effects. In other words, when you call a referentially transparent function with the same input, you will always get the same output. This property makes code easier to understand, test, and reason about.
-
-In R, many built-in functions and packages adhere to referential transparency, making them reliable and predictable for data manipulation and analysis tasks.
+When our function is pure, we can run expectation tests using the `testthat` package:
 
 
+
+
+```r
+test_that("it works as expected", {
+    expect_equal(fahr_to_kelvin(92), 306.483, tolerance=1e-2)  
+   
+})
+```
+
+
+### debugging
+
+For more complex functions, we may need to go digging! Here there are three basic commands:
+
+- `debug()`
+
+- `browser()`
+
+- `undebug()`
+
+With `debug(function_name)` the next time you run `function_name()` an interactive session will open in Rstudio. 
+While you are in debug mode you can call the individual objects in your function, and run the commands line by line:
+
+<img src="images/debug_flow_1_zoom.gif" width="100%" style="display: block; margin: auto;" />
+
+Once we are done with debugging it is important to turn the debug mode off - close the interactive page and run `undebug(function_name)` so that the debugging panel doesn't reopen the next time you launch your function. 
+
+#### flow
+
+`flow` is a great package for helping to understand code structures - it visualizes a chart diagram of the functional architecture.
+
+
+```r
+library(flow)
+
+flow_run(fahr_to_kelvin_celsius(92))
+```
+
+
+<img src="images/flow.png" width="100%" style="display: block; margin: auto;" />
+
+## Exercises
+
+This function is designed to calculate the [triangular numbers](https://en.wikipedia.org/wiki/Triangular_number)
+
+<img src="images/First_six_triangular_numbers.png" width="100%" style="display: block; margin: auto;" />
+
+Let's build it and check that it works:
 
 
 ```r
@@ -414,6 +607,15 @@ library(testthat)
 triangle_number <- function(x) {
     0.5 * x * (x + 1)
 }
+```
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+Run `testthat()` to make sure this function works for multiple inputs </div></div>
+
+<button id="displayTextunnamed-chunk-43" onclick="javascript:toggle('unnamed-chunk-43');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-43" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
 test_that("it works as expected", {
     expect_equal(triangle_number(1),  1)  
     expect_equal(triangle_number(2),  3)  
@@ -423,13 +625,38 @@ test_that("it works as expected", {
 })
 ```
 
+Test passed 😸
+</div></div></div>
+
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+This test fails, can you work out why?
+
+test_that("it works as expected", {
+    expect_equal(fahr_to_kelvin_celsius(92), list(33, 306), tolerance = 1)  
+    
+}) </div></div>
+
+
+<button id="displayTextunnamed-chunk-45" onclick="javascript:toggle('unnamed-chunk-45');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-45" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
+# the output is a named list
+named_list <- list(celsius = 33.3, kelvin = 306.4)
+
+
 test_that("it works as expected", {
-    expect_equal(fahr_to_kelvin(92), 306.483, tolerance=1e-2)  
-   
+    expect_equal(fahr_to_kelvin_celsius(92), list(33, 306), tolerance = 1e-2)  
+    
 })
 ```
+
+Test passed 😀
+</div></div></div>
+
+
+
 
 
 # Flow control
@@ -520,6 +747,7 @@ print(result)
 ```
 ## [1] "no"  "yes" "yes"
 ```
+
 ### `case_when`
 
 `case_when` is a powerful `tidyverse` function in R that serves as an extension of `if_else`, providing a flexible way to create conditional transformations on multiple values within a dataset. While `if_else` is primarily used for a single condition, `case_when` is designed to handle multiple conditions and allows you to assign specific values or perform operations based on these conditions.
@@ -643,9 +871,9 @@ For `p = "a"` there is a warning but perhaps not a very intuitive one.
 We can make our own custom/specific warnings, try this and run it with the arguments above again! 
 
 
-<button id="displayTextunnamed-chunk-45" onclick="javascript:toggle('unnamed-chunk-45');">Show Solution</button>
+<button id="displayTextunnamed-chunk-58" onclick="javascript:toggle('unnamed-chunk-58');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-45" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-45 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-45', 'unnamed-chunk-45');">Base R</button><button class="tablinksunnamed-chunk-45" onclick="javascript:openCode(event, 'option2unnamed-chunk-45', 'unnamed-chunk-45');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
+<div id="toggleTextunnamed-chunk-58" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-58 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-58', 'unnamed-chunk-58');">Base R</button><button class="tablinksunnamed-chunk-58" onclick="javascript:openCode(event, 'option2unnamed-chunk-58', 'unnamed-chunk-58');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-58" class="tabcontentunnamed-chunk-58">
 
 ```r
  report_p <- function(p, digits = 3) {
@@ -660,7 +888,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
      return(reported)
  }
 ```
- </div><div id="option2unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
+ </div><div id="option2unnamed-chunk-58" class="tabcontentunnamed-chunk-58">
  
  
  ```r
@@ -678,7 +906,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
     return(result)
  }
  ```
- </div><script> javascript:hide('option2unnamed-chunk-45') </script></div></div></div>
+ </div><script> javascript:hide('option2unnamed-chunk-58') </script></div></div></div>
 
 
 ## Activities
@@ -688,9 +916,9 @@ We'll create a function that calculates the GC content of a DNA sequence, and th
 
 > Hint`stringr` and associated functions will be very helpful here
 
-<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">Show Solution</button>
+<button id="displayTextunnamed-chunk-59" onclick="javascript:toggle('unnamed-chunk-59');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-46" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-46 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-46', 'unnamed-chunk-46');">Base R</button><button class="tablinksunnamed-chunk-46" onclick="javascript:openCode(event, 'option2unnamed-chunk-46', 'unnamed-chunk-46');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
+<div id="toggleTextunnamed-chunk-59" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-59 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-59', 'unnamed-chunk-59');">Base R</button><button class="tablinksunnamed-chunk-59" onclick="javascript:openCode(event, 'option2unnamed-chunk-59', 'unnamed-chunk-59');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -725,7 +953,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
+</div><div id="option2unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -759,14 +987,14 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-46') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-59') </script></div></div></div>
 
 Exercise 2: Document the Function
 Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.
 
-<button id="displayTextunnamed-chunk-47" onclick="javascript:toggle('unnamed-chunk-47');">Show Solution</button>
+<button id="displayTextunnamed-chunk-60" onclick="javascript:toggle('unnamed-chunk-60');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-47" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-60" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 
 </div></div></div>
@@ -774,9 +1002,9 @@ Add documentation to the factorial function using roxygen2-style comments. Inclu
 Exercise 3: Test the Function
 Create a test script that uses test_that to check if the function returns the correct GC percentage and melting temps
 
-<button id="displayTextunnamed-chunk-48" onclick="javascript:toggle('unnamed-chunk-48');">Show Solution</button>
+<button id="displayTextunnamed-chunk-61" onclick="javascript:toggle('unnamed-chunk-61');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-48" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-61" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 test_that("gc_content function tests", {
@@ -795,9 +1023,9 @@ test_that("gc_content function tests", {
 Exercise 4: Handle Errors
 You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?
 
-<button id="displayTextunnamed-chunk-49" onclick="javascript:toggle('unnamed-chunk-49');">Show Solution</button>
+<button id="displayTextunnamed-chunk-62" onclick="javascript:toggle('unnamed-chunk-62');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-49" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-49 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-49', 'unnamed-chunk-49');">Base R</button><button class="tablinksunnamed-chunk-49" onclick="javascript:openCode(event, 'option2unnamed-chunk-49', 'unnamed-chunk-49');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
+<div id="toggleTextunnamed-chunk-62" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-62 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-62', 'unnamed-chunk-62');">Base R</button><button class="tablinksunnamed-chunk-62" onclick="javascript:openCode(event, 'option2unnamed-chunk-62', 'unnamed-chunk-62');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -836,7 +1064,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
+</div><div id="option2unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -874,7 +1102,7 @@ if (!str_detect(dna_sequence, "^[ATCG]+$")) stop("Invalid DNA sequence. Only A, 
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-49') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-62') </script></div></div></div>
 
 
 
@@ -935,9 +1163,9 @@ What do you think will happen if you set both times to 3 and each to 2?
 rep(c("Adelie", "Gentoo", "Chinstrap"), times = 2, each = 3)
 ```
 
-<button id="displayTextunnamed-chunk-54" onclick="javascript:toggle('unnamed-chunk-54');">Show Solution</button>
+<button id="displayTextunnamed-chunk-67" onclick="javascript:toggle('unnamed-chunk-67');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-54" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-67" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```
 ##  [1] "Adelie"    "Adelie"    "Adelie"    "Gentoo"    "Gentoo"    "Gentoo"   
@@ -1015,12 +1243,12 @@ replicate(3, # times to replicate function
 ```
 
 ```
-##             [,1]     [,2]     [,3]
-## [1,]  1.18613253 2.507322 1.248218
-## [2,]  0.22056437 1.175584 1.518531
-## [3,]  3.30310412 1.297505 3.273196
-## [4,]  0.81799170 1.889960 1.797920
-## [5,] -0.02319488 2.138748 2.156007
+##             [,1]       [,2]        [,3]
+## [1,]  1.16592053  0.5140128  0.10807777
+## [2,]  0.39284707  0.2624521 -0.18835393
+## [3,]  1.03595376  0.4665212  2.03492875
+## [4,] -0.02451715  0.2637972 -0.38042257
+## [5,]  1.62562205 -1.8899700 -0.04946246
 ```
 
 https://www.r-bloggers.com/2023/07/the-replicate-function-in-r/
@@ -1321,7 +1549,7 @@ Unit: milliseconds
 autoplot(mbm)
 ```
 
-<img src="03-functional-programming_files/figure-html/unnamed-chunk-73-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-functional-programming_files/figure-html/unnamed-chunk-86-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1400,6 +1628,9 @@ lapply(df_list, mean)
 Notice that here we are passing the `mean()` function as an argument to the `lapply()` function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses.
 
 
+
+
+
 ```r
 empty_list <- vector(mode = "list", length = length(df_list))
 
@@ -1414,212 +1645,13 @@ microbenchmark::microbenchmark(
 )
 ```
 
-<div class="kable-table">
+```
+Unit: microseconds
+    expr      min        lq       mean    median       uq      max neval
+ forloop 1908.053 1981.7625 2341.55928 2038.9475 2119.488 11949.11   100
+   apply   23.531   24.8655   29.73571   27.9205   30.050   119.41   100
 
-|expr    |    time|
-|:-------|-------:|
-|forloop | 2404954|
-|forloop | 2140683|
-|apply   |   32030|
-|apply   |   25270|
-|apply   |   23700|
-|forloop | 1975383|
-|apply   |   29630|
-|apply   |   24010|
-|forloop | 1984303|
-|forloop | 1912572|
-|forloop | 1940523|
-|forloop | 1896973|
-|forloop | 1935873|
-|forloop | 1881422|
-|apply   |   30030|
-|forloop | 1930013|
-|apply   |   27400|
-|forloop | 1876993|
-|forloop | 1977443|
-|forloop | 1886953|
-|forloop | 1953472|
-|apply   |   27960|
-|forloop | 1897633|
-|apply   |   26400|
-|forloop | 1913903|
-|apply   |   27640|
-|forloop | 1895112|
-|forloop | 1869572|
-|forloop | 1951833|
-|forloop | 1902123|
-|apply   |   27660|
-|apply   |   24100|
-|apply   |   24040|
-|apply   |   24200|
-|apply   |   23580|
-|forloop | 2033713|
-|apply   |   27710|
-|forloop | 1914523|
-|apply   |   29590|
-|apply   |   25230|
-|forloop | 1992153|
-|forloop | 1893472|
-|apply   |   27480|
-|apply   |   24810|
-|apply   |   24369|
-|apply   |   23660|
-|apply   |   24060|
-|forloop | 1926883|
-|forloop | 1892233|
-|forloop | 1967193|
-|apply   |   28360|
-|forloop | 2598294|
-|forloop | 2188823|
-|forloop | 2048503|
-|apply   |   28940|
-|apply   |   26780|
-|apply   |   26010|
-|apply   |   26550|
-|apply   |   26120|
-|forloop | 2390223|
-|forloop | 2116753|
-|forloop | 2119144|
-|apply   |   31789|
-|forloop | 5765809|
-|apply   |   29760|
-|apply   |   24770|
-|apply   |   22990|
-|apply   |   23820|
-|forloop | 2664154|
-|forloop | 2036553|
-|apply   |   27980|
-|forloop | 1880652|
-|apply   |   28400|
-|forloop | 1951932|
-|apply   |   27600|
-|apply   |   24820|
-|apply   |   24750|
-|apply   |   23100|
-|forloop | 1870803|
-|forloop | 1957883|
-|forloop | 1877183|
-|forloop | 1938133|
-|apply   |   27620|
-|apply   |   24731|
-|forloop | 1872623|
-|apply   |   26490|
-|apply   |   25340|
-|apply   |   23690|
-|forloop | 1979233|
-|forloop | 1865793|
-|forloop | 1949352|
-|forloop | 1861672|
-|apply   |   27080|
-|apply   |   24390|
-|forloop | 1929803|
-|forloop | 1855933|
-|forloop | 1969803|
-|apply   |   27170|
-|apply   |   24720|
-|apply   |   23780|
-|forloop | 1874892|
-|forloop | 1958153|
-|apply   |   27800|
-|forloop | 1901753|
-|apply   |   27450|
-|forloop | 1995253|
-|forloop | 1916453|
-|apply   |   28200|
-|apply   |   26190|
-|apply   |   24720|
-|forloop | 2009823|
-|forloop | 1899882|
-|forloop | 1979183|
-|apply   |   27470|
-|apply   |   23810|
-|forloop | 1879153|
-|apply   |   27590|
-|forloop | 1977263|
-|apply   |   29010|
-|forloop | 1903243|
-|forloop | 2066943|
-|forloop | 1935173|
-|forloop | 1997693|
-|apply   |   27670|
-|apply   |   25950|
-|apply   |   24330|
-|forloop | 1956083|
-|forloop | 2098293|
-|apply   |   30240|
-|apply   |   27310|
-|apply   |   26110|
-|apply   |   30740|
-|apply   |   29800|
-|apply   |   27110|
-|apply   |   27529|
-|forloop | 5482237|
-|apply   |   28250|
-|apply   |   23801|
-|forloop | 2035222|
-|forloop | 1912843|
-|apply   |   28050|
-|forloop | 1938863|
-|apply   |   26810|
-|apply   |   23580|
-|forloop | 1861283|
-|apply   |   26790|
-|apply   |   23850|
-|forloop | 1906992|
-|forloop | 1883912|
-|apply   |   27020|
-|apply   |   24820|
-|apply   |   24350|
-|forloop | 1913553|
-|forloop | 1881493|
-|apply   |   27620|
-|forloop | 1875502|
-|forloop | 1926212|
-|apply   |   29530|
-|apply   |   24530|
-|apply   |   24090|
-|forloop | 1863083|
-|apply   |   27510|
-|forloop | 1949573|
-|forloop | 1859512|
-|forloop | 1975483|
-|apply   |   27770|
-|forloop | 1867733|
-|apply   |   26500|
-|apply   |   23810|
-|apply   |   23990|
-|forloop | 1973713|
-|forloop | 1873813|
-|forloop | 1940633|
-|forloop | 1881413|
-|apply   |   26540|
-|apply   |   24700|
-|forloop | 1972783|
-|apply   |   28460|
-|apply   |   27250|
-|forloop | 1911503|
-|forloop | 1998543|
-|forloop | 1937993|
-|forloop | 1941712|
-|apply   |   27540|
-|forloop | 1868382|
-|apply   |   28030|
-|forloop | 1948073|
-|forloop | 1899073|
-|apply   |   27790|
-|forloop | 2024693|
-|apply   |   28430|
-|forloop | 1922363|
-|apply   |   28909|
-|forloop | 1962173|
-|forloop | 1975283|
-|forloop | 2083433|
-|apply   |   30430|
-|forloop | 9263593|
-|apply   |   48051|
-|apply   |   24280|
-
-</div>
+```
 
 As well as being slightly faster than the `for()` loop, arguably, `lapply` is also easier to read.
 
@@ -1632,7 +1664,7 @@ The second argument defines an anonymous function.
 
 #### Functions with `lapply`
 
-In this example we define the list to run a function over `numbers`, then write our function as normal. Defined like this it is what we call an anonymous function, it has no name and cannot be used outside of this `lapply` function.
+In this example we define the list to run a function over `numbers`, then write our function as normal. Defined like this it is what we call an **anonymous function**, it has no name and cannot be used outside of this `lapply` function.
 
 
 ```r
@@ -1767,9 +1799,9 @@ apply(df, MARGIN = 1, mean)
 Make a function that converts values with a normal distribution into their z scores </div></div>
 
 
-<button id="displayTextunnamed-chunk-81" onclick="javascript:toggle('unnamed-chunk-81');">Show Solution</button>
+<button id="displayTextunnamed-chunk-95" onclick="javascript:toggle('unnamed-chunk-95');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-81" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-95" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 z_score <- function(x) {
@@ -1782,9 +1814,9 @@ z_score <- function(x) {
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Choose the appropriate apply function to calculate a matrix of z-scores for the dataframe `df` </div></div>
 
-<button id="displayTextunnamed-chunk-83" onclick="javascript:toggle('unnamed-chunk-83');">Show Solution</button>
+<button id="displayTextunnamed-chunk-97" onclick="javascript:toggle('unnamed-chunk-97');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-83" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-97" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 apply(df, MARGIN = 2,  z_score)
 </div></div></div>
@@ -1792,9 +1824,324 @@ apply(df, MARGIN = 2,  z_score)
 
 # Purrr
 
+The `purrr::map()` family of functions are the tidyverse equivalent of `apply`
+
+The base equivalent to `map()` is `lapply()`. The only difference is that `lapply()` does not support the helpers that you’ll learn about below, so if you’re only using `map()` from purrr, you can skip the additional dependency and use `lapply()` directly.
+
+
+The basic syntax is map(`.x` = SEQUENCE, `.f` = FUNCTION, OTHER ARGUMENTS). In a bit more detail:
+
+* `.x` = are the inputs upon which the .f function will be iteratively applied - e.g. a vector of jurisdiction names, columns in a data frame, or a list of data frames
+
+* `.f` = is the function to apply to each element of the .x input - it could be a function like print() that already exists, or a custom function that you define. The function is often written after a tilde ~ (details below).
+A few more notes on syntax:
+
+* If the function needs no further arguments specified, it can be written with no parentheses and no tilde (e.g. `.f = mean`).
+
+* You can use `.x` (or simply `.`) within the `.f = function` as a placeholder for the `.x` value of that iteration
+
+
+**The output of using` map()` is a list** - a list is an object class like a vector but whose elements can be of different classes. So, a list produced by `map()` could contain many data frames, or many vectors, many single values, or even many lists! There are alternative versions of `map()` explained below that produce other types of outputs (e.g. `map_dfr()` to produce a data frame, `map_chr()` to produce character vectors, and `map_dbl()` to produce numeric vectors).
+
+Basic `map()` will *always* return a `list`, other variants return different data types.Unlike `apply`, `map` will ONLY return one type of data, removing the potential for changing data types that occasionally happens when using `apply`. 
+
+## Example
+
+<div class="tab"><button class="tablinksunnamed-chunk-98 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-98', 'unnamed-chunk-98');">Base R</button><button class="tablinksunnamed-chunk-98" onclick="javascript:openCode(event, 'option2unnamed-chunk-98', 'unnamed-chunk-98');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-98" class="tabcontentunnamed-chunk-98">
+
+```r
+lapply(df_list, mean)
+```
+</div><div id="option2unnamed-chunk-98" class="tabcontentunnamed-chunk-98">
+
+```r
+map(.x = df_list, .f = mean)
+
+map(df_list, mean)
+```
+</div><script> javascript:hide('option2unnamed-chunk-98') </script>
+
+## more maps
+
+`map()` always returns a list, which makes it the most general of the map family because you can put anything in a list. But it is inconvenient to return a list when a simpler data structure would do, so there are four more specific variants: `map_lgl()`, `map_int()`, `map_dbl()`, and `map_chr()`. Each returns an atomic vector of the specified type:
+
+|Function| Data type returned|
+|------|------|
+|`map_lgl()`| returns a logical|
+|`map_int()`| returns an integer vector|
+|`map_dbl()`| returns a double vector|
+|`map_chr()`| returns a character vector|
+|`map_df()`| returns a data frame/tibble|
+
+
+<div class="info">
+<p>These specialized map functions are “type-safe” and will fail with
+incorrect return type.</p>
+<p>This is safer than using functions like sapply() which tries to
+simplify results and could return a list, vector or matrix depending on
+input.</p>
+</div>
+
+
+
+```r
+# map lgl always returns a logical vector
+map_lgl(df_list, is.double)
+#   a    b    c    d    e    f    g    h 
+# TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+
+
+# map_dbl always returns a double vector
+map_dbl(df_list, mean)
+#          a           b           c           d           e           f           g           h 
+# -0.38315741 -0.11817071 -0.38794682 -0.76619306 -0.60979706 -0.27886474  0.61659223 -0.04230209 
+
+# map_int always returns an integer vector
+map_int(df_list, ~.x |>  mean() |> round())
+# a  b  c  d  e  f  g  h 
+# 0  0  0 -1 -1  0  1  0 
+
+# map_int always returns an integer vector - note this comes with a deprecated coercion warning - use as.character()
+ map_chr(df_list, mean)
+#          a           b           c           d           e           f           g           h 
+#"-0.383157" "-0.118171" "-0.387947" "-0.766193" "-0.609797" "-0.278865"  "0.616592" "-0.042302" 
+ 
+# map_df always returns a dataframe 
+ map_df(df_list, mean)
+#       a      b      c      d      e      f     g       h
+#   <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl> <dbl>   <dbl>
+#   1 -0.383 -0.118 -0.388 -0.766 -0.610 -0.279 0.617 -0.0423
+```
+
+purrr uses the convention that suffixes, like `_dbl()`, refer to the output. All `map_*()` functions can take any type of vector as input.
+
+
+
+## Anonymous functions
+
+There are multiple ways of structuring a `map()` call
+
+
+```r
+map(df_list, mean)
+
+df_list |>  
+  map(mean)
+
+df_list |> 
+    map(~mean(.))
+```
+
+### What's up with `~`? 
+
+Instead of using `map()` with an exisiting function, we can use inline anonymous functions as demonstrated with `apply()`
+
+
+```r
+map_dbl(df_list, function(x) sum(x)/length(x))
+```
+
+```
+##           a           b           c           d           e           f 
+## -0.38315741 -0.11817071 -0.38794682 -0.76619306 -0.60979706 -0.27886474 
+##           g           h 
+##  0.61659223 -0.04230209
+```
+
+But this is quite *verbose* we can use `~` to support a shortcut
+
+
+```r
+map_dbl(df_list, ~ sum(.x)/length(.x))
+```
+
+```
+##           a           b           c           d           e           f 
+## -0.38315741 -0.11817071 -0.38794682 -0.76619306 -0.60979706 -0.27886474 
+##           g           h 
+##  0.61659223 -0.04230209
+```
+
+It look a little quirky but you to refer to `.` for argument functions.
+
+<div class="info">
+<p>Reserve this syntax for short and simple functions. A good rule of
+thumb is that if your function spans lines or uses {}, it’s time to give
+it a name.</p>
+</div>
+
+### Passing arguments
+
+`map`  functions all pass `...` along, so there are two ways we can pass additional arguments to functions
+
+
+```r
+map_dbl(df_list, ~ mean(.x, na.rm = T))
+
+
+map_dbl(df_list, mean, na.rm = T)
+```
+
+## map with nested dataframes
+
+
+
+```r
+nested_penguins <- penguins |> 
+  nest(data = -species)
+
+nested_heavy_penguins <- penguins |> 
+    nest(data = -species) |> 
+  mutate(new_data = map(data, ~ .x 
+                        |> filter(body_mass_g > 3000))
+         )
+
+plots <- nested_heavy_penguins |> 
+    mutate(scatterplots = map(new_data, ~ 
+            ggplot(data = .x, aes(x = body_mass_g, y = flipper_length_mm)) +
+                geom_point()
+        ))
+```
+
+Plots can now be called in a number of ways
+
+
+```r
+plots[[1,4]]
+
+plots$scatterplots[[1]]
+```
+
+<div class="info">
+<p>gg objects are not the only type of objects that can be created using
+map() and mutate(). Another application of these two functions is
+fitting models to our data and storing the results in a new column. For
+example, we could use map() and mutate() to fit a linear regression
+model to the x and y columns and store the model output in a new
+column</p>
+</div>
+
+To view all the plots together, we can use the `patchwork::wrap_plots()` function
+
+
+```r
+library(patchwork)
+plots$scatterplots |> wrap_plots()
+```
+
+<img src="03-functional-programming_files/figure-html/unnamed-chunk-109-1.png" width="100%" style="display: block; margin: auto;" />
+
+## map2
+
+`map2` is a versatile function in the `purrr` package for R that allows you to iterate over **two** input vectors or lists in parallel, applying a specified function to pairs of corresponding elements. It's particularly useful when you need to perform operations that depend on elements from two separate input sources simultaneously, offering a powerful way to combine and process data in a pairwise manner.
+
+Here is a quick example building on our plot making function - where we are able to alter the colour of the plots according to a 
+
+
+```r
+pal <- c(
+  "Adelie" = "#FF8C00", 
+  "Chinstrap" = "#A034F0", 
+  "Gentoo" = "#159090")
+
+
+plots <- nested_heavy_penguins |> 
+    mutate(scatterplots = map2(.x = new_data, .y = pal, ~ 
+            ggplot(data = .x, aes(x = body_mass_g, y = flipper_length_mm, colour = .y)) +
+                geom_point() +
+              scale_colour_identity()
+        ))
+
+
+plots$scatterplots |> 
+    wrap_plots(... = _, guides = "collect")
+```
+
+<img src="03-functional-programming_files/figure-html/unnamed-chunk-110-1.png" width="100%" style="display: block; margin: auto;" />
+
+### Running different summary functions on each nested dataframe
+
+When working with nested data frames, `map2` provides the capability to apply distinct functions to each nested data frame, making it a versatile tool for performing customized and specialized operations on grouped data. This flexibility is distinct from simple operations with `group_by()`, as it allows you to tailor your computations to the unique characteristics of each subgroup within your nested data structure.
+
+
+```r
+summary_functions <- list(
+    Adelie <- function(data) {
+        summarise(data, 
+                  mean_bill_length = mean(bill_length_mm, na.rm = T),
+                  mean_flipper_length = mean(flipper_length_mm, na.rm = T))
+    },
+    Chinstrap <- function(data) {
+        summarise(data,
+                  max_bill_length = max(bill_length_mm, na.rm = T),
+                  max_flipper_length = max(flipper_length_mm, na.rm = T))
+    },
+    Gentoo <- function(data) {
+        summarise(data,
+                  min_bill_length = min(bill_length_mm, na.rm = T),
+                  min_flipper_length = min(flipper_length_mm, na.rm = T))
+    }
+)
+
+# Apply the summary functions to each species using map2
+result <- nested_penguins %>%
+    mutate(summaries = map2(data, summary_functions, ~ .y(.x)))
+
+result$summaries
+```
+
+```
+## [[1]]
+## # A tibble: 1 × 2
+##   mean_bill_length mean_flipper_length
+##              <dbl>               <dbl>
+## 1             38.8                190.
+## 
+## [[2]]
+## # A tibble: 1 × 2
+##   max_bill_length max_flipper_length
+##             <dbl>              <int>
+## 1            59.6                231
+## 
+## [[3]]
+## # A tibble: 1 × 2
+##   min_bill_length min_flipper_length
+##             <dbl>              <int>
+## 1            40.9                178
+```
+
+
+
+## Exercises
+
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+In the previous chapter with apply we wrote the `z_score()` function, can you apply this using map to our `df` tibble? </div></div>
+
+
+<button id="displayTextunnamed-chunk-113" onclick="javascript:toggle('unnamed-chunk-113');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-113" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+map_df(.x = df, 
+       .f = z_score)
+
+df %>% 
+  map_df(z_score)
+
+df %>% 
+    map_df(~z_score(.))
+```</div></div></div>
+
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+
+LPI data loops
+ </div></div>
+
+
+
 # Bonus: Simulation
 
-https://stirlingcodingclub.github.io/simulating_data/index.html#sample
 
 
 
@@ -1855,15 +2202,12 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
     theme_minimal()
 ```
 
-<img src="03-functional-programming_files/figure-html/unnamed-chunk-84-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-functional-programming_files/figure-html/unnamed-chunk-115-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
 
 ```r
-# Load necessary libraries
-library(purrr)
-
 # Define a function to run the simulation for a given sample size and effect size
 simulate_power <- function(sample_size, effect_size) {
   set.seed(123)
@@ -1905,13 +2249,13 @@ sample_sizes <- c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
 effect_size <- 1  # Adjust as needed
 
 # Run the simulation for each sample size
-simulation_results <- map_dbl(sample_sizes, ~simulate_power(.x, effect_size))
+simulation_results <- map_dbl(sample_sizes, simulate_power, effect_size)
 
 # Plot the power as a function of sample size
 plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = "Power", main = "Power vs. Sample Size")
 ```
 
-<img src="03-functional-programming_files/figure-html/unnamed-chunk-85-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-functional-programming_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1954,25 +2298,25 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] microbenchmark_1.4.10 testthat_3.1.10       knitr_1.43           
-##  [4] webexercises_1.1.0    glossary_1.0.0        lubridate_1.9.2      
-##  [7] forcats_1.0.0         stringr_1.5.0         dplyr_1.1.2          
-## [10] purrr_1.0.1           readr_2.1.4           tidyr_1.3.0          
-## [13] tibble_3.2.1          ggplot2_3.4.2         tidyverse_2.0.0      
+##  [1] patchwork_1.1.2       palmerpenguins_0.1.1  microbenchmark_1.4.10
+##  [4] testthat_3.1.10       knitr_1.43            webexercises_1.1.0   
+##  [7] glossary_1.0.0        lubridate_1.9.2       forcats_1.0.0        
+## [10] stringr_1.5.0         dplyr_1.1.2           purrr_1.0.1          
+## [13] readr_2.1.4           tidyr_1.3.0           tibble_3.2.1         
+## [16] ggplot2_3.4.2         tidyverse_2.0.0      
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
 ##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
 ##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] pkgload_1.3.2.1   fastmap_1.1.1     rprojroot_2.0.3   jsonlite_1.8.7   
-## [17] backports_1.4.1   brio_1.1.3        fansi_1.0.4       scales_1.2.1     
-## [21] codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1      
-## [25] munsell_0.5.0     withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
-## [29] tools_4.3.1       tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0 
-## [33] broom_1.0.5       vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3  
-## [37] fs_1.6.2          waldo_0.5.1       desc_1.4.2        pkgconfig_2.0.3  
-## [41] pillar_1.9.0      bslib_0.5.0       gtable_0.3.3      glue_1.6.2       
-## [45] highr_0.10        xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
-## [49] farver_2.1.1      htmltools_0.5.5   labeling_0.4.2    rmarkdown_2.23   
-## [53] compiler_4.3.1    downlit_0.4.3
+## [13] fastmap_1.1.1     jsonlite_1.8.7    backports_1.4.1   brio_1.1.3       
+## [17] fansi_1.0.4       scales_1.2.1      codetools_0.2-19  jquerylib_0.1.4  
+## [21] cli_3.6.1         rlang_1.1.1       munsell_0.5.0     withr_2.5.0      
+## [25] cachem_1.0.8      yaml_2.3.7        tools_4.3.1       tzdb_0.4.0       
+## [29] memoise_2.0.1     colorspace_2.1-0  broom_1.0.5       vctrs_0.6.3      
+## [33] R6_2.5.1          lifecycle_1.0.3   fs_1.6.2          pkgconfig_2.0.3  
+## [37] pillar_1.9.0      bslib_0.5.0       gtable_0.3.3      glue_1.6.2       
+## [41] highr_0.10        xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
+## [45] farver_2.1.1      htmltools_0.5.5   labeling_0.4.2    rmarkdown_2.23   
+## [49] compiler_4.3.1    downlit_0.4.3
 ```

@@ -697,7 +697,10 @@ Make sure to use the tips and links at the end of this chapter, when you are don
 ```
 
 ```{r, echo = FALSE}
-pal <- c("#FF8C00", "#A034F0", "#159090")
+pal <- c(
+  "Adelie" = "#FF8C00", 
+  "Chinstrap" = "#A034F0", 
+  "Gentoo" = "#159090")
 
 penguins |> 
   ggplot(aes(x = species,
@@ -722,7 +725,11 @@ penguins |>
 `r hide("Solution")`
 
 ```{r, eval = FALSE}
-pal <- c("#FF8C00", "#A034F0", "#159090")
+
+pal <- c(
+  "Adelie" = "#FF8C00", 
+  "Chinstrap" = "#A034F0", 
+  "Gentoo" = "#159090")
 
 penguins |> 
   ggplot(aes(x = species,
