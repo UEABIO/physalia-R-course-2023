@@ -30,80 +30,231 @@ Are version controlled and open access
 
 5) Build up your own library of projects to show what you can do in Data Science
 
+If you work alone, git is great to track changes and recover previous version of your files. You can also use a remote repository to have a back up and share your work.
 
-### What is Github?
-
-Watch this video *before* or *after* today's session:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/w3jLJU7DT5E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-### Will this be fun?
-
-No.
-
-Using GitHub and version control is a bit like cleaning your teeth. It's not exactly fun, but it's good for you and it promotes excellent hygiene. It also only takes about two minutes. 
-
-When we talk a about projects on GitHub we refer to Repositories / repos.
-
-Repos on GitHub are the same unit as an RStudio Project - it's a place where you can easily store all information/data/etc. related to whatever project you're working on.
-
-The way in which we will set up our RStudio Projects will now have a few extra steps to it
-
-1) Make a new GitHub repository (or *fork* an existing one)
-
-2) Make a New project on RStudio Cloud - selecting the *from GitHub Repository* option 
-
-3) Clone your GitHub repo into an RStudio Project
-
-4) Make sure RStudio and Github can *talk* to each other
-
-5) Go about your normal business:
-
-  * When it comes to *saving* your files, you will also periodically make a **commit** - this takes a multi-file *snapshot* of your *entire* project
-
-  * At the end of a session **push** your changes to GitHub.
-
-These changes to working with RStudio will feel a little different at first, but will quickly become routine - and are a big step forward in your Data Science skills. 
-
-### The Payoff
-
-* **A portfolio:** build up a library of data science projects you can show off
-
-* **be keen:** track the development of R packages on GitHUb
-
-* **version control:** keep a safe archive of all your edits and changes
-
-* **play with others:** easy ways to collaborate on data science projects
-
-For the full rundown on how to use Git and R you can't go wrong with checking out [Happy Git](https://happygitwithr.com/)
+If you work as a team you can take advantage of all the above and also use version control as a tool to collaborate and organize the various versions of the same file present in the multiple computers you and they use.
 
 
-## Set up GitHub
 
-First things first you will need to set yourself up with a GitHub account. 
+## What is version control?
 
-Head to [GitHub](https://github.com/) and sign up for a free account. 
+Let’s imagine that we have a git repository. When you create a new file as part of the repository (or repo), that file is untracked. This means that git will ignore the file and any change you make to it *until you add it to the repo*. At that point the file is **staged** and ready to get into the repository. To do that you do a **commit** and save that version of the file to the repo. This workflow `modify --> add --> commit` will repeat every time you want to save a version of the file. It's a good idea to commit every time you end a task or objective in your project.
 
-<div class="warning">
-<p>Make a careful note of</p>
-<ul>
-<li><p>The username you choose</p></li>
-<li><p>Use the same email you have signed up to RStudio Cloud
-with</p></li>
-<li><p>Note your password carefully!</p></li>
-</ul>
+<img src="images/git_stage.png" width="100%" style="display: block; margin: auto;" />
+
+`add` and `commit` are also git commands.RStudio provides a basic GUI for git, which we are going to use in this workshop. But you can also use the Terminal to talk to git on the command line
+
+<div class="info">
+<h1 id="to-add-a-file-to-the-staging-area.">to add a file to the staging
+area.</h1>
+<p>git add <file></p>
+<p>git commit -m “A descriptive message to commit the files on the
+staging area.”</p>
+</div>
+
+## Remote repositories
+
+What we explained before is the local workflow. This is when the repo lives in your computer and that’s it. But you can also connect the local repository with a remote repository. For this workshop we are going to use GitHub to host remote repositories, but there are other options you can explore, such as GitLab.
+
+Let’s imagine we have a local repository, we made some commits and we want to send those changes to the remote repository (we’ll how to create the remote repository later). For that we push the commits to the remote repository and the two repos are “up to date”.
+
+If a team-mate changes a file and pushes the changes it to the remote repository, your local repo will be “outdated”. To download those new commits from the remote repository you pull the commits.
+
+<img src="images/collab.png" width="100%" style="display: block; margin: auto;" />
+
+And if you want to try the command line:
+
+<div class="info">
+<h1 id="to-upload-commits-to-the-remote-repository.">to upload commits
+to the remote repository.</h1>
+<p>git push</p>
+<h1
+id="to-download-commits-from-the-remote-repository-to-the-local-repo.">to
+download commits from the remote repository to the local repo.</h1>
+<p>git pull</p>
 </div>
 
 
-## **Activity 1:** Fork & clone an existing repo on GitHub, make edits, push back
+## Git introductions
 
-**a.** Go to [github.com](https://github.com/) and log in (you need your own account - for sign up with your uea.ac.uk e-mail)
+Before you create your first repository you need to make sure that git and RStudio are friends and that git knows you. That means you have:
 
-**b.** In the Search bar, look for repo **Philip-Leftwich/5023Y-Happy-Git**
+- Installed Git on your machine (not needed if using Posit Cloud)
 
-**c.** Click on the repo name, and look at the existing repo structure
+- Created a Github Account - go to [github.com](https://github.com/)
 
-**d.** **FORK** the repo
+<div class="info">
+<p>You can check that RStudio “sees” git by going to Tools –&gt; Global
+Options –&gt; Git/SVN. There you should find the path in your computer
+to the git installation.</p>
+</div>
+
+You can now introduce yourself to Github with the `usethis` package
+
+
+```r
+library(usethis) 
+use_git_config(user.name  = "Jane Doe",
+               user.email = "jane@example.org")
+```
+
+Substituting with your name and the email associated with your GitHub account, or you can also do this on the command line:
+
+<div class="info">
+<p>git config –global user.name ‘Jane Doe’</p>
+<p>git config –global user.email ’jane@example.com</p>
+</div>
+
+
+You will also need a Personal Access Token (PAT), Github has started using these *in lieu* of passwords. 
+
+Create a PAT with
+
+
+```r
+usethis::create_github_token()
+```
+
+This will likely open a new window allowing you to create a token. Do now close this window, as you will need to copy the token to your clipboard. Then run this other command:
+
+
+```r
+gitcreds::gitcreds_set()
+```
+
+This will ask you for your access token. Go to the previous window, copy the token, paste it on your console and press enter.
+
+Finally, to check that everything’s ok with this command.
+
+
+```r
+usethis::gh_token_help()
+```
+
+Irritatingly the PAT seems to be forgotten on linux systems very quickly, which is what Posit Cloud is hosted on: 
+
+A simple solution to this problem is to ask git to store information in the cache for just a teeny tiny little bit longer. Instead of having the cache expire after the default 900 seconds, maybe set it to expire after 10 million seconds. That way, you’ll only have to refresh the cache using gitcreds::gitcreds_set() once every four months instead of four times an hour. Implementing this solution requires only one line of code at the terminal:
+
+```
+
+git config --global credential.helper 'cache --timeout=10000000'
+
+```
+
+Thanks to https://blog.djnavarro.net/posts/2021-08-08_git-credential-helpers/ for this bit of information! 
+
+
+## Create a new repository
+
+There are many ways to start a new repository, the easiest is *Github first*
+
+### 1. Create an online repository.
+
+- Go to github.com and log in.
+
+- On the top right corner, click on the “+” bottom and then “New repository”
+
+Then:
+
+- Repository template: No template.
+
+- Repository name: myrepo or whatever you wish to name your new project.
+
+- Description: Any short description of the project. Write this for humans.
+
+- Public.
+
+- Initialize this repository with: nothing (we can set up everything from R).
+
+Before going back to RStudio, copy the url for the repository. 
+
+### 2. 
+
+- File > New Project > Version Control > Git. In the “repository URL” paste the URL of your new GitHub repository 
+
+- Choose the folder where you want to create the project.
+
+- Choose “Open in new session”.
+
+- And Click on “Create Project”.
+
+
+The new folder in your computer will be a git repository, linked to a remote GitHub repository and an RStudio Project at the same time. This workflow also makes sure that all the configuration between the local and remote repos are done correctly.
+
+It also adds a .gitignore file that includes a list of files that we don’t need to track (i.e. .Rhistory).
+
+<div class="note">
+<p>The .gitignore file can be a good place to store your PAT file. Make
+a plain text file and write in your token code, save it as anything you
+like e.g. token.txt. Add the name of this to your .gitignore file and it
+will save locally but never be pushed to your repo. Watch the Git pane
+in Rstudio to check it is not being tracked.</p>
+</div>
+
+### Local changes
+
+- Create a new .Rmd file
+
+- Save the file
+
+- Add it to the staging area by selecting the file in the Git pane
+
+- Select commit and write a descriptive message in the commit message pane
+
+At this point you should be able to see all the files in the staging area, and by selecting each one, the line by line differences in any changes you have made since your last commit
+
+<img src="images/git_pane.png" width="100%" style="display: block; margin: auto;" />
+
+
+**Now Push** - push your commits to the remote repository. You won't see any changes on Github until you push those commits. 
+
+
+## Remote changes
+
+Let's head back to GitHub now. If you refresh the page, now you’ll see the files you committed just now. Let’s click on “Commits” to see the history of the repository. From this view, you can explore the repository at the “state” of each commit and look at the file differences.
+
+Now, we can try to make changes here at github.com
+
+### Create a README
+
+- On the main page, click on the green bottom that says “Add a README”.
+
+- Add something to the file. READMEs usually are written in Markdown and contain information about the repo.
+
+- At the end of the page add a message on the first line and click on “Commit new file”.
+
+- Come back to the main page to see the README.
+
+The new file and the changes you do on GitHub are only on the remote repository until you make a pull from the local repo. If you make changes on the local repo while it not up to date, you may encounter **merge conflicts**, which lead to headaches. This happens when the version of a file on the local repo is not compatible with its version on the remote repo. In those cases, git cannot decide which version is the right one and you have to do it yourself.
+
+To avoid this problem (most of the time), you should do a **pull everytime you load up a project** before doing anything else. Most of the time the message will be "Already up to-date", but this is a good habit.
+
+Now we should head to the GitPane in RStudio and select the blue "Pull" button. The README should appear in your files. 
+
+
+
+## Collaborating on a repo
+
+When collaborating on a project you can find yourself in one of two scenarios
+
+- You have write permission of the repo you are working on.
+
+- You don’t have write permission on the repo.
+
+The first situation is the most common when working together with an team on a long term project. You can clone the repo following the these same instructions and use the same workflow as before. When you try to push your changes to the remote repository, GitHub will check if you have the rights to modify the repo. The only difference between this and working on your own is that you need to **communicate well so that two people are not working on the same thing**. Otherwise this will lead to **merge conflicts**. 
+
+The second situation is common when contributing to strangers' projects, such as fixing bugs in open source packages. In this case, you need to first fork the repository, which creates a remote repository linked to your GitHub account to which you will have complete access. Now you work in this fork using the normal workflow: modify, add, commit and push. But for your changes to integrate into the original repository, you need to create a pull request (or PR). This will let the owner of the original repo that you made some changes that you think should be merged. The owner can then accept, reject or ask for modifications. Once they accept your Pull Request, your modifications will be safe in the original repository.
+
+
+### Working with an external collaborator
+
+**1.** Go to [github.com](https://github.com/) and log in (you need your own account - for sign up with your uea.ac.uk e-mail)
+
+**2.** In the Search bar, look for repo **Philip-Leftwich/5023Y-Happy-Git**
+
+**3.** Click on the repo name, and look at the existing repo structure
+
+**4.** **FORK** the repo
 
 ### What the hell is a fork?
 
@@ -112,38 +263,23 @@ with</p></li>
 
 A fork is when you generate a *personal* copy of another user's [repository](#glossary-github).
 
-**e.** Press Clone/download and copy the URL, then create a **new** project in RStudio Cloud selecting the **New project from Git repository** option -  make sure you are in the 5023Y Workspace
+**5.** Press Clone/download and copy the URL, then create a **new** project in RStudio Cloud selecting the **New project from Git repository** option -  make sure you are in the 5023Y Workspace
 
 <img src="images/new-project.png" width="100%" style="display: block; margin: auto;" />
 
 
-**f.** Open the some_cool_animals.Rmd document, and the accompanying html 
+**6.** Open the some_cool_animals.Rmd document, and the accompanying html 
 
-**g.** Add *your name* to the top of the document
+**7.** Add *your name* to the top of the document
 
-**h.** BUT WAIT. We have forgotten to add a great image and facts about a very important species - Baby Yoda, including an image (the file is in the repo, and the info to add is below).
-
-
-**FACTS**
-
-<img src="images/Grogu.png" width="100%" style="display: block; margin: auto;" />
+**8.** BUT WAIT. We have forgotten to add YOUR favourite animal and facts! Make a new tab in the markdown file add an image and some information
 
 
-- Also known as "The Child"
-
-- likes unfertilised frog eggs & control knobs
-
-- strong with the force
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+**9.** Once you’ve added your updates, knit the Rmd document to update the html
 
 
-**i.** Once you’ve added Grogu, knit the Rmd document to update the html
 
-**j.** Add your Git credentials go to section [talking to github](#talking-to-github)
-
-**k.** Stage, Commit & Push all files [(glossary)](#glossary-github)
+**10.** Stage, Commit & Push all files [(glossary)](#glossary-github)
 
 Staged - pick those files which you intend to bind to a commit
 
@@ -152,50 +288,21 @@ Commit - write a short descriptive message, binds changes to a single [commit](#
 Push - "Pushes" your changes from the local repo to the remote repo on GitHub, [(push)](#push)
 
 
-**l.** On GitHub, refresh and see that files are updated. Cool! Now you’ve used something someone else has created, customized it, and saved your updated version. 
+**11.** On GitHub, refresh and see that files are updated. Cool! Now you’ve used something someone else has created, customized it, and saved your updated version. 
 
-## Talking to GitHub
+### Make a pull request
 
-Getting set up to talk to GitHub can seem like a pain. Eventually when you work on your own computer - with a copy of R & RStudio installed - you will only have to do this once. For now when we use RStudio Cloud - it looks like we have to do this **once per project**. It only takes a few seconds and you should put these commands **directly into your console**. 
+**1.** Go to your repo in GitHub, you will see that you made the last commit and a message about being ahead of my project:
 
-Run this first line **in your console** and put in your GitHub username and the e-mail connected to your GitHub account. 
+**2.** Click on “Open pull request”.
 
-<div class="warning">
-<p>Make sure you go to your RStudio Cloud profile &gt; Authentication
-and select Github Enabled &amp; Private repo access also enabled</p>
-</div>
+**3.** And click on “Create pull request”.
 
+**4.** We are almost there. Complete the pull request with a title and a message and then finish the pull request.
 
-```r
-usethis::use_git_config(user.name = "Jane Doe", user.email = "jane@example.org")
-```
+The owner/s of the repo will receive an email. They can review the pull request, comment on it and eventually accept the contribution. When that happen the changes you made will appear in their repo.
 
-
-Then you need to give RStudio Cloud your GitHub Personal Access Token, which you can retrieve by going to Github.com and finding Settings > Developer Settings > Generate Token 
-
-Select all the "scopes" and name your token. 
-
-<img src="images/git-PAT.png" width="100%" style="display: block; margin: auto;" />
-
-Make a note of this because you will need it whenever you set up a new project you want to talk to GitHub. GitHub recently removed password authentication in favour of PATs, but RStudio Cloud doesn't seem to have updated this yet - that's ok though - just enter this line of code - then copy+paste your PAT when prompted. - Option set/replace these credentials.
-
-
-```r
-gitcreds::gitcreds_set()
-```
-
-<div class="info">
-<p>When you start working on your own computer, you should only have to
-re-input your PAT when it expires. On RStudio Cloud it works a little
-differently.</p>
-<p>In theory you should only need to input your PAT once per project.
-Sometimes it seems to forget and asks for it again between one session
-and the next. So you might want to write it down somewhere.</p>
-<p>If you forget your PAT - that’s ok - you can’t retrieve it - but you
-can just generate a new one o Github.</p>
-</div>
-
-### See changes
+## See changes
 
 The first and most immediate benefit of using GitHub with your RStudio Project is seeing the changes you have made since your last commit.
 
@@ -217,92 +324,12 @@ You can get more details on the changes that have been made to each file by righ
 This opens a new window highlighting the **diff**erences between your current file and the previous commit. 
 
 <img src="images/git-diff-window.png" width="100%" style="display: block; margin: auto;" />
+
 The background colours tells you whether the text has been added (green) or removed (red). (If you’re colourblind you can use the line numbers in the two columns at the far left as a guide). 
 
 
-## How to use version control - when to commit, push and pull
- 
-Repositories (repos) on GitHub are the same unit as an RStudio Project - it's a place where you can easily store all information/data/etc. related to whatever project you're working on.
- 
-When we create a Repository in GitHub and have it communicating with a Project in RStudio, then we can changes moving in two directions
 
-* **pull** information *from* GitHub *to* RStudio
-
-or 
-
-* **push** information *from* RStudio *to* GitHub where it is safely stored and/or our collaborators can access it. 
-
-Github also keeps a *complete history* of different versions of each file that can be accessed/reviewed by you and your collaborators at any time, from anywhere, as long as you have the internet.
-
-I have mentioned the term **commit** a few times (\@ref(glossary-github)). The fundamental unit of work in Git is a commit. A commit takes a snapshot of your code at a specified point in time. 
-
-You create a commit in two stages:
-
-1. You **stage** files, telling Git which changes should be included in the next commit.
-
-2. You **commit** the staged files, describing the changes with a message.
-
-### Stage 
-
-<div class="info">
-<p>The staging section allows you to have finescale control over the
-files that are included with each commit. So in theory you could
-separate changes made in different files into different commitments.</p>
-</div>
-
-First **save** your files, then select files for inclusion by *staging* them, tick the checkbox and then select the commit box.
-
-<img src="images/stage_step_4.png" width="100%" style="display: block; margin: auto;" />
-
-A new window will open 'Review Changes' - and you will see the **diffs** in the bottom pane, and all the files you have selected for the latest commit. 
-
-### Commit
-
-In this new 'Review Changes' window you will see the list of files that were staged in the last window. 
-
-If you click on a file name you see the changes that have been made highlighted in the bottom panel. Added content is highlighted in green, removed content is highlighted in red. 
-
-To **commit** these changes (take a snapshot) you must enter a mandatory commit message in the "commit message" box. 
-
-
-<div class="figure" style="text-align: center">
-<img src="images/stage_step_5.png" alt="Green = added content, Red = deleted content" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-16)Green = added content, Red = deleted content</p>
-</div>
-
-The commit message should be short but meaningful (to you or any collaborators)
-
-Describe the **why**, not the what. Git stores all the associated differences between commits, the message doesn’t need to say exactly what changed - this is kept track of for you by Git. Instead it should provide a summary that focuses on the **reasons** for the change. Make this understandable for someone else!
-
-It is tradition to enter the very first message of a new project as "First Commit". 
-
-Once you click > commit, a new window will open that summarises your commit - and you can close this
-
-<img src="images/stage_step_6.png" width="100%" style="display: block; margin: auto;" />
-
-
-<div class="info">
-<p>When you commit changes - you are not simply saving a new version of
-the file. It is committing the exact line changes made, and only
-modifying those files which you have selected for commit.</p>
-</div>
-
-
-### Push
-
-At the moment, all of your commits are *local*, in order to send them to GitHub you have to select **Push** at this point your github credentials need to be in place - if you get prompted to provide these, close the windows and follow the steps [here](#talking-to-github) before trying again. 
-
-Your git pane will be empty at this point - but there is a little message at the top detailing how many commits you are *ahead* of the master repo on GitHub. If this says your branch is one or more commits ahead of the master, then your commits are still local and haven't been pushed yet.
-
-<img src="images/stage_step_7.png" width="100%" style="display: block; margin: auto;" />
-
-To confirm the changes you made to the project have been pushed to Github, open your GitHub page (get the link in Tools > Project Options > Git/SVN). 
-
-You should see all your files listed, alongside the file names you will see your last commit message *and* when you made the commit.
-
-<img src="images/git-link.png" width="100%" style="display: block; margin: auto;" />
-
-### A couple of general tips:
+## A couple of general tips:
 
 <div class="note">
 <ul>
@@ -319,285 +346,9 @@ copy</strong> of your project.</p></li>
 </div>
 
 
-## **Activity 2:** GitHub Classrooms enabled R Projects with subfolders
+## Beautify your profile
 
-GitHub Classrooms is a way for me to set repos as assigments - when you accept an assignment on GitHub Classroom it *automatically* forks a private repo for you. 
-
-You should make regular commits and pushes to save your work as you go - and I will be grading your project repositories on GitHub classrooms when you do your assignment work. 
-
-<div class="warning">
-<p>When you accept an assignment on GitHub classrooms - the repo won’t
-appear on your main profile, this is because it belongs to our class
-rather than you. You can always find it by searching through your
-Organisations - <strong>but</strong> it’s probably easiest just check
-the URL in Project Options on RStudio</p>
-</div>
-
-**a.** Follow this [invite link](https://classroom.github.com/a/fM_53MuL)
-
-**b.** You will be invited to sign-in to Github (if not already) & to join the UEABIO organisation
-
-**c.** Clone your assignment to work locally in RStudio Cloud - 5023Y Workspace
-
-**d.** In your local project folder, create subfolders ‘data’ and ‘figures’, 'scripts'.
-
-
-**f.** Open a new `.R` script (or `.Rmd` if you prefer to practice with this)
-
-**g.** Attach the `tidyverse`, `janitor`, and optionally `here` packages
-
-**h.** Read in the infant_mortality.csv data
-
-This is a file look at the death rate for every country in the world across six decades. See the README for more information
-
-**i.** Stage, commit & push at this point - notice that the empty folder ‘final_graphs’ doesn’t show up (won’t commit an empty folder) - **you will have to set up your git credentials again**
-
-**j.** Back in the script, write a short script to read and clean the data. 
-
-This script is pre-written, it puts the data in tidy format, cleans names, makes sure year is treated as date data and filters four countries of interest.
-
-Assign this to a new object 
-
-
-
-```r
-library(tidyverse)
-library(lubridate)
-library(janitor)
-library(plotly)
-
-infant_mortality <- read_csv("data/infant_mortality.csv") 
-
-subset_infant_mortality <- infant_mortality %>%
-  pivot_longer(cols="1960":"2020", 
-               names_to="year",               
-               values_to="infant_mortality_rate") %>%
-  mutate(year=lubridate::years(year)) %>% # set ymd format
-  mutate(year=lubridate::year(year)) %>% # extract year
-  janitor::clean_names() %>% # put names in snake case
-  filter(country_name %in% 
-           c("United States", 
-             "Japan", 
-             "Afghanistan", 
-             "United Kingdom")) # extract four countries
-
-# View(subset_infant_mortality)
-
-# subset the date according to (US,UK, Japan = lowest infant death rates, Afghanistan = highest infant death rates)
-```
-
-
-**k.** Make a ggplot plotting the infant mortality rate by country
-
-HINT - use `geom_line()` and remember to separate countries by colour
-
-
-<div class='webex-solution'><button>Solution</button>
-
-
-
-```r
-ggplot(data = subset_infant_mortality) +
-  geom_line(aes(x = year,
-                 y = infant_mortality_rate,
-                 color = country_name))
-```
-
-
-</div>
-
-
-**l.** Update your graph with direct labels (using `annotate`) and vertical or horizontal lines with `geom_vline` or `geom_hline`. 
-
-<img src="09-github_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-<div class='webex-solution'><button>Solution</button>
-
-
-
-```r
-mortality_figure <- ggplot(data = subset_infant_mortality,
-                           aes(x = year,
-                 y = infant_mortality_rate,
-                 color = country_name)) +
-  geom_line() +
-  scale_color_manual(values = c("black", "blue", "magenta", "orange")) +
-  annotate(geom = "text",
-           x = 2023,
-           y = 50,
-           label = "Afghanistan",
-           size = 4,
-           colour="black") +
-    annotate(geom = "text",
-           x = 2023,
-           y = -2,
-           label = "Japan",
-           size = 4,
-           colour="blue") +
-    annotate(geom = "text",
-           x = 2023,
-           y = 15,
-           label = "United Kingdom",
-           size = 4,
-           colour="orange") +
-    annotate(geom = "text",
-           x = 2023,
-           y = 5,
-           label = "United States",
-           size = 4,
-           colour="magenta") +
-  geom_vline(xintercept = 2000,
-             lty = 2) +
-  theme_minimal()+
-  theme(legend.position="none")+
-  xlim(1970, 2025)+
-  labs(x="Year",
-       y="Deaths per 100,000")+
-  ggtitle("Mortality rate, infant (per 1,000 live births) \nhas been steadily falling in Afghanistan from 1970 to present")
-```
-
-
-</div>
-
-
-**m.** Use ggsave() to write your graph to a .png in the ‘final_graphs’ subfolder
-
-
-
-```r
-ggsave("figures/infant mortality graph.png", plot = mortality_figure, dpi=900, width = 7, height = 7)
-```
-
-**n.** Save, stage, commit
-
-**o** Let's do one more cool and fun thing! And make an interactive version of our plot using plotly @R-plotly just for fun!
-
-
-```r
-ggplotly(mortality_figure, tooltip = c("infant_mortality_rate"))
-## uses plotly package
-```
-
-**p** Now save, stage, commit & **push**
-
-**q.** Check that changes are stored on GitHub
-
-
-(**NOTE** this will be in your organisations rather than repos)
-
-**Make sure you finish both exercises before next week to become a GitHub pro!!!!!!!!!**
-
-## Find your classroom repos
-
-When you work with GitHub classrooms your repos become part of our organisation UEABIO.
-
-If you want to find your repos on GitHub then you can do this in a couple of ways
-
-1) Bookmark the direct URL (if you noted it) from when you first visit the repo
-
-2) Head to (https://github.com/UEABIO) - you should only be able to see repos that belong to **you**. 
-
-3) From RStudio Cloud head to Tools > Project Options > Git to find the URL. 
-
-<img src="images/classroom-organisation.png" width="100%" style="display: block; margin: auto;" />
-
-## Git History
-
-So far we have used Git to track, stage and commit our file changes to GitHub. Now we will look briefly at how to review our changes and what to do if we want to revert any changes.
-
-### Commit History
-
-To view your commit history in RStudio, simply click on the 'History' button 🕒 in the Git Panel.
-
-This window is split in two parts. The top pane lists every commit you have made in this repository, with their associated messsages (top to bottom, most recent to last). 
-
-Click on any commit and the bottom pane shows you the changes you made compared to the previous commit, there is also a summary of who made the commit, the commit message and the date it was made. 
-
-There is also an SHA (Secure Hash Algorithm), this is a unique identifier for the commit, and Parent SHA which identifies the commit that immediately preceded it. 
-
-You **can** also review your commit history on Github by clicking on the 'commits' link in the repository
-
-### Reverting changes
-
-One of the most powerful things about Git is the ability to revert to previous versions of files, if you made a mistake, broke something, or just changed your mind! 
-
-How you do this depends on what stage you are at in making your changes. We'll go through each of these scenarios in turn.
-
-#### Changes saved but not staged, committed or pushed
-
-If you have saved changes to your file, but not yet staged them, you can click on the offending file in the Git pane and select 'revert'. This will roll back the file  to your last 'commit' (warning reverting cannot be undone).
-
-Changes can be made to *part* of a file by opening the 'Diff' window. Select the line you wish to discard by double-clicking the line and select 'Discard line/chunk'
-
-#### Staged but not committed
-
-Simply unclick the staged check box, then revert as described above.
-
-#### Staged and committed but not pushed
-
-If you made a mistake or forgot to include a file in your last commit, you can fix your mistake, save the changes and tick the box 'Amend previous commit' in the 'Review Changes' pane.
-
-If you want to make a change that was several commits ago there are two options:
-
-* **Option 1** - easier but not *very Git* 🤷
-
-Look in your commit history in RStudio - find the commit you want to go back to and click the 'View file @' button to show file contents.
-
-Copy the contents of the file to clipboard and paste into your current file. Save, stage, commit as normal.
-
-* **Option 2** - Go to Git history, find the commit and write down the SHA. 
-
-Now go to the **Terminal** tab (next to Console) and type
-
-```
-git checkout <SHA> <filename>
-```
-
-This might look something like this
-
-```
-git checkout 2b4693d1 first_doc.Rmd
-```
-
-This command will copy the selected file from the past and replace it in the present. You may be asked if you want to reload the file now (say yes). Then stage, commit as usual. 
-
-#### Staged, committed and pushed
-
-You could use either of the strategies described above, although if you are using the Terminal there is now a better command `git revert`. 
-
-First you need to identify the SHA of the commit you want to revert to as before. Then use the `git revert` command in the Terminal. Adding the `--no-commit` option stops us having to deal with intermediate commits. Adding `..HEAD` tells GIT to make this old commit the new/old "HEAD" or lead of the project. 
-
-```
-git revert --no-commit d27e79f1..HEAD
-
-```
-
-## Collaborate with Git
-
-GitHub is great for collaboration. It can seem a little scary or complicated at first, but it's totally worth it! 
-
-Github works as a *distributed system* this means each person working on a project has their own copy. Changes are then merged together in the remote repository on GitHub. 
-
-For small projects we can use exactly the same system as above. Everybody connects their local repository to the same remote one. 
-
-* **Pull** the repository at the start of *each* session to make sure you are working on the most up to-date version.
-
-* Work on your aspect of the project, staging, committing and pushing as you go. 
-
-For small projects this works well if each person has their own files to work on, but if two people are working on the same file *at the same time* this can cause a 'merge conflict'. So for bigger projects each collaborator creates a copy (fork) of the repository, then a **pull request** must be sent to the owner of the main repository to incorporate any changes, this includes a review step before these changes are integrated. 
-
-## Final Git tips
-
-Reminders:
-
-* Commit often, and push at the end of a session
-
-* If you don't want to track a file in your repository (maybe you aren't working with that in a collaboration) you can get Git to ignore by right-click and selecting Ignore. 
-
-* Check the Github repo online to make sure changes are being pushed
-
-* If it all goes wrong! And you trash your project! That's ok, as long as your GitHub repository online is good the final option is to delete your RStudio project on your computer or RStudio Cloud and clone the project from GitHub again! 
+https://dev.to/ruppysuppy/beautify-your-github-profile-like-a-pro-5093
 
 ## Glossary-GitHub
 
@@ -665,164 +416,15 @@ Reminders:
 </table>
 
 
-## Summing up GitHub
+Reading
 
-### What we learned
-
-You have learned:
-
-* How to fork and clone GitHub Projects
-
-* How to use GitHub classrooms
-
-* How to make RStudio and GitHub talk to each other
-
-* How to use version control, with stage, commit and push
-
-* Remember to bookmark [Happy Git](https://happygitwithr.com/)
-
-You have used
-
-* `gitcreds` @R-gitcreds
-
-* `usethis` @R-usethis
-
-
-## Sharing a Github repo - Dealing with conflict when collaborating
+*  [Happy Git](https://happygitwithr.com/)
 
 
 
-### How to avoid a conflict
-
-The best and simplest way to avoid Github conflicts is to follow some simple guidelines. If two people are sharing a repo and commit their work usually this will go smoothly. However, if you try to merge changes on the same part of the same file you will get a merge conflict. 
-
-```
-git merge issue-5
-# Auto-merging index.html
-# CONFLICT (content): Merge conflict in index.html
-# Automatic merge failed; fix conflicts and then commit the result.
-
-```
-
-If you see a message like this, the first thing is **do not panic**. Merge conflicts can be easily fixed.
-
-We can avoid merge conflicts altogether by following some simple organisation tips: 
-
-1. Partition the project, work on independent R scripts, so that changes made by one person have no affect on the files someone else is working on.
-
-2. Communicate - organise times when one person might work on a shared file, so that two people don't work on the same file at the same time
-
-3. Always Pull the latest version of the repo *before* you start working, try pulling **just before you push** in order to collect the latest changes & **always** push to Github at the *end* of a session.
-
-
-### Dealing with a conflict
-
-Let's imagine you HAVE made a mistake and two people have tried to push changes for the same file at the same time! 
-
-The *second* person trying to push a change to Github will get an error
-
-<div class="figure" style="text-align: center">
-<img src="images/git-conflict-01-push-error.png" alt="Git conflict" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-31)Git conflict</p>
-</div>
-
-Do what the message says and pull the changes from Github, this will generate a **different** error mesage. In this case indicating a merge conflict because of the differences on the same line of a file. In the Git pane, the file will now be flagged with an orange 'U'. This stands for 'unresolved'
-
-<div class="figure" style="text-align: center">
-<img src="images/git-conflict-03-conflict.png" alt="git conflict" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-32)git conflict</p>
-</div>
-
-To resolve the conflict, this file now needs to be edited. Git has flagged the locations in which conflicts have occurred with `<<<<<<<`, `=======` and `>>>>>>>`. The file needs to be edited merging the appropriate changes until the file reads how it should and all conflict markers are removed. 
-
-<img src="images/git-conflict-04-conflict-tags.png" width="100%" style="display: block; margin: auto;" />
-
-<img src="images/git-conflict-05-resolved-file.png" width="100%" style="display: block; margin: auto;" />
-
-### Commit resolutions
-
-Proceed as normal, commit the file changes, this should change the file from orange `U` to blue `M` and push this to Github, all collaborators will need to be informed to Pull the updated repo to get the new changes. 
-
-### Try and create and solve a merge error. 
-
-<div class="try">
-<p>Merge Conflict Challenge As part of your group why not try and
-intentionally create a merge conflict, and then go through the steps
-needed to resolve the issues and continue developing with the merged
-files. See the sections above for help with each of these steps:</p>
-<p>Step 0: Ensure you have the same starting project Step 1: Project
-co-ordinator makes a change and commits - a small change to the
-README.md Step 2: Collaborator makes a change and commits on the same
-line Step 3: Collaborator pushes the file to GitHub Step 4: Owner pushes
-their changes and gets an error Step 5: Owner pulls from GitHub to get
-Collaborator changes Step 6: Owner edits the file to resolve the
-conflict Step 7: Owner commits the resolved changes Step 8: Owner pushes
-the resolved changes to GitHub Step 9: Collaborator pulls the resolved
-changes from GitHub Step 10: Both can view commit history</p>
-</div>
 
 
 
-### Abort! 
-
-Sometimes you just made a mistake. When you get a merge conflict, the repository is placed in a ‘Merging’ state until you resolve it. There’s a commandline command to abort doing the merge altogether:
-
-In the terminal type
-
-```
-git merge --abort
-```
-
-Of course, after doing that you still haven’t synced with your collaborator’s changes, so things are still unresolved. But at least your repository is now usable on your local machine. Let me know asap and we can fix the issue
 
 
 
-```r
-sessionInfo()
-```
-
-```
-## R version 4.3.1 (2023-06-16)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.6 LTS
-## 
-## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
-## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
-## 
-## locale:
-##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
-##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
-##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
-## 
-## time zone: UTC
-## tzcode source: system (glibc)
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] kableExtra_1.3.4   here_1.0.1         janitor_2.2.0      gitcreds_0.1.2    
-##  [5] usethis_2.2.2      webexercises_1.1.0 glossary_1.0.0     lubridate_1.9.2   
-##  [9] forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2        purrr_1.0.1       
-## [13] readr_2.1.4        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.2     
-## [17] tidyverse_2.0.0   
-## 
-## loaded via a namespace (and not attached):
-##  [1] gtable_0.3.3      xfun_0.39         bslib_0.5.0       tzdb_0.4.0       
-##  [5] vctrs_0.6.3       tools_4.3.1       generics_0.1.3    parallel_4.3.1   
-##  [9] fansi_1.0.4       highr_0.10        pkgconfig_2.0.3   webshot_0.5.5    
-## [13] lifecycle_1.0.3   compiler_4.3.1    farver_2.1.1      munsell_0.5.0    
-## [17] snakecase_0.11.0  htmltools_0.5.5   sass_0.4.6        yaml_2.3.7       
-## [21] pillar_1.9.0      crayon_1.5.2      jquerylib_0.1.4   cachem_1.0.8     
-## [25] rvest_1.0.3       tidyselect_1.2.0  digest_0.6.33     stringi_1.7.12   
-## [29] bookdown_0.34     labeling_0.4.2    rprojroot_2.0.3   fastmap_1.1.1    
-## [33] grid_4.3.1        colorspace_2.1-0  cli_3.6.1         magrittr_2.0.3   
-## [37] utf8_1.2.3        withr_2.5.0       scales_1.2.1      bit64_4.0.5      
-## [41] timechange_0.2.0  httr_1.4.6        rmarkdown_2.23    bit_4.0.5        
-## [45] hms_1.1.3         memoise_2.0.1     evaluate_0.21     knitr_1.43       
-## [49] viridisLite_0.4.2 rlang_1.1.1       downlit_0.4.3     glue_1.6.2       
-## [53] xml2_1.3.5        svglite_2.1.1     rstudioapi_0.15.0 vroom_1.6.3      
-## [57] jsonlite_1.8.7    R6_2.5.1          systemfonts_1.0.4 fs_1.6.2
-```
