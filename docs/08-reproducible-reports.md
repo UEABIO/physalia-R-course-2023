@@ -19,7 +19,7 @@ With Rmarkdown we can make reproducible html, word, pdf, powerpoints or websites
 
 
 
-## How it works
+## How it works {-}
 
 To create an R Markdown document in RStudio, go to **File > New File > R Markdown**. Choose a title, author, and date, as well as your default output format (HTML, PDF, or Word). These values can be changed later. Click OK, and RStudio will create an R Markdown document with some placeholder content. 
 
@@ -95,7 +95,7 @@ We’ve set the output format to be HTML (see the output_format: html). Some fea
 It may seem convoluted to constantly knit R Markdown documents to Word, but this workflow allows us to update our reports at any point with new code or data. This ability is known as reproducibility, and it is central to the value of R Markdown.
 
 
-## Background to Rmarkdown
+## Background to Rmarkdown {-}
 
 * Markdown is a “language” that allows you to write a document using plain text, that can be converted to html and other formats. It is not specific to R. Files written in Markdown have a ‘.md’ extension.
 
@@ -114,7 +114,7 @@ The .md file is then processed by pandoc to create the finished product: a Micro
 
 <img src="images/0_rmd.png" width="80%" style="display: block; margin: auto;" />
 
-## Rmarkdown parts
+## Rmarkdown parts {-}
 
 As you can see, there are three basic components to any Rmd file: 
 
@@ -126,7 +126,7 @@ As you can see, there are three basic components to any Rmd file:
 
 <img src="images/rmarkdown_translation.png" width="100%" style="display: block; margin: auto;" />
 
-### YAML Metadata
+### YAML Metadata {-}
 
 The YAML section is the very beginning of an R Markdown document. The name YAML comes from the recursive acronym YAML ain’t markup language, whose meaning isn’t important for our purposes. Three dashes indicate its beginning and end, and the text inside of it contains metadata about the R Markdown document. Here is my YAML:
 
@@ -152,7 +152,7 @@ have your name as author, today’s date and the title of the file should
 be called “Penguins of the Palmer Archipelago, Antarctica”.</p>
 </div>
 
-### Code chunks
+### Code chunks {-}
 
 R Markdown documents have a different structure from the R script files you might be familiar with (those with the .R extension). R script files treat all content as code unless you comment out a line by putting a pound sign (#) in front of it. In the following code, the first line is a comment while the second line is code.
 
@@ -255,17 +255,17 @@ penguins %>%
 
 ````
 
-### Text
+### Text {-}
 
 This is the narrative of your document, including the titles and headings. It is written in the “markdown” language, which is used across many different software.
 
 Below are the core ways to write this text. See more extensive documentation available on R Markdown “cheatsheets” at the RStudio website^[(https://www.rstudio.com/resources/cheatsheets/)].
 
-#### New lines
+#### New lines {-}
 
 Uniquely in R Markdown, to initiate a new line, enter *two spaces** at the end of the previous line and then Enter/Return.
 
-#### Text emphasis
+#### Text emphasis {-}
 
 Surround your normal text with these characters to change how it appears in the output.
 
@@ -277,7 +277,7 @@ Back-ticks  (\` text \`) to display text as `code`
 
 The actual appearance of the font can be set by using specific templates (specified in the YAML metadata).
 
-#### Titles and headings
+#### Titles and headings {-}
 
 A hash symbol in a text portion of a R Markdown script creates a heading. This is different than in a chunk of R code in the script, in which a hash symbol is a mechanism to comment/annotate/de-activate, as in a normal R script.
 
@@ -294,7 +294,7 @@ Different heading levels are established with different numbers of hash symbols 
 
 ```
 
-#### Bullets and numbering
+#### Bullets and numbering {-}
 
 Use asterisks (*) to created a bullets list. Finish the previous sentence, enter two spaces, Enter/Return twice, and then start your bullets. Include a space between the asterisk and your bullet text. After each bullet enter two spaces and then Enter/Return. Sub-bullets work the same way but are indented. Numbers work the same way but instead of an asterisk, write 1), 2), etc. Below is how your R Markdown script text might look.
 
@@ -307,7 +307,7 @@ Here are my bullets (there are two spaces after this colon):
   * Sub-bullet 2 (followed by two spaces and Enter/Return)  
 ```
 
-### In-text code
+### In-text code {-}
 
 You can also include minimal R code within back-ticks. Within the back-ticks, begin the code with “r” and a space, so RStudio knows to evaluate the code as R code. See the example below.
 
@@ -317,7 +317,7 @@ When typed in-line within a section of what would otherwise be Markdown text, it
 
 This book was printed on 2023-11-01
 
-### Running code
+### Running code {-}
 
 You can run the code in an R Markdown document in two ways. The first way is by knitting the entire document. The second way is to run code chunks manually (also known as interactively) by hitting the little green play button at the top-right of a code chunk. The down arrow next to the green play button will run all code until that point.
 
@@ -329,7 +329,7 @@ The one downside to running code interactively is that you can sometimes make mi
 The code must also always appear in the right order. 
 
 
-## Useful tips
+## Useful tips {-}
  
 <div class="info">
 <p>The working directory for .rmd files is a little different to working
@@ -353,10 +353,10 @@ more later</p></li>
 
 
 
-## Exercises: Setting code chunks
+## Exercises: Setting code chunks {-}
 
 
-**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select>
+**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select>
 
 
 <div class='webex-solution'><button>Explain This Answer</button>
@@ -407,7 +407,7 @@ In this scenario, one logical organization of the R Markdown script might be:
 
 
 
-### Heuristic file paths with `here()`
+### Heuristic file paths with `here()` {-}
 
 The package `here` @R-here and its function `here()` (`here::here()`), make it easy to tell R where to find and to save your files - in essence, it builds file paths. It becomes especially useful for dealing with the alternate filepaths generated by .Rmd files, but can be used for exporting/importing any scripts, functions or data. 
 
@@ -467,14 +467,14 @@ otherwise you might encounter errors.</p>
 </div>
 
 
-## Activity: Can you change the global options of your Rmd file so that it doesn't display any code, warnings or messages?
+## Activity: Can you change the global options of your Rmd file so that it doesn't display any code, warnings or messages? {-}
 
 Once you have made your edits to the [chunk options](#code-chunks) try hitting 'knit' again. 
 
 
-## ggplot
+## ggplot {-}
 
-### Size options for figures
+### Size options for figures {-}
 
 
 - `fig.width` and `fig.height` enable to set width and height of R produced figures.
@@ -550,7 +550,7 @@ plot + theme(base_size = 14)
 <img src="08-reproducible-reports_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
 
 
-### Size of final figure in document
+### Size of final figure in document {-}
 
 With the previous examples, you could see the relative size of the elements within th figures was changed - but the area occupied by the figures remained the same. In order to change this I need `out.width` or `out.height`
 
@@ -567,7 +567,7 @@ plot
 
 <img src="08-reproducible-reports_files/figure-html/unnamed-chunk-26-1.png" width="50%" style="display: block; margin: auto;" />
 
-### Changing default values of chunk options
+### Changing default values of chunk options {-}
 
 You can also change default values of chunk options by writing this at the beginning of your R Markdown document.
 
@@ -585,7 +585,7 @@ These values will be applied for all chunks unless you specify other value in a 
 
 
 
-## Static images
+## Static images {-}
 
 You can include images in your R Markdown:
 
@@ -595,9 +595,9 @@ knitr::include_graphics("path/to/image.png")
 ```
 ````
 
-## Tables
+## Tables {-}
 
-### Markdown tables
+### Markdown tables {-}
 
 ```
 | Syntax      | Description |
@@ -615,7 +615,7 @@ Which will render as this
 | Paragraph   | Text        |
 
 
-### gt()
+### gt() {-}
 
 The `gt` @R-gt package is all about making it simple to produce nice-looking display tables. [It has a lot of customisation options.](https://gt.rstudio.com/index.html) 
 
@@ -1101,7 +1101,7 @@ penguins |>
 </div>
 
 
-## Source files
+## Source files {-}
 
 One variation of the “self-contained” approach is to have R Markdown code chunks “source” (run) other R scripts. 
 
@@ -1124,7 +1124,7 @@ scripts written outside of the document).</p>
 place as your .RProj file</p>
 </div>
 
-## Activity: Connecting scripts and reports
+## Activity: Connecting scripts and reports {-}
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 
@@ -1163,7 +1163,7 @@ source("scripts/penguins.R")
 `````
 
 
-## Activity: Test yourself
+## Activity: Test yourself {-}
 
 * Make any summary figure you want from the penguins data with `ggplot`
 
@@ -1175,7 +1175,7 @@ source("scripts/penguins.R")
 
 * Use chunk options to optimise your figure layout and text and make it so that raw code and rendered outputs are visible. An example of literate programming
 
-### Hygiene tips
+### Hygiene tips {-}
 
 I recommend having three chunks at the top of any document
 
@@ -1207,11 +1207,11 @@ source("scripts/02_visualisation_penguins.R")
 
 ````
 
-## Common knit issues
+## Common knit issues {-}
 
 Any of these issues will cause the Rmd document to fail to knit in its entirety. A failed knit is usually an easy fix, but needs you to READ the error message, and do a little detective work. 
 
-### Duplication
+### Duplication {-}
 
 ````md
 
@@ -1223,7 +1223,7 @@ Any of these issues will cause the Rmd document to fail to knit in its entirety.
 
 ````
 
-### Not the right order
+### Not the right order {-}
 
 ```
 plot(my_table)
@@ -1231,23 +1231,23 @@ plot(my_table)
 my_table <- table(mtcars$cyl)
 ```
 
-### Forgotten trails
+### Forgotten trails {-}
 
 : Missing “,”, or “(”, “}”, or “’”
 
 
-### Path not taken
+### Path not taken {-}
 
 The Rmd document is in a different location the .Rproj file causing issues with relative filepaths
 
-### Spolling
+### Spolling {-}
 
 * Incorrectly labelled chunk options
 
 * Incorrectly evaluated R code
 
 
-## Visual editor
+## Visual editor {-}
 
 RStudio comes with a pretty nifty [Visual Markdown Editor](https://www.rstudio.com/blog/exploring-rstudio-visual-markdown-editor/) which includes:
 
@@ -1259,12 +1259,12 @@ RStudio comes with a pretty nifty [Visual Markdown Editor](https://www.rstudio.c
 
 You can switch between modes with a button push, try it out! 
 
-## Quarto
+## Quarto {-}
 
 The visual editor was a precursor to a new type of publishing tool - Quarto. this tool takes what R Markdown has done for R and extends it to other languages, including Python, Julia, and Observable JS. As I write this book, Quarto is gaining traction. Luckily, the concepts you’ve learned in this chapter apply to Quarto as well. Quarto documents have a YAML section, code chunks, and Markdown text. You can export Quarto documents to HTML, PDF, and Word. However, R Markdown and Quarto documents have some syntactic differences. 
 
 
-### Further Reading, Guides and tips
+### Further Reading, Guides and tips {-}
 
 * [R Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
 

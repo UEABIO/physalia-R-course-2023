@@ -180,9 +180,8 @@
 <p>An R Markdown script combines R code and text such that the script actually becomes your output document. You can create an entire formatted document, including narrative text (can be dynamic to change based on your data), tables, figures, bullets/numbers, bibliographies, etc.</p>
 <p>Documents produced with Rmarkdown, allow analyses to be included easily - and make the link between raw data, analysis &amp; and a published report <em>completely reproducible</em>.</p>
 <p>With Rmarkdown we can make reproducible html, word, pdf, powerpoints or websites and dashboards<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;(&lt;a href="https://rmarkdown.rstudio.com/gallery.html" class="uri"&gt;https://rmarkdown.rstudio.com/gallery.html&lt;/a&gt;)&lt;/p&gt;'><sup>3</sup></a></p>
-<div id="how-it-works" class="section level2" number="36.1">
-<h2>
-<span class="header-section-number">36.1</span> How it works<a class="anchor" aria-label="anchor" href="#how-it-works"><i class="fas fa-link"></i></a>
+<div id="how-it-works" class="section level2 unnumbered">
+<h2>How it works<a class="anchor" aria-label="anchor" href="#how-it-works"><i class="fas fa-link"></i></a>
 </h2>
 <p>To create an R Markdown document in RStudio, go to <strong>File &gt; New File &gt; R Markdown</strong>. Choose a title, author, and date, as well as your default output format (HTML, PDF, or Word). These values can be changed later. Click OK, and RStudio will create an R Markdown document with some placeholder content.</p>
 <div class="inline-figure"><img src="images/templatermd.png" width="80%" style="display: block; margin: auto;"></div>
@@ -242,9 +241,8 @@
 <p>We’ve set the output format to be HTML (see the output_format: html). Some features are not immediately visible in R Markdown that do appear in the rendered document, including the histogram. This is because the R Markdown document doesn’t directly include this plot. Rather, it includes the code needed to produce the plot when knitted.</p>
 <p>It may seem convoluted to constantly knit R Markdown documents to Word, but this workflow allows us to update our reports at any point with new code or data. This ability is known as reproducibility, and it is central to the value of R Markdown.</p>
 </div>
-<div id="background-to-rmarkdown" class="section level2" number="36.2">
-<h2>
-<span class="header-section-number">36.2</span> Background to Rmarkdown<a class="anchor" aria-label="anchor" href="#background-to-rmarkdown"><i class="fas fa-link"></i></a>
+<div id="background-to-rmarkdown" class="section level2 unnumbered">
+<h2>Background to Rmarkdown<a class="anchor" aria-label="anchor" href="#background-to-rmarkdown"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li><p>Markdown is a “language” that allows you to write a document using plain text, that can be converted to html and other formats. It is not specific to R. Files written in Markdown have a ‘.md’ extension.</p></li>
@@ -257,9 +255,8 @@
 <p>The .md file is then processed by pandoc to create the finished product: a Microsoft Word document, HTML file, Powerpoint document, pdf, etc.</p>
 <div class="inline-figure"><img src="images/0_rmd.png" width="80%" style="display: block; margin: auto;"></div>
 </div>
-<div id="rmarkdown-parts" class="section level2" number="36.3">
-<h2>
-<span class="header-section-number">36.3</span> Rmarkdown parts<a class="anchor" aria-label="anchor" href="#rmarkdown-parts"><i class="fas fa-link"></i></a>
+<div id="rmarkdown-parts" class="section level2 unnumbered">
+<h2>Rmarkdown parts<a class="anchor" aria-label="anchor" href="#rmarkdown-parts"><i class="fas fa-link"></i></a>
 </h2>
 <p>As you can see, there are three basic components to any Rmd file:</p>
 <ul>
@@ -268,9 +265,8 @@
 <li><p>R code chunks.</p></li>
 </ul>
 <div class="inline-figure"><img src="images/rmarkdown_translation.png" width="100%" style="display: block; margin: auto;"></div>
-<div id="yaml-metadata" class="section level3" number="36.3.1">
-<h3>
-<span class="header-section-number">36.3.1</span> YAML Metadata<a class="anchor" aria-label="anchor" href="#yaml-metadata"><i class="fas fa-link"></i></a>
+<div id="yaml-metadata" class="section level3 unnumbered">
+<h3>YAML Metadata<a class="anchor" aria-label="anchor" href="#yaml-metadata"><i class="fas fa-link"></i></a>
 </h3>
 <p>The YAML section is the very beginning of an R Markdown document. The name YAML comes from the recursive acronym YAML ain’t markup language, whose meaning isn’t important for our purposes. Three dashes indicate its beginning and end, and the text inside of it contains metadata about the R Markdown document. Here is my YAML:</p>
 <div class="sourceCode" id="cb466"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb466-1"><a href="rmarkdown.html#cb466-1" tabindex="-1"></a></span>
@@ -290,9 +286,8 @@ be called “Penguins of the Palmer Archipelago, Antarctica”.
 </p>
 </div>
 </div>
-<div id="code-chunks" class="section level3" number="36.3.2">
-<h3>
-<span class="header-section-number">36.3.2</span> Code chunks<a class="anchor" aria-label="anchor" href="#code-chunks"><i class="fas fa-link"></i></a>
+<div id="code-chunks" class="section level3 unnumbered">
+<h3>Code chunks<a class="anchor" aria-label="anchor" href="#code-chunks"><i class="fas fa-link"></i></a>
 </h3>
 <p>R Markdown documents have a different structure from the R script files you might be familiar with (those with the .R extension). R script files treat all content as code unless you comment out a line by putting a pound sign (#) in front of it. In the following code, the first line is a comment while the second line is code.</p>
 <div class="sourceCode" id="cb467"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb467-1"><a href="rmarkdown.html#cb467-1" tabindex="-1"></a></span>
@@ -404,21 +399,18 @@ want them printed next to each other (pair with out.width = c(“33%”,
 <span id="cb471-6"><a href="rmarkdown.html#cb471-6" tabindex="-1"></a><span class="in">  theme_minimal()</span></span>
 <span id="cb471-7"><a href="rmarkdown.html#cb471-7" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </div>
-<div id="text-2" class="section level3" number="36.3.3">
-<h3>
-<span class="header-section-number">36.3.3</span> Text<a class="anchor" aria-label="anchor" href="#text-2"><i class="fas fa-link"></i></a>
+<div id="text-2" class="section level3 unnumbered">
+<h3>Text<a class="anchor" aria-label="anchor" href="#text-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>This is the narrative of your document, including the titles and headings. It is written in the “markdown” language, which is used across many different software.</p>
 <p>Below are the core ways to write this text. See more extensive documentation available on R Markdown “cheatsheets” at the RStudio website<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;(&lt;a href="https://www.rstudio.com/resources/cheatsheets/" class="uri"&gt;https://www.rstudio.com/resources/cheatsheets/&lt;/a&gt;)&lt;/p&gt;'><sup>4</sup></a>.</p>
-<div id="new-lines" class="section level4" number="36.3.3.1">
-<h4>
-<span class="header-section-number">36.3.3.1</span> New lines<a class="anchor" aria-label="anchor" href="#new-lines"><i class="fas fa-link"></i></a>
+<div id="new-lines" class="section level4 unnumbered">
+<h4>New lines<a class="anchor" aria-label="anchor" href="#new-lines"><i class="fas fa-link"></i></a>
 </h4>
 <p>Uniquely in R Markdown, to initiate a new line, enter *two spaces** at the end of the previous line and then Enter/Return.</p>
 </div>
-<div id="text-emphasis" class="section level4" number="36.3.3.2">
-<h4>
-<span class="header-section-number">36.3.3.2</span> Text emphasis<a class="anchor" aria-label="anchor" href="#text-emphasis"><i class="fas fa-link"></i></a>
+<div id="text-emphasis" class="section level4 unnumbered">
+<h4>Text emphasis<a class="anchor" aria-label="anchor" href="#text-emphasis"><i class="fas fa-link"></i></a>
 </h4>
 <p>Surround your normal text with these characters to change how it appears in the output.</p>
 <p>Underscores (_text_) or single asterisk (*text*) to <em>italicise</em></p>
@@ -426,9 +418,8 @@ want them printed next to each other (pair with out.width = c(“33%”,
 <p>Back-ticks (` text `) to display text as <code>code</code></p>
 <p>The actual appearance of the font can be set by using specific templates (specified in the YAML metadata).</p>
 </div>
-<div id="titles-and-headings" class="section level4" number="36.3.3.3">
-<h4>
-<span class="header-section-number">36.3.3.3</span> Titles and headings<a class="anchor" aria-label="anchor" href="#titles-and-headings"><i class="fas fa-link"></i></a>
+<div id="titles-and-headings" class="section level4 unnumbered">
+<h4>Titles and headings<a class="anchor" aria-label="anchor" href="#titles-and-headings"><i class="fas fa-link"></i></a>
 </h4>
 <p>A hash symbol in a text portion of a R Markdown script creates a heading. This is different than in a chunk of R code in the script, in which a hash symbol is a mechanism to comment/annotate/de-activate, as in a normal R script.</p>
 <p>Different heading levels are established with different numbers of hash symbols at the start of a new line. One hash symbol is a title or primary heading. Two hash symbols are a second-level heading. Third- and fourth-level headings can be made with successively more hash symbols.</p>
@@ -440,9 +431,8 @@ want them printed next to each other (pair with out.width = c(“33%”,
 ### Third-level heading
 </code></pre>
 </div>
-<div id="bullets-and-numbering" class="section level4" number="36.3.3.4">
-<h4>
-<span class="header-section-number">36.3.3.4</span> Bullets and numbering<a class="anchor" aria-label="anchor" href="#bullets-and-numbering"><i class="fas fa-link"></i></a>
+<div id="bullets-and-numbering" class="section level4 unnumbered">
+<h4>Bullets and numbering<a class="anchor" aria-label="anchor" href="#bullets-and-numbering"><i class="fas fa-link"></i></a>
 </h4>
 <p>Use asterisks (*) to created a bullets list. Finish the previous sentence, enter two spaces, Enter/Return twice, and then start your bullets. Include a space between the asterisk and your bullet text. After each bullet enter two spaces and then Enter/Return. Sub-bullets work the same way but are indented. Numbers work the same way but instead of an asterisk, write 1), 2), etc. Below is how your R Markdown script text might look.</p>
 <p>Here are my bullets (there are two spaces after this colon):</p>
@@ -452,18 +442,16 @@ want them printed next to each other (pair with out.width = c(“33%”,
   * Sub-bullet 2 (followed by two spaces and Enter/Return)  </code></pre>
 </div>
 </div>
-<div id="in-text-code" class="section level3" number="36.3.4">
-<h3>
-<span class="header-section-number">36.3.4</span> In-text code<a class="anchor" aria-label="anchor" href="#in-text-code"><i class="fas fa-link"></i></a>
+<div id="in-text-code" class="section level3 unnumbered">
+<h3>In-text code<a class="anchor" aria-label="anchor" href="#in-text-code"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can also include minimal R code within back-ticks. Within the back-ticks, begin the code with “r” and a space, so RStudio knows to evaluate the code as R code. See the example below.</p>
 <p>This book was printed on <code>`r Sys.Date()`</code></p>
 <p>When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead:</p>
 <p>This book was printed on 2023-11-01</p>
 </div>
-<div id="running-code" class="section level3" number="36.3.5">
-<h3>
-<span class="header-section-number">36.3.5</span> Running code<a class="anchor" aria-label="anchor" href="#running-code"><i class="fas fa-link"></i></a>
+<div id="running-code" class="section level3 unnumbered">
+<h3>Running code<a class="anchor" aria-label="anchor" href="#running-code"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can run the code in an R Markdown document in two ways. The first way is by knitting the entire document. The second way is to run code chunks manually (also known as interactively) by hitting the little green play button at the top-right of a code chunk. The down arrow next to the green play button will run all code until that point.</p>
 <div class="inline-figure"><img src="images/green_button.png" width="100%" style="display: block; margin: auto;"></div>
@@ -471,9 +459,8 @@ want them printed next to each other (pair with out.width = c(“33%”,
 <p>The code must also always appear in the right order.</p>
 </div>
 </div>
-<div id="useful-tips" class="section level2" number="36.4">
-<h2>
-<span class="header-section-number">36.4</span> Useful tips<a class="anchor" aria-label="anchor" href="#useful-tips"><i class="fas fa-link"></i></a>
+<div id="useful-tips" class="section level2 unnumbered">
+<h2>Useful tips<a class="anchor" aria-label="anchor" href="#useful-tips"><i class="fas fa-link"></i></a>
 </h2>
 <div class="info">
 <p>
@@ -511,13 +498,12 @@ more later
 </ol>
 </div>
 </div>
-<div id="exercises-setting-code-chunks" class="section level2" number="36.5">
-<h2>
-<span class="header-section-number">36.5</span> Exercises: Setting code chunks<a class="anchor" aria-label="anchor" href="#exercises-setting-code-chunks"><i class="fas fa-link"></i></a>
+<div id="exercises-setting-code-chunks" class="section level2 unnumbered">
+<h2>Exercises: Setting code chunks<a class="anchor" aria-label="anchor" href="#exercises-setting-code-chunks"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Question 1.</strong> The global option for this document is set to show the R code used to render chunks <select class="webex-select"><option value="blank"></option>
-<option value="">FALSE</option>
-<option value="answer">TRUE</option></select></p>
+<option value="answer">TRUE</option>
+<option value="">FALSE</option></select></p>
 <div class="webex-solution">
 <button>
 Explain This Answer
@@ -558,9 +544,8 @@ Generate a self-contained report from data
 <li><p>Produce outputs (tables, plots, etc.)</p></li>
 <li><p>Save outputs, <em>if applicable</em> (.csv, .png, etc.)</p></li>
 </ul>
-<div id="heuristic-file-paths-with-here" class="section level3" number="36.5.1">
-<h3>
-<span class="header-section-number">36.5.1</span> Heuristic file paths with <code>here()</code><a class="anchor" aria-label="anchor" href="#heuristic-file-paths-with-here"><i class="fas fa-link"></i></a>
+<div id="heuristic-file-paths-with-here" class="section level3 unnumbered">
+<h3>Heuristic file paths with <code>here()</code><a class="anchor" aria-label="anchor" href="#heuristic-file-paths-with-here"><i class="fas fa-link"></i></a>
 </h3>
 <p>The package <code>here</code> <span class="citation">Müller (<a href="r-basics-1.html#ref-R-here">2020</a>)</span> and its function <code>here()</code> (<code><a href="https://here.r-lib.org//reference/here.html">here::here()</a></code>), make it easy to tell R where to find and to save your files - in essence, it builds file paths. It becomes especially useful for dealing with the alternate filepaths generated by .Rmd files, but can be used for exporting/importing any scripts, functions or data.</p>
 <p>This is how <code>here()</code> works within an R project:</p>
@@ -607,19 +592,16 @@ otherwise you might encounter errors.
 </div>
 </div>
 </div>
-<div id="activity-can-you-change-the-global-options-of-your-rmd-file-so-that-it-doesnt-display-any-code-warnings-or-messages" class="section level2" number="36.6">
-<h2>
-<span class="header-section-number">36.6</span> Activity: Can you change the global options of your Rmd file so that it doesn't display any code, warnings or messages?<a class="anchor" aria-label="anchor" href="#activity-can-you-change-the-global-options-of-your-rmd-file-so-that-it-doesnt-display-any-code-warnings-or-messages"><i class="fas fa-link"></i></a>
+<div id="activity-can-you-change-the-global-options-of-your-rmd-file-so-that-it-doesnt-display-any-code-warnings-or-messages" class="section level2 unnumbered">
+<h2>Activity: Can you change the global options of your Rmd file so that it doesn't display any code, warnings or messages?<a class="anchor" aria-label="anchor" href="#activity-can-you-change-the-global-options-of-your-rmd-file-so-that-it-doesnt-display-any-code-warnings-or-messages"><i class="fas fa-link"></i></a>
 </h2>
 <p>Once you have made your edits to the <a href="rmarkdown.html#code-chunks">chunk options</a> try hitting 'knit' again.</p>
 </div>
-<div id="ggplot" class="section level2" number="36.7">
-<h2>
-<span class="header-section-number">36.7</span> ggplot<a class="anchor" aria-label="anchor" href="#ggplot"><i class="fas fa-link"></i></a>
+<div id="ggplot" class="section level2 unnumbered">
+<h2>ggplot<a class="anchor" aria-label="anchor" href="#ggplot"><i class="fas fa-link"></i></a>
 </h2>
-<div id="size-options-for-figures" class="section level3" number="36.7.1">
-<h3>
-<span class="header-section-number">36.7.1</span> Size options for figures<a class="anchor" aria-label="anchor" href="#size-options-for-figures"><i class="fas fa-link"></i></a>
+<div id="size-options-for-figures" class="section level3 unnumbered">
+<h3>Size options for figures<a class="anchor" aria-label="anchor" href="#size-options-for-figures"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li><p><code>fig.width</code> and <code>fig.height</code> enable to set width and height of R produced figures.
@@ -668,9 +650,8 @@ The base font size is 11 pts by default. You can change it with the
 <span id="cb481-4"><a href="rmarkdown.html#cb481-4" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <div class="inline-figure"><img src="08-reproducible-reports_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
-<div id="size-of-final-figure-in-document" class="section level3" number="36.7.2">
-<h3>
-<span class="header-section-number">36.7.2</span> Size of final figure in document<a class="anchor" aria-label="anchor" href="#size-of-final-figure-in-document"><i class="fas fa-link"></i></a>
+<div id="size-of-final-figure-in-document" class="section level3 unnumbered">
+<h3>Size of final figure in document<a class="anchor" aria-label="anchor" href="#size-of-final-figure-in-document"><i class="fas fa-link"></i></a>
 </h3>
 <p>With the previous examples, you could see the relative size of the elements within th figures was changed - but the area occupied by the figures remained the same. In order to change this I need <code>out.width</code> or <code>out.height</code></p>
 <p>Figures made with R in a R Markdown document are exported (by default in png format) and then inserted into the final rendered document. Options <code>out.width</code> and <code>out.height</code> enable us to choose the size of the figure in the final document.</p>
@@ -681,9 +662,8 @@ The base font size is 11 pts by default. You can change it with the
 <span id="cb482-4"><a href="rmarkdown.html#cb482-4" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <div class="inline-figure"><img src="08-reproducible-reports_files/figure-html/unnamed-chunk-26-1.png" width="50%" style="display: block; margin: auto;"></div>
 </div>
-<div id="changing-default-values-of-chunk-options" class="section level3" number="36.7.3">
-<h3>
-<span class="header-section-number">36.7.3</span> Changing default values of chunk options<a class="anchor" aria-label="anchor" href="#changing-default-values-of-chunk-options"><i class="fas fa-link"></i></a>
+<div id="changing-default-values-of-chunk-options" class="section level3 unnumbered">
+<h3>Changing default values of chunk options<a class="anchor" aria-label="anchor" href="#changing-default-values-of-chunk-options"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can also change default values of chunk options by writing this at the beginning of your R Markdown document.</p>
 <div class="sourceCode" id="cb483"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb483-1"><a href="rmarkdown.html#cb483-1" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
@@ -696,22 +676,19 @@ The base font size is 11 pts by default. You can change it with the
 <p>These values will be applied for all chunks unless you specify other value in a chunk locally. You can set values often used (which differ from the default one) and avoid repeating them for each chunk.</p>
 </div>
 </div>
-<div id="static-images" class="section level2" number="36.8">
-<h2>
-<span class="header-section-number">36.8</span> Static images<a class="anchor" aria-label="anchor" href="#static-images"><i class="fas fa-link"></i></a>
+<div id="static-images" class="section level2 unnumbered">
+<h2>Static images<a class="anchor" aria-label="anchor" href="#static-images"><i class="fas fa-link"></i></a>
 </h2>
 <p>You can include images in your R Markdown:</p>
 <div class="sourceCode" id="cb484"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb484-1"><a href="rmarkdown.html#cb484-1" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
 <span id="cb484-2"><a href="rmarkdown.html#cb484-2" tabindex="-1"></a><span class="in">knitr::include_graphics("path/to/image.png")</span></span>
 <span id="cb484-3"><a href="rmarkdown.html#cb484-3" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </div>
-<div id="tables-1" class="section level2" number="36.9">
-<h2>
-<span class="header-section-number">36.9</span> Tables<a class="anchor" aria-label="anchor" href="#tables-1"><i class="fas fa-link"></i></a>
+<div id="tables-1" class="section level2 unnumbered">
+<h2>Tables<a class="anchor" aria-label="anchor" href="#tables-1"><i class="fas fa-link"></i></a>
 </h2>
-<div id="markdown-tables" class="section level3" number="36.9.1">
-<h3>
-<span class="header-section-number">36.9.1</span> Markdown tables<a class="anchor" aria-label="anchor" href="#markdown-tables"><i class="fas fa-link"></i></a>
+<div id="markdown-tables" class="section level3 unnumbered">
+<h3>Markdown tables<a class="anchor" aria-label="anchor" href="#markdown-tables"><i class="fas fa-link"></i></a>
 </h3>
 <pre><code>| Syntax      | Description |
 | ----------- | ----------- |
@@ -736,9 +713,8 @@ The base font size is 11 pts by default. You can change it with the
 </tbody>
 </table></div>
 </div>
-<div id="gt" class="section level3" number="36.9.2">
-<h3>
-<span class="header-section-number">36.9.2</span> gt()<a class="anchor" aria-label="anchor" href="#gt"><i class="fas fa-link"></i></a>
+<div id="gt" class="section level3 unnumbered">
+<h3>gt()<a class="anchor" aria-label="anchor" href="#gt"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code>gt</code> <span class="citation">Iannone et al. (<a href="r-basics-1.html#ref-R-gt">2023</a>)</span> package is all about making it simple to produce nice-looking display tables. <a href="https://gt.rstudio.com/index.html">It has a lot of customisation options.</a></p>
 <div class="sourceCode" id="cb486"><pre class="downlit sourceCode r">
@@ -1220,9 +1196,8 @@ You won’t be able to see these tables unless you try re-knitting your
 </div>
 </div>
 </div>
-<div id="source-files" class="section level2" number="36.10">
-<h2>
-<span class="header-section-number">36.10</span> Source files<a class="anchor" aria-label="anchor" href="#source-files"><i class="fas fa-link"></i></a>
+<div id="source-files" class="section level2 unnumbered">
+<h2>Source files<a class="anchor" aria-label="anchor" href="#source-files"><i class="fas fa-link"></i></a>
 </h2>
 <p>One variation of the “self-contained” approach is to have R Markdown code chunks “source” (run) other R scripts.</p>
 <p>This can make your R Markdown script less cluttered, more simple, and easier to organize. It can also help if you want to display final figures at the beginning of the report.</p>
@@ -1242,9 +1217,8 @@ place as your .RProj file
 </p>
 </div>
 </div>
-<div id="activity-connecting-scripts-and-reports" class="section level2" number="36.11">
-<h2>
-<span class="header-section-number">36.11</span> Activity: Connecting scripts and reports<a class="anchor" aria-label="anchor" href="#activity-connecting-scripts-and-reports"><i class="fas fa-link"></i></a>
+<div id="activity-connecting-scripts-and-reports" class="section level2 unnumbered">
+<h2>Activity: Connecting scripts and reports<a class="anchor" aria-label="anchor" href="#activity-connecting-scripts-and-reports"><i class="fas fa-link"></i></a>
 </h2>
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -1280,9 +1254,8 @@ then you can call objects made externally - in this case a penguin plot
 <span id="cb489-5"><a href="rmarkdown.html#cb489-5" tabindex="-1"></a></span>
 <span id="cb489-6"><a href="rmarkdown.html#cb489-6" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </div>
-<div id="activity-test-yourself-1" class="section level2" number="36.12">
-<h2>
-<span class="header-section-number">36.12</span> Activity: Test yourself<a class="anchor" aria-label="anchor" href="#activity-test-yourself-1"><i class="fas fa-link"></i></a>
+<div id="activity-test-yourself-1" class="section level2 unnumbered">
+<h2>Activity: Test yourself<a class="anchor" aria-label="anchor" href="#activity-test-yourself-1"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li><p>Make any summary figure you want from the penguins data with <code>ggplot</code></p></li>
@@ -1291,9 +1264,8 @@ then you can call objects made externally - in this case a penguin plot
 <li><p>Knit the report to <strong>html</strong></p></li>
 <li><p>Use chunk options to optimise your figure layout and text and make it so that raw code and rendered outputs are visible. An example of literate programming</p></li>
 </ul>
-<div id="hygiene-tips" class="section level3" number="36.12.1">
-<h3>
-<span class="header-section-number">36.12.1</span> Hygiene tips<a class="anchor" aria-label="anchor" href="#hygiene-tips"><i class="fas fa-link"></i></a>
+<div id="hygiene-tips" class="section level3 unnumbered">
+<h3>Hygiene tips<a class="anchor" aria-label="anchor" href="#hygiene-tips"><i class="fas fa-link"></i></a>
 </h3>
 <p>I recommend having three chunks at the top of any document</p>
 <ul>
@@ -1321,14 +1293,12 @@ then you can call objects made externally - in this case a penguin plot
 <span id="cb490-18"><a href="rmarkdown.html#cb490-18" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </div>
 </div>
-<div id="common-knit-issues" class="section level2" number="36.13">
-<h2>
-<span class="header-section-number">36.13</span> Common knit issues<a class="anchor" aria-label="anchor" href="#common-knit-issues"><i class="fas fa-link"></i></a>
+<div id="common-knit-issues" class="section level2 unnumbered">
+<h2>Common knit issues<a class="anchor" aria-label="anchor" href="#common-knit-issues"><i class="fas fa-link"></i></a>
 </h2>
 <p>Any of these issues will cause the Rmd document to fail to knit in its entirety. A failed knit is usually an easy fix, but needs you to READ the error message, and do a little detective work.</p>
-<div id="duplication" class="section level3" number="36.13.1">
-<h3>
-<span class="header-section-number">36.13.1</span> Duplication<a class="anchor" aria-label="anchor" href="#duplication"><i class="fas fa-link"></i></a>
+<div id="duplication" class="section level3 unnumbered">
+<h3>Duplication<a class="anchor" aria-label="anchor" href="#duplication"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb491"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb491-1"><a href="rmarkdown.html#cb491-1" tabindex="-1"></a></span>
 <span id="cb491-2"><a href="rmarkdown.html#cb491-2" tabindex="-1"></a><span class="in">```{r title-one}</span></span>
@@ -1337,29 +1307,25 @@ then you can call objects made externally - in this case a penguin plot
 <span id="cb491-5"><a href="rmarkdown.html#cb491-5" tabindex="-1"></a><span class="in">```{r title-one}</span></span>
 <span id="cb491-6"><a href="rmarkdown.html#cb491-6" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 </div>
-<div id="not-the-right-order" class="section level3" number="36.13.2">
-<h3>
-<span class="header-section-number">36.13.2</span> Not the right order<a class="anchor" aria-label="anchor" href="#not-the-right-order"><i class="fas fa-link"></i></a>
+<div id="not-the-right-order" class="section level3 unnumbered">
+<h3>Not the right order<a class="anchor" aria-label="anchor" href="#not-the-right-order"><i class="fas fa-link"></i></a>
 </h3>
 <pre><code>plot(my_table)
 
 my_table &lt;- table(mtcars$cyl)</code></pre>
 </div>
-<div id="forgotten-trails" class="section level3" number="36.13.3">
-<h3>
-<span class="header-section-number">36.13.3</span> Forgotten trails<a class="anchor" aria-label="anchor" href="#forgotten-trails"><i class="fas fa-link"></i></a>
+<div id="forgotten-trails" class="section level3 unnumbered">
+<h3>Forgotten trails<a class="anchor" aria-label="anchor" href="#forgotten-trails"><i class="fas fa-link"></i></a>
 </h3>
 <p>: Missing “,”, or “(”, “}”, or “’”</p>
 </div>
-<div id="path-not-taken" class="section level3" number="36.13.4">
-<h3>
-<span class="header-section-number">36.13.4</span> Path not taken<a class="anchor" aria-label="anchor" href="#path-not-taken"><i class="fas fa-link"></i></a>
+<div id="path-not-taken" class="section level3 unnumbered">
+<h3>Path not taken<a class="anchor" aria-label="anchor" href="#path-not-taken"><i class="fas fa-link"></i></a>
 </h3>
 <p>The Rmd document is in a different location the .Rproj file causing issues with relative filepaths</p>
 </div>
-<div id="spolling" class="section level3" number="36.13.5">
-<h3>
-<span class="header-section-number">36.13.5</span> Spolling<a class="anchor" aria-label="anchor" href="#spolling"><i class="fas fa-link"></i></a>
+<div id="spolling" class="section level3 unnumbered">
+<h3>Spolling<a class="anchor" aria-label="anchor" href="#spolling"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li><p>Incorrectly labelled chunk options</p></li>
@@ -1367,9 +1333,8 @@ my_table &lt;- table(mtcars$cyl)</code></pre>
 </ul>
 </div>
 </div>
-<div id="visual-editor" class="section level2" number="36.14">
-<h2>
-<span class="header-section-number">36.14</span> Visual editor<a class="anchor" aria-label="anchor" href="#visual-editor"><i class="fas fa-link"></i></a>
+<div id="visual-editor" class="section level2 unnumbered">
+<h2>Visual editor<a class="anchor" aria-label="anchor" href="#visual-editor"><i class="fas fa-link"></i></a>
 </h2>
 <p>RStudio comes with a pretty nifty <a href="https://www.rstudio.com/blog/exploring-rstudio-visual-markdown-editor/">Visual Markdown Editor</a> which includes:</p>
 <ul>
@@ -1379,14 +1344,12 @@ my_table &lt;- table(mtcars$cyl)</code></pre>
 </ul>
 <p>You can switch between modes with a button push, try it out!</p>
 </div>
-<div id="quarto" class="section level2" number="36.15">
-<h2>
-<span class="header-section-number">36.15</span> Quarto<a class="anchor" aria-label="anchor" href="#quarto"><i class="fas fa-link"></i></a>
+<div id="quarto" class="section level2 unnumbered">
+<h2>Quarto<a class="anchor" aria-label="anchor" href="#quarto"><i class="fas fa-link"></i></a>
 </h2>
 <p>The visual editor was a precursor to a new type of publishing tool - Quarto. this tool takes what R Markdown has done for R and extends it to other languages, including Python, Julia, and Observable JS. As I write this book, Quarto is gaining traction. Luckily, the concepts you’ve learned in this chapter apply to Quarto as well. Quarto documents have a YAML section, code chunks, and Markdown text. You can export Quarto documents to HTML, PDF, and Word. However, R Markdown and Quarto documents have some syntactic differences.</p>
-<div id="further-reading-guides-and-tips" class="section level3" number="36.15.1">
-<h3>
-<span class="header-section-number">36.15.1</span> Further Reading, Guides and tips<a class="anchor" aria-label="anchor" href="#further-reading-guides-and-tips"><i class="fas fa-link"></i></a>
+<div id="further-reading-guides-and-tips" class="section level3 unnumbered">
+<h3>Further Reading, Guides and tips<a class="anchor" aria-label="anchor" href="#further-reading-guides-and-tips"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li><p><a href="https://www.rstudio.com/resources/cheatsheets/">R Cheat Sheets</a></p></li>
@@ -1589,53 +1552,53 @@ $( document ).ready(function() {
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#rmarkdown"><span class="header-section-number">36</span> RMarkdown</a></li>
-<li><a class="nav-link" href="#how-it-works"><span class="header-section-number">36.1</span> How it works</a></li>
-<li><a class="nav-link" href="#background-to-rmarkdown"><span class="header-section-number">36.2</span> Background to Rmarkdown</a></li>
+<li><a class="nav-link" href="#how-it-works">How it works</a></li>
+<li><a class="nav-link" href="#background-to-rmarkdown">Background to Rmarkdown</a></li>
 <li>
-<a class="nav-link" href="#rmarkdown-parts"><span class="header-section-number">36.3</span> Rmarkdown parts</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#yaml-metadata"><span class="header-section-number">36.3.1</span> YAML Metadata</a></li>
-<li><a class="nav-link" href="#code-chunks"><span class="header-section-number">36.3.2</span> Code chunks</a></li>
-<li><a class="nav-link" href="#text-2"><span class="header-section-number">36.3.3</span> Text</a></li>
-<li><a class="nav-link" href="#in-text-code"><span class="header-section-number">36.3.4</span> In-text code</a></li>
-<li><a class="nav-link" href="#running-code"><span class="header-section-number">36.3.5</span> Running code</a></li>
+<a class="nav-link" href="#rmarkdown-parts">Rmarkdown parts</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#yaml-metadata">YAML Metadata</a></li>
+<li><a class="nav-link" href="#code-chunks">Code chunks</a></li>
+<li><a class="nav-link" href="#text-2">Text</a></li>
+<li><a class="nav-link" href="#in-text-code">In-text code</a></li>
+<li><a class="nav-link" href="#running-code">Running code</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#useful-tips"><span class="header-section-number">36.4</span> Useful tips</a></li>
+<li><a class="nav-link" href="#useful-tips">Useful tips</a></li>
 <li>
-<a class="nav-link" href="#exercises-setting-code-chunks"><span class="header-section-number">36.5</span> Exercises: Setting code chunks</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#heuristic-file-paths-with-here"><span class="header-section-number">36.5.1</span> Heuristic file paths with here()</a></li></ul>
+<a class="nav-link" href="#exercises-setting-code-chunks">Exercises: Setting code chunks</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#heuristic-file-paths-with-here">Heuristic file paths with here()</a></li></ul>
 </li>
-<li><a class="nav-link" href="#activity-can-you-change-the-global-options-of-your-rmd-file-so-that-it-doesnt-display-any-code-warnings-or-messages"><span class="header-section-number">36.6</span> Activity: Can you change the global options of your Rmd file so that it doesn't display any code, warnings or messages?</a></li>
+<li><a class="nav-link" href="#activity-can-you-change-the-global-options-of-your-rmd-file-so-that-it-doesnt-display-any-code-warnings-or-messages">Activity: Can you change the global options of your Rmd file so that it doesn't display any code, warnings or messages?</a></li>
 <li>
-<a class="nav-link" href="#ggplot"><span class="header-section-number">36.7</span> ggplot</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#size-options-for-figures"><span class="header-section-number">36.7.1</span> Size options for figures</a></li>
-<li><a class="nav-link" href="#size-of-final-figure-in-document"><span class="header-section-number">36.7.2</span> Size of final figure in document</a></li>
-<li><a class="nav-link" href="#changing-default-values-of-chunk-options"><span class="header-section-number">36.7.3</span> Changing default values of chunk options</a></li>
+<a class="nav-link" href="#ggplot">ggplot</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#size-options-for-figures">Size options for figures</a></li>
+<li><a class="nav-link" href="#size-of-final-figure-in-document">Size of final figure in document</a></li>
+<li><a class="nav-link" href="#changing-default-values-of-chunk-options">Changing default values of chunk options</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#static-images"><span class="header-section-number">36.8</span> Static images</a></li>
+<li><a class="nav-link" href="#static-images">Static images</a></li>
 <li>
-<a class="nav-link" href="#tables-1"><span class="header-section-number">36.9</span> Tables</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#markdown-tables"><span class="header-section-number">36.9.1</span> Markdown tables</a></li>
-<li><a class="nav-link" href="#gt"><span class="header-section-number">36.9.2</span> gt()</a></li>
+<a class="nav-link" href="#tables-1">Tables</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#markdown-tables">Markdown tables</a></li>
+<li><a class="nav-link" href="#gt">gt()</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#source-files"><span class="header-section-number">36.10</span> Source files</a></li>
-<li><a class="nav-link" href="#activity-connecting-scripts-and-reports"><span class="header-section-number">36.11</span> Activity: Connecting scripts and reports</a></li>
+<li><a class="nav-link" href="#source-files">Source files</a></li>
+<li><a class="nav-link" href="#activity-connecting-scripts-and-reports">Activity: Connecting scripts and reports</a></li>
 <li>
-<a class="nav-link" href="#activity-test-yourself-1"><span class="header-section-number">36.12</span> Activity: Test yourself</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#hygiene-tips"><span class="header-section-number">36.12.1</span> Hygiene tips</a></li></ul>
+<a class="nav-link" href="#activity-test-yourself-1">Activity: Test yourself</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#hygiene-tips">Hygiene tips</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#common-knit-issues"><span class="header-section-number">36.13</span> Common knit issues</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#duplication"><span class="header-section-number">36.13.1</span> Duplication</a></li>
-<li><a class="nav-link" href="#not-the-right-order"><span class="header-section-number">36.13.2</span> Not the right order</a></li>
-<li><a class="nav-link" href="#forgotten-trails"><span class="header-section-number">36.13.3</span> Forgotten trails</a></li>
-<li><a class="nav-link" href="#path-not-taken"><span class="header-section-number">36.13.4</span> Path not taken</a></li>
-<li><a class="nav-link" href="#spolling"><span class="header-section-number">36.13.5</span> Spolling</a></li>
+<a class="nav-link" href="#common-knit-issues">Common knit issues</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#duplication">Duplication</a></li>
+<li><a class="nav-link" href="#not-the-right-order">Not the right order</a></li>
+<li><a class="nav-link" href="#forgotten-trails">Forgotten trails</a></li>
+<li><a class="nav-link" href="#path-not-taken">Path not taken</a></li>
+<li><a class="nav-link" href="#spolling">Spolling</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#visual-editor"><span class="header-section-number">36.14</span> Visual editor</a></li>
+<li><a class="nav-link" href="#visual-editor">Visual editor</a></li>
 <li>
-<a class="nav-link" href="#quarto"><span class="header-section-number">36.15</span> Quarto</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#further-reading-guides-and-tips"><span class="header-section-number">36.15.1</span> Further Reading, Guides and tips</a></li></ul>
+<a class="nav-link" href="#quarto">Quarto</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#further-reading-guides-and-tips">Further Reading, Guides and tips</a></li></ul>
 </li>
 </ul>
 
