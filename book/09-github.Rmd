@@ -54,7 +54,7 @@ knitr::include_graphics("images/git_stage.png")
 
 ```{block, type = "info"}
 
-# to add a file to the staging area.
+ to add a file to the staging area.
 
 git add <file> 
 

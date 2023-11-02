@@ -45,8 +45,7 @@ Let’s imagine that we have a git repository. When you create a new file as par
 `add` and `commit` are also git commands.RStudio provides a basic GUI for git, which we are going to use in this workshop. But you can also use the Terminal to talk to git on the command line
 
 <div class="info">
-<h1 id="to-add-a-file-to-the-staging-area.">to add a file to the staging
-area.</h1>
+<p>to add a file to the staging area.</p>
 <p>git add <file></p>
 <p>git commit -m “A descriptive message to commit the files on the
 staging area.”</p>

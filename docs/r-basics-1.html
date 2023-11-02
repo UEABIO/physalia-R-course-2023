@@ -160,7 +160,7 @@
 <div id="using-packages" class="section level2" number="44.1">
 <h2><span class="header-section-number">44.1</span> Using packages</h2>
 <p>Run the below code to load the tidyverse package. You can do this regardless of whether you are using your own computer or the cloud.</p>
-<div class="sourceCode" id="cb925"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb925-1"><a href="r-basics-1.html#cb925-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb950"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb950-1"><a href="r-basics-1.html#cb950-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>You will get what looks like an error message - it's not. It's just R telling you what it's done. You should <strong>read this</strong> it gives you a full list of the packages it has made available to you. One of these should look familiar to you from last week?</p>
 <p><select class='webex-select'><option value='blank'></option><option value='answer'>ggplot2</option><option value=''>tibble</option><option value=''>tidyr</option><option value=''>dplyr</option></select></p>
 <p>Now that we've loaded the <code>tidyverse</code> package we can use <strong>any</strong> of the functions it contains but remember, you need to run the <code>library()</code> function every time you start R.</p>
@@ -170,7 +170,7 @@ Install the tidyverse. You DO NOT need to do this on RStudio Cloud.
 </button>
 <p>In order to use a package, you must first install it. The following code installs the package tidyverse, a package we will use very frequently.</p>
 <p>If you are working on your own computer, use the below code to install the tidyverse.</p>
-<div class="sourceCode" id="cb926"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb926-1"><a href="r-basics-1.html#cb926-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb951"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb951-1"><a href="r-basics-1.html#cb951-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
 <p>You only need to install a package once, however, each time you start R you need to load the packages you want to use, in a similar way that you need to install an app on your phone once, but you need to open it every time you want to use it.</p>
 </div>
 <p><br></p>
@@ -200,8 +200,8 @@ using your own machine.
 <div id="package-conflicts" class="section level2" number="44.3">
 <h2><span class="header-section-number">44.3</span> Package conflicts</h2>
 <p>There are thousands of different R packages with even more functions. Unfortunately, sometimes different packages have the same function names. For example, the packages <code>dplyr</code> and <code>MASS</code> both have a function named <code>select()</code>. If you load both of these packages, R will produce a warning telling you that there is a conflict.</p>
-<div class="sourceCode" id="cb927"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb927-1"><a href="r-basics-1.html#cb927-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb927-2"><a href="r-basics-1.html#cb927-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div>
+<div class="sourceCode" id="cb952"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb952-1"><a href="r-basics-1.html#cb952-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb952-2"><a href="r-basics-1.html#cb952-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div>
 <pre><code>package �dplyr� was built under R version 3.6.3
 Attaching package: �dplyr�
 
@@ -221,8 +221,8 @@ The following object is masked from �package:dplyr�:
     select</code></pre>
 <p>In this case, R is telling you that the function <code>select()</code> in the <code>dplyr</code> package is being hidden (or 'masked') by another function with the same name. If you were to try and use <code>select()</code>, R would use the function from the package that was loaded most recently - in this case it would use the function from <code>MASS</code>.</p>
 <p>If you want to specify which package you want to use for a particular function you can use code in the format <code>package::function</code>, for example:</p>
-<div class="sourceCode" id="cb929"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb929-1"><a href="r-basics-1.html#cb929-1" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>()</span>
-<span id="cb929-2"><a href="r-basics-1.html#cb929-2" tabindex="-1"></a>MASS<span class="sc">::</span><span class="fu">select</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb954"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb954-1"><a href="r-basics-1.html#cb954-1" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>()</span>
+<span id="cb954-2"><a href="r-basics-1.html#cb954-2" tabindex="-1"></a>MASS<span class="sc">::</span><span class="fu">select</span>()</span></code></pre></div>
 <div class="info">
 <p>
 Why do we get naming conflicts?
@@ -240,11 +240,11 @@ there are NEVER any functions with identical names.
 <div id="activity-1-create-some-objects" class="section level3" number="44.4.1">
 <h3><span class="header-section-number">44.4.1</span> Activity 1: Create some objects</h3>
 <p>Copy and paste the following code into the console, change the code so that it uses your own name and age and run it. You should see that <code>name</code>, <code>age</code>, <code>today</code>, <code>new_year</code>, and <code>data</code> appear in the environment pane.</p>
-<div class="sourceCode" id="cb930"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb930-1"><a href="r-basics-1.html#cb930-1" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="st">&quot;emily&quot;</span></span>
-<span id="cb930-2"><a href="r-basics-1.html#cb930-2" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="dv">16</span> <span class="sc">+</span> <span class="dv">19</span> </span>
-<span id="cb930-3"><a href="r-basics-1.html#cb930-3" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
-<span id="cb930-4"><a href="r-basics-1.html#cb930-4" tabindex="-1"></a>new_year <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2022-01-01&quot;</span>)</span>
-<span id="cb930-5"><a href="r-basics-1.html#cb930-5" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">15</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb955"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb955-1"><a href="r-basics-1.html#cb955-1" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="st">&quot;emily&quot;</span></span>
+<span id="cb955-2"><a href="r-basics-1.html#cb955-2" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="dv">16</span> <span class="sc">+</span> <span class="dv">19</span> </span>
+<span id="cb955-3"><a href="r-basics-1.html#cb955-3" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
+<span id="cb955-4"><a href="r-basics-1.html#cb955-4" tabindex="-1"></a>new_year <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2022-01-01&quot;</span>)</span>
+<span id="cb955-5"><a href="r-basics-1.html#cb955-5" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">15</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p>What command should we use if you need <code>help</code> to understand the function <code>rnorm()</code>?</p>
 <p><input class='webex-solveme nospaces' size='11' data-answer='["help(rnorm)"]'/></p>
 <p>`</p>
@@ -257,14 +257,14 @@ Figure 23.4: Objects in the environment
 <p>Note that in these examples, <code>name</code>,<code>age</code>, and <code>new_year</code> would always contain the values <code>emily</code>, <code>35</code>, and the date of New Year's Day 2021, however, <code>today</code> will draw the date from the operating system and <code>data</code> will be a randomly generated set of data so the values of these objects will not be static.</p>
 <p>As a side note, if you ever have to teach programming and statistics, don't use your age as an example because every time you have to update your teaching materials you get a reminder of the fragility of existence and your advancing age. 2021 update: I have now given up updating my age, I will remain forever 35.</p>
 <p>Importantly, objects can be involved in calculations and can interact with each other. For example:</p>
-<div class="sourceCode" id="cb931"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb931-1"><a href="r-basics-1.html#cb931-1" tabindex="-1"></a>age <span class="sc">+</span> <span class="dv">10</span></span>
-<span id="cb931-2"><a href="r-basics-1.html#cb931-2" tabindex="-1"></a>new_year <span class="sc">-</span> today</span>
-<span id="cb931-3"><a href="r-basics-1.html#cb931-3" tabindex="-1"></a><span class="fu">mean</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb956"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb956-1"><a href="r-basics-1.html#cb956-1" tabindex="-1"></a>age <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb956-2"><a href="r-basics-1.html#cb956-2" tabindex="-1"></a>new_year <span class="sc">-</span> today</span>
+<span id="cb956-3"><a href="r-basics-1.html#cb956-3" tabindex="-1"></a><span class="fu">mean</span>(data)</span></code></pre></div>
 <pre><code>## [1] 45
 ## Time difference of -661 days
 ## [1] 13.65941</code></pre>
 <p>Finally, you can store the result of these operations in a new object:</p>
-<div class="sourceCode" id="cb933"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb933-1"><a href="r-basics-1.html#cb933-1" tabindex="-1"></a>decade <span class="ot">&lt;-</span> age <span class="sc">+</span> <span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb958"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb958-1"><a href="r-basics-1.html#cb958-1" tabindex="-1"></a>decade <span class="ot">&lt;-</span> age <span class="sc">+</span> <span class="dv">10</span></span></code></pre></div>
 <div class="info">
 <p>
 You may find it helpful to read <code>&lt;-</code> as
@@ -285,11 +285,11 @@ synonymously very frequently.
 <div id="vectors-1" class="section level2" number="44.5">
 <h2><span class="header-section-number">44.5</span> Vectors</h2>
 <p>We have been working with R objects containing a single element of data, but we will more commonly work with vectors. A vector is a <em>sequence</em> of elements, <strong>all of the same data type</strong>. These could be logical, numerical, character etc.</p>
-<div class="sourceCode" id="cb934"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb934-1"><a href="r-basics-1.html#cb934-1" tabindex="-1"></a>numeric_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb934-2"><a href="r-basics-1.html#cb934-2" tabindex="-1"></a></span>
-<span id="cb934-3"><a href="r-basics-1.html#cb934-3" tabindex="-1"></a>character_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;fruits&quot;</span>, <span class="st">&quot;vegetables&quot;</span>, <span class="st">&quot;seeds&quot;</span>)</span>
-<span id="cb934-4"><a href="r-basics-1.html#cb934-4" tabindex="-1"></a></span>
-<span id="cb934-5"><a href="r-basics-1.html#cb934-5" tabindex="-1"></a>logical_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb959"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb959-1"><a href="r-basics-1.html#cb959-1" tabindex="-1"></a>numeric_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb959-2"><a href="r-basics-1.html#cb959-2" tabindex="-1"></a></span>
+<span id="cb959-3"><a href="r-basics-1.html#cb959-3" tabindex="-1"></a>character_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;fruits&quot;</span>, <span class="st">&quot;vegetables&quot;</span>, <span class="st">&quot;seeds&quot;</span>)</span>
+<span id="cb959-4"><a href="r-basics-1.html#cb959-4" tabindex="-1"></a></span>
+<span id="cb959-5"><a href="r-basics-1.html#cb959-5" tabindex="-1"></a>logical_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>The function <code>c</code> lets you 'concatenate' or link each of these separate elements together into a single vector.</p>
 </div>
 <div id="dataframes-and-tibbles" class="section level2" number="44.6">
@@ -309,12 +309,12 @@ element within the vectors.
 </p>
 </div>
 <p>Let's have a quick go at making our own <strong>tibble</strong> from scratch.</p>
-<div class="sourceCode" id="cb935"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb935-1"><a href="r-basics-1.html#cb935-1" tabindex="-1"></a><span class="co"># make some variables/ vectors</span></span>
-<span id="cb935-2"><a href="r-basics-1.html#cb935-2" tabindex="-1"></a>person <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Phil&quot;</span>, <span class="st">&quot;Becky&quot;</span>, <span class="st">&quot;Tony&quot;</span>)</span>
-<span id="cb935-3"><a href="r-basics-1.html#cb935-3" tabindex="-1"></a></span>
-<span id="cb935-4"><a href="r-basics-1.html#cb935-4" tabindex="-1"></a>hobby <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;kickboxing&quot;</span>, <span class="st">&quot;coding&quot;</span>, <span class="st">&quot;dog walking&quot;</span>, <span class="st">&quot;car boot sales&quot;</span>)</span>
-<span id="cb935-5"><a href="r-basics-1.html#cb935-5" tabindex="-1"></a></span>
-<span id="cb935-6"><a href="r-basics-1.html#cb935-6" tabindex="-1"></a>awesomeness <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">100</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb960"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb960-1"><a href="r-basics-1.html#cb960-1" tabindex="-1"></a><span class="co"># make some variables/ vectors</span></span>
+<span id="cb960-2"><a href="r-basics-1.html#cb960-2" tabindex="-1"></a>person <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Phil&quot;</span>, <span class="st">&quot;Becky&quot;</span>, <span class="st">&quot;Tony&quot;</span>)</span>
+<span id="cb960-3"><a href="r-basics-1.html#cb960-3" tabindex="-1"></a></span>
+<span id="cb960-4"><a href="r-basics-1.html#cb960-4" tabindex="-1"></a>hobby <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;kickboxing&quot;</span>, <span class="st">&quot;coding&quot;</span>, <span class="st">&quot;dog walking&quot;</span>, <span class="st">&quot;car boot sales&quot;</span>)</span>
+<span id="cb960-5"><a href="r-basics-1.html#cb960-5" tabindex="-1"></a></span>
+<span id="cb960-6"><a href="r-basics-1.html#cb960-6" tabindex="-1"></a>awesomeness <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">100</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div>
 <div class="try">
 <p>
 Use <code>str()</code> on an object or vector to find out important
@@ -323,9 +323,9 @@ contains.
 </p>
 </div>
 <p>Now we put these vectors together, where they become the variables in a new tibble using the function <code>tibble()</code></p>
-<div class="sourceCode" id="cb936"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb936-1"><a href="r-basics-1.html#cb936-1" tabindex="-1"></a><span class="co"># make a tibble</span></span>
-<span id="cb936-2"><a href="r-basics-1.html#cb936-2" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(person, hobby, awesomeness)</span>
-<span id="cb936-3"><a href="r-basics-1.html#cb936-3" tabindex="-1"></a>my_data</span></code></pre></div>
+<div class="sourceCode" id="cb961"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb961-1"><a href="r-basics-1.html#cb961-1" tabindex="-1"></a><span class="co"># make a tibble</span></span>
+<span id="cb961-2"><a href="r-basics-1.html#cb961-2" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(person, hobby, awesomeness)</span>
+<span id="cb961-3"><a href="r-basics-1.html#cb961-3" tabindex="-1"></a>my_data</span></code></pre></div>
 <pre><code># A tibble: 4 x 3
   person hobby          awesomeness
   &lt;chr&gt;  &lt;chr&gt;                &lt;dbl&gt;
@@ -334,16 +334,16 @@ contains.
 3 Becky  dog walking              1
 4 Tony   car boot sales           1</code></pre>
 <p>Have a go at messing about with your script and figure out what each of the functions below does.</p>
-<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb938-1"><a href="r-basics-1.html#cb938-1" tabindex="-1"></a><span class="co"># Some R functions for looking at tibbles and dataframes</span></span>
-<span id="cb938-2"><a href="r-basics-1.html#cb938-2" tabindex="-1"></a></span>
-<span id="cb938-3"><a href="r-basics-1.html#cb938-3" tabindex="-1"></a><span class="fu">head</span>(my_data, <span class="at">n=</span><span class="dv">2</span>)</span>
-<span id="cb938-4"><a href="r-basics-1.html#cb938-4" tabindex="-1"></a><span class="fu">tail</span>(my_data, <span class="at">n=</span><span class="dv">1</span>)</span>
-<span id="cb938-5"><a href="r-basics-1.html#cb938-5" tabindex="-1"></a><span class="fu">nrow</span>(my_data)</span>
-<span id="cb938-6"><a href="r-basics-1.html#cb938-6" tabindex="-1"></a><span class="fu">ncol</span>(my_data)</span>
-<span id="cb938-7"><a href="r-basics-1.html#cb938-7" tabindex="-1"></a><span class="fu">colnames</span>(my_data)</span>
-<span id="cb938-8"><a href="r-basics-1.html#cb938-8" tabindex="-1"></a><span class="fu">view</span>(my_data)</span>
-<span id="cb938-9"><a href="r-basics-1.html#cb938-9" tabindex="-1"></a><span class="fu">glimpse</span>(my_data)</span>
-<span id="cb938-10"><a href="r-basics-1.html#cb938-10" tabindex="-1"></a><span class="fu">str</span>(my_data)</span></code></pre></div>
+<div class="sourceCode" id="cb963"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb963-1"><a href="r-basics-1.html#cb963-1" tabindex="-1"></a><span class="co"># Some R functions for looking at tibbles and dataframes</span></span>
+<span id="cb963-2"><a href="r-basics-1.html#cb963-2" tabindex="-1"></a></span>
+<span id="cb963-3"><a href="r-basics-1.html#cb963-3" tabindex="-1"></a><span class="fu">head</span>(my_data, <span class="at">n=</span><span class="dv">2</span>)</span>
+<span id="cb963-4"><a href="r-basics-1.html#cb963-4" tabindex="-1"></a><span class="fu">tail</span>(my_data, <span class="at">n=</span><span class="dv">1</span>)</span>
+<span id="cb963-5"><a href="r-basics-1.html#cb963-5" tabindex="-1"></a><span class="fu">nrow</span>(my_data)</span>
+<span id="cb963-6"><a href="r-basics-1.html#cb963-6" tabindex="-1"></a><span class="fu">ncol</span>(my_data)</span>
+<span id="cb963-7"><a href="r-basics-1.html#cb963-7" tabindex="-1"></a><span class="fu">colnames</span>(my_data)</span>
+<span id="cb963-8"><a href="r-basics-1.html#cb963-8" tabindex="-1"></a><span class="fu">view</span>(my_data)</span>
+<span id="cb963-9"><a href="r-basics-1.html#cb963-9" tabindex="-1"></a><span class="fu">glimpse</span>(my_data)</span>
+<span id="cb963-10"><a href="r-basics-1.html#cb963-10" tabindex="-1"></a><span class="fu">str</span>(my_data)</span></code></pre></div>
 </div>
 <div id="organising-data-in-wide-and-long-formats" class="section level2" number="44.7">
 <h2><span class="header-section-number">44.7</span> Organising data in wide and long formats</h2>
@@ -367,13 +367,13 @@ Figure 44.1: A visual representation of long and wide format data shapes
 <li><p><code>tidyr::pivot_wider()</code> - from <em>long</em> to <em>wide</em> format</p></li>
 <li><p><code>tidyr::pivot_longer()</code> - from <em>wide</em> to <em>long</em> format</p></li>
 </ul>
-<div class="sourceCode" id="cb939"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb939-1"><a href="r-basics-1.html#cb939-1" tabindex="-1"></a> country <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)</span>
-<span id="cb939-2"><a href="r-basics-1.html#cb939-2" tabindex="-1"></a> yr1960 <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
-<span id="cb939-3"><a href="r-basics-1.html#cb939-3" tabindex="-1"></a> yr1970 <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">23</span>, <span class="dv">33</span>)</span>
-<span id="cb939-4"><a href="r-basics-1.html#cb939-4" tabindex="-1"></a> yr2010 <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">35</span>)</span>
-<span id="cb939-5"><a href="r-basics-1.html#cb939-5" tabindex="-1"></a></span>
-<span id="cb939-6"><a href="r-basics-1.html#cb939-6" tabindex="-1"></a>country_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(country, yr1960, yr1970, yr2010)</span>
-<span id="cb939-7"><a href="r-basics-1.html#cb939-7" tabindex="-1"></a>country_data</span></code></pre></div>
+<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb964-1"><a href="r-basics-1.html#cb964-1" tabindex="-1"></a> country <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)</span>
+<span id="cb964-2"><a href="r-basics-1.html#cb964-2" tabindex="-1"></a> yr1960 <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
+<span id="cb964-3"><a href="r-basics-1.html#cb964-3" tabindex="-1"></a> yr1970 <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">23</span>, <span class="dv">33</span>)</span>
+<span id="cb964-4"><a href="r-basics-1.html#cb964-4" tabindex="-1"></a> yr2010 <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">35</span>)</span>
+<span id="cb964-5"><a href="r-basics-1.html#cb964-5" tabindex="-1"></a></span>
+<span id="cb964-6"><a href="r-basics-1.html#cb964-6" tabindex="-1"></a>country_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(country, yr1960, yr1970, yr2010)</span>
+<span id="cb964-7"><a href="r-basics-1.html#cb964-7" tabindex="-1"></a>country_data</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -406,11 +406,11 @@ Figure 44.1: A visual representation of long and wide format data shapes
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb940-1"><a href="r-basics-1.html#cb940-1" tabindex="-1"></a><span class="fu">pivot_longer</span>(<span class="at">data =</span> country_data,</span>
-<span id="cb940-2"><a href="r-basics-1.html#cb940-2" tabindex="-1"></a>             <span class="at">cols =</span> yr1960<span class="sc">:</span>yr2010,</span>
-<span id="cb940-3"><a href="r-basics-1.html#cb940-3" tabindex="-1"></a>             <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb940-4"><a href="r-basics-1.html#cb940-4" tabindex="-1"></a>             <span class="at">names_prefix =</span> <span class="st">&quot;yr&quot;</span>,</span>
-<span id="cb940-5"><a href="r-basics-1.html#cb940-5" tabindex="-1"></a>             <span class="at">values_to =</span> <span class="st">&quot;metric&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb965"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb965-1"><a href="r-basics-1.html#cb965-1" tabindex="-1"></a><span class="fu">pivot_longer</span>(<span class="at">data =</span> country_data,</span>
+<span id="cb965-2"><a href="r-basics-1.html#cb965-2" tabindex="-1"></a>             <span class="at">cols =</span> yr1960<span class="sc">:</span>yr2010,</span>
+<span id="cb965-3"><a href="r-basics-1.html#cb965-3" tabindex="-1"></a>             <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb965-4"><a href="r-basics-1.html#cb965-4" tabindex="-1"></a>             <span class="at">names_prefix =</span> <span class="st">&quot;yr&quot;</span>,</span>
+<span id="cb965-5"><a href="r-basics-1.html#cb965-5" tabindex="-1"></a>             <span class="at">values_to =</span> <span class="st">&quot;metric&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:img-pivot"></span>
 <img src="images/tidyr_pivot.png" alt="Reshaping data with pivot" width="100%" />
 <p class="caption">
@@ -425,19 +425,19 @@ Figure 44.2: Reshaping data with pivot
 <p>Neither is more <em>correct</em> than the other but be aware of what you are doing.</p>
 <div id="overwrite-the-original-object" class="section level3" number="44.8.1">
 <h3><span class="header-section-number">44.8.1</span> Overwrite the original object</h3>
-<div class="sourceCode" id="cb941"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb941-1"><a href="r-basics-1.html#cb941-1" tabindex="-1"></a>country_data <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> country_data,</span>
-<span id="cb941-2"><a href="r-basics-1.html#cb941-2" tabindex="-1"></a>             <span class="at">cols =</span> yr1960<span class="sc">:</span>yr2010,</span>
-<span id="cb941-3"><a href="r-basics-1.html#cb941-3" tabindex="-1"></a>             <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb941-4"><a href="r-basics-1.html#cb941-4" tabindex="-1"></a>             <span class="at">names_prefix =</span> <span class="st">&quot;yr&quot;</span>,</span>
-<span id="cb941-5"><a href="r-basics-1.html#cb941-5" tabindex="-1"></a>             <span class="at">values_to =</span> <span class="st">&quot;metric&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb966-1"><a href="r-basics-1.html#cb966-1" tabindex="-1"></a>country_data <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> country_data,</span>
+<span id="cb966-2"><a href="r-basics-1.html#cb966-2" tabindex="-1"></a>             <span class="at">cols =</span> yr1960<span class="sc">:</span>yr2010,</span>
+<span id="cb966-3"><a href="r-basics-1.html#cb966-3" tabindex="-1"></a>             <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb966-4"><a href="r-basics-1.html#cb966-4" tabindex="-1"></a>             <span class="at">names_prefix =</span> <span class="st">&quot;yr&quot;</span>,</span>
+<span id="cb966-5"><a href="r-basics-1.html#cb966-5" tabindex="-1"></a>             <span class="at">values_to =</span> <span class="st">&quot;metric&quot;</span>)</span></code></pre></div>
 </div>
 <div id="create-a-new-r-object" class="section level3" number="44.8.2">
 <h3><span class="header-section-number">44.8.2</span> Create a new r object</h3>
-<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb942-1"><a href="r-basics-1.html#cb942-1" tabindex="-1"></a>long_country_data <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> country_data,</span>
-<span id="cb942-2"><a href="r-basics-1.html#cb942-2" tabindex="-1"></a>             <span class="at">cols =</span> yr1960<span class="sc">:</span>yr2010,</span>
-<span id="cb942-3"><a href="r-basics-1.html#cb942-3" tabindex="-1"></a>             <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb942-4"><a href="r-basics-1.html#cb942-4" tabindex="-1"></a>             <span class="at">names_prefix =</span> <span class="st">&quot;yr&quot;</span>,</span>
-<span id="cb942-5"><a href="r-basics-1.html#cb942-5" tabindex="-1"></a>             <span class="at">values_to =</span> <span class="st">&quot;metric&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb967"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb967-1"><a href="r-basics-1.html#cb967-1" tabindex="-1"></a>long_country_data <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> country_data,</span>
+<span id="cb967-2"><a href="r-basics-1.html#cb967-2" tabindex="-1"></a>             <span class="at">cols =</span> yr1960<span class="sc">:</span>yr2010,</span>
+<span id="cb967-3"><a href="r-basics-1.html#cb967-3" tabindex="-1"></a>             <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb967-4"><a href="r-basics-1.html#cb967-4" tabindex="-1"></a>             <span class="at">names_prefix =</span> <span class="st">&quot;yr&quot;</span>,</span>
+<span id="cb967-5"><a href="r-basics-1.html#cb967-5" tabindex="-1"></a>             <span class="at">values_to =</span> <span class="st">&quot;metric&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="looking-after-the-environment" class="section level2" number="44.9">
@@ -497,7 +497,7 @@ include broken data or objects.
 <h2><span class="header-section-number">44.13</span> How to cite R and RStudio</h2>
 <p>You may be some way off writing a scientific report where you have to cite and reference R, however, when the time comes it is important to do so to the people who built it (most of them for free!) credit. You should provide separate citations for R, RStudio, and the packages you use.</p>
 <p>To get the citation for the version of R you are using, simply run the <code>citation()</code> function which will always provide you with he most recent citation.</p>
-<div class="sourceCode" id="cb943"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb943-1"><a href="r-basics-1.html#cb943-1" tabindex="-1"></a><span class="fu">citation</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb968"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb968-1"><a href="r-basics-1.html#cb968-1" tabindex="-1"></a><span class="fu">citation</span>()</span></code></pre></div>
 <pre><code>## To cite R in publications use:
 ## 
 ##   R Core Team (2023). _R: A Language and Environment for Statistical
@@ -519,7 +519,7 @@ include broken data or objects.
 ## when using it for data analysis. See also &#39;citation(&quot;pkgname&quot;)&#39; for
 ## citing R packages.</code></pre>
 <p>To generate the citation for any packages you are using, you can also use the <code>citation()</code> function with the name of the package you wish to cite.</p>
-<div class="sourceCode" id="cb945"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb945-1"><a href="r-basics-1.html#cb945-1" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb970"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb970-1"><a href="r-basics-1.html#cb970-1" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
 <pre><code>## To cite package &#39;tidyverse&#39; in publications use:
 ## 
 ##   Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R,
@@ -542,7 +542,7 @@ include broken data or objects.
 ##     doi = {10.21105/joss.01686},
 ##   }</code></pre>
 <p>To generate the citation for the version of RStudio you are using, you can use the <code>RStudio.Version()</code> function:</p>
-<div class="sourceCode" id="cb947"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb947-1"><a href="r-basics-1.html#cb947-1" tabindex="-1"></a><span class="fu">RStudio.Version</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb972"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb972-1"><a href="r-basics-1.html#cb972-1" tabindex="-1"></a><span class="fu">RStudio.Version</span>()</span></code></pre></div>
 <p>Finally, here's an example of how that might look in the write-up of your method section:</p>
 <blockquote>
 <p>Analysis was conducted using R ver 4.0.0 (R Core Team, 2020), RStudio (Rstudio Team, 2020), and the tidyverse range of packages (Wickham, 2017).</p>
@@ -602,7 +602,7 @@ Explain This Answer
 </div>
 <p><br>
 <strong>Question 2.</strong> What will the following code produce?</p>
-<div class="sourceCode" id="cb948"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb948-1"><a href="r-basics-1.html#cb948-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">6</span>, <span class="dv">50</span>, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb973"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb973-1"><a href="r-basics-1.html#cb973-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">6</span>, <span class="dv">50</span>, <span class="dv">10</span>)</span></code></pre></div>
 <p><select class='webex-select'><option value='blank'></option><option value=''>A dataset with 10 numbers that has a mean of 6 and an SD of 50</option><option value='answer'>A dataset with 6 numbers that has a mean of 50 and an SD of 10</option><option value=''>A dataset with 50 numbers that has a mean of 10 and an SD of 6</option><option value=''>A dataset with 50 numbers that has a mean of 10 and an SD of 6</option></select></p>
 <div class="webex-solution">
 <button>
@@ -918,7 +918,7 @@ $( document ).ready(function() {
   <div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-01.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

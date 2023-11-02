@@ -835,4 +835,6 @@ The visual editor was a precursor to a new type of publishing tool - Quarto. thi
 
 * https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/
 
+* https://www.jumpingrivers.com/blog/quarto-rmarkdown-comparison/
+
 
