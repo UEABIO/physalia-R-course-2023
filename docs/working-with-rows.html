@@ -1,33 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 19 Working with rows | Advancing in R</title>
-<meta name="author" content="Philip T. Leftwich">
-<meta name="description" content='19.1 Filtering rows based on conditions across multiple columns penguins |&gt;  filter(   if_any(.cols = contains("culmen"),      .fns = ~. &lt; 40)  ) |&gt;  glimpse() penguins |&gt;  filter(   if_all(.cols...'>
-<meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 19 Working with rows | Advancing in R">
-<meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/working-with-rows.html">
-<meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content='19.1 Filtering rows based on conditions across multiple columns penguins |&gt;  filter(   if_any(.cols = contains("culmen"),      .fns = ~. &lt; 40)  ) |&gt;  glimpse() penguins |&gt;  filter(   if_all(.cols...'>
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 19 Working with rows | Advancing in R">
-<meta name="twitter:description" content='19.1 Filtering rows based on conditions across multiple columns penguins |&gt;  filter(   if_any(.cols = contains("culmen"),      .fns = ~. &lt; 40)  ) |&gt;  glimpse() penguins |&gt;  filter(   if_all(.cols...'>
-<meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Chapter 30 Working with rows | Advancing in R</title>
+
+    <meta name="author" content="Philip T. Leftwich" />
+  
+   <meta name="description" content="This book ..." />
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="Chapter 30 Working with rows | Advancing in R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
+  <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
+  <meta property="og:description" content="This book ..." />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 30 Working with rows | Advancing in R" />
+  
+  <meta name="twitter:description" content="This book ..." />
+  <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.5.0/transition.js"></script>
+    <script src="libs/bs3compat-0.5.0/tabs.js"></script>
+    <script src="libs/bs3compat-0.5.0/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="libs/font-awesome-5.13.0/js/script.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script>
+    <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'G-6NP3MF25W3');
-    </script><script language="javascript"> 
+    </script>
+    <script language="javascript"> 
         function toggle(id) {
             var ele = document.getElementById("toggleText" + id);
             var text = document.getElementById("displayText" + id);
@@ -41,7 +60,9 @@
                 text.innerHTML = "Hide " + buttonText;
             }
         } 
-    </script><script language="javascript">
+    </script>
+
+    <script language="javascript">
         function openCode(evt, codeName, id) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent" + id);
@@ -55,15 +76,24 @@
             document.getElementById(codeName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-    </script><script language="javascript">
+    </script>
+
+    <script language="javascript">
         function hide(id){
             document.getElementById(id).style.display = "none";
         }
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    </script>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<style type="text/css">
+    <style type="text/css">
     /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
     div.csl-bib-body { }
     div.csl-entry {
@@ -85,15 +115,18 @@
       margin-left: 2em;
     }
   </style>
-<link rel="stylesheet" href="include/psyteachr.css">
-<link rel="stylesheet" href="include/webex.css">
-<link rel="stylesheet" href="include/style.css">
+      <link rel="stylesheet" href="include/psyteachr.css" />
+    <link rel="stylesheet" href="include/webex.css" />
+    <link rel="stylesheet" href="include/style.css" />
+  
 </head>
+
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -106,108 +139,44 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-</form>
+      </form>
 
-      <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Overview</a></li>
-<li class="book-part">Get Started in R</li>
-<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
-<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R basics</a></li>
-<li class="book-part">Exploring Data</li>
-<li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
-<li><a class="" href="data-wrangling-part-one.html"><span class="header-section-number">4</span> Data wrangling part one</a></li>
-<li><a class="" href="data-wrangling-part-two.html"><span class="header-section-number">5</span> Data wrangling part two</a></li>
-<li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
-<li class="book-part">Functional Programming</li>
-<li><a class="" href="writing-functions.html"><span class="header-section-number">7</span> Writing Functions</a></li>
-<li><a class="" href="flow-control.html"><span class="header-section-number">8</span> Flow control</a></li>
-<li><a class="" href="simple-iteration.html"><span class="header-section-number">9</span> Simple iteration</a></li>
-<li><a class="" href="loops.html"><span class="header-section-number">10</span> Loops</a></li>
-<li><a class="" href="apply.html"><span class="header-section-number">11</span> Apply</a></li>
-<li><a class="" href="purrr.html"><span class="header-section-number">12</span> Purrr</a></li>
-<li><a class="" href="bonus-simulation.html"><span class="header-section-number">13</span> Bonus: Simulation</a></li>
-<li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">14</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">15</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">16</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">17</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">18</span> Applying functions across columns</a></li>
-<li><a class="active" href="working-with-rows.html"><span class="header-section-number">19</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">20</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">21</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">22</span> Writing Functions in Tidyverse</a></li>
-<li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">23</span> Data visualisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">24</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">25</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">26</span> Making tables with gt</a></li>
-<li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">27</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">28</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">29</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">30</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
-<li><a class="" href="download.html"><span class="header-section-number">34</span> Download?</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
-<li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="rmarkdown.html"><span class="header-section-number">36</span> RMarkdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">37</span> Github</a></li>
-<li><a class="" href="NA.html">
-to upload commits
-to the remote repository.
-</a></li>
-<li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
-<li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">41</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">42</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">43</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">44</span> R Basics</a></li>
-</ul>
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/UEABIO/physalia-intro-stats-2023">View book source <i class="fab fa-github"></i></a></p>
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
         </div>
       </nav>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="working-with-rows" class="section level1" number="30">
+<h1><span class="header-section-number">Chapter 30</span> Working with rows</h1>
+<div id="filtering-rows-based-on-conditions-across-multiple-columns" class="section level2" number="30.1">
+<h2><span class="header-section-number">30.1</span> Filtering rows based on conditions across multiple columns</h2>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="working-with-rows.html#cb408-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb408-2"><a href="working-with-rows.html#cb408-2" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb408-3"><a href="working-with-rows.html#cb408-3" tabindex="-1"></a>    <span class="fu">if_any</span>(<span class="at">.cols =</span> <span class="fu">contains</span>(<span class="st">&quot;culmen&quot;</span>),</span>
+<span id="cb408-4"><a href="working-with-rows.html#cb408-4" tabindex="-1"></a>           <span class="at">.fns =</span> <span class="sc">~</span>. <span class="sc">&lt;</span> <span class="dv">40</span>)</span>
+<span id="cb408-5"><a href="working-with-rows.html#cb408-5" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb408-6"><a href="working-with-rows.html#cb408-6" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="working-with-rows.html#cb409-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb409-2"><a href="working-with-rows.html#cb409-2" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb409-3"><a href="working-with-rows.html#cb409-3" tabindex="-1"></a>    <span class="fu">if_all</span>(<span class="at">.cols =</span> <span class="fu">contains</span>(<span class="st">&quot;culmen&quot;</span>),</span>
+<span id="cb409-4"><a href="working-with-rows.html#cb409-4" tabindex="-1"></a>           <span class="at">.fns =</span> <span class="sc">~</span>. <span class="sc">&lt;</span> <span class="dv">40</span>)</span>
+<span id="cb409-5"><a href="working-with-rows.html#cb409-5" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb409-6"><a href="working-with-rows.html#cb409-6" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="working-with-rows" class="section level1" number="19">
-<h1>
-<span class="header-section-number">19</span> Working with rows<a class="anchor" aria-label="anchor" href="#working-with-rows"><i class="fas fa-link"></i></a>
-</h1>
-<div id="filtering-rows-based-on-conditions-across-multiple-columns" class="section level2" number="19.1">
-<h2>
-<span class="header-section-number">19.1</span> Filtering rows based on conditions across multiple columns<a class="anchor" aria-label="anchor" href="#filtering-rows-based-on-conditions-across-multiple-columns"><i class="fas fa-link"></i></a>
-</h2>
-<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">if_any</a></span><span class="op">(</span>.cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"culmen"</span><span class="op">)</span>,</span>
-<span>           .fns <span class="op">=</span> <span class="op">~</span><span class="va">.</span> <span class="op">&lt;</span> <span class="fl">40</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">if_all</a></span><span class="op">(</span>.cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"culmen"</span><span class="op">)</span>,</span>
-<span>           .fns <span class="op">=</span> <span class="op">~</span><span class="va">.</span> <span class="op">&lt;</span> <span class="fl">40</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div id="filter-rows-based-on-missing-values" class="section level2" number="19.2">
-<h2>
-<span class="header-section-number">19.2</span> filter rows based on missing values<a class="anchor" aria-label="anchor" href="#filter-rows-based-on-missing-values"><i class="fas fa-link"></i></a>
-</h2>
-<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">if_all</a></span><span class="op">(</span>.cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>,</span>
-<span>           .fns <span class="op">=</span> <span class="op">~</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> </span></code></pre></div>
+<div id="filter-rows-based-on-missing-values" class="section level2" number="30.2">
+<h2><span class="header-section-number">30.2</span> filter rows based on missing values</h2>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="working-with-rows.html#cb410-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb410-2"><a href="working-with-rows.html#cb410-2" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb410-3"><a href="working-with-rows.html#cb410-3" tabindex="-1"></a>    <span class="fu">if_all</span>(<span class="at">.cols =</span> <span class="fu">where</span>(is.numeric),</span>
+<span id="cb410-4"><a href="working-with-rows.html#cb410-4" tabindex="-1"></a>           <span class="at">.fns =</span> <span class="sc">~!</span><span class="fu">is.na</span>(.))</span>
+<span id="cb410-5"><a href="working-with-rows.html#cb410-5" tabindex="-1"></a>  ) </span></code></pre></div>
 <div class="try">
 <p>
 At first the outcome above can seem counter-intuitive, but can be
@@ -220,41 +189,39 @@ operator
 </p>
 </div>
 </div>
-<div id="slicing" class="section level2" number="19.3">
-<h2>
-<span class="header-section-number">19.3</span> slicing<a class="anchor" aria-label="anchor" href="#slicing"><i class="fas fa-link"></i></a>
-</h2>
-<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">body_mass_g</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<div id="slicing" class="section level2" number="30.3">
+<h2><span class="header-section-number">30.3</span> slicing</h2>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="working-with-rows.html#cb411-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb411-2"><a href="working-with-rows.html#cb411-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g)) <span class="sc">|&gt;</span> </span>
+<span id="cb411-3"><a href="working-with-rows.html#cb411-3" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div>
 <div class="kable-table">
-<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<table>
 <colgroup>
-<col width="4%">
-<col width="5%">
-<col width="12%">
-<col width="2%">
-<col width="2%">
-<col width="6%">
-<col width="5%">
-<col width="6%">
-<col width="4%">
-<col width="6%">
-<col width="5%">
-<col width="6%">
-<col width="4%">
-<col width="1%">
-<col width="5%">
-<col width="5%">
-<col width="3%">
-<col width="5%">
-<col width="5%">
+<col width="4%" />
+<col width="5%" />
+<col width="3%" />
+<col width="7%" />
+<col width="2%" />
+<col width="2%" />
+<col width="8%" />
+<col width="5%" />
+<col width="7%" />
+<col width="4%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+<col width="5%" />
+<col width="2%" />
+<col width="6%" />
+<col width="6%" />
+<col width="3%" />
 </colgroup>
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th align="left">study_name</th>
 <th align="right">sample_number</th>
 <th align="left">species</th>
+<th align="left">full_latin_name</th>
 <th align="left">region</th>
 <th align="left">island</th>
 <th align="left">stage</th>
@@ -269,20 +236,20 @@ operator
 <th align="right">delta_15_n_o_oo</th>
 <th align="right">delta_13_c_o_oo</th>
 <th align="left">comments</th>
-<th align="left">date_egg_proper</th>
-<th align="left">flipper_range</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td align="left">PAL0708</td>
 <td align="right">18</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N39A2</td>
 <td align="left">Yes</td>
-<td align="left">27/11/2007</td>
+<td align="left">2007-11-27</td>
 <td align="right">49.2</td>
 <td align="right">15.2</td>
 <td align="right">221</td>
@@ -291,19 +258,18 @@ operator
 <td align="right">8.27376</td>
 <td align="right">-25.00169</td>
 <td align="left">NA</td>
-<td align="left">2007-11-27</td>
-<td align="left">large</td>
 </tr>
 <tr class="even">
 <td align="left">PAL0708</td>
 <td align="right">34</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N56A2</td>
 <td align="left">Yes</td>
-<td align="left">03/12/2007</td>
+<td align="left">2007-12-03</td>
 <td align="right">59.6</td>
 <td align="right">17.0</td>
 <td align="right">230</td>
@@ -312,19 +278,18 @@ operator
 <td align="right">7.76843</td>
 <td align="right">-25.68210</td>
 <td align="left">NA</td>
-<td align="left">2007-12-03</td>
-<td align="left">large</td>
 </tr>
 <tr class="odd">
 <td align="left">PAL0809</td>
 <td align="right">78</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N58A2</td>
 <td align="left">Yes</td>
-<td align="left">06/11/2008</td>
+<td align="left">2008-11-06</td>
 <td align="right">51.1</td>
 <td align="right">16.3</td>
 <td align="right">220</td>
@@ -333,19 +298,18 @@ operator
 <td align="right">8.40327</td>
 <td align="right">-26.76821</td>
 <td align="left">NA</td>
-<td align="left">2008-11-06</td>
-<td align="left">large</td>
 </tr>
 <tr class="even">
 <td align="left">PAL0910</td>
 <td align="right">118</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N36A2</td>
 <td align="left">Yes</td>
-<td align="left">01/12/2009</td>
+<td align="left">2009-12-01</td>
 <td align="right">48.8</td>
 <td align="right">16.2</td>
 <td align="right">222</td>
@@ -354,19 +318,18 @@ operator
 <td align="right">8.33825</td>
 <td align="right">-25.88547</td>
 <td align="left">NA</td>
-<td align="left">2009-12-01</td>
-<td align="left">large</td>
 </tr>
 <tr class="odd">
 <td align="left">PAL0809</td>
 <td align="right">80</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N60A2</td>
 <td align="left">Yes</td>
-<td align="left">09/11/2008</td>
+<td align="left">2008-11-09</td>
 <td align="right">45.2</td>
 <td align="right">16.4</td>
 <td align="right">223</td>
@@ -375,19 +338,18 @@ operator
 <td align="right">8.19749</td>
 <td align="right">-26.65931</td>
 <td align="left">NA</td>
-<td align="left">2008-11-09</td>
-<td align="left">large</td>
 </tr>
 <tr class="even">
 <td align="left">PAL0910</td>
 <td align="right">112</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N32A2</td>
 <td align="left">Yes</td>
-<td align="left">20/11/2009</td>
+<td align="left">2009-11-20</td>
 <td align="right">49.8</td>
 <td align="right">15.9</td>
 <td align="right">229</td>
@@ -396,19 +358,18 @@ operator
 <td align="right">8.29226</td>
 <td align="right">-26.21019</td>
 <td align="left">NA</td>
-<td align="left">2009-11-20</td>
-<td align="left">large</td>
 </tr>
 <tr class="odd">
 <td align="left">PAL0708</td>
 <td align="right">14</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N37A2</td>
 <td align="left">Yes</td>
-<td align="left">29/11/2007</td>
+<td align="left">2007-11-29</td>
 <td align="right">48.4</td>
 <td align="right">14.6</td>
 <td align="right">213</td>
@@ -417,19 +378,18 @@ operator
 <td align="right">7.82080</td>
 <td align="right">-25.48025</td>
 <td align="left">NA</td>
-<td align="left">2007-11-29</td>
-<td align="left">large</td>
 </tr>
 <tr class="even">
 <td align="left">PAL0708</td>
 <td align="right">16</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N38A2</td>
 <td align="left">Yes</td>
-<td align="left">03/12/2007</td>
+<td align="left">2007-12-03</td>
 <td align="right">49.3</td>
 <td align="right">15.7</td>
 <td align="right">217</td>
@@ -438,19 +398,18 @@ operator
 <td align="right">8.07137</td>
 <td align="right">-25.52473</td>
 <td align="left">NA</td>
-<td align="left">2007-12-03</td>
-<td align="left">large</td>
 </tr>
 <tr class="odd">
 <td align="left">PAL0910</td>
 <td align="right">116</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N35A2</td>
 <td align="left">Yes</td>
-<td align="left">25/11/2009</td>
+<td align="left">2009-11-25</td>
 <td align="right">55.1</td>
 <td align="right">16.0</td>
 <td align="right">230</td>
@@ -459,19 +418,18 @@ operator
 <td align="right">8.08354</td>
 <td align="right">-26.18161</td>
 <td align="left">NA</td>
-<td align="left">2009-11-25</td>
-<td align="left">large</td>
 </tr>
 <tr class="even">
 <td align="left">PAL0809</td>
 <td align="right">68</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N51A2</td>
 <td align="left">Yes</td>
-<td align="left">09/11/2008</td>
+<td align="left">2008-11-09</td>
 <td align="right">49.5</td>
 <td align="right">16.2</td>
 <td align="right">229</td>
@@ -480,46 +438,44 @@ operator
 <td align="right">8.49854</td>
 <td align="right">-26.74809</td>
 <td align="left">NA</td>
-<td align="left">2008-11-09</td>
-<td align="left">large</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 </div>
-<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">body_mass_g</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"row_number"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">123</span>,<span class="fl">307</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="working-with-rows.html#cb412-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb412-2"><a href="working-with-rows.html#cb412-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g)) <span class="sc">|&gt;</span> </span>
+<span id="cb412-3"><a href="working-with-rows.html#cb412-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;row_number&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb412-4"><a href="working-with-rows.html#cb412-4" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">123</span>,<span class="dv">307</span>))</span></code></pre></div>
 <div class="kable-table">
-<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<table>
 <colgroup>
-<col width="3%">
-<col width="3%">
-<col width="4%">
-<col width="12%">
-<col width="2%">
-<col width="2%">
-<col width="5%">
-<col width="4%">
-<col width="5%">
-<col width="3%">
-<col width="5%">
-<col width="4%">
-<col width="5%">
-<col width="3%">
-<col width="2%">
-<col width="4%">
-<col width="4%">
-<col width="11%">
-<col width="4%">
-<col width="4%">
+<col width="3%" />
+<col width="3%" />
+<col width="4%" />
+<col width="3%" />
+<col width="7%" />
+<col width="2%" />
+<col width="2%" />
+<col width="6%" />
+<col width="4%" />
+<col width="6%" />
+<col width="3%" />
+<col width="5%" />
+<col width="5%" />
+<col width="6%" />
+<col width="4%" />
+<col width="2%" />
+<col width="5%" />
+<col width="5%" />
+<col width="13%" />
 </colgroup>
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th align="left">row_number</th>
 <th align="left">study_name</th>
 <th align="right">sample_number</th>
 <th align="left">species</th>
+<th align="left">full_latin_name</th>
 <th align="left">region</th>
 <th align="left">island</th>
 <th align="left">stage</th>
@@ -534,21 +490,21 @@ operator
 <th align="right">delta_15_n_o_oo</th>
 <th align="right">delta_13_c_o_oo</th>
 <th align="left">comments</th>
-<th align="left">date_egg_proper</th>
-<th align="left">flipper_range</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td align="left">1</td>
 <td align="left">PAL0708</td>
 <td align="right">18</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N39A2</td>
 <td align="left">Yes</td>
-<td align="left">27/11/2007</td>
+<td align="left">2007-11-27</td>
 <td align="right">49.2</td>
 <td align="right">15.2</td>
 <td align="right">221</td>
@@ -557,20 +513,19 @@ operator
 <td align="right">8.27376</td>
 <td align="right">-25.00169</td>
 <td align="left">NA</td>
-<td align="left">2007-11-27</td>
-<td align="left">large</td>
 </tr>
 <tr class="even">
 <td align="left">123</td>
 <td align="left">PAL0809</td>
 <td align="right">59</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N17A1</td>
 <td align="left">Yes</td>
-<td align="left">06/11/2008</td>
+<td align="left">2008-11-06</td>
 <td align="right">43.2</td>
 <td align="right">14.5</td>
 <td align="right">208</td>
@@ -579,20 +534,19 @@ operator
 <td align="right">8.48367</td>
 <td align="right">-26.86485</td>
 <td align="left">NA</td>
-<td align="left">2008-11-06</td>
-<td align="left">medium</td>
 </tr>
 <tr class="odd">
 <td align="left">307</td>
 <td align="left">PAL0708</td>
 <td align="right">17</td>
-<td align="left">Chinstrap penguin (Pygoscelis antarctica)</td>
+<td align="left">Chinstrap</td>
+<td align="left">Pygoscelis antarctica</td>
 <td align="left">Anvers</td>
 <td align="left">Dream</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N71A1</td>
 <td align="left">No</td>
-<td align="left">30/11/2007</td>
+<td align="left">2007-11-30</td>
 <td align="right">50.3</td>
 <td align="right">20.0</td>
 <td align="right">197</td>
@@ -601,46 +555,44 @@ operator
 <td align="right">10.02019</td>
 <td align="right">-24.54704</td>
 <td align="left">Nest never observed with full clutch.</td>
-<td align="left">2007-11-30</td>
-<td align="left">medium</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 </div>
-<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">body_mass_g</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"row_number"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">340</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="working-with-rows.html#cb413-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb413-2"><a href="working-with-rows.html#cb413-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g)) <span class="sc">|&gt;</span> </span>
+<span id="cb413-3"><a href="working-with-rows.html#cb413-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;row_number&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb413-4"><a href="working-with-rows.html#cb413-4" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">:-</span><span class="dv">340</span>))</span></code></pre></div>
 <div class="kable-table">
-<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<table>
 <colgroup>
-<col width="3%">
-<col width="3%">
-<col width="4%">
-<col width="12%">
-<col width="2%">
-<col width="2%">
-<col width="5%">
-<col width="4%">
-<col width="5%">
-<col width="3%">
-<col width="4%">
-<col width="4%">
-<col width="5%">
-<col width="3%">
-<col width="2%">
-<col width="4%">
-<col width="4%">
-<col width="16%">
-<col width="4%">
-<col width="4%">
+<col width="3%" />
+<col width="3%" />
+<col width="4%" />
+<col width="3%" />
+<col width="7%" />
+<col width="2%" />
+<col width="3%" />
+<col width="6%" />
+<col width="4%" />
+<col width="5%" />
+<col width="3%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="3%" />
+<col width="2%" />
+<col width="5%" />
+<col width="5%" />
+<col width="18%" />
 </colgroup>
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th align="left">row_number</th>
 <th align="left">study_name</th>
 <th align="right">sample_number</th>
 <th align="left">species</th>
+<th align="left">full_latin_name</th>
 <th align="left">region</th>
 <th align="left">island</th>
 <th align="left">stage</th>
@@ -655,21 +607,21 @@ operator
 <th align="right">delta_15_n_o_oo</th>
 <th align="right">delta_13_c_o_oo</th>
 <th align="left">comments</th>
-<th align="left">date_egg_proper</th>
-<th align="left">flipper_range</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td align="left">341</td>
 <td align="left">PAL0809</td>
 <td align="right">65</td>
-<td align="left">Adelie Penguin (Pygoscelis adeliae)</td>
+<td align="left">Adelie</td>
+<td align="left">Pygoscelis adeliae</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N29A1</td>
 <td align="left">Yes</td>
-<td align="left">13/11/2008</td>
+<td align="left">2008-11-13</td>
 <td align="right">36.4</td>
 <td align="right">17.1</td>
 <td align="right">184</td>
@@ -678,20 +630,19 @@ operator
 <td align="right">8.62623</td>
 <td align="right">-26.11650</td>
 <td align="left">NA</td>
-<td align="left">2008-11-13</td>
-<td align="left">small</td>
 </tr>
 <tr class="even">
 <td align="left">342</td>
 <td align="left">PAL0809</td>
 <td align="right">39</td>
-<td align="left">Chinstrap penguin (Pygoscelis antarctica)</td>
+<td align="left">Chinstrap</td>
+<td align="left">Pygoscelis antarctica</td>
 <td align="left">Anvers</td>
 <td align="left">Dream</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N72A1</td>
 <td align="left">No</td>
-<td align="left">24/11/2008</td>
+<td align="left">2008-11-24</td>
 <td align="right">46.9</td>
 <td align="right">16.6</td>
 <td align="right">192</td>
@@ -700,20 +651,19 @@ operator
 <td align="right">9.80589</td>
 <td align="right">-24.73735</td>
 <td align="left">Nest never observed with full clutch.</td>
-<td align="left">2008-11-24</td>
-<td align="left">medium</td>
 </tr>
 <tr class="odd">
 <td align="left">343</td>
 <td align="left">PAL0708</td>
 <td align="right">4</td>
-<td align="left">Adelie Penguin (Pygoscelis adeliae)</td>
+<td align="left">Adelie</td>
+<td align="left">Pygoscelis adeliae</td>
 <td align="left">Anvers</td>
 <td align="left">Torgersen</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N2A2</td>
 <td align="left">Yes</td>
-<td align="left">16/11/2007</td>
+<td align="left">2007-11-16</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -722,20 +672,19 @@ operator
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="left">Adult not sampled.</td>
-<td align="left">2007-11-16</td>
-<td align="left">NA</td>
 </tr>
 <tr class="even">
 <td align="left">344</td>
 <td align="left">PAL0910</td>
 <td align="right">120</td>
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
+<td align="left">Pygoscelis papua</td>
 <td align="left">Anvers</td>
 <td align="left">Biscoe</td>
 <td align="left">Adult, 1 Egg Stage</td>
 <td align="left">N38A2</td>
 <td align="left">No</td>
-<td align="left">01/12/2009</td>
+<td align="left">2009-12-01</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -744,189 +693,184 @@ operator
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="left">Adult not sampled. Nest never observed with full clutch.</td>
-<td align="left">2009-12-01</td>
-<td align="left">NA</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 </div>
-<p>Helper functions include <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_tail()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample()</a></code>
+<p>Helper functions include <code>slice_head()</code>, <code>slice_tail()</code>, <code>slice_max()</code>, <code>slice_min()</code> and <code>slice_sample()</code>
 We can use these functions to more quickly and easily filter our data under some situations</p>
-<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>            n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># we can also use prop e.g. prop =.1 to slice the top 10%</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">body_mass_g</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="working-with-rows.html#cb414-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb414-2"><a href="working-with-rows.html#cb414-2" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> body_mass_g,</span>
+<span id="cb414-3"><a href="working-with-rows.html#cb414-3" tabindex="-1"></a>            <span class="at">n =</span> <span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># we can also use prop e.g. prop =.1 to slice the top 10%</span></span>
+<span id="cb414-4"><a href="working-with-rows.html#cb414-4" tabindex="-1"></a>  <span class="fu">select</span>(species, body_mass_g)</span></code></pre></div>
 <div class="kable-table">
-<div class="inline-table"><table class="table table-sm">
-<thead><tr class="header">
+<table>
+<thead>
+<tr class="header">
 <th align="left">species</th>
 <th align="right">body_mass_g</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">6300</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">6050</td>
 </tr>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">6000</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">6000</td>
 </tr>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5950</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5950</td>
 </tr>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5850</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5850</td>
 </tr>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5850</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5800</td>
 </tr>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5800</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5750</td>
 </tr>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5700</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5700</td>
 </tr>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5700</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5700</td>
 </tr>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5700</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5650</td>
 </tr>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5650</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">5650</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 </div>
 </div>
-<div id="groupwise-slicing" class="section level2" number="19.4">
-<h2>
-<span class="header-section-number">19.4</span> groupwise slicing<a class="anchor" aria-label="anchor" href="#groupwise-slicing"><i class="fas fa-link"></i></a>
-</h2>
-<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>            n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">body_mass_g</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div id="groupwise-slicing" class="section level2" number="30.4">
+<h2><span class="header-section-number">30.4</span> groupwise slicing</h2>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="working-with-rows.html#cb415-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb415-2"><a href="working-with-rows.html#cb415-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
+<span id="cb415-3"><a href="working-with-rows.html#cb415-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> body_mass_g,</span>
+<span id="cb415-4"><a href="working-with-rows.html#cb415-4" tabindex="-1"></a>            <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb415-5"><a href="working-with-rows.html#cb415-5" tabindex="-1"></a>  <span class="fu">select</span>(species, body_mass_g) <span class="sc">|&gt;</span> </span>
+<span id="cb415-6"><a href="working-with-rows.html#cb415-6" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
 <div class="kable-table">
-<div class="inline-table"><table class="table table-sm">
-<thead><tr class="header">
+<table>
+<thead>
+<tr class="header">
 <th align="left">species</th>
 <th align="right">body_mass_g</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td align="left">Adelie Penguin (Pygoscelis adeliae)</td>
+<td align="left">Adelie</td>
 <td align="right">4775</td>
 </tr>
 <tr class="even">
-<td align="left">Adelie Penguin (Pygoscelis adeliae)</td>
+<td align="left">Adelie</td>
 <td align="right">4725</td>
 </tr>
 <tr class="odd">
-<td align="left">Adelie Penguin (Pygoscelis adeliae)</td>
+<td align="left">Adelie</td>
 <td align="right">4700</td>
 </tr>
 <tr class="even">
-<td align="left">Chinstrap penguin (Pygoscelis antarctica)</td>
+<td align="left">Chinstrap</td>
 <td align="right">4800</td>
 </tr>
 <tr class="odd">
-<td align="left">Chinstrap penguin (Pygoscelis antarctica)</td>
+<td align="left">Chinstrap</td>
 <td align="right">4550</td>
 </tr>
 <tr class="even">
-<td align="left">Chinstrap penguin (Pygoscelis antarctica)</td>
+<td align="left">Chinstrap</td>
 <td align="right">4500</td>
 </tr>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">6300</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">6050</td>
 </tr>
 <tr class="odd">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">6000</td>
 </tr>
 <tr class="even">
-<td align="left">Gentoo penguin (Pygoscelis papua)</td>
+<td align="left">Gentoo</td>
 <td align="right">6000</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 </div>
 </div>
-<div id="bootstrapping-with-slice" class="section level2" number="19.5">
-<h2>
-<span class="header-section-number">19.5</span> bootstrapping with slice<a class="anchor" aria-label="anchor" href="#bootstrapping-with-slice"><i class="fas fa-link"></i></a>
-</h2>
-<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">342</span><span class="op">)</span></span>
-<span><span class="va">bootstraps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="op">~</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span><span class="va">penguins</span>, prop <span class="op">=</span> <span class="fl">.1</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">bootstraps</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">_</span> <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"grey80"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>,</span>
-<span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>             linewidth <span class="op">=</span> <span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"red"</span>, linetype  <span class="op">=</span><span class="st">"dashed"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="04-tidyverse_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div id="bootstrapping-with-slice" class="section level2" number="30.5">
+<h2><span class="header-section-number">30.5</span> bootstrapping with slice</h2>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="working-with-rows.html#cb416-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">342</span>)</span>
+<span id="cb416-2"><a href="working-with-rows.html#cb416-2" tabindex="-1"></a>bootstraps <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="sc">~</span><span class="fu">slice_sample</span>(penguins_clean_split, <span class="at">prop =</span> .<span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb416-3"><a href="working-with-rows.html#cb416-3" tabindex="-1"></a></span>
+<span id="cb416-4"><a href="working-with-rows.html#cb416-4" tabindex="-1"></a>bootstraps <span class="sc">%&gt;%</span></span>
+<span id="cb416-5"><a href="working-with-rows.html#cb416-5" tabindex="-1"></a>    <span class="fu">map_dbl</span>(<span class="sc">~</span> <span class="fu">mean</span>(.<span class="sc">$</span>body_mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb416-6"><a href="working-with-rows.html#cb416-6" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">x =</span> _ ) <span class="sc">|&gt;</span> </span>
+<span id="cb416-7"><a href="working-with-rows.html#cb416-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb416-8"><a href="working-with-rows.html#cb416-8" tabindex="-1"></a><span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;grey80&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb416-9"><a href="working-with-rows.html#cb416-9" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> penguins_clean_split,</span>
+<span id="cb416-10"><a href="working-with-rows.html#cb416-10" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T)),</span>
+<span id="cb416-11"><a href="working-with-rows.html#cb416-11" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype  =</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<p><img src="05-tidyverse_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <script>
@@ -1099,7 +1043,8 @@ window.onload = function() {
   update_total_correct();
 }
 
-</script><script>
+</script>
+<script>
 $( document ).ready(function() {
   var cite = ' ';
   var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
@@ -1108,36 +1053,32 @@ $( document ).ready(function() {
     license
   );
 });
-</script><div class="chapter-nav">
-<div class="prev"><a href="applying-functions-across-columns.html"><span class="header-section-number">18</span> Applying functions across columns</a></div>
-<div class="next"><a href="group-work.html"><span class="header-section-number">20</span> Group work</a></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#working-with-rows"><span class="header-section-number">19</span> Working with rows</a></li>
-<li><a class="nav-link" href="#filtering-rows-based-on-conditions-across-multiple-columns"><span class="header-section-number">19.1</span> Filtering rows based on conditions across multiple columns</a></li>
-<li><a class="nav-link" href="#filter-rows-based-on-missing-values"><span class="header-section-number">19.2</span> filter rows based on missing values</a></li>
-<li><a class="nav-link" href="#slicing"><span class="header-section-number">19.3</span> slicing</a></li>
-<li><a class="nav-link" href="#groupwise-slicing"><span class="header-section-number">19.4</span> groupwise slicing</a></li>
-<li><a class="nav-link" href="#bootstrapping-with-slice"><span class="header-section-number">19.5</span> bootstrapping with slice</a></li>
-</ul>
+</script>
+
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/04-tidyverse.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/04-tidyverse.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
-</div>
+      </div>
     </nav>
-</div>
+  </div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-02.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-04.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -1145,7 +1086,11 @@ $( document ).ready(function() {
   </div>
 
 </div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -1157,7 +1102,8 @@ $( document ).ready(function() {
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
 for (let popover of popovers) {
   const div = document.createElement('div');
   div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
@@ -1175,4 +1121,5 @@ for (let popover of popovers) {
 }
 </script>
 </body>
+
 </html>

@@ -1,33 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 6 Packages for Automated Exploratory Data Analysis | Advancing in R</title>
-<meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="In the realm of data science, the use of automated exploratory analysis is gaining prominence as a powerful approach. This methodology offers a way for data analysts and scientists to rapidly gain...">
-<meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 6 Packages for Automated Exploratory Data Analysis | Advancing in R">
-<meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/packages-for-automated-exploratory-data-analysis.html">
-<meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="In the realm of data science, the use of automated exploratory analysis is gaining prominence as a powerful approach. This methodology offers a way for data analysts and scientists to rapidly gain...">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 6 Packages for Automated Exploratory Data Analysis | Advancing in R">
-<meta name="twitter:description" content="In the realm of data science, the use of automated exploratory analysis is gaining prominence as a powerful approach. This methodology offers a way for data analysts and scientists to rapidly gain...">
-<meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Chapter 16 Packages for Automated Exploratory Data Analysis | Advancing in R</title>
+
+    <meta name="author" content="Philip T. Leftwich" />
+  
+   <meta name="description" content="This book ..." />
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="Chapter 16 Packages for Automated Exploratory Data Analysis | Advancing in R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
+  <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
+  <meta property="og:description" content="This book ..." />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 16 Packages for Automated Exploratory Data Analysis | Advancing in R" />
+  
+  <meta name="twitter:description" content="This book ..." />
+  <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.5.0/transition.js"></script>
+    <script src="libs/bs3compat-0.5.0/tabs.js"></script>
+    <script src="libs/bs3compat-0.5.0/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="libs/font-awesome-5.13.0/js/script.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script>
+    <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'G-6NP3MF25W3');
-    </script><script language="javascript"> 
+    </script>
+    <script language="javascript"> 
         function toggle(id) {
             var ele = document.getElementById("toggleText" + id);
             var text = document.getElementById("displayText" + id);
@@ -41,7 +60,9 @@
                 text.innerHTML = "Hide " + buttonText;
             }
         } 
-    </script><script language="javascript">
+    </script>
+
+    <script language="javascript">
         function openCode(evt, codeName, id) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent" + id);
@@ -55,15 +76,24 @@
             document.getElementById(codeName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-    </script><script language="javascript">
+    </script>
+
+    <script language="javascript">
         function hide(id){
             document.getElementById(id).style.display = "none";
         }
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    </script>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<style type="text/css">
+    <style type="text/css">
     /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
     div.csl-bib-body { }
     div.csl-entry {
@@ -85,15 +115,18 @@
       margin-left: 2em;
     }
   </style>
-<link rel="stylesheet" href="include/psyteachr.css">
-<link rel="stylesheet" href="include/webex.css">
-<link rel="stylesheet" href="include/style.css">
+      <link rel="stylesheet" href="include/psyteachr.css" />
+    <link rel="stylesheet" href="include/webex.css" />
+    <link rel="stylesheet" href="include/style.css" />
+  
 </head>
+
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -106,97 +139,36 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-</form>
+      </form>
 
-      <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Overview</a></li>
-<li class="book-part">Get Started in R</li>
-<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
-<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R basics</a></li>
-<li class="book-part">Exploring Data</li>
-<li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
-<li><a class="" href="data-wrangling-part-one.html"><span class="header-section-number">4</span> Data wrangling part one</a></li>
-<li><a class="" href="data-wrangling-part-two.html"><span class="header-section-number">5</span> Data wrangling part two</a></li>
-<li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="active" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
-<li class="book-part">Functional Programming</li>
-<li><a class="" href="writing-functions.html"><span class="header-section-number">7</span> Writing Functions</a></li>
-<li><a class="" href="flow-control.html"><span class="header-section-number">8</span> Flow control</a></li>
-<li><a class="" href="simple-iteration.html"><span class="header-section-number">9</span> Simple iteration</a></li>
-<li><a class="" href="loops.html"><span class="header-section-number">10</span> Loops</a></li>
-<li><a class="" href="apply.html"><span class="header-section-number">11</span> Apply</a></li>
-<li><a class="" href="purrr.html"><span class="header-section-number">12</span> Purrr</a></li>
-<li><a class="" href="bonus-simulation.html"><span class="header-section-number">13</span> Bonus: Simulation</a></li>
-<li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">14</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">15</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">16</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">17</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">18</span> Applying functions across columns</a></li>
-<li><a class="" href="working-with-rows.html"><span class="header-section-number">19</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">20</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">21</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">22</span> Writing Functions in Tidyverse</a></li>
-<li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">23</span> Data visualisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">24</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">25</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">26</span> Making tables with gt</a></li>
-<li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">27</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">28</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">29</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">30</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
-<li><a class="" href="download.html"><span class="header-section-number">34</span> Download?</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
-<li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="rmarkdown.html"><span class="header-section-number">36</span> RMarkdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">37</span> Github</a></li>
-<li><a class="" href="NA.html">
-to upload commits
-to the remote repository.
-</a></li>
-<li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
-<li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">41</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">42</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">43</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">44</span> R Basics</a></li>
-</ul>
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/UEABIO/physalia-intro-stats-2023">View book source <i class="fab fa-github"></i></a></p>
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
         </div>
       </nav>
-</div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="packages-for-automated-exploratory-data-analysis" class="section level1" number="6">
-<h1>
-<span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis<a class="anchor" aria-label="anchor" href="#packages-for-automated-exploratory-data-analysis"><i class="fas fa-link"></i></a>
-</h1>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="packages-for-automated-exploratory-data-analysis" class="section level1" number="16">
+<h1><span class="header-section-number">Chapter 16</span> Packages for Automated Exploratory Data Analysis</h1>
 <p>In the realm of data science, the use of automated exploratory analysis is gaining prominence as a powerful approach. This methodology offers a way for data analysts and scientists to rapidly gain insights into their datasets, particularly when they have been working with tidyverse tools, without the need for laborious manual inspections of individual variables or the creation of numerous plots. The aim is to streamline and speed up the workflow, making data exploration more efficient and effective. To achieve this, data professionals turn to specific R packages such as skimr, ggally, and dataxray.</p>
 <p><code>skimr</code>: The skimr package is tailored to provide a concise and informative summary of a dataset's variables. It supplies a variety of functions for generating descriptive statistics, data type details, and visual representations. This empowers you to efficiently grasp the structure and characteristics of your data, aligning with the tidyverse principles. Skimr is particularly valuable for gaining an initial understanding of your dataset and for spotting potential issues or patterns.</p>
 <p><code>ggally</code>: Known as the "ggplot2 extension for exploring correlations," ggally is an R package that extends the capabilities of the well-known ggplot2 package. If you're already familiar with tidyverse, you'll appreciate ggally's seamless integration with tidy data principles. It is primarily used to create visualizations and plots for exploring relationships and correlations among variables. With ggally, you can readily produce scatterplots, density plots, and other types of graphs that shed light on the connections within your data.</p>
 <p><code>dataxray</code>: For data professionals who have been using tidyverse tools, the dataxray package is a natural extension of the workflow. This new R package provides quick statistical summaries in an interactive table inside of the Rstudio Viewer Pane.</p>
 <p>Together, these R packages serve to streamline and automate the exploratory analysis process within the tidyverse framework. They make data exploration more efficient and effective, enabling data scientists and analysts to swiftly gain insights into their datasets, pinpoint potential problems, and lay the foundation for more in-depth analyses and modeling. Automated exploratory analysis, when seamlessly integrated with tidyverse tools, plays a pivotal role in the data analysis workflow, providing a deeper understanding of the data and guiding informed decisions about subsequent steps in analysis and modeling tasks.</p>
-<div id="skimr-for-automated-data-quality-checking" class="section level2" number="6.1">
-<h2>
-<span class="header-section-number">6.1</span> Skimr for automated data quality checking<a class="anchor" aria-label="anchor" href="#skimr-for-automated-data-quality-checking"><i class="fas fa-link"></i></a>
-</h2>
+<div id="skimr-for-automated-data-quality-checking" class="section level2" number="16.1">
+<h2><span class="header-section-number">16.1</span> Skimr for automated data quality checking</h2>
 <p>Skimr is my preferred R package for quickly assessing data quality, serving as my initial step in exploratory data analysis. Before proceeding with any other tasks, I rely on skimr to conduct a thorough data quality check.</p>
-<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"skimr"</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/skimr/">skimr</a></span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">skimr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html">skim</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-table"><table style="width: auto;" class="table table-condensed">
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb182-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;skimr&quot;</span>)</span>
+<span id="cb182-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb182-2" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb183-1" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(penguins)</span></code></pre></div>
+<table style="width: auto;" class="table table-condensed">
 <caption>
-<span id="tab:unnamed-chunk-105">Table 6.1: </span>Data summary
+<span id="tab:unnamed-chunk-114">Table 16.1: </span>Data summary
 </caption>
 <tbody>
 <tr>
@@ -285,10 +257,11 @@ None
 </td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p><strong>Variable type: character</strong></p>
-<div class="inline-table"><table class="table table-sm">
-<thead><tr>
+<table>
+<thead>
+<tr>
 <th style="text-align:left;">
 skim_variable
 </th>
@@ -313,7 +286,8 @@ n_unique
 <th style="text-align:right;">
 whitespace
 </th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
@@ -352,10 +326,10 @@ species
 1.00
 </td>
 <td style="text-align:right;">
-33
+6
 </td>
 <td style="text-align:right;">
-41
+9
 </td>
 <td style="text-align:right;">
 0
@@ -576,10 +550,11 @@ comments
 </td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p><strong>Variable type: Date</strong></p>
-<div class="inline-table"><table class="table table-sm">
-<thead><tr>
+<table>
+<thead>
+<tr>
 <th style="text-align:left;">
 skim_variable
 </th>
@@ -601,8 +576,10 @@ median
 <th style="text-align:right;">
 n_unique
 </th>
-</tr></thead>
-<tbody><tr>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td style="text-align:left;">
 date_egg_proper
 </td>
@@ -624,11 +601,13 @@ date_egg_proper
 <td style="text-align:right;">
 50
 </td>
-</tr></tbody>
-</table></div>
+</tr>
+</tbody>
+</table>
 <p><strong>Variable type: factor</strong></p>
-<div class="inline-table"><table class="table table-sm">
-<thead><tr>
+<table>
+<thead>
+<tr>
 <th style="text-align:left;">
 skim_variable
 </th>
@@ -647,8 +626,10 @@ n_unique
 <th style="text-align:left;">
 top_counts
 </th>
-</tr></thead>
-<tbody><tr>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td style="text-align:left;">
 flipper_range
 </td>
@@ -667,11 +648,13 @@ FALSE
 <td style="text-align:left;">
 med: 152, sma: 99, lar: 91
 </td>
-</tr></tbody>
-</table></div>
+</tr>
+</tbody>
+</table>
 <p><strong>Variable type: numeric</strong></p>
-<div class="inline-table"><table class="table table-sm">
-<thead><tr>
+<table>
+<thead>
+<tr>
 <th style="text-align:left;">
 skim_variable
 </th>
@@ -705,7 +688,8 @@ p100
 <th style="text-align:left;">
 hist
 </th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
@@ -884,7 +868,7 @@ body_mass_g
 </tr>
 <tr>
 <td style="text-align:left;">
-delta_15_n_o_oo
+delta_15n
 </td>
 <td style="text-align:right;">
 14
@@ -919,7 +903,7 @@ delta_15_n_o_oo
 </tr>
 <tr>
 <td style="text-align:left;">
-delta_13_c_o_oo
+delta_13c
 </td>
 <td style="text-align:right;">
 13
@@ -953,13 +937,11 @@ delta_13_c_o_oo
 </td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>We can end up dedicating a significant amount of our time to tasks such as data comprehension, exploration, wrangling, and preparation for analysis.</p>
 <p>However, we can significantly expedite this process. In every single data project I undertake, I rely on <code>skimr</code>, which is my go-to solution for achieving efficiency and speed.</p>
-<div id="how-skimr-works" class="section level3" number="6.1.1">
-<h3>
-<span class="header-section-number">6.1.1</span> How Skimr works<a class="anchor" aria-label="anchor" href="#how-skimr-works"><i class="fas fa-link"></i></a>
-</h3>
+<div id="how-skimr-works" class="section level3" number="16.1.1">
+<h3><span class="header-section-number">16.1.1</span> How Skimr works</h3>
 <p>One of the best features of Skimr is its capability to generate a comprehensive Data Quality Report with just a single line of code. This automation encompasses:</p>
 <ul>
 <li><p>Data Profiling</p></li>
@@ -968,116 +950,86 @@ delta_13_c_o_oo
 <p>In essence, this remarkable functionality translates to significant time savings for data scientists 🕒</p>
 <p>Assessing data with <code>skimr</code> makes simple quality checks easy!</p>
 </div>
-<div id="reporting" class="section level3" number="6.1.2">
-<h3>
-<span class="header-section-number">6.1.2</span> Reporting<a class="anchor" aria-label="anchor" href="#reporting"><i class="fas fa-link"></i></a>
-</h3>
-<p>The penguins dataset has a lot of information in it, 344 rows of data and 19 independent variables. It has multiple data types and frequent missing data. With <code><a href="https://docs.ropensci.org/skimr/reference/skim.html">skimr::skim()</a></code> we get an overall data summary of th number of rows, columns, data types by column and any group variables.</p>
-<div id="character-summaries" class="section level4" number="6.1.2.1">
-<h4>
-<span class="header-section-number">6.1.2.1</span> Character summaries<a class="anchor" aria-label="anchor" href="#character-summaries"><i class="fas fa-link"></i></a>
-</h4>
+<div id="reporting" class="section level3" number="16.1.2">
+<h3><span class="header-section-number">16.1.2</span> Reporting</h3>
+<p>The penguins dataset has a lot of information in it, 344 rows of data and 19 independent variables. It has multiple data types and frequent missing data. With <code>skimr::skim()</code> we get an overall data summary of th number of rows, columns, data types by column and any group variables.</p>
+<div id="character-summaries" class="section level4" number="16.1.2.1">
+<h4><span class="header-section-number">16.1.2.1</span> Character summaries</h4>
 <p>Missing/completion rate, number of unique observations, and text features.</p>
 </div>
-<div id="factor-summaries" class="section level4" number="6.1.2.2">
-<h4>
-<span class="header-section-number">6.1.2.2</span> Factor summaries<a class="anchor" aria-label="anchor" href="#factor-summaries"><i class="fas fa-link"></i></a>
-</h4>
+<div id="factor-summaries" class="section level4" number="16.1.2.2">
+<h4><span class="header-section-number">16.1.2.2</span> Factor summaries</h4>
 <p>If data is recognised as factorial we get missing/completion rate, whether the factor is ordered, numbr of unique levels and the number of observations for each factor</p>
 </div>
-<div id="date-summaries" class="section level4" number="6.1.2.3">
-<h4>
-<span class="header-section-number">6.1.2.3</span> Date summaries<a class="anchor" aria-label="anchor" href="#date-summaries"><i class="fas fa-link"></i></a>
-</h4>
+<div id="date-summaries" class="section level4" number="16.1.2.3">
+<h4><span class="header-section-number">16.1.2.3</span> Date summaries</h4>
 <p>Missing/completion rates, min/max dates, and the number of unique dates.</p>
 </div>
-<div id="numeric-summaries" class="section level4" number="6.1.2.4">
-<h4>
-<span class="header-section-number">6.1.2.4</span> Numeric summaries<a class="anchor" aria-label="anchor" href="#numeric-summaries"><i class="fas fa-link"></i></a>
-</h4>
+<div id="numeric-summaries" class="section level4" number="16.1.2.4">
+<h4><span class="header-section-number">16.1.2.4</span> Numeric summaries</h4>
 <p>Missing/completion rates and distributions.</p>
 </div>
 </div>
 </div>
-<div id="ggally-for-exploratory-analysis" class="section level2" number="6.2">
-<h2>
-<span class="header-section-number">6.2</span> GGally for exploratory analysis<a class="anchor" aria-label="anchor" href="#ggally-for-exploratory-analysis"><i class="fas fa-link"></i></a>
-</h2>
+<div id="ggally-for-exploratory-analysis" class="section level2" number="16.2">
+<h2><span class="header-section-number">16.2</span> GGally for exploratory analysis</h2>
 <p><code>GGally</code> is another invaluable tool in a researcher's toolkit. It seamlessly extends the capabilities of the widely used <code>ggplot2</code> package. With <code>GGally</code>, you can effortlessly create a variety of visualizations to explore and understand distributions and correlations among your variables. Its flexibility and ease of use make it a go-to choice for streamlining the process of creating insightful plots and charts for data analysis.</p>
-<div id="pairs" class="section level3" number="6.2.1">
-<h3>
-<span class="header-section-number">6.2.1</span> pairs<a class="anchor" aria-label="anchor" href="#pairs"><i class="fas fa-link"></i></a>
-</h3>
-<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">11</span>,<span class="fl">12</span>,<span class="fl">13</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="02-loading-data_files/figure-html/unnamed-chunk-107-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div id="pairs" class="section level3" number="16.2.1">
+<h3><span class="header-section-number">16.2.1</span> pairs</h3>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb184-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb184-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb184-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span> </span>
+<span id="cb184-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb184-3" tabindex="-1"></a>  <span class="fu">pairs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb185-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb185-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb185-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb185-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb185-3" tabindex="-1"></a>  <span class="fu">pairs</span>()</span></code></pre></div>
+<p><img src="02-loading-data_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="ggally" class="section level3" number="6.2.2">
-<h3>
-<span class="header-section-number">6.2.2</span> GGally<a class="anchor" aria-label="anchor" href="#ggally"><i class="fas fa-link"></i></a>
-</h3>
-<p>So far, we have only used the pairs function that comes together with the base installation of R. However, the ggplot2 and GGally packages provide an even more advanced pairs function, which is called <code><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs()</a></code>. Let’s install and load the packages:</p>
-<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">island</span>, <span class="va">culmen_length_mm</span>, <span class="va">culmen_depth_mm</span>, <span class="va">flipper_length_mm</span>, <span class="va">body_mass_g</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="02-loading-data_files/figure-html/unnamed-chunk-109-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="02-loading-data_files/figure-html/unnamed-chunk-110-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, upper <span class="op">=</span> <span class="st">"blank"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="02-loading-data_files/figure-html/unnamed-chunk-111-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, columnLabels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bill length"</span>, <span class="st">"Bill depth"</span>, <span class="st">"Flipper length"</span>, <span class="st">"Body mass"</span>, <span class="st">"Sex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="02-loading-data_files/figure-html/unnamed-chunk-112-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"density"</span>, combo <span class="op">=</span> <span class="st">"box_no_facet"</span><span class="op">)</span>,</span>
-<span>          lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"points"</span>, combo <span class="op">=</span> <span class="st">"dot_no_facet"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="02-loading-data_files/figure-html/unnamed-chunk-113-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"density"</span>, combo <span class="op">=</span> <span class="st">"box_no_facet"</span><span class="op">)</span>,</span>
-<span>          lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="st">"points"</span>, combo <span class="op">=</span> <span class="st">"dot_no_facet"</span><span class="op">)</span>,</span>
-<span>          <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="02-loading-data_files/figure-html/unnamed-chunk-114-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">14</span>, axisLabels <span class="op">=</span> <span class="st">"internal"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="02-loading-data_files/figure-html/unnamed-chunk-115-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div id="ggally" class="section level3" number="16.2.2">
+<h3><span class="header-section-number">16.2.2</span> GGally</h3>
+<p>So far, we have only used the pairs function that comes together with the base installation of R. However, the ggplot2 and GGally packages provide an even more advanced pairs function, which is called <code>ggpairs()</code>. Let’s install and load the packages:</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb186-1" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb187-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb187-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb187-2" tabindex="-1"></a>  <span class="fu">select</span>(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm, body_mass_g, sex) <span class="sc">|&gt;</span> </span>
+<span id="cb187-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb187-3" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="02-loading-data_files/figure-html/unnamed-chunk-118-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb188-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb188-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb188-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>, ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour =</span> species))</span></code></pre></div>
+<p><img src="02-loading-data_files/figure-html/unnamed-chunk-119-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb189-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb189-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb189-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">upper =</span> <span class="st">&quot;blank&quot;</span>)</span></code></pre></div>
+<p><img src="02-loading-data_files/figure-html/unnamed-chunk-120-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb190-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb190-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb190-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">columnLabels =</span> <span class="fu">c</span>(<span class="st">&quot;Bill length&quot;</span>, <span class="st">&quot;Bill depth&quot;</span>, <span class="st">&quot;Flipper length&quot;</span>, <span class="st">&quot;Body mass&quot;</span>, <span class="st">&quot;Sex&quot;</span>))</span></code></pre></div>
+<p><img src="02-loading-data_files/figure-html/unnamed-chunk-121-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb191-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb191-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb191-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;density&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;box_no_facet&quot;</span>),</span>
+<span id="cb191-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb191-3" tabindex="-1"></a>          <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;points&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;dot_no_facet&quot;</span>))</span></code></pre></div>
+<p><img src="02-loading-data_files/figure-html/unnamed-chunk-122-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb192-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb192-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb192-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;density&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;box_no_facet&quot;</span>),</span>
+<span id="cb192-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb192-3" tabindex="-1"></a>          <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;points&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;dot_no_facet&quot;</span>),</span>
+<span id="cb192-4"><a href="packages-for-automated-exploratory-data-analysis.html#cb192-4" tabindex="-1"></a>          ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour =</span> species))</span></code></pre></div>
+<p><img src="02-loading-data_files/figure-html/unnamed-chunk-123-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb193-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb193-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb193-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">axisLabels =</span> <span class="st">&quot;internal&quot;</span>)</span></code></pre></div>
+<p><img src="02-loading-data_files/figure-html/unnamed-chunk-124-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="dataxray" class="section level2" number="6.3">
-<h2>
-<span class="header-section-number">6.3</span> dataxray<a class="anchor" aria-label="anchor" href="#dataxray"><i class="fas fa-link"></i></a>
-</h2>
-<p><code>dataxray</code> is a new R package that provides quick statistical summaries in an interactive table inside of the Rstudio Viewer Pane. To use this package we need to install from Github, which means we need the <code>devtools</code> package and <code><a href="https://remotes.r-lib.org/reference/install_github.html">devtools::install_github()</a></code></p>
-<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="co"># devtools::install_github("agstn/dataxray")</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">dataxray</span><span class="op">)</span></span></code></pre></div>
+<div id="dataxray" class="section level2" number="16.3">
+<h2><span class="header-section-number">16.3</span> dataxray</h2>
+<p><code>dataxray</code> is a new R package that provides quick statistical summaries in an interactive table inside of the Rstudio Viewer Pane. To use this package we need to install from Github, which means we need the <code>devtools</code> package and <code>devtools::install_github()</code></p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb194-1" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb194-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb194-2" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;agstn/dataxray&quot;)</span></span>
+<span id="cb194-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb194-3" tabindex="-1"></a><span class="fu">library</span>(dataxray)</span></code></pre></div>
 <p><code>dataxray</code> emphasises an interactive exploration of the exploratory summaries. This goes beyond what <code>skimr</code> can do by adding an interactive exploration element to feature summaries. So if you like interactivity, then try <code>dataxray</code>.</p>
 <p>There are just two functions we require with this package</p>
 <ul>
-<li><p><code><a href="https://rdrr.io/pkg/dataxray/man/make_xray.html">dataxray::make_xray()</a></code> to convert the raw data to preformatted data for the reactable interactive table</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/dataxray/man/view_xray.html">dataxray::view_xray()</a></code> to display the interactive exploratory table using the underlying reactable library.</p></li>
+<li><p><code>dataxray::make_xray()</code> to convert the raw data to preformatted data for the reactable interactive table</p></li>
+<li><p><code>dataxray::view_xray()</code> to display the interactive exploratory table using the underlying reactable library.</p></li>
 </ul>
-<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/dataxray/man/make_xray.html">make_xray</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/dataxray/man/view_xray.html">view_xray</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb195-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb195-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb195-2" tabindex="-1"></a>  <span class="fu">make_xray</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb195-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb195-3" tabindex="-1"></a>  <span class="fu">view_xray</span>()</span></code></pre></div>
 <p>Now you can explore each column to see:</p>
 <ul>
 <li><p>Count and Percent Missing - How many NA values</p></li>
@@ -1087,8 +1039,7 @@ delta_13_c_o_oo
 <li><p>Expandable Groups - You can expand the groups to find out more information about the features</p></li>
 <li><p>Search Features - Use regex to search the name. Great if you have a lot of features (columns)</p></li>
 </ul>
-<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb196-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.3.1 (2023-06-16)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.6 LTS
@@ -1117,33 +1068,38 @@ delta_13_c_o_oo
 ## [17] ggplot2_3.4.2      tidyverse_2.0.0   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.2.0    viridisLite_0.4.2   fastmap_1.1.1      
-##  [4] lazyeval_0.2.2      reshape_0.8.9       promises_1.2.0.1   
-##  [7] digest_0.6.33       rpart_4.1.19        mime_0.12          
-## [10] timechange_0.2.0    lifecycle_1.0.3     cluster_2.1.4      
-## [13] ellipsis_0.3.2      magrittr_2.0.3      compiler_4.3.1     
-## [16] rlang_1.1.1         Hmisc_5.1-1         sass_0.4.6         
-## [19] tools_4.3.1         utf8_1.2.3          yaml_2.3.7         
-## [22] data.table_1.14.8   htmlwidgets_1.6.2   plyr_1.8.8         
-## [25] xml2_1.3.5          RColorBrewer_1.1-3  withr_2.5.0        
-## [28] foreign_0.8-84      nnet_7.3-19         grid_4.3.1         
-## [31] fansi_1.0.4         xtable_1.8-4        colorspace_2.1-0   
-## [34] scales_1.2.1        cli_3.6.1           rmarkdown_2.23     
-## [37] generics_0.1.3      rstudioapi_0.15.0   httr_1.4.6         
-## [40] tzdb_0.4.0          cachem_1.0.8        rvest_1.0.3        
-## [43] base64enc_0.1-3     vctrs_0.6.3         webshot_0.5.5      
-## [46] jsonlite_1.8.7      bookdown_0.34       hms_1.1.3          
-## [49] Formula_1.2-5       htmlTable_2.4.1     systemfonts_1.0.4  
-## [52] plotly_4.10.2       jquerylib_0.1.4     glue_1.6.2         
-## [55] stringi_1.7.12      gtable_0.3.3        later_1.3.1        
-## [58] downlit_0.4.3       munsell_0.5.0       pillar_1.9.0       
-## [61] htmltools_0.5.5     reactable_0.4.4     R6_2.5.1           
-## [64] reactablefmtr_2.0.0 rprojroot_2.0.3     evaluate_0.21      
-## [67] shiny_1.7.4.1       backports_1.4.1     memoise_2.0.1      
-## [70] snakecase_0.11.0    httpuv_1.6.11       bslib_0.5.0        
-## [73] Rcpp_1.0.11         svglite_2.1.1       gridExtra_2.3      
-## [76] checkmate_2.2.0     xfun_0.39           fs_1.6.2           
-## [79] pkgconfig_2.0.3</code></pre>
+##  [1] gridExtra_2.3       rlang_1.1.1         magrittr_2.0.3     
+##  [4] snakecase_0.11.0    compiler_4.3.1      systemfonts_1.0.4  
+##  [7] vctrs_0.6.3         rvest_1.0.3         pkgconfig_2.0.3    
+## [10] crayon_1.5.2        fastmap_1.1.1       backports_1.4.1    
+## [13] ellipsis_0.3.2      labeling_0.4.2      utf8_1.2.3         
+## [16] promises_1.2.0.1    rmarkdown_2.23      tzdb_0.4.0         
+## [19] bit_4.0.5           xfun_0.39           cachem_1.0.8       
+## [22] jsonlite_1.8.7      highr_0.10          later_1.3.1        
+## [25] reshape_0.8.9       parallel_4.3.1      cluster_2.1.4      
+## [28] R6_2.5.1            bslib_0.5.0         stringi_1.7.12     
+## [31] RColorBrewer_1.1-3  rpart_4.1.19        bsplus_0.1.4       
+## [34] jquerylib_0.1.4     Rcpp_1.0.11         bookdown_0.34      
+## [37] base64enc_0.1-3     httpuv_1.6.11       nnet_7.3-19        
+## [40] timechange_0.2.0    tidyselect_1.2.0    rstudioapi_0.15.0  
+## [43] yaml_2.3.7          codetools_0.2-19    plyr_1.8.8         
+## [46] shiny_1.7.4.1       withr_2.5.0         evaluate_0.21      
+## [49] foreign_0.8-84      isoband_0.2.7       xml2_1.3.5         
+## [52] pillar_1.9.0        checkmate_2.2.0     plotly_4.10.2      
+## [55] generics_0.1.3      vroom_1.6.3         rprojroot_2.0.3    
+## [58] hms_1.1.3           munsell_0.5.0       scales_1.2.1       
+## [61] xtable_1.8-4        glue_1.6.2          Hmisc_5.1-1        
+## [64] lazyeval_0.2.2      tools_4.3.1         data.table_1.14.8  
+## [67] webshot_0.5.5       reactable_0.4.4     fs_1.6.2           
+## [70] grid_4.3.1          colorspace_2.1-0    repr_1.1.6         
+## [73] htmlTable_2.4.1     Formula_1.2-5       cli_3.6.1          
+## [76] fansi_1.0.4         viridisLite_0.4.2   svglite_2.1.1      
+## [79] downlit_0.4.3       gtable_0.3.3        sass_0.4.6         
+## [82] digest_0.6.33       reactablefmtr_2.0.0 skimr_2.1.5        
+## [85] farver_2.1.1        htmlwidgets_1.6.2   memoise_2.0.1      
+## [88] htmltools_0.5.5     downloadthis_0.3.2  lifecycle_1.0.3    
+## [91] httr_1.4.6          mime_0.12           MASS_7.3-60        
+## [94] bit64_4.0.5</code></pre>
 
 </div>
 </div>
@@ -1320,7 +1276,8 @@ window.onload = function() {
   update_total_correct();
 }
 
-</script><script>
+</script>
+<script>
 $( document ).ready(function() {
   var cite = ' ';
   var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
@@ -1329,44 +1286,32 @@ $( document ).ready(function() {
     license
   );
 });
-</script><div class="chapter-nav">
-<div class="prev"><a href="data-wrangling-part-two.html"><span class="header-section-number">5</span> Data wrangling part two</a></div>
-<div class="next"><a href="writing-functions.html"><span class="header-section-number">7</span> Writing Functions</a></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#packages-for-automated-exploratory-data-analysis"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
-<li>
-<a class="nav-link" href="#skimr-for-automated-data-quality-checking"><span class="header-section-number">6.1</span> Skimr for automated data quality checking</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#how-skimr-works"><span class="header-section-number">6.1.1</span> How Skimr works</a></li>
-<li><a class="nav-link" href="#reporting"><span class="header-section-number">6.1.2</span> Reporting</a></li>
-</ul>
-</li>
-<li>
-<a class="nav-link" href="#ggally-for-exploratory-analysis"><span class="header-section-number">6.2</span> GGally for exploratory analysis</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#pairs"><span class="header-section-number">6.2.1</span> pairs</a></li>
-<li><a class="nav-link" href="#ggally"><span class="header-section-number">6.2.2</span> GGally</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#dataxray"><span class="header-section-number">6.3</span> dataxray</a></li>
-</ul>
+</script>
+
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/02-loading-data.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/02-loading-data.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
-</div>
+      </div>
     </nav>
-</div>
+  </div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-02.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-04.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -1374,7 +1319,11 @@ $( document ).ready(function() {
   </div>
 
 </div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -1386,7 +1335,8 @@ $( document ).ready(function() {
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
 for (let popover of popovers) {
   const div = document.createElement('div');
   div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
@@ -1404,4 +1354,5 @@ for (let popover of popovers) {
 }
 </script>
 </body>
+
 </html>

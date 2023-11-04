@@ -614,7 +614,7 @@ You can access the attributes of an object, if it has any, by using the `attribu
 
 ## Vectors
 
-We have been working with R objects containing a single element of data, but we will more commonly work with vectors. A vector is a sequence of elements, all of the same data type. These could be logical, numerical, character etc.
+We have been working with R objects containing a single element of data (the technical term is **scalar**), but we will more commonly work with vectors. A vector is a sequence of elements, all of the same data type. These could be logical, numerical, character etc.
 
 
 ```r
@@ -673,6 +673,34 @@ as.character(x)
 </div></div></div>
 
 Sometimes, R can’t figure out how to coerce an object and this can result in `NA`s being produced
+
+### Subsetting vectors
+
+With numerical indexing, you enter a vector of integers corresponding to the values in the vector you want to access in the form a[index], where a is the vector, and index is a vector of index values. For example, let’s use numerical indexing to get values from our character_vector
+
+
+```r
+character_vector[2]
+# [1] "vegetables"
+
+
+character_vector[1:2]
+# [1] "fruits"     "vegetables"
+
+character_vector[c(1,3)]
+# [1] "fruits" "seeds" 
+```
+
+We can also use logical indexing
+
+
+```r
+numeric_vector <=2
+# [1]  TRUE  TRUE FALSE
+
+character_vector == "fruits"
+#[1]  TRUE FALSE FALSE
+```
 
 ## Matrices
 
@@ -828,8 +856,236 @@ Here are some key characteristics and advantages of data frames:
 
 Data frames are a fundamental structure for managing tabular data in R. They excel in handling datasets with mixed data types and are essential for various data analysis and modeling tasks.
 
+To create a dataframe from vectors we use the `data.frame()` function
 
 
+```r
+survey <- data.frame("index" = c(1, 2, 3, 4, 5),
+                     "sex" = c("m", "m", "m", "f", "f"),
+                     "age" = c(99, 46, 23, 54, 23))
+```
+
+There is one key argument to `data.frame()` and similar functions called `stringsAsFactors`. By default, the data.frame() function will automatically convert any string columns to a specific type of object called a factor in R. A factor is a nominal variable that has a well-specified possible set of values that it can take on. For example, one can create a factor sex that can only take on the values "male" and "female".
+
+<div class="warning">
+<p>Since R ver 4.0 release, stringsAsFactors is set FALSE by
+default!</p>
+</div>
+
+However, as I’m sure you’ll discover, having R automatically convert your string data to factors can lead to lots of strange results. For example: if you have a factor of sex data, but then you want to add a new value called other, R will yell at you and return an error. I hate, hate, HATE when this happens. While there are very, very rare cases when I find factors useful, I almost always don’t want or need them. For this reason, I avoid them at all costs.
+
+To tell R to not convert your string columns to factors, you need to include the argument `stringsAsFactors = FALSE` when using functions such as `data.frame()`
+
+
+```r
+str(survey)
+```
+
+```
+## 'data.frame':	5 obs. of  3 variables:
+##  $ index: num  1 2 3 4 5
+##  $ sex  : chr  "m" "m" "m" "f" ...
+##  $ age  : num  99 46 23 54 23
+```
+
+To access a specific column in a dataframe by name, you use the `$` operator in the form `df$name` where `df` is the name of the dataframe, and name is the name of the column you are interested in. This operation will then return the column you want as a vector.
+
+
+```r
+survey$sex
+```
+
+```
+## [1] "m" "m" "m" "f" "f"
+```
+
+Because the `$` operator returns a vector, you can easily calculate descriptive statistics on columns of a dataframe by applying your favorite vector function (like `mean()`). 
+
+
+```r
+mean(survey$age)
+```
+
+```
+## [1] 49
+```
+
+We can also use the `$` to add new vectors to a dataframe
+
+
+```r
+survey$follow_up <- c(T,F,T,F,F)
+survey
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> index </th>
+   <th style="text-align:left;"> sex </th>
+   <th style="text-align:right;"> age </th>
+   <th style="text-align:left;"> follow_up </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 99 </td>
+   <td style="text-align:left;"> TRUE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> TRUE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> f </td>
+   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> f </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+Changing column names is easy with a combination of `names()` and indexing
+
+
+```r
+names(survey)[1] <- "ID"
+
+survey
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> ID </th>
+   <th style="text-align:left;"> sex </th>
+   <th style="text-align:right;"> age </th>
+   <th style="text-align:left;"> follow_up </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 99 </td>
+   <td style="text-align:left;"> TRUE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> TRUE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> f </td>
+   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> f </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+### Slice dataframes
+
+Matrices and dataframes can be sliced with `[,]`
+
+```
+# Return row 1
+df[1, ]
+
+
+# Return column 5 as vector
+df[, 5]
+
+# Return column as data.frame
+df[5]
+
+# Rows 1:5 and column 2
+df[1:5, 2]
+
+# Single element
+df[[1,2]]
+
+```
+
+Or slice with `subset`
+
+
+```r
+survey_slice <- subset(x = survey,
+      subset = age < 50 &
+               sex == "m")
+
+survey_slice
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> ID </th>
+   <th style="text-align:left;"> sex </th>
+   <th style="text-align:right;"> age </th>
+   <th style="text-align:left;"> follow_up </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> TRUE </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
 
 ### Tibbles
 
@@ -845,7 +1101,66 @@ Data frames are a fundamental structure for managing tabular data in R. They exc
     
 - Tibbles only print the first 10 rows and all the columns that fit on a screen. - Each column displays its data type
 
-## Error/ Debugging
+The way we make tibbles is very similar to making dataframes
+
+
+```r
+survey_tibble <- tibble("index" = c(1, 2, 3, 4, 5),
+                     "sex" = c("m", "m", "m", "f", "f"),
+                     "age" = c(99, 46, 23, 54, 23))
+```
+
+
+
+```r
+# Some R functions for looking at tibbles and dataframes
+
+head(survey_tibble, n=2)
+tail(survey_tibble, n=1)
+nrow(survey_tibble)
+ncol(survey_tibble)
+colnames(survey_tibble)
+view(survey_tibble)
+glimpse(survey_tibble)
+str(survey_tibble)
+```
+
+### Brackets with tibbles
+
+The behaviour of single [] indexing with tibbles is slightly different. 
+
+In a dataframe [,1] extracts a single column as a vector, but with a tibble this conversion does not occur. Instead it returns as a tibble with a single column, not a vector.
+
+To extract a vector we must use:
+
+
+```r
+# pull function
+pull(survey_tibble, sex)
+
+# double brackets
+survey_tibble[[2]]
+```
+
+https://tibble.tidyverse.org/
+
+https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html
+
+
+## Matrix, dataframe, tibble functions
+
+Important functions for understanding matrices and dataframes.
+
+| Function                           | Description                                                |
+| ---------------------------------- | ---------------------------------------------------------- |
+| `head(x), tail(x)`                 | Print the first few rows (or last few rows).              |
+| `View(x)`                          | Open the entire object in a new window.                   |
+| `nrow(x), ncol(x), dim(x)`         | Count the number of rows and columns.                     |
+| `rownames(), colnames(), names()`  | Show the row (or column) names.                            |
+| `str(x), summary(x)`               | Show the structure of the dataframe (i.e., dimensions and classes) and summary statistics. |
+
+
+## Error
 
 Things will go wrong eventually, they always do...
 
@@ -857,7 +1172,7 @@ R is *very* pedantic, even the smallest typo can result in failure and typos are
 
 -   missing brackets
 
-There's nothing wrong with making *lots* of errors. The trick is not to panic or get frustrated, but to read the error message and our script carefully and start to *debug*...
+There's nothing wrong with making *lots* of errors. The trick is not to panic or get frustrated, but to read the error message and our script carefully and start to *debug* (more on this later)...
 
 ... and sometimes we need to walk away and come back later!
 
@@ -870,7 +1185,7 @@ specific topic</p>
 
 <div class="figure" style="text-align: center">
 <img src="images/Error.jpg" alt="R Error" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-55)courtesy of Allison Horst</p>
+<p class="caption">(\#fig:unnamed-chunk-67)courtesy of Allison Horst</p>
 </div>
 
 ## Functions
@@ -895,6 +1210,7 @@ The arguments:
 -   `digits =` 2 (the number of decimal places we would like to round to)
 
 **Arguments are the inputs we give to a function**. These arguments are in the form `name = value` the name specifies the argument, and the value is what we are providing to define the input. That is the first argument `x` is the number we would like to round, it has a value of 2.4326782647. The second argument `digits` is how we would like the number to be rounded and we specify 2. There is no limit to how many arguments a function *could* have.
+
 
 <div class="try">
 <p>Copy and paste the following code into the console.</p>
@@ -1018,236 +1334,46 @@ However, the power of R is that it is extendable and open source - anyone can cr
 
 An R package is a container for various things including functions and data. These make it easy to do very complicated protocols by using custom-built functions. Later we will see how we can write our own simple functions. Packages are a lot like new apps extending the functionality of what your phone can do.
 
-On RStudio Cloud I have already installed several add-on packages, all we need to do is use a simple function `library()` to load these packages into our workspace. Once this is complete we will have access to all the custom functions they contain.
-
-<div class="try">
-<p>Copy and paste the following code into the console.</p>
-</div>
-
-
-```r
-library(ggplot2)
-library(palmerpenguins)
-```
-
--   `ggplot2` - is one of the most popular packages to use in R. This "grammar of graphics" packages is dedicated to making data visualisations, and contains lots of dedicated functions for this.
-
--   `palmerpenguins` - is a good example of a data-heavy package, it contains no functions, but instead datasets that we can use.
-
-<div class="warning">
-<p>A common source of errors is to call a function that is part of a
-package but forgetting to load the package.</p>
-<p>If R says something like “Error in”function-name”: could not find X”
-then most likely the function was misspelled or the package containing
-the function hasn’t been loaded.</p>
-</div>
-
-
-### Organising scripts
-
-Scripts work best when they are well organised - and well documented. Simple tricks and consistent organisation can make your work easier to read and be reproduced by others.
-
-You should bookmark the [Tidyverse Style Guide](https://style.tidyverse.org/files.html), it is an opinionated way of organising your scripts and code so that it has a consistent style, that maximises readability. Later in the course we will use this as a benchmark for assessing your code writing.
-
-Annotating your instructions provides yourself and others insights into why you are doing what you are doing. This is a vital aspect of a robust and reproducible workflow. And when you come back to a script, one week, one month or one year from now you will often wonder what a command was for. It is very, very useful to make notes for yourself, and its useful in case anyone else will ever read your script. Make these comments helpful as they are for humans to read.
-
-We have already seen how to signal a comment with the `#` key. Everything in the line after a `#` is ignored by R and won't be treated as a command. You should also see that it is marked in a different colour in your script.
-
-<div class="try">
-<p>Put the following comment in your script on line 1.</p>
-</div>
-
-
-```r
-# I really love R
-```
-
-We can also use `#` to produce Headers of different levels, if we follow these with commented lines of `-` or `=` as shown in the figure below.
-
-<div class="figure" style="text-align: center">
-<img src="images/organised script.png" alt="R script document outline. Push the button with five horizontal lines to reveal how R recognises headers and subheaders" width="100%" />
-<p class="caption">(\#fig:script outline)R script document outline. Push the button with five horizontal lines to reveal how R recognises headers and subheaders</p>
-</div>
 
 ### Loading packages
 
-To use the functions from a package in our script they must be loaded *before* we call on the functions or data they contain. So the most sensible place to put library calls for packages is at the very **top** of our script. So let's do that now,
-
-<div class="try">
-<p>Add the commands<code>library(ggplot2)</code> and
-<code>library(palmerpenguins)</code> to your script.</p>
-<p>Think about how you would organise you script using the image above
-as a guide</p>
-<p>Put a comment next to each package explaining what it is for “Hint
-use the help() function”.</p>
-<p>Use the document outline button to help organise your script.</p>
-</div>
-
-
-<div class='webex-solution'><button>Solution</button>
-
+To use the functions from a package in our script they must be loaded *before* we call on the functions or data they contain. So the most sensible place to put library calls for packages is at the very **top** of our script.
 
 
 ```r
-# I really love R
-# _______________----
-
-# 📦 PACKAGES ----
-
-library(ggplot2) # create elegant data visualisations
-library(palmerpenguins) # Palmer Archipelago Penguin Data
-
-# ______________----
+library(package_name)
 ```
 
+### Calling Functions from Packages
 
-<div class="info">
-<p>R Studio will interpret Unicode to present images that you can
-include in your scripts. It’s not necessary, but a fun way to help
-organise your scripts.</p>
-</div>
-
-</div>
-
-
-### Adding more code
-
-<div class="try">
-<p>Add the below code into your script, underneath the sections you
-already have</p>
-</div>
-
-It is very similar to the code you ran earlier, but is preceded by `plot_1 <-`
+After loading a package, you can call its functions using either `function()` or the full `package_name::function_name()` syntax. This allows you to specify the package explicitly when using a particular function.
 
 
 ```r
-# DATA VISUAL ----
+library(dplyr)
 
-plot_1 <- ggplot(data = penguins, # calls ggplot function, data is penguins
-           aes(x = bill_length_mm, # sets x axis as bill length
-               y = bill_depth_mm)) + # sets y axis value as bill depth
-          geom_point(aes(colour=species)) # geometric to plot
+filter(dataframe, condition)
 
-# ______________----
+dplyr::filter(dataframe, conditions)
 ```
 
+Calling a function explicitly via its package can be useful for 
 
-### Running your script
+1. Avoiding Conflicts:
 
-To run the commands from your script, we need to get it *into* the Console. You could select and copy/paste this into the Console. But there are a couple of faster shortcuts.
+Sometimes, multiple packages may have functions with the same name. By explicitly specifying the package with package_name::, you avoid naming conflicts and ensure that R uses the function from the intended package.
 
--   Hit the Run button in the top right of the script pane. Pressing this will run the line of code the cursor is sitting on.
+2. Clarity:
 
--   Pressing Ctrl+Enter will do the same thing as hitting the Run button
+It can make your code more transparent and easier to understand, especially in cases where the function's origin is not immediately obvious. This is helpful for both yourself and others who read your code.
 
--   If you want to run the whole script in one go then press Ctrl+A then either click Run or press Ctrl+Enter
-
-Try it now.
-
-You should notice that unlike when making previous data visuals, you **do not** immediately see your graph, this is because you assigned the output of your functions to an **R object**, instead of the default action where R would print the output. Check the "Environment" tab - you should be able to see `plot_1` there.
-
--   To see the new plot you have made you should type `plot_1` into the R console. Or add it underneath the script and run it again!
-
-### Making an output
-
-For our next trick we will make a script that outputs a file. Underneath the lines of code to generate the figure we will add a new function `ggsave()`. Then **re-run your script**. To find out more about this function (and the arguments it contains), type `help(ggsave)` into the console.
+>Though it is still good practice to comment at the top of your script that this package is required even if you don't include library(package)
 
 
+3. Debugging:
 
-```r
-# OUTPUT TO FILE ----
+When troubleshooting issues or debugging code, specifying the package source of a function can help pinpoint problems and ensure that the correct function is being used.
 
-ggsave(filename = "2022_10_01_5023Y_workshop_1_penguin_scatterplot.png", 
-       plot = plot_1, 
-       dpi = 300, 
-       width = 6, 
-       height = 6)
-# _________________----
-```
-
-
-Check the Files tab on RStudio Cloud, there should now be a new file in your workspace called "2022_10_01_5023Y_workshop_1\_penguin_scatterplot.png".
-
-Wow that is a mouthful! Why have we made such a long filename? Well it contains information that should help you know what it is for the future.
-
--   Date
-
--   Module code
-
--   Short description of the file contents
-
-<div class="warning">
-<p>It is very important to have naming conventions for all files.</p>
-<p>Everything after the <code>.</code> is file extension information
-informing the computer how to process the contents of the file.
-<code>.png</code> stands for “Portable Graphics Format”, and it means
-the data is an uncompressed image format.</p>
-<p>Everything before the <code>.</code> is for humans, it is a good idea
-to make sure these have a naming convention.</p>
-<p>Avoid periods, spaces or slashes, instead use YYYYMMDD and
-underscores</p>
-<p>e.g. YYYYMMDD_short_image_description.fileextension</p>
-</div>
-
-### Saving your script
-
-Our script now contains code and comments from our first workshop. We need to save it.
-
-Alongside our data, our script is the most precious part of our analysis. We don't need to save anything else, any outputs etc. because our script can always be used to generate everything again. Note the colour of the script - the name changes colour when we have unsaved changes. Press the Save button or go to File \> Save as. Give the File a sensible name like "YYYYMMDD_5023Y_workshop_1\_simple_commands" and in the bottom right pane under `Files` you should now be able to see your saved script, it should be saved with a `.R` file extension indicating this is an R Script.
-
-You could now safely quit R, and when you log on next time to this project, your script will be waiting for you.
-
-
-
-<div class='webex-solution'><button>Check your script</button>
-
-
-
-```r
-# I really love R
-# _______________----
-
-# 📦 PACKAGES ----
-
-library(ggplot2) # create elegant data visualisations
-library(palmerpenguins) # Palmer Archipelago Penguin Data
-
-# ________________----
-# DATA VISUAL ----
-
-plot_1 <- ggplot(data = penguins, # calls ggplot function, data is penguins
-           aes(x = bill_length_mm, # sets x axis as bill length
-               y = bill_depth_mm)) + # sets y axis value as bill depth
-          geom_point(aes(colour=species)) # geometric to plot
-
-# ______________----
-
-# OUTPUT TO FILE ----
-
-ggsave(filename = "2022_10_01_5023Y_workshop_1_penguin_scatterplot.png", 
-       plot = plot_1, 
-       dpi = 300, 
-       width = 6, 
-       height = 6)
-# _________________----
-```
-
-
-</div>
-
-
-
-## Quitting
-
--   Make sure you have saved any changes to your R script - that's all you need to make sure you've done!
-
--   If you want me to take a look at your script let me know
-
--   If you spotted any mistakes or errors let me know
-
--   Close your RStudio Cloud Browser
-
--   Complete this week's short quiz!
 
 ## Activity 1
 
@@ -1343,17 +1469,17 @@ sessionInfo()
 ## [19] tidyverse_2.0.0     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    stringi_1.7.12   
-##  [5] extrafontdb_1.0   hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
-##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    httr_1.4.6        fansi_1.0.4      
-## [17] viridisLite_0.4.2 scales_1.2.1      codetools_0.2-19  jquerylib_0.1.4  
-## [21] cli_3.6.1         rlang_1.1.1       munsell_0.5.0     withr_2.5.0      
-## [25] cachem_1.0.8      yaml_2.3.7        tools_4.3.1       tzdb_0.4.0       
-## [29] memoise_2.0.1     colorspace_2.1-0  webshot_0.5.5     vctrs_0.6.3      
-## [33] R6_2.5.1          lifecycle_1.0.3   fs_1.6.2          pkgconfig_2.0.3  
-## [37] pillar_1.9.0      bslib_0.5.0       gtable_0.3.3      glue_1.6.2       
-## [41] systemfonts_1.0.4 xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
-## [45] htmltools_0.5.5   svglite_2.1.1     rmarkdown_2.23    Rttf2pt1_1.3.12  
-## [49] compiler_4.3.1    downlit_0.4.3
+##  [1] gtable_0.3.3      xfun_0.39         bslib_0.5.0       tzdb_0.4.0       
+##  [5] vctrs_0.6.3       tools_4.3.1       generics_0.1.3    fansi_1.0.4      
+##  [9] highr_0.10        pkgconfig_2.0.3   webshot_0.5.5     lifecycle_1.0.3  
+## [13] compiler_4.3.1    munsell_0.5.0     codetools_0.2-19  htmltools_0.5.5  
+## [17] sass_0.4.6        yaml_2.3.7        Rttf2pt1_1.3.12   pillar_1.9.0     
+## [21] jquerylib_0.1.4   extrafontdb_1.0   cachem_1.0.8      tidyselect_1.2.0 
+## [25] digest_0.6.33     stringi_1.7.12    bookdown_0.34     fastmap_1.1.1    
+## [29] grid_4.3.1        colorspace_2.1-0  cli_3.6.1         magrittr_2.0.3   
+## [33] utf8_1.2.3        withr_2.5.0       scales_1.2.1      timechange_0.2.0 
+## [37] rmarkdown_2.23    httr_1.4.6        hms_1.1.3         memoise_2.0.1    
+## [41] evaluate_0.21     viridisLite_0.4.2 rlang_1.1.1       downlit_0.4.3    
+## [45] glue_1.6.2        svglite_2.1.1     rstudioapi_0.15.0 jsonlite_1.8.7   
+## [49] R6_2.5.1          systemfonts_1.0.4 fs_1.6.2
 ```

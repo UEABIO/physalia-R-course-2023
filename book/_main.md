@@ -1,7 +1,7 @@
 --- 
 title: "Advancing in R"
 author: "Philip T. Leftwich"
-date: "2023-11-02"
+date: "2023-11-04"
 subtitle: A guide for Biologists and Ecologists
 site: bookdown::bookdown_site
 documentclass: book
@@ -688,7 +688,7 @@ You can access the attributes of an object, if it has any, by using the `attribu
 
 ## Vectors
 
-We have been working with R objects containing a single element of data, but we will more commonly work with vectors. A vector is a sequence of elements, all of the same data type. These could be logical, numerical, character etc.
+We have been working with R objects containing a single element of data (the technical term is **scalar**), but we will more commonly work with vectors. A vector is a sequence of elements, all of the same data type. These could be logical, numerical, character etc.
 
 
 ```r
@@ -747,6 +747,34 @@ as.character(x)
 </div></div></div>
 
 Sometimes, R can’t figure out how to coerce an object and this can result in `NA`s being produced
+
+### Subsetting vectors
+
+With numerical indexing, you enter a vector of integers corresponding to the values in the vector you want to access in the form a[index], where a is the vector, and index is a vector of index values. For example, let’s use numerical indexing to get values from our character_vector
+
+
+```r
+character_vector[2]
+# [1] "vegetables"
+
+
+character_vector[1:2]
+# [1] "fruits"     "vegetables"
+
+character_vector[c(1,3)]
+# [1] "fruits" "seeds" 
+```
+
+We can also use logical indexing
+
+
+```r
+numeric_vector <=2
+# [1]  TRUE  TRUE FALSE
+
+character_vector == "fruits"
+#[1]  TRUE FALSE FALSE
+```
 
 ## Matrices
 
@@ -902,8 +930,236 @@ Here are some key characteristics and advantages of data frames:
 
 Data frames are a fundamental structure for managing tabular data in R. They excel in handling datasets with mixed data types and are essential for various data analysis and modeling tasks.
 
+To create a dataframe from vectors we use the `data.frame()` function
 
 
+```r
+survey <- data.frame("index" = c(1, 2, 3, 4, 5),
+                     "sex" = c("m", "m", "m", "f", "f"),
+                     "age" = c(99, 46, 23, 54, 23))
+```
+
+There is one key argument to `data.frame()` and similar functions called `stringsAsFactors`. By default, the data.frame() function will automatically convert any string columns to a specific type of object called a factor in R. A factor is a nominal variable that has a well-specified possible set of values that it can take on. For example, one can create a factor sex that can only take on the values "male" and "female".
+
+<div class="warning">
+<p>Since R ver 4.0 release, stringsAsFactors is set FALSE by
+default!</p>
+</div>
+
+However, as I’m sure you’ll discover, having R automatically convert your string data to factors can lead to lots of strange results. For example: if you have a factor of sex data, but then you want to add a new value called other, R will yell at you and return an error. I hate, hate, HATE when this happens. While there are very, very rare cases when I find factors useful, I almost always don’t want or need them. For this reason, I avoid them at all costs.
+
+To tell R to not convert your string columns to factors, you need to include the argument `stringsAsFactors = FALSE` when using functions such as `data.frame()`
+
+
+```r
+str(survey)
+```
+
+```
+## 'data.frame':	5 obs. of  3 variables:
+##  $ index: num  1 2 3 4 5
+##  $ sex  : chr  "m" "m" "m" "f" ...
+##  $ age  : num  99 46 23 54 23
+```
+
+To access a specific column in a dataframe by name, you use the `$` operator in the form `df$name` where `df` is the name of the dataframe, and name is the name of the column you are interested in. This operation will then return the column you want as a vector.
+
+
+```r
+survey$sex
+```
+
+```
+## [1] "m" "m" "m" "f" "f"
+```
+
+Because the `$` operator returns a vector, you can easily calculate descriptive statistics on columns of a dataframe by applying your favorite vector function (like `mean()`). 
+
+
+```r
+mean(survey$age)
+```
+
+```
+## [1] 49
+```
+
+We can also use the `$` to add new vectors to a dataframe
+
+
+```r
+survey$follow_up <- c(T,F,T,F,F)
+survey
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> index </th>
+   <th style="text-align:left;"> sex </th>
+   <th style="text-align:right;"> age </th>
+   <th style="text-align:left;"> follow_up </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 99 </td>
+   <td style="text-align:left;"> TRUE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> TRUE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> f </td>
+   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> f </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+Changing column names is easy with a combination of `names()` and indexing
+
+
+```r
+names(survey)[1] <- "ID"
+
+survey
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> ID </th>
+   <th style="text-align:left;"> sex </th>
+   <th style="text-align:right;"> age </th>
+   <th style="text-align:left;"> follow_up </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 99 </td>
+   <td style="text-align:left;"> TRUE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> TRUE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> f </td>
+   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> f </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+### Slice dataframes
+
+Matrices and dataframes can be sliced with `[,]`
+
+```
+# Return row 1
+df[1, ]
+
+
+# Return column 5 as vector
+df[, 5]
+
+# Return column as data.frame
+df[5]
+
+# Rows 1:5 and column 2
+df[1:5, 2]
+
+# Single element
+df[[1,2]]
+
+```
+
+Or slice with `subset`
+
+
+```r
+survey_slice <- subset(x = survey,
+      subset = age < 50 &
+               sex == "m")
+
+survey_slice
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> ID </th>
+   <th style="text-align:left;"> sex </th>
+   <th style="text-align:right;"> age </th>
+   <th style="text-align:left;"> follow_up </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:left;"> FALSE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> m </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:left;"> TRUE </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
 
 ### Tibbles
 
@@ -919,7 +1175,66 @@ Data frames are a fundamental structure for managing tabular data in R. They exc
     
 - Tibbles only print the first 10 rows and all the columns that fit on a screen. - Each column displays its data type
 
-## Error/ Debugging
+The way we make tibbles is very similar to making dataframes
+
+
+```r
+survey_tibble <- tibble("index" = c(1, 2, 3, 4, 5),
+                     "sex" = c("m", "m", "m", "f", "f"),
+                     "age" = c(99, 46, 23, 54, 23))
+```
+
+
+
+```r
+# Some R functions for looking at tibbles and dataframes
+
+head(survey_tibble, n=2)
+tail(survey_tibble, n=1)
+nrow(survey_tibble)
+ncol(survey_tibble)
+colnames(survey_tibble)
+view(survey_tibble)
+glimpse(survey_tibble)
+str(survey_tibble)
+```
+
+### Brackets with tibbles
+
+The behaviour of single [] indexing with tibbles is slightly different. 
+
+In a dataframe [,1] extracts a single column as a vector, but with a tibble this conversion does not occur. Instead it returns as a tibble with a single column, not a vector.
+
+To extract a vector we must use:
+
+
+```r
+# pull function
+pull(survey_tibble, sex)
+
+# double brackets
+survey_tibble[[2]]
+```
+
+https://tibble.tidyverse.org/
+
+https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html
+
+
+## Matrix, dataframe, tibble functions
+
+Important functions for understanding matrices and dataframes.
+
+| Function                           | Description                                                |
+| ---------------------------------- | ---------------------------------------------------------- |
+| `head(x), tail(x)`                 | Print the first few rows (or last few rows).              |
+| `View(x)`                          | Open the entire object in a new window.                   |
+| `nrow(x), ncol(x), dim(x)`         | Count the number of rows and columns.                     |
+| `rownames(), colnames(), names()`  | Show the row (or column) names.                            |
+| `str(x), summary(x)`               | Show the structure of the dataframe (i.e., dimensions and classes) and summary statistics. |
+
+
+## Error
 
 Things will go wrong eventually, they always do...
 
@@ -931,7 +1246,7 @@ R is *very* pedantic, even the smallest typo can result in failure and typos are
 
 -   missing brackets
 
-There's nothing wrong with making *lots* of errors. The trick is not to panic or get frustrated, but to read the error message and our script carefully and start to *debug*...
+There's nothing wrong with making *lots* of errors. The trick is not to panic or get frustrated, but to read the error message and our script carefully and start to *debug* (more on this later)...
 
 ... and sometimes we need to walk away and come back later!
 
@@ -944,7 +1259,7 @@ specific topic</p>
 
 <div class="figure" style="text-align: center">
 <img src="images/Error.jpg" alt="R Error" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-55)courtesy of Allison Horst</p>
+<p class="caption">(\#fig:unnamed-chunk-67)courtesy of Allison Horst</p>
 </div>
 
 ## Functions
@@ -969,6 +1284,7 @@ The arguments:
 -   `digits =` 2 (the number of decimal places we would like to round to)
 
 **Arguments are the inputs we give to a function**. These arguments are in the form `name = value` the name specifies the argument, and the value is what we are providing to define the input. That is the first argument `x` is the number we would like to round, it has a value of 2.4326782647. The second argument `digits` is how we would like the number to be rounded and we specify 2. There is no limit to how many arguments a function *could* have.
+
 
 <div class="try">
 <p>Copy and paste the following code into the console.</p>
@@ -1092,236 +1408,46 @@ However, the power of R is that it is extendable and open source - anyone can cr
 
 An R package is a container for various things including functions and data. These make it easy to do very complicated protocols by using custom-built functions. Later we will see how we can write our own simple functions. Packages are a lot like new apps extending the functionality of what your phone can do.
 
-On RStudio Cloud I have already installed several add-on packages, all we need to do is use a simple function `library()` to load these packages into our workspace. Once this is complete we will have access to all the custom functions they contain.
-
-<div class="try">
-<p>Copy and paste the following code into the console.</p>
-</div>
-
-
-```r
-library(ggplot2)
-library(palmerpenguins)
-```
-
--   `ggplot2` - is one of the most popular packages to use in R. This "grammar of graphics" packages is dedicated to making data visualisations, and contains lots of dedicated functions for this.
-
--   `palmerpenguins` - is a good example of a data-heavy package, it contains no functions, but instead datasets that we can use.
-
-<div class="warning">
-<p>A common source of errors is to call a function that is part of a
-package but forgetting to load the package.</p>
-<p>If R says something like “Error in”function-name”: could not find X”
-then most likely the function was misspelled or the package containing
-the function hasn’t been loaded.</p>
-</div>
-
-
-### Organising scripts
-
-Scripts work best when they are well organised - and well documented. Simple tricks and consistent organisation can make your work easier to read and be reproduced by others.
-
-You should bookmark the [Tidyverse Style Guide](https://style.tidyverse.org/files.html), it is an opinionated way of organising your scripts and code so that it has a consistent style, that maximises readability. Later in the course we will use this as a benchmark for assessing your code writing.
-
-Annotating your instructions provides yourself and others insights into why you are doing what you are doing. This is a vital aspect of a robust and reproducible workflow. And when you come back to a script, one week, one month or one year from now you will often wonder what a command was for. It is very, very useful to make notes for yourself, and its useful in case anyone else will ever read your script. Make these comments helpful as they are for humans to read.
-
-We have already seen how to signal a comment with the `#` key. Everything in the line after a `#` is ignored by R and won't be treated as a command. You should also see that it is marked in a different colour in your script.
-
-<div class="try">
-<p>Put the following comment in your script on line 1.</p>
-</div>
-
-
-```r
-# I really love R
-```
-
-We can also use `#` to produce Headers of different levels, if we follow these with commented lines of `-` or `=` as shown in the figure below.
-
-<div class="figure" style="text-align: center">
-<img src="images/organised script.png" alt="R script document outline. Push the button with five horizontal lines to reveal how R recognises headers and subheaders" width="100%" />
-<p class="caption">(\#fig:script outline)R script document outline. Push the button with five horizontal lines to reveal how R recognises headers and subheaders</p>
-</div>
 
 ### Loading packages
 
-To use the functions from a package in our script they must be loaded *before* we call on the functions or data they contain. So the most sensible place to put library calls for packages is at the very **top** of our script. So let's do that now,
-
-<div class="try">
-<p>Add the commands<code>library(ggplot2)</code> and
-<code>library(palmerpenguins)</code> to your script.</p>
-<p>Think about how you would organise you script using the image above
-as a guide</p>
-<p>Put a comment next to each package explaining what it is for “Hint
-use the help() function”.</p>
-<p>Use the document outline button to help organise your script.</p>
-</div>
-
-
-<div class='webex-solution'><button>Solution</button>
-
+To use the functions from a package in our script they must be loaded *before* we call on the functions or data they contain. So the most sensible place to put library calls for packages is at the very **top** of our script.
 
 
 ```r
-# I really love R
-# _______________----
-
-# 📦 PACKAGES ----
-
-library(ggplot2) # create elegant data visualisations
-library(palmerpenguins) # Palmer Archipelago Penguin Data
-
-# ______________----
+library(package_name)
 ```
 
+### Calling Functions from Packages
 
-<div class="info">
-<p>R Studio will interpret Unicode to present images that you can
-include in your scripts. It’s not necessary, but a fun way to help
-organise your scripts.</p>
-</div>
-
-</div>
-
-
-### Adding more code
-
-<div class="try">
-<p>Add the below code into your script, underneath the sections you
-already have</p>
-</div>
-
-It is very similar to the code you ran earlier, but is preceded by `plot_1 <-`
+After loading a package, you can call its functions using either `function()` or the full `package_name::function_name()` syntax. This allows you to specify the package explicitly when using a particular function.
 
 
 ```r
-# DATA VISUAL ----
+library(dplyr)
 
-plot_1 <- ggplot(data = penguins, # calls ggplot function, data is penguins
-           aes(x = bill_length_mm, # sets x axis as bill length
-               y = bill_depth_mm)) + # sets y axis value as bill depth
-          geom_point(aes(colour=species)) # geometric to plot
+filter(dataframe, condition)
 
-# ______________----
+dplyr::filter(dataframe, conditions)
 ```
 
+Calling a function explicitly via its package can be useful for 
 
-### Running your script
+1. Avoiding Conflicts:
 
-To run the commands from your script, we need to get it *into* the Console. You could select and copy/paste this into the Console. But there are a couple of faster shortcuts.
+Sometimes, multiple packages may have functions with the same name. By explicitly specifying the package with package_name::, you avoid naming conflicts and ensure that R uses the function from the intended package.
 
--   Hit the Run button in the top right of the script pane. Pressing this will run the line of code the cursor is sitting on.
+2. Clarity:
 
--   Pressing Ctrl+Enter will do the same thing as hitting the Run button
+It can make your code more transparent and easier to understand, especially in cases where the function's origin is not immediately obvious. This is helpful for both yourself and others who read your code.
 
--   If you want to run the whole script in one go then press Ctrl+A then either click Run or press Ctrl+Enter
-
-Try it now.
-
-You should notice that unlike when making previous data visuals, you **do not** immediately see your graph, this is because you assigned the output of your functions to an **R object**, instead of the default action where R would print the output. Check the "Environment" tab - you should be able to see `plot_1` there.
-
--   To see the new plot you have made you should type `plot_1` into the R console. Or add it underneath the script and run it again!
-
-### Making an output
-
-For our next trick we will make a script that outputs a file. Underneath the lines of code to generate the figure we will add a new function `ggsave()`. Then **re-run your script**. To find out more about this function (and the arguments it contains), type `help(ggsave)` into the console.
+>Though it is still good practice to comment at the top of your script that this package is required even if you don't include library(package)
 
 
+3. Debugging:
 
-```r
-# OUTPUT TO FILE ----
+When troubleshooting issues or debugging code, specifying the package source of a function can help pinpoint problems and ensure that the correct function is being used.
 
-ggsave(filename = "2022_10_01_5023Y_workshop_1_penguin_scatterplot.png", 
-       plot = plot_1, 
-       dpi = 300, 
-       width = 6, 
-       height = 6)
-# _________________----
-```
-
-
-Check the Files tab on RStudio Cloud, there should now be a new file in your workspace called "2022_10_01_5023Y_workshop_1\_penguin_scatterplot.png".
-
-Wow that is a mouthful! Why have we made such a long filename? Well it contains information that should help you know what it is for the future.
-
--   Date
-
--   Module code
-
--   Short description of the file contents
-
-<div class="warning">
-<p>It is very important to have naming conventions for all files.</p>
-<p>Everything after the <code>.</code> is file extension information
-informing the computer how to process the contents of the file.
-<code>.png</code> stands for “Portable Graphics Format”, and it means
-the data is an uncompressed image format.</p>
-<p>Everything before the <code>.</code> is for humans, it is a good idea
-to make sure these have a naming convention.</p>
-<p>Avoid periods, spaces or slashes, instead use YYYYMMDD and
-underscores</p>
-<p>e.g. YYYYMMDD_short_image_description.fileextension</p>
-</div>
-
-### Saving your script
-
-Our script now contains code and comments from our first workshop. We need to save it.
-
-Alongside our data, our script is the most precious part of our analysis. We don't need to save anything else, any outputs etc. because our script can always be used to generate everything again. Note the colour of the script - the name changes colour when we have unsaved changes. Press the Save button or go to File \> Save as. Give the File a sensible name like "YYYYMMDD_5023Y_workshop_1\_simple_commands" and in the bottom right pane under `Files` you should now be able to see your saved script, it should be saved with a `.R` file extension indicating this is an R Script.
-
-You could now safely quit R, and when you log on next time to this project, your script will be waiting for you.
-
-
-
-<div class='webex-solution'><button>Check your script</button>
-
-
-
-```r
-# I really love R
-# _______________----
-
-# 📦 PACKAGES ----
-
-library(ggplot2) # create elegant data visualisations
-library(palmerpenguins) # Palmer Archipelago Penguin Data
-
-# ________________----
-# DATA VISUAL ----
-
-plot_1 <- ggplot(data = penguins, # calls ggplot function, data is penguins
-           aes(x = bill_length_mm, # sets x axis as bill length
-               y = bill_depth_mm)) + # sets y axis value as bill depth
-          geom_point(aes(colour=species)) # geometric to plot
-
-# ______________----
-
-# OUTPUT TO FILE ----
-
-ggsave(filename = "2022_10_01_5023Y_workshop_1_penguin_scatterplot.png", 
-       plot = plot_1, 
-       dpi = 300, 
-       width = 6, 
-       height = 6)
-# _________________----
-```
-
-
-</div>
-
-
-
-## Quitting
-
--   Make sure you have saved any changes to your R script - that's all you need to make sure you've done!
-
--   If you want me to take a look at your script let me know
-
--   If you spotted any mistakes or errors let me know
-
--   Close your RStudio Cloud Browser
-
--   Complete this week's short quiz!
 
 ## Activity 1
 
@@ -1417,31 +1543,414 @@ sessionInfo()
 ## [19] tidyverse_2.0.0     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    stringi_1.7.12   
-##  [5] extrafontdb_1.0   hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
-##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    httr_1.4.6        fansi_1.0.4      
-## [17] viridisLite_0.4.2 scales_1.2.1      codetools_0.2-19  jquerylib_0.1.4  
-## [21] cli_3.6.1         rlang_1.1.1       munsell_0.5.0     withr_2.5.0      
-## [25] cachem_1.0.8      yaml_2.3.7        tools_4.3.1       tzdb_0.4.0       
-## [29] memoise_2.0.1     colorspace_2.1-0  webshot_0.5.5     vctrs_0.6.3      
-## [33] R6_2.5.1          lifecycle_1.0.3   fs_1.6.2          pkgconfig_2.0.3  
-## [37] pillar_1.9.0      bslib_0.5.0       gtable_0.3.3      glue_1.6.2       
-## [41] systemfonts_1.0.4 xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
-## [45] htmltools_0.5.5   svglite_2.1.1     rmarkdown_2.23    Rttf2pt1_1.3.12  
-## [49] compiler_4.3.1    downlit_0.4.3
+##  [1] gtable_0.3.3      xfun_0.39         bslib_0.5.0       tzdb_0.4.0       
+##  [5] vctrs_0.6.3       tools_4.3.1       generics_0.1.3    fansi_1.0.4      
+##  [9] highr_0.10        pkgconfig_2.0.3   webshot_0.5.5     lifecycle_1.0.3  
+## [13] compiler_4.3.1    munsell_0.5.0     codetools_0.2-19  htmltools_0.5.5  
+## [17] sass_0.4.6        yaml_2.3.7        Rttf2pt1_1.3.12   pillar_1.9.0     
+## [21] jquerylib_0.1.4   extrafontdb_1.0   cachem_1.0.8      tidyselect_1.2.0 
+## [25] digest_0.6.33     stringi_1.7.12    bookdown_0.34     fastmap_1.1.1    
+## [29] grid_4.3.1        colorspace_2.1-0  cli_3.6.1         magrittr_2.0.3   
+## [33] utf8_1.2.3        withr_2.5.0       scales_1.2.1      timechange_0.2.0 
+## [37] rmarkdown_2.23    httr_1.4.6        hms_1.1.3         memoise_2.0.1    
+## [41] evaluate_0.21     viridisLite_0.4.2 rlang_1.1.1       downlit_0.4.3    
+## [45] glue_1.6.2        svglite_2.1.1     rstudioapi_0.15.0 jsonlite_1.8.7   
+## [49] R6_2.5.1          systemfonts_1.0.4 fs_1.6.2
 ```
 
 <!--chapter:end:01-intro-to-r.Rmd-->
 
-# (PART\*) Exploring Data {.unnumbered}
+# (PART\*) Organising workflows {.unnumbered}
 
-# Loading data
+# Project-oriented workflows
+
+In RStudio, a project is a way to organize your work within the IDE. It's a fundamental concept designed to enhance your workflow by providing a structured and efficient means of managing your R-related tasks and files. Here's why R projects are useful:
+
+**1. Organized File Structure:** R projects encourage you to maintain a well-organized file structure for your work. Instead of having scattered R scripts, data files, and figures, you create a dedicated folder for each project. This folder typically contains all project-related materials, including data, code, figures, notes, and any other relevant files.
+
+**2. Working Directory Management:** When you open an R project in RStudio, it automatically sets the working directory to the project's folder. This ensures that all file paths are relative to the project's location. This working directory intentionality eliminates the need for setting working directories manually or using absolute paths in your code.
+
+**3. Portability and Collaboration:** R projects make your work more portable and collaborative. Since all paths are relative to the project folder, the project can be easily shared with others. It ensures that the code works consistently across different computers and for other users, promoting collaboration and reproducibility.
+
+**4. RStudio Integration:** RStudio integrates project management seamlessly. You can designate a folder as an R project, and RStudio leaves a `.Rproj` file in that folder to store project-specific settings. When you double-click on this file, it opens a fresh instance of RStudio with the project's working directory and file browser pointed at the project folder.
+
+**5. Efficient Workflow:** RStudio provides various menu options and keyboard shortcuts for managing projects. This includes the ability to open existing projects, switch between projects, and even launch multiple instances of RStudio for different projects.
+
+In essence, R projects help you maintain a clean and organized workspace, improve collaboration, and ensure that your work remains reproducible and transferable across different environments and over time. It's a best practice for data scientists and analysts working with R, as it fosters the disciplined use of relative file paths and working directories, which is crucial for the reliability and scalability of your R projects.
+
+
+## Setting up a new project
+
+You should start a new R project when you begin working on a distinct task, research project, or analysis. This ensures that your work is well-organized, and it's especially beneficial when you need to collaborate, share, or revisit the project later.
+
+To create and open an R project in RStudio:
+
+1. Go to "File" in the RStudio menu.
+
+2. Select "New Project..."
+
+3. Choose a project type or create a new directory for the project.
+
+4. Click "Create Project."
+
+The new project will be created with a .Rproj file. You can open it by double-clicking on this file or by using the "File" menu in RStudio.
+
+This will set up a dedicated workspace for your project, ensuring that the working directory and file paths are appropriately managed.
+
+## Avoiding setwd() and Promoting Safe File Paths:
+
+To maintain a clean and efficient workflow in R, it's advisable to avoid using `setwd()` at the beginning of each script. This practice promotes the use of safe file paths and is particularly important for projects with multiple collaborators or when working across different computers.
+
+### Absolute vs. Relative Paths:
+
+While absolute file paths provide an explicit way to locate resources, they have significant drawbacks, such as incompatibility and reduced reproducibility. Relative file paths, on the other hand, are relative to the current working directory, making them shorter, more portable, and more reproducible.
+
+An **Absolute file path** is a path that contains the entire path to a file or directory starting from your Home directory and ending at the file or directory you wish to access e.g.
+
+```
+/home/your-username/project/data/penguins_raw.csv
+```
+
+- If you share files, another user won’t have the same directory structure as you, so they will need to recreate the file paths
+
+- If you alter your directory structure, you’ll need to rewrite the paths
+
+- An absolute file path will likely be longer than a relative path, more of the backslashes will need to be edited, so there is more scope for error.
+
+A **Relative filepath** is the path that is relative to the working directory location on your computer.
+
+When you use RStudio Projects, wherever the `.Rproj` file is located is set to the working directory. This means that if the `.Rproj` file is located in your project folder then the relative path to your data is:
+
+```
+data/penguins_raw.csv
+```
+
+This filepath is shorter and it means you could share your project with someone else and the script would run without any editing.
+
+### Organizing Projects:
+
+A key aspect of this workflow is organizing each logical project into a separate folder on your computer. This ensures that files and scripts are well-structured, making it easier to manage your work.
+
+### The `here` Package:
+
+To further enhance this organization and ensure that file paths are independent of specific working directories, the here package comes into play. The `here()` function provided by this package builds file paths relative to the top-level directory of your project.
+
+```
+my_project.RProj/
+    |- data/
+    |   |- raw/
+    |       |- penguins_raw.csv
+    |   |- processed/
+    |- scripts/
+    |   |- analysis.R
+    |- results/
+
+
+```
+
+In the above project example you have raw data files in the data/raw directory, scripts in the scripts directory, and you want to save processed data in the data/processed directory.
+
+To access this data using a relative filepath we need:
+
+
+```r
+raw_data <- read.csv("data/raw/penguins_raw.csv")
+```
+
+To access this data with `here` we provide the directories and desired file, and `here()` builds the required filepath starting at the top level of our project each time
+
+
+```r
+library(here)
+
+raw_data <- read.csv(here("data", "raw", "penguins.csv"))
+```
+
+#### here and Rmarkdown
+
+One quirk of working in a `.Rmd` Rmarkdown file is that when you "knit" all code is compiled with the working directory as the folder that .Rmd file lives in, but if you are working in a script `.R` or in a live session then the default working directory is the top level of the project file. This frustrating and confusing process can lead to errors when attempting to compile documents. 
+
+**BUT** if you use the `here` package then this default behaviour is overridden. The working directory when knitting will be the top-level .Rproj location again!
+
+
+### Reading
+
+https://github.com/jennybc/here_here
+
+https://cran.r-project.org/web/packages/here/index.html
+
+
+## Blank slates
+
+When working on data analysis and coding projects in R, it's crucial to ensure that your analysis remains clean, reproducible, and free from hidden dependencies. 
+
+Hidden dependencies are elements in your R session that might not be immediately apparent but can significantly impact the reliability and predictability of your work.
+
+For example many data analysis scripts start with the command `rm(list = ls())`. While this command clears user-created objects from the workspace, it leaves hidden dependencies as it does not reset the R session, and can cause issues such as: 
+
+- **Hidden Dependencies:** Users might unintentionally rely on packages or settings applied in the current session.
+
+- **Incomplete Reset:** Package attachments made with `library()` persist, and customized options remain set.
+
+- **Working Directory:** The working directory is not affected, potentially causing path-related problems in future scripts.
+
+### Restart R sessions
+
+Restarting R sessions and using scripts as your history is a best practice for maintaining a clean, reproducible, and efficient workflow. It addresses the limitations of `rm(list = ls())` by ensuring a complete reset and minimizing hidden dependencies, enhancing code organization, and ensuring your analysis remains robust and predictable across sessions and when shared with others.
+
+<img src="images/rstudio-workspace.png" width="80%" style="display: block; margin: auto;" />
+
+# Basic Import/Export
+
+When loading data into R, the choice of method matters, especially for tabular data like CSV files. There are three common approaches: 
+
+- base R's `read.csv()`
+
+- the `data.table` package with `fread()`
+
+the `readr` package with functions like `read_csv()`
+
+The performance gains of `data.table` and `readr` become significant as data size grows, especially for datasets with many rows. For files larger than 100 MB, `fread()` and `read_csv()` are about five times faster than `read.csv()`. However, the choice should consider memory usage, as very large datasets may impact it.
+
+Keep in mind that `data.table` and `readr` are separate packages, requiring installation and loading.
+
+>readr functions
+
+| Function         | Description                                          |
+|------------------|------------------------------------------------------|
+| `read_csv()`     | CSV file format                                      |
+| `read_tsv()`     | TSV (Tab-Separated Values) file format               |
+| `read_delim()`   | User-specified delimited files                       |
+| `read_fwf()`     | Fixed-width files                                    |
+| `read_table()`   | Whitespace-separated files                           |
+| `read_log()`     | Web log files                                        |
+
+
+## Export
+
+Each of these packages and functions has the inverse "write" function to produce files in a variety of formats from R objects.
+
+## R data files
+
+R has binary file formats for easy saving and loading of data, `.Rdata` and `RDS`:
+
+**.Rdata** file is a binary file format in R used to save the entire workspace, which includes objects, functions, data frames, and more. It captures the current R session's state, allowing you to save and load the entire workspace, including all objects, in a single file.
+
+
+
+```r
+# Create some sample data
+my_data <- data.frame(
+  ID = 1:3,
+  Name = c("Alice", "Bob", "Charlie"),
+  Score = c(95, 87, 92)
+)
+
+# Save the entire workspace to an .Rdata file
+save.image(file = "my_workspace.Rdata")
+
+# Clear the current workspace
+rm(list = ls())
+
+# Load the entire workspace from the .Rdata file
+load("my_workspace.Rdata")
+
+# Access the loaded data
+print(my_data)
+```
+
+
+**.RDS** file, or R Data Serialization file, is a binary file format in R used to save individual R objects. Unlike .Rdata, it is not meant to save the entire workspace but specific objects or data structures.
+
+
+```r
+# Create some sample data
+my_data <- data.frame(
+  ID = 1:3,
+  Name = c("Alice", "Bob", "Charlie"),
+  Score = c(95, 87, 92)
+)
+
+# Save the data frame to an .RDS file
+saveRDS(my_data, file = "my_data.RDS")
+
+# Clear the current workspace
+rm(list = ls())
+
+# Load the data frame from the .RDS file
+loaded_data <- readRDS("my_data.RDS")
+
+# Access the loaded data
+print(loaded_data)
+```
+
+Using these file formats can have several advantages:
+
+**Preservation of Data Types and Structure:** .RDS files preserve the original data types and structure of R objects, including lists, data frames, functions and more.
+
+**Efficiency and Speed:** Reading and writing data in the .RDS format is more efficient and faster than working with text-based formats like CSV. 
+
+**Control Over Specific Objects:** .RDS files allow you to save and load specific R objects or datasets, providing control and flexibility. 
+
+### Objects that take a long time
+
+If there are parts of your analysis that are time-consuming to execute, it's an indication that it's a suitable time to adopt a modular approach. This approach involves dividing your analysis into distinct phases, with each phase having its dedicated script and resulting outputs. 
+
+You can address this by isolating computationally intensive steps in separate scripts and saving the critical object to a file using `saveRDS`. Subsequently, you can create scripts for downstream tasks that reload the essential object with `readRDS`. Breaking down your analysis into logical steps with clear inputs and outputs is generally a sound practice.
+
+
+# Scripts
+
+To ensure clarity and understanding, begin your script with a brief description of its purpose. This description will serve as a reference point for anyone who accesses your script. Even if you make updates later on, having this initial description will help maintain clarity and context, preventing confusion when revisiting the code in the future.
+
+## Organised scripts
+
+Load all necessary packages at the beginning of your script.
+It's common to start with basic packages and then add more specialized libraries as your analysis progresses. However, it's crucial to load all required packages at the beginning of your script. This practice ensures that when you or someone else needs to run the script again, all necessary libraries are readily available, preventing issues in the middle of execution due to unrecognized functions. Small coding details matter.
+
+Name your code sections and use them for quick navigation.
+As your code grows, it may become extensive and challenging to manage. To keep it organized, divide your code into sections, each with a specific name, which can be folded or unfolded for easy navigation. You can also use the 'drop-up' menu at the bottom of the script screen to move between sections.
+
+To create a new code section, insert "####" or "----" at the end of a comment that marks the beginning of a new section.
+
+<img src="images/organised script.png" width="80%" style="display: block; margin: auto;" />
+
+I understand, we all have good intentions, but we often neglect the task of thoroughly commenting our code. I've made that promise to myself many times, but even now, I struggle to do it consistently. Why, you ask? Here are a few reasons:
+
+1. I often tell myself that the analysis itself is more crucial.
+2. I believe I understand my own code.
+3. I usually don't have immediate collaborators who need to use my code.
+
+However, these arguments are somewhat shortsighted. The reality is that:
+
+- The most valuable and relevant analysis loses its value if neither you nor others can understand it. (More on this below)
+- While you may know what you're doing at the moment, it won't feel the same way in a month or two when you've moved on to another project, and someone innocently asks you about how you defined a critical variable. Our memory is unreliable. It's important not to rely on it for every piece of code you produce.
+- Even if you don't have active collaborators at the time of your analysis, someone will eventually need to use your code. You won't be in the same position forever. You're creating a legacy that, someday, someone will rely on, no matter how distant that day may seem right now.
+
+So, what makes code good and reproducible?
+
+1. Thoughtful and clear comments.
+2. Code that is logical and efficient.
+3. Code that has been appropriately timed and tested.
+
+## Use style guides
+
+Consider using a style guide, such as the [tidyverse style guide](https://style.tidyverse.org/), is a beneficial practice for several reasons:
+
+Consistency: A style guide enforces consistent code formatting and naming conventions throughout your project. This consistency improves code readability and makes it easier for you and others to understand the code. When you have multiple people working on a project, a shared style guide ensures that everyone's code looks similar, reducing confusion and errors.
+
+Readability: Following a style guide leads to more readable code. Code is often read more frequently than it is written, so making it easy to understand is crucial. The tidyverse style guide, for example, emphasizes clear and self-explanatory code, improving comprehension for both current and future users. Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread
+
+Collaboration: When working with a team, adhering to a common style guide makes it easier to collaborate. It reduces the friction associated with different team members using varying coding styles and preferences. This streamlines code reviews and simplifies the process of maintaining and extending the codebase.
+
+Error Reduction: A style guide can help identify and prevent common coding errors. It promotes best practices and can include guidelines for avoiding pitfalls and potential issues. This reduces the likelihood of bugs and enhances the overall quality of the code.
+
+## Separate your scripts
+
+Separating your analysis into distinct scripts for different steps is a sound practice in data analysis. Each script can focus on a specific task or step, making your work more organized and understandable.
+
+You can use the `source` function in R to run previous dependencies, ensuring that you can reproduce your work easily. Additionally, for computationally intensive processes or when dealing with large datasets, you can save and load intermediate results in RDS format. This approach not only conserves memory but also saves time when re-running your analysis.
+
+```
+project_folder/
+│
+├── data/
+│   ├── data.csv
+│   ├── processed_data.rds
+│
+├── scripts/
+│   ├── data_preparation.R
+│   ├── data_analysis.R
+│   ├── visualization.R
+│   ├── helper_functions.R
+│
+├── output/
+│   ├── result.csv
+│
+├── README.md
+│
+├── project.Rproj
+
+```
+
+## Activity
+
+Using the [Tidyverse style guide](https://style.tidyverse.org/index.html) for help, how could you improve the layout and readability of this script?
+
+
+```r
+# Install and load necessary packages
+library(dplyr)
+library(ggplot2)
+library(palmerpenguins)
+
+penguins_clean <- janitor::clean_names(penguins_raw)
+
+
+## Data is selected by species, island, culmen length and depth and flipper, then NAs are dropped and a new column is made of length/depth and the mean is summaries for flipper length and length/depth ratio
+penguins_clean |> select(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm)  |> drop_na(culmen_length_mm, culmen_depth_mm, flipper_length_mm) |> mutate(culmen_ratio = culmen_length_mm / culmen_depth_mm) |> group_by(species, island) |> summarise(mean_flipper_length = mean(flipper_length_mm), mean_culmen_ratio = mean(culmen_ratio)) |> arrange(species, island) -> penguins_culmen_ratio
+
+## View summary table
+print(penguins_culmen_ratio)
+
+
+### Data visualization 
+penguins_clean |>
+  ggplot(aes(x = culmen_length_mm, y = culmen_depth_mm, color = species)) +
+          geom_point() +
+                labs(x = "Culmen Length (mm)", y = "Culmen Depth (mm)") +
+                      theme_minimal()
+```
+
+
+::: {.solution}
+
+``{r, eval = F}
+# Packages ====
+# Install and load necessary packages
+library(tidyverse)
+library(janitor)
+# Loads the penguins dataset
+library(palmerpenguins)
+
+
+# Clean the data ====
+penguins_raw <- janitor::clean_names(penguins_raw)
+
+# Analysis====
+# Data exploration and manipulation to make culmen ratio
+penguins_culmen_ratio <- penguins_raw |> 
+  select(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm)  |> 
+  drop_na(culmen_length_mm, culmen_depth_mm, flipper_length_mm) |> 
+  mutate(culmen_ratio = culmen_length_mm / culmen_depth_mm) |>
+  group_by(species, island) |>
+  summarise(mean_flipper_length = mean(flipper_length_mm), 
+            mean_culmen_ratio = mean(culmen_ratio)) |>
+  arrange(species, island)
+
+# View summary table
+print(penguins_culmen_ratio)
+
+# Plots====
+# Data visualization using ggplot2
+penguins_clean |>
+  ggplot(aes(x = culmen_length_mm, y = culmen_depth_mm, color = species)) +
+  geom_point() +
+  labs(x = "Culmen Length (mm)", y = "Culmen Depth (mm)") +
+  theme_minimal()
+``
+
+:::
+
+# Naming things
+
+
+# Penguin project
 
 
 
 
-In this workshop we work through loading data. Once we have a curated and cleaned dataset we can work on generating insights from the data.
+In this workshop we will work through setting up a project and loading data. Once we have a curated and cleaned the dataset we can work on generating insights from the data.
 
 As a biologist you should be used to asking questions and gathering data. It is also important that you learn all aspects of the research process. This includes responsible data management (understanding data files & spreadsheet organisation, keeping data safe) and data analysis.
 
@@ -1477,10 +1986,29 @@ Before we can begin working with the data, we need to do some set-up.
   * data
   * outputs
   * scripts
+  
 
 <div class="warning">
 <p>R is case-sensitive so type everything EXACTLY as printed here</p>
 </div>
+
+
+
+```r
+dir.create("data",
+           showWarnings = FALSE)
+
+dir.create("outputs",
+           showWarnings = FALSE)
+
+dir.create("scripts",
+           showWarnings = FALSE)
+
+# or this can be run using apply
+lapply(c("data", "outputs", "scripts"), function(dir_name) {
+  dir.create(dir_name, showWarnings = FALSE)
+})
+```
 
 Having these separate subfolders within our project helps keep things tidy, means it's harder to lose things, and lets you easily tell R exactly where to go to retrieve data.  
 
@@ -1492,7 +2020,7 @@ A Project will contain several files, possibly organised into sub-folders contai
 
 <div class="figure" style="text-align: center">
 <img src="images/project.png" alt="An example of a typical R project set-up" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-6)An example of a typical R project set-up</p>
+<p class="caption">(\#fig:unnamed-chunk-15)An example of a typical R project set-up</p>
 </div>
 
 Within this project you will notice there is already one file *.Rproj*. This is an R project file, this is a very useful feature, it interacts with R to tell it you are working in a very specific place on the computer (in this case the cloud server we have dialed into). It means R will automatically treat the location of your project file as the 'working directory' and makes importing and exporting easier^[More on projects can be found in the R4DS book (https://r4ds.had.co.nz/workflow-projects.html)]. 
@@ -1510,7 +2038,6 @@ Now that we have a project workspace, we are ready to import some data.
 
 * Right-click Save As to download in csv format to your computer (Make a note of **where** the file is being downloaded to e.g. Downloads)
 
-* Compare how the data looks in "raw" format to when you open the same data with Excel
 
 
 ```{=html}
@@ -1520,40 +2047,13 @@ Now that we have a project workspace, we are ready to import some data.
 ```
 
 
-At first glance the data might look quite strange and messy. It has been stored as a **CSV** or comma-separated values file. CSV files are plain text files that can store large amounts of data, and can readily be imported into a spreadsheet or storage database. 
-
-These files are the simplest form of database, no coloured cells, no formulae, no text formatting. Each row is a row of the data, each value of a row (previously separate columns) is separated by a comma. 
-
-This file format helps us maintain an ethos **Keep Raw Data Raw** - 
-
-In many cases, the captured or collected data may be unique and impossible to reproduce, such as measurements in a lab or field observations. For this reason, they should be protected from any possible loss. Every time a change is made to a raw data file it threatens the integrity of that information.
-
-In practice, that means we only use our data file for data entry and storage. All the data manipulation, cleaning and analysis happens in R, using transparent and reproducible scripts.
-
-<div class="info">
-<p>We avoid saving files in the Excel format because they have a nasty
-habit of formatting or even losing data when the file gets large
-enough.</p>
-<p>[https://www.theguardian.com/politics/2020/oct/05/how-excel-may-have-caused-loss-of-16000-covid-tests-in-england].</p>
-<p>If you need to add data to a csv file, you can always open it in an
-Excel-like program and add more information, but remember to save it in
-the original csv format afterwards.</p>
-</div>
 
 <div class="figure" style="text-align: center">
 <img src="images/excel_csv.png" alt="excel view, csv view" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-10)Top image: Penguins data viewed in Excel, Bottom image: Penguins data in native csv format</p>
+<p class="caption">(\#fig:unnamed-chunk-18)Top image: Penguins data viewed in Excel, Bottom image: Penguins data in native csv format</p>
 </div>
 
 In raw format, each line of a CSV is separated by commas for different values. When you open this in a spreadsheet program like Excel it automatically converts those comma-separated values into tables and columns. 
-
-<div class="info">
-<p>You are probably more used to working with Excel (.xls and .xlsx)
-file formats, but while these are widely supported, CSV files, as simple
-text formats are supported by ALL data interfaces. They are also not
-proprietary (e.g. the Excel format is owned by Microsoft), so by working
-with a .csv format your data is more open and accessible.</p>
-</div>
 
 
 ## Activity 3: Upload our data
@@ -1566,12 +2066,22 @@ with a .csv format your data is more open and accessible.</p>
 
 <div class="figure" style="text-align: center">
 <img src="images/upload.png" alt="File tab" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-12)Highlighted the buttons to upload files, and more options</p>
+<p class="caption">(\#fig:unnamed-chunk-19)Highlighted the buttons to upload files, and more options</p>
 </div>
+
+
+### Read data from a url
+
+It is also possible to use a url as a filepath
+
+
+```r
+read_csv("https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/penguins_raw.csv")
+```
 
 ## Activity 4: Make a script
 
-Let's now create a new R script file in which we will write instructions and store comments for manipulating data, developing tables and figures. Use the File > New Script menu item and select an R Script. 
+Let's now create a new R script file in which we will write instructions and store comments for manipulating data, developing tables and figures. Use the `File > New Script` menu item and select an R Script. 
 
 Add the following:
 
@@ -1594,7 +2104,6 @@ Add the following to your script:
 # PACKAGES ----
 library(tidyverse) # tidy data packages
 library(janitor) # cleans variable names
-library(lubridate) # make sure dates are processed properly
 #__________________________----
 ```
 
@@ -1617,7 +2126,7 @@ Now we can read in the data. To do this we will use the function `readr::read_cs
 * Add the following to your script, and check the document outline:
 
 
-<div class="tab"><button class="tablinksunnamed-chunk-16 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-16', 'unnamed-chunk-16');">Base R</button><button class="tablinksunnamed-chunk-16" onclick="javascript:openCode(event, 'option2unnamed-chunk-16', 'unnamed-chunk-16');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
+<div class="tab"><button class="tablinksunnamed-chunk-24 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-24', 'unnamed-chunk-24');">Base R</button><button class="tablinksunnamed-chunk-24" onclick="javascript:openCode(event, 'option2unnamed-chunk-24', 'unnamed-chunk-24');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-24" class="tabcontentunnamed-chunk-24">
 
 ```r
 penguins <- read.csv ("data/penguins_raw.csv")
@@ -1626,7 +2135,7 @@ attributes(penguins) # reads as data.frame
 
 head(penguins) # check the data has loaded, prints first 10 rows of dataframe
 ```
-</div><div id="option2unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
+</div><div id="option2unnamed-chunk-24" class="tabcontentunnamed-chunk-24">
 
 ```r
 # IMPORT DATA ----
@@ -1637,7 +2146,7 @@ attributes(penguins) # reads as tibble
 head(penguins) # check the data has loaded, prints first 10 rows of dataframe
 #__________________________----
 ```
-</div><script> javascript:hide('option2unnamed-chunk-16') </script>
+</div><script> javascript:hide('option2unnamed-chunk-24') </script>
 
 
 <div class="danger">
@@ -1647,75 +2156,8 @@ and dataframes - here most obviously is a difference in column
 names.</p>
 </div>
 
-## Filepaths
 
-In the example above the `read_csv()` function requires you to provide a filepath (in "quotes"), in order to tell R where the file you wish to read is located in this example there are two components
-
-* "data/" - specifies the directory in which to look for the file
-
-* "penguins_raw.csv" - specifies the name and format of the file
-
-#### Directories
-
-A directory refers to a folder on a computer that has relationships to other folders. The term “directory” considers the relationship between that folder and the folders within and around it. Directories are hierarchical which means that they can exist within other folders as well as have folders exist within them.
-
-<div class="info">
-<p>No idea what directories or files are? You are not alone <a
-href="https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z">File
-not Found</a></p>
-</div>
-
-A "parent" directory is any folder that contains a subdirectory. For example your downloads folder is a directory, it is the parent directory to any subdirectories or files contained within it. 
-
-#### Home directory
-
-The home directory on a computer is a directory defined by your operating system. The home directory is the primary directory for your user account on your computer. Your files are by default stored in your home directory.
-
-* On Windows, the home directory is typically `C:\Users\your-username`.
-
-* On Mac and Linux, the home directory is typically `/home/your-username`.
-
-#### Working directory
-
-The working directory refers to the directory on your computer that a tool assumes is the starting place for all filepaths
-
-### Absolute vs Relative filepaths
-
-What has this got to do with working in R? 
-
-When you use any programming language, you have to specify filepaths in order for the program to find files to read-in or where to output files. 
-
-An **Absolute** file path is a path that contains the entire path to a file or directory starting from your Home directory and ending at the file or directory you wish to access e.g.
-
-`/home/your-username/project/data/penguins_raw.csv`
-
-The main drawbacks of using absolute file paths are:
-
-* If you share files, another user won’t have the same directory structure as you, so they will need to recreate the file paths
-
-* if you alter your directory structure, you’ll need to rewrite the paths
-
-* an absolute file path will likely be longer than a relative path, more of the backslashes will need to be edited, so there is more scope for error.
-
-As different computers can have different path constructions, any scripts that use absolute filepaths are not very reproducible. 
-
-A **Relative** filepath is the path that is relative to the working directory location on your computer. 
-
-When you use RStudio Projects, wherever the `.Rproj` file is located is set to the working directory. This means that if the `.Rproj` file is located in your `project folder` then the *relative* path to your data is:
-
-`data/penguins_raw.csv`
-
-This filepath is shorter *and* it means you could share your project with someone else and the script would run without any editing. 
-
-<div class="info">
-<p>For those of you using RStudio Cloud, remember you are working on a
-Linux OS cloud server, each of you will have a different absolute
-filepath - but the scripts for the project you are working on right now
-work because you are using relative filepaths</p>
-</div>
-
-
-## Activity 5: Check your script
+## Activity: Check your script
 
 
 <div class='webex-solution'><button>Solution</button>
@@ -1747,7 +2189,7 @@ head(penguins) # check the data has loaded, prints first 10 rows of dataframe
 </div>
 
 
-## Activity 7: Test yourself
+## Activity: Test yourself
 
 **Question 1.** In order to make your R project reproducible what filepath should you use? 
 
@@ -1797,13 +2239,8 @@ Each column is a unique variable and each row is a unique observation so this da
 
 
 
-It may surprise you to learn that scientists actually spend far more time cleaning and preparing their data than they spend actually analysing it. This means completing tasks such as cleaning up bad values, changing the structure of dataframes, reducing the data down to a subset of observations, and producing data summaries. 
 
-Many people seem to operate under the assumption that the only option for data cleaning is the painstaking and time-consuming cutting and pasting of data within a spreadsheet program like Excel. We have witnessed students and colleagues waste days, weeks, and even months manually transforming their data in Excel, cutting, copying, and pasting data. Fixing up your data by hand is not only a terrible use of your time, but it is error-prone and not reproducible. Additionally, in this age where we can easily collect massive datasets online, you will not be able to organise, clean, and prepare these by hand.
-
-In short, you will not thrive as a scientist if you do not learn some key data wrangling skills. Although every dataset presents unique challenges, there are some systematic principles you should follow that will make your analyses easier, less error-prone, more efficient, and more reproducible.
-
-In this chapter you will see how data science skills will allow you to efficiently get answers to nearly any question you might want to ask about your data. By learning how to properly make your computer do the hard and boring work for you, you can focus on the bigger issues.
+In this chapter you will learn how to use tidyverse functions to data clean and wrangle: 
 
 ## Activity 1: Change column names
 
@@ -1894,14 +2331,14 @@ colnames(penguins) # quickly check the new variable names
 
 The `clean_names` function quickly converts all variable names into snake case. The N and C blood isotope ratio names are still quite long though, so let's clean those with `dplyr::rename()` where "new_name" = "old_name".
 
-<div class="tab"><button class="tablinksunnamed-chunk-27 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-27', 'unnamed-chunk-27');">Base R</button><button class="tablinksunnamed-chunk-27" onclick="javascript:openCode(event, 'option2unnamed-chunk-27', 'unnamed-chunk-27');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
+<div class="tab"><button class="tablinksunnamed-chunk-33 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-33', 'unnamed-chunk-33');">Base R</button><button class="tablinksunnamed-chunk-33" onclick="javascript:openCode(event, 'option2unnamed-chunk-33', 'unnamed-chunk-33');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
 
 ```r
 names(penguins)[names(penguins) == "delta_15_n_o_oo"] <- "delta_15n"
 
 names(penguins)[names(penguins) == "delta_13_c_o_oo"] <- "delta_13c"
 ```
-</div><div id="option2unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
+</div><div id="option2unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
 
 ```r
 # shorten the variable names for N and C isotope blood samples
@@ -1910,7 +2347,7 @@ penguins <- rename(penguins,
          "delta_15n"="delta_15_n_o_oo",  # use rename from the dplyr package
          "delta_13c"="delta_13_c_o_oo")
 ```
-</div><script> javascript:hide('option2unnamed-chunk-27') </script>
+</div><script> javascript:hide('option2unnamed-chunk-33') </script>
 
 ## Check data
 
@@ -1919,17 +2356,17 @@ penguins <- rename(penguins,
 When we run `glimpse()` we get several lines of output. The number of observations "rows", the number of variables "columns". Check this against the csv file you have - they should be the same. In the next lines we see variable names and the type of data. 
 
 
-<div class="tab"><button class="tablinksunnamed-chunk-28 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-28', 'unnamed-chunk-28');">Base R</button><button class="tablinksunnamed-chunk-28" onclick="javascript:openCode(event, 'option2unnamed-chunk-28', 'unnamed-chunk-28');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-28" class="tabcontentunnamed-chunk-28">
+<div class="tab"><button class="tablinksunnamed-chunk-34 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-34', 'unnamed-chunk-34');">Base R</button><button class="tablinksunnamed-chunk-34" onclick="javascript:openCode(event, 'option2unnamed-chunk-34', 'unnamed-chunk-34');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-34" class="tabcontentunnamed-chunk-34">
 
 ```r
 attributes(penguins)
 ```
-</div><div id="option2unnamed-chunk-28" class="tabcontentunnamed-chunk-28">
+</div><div id="option2unnamed-chunk-34" class="tabcontentunnamed-chunk-34">
 
 ```r
 glimpse(penguins)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-28') </script>
+</div><script> javascript:hide('option2unnamed-chunk-34') </script>
 
 We can see a dataset with 345 rows (including the headers) and 17 variables
 It also provides information on the *type* of data in each column
@@ -1943,7 +2380,7 @@ It also provides information on the *type* of data in each column
 Sometimes we may want to rename the values in our variables in order to make a shorthand that is easier to follow. This is changing the **values** in our columns, not the column names. 
 
 
-<div class="tab"><button class="tablinksunnamed-chunk-29 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-29', 'unnamed-chunk-29');">Base R</button><button class="tablinksunnamed-chunk-29" onclick="javascript:openCode(event, 'option2unnamed-chunk-29', 'unnamed-chunk-29');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-29" class="tabcontentunnamed-chunk-29">
+<div class="tab"><button class="tablinksunnamed-chunk-35 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-35', 'unnamed-chunk-35');">Base R</button><button class="tablinksunnamed-chunk-35" onclick="javascript:openCode(event, 'option2unnamed-chunk-35', 'unnamed-chunk-35');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
 
 ```r
 penguins$species <- ifelse(penguins$species == "Adelie Penguin (Pygoscelis adeliae)", "Adelie",
@@ -1951,7 +2388,7 @@ penguins$species <- ifelse(penguins$species == "Adelie Penguin (Pygoscelis adeli
                                  ifelse(penguins$species == "Chinstrap penguin (Pygoscelis antarctica)", "Chinstrap",
                                         penguins$species)))
 ```
-</div><div id="option2unnamed-chunk-29" class="tabcontentunnamed-chunk-29">
+</div><div id="option2unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
 
 ```r
 # use mutate and case_when for a statement that conditionally changes the names of the values in a variable
@@ -1960,7 +2397,7 @@ penguins <- penguins |>
                              species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
                              species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap"))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-29') </script>
+</div><script> javascript:hide('option2unnamed-chunk-35') </script>
 
 
 
@@ -2021,12 +2458,12 @@ For example I might wish to create a simplified dataset that only contains `spec
 
 Run the below code to select only those columns
 
-<div class="tab"><button class="tablinksunnamed-chunk-32 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-32', 'unnamed-chunk-32');">Base R</button><button class="tablinksunnamed-chunk-32" onclick="javascript:openCode(event, 'option2unnamed-chunk-32', 'unnamed-chunk-32');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-32" class="tabcontentunnamed-chunk-32">
+<div class="tab"><button class="tablinksunnamed-chunk-38 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-38', 'unnamed-chunk-38');">Base R</button><button class="tablinksunnamed-chunk-38" onclick="javascript:openCode(event, 'option2unnamed-chunk-38', 'unnamed-chunk-38');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-38" class="tabcontentunnamed-chunk-38">
 
 ```r
 penguins[c("species", "sex", "flipper_length_mm", "body_mass_g")]
 ```
-</div><div id="option2unnamed-chunk-32" class="tabcontentunnamed-chunk-32">
+</div><div id="option2unnamed-chunk-38" class="tabcontentunnamed-chunk-38">
 
 ```r
 # DPLYR VERBS ----
@@ -2034,22 +2471,22 @@ penguins[c("species", "sex", "flipper_length_mm", "body_mass_g")]
 select(.data = penguins, # the data object
        species, sex, flipper_length_mm, body_mass_g) # the variables you want to select
 ```
-</div><script> javascript:hide('option2unnamed-chunk-32') </script>
+</div><script> javascript:hide('option2unnamed-chunk-38') </script>
 
 Alternatively you could tell R the columns you **don't** want e.g. 
 
-<div class="tab"><button class="tablinksunnamed-chunk-33 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-33', 'unnamed-chunk-33');">Base R</button><button class="tablinksunnamed-chunk-33" onclick="javascript:openCode(event, 'option2unnamed-chunk-33', 'unnamed-chunk-33');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
+<div class="tab"><button class="tablinksunnamed-chunk-39 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-39', 'unnamed-chunk-39');">Base R</button><button class="tablinksunnamed-chunk-39" onclick="javascript:openCode(event, 'option2unnamed-chunk-39', 'unnamed-chunk-39');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
 
 ```r
 penguins[, !colnames(penguins) %in% c("study_name", "sample_number")]
 ```
-</div><div id="option2unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
+</div><div id="option2unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
 
 ```r
 select(.data = penguins,
        -study_name, -sample_number)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-33') </script>
+</div><script> javascript:hide('option2unnamed-chunk-39') </script>
 
 Note that `select()` does **not** change the original `penguins` tibble. It spits out the new tibble directly into your console. 
 
@@ -2069,22 +2506,22 @@ Having previously used `select()` to select certain variables, we will now use `
 
 We can do this with the equivalence operator `==`
 
-<div class="tab"><button class="tablinksunnamed-chunk-35 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-35', 'unnamed-chunk-35');">Base R</button><button class="tablinksunnamed-chunk-35" onclick="javascript:openCode(event, 'option2unnamed-chunk-35', 'unnamed-chunk-35');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
+<div class="tab"><button class="tablinksunnamed-chunk-41 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-41', 'unnamed-chunk-41');">Base R</button><button class="tablinksunnamed-chunk-41" onclick="javascript:openCode(event, 'option2unnamed-chunk-41', 'unnamed-chunk-41');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-41" class="tabcontentunnamed-chunk-41">
 
 ```r
 filtered_penguins <- new_penguins[new_penguins$species == "Adelie Penguin (Pygoscelis adeliae"), ]
 ```
-</div><div id="option2unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
+</div><div id="option2unnamed-chunk-41" class="tabcontentunnamed-chunk-41">
 
 ```r
 filter(.data = new_penguins, species == "Adelie Penguin (Pygoscelis adeliae)")
 ```
-</div><script> javascript:hide('option2unnamed-chunk-35') </script>
+</div><script> javascript:hide('option2unnamed-chunk-41') </script>
 
 We can use several different operators to assess the way in which we should filter our data that work the same in tidyverse or base R.
 
 <table class="table" style="font-size: 16px; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-36)Boolean expressions</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-42)Boolean expressions</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Operator </th>
@@ -2141,33 +2578,33 @@ You can include multiple expressions within `filter()` and it will pull out only
 
 For example the below code will pull out only those observations of Adelie penguins where flipper length was measured as greater than 190mm. 
 
-<div class="tab"><button class="tablinksunnamed-chunk-39 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-39', 'unnamed-chunk-39');">Base R</button><button class="tablinksunnamed-chunk-39" onclick="javascript:openCode(event, 'option2unnamed-chunk-39', 'unnamed-chunk-39');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
+<div class="tab"><button class="tablinksunnamed-chunk-45 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-45', 'unnamed-chunk-45');">Base R</button><button class="tablinksunnamed-chunk-45" onclick="javascript:openCode(event, 'option2unnamed-chunk-45', 'unnamed-chunk-45');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
 
 ```r
 new_penguins[new_penguins$species == "Adelie" & new_penguins$flipper_length_mm > 190, ]
 ```
-</div><div id="option2unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
+</div><div id="option2unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
 
 ```r
 filter(.data = new_penguins, species == "Adelie", flipper_length_mm > 190)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-39') </script>
+</div><script> javascript:hide('option2unnamed-chunk-45') </script>
 
 ### Arrange
 
 The function `arrange()` sorts the rows in the table according to the columns supplied. For example
 
-<div class="tab"><button class="tablinksunnamed-chunk-40 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-40', 'unnamed-chunk-40');">Base R</button><button class="tablinksunnamed-chunk-40" onclick="javascript:openCode(event, 'option2unnamed-chunk-40', 'unnamed-chunk-40');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-40" class="tabcontentunnamed-chunk-40">
+<div class="tab"><button class="tablinksunnamed-chunk-46 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-46', 'unnamed-chunk-46');">Base R</button><button class="tablinksunnamed-chunk-46" onclick="javascript:openCode(event, 'option2unnamed-chunk-46', 'unnamed-chunk-46');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
 
 ```r
 new_penguins[order(new_penguins$sex), ] # define columns to be arranged
 ```
-</div><div id="option2unnamed-chunk-40" class="tabcontentunnamed-chunk-40">
+</div><div id="option2unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
 
 ```r
 arrange(.data = new_penguins, sex)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-40') </script>
+</div><script> javascript:hide('option2unnamed-chunk-46') </script>
 
 The data is now arranged in alphabetical order by sex. So all of the observations of female penguins are listed before males. 
 
@@ -2196,18 +2633,18 @@ To create new variables we use the function `mutate()`.
 
 Note that as before, if you want to save your new column you must save it as an object. Here we are mutating a new column and attaching it to the `new_penguins` data oject.
 
-<div class="tab"><button class="tablinksunnamed-chunk-43 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-43', 'unnamed-chunk-43');">Base R</button><button class="tablinksunnamed-chunk-43" onclick="javascript:openCode(event, 'option2unnamed-chunk-43', 'unnamed-chunk-43');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-43" class="tabcontentunnamed-chunk-43">
+<div class="tab"><button class="tablinksunnamed-chunk-49 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-49', 'unnamed-chunk-49');">Base R</button><button class="tablinksunnamed-chunk-49" onclick="javascript:openCode(event, 'option2unnamed-chunk-49', 'unnamed-chunk-49');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
 
 ```r
 new_penguins$body_mass_kg <- new_penguins$body_mass_g / 1000
 ```
-</div><div id="option2unnamed-chunk-43" class="tabcontentunnamed-chunk-43">
+</div><div id="option2unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
 
 ```r
 new_penguins <- mutate(.data = new_penguins,
                      body_mass_kg = body_mass_g/1000)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-43') </script>
+</div><script> javascript:hide('option2unnamed-chunk-49') </script>
 
 ## Pipes
 
@@ -2290,6 +2727,23 @@ penguins |>
 ```
 Great! 
 
+If I did have duplications I could investigate further
+
+
+```r
+# Check duplicated rows
+penguins |> 
+    filter(duplicated(penguins))
+```
+
+
+
+```r
+# Keep only unduplicated data
+penguins |> 
+    filter(!duplicated(penguins))
+```
+
 ### Summarise
 
 We can also  explore our data for very obvious typos by checking for implausibly small or large values, this is a simple use of the `summarise` function.
@@ -2313,7 +2767,7 @@ our dataset is nearly half the size of the largest penguin.</p>
 
 Many data analysis tasks can be approached using the “split-apply-combine” paradigm: split the data into groups, apply some analysis to each group, and then combine the results. `dplyr` makes this very easy with the `group_by()` function. In the `summarise` example above we were able to find the max-min body mass values for the penguins in our dataset. But what if we wanted to break that down by a grouping such as species of penguin. This is where `group_by()` comes in.
 
-<div class="tab"><button class="tablinksunnamed-chunk-53 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-53', 'unnamed-chunk-53');">Base R</button><button class="tablinksunnamed-chunk-53" onclick="javascript:openCode(event, 'option2unnamed-chunk-53', 'unnamed-chunk-53');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
+<div class="tab"><button class="tablinksunnamed-chunk-61 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-61', 'unnamed-chunk-61');">Base R</button><button class="tablinksunnamed-chunk-61" onclick="javascript:openCode(event, 'option2unnamed-chunk-61', 'unnamed-chunk-61');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
 
 ```r
 #Things start to get more complicated with Base R
@@ -2323,7 +2777,7 @@ split(penguins$body_mass_g, penguins$species) |>
     do.call(rbind, args = _ ) |> 
   as.data.frame()
 ```
-</div><div id="option2unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
+</div><div id="option2unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
 
 ```r
 penguins |> 
@@ -2331,7 +2785,7 @@ penguins |>
   summarise(min=min(body_mass_g, na.rm=TRUE), 
             max=max(body_mass_g, na.rm=TRUE))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-53') </script>
+</div><script> javascript:hide('option2unnamed-chunk-61') </script>
 
 Now we know a little more about our data, the max weight of our Gentoo penguins is much larger than the other two species. In fact, the minimum weight of a Gentoo penguin is not far off the max weight of the other two species. 
 
@@ -2340,18 +2794,18 @@ Now we know a little more about our data, the max weight of our Gentoo penguins 
 
 We can also look for typos by asking R to produce all of the distinct values in a variable. This is more useful for categorical data, where we expect there to be only a few distinct categories
 
-<div class="tab"><button class="tablinksunnamed-chunk-54 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-54', 'unnamed-chunk-54');">Base R</button><button class="tablinksunnamed-chunk-54" onclick="javascript:openCode(event, 'option2unnamed-chunk-54', 'unnamed-chunk-54');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
+<div class="tab"><button class="tablinksunnamed-chunk-62 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-62', 'unnamed-chunk-62');">Base R</button><button class="tablinksunnamed-chunk-62" onclick="javascript:openCode(event, 'option2unnamed-chunk-62', 'unnamed-chunk-62');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
 
 ```r
 unique(penquins$sex) # only works on vectord
 ```
-</div><div id="option2unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
+</div><div id="option2unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
 
 ```r
 penguins |>  
   distinct(sex)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-54') </script>
+</div><script> javascript:hide('option2unnamed-chunk-62') </script>
 
 Here if someone had mistyped e.g. 'FMALE' it would be obvious. We could do the same thing (and probably should have before we changed the names) for species. 
 
@@ -2426,6 +2880,7 @@ If you want to check your answers (or are just completely stuck) then click here
 
 
 
+
 # Data wrangling part two
 
 
@@ -2441,7 +2896,7 @@ Think about some basic checks before you start your work today.
 
 ### Checklist
 
-* Are there objects already in your Environment pane? [There shouldn't be](#global-options), if there are use `rm(list=ls())`
+* Restart your R session and check the environment clears
 
 * Re-run your script from [last time](#data-wrangling-part-one) from line 1 to the last line
 
@@ -2458,13 +2913,13 @@ Very often we want to make calculations aobut groups of observations, such as th
 out # and add short descriptions of what you are achieving with them</p>
 </div>
 
-<div class="tab"><button class="tablinksunnamed-chunk-63 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-63', 'unnamed-chunk-63');">Base R</button><button class="tablinksunnamed-chunk-63" onclick="javascript:openCode(event, 'option2unnamed-chunk-63', 'unnamed-chunk-63');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
+<div class="tab"><button class="tablinksunnamed-chunk-71 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-71', 'unnamed-chunk-71');">Base R</button><button class="tablinksunnamed-chunk-71" onclick="javascript:openCode(event, 'option2unnamed-chunk-71', 'unnamed-chunk-71');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-71" class="tabcontentunnamed-chunk-71">
 
 ```r
 unique(penguins$individual_id) |> 
   length()
 ```
-</div><div id="option2unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
+</div><div id="option2unnamed-chunk-71" class="tabcontentunnamed-chunk-71">
 
 ```r
 penguins |> 
@@ -2487,11 +2942,11 @@ penguins |>
 </table>
 
 </div>
-</div><script> javascript:hide('option2unnamed-chunk-63') </script>
+</div><script> javascript:hide('option2unnamed-chunk-71') </script>
 
 Now consider when the groups are subsets of observations, as when we find out the number of penguins in each species and sex.
 
-<div class="tab"><button class="tablinksunnamed-chunk-64 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-64', 'unnamed-chunk-64');">Base R</button><button class="tablinksunnamed-chunk-64" onclick="javascript:openCode(event, 'option2unnamed-chunk-64', 'unnamed-chunk-64');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-64" class="tabcontentunnamed-chunk-64">
+<div class="tab"><button class="tablinksunnamed-chunk-72 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-72', 'unnamed-chunk-72');">Base R</button><button class="tablinksunnamed-chunk-72" onclick="javascript:openCode(event, 'option2unnamed-chunk-72', 'unnamed-chunk-72');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-72" class="tabcontentunnamed-chunk-72">
 
 ```r
 # note aggregate doesn't have functionality to deal with missing data
@@ -2499,14 +2954,14 @@ aggregate(individual_id ~ species + sex,
           data = penguins, 
           FUN = function(x) length(unique(x)))
 ```
-</div><div id="option2unnamed-chunk-64" class="tabcontentunnamed-chunk-64">
+</div><div id="option2unnamed-chunk-72" class="tabcontentunnamed-chunk-72">
 
 ```r
 penguins |> 
   group_by(species, sex) |> 
   summarise(n_distinct(individual_id))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-64') </script>
+</div><script> javascript:hide('option2unnamed-chunk-72') </script>
 
 As we progress, not only are we learning how to use our data wrangling tools. We are also gaining insights into our data. 
 
@@ -2591,11 +3046,11 @@ the <code>=</code></p>
 calculation</p>
 </div>
 
+
 <div class="try">
 <p>What happens when you try to produce calculations that include
 <code>NA</code>? e.g <code>NA</code> + 4 or <code>NA</code> * 5</p>
 </div>
-
 
 We can use several functions in `summarise`. Which means we can string several calculations together in a single step, and generate more insights into our data.
 
@@ -2608,14 +3063,13 @@ penguins |>
             prop_female = sum(sex == "FEMALE", na.rm=TRUE) / n()) # proportion of observations that are coded as female
 ```
 
-<div class='webex-solution'><button>Solution</button>
 
+<button id="displayTextunnamed-chunk-78" onclick="javascript:toggle('unnamed-chunk-78');">Show Solution</button>
 
-* There are 190 unique IDs and 344 total observations so it would appear that there are roughly twice as many observations as unique individuals. The sex ratio is roughly even (48% female) and the average flipper length is 201 mm.
+<div id="toggleTextunnamed-chunk-78" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
-
-</div>
-
+There are 190 unique IDs and 344 total observations so it would appear that there are roughly twice as many observations as unique individuals. The sex ratio is roughly even (48% female) and the average flipper length is 201 mm.
+</div></div></div>
 
 
 #### Summarize `across` columns
@@ -2909,20 +3363,19 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_KRWXYUNFTX'><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_SUJDAGNCXO'><label><input type="radio" autocomplete="off" name="radio_SUJDAGNCXO" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_SUJDAGNCXO" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_SUJDAGNCXO" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_SUJDAGNCXO" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
+<button id="displayTextunnamed-chunk-97" onclick="javascript:toggle('unnamed-chunk-97');">Show Solution</button>
 
-<div class='webex-solution'><button>Solution</button>
-
-
-
+<div id="toggleTextunnamed-chunk-97" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 penguins <- penguins |>
   mutate(date_egg_proper = lubridate::dmy(date_egg))
 ```
+</div></div></div>
 
 
 Here we use the `mutate` function from `dplyr` to create a *new variable* called `date_egg_proper` based on the output of converting the characters in `date_egg` to date format. The original variable is left intact, if we had specified the "new" variable was also called `date_egg` then it would have overwritten the original variable. 
@@ -2998,7 +3451,7 @@ penguins |>
   geom_bar()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-93-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-102-1.png" width="100%" style="display: block; margin: auto;" />
 
 To convert a character or numeric column to class factor, you can use any function from the `forcats` package. They will convert to class factor and then also perform or allow certain ordering of the levels - for example using `forcats::fct_relevel()` lets you manually specify the level order. 
 
@@ -3008,18 +3461,18 @@ The `base R` function `factor()` converts a column to factor and allows you to m
 
 Below we use `mutate()` and `fct_relevel()` to convert the column flipper_range from class character to class factor. 
 
-<div class="tab"><button class="tablinksunnamed-chunk-94 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-94', 'unnamed-chunk-94');">Base R</button><button class="tablinksunnamed-chunk-94" onclick="javascript:openCode(event, 'option2unnamed-chunk-94', 'unnamed-chunk-94');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-94" class="tabcontentunnamed-chunk-94">
+<div class="tab"><button class="tablinksunnamed-chunk-103 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-103', 'unnamed-chunk-103');">Base R</button><button class="tablinksunnamed-chunk-103" onclick="javascript:openCode(event, 'option2unnamed-chunk-103', 'unnamed-chunk-103');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-103" class="tabcontentunnamed-chunk-103">
 
 ```r
 penguins$flipper_range <- factor(penguins$flipper_range)
 ```
-</div><div id="option2unnamed-chunk-94" class="tabcontentunnamed-chunk-94">
+</div><div id="option2unnamed-chunk-103" class="tabcontentunnamed-chunk-103">
 
 ```r
 penguins <- penguins |> 
   mutate(flipper_range = fct_relevel(flipper_range))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-94') </script>
+</div><script> javascript:hide('option2unnamed-chunk-103') </script>
 
 
 
@@ -3031,20 +3484,21 @@ levels(penguins$flipper_range)
 ## [1] "large"  "medium" "small"
 ```
 
-<div class="tab"><button class="tablinksunnamed-chunk-96 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-96', 'unnamed-chunk-96');">Base R</button><button class="tablinksunnamed-chunk-96" onclick="javascript:openCode(event, 'option2unnamed-chunk-96', 'unnamed-chunk-96');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-96" class="tabcontentunnamed-chunk-96">
+
+<div class="tab"><button class="tablinksunnamed-chunk-105 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-105', 'unnamed-chunk-105');">Base R</button><button class="tablinksunnamed-chunk-105" onclick="javascript:openCode(event, 'option2unnamed-chunk-105', 'unnamed-chunk-105');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
 
 ```r
 penguins$flipper_range <- factor(penguins$flipper_range,
                                   levels = c("small", "medium", "large"))
 ```
-</div><div id="option2unnamed-chunk-96" class="tabcontentunnamed-chunk-96">
+</div><div id="option2unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
 
 ```r
 # Correct the code in your script with this version
 penguins <- penguins |> 
   mutate(flipper_range = fct_relevel(flipper_range, "small", "medium", "large"))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-96') </script>
+</div><script> javascript:hide('option2unnamed-chunk-105') </script>
 
 Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels. 
 
@@ -3055,7 +3509,7 @@ penguins |>
   geom_bar()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-97-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-106-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>Factors will also be important when we build linear models a bit
@@ -3075,12 +3529,12 @@ appropriate choice, and by changing this to an ordered
 
 <div class="figure" style="text-align: center">
 <img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-99)My neat project layout</p>
+<p class="caption">(\#fig:unnamed-chunk-108)My neat project layout</p>
 </div>
 
 <div class="figure" style="text-align: center">
 <img src="images/r_script.png" alt="My scripts and file subdirectory" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-100)My scripts and file subdirectory</p>
+<p class="caption">(\#fig:unnamed-chunk-109)My scripts and file subdirectory</p>
 </div>
 
 ## Activity: Test yourself
@@ -3180,7 +3634,7 @@ skimr::skim(penguins)
 
 <table style='width: auto;'
       class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-105)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-114)Data summary</caption>
 <tbody>
   <tr>
    <td style="text-align:left;"> Name </td>
@@ -3260,8 +3714,8 @@ skimr::skim(penguins)
    <td style="text-align:left;"> species </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 33 </td>
-   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 9 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 3 </td>
    <td style="text-align:right;"> 0 </td>
@@ -3489,7 +3943,7 @@ skimr::skim(penguins)
    <td style="text-align:left;"> ▃▇▆▃▂ </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> delta_15_n_o_oo </td>
+   <td style="text-align:left;"> delta_15n </td>
    <td style="text-align:right;"> 14 </td>
    <td style="text-align:right;"> 0.96 </td>
    <td style="text-align:right;"> 8.73 </td>
@@ -3502,7 +3956,7 @@ skimr::skim(penguins)
    <td style="text-align:left;"> ▃▇▆▅▂ </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> delta_13_c_o_oo </td>
+   <td style="text-align:left;"> delta_13c </td>
    <td style="text-align:right;"> 13 </td>
    <td style="text-align:right;"> 0.96 </td>
    <td style="text-align:right;"> -25.69 </td>
@@ -3573,7 +4027,7 @@ penguins |>
   pairs()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-107-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### GGally
 
@@ -3591,7 +4045,7 @@ penguins |>
   ggpairs()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-109-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-118-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -3600,14 +4054,14 @@ penguins |>
   ggpairs(columns = 10:12, ggplot2::aes(colour = species))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-110-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-119-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 penguins |> 
   ggpairs(columns = 10:12, upper = "blank")
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-111-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-120-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -3615,7 +4069,7 @@ penguins |>
   ggpairs(columns = 10:14, columnLabels = c("Bill length", "Bill depth", "Flipper length", "Body mass", "Sex"))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-112-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-121-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -3624,7 +4078,7 @@ penguins |>
           lower = list(continuous = "points", combo = "dot_no_facet"))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-113-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-122-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -3634,7 +4088,7 @@ penguins |>
           ggplot2::aes(colour = species))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-114-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-123-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -3642,7 +4096,7 @@ penguins |>
   ggpairs(columns = 10:14, axisLabels = "internal")
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-115-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-124-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## dataxray
 
@@ -3719,36 +4173,901 @@ sessionInfo()
 ## [17] ggplot2_3.4.2      tidyverse_2.0.0   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.2.0    viridisLite_0.4.2   fastmap_1.1.1      
-##  [4] lazyeval_0.2.2      reshape_0.8.9       promises_1.2.0.1   
-##  [7] digest_0.6.33       rpart_4.1.19        mime_0.12          
-## [10] timechange_0.2.0    lifecycle_1.0.3     cluster_2.1.4      
-## [13] ellipsis_0.3.2      magrittr_2.0.3      compiler_4.3.1     
-## [16] rlang_1.1.1         Hmisc_5.1-1         sass_0.4.6         
-## [19] tools_4.3.1         utf8_1.2.3          yaml_2.3.7         
-## [22] data.table_1.14.8   htmlwidgets_1.6.2   plyr_1.8.8         
-## [25] xml2_1.3.5          RColorBrewer_1.1-3  withr_2.5.0        
-## [28] foreign_0.8-84      nnet_7.3-19         grid_4.3.1         
-## [31] fansi_1.0.4         xtable_1.8-4        colorspace_2.1-0   
-## [34] scales_1.2.1        cli_3.6.1           rmarkdown_2.23     
-## [37] generics_0.1.3      rstudioapi_0.15.0   httr_1.4.6         
-## [40] tzdb_0.4.0          cachem_1.0.8        rvest_1.0.3        
-## [43] base64enc_0.1-3     vctrs_0.6.3         webshot_0.5.5      
-## [46] jsonlite_1.8.7      bookdown_0.34       hms_1.1.3          
-## [49] Formula_1.2-5       htmlTable_2.4.1     systemfonts_1.0.4  
-## [52] plotly_4.10.2       jquerylib_0.1.4     glue_1.6.2         
-## [55] stringi_1.7.12      gtable_0.3.3        later_1.3.1        
-## [58] downlit_0.4.3       munsell_0.5.0       pillar_1.9.0       
-## [61] htmltools_0.5.5     reactable_0.4.4     R6_2.5.1           
-## [64] reactablefmtr_2.0.0 rprojroot_2.0.3     evaluate_0.21      
-## [67] shiny_1.7.4.1       backports_1.4.1     memoise_2.0.1      
-## [70] snakecase_0.11.0    httpuv_1.6.11       bslib_0.5.0        
-## [73] Rcpp_1.0.11         svglite_2.1.1       gridExtra_2.3      
-## [76] checkmate_2.2.0     xfun_0.39           fs_1.6.2           
-## [79] pkgconfig_2.0.3
+##  [1] gridExtra_2.3       rlang_1.1.1         magrittr_2.0.3     
+##  [4] snakecase_0.11.0    compiler_4.3.1      systemfonts_1.0.4  
+##  [7] vctrs_0.6.3         rvest_1.0.3         pkgconfig_2.0.3    
+## [10] crayon_1.5.2        fastmap_1.1.1       backports_1.4.1    
+## [13] ellipsis_0.3.2      labeling_0.4.2      utf8_1.2.3         
+## [16] promises_1.2.0.1    rmarkdown_2.23      tzdb_0.4.0         
+## [19] bit_4.0.5           xfun_0.39           cachem_1.0.8       
+## [22] jsonlite_1.8.7      highr_0.10          later_1.3.1        
+## [25] reshape_0.8.9       parallel_4.3.1      cluster_2.1.4      
+## [28] R6_2.5.1            bslib_0.5.0         stringi_1.7.12     
+## [31] RColorBrewer_1.1-3  rpart_4.1.19        bsplus_0.1.4       
+## [34] jquerylib_0.1.4     Rcpp_1.0.11         bookdown_0.34      
+## [37] base64enc_0.1-3     httpuv_1.6.11       nnet_7.3-19        
+## [40] timechange_0.2.0    tidyselect_1.2.0    rstudioapi_0.15.0  
+## [43] yaml_2.3.7          codetools_0.2-19    plyr_1.8.8         
+## [46] shiny_1.7.4.1       withr_2.5.0         evaluate_0.21      
+## [49] foreign_0.8-84      isoband_0.2.7       xml2_1.3.5         
+## [52] pillar_1.9.0        checkmate_2.2.0     plotly_4.10.2      
+## [55] generics_0.1.3      vroom_1.6.3         rprojroot_2.0.3    
+## [58] hms_1.1.3           munsell_0.5.0       scales_1.2.1       
+## [61] xtable_1.8-4        glue_1.6.2          Hmisc_5.1-1        
+## [64] lazyeval_0.2.2      tools_4.3.1         data.table_1.14.8  
+## [67] webshot_0.5.5       reactable_0.4.4     fs_1.6.2           
+## [70] grid_4.3.1          colorspace_2.1-0    repr_1.1.6         
+## [73] htmlTable_2.4.1     Formula_1.2-5       cli_3.6.1          
+## [76] fansi_1.0.4         viridisLite_0.4.2   svglite_2.1.1      
+## [79] downlit_0.4.3       gtable_0.3.3        sass_0.4.6         
+## [82] digest_0.6.33       reactablefmtr_2.0.0 skimr_2.1.5        
+## [85] farver_2.1.1        htmlwidgets_1.6.2   memoise_2.0.1      
+## [88] htmltools_0.5.5     downloadthis_0.3.2  lifecycle_1.0.3    
+## [91] httr_1.4.6          mime_0.12           MASS_7.3-60        
+## [94] bit64_4.0.5
 ```
 
 <!--chapter:end:02-loading-data.Rmd-->
+
+# (PART\*) Data Presentation {.unnumbered}
+
+# Data visualisation with ggplot2
+
+
+
+
+
+
+## Intro to grammar
+
+
+The ggplot2 package is widely used and valued for its simple, consistent approach to making data visuals.
+
+The 'grammar of graphics' relates to the different components of a plot that function like different parts of linguistic grammar. For example, all plots require axes, so the x and y axes form one part of the ‘language’ of a plot. Similarly, all plots have data represented between the axes, often as points, lines or bars. The visual way that the data is represented forms another component of the grammar of graphics. Furthermore, the colour, shape or size of points and lines can be used to encode additional information in the plot. This information is usually clarified in a key, or legend, which can also be considered part of this ‘grammar’.
+
+The philosophy of ggplot is much better explained by the package author, Hadley Wickham (@R-ggplot2). For now, we just need to be aware that ggplots are constructed by specifying the different components that we want to display, based on underlying information in a data frame.
+
+<div class="figure" style="text-align: center">
+<img src="images/ambitious.png" alt="An example of what we can produce in ggplot" width="100%" />
+<p class="caption">(\#fig:ambitious-figure)An example of what we can produce in ggplot</p>
+</div>
+
+#### Before we start
+
+You should have a workspace ready to work with the Palmer penguins data. Load this workspace now. 
+
+Think about some basic checks before you start your work today.
+
+#### Checklist
+
+
+<div class="try">
+<p>Today we are going to make a NEW R script in the same project space
+as we have previously been working. This is part of organising our
+workspace so that our analysis workflow is <a
+href="#activity-1-organising-our-workspace">well documented and easy to
+follow</a></p>
+</div>
+
+* Open a **new** R script - we are moving on from data wrangling to data visualisation
+
+* Save this file **in the scripts folder** and call it `02_visualisation_penguins.R`
+
+* Add the following to your script and run it:
+
+
+```r
+# LOAD R OBJECTS AND FUNCTIONS ----
+source("scripts/01_import_penguins_data.R")
+# import tidied penguins data and functions
+#__________________________----
+```
+
+* You should find your Environment fills up with objects from script 1
+
+
+<div class="info">
+<p>The <code>source()</code> function is a very handy way of allowing
+you to have different scripts for different parts of your R project, but
+allow access to objects built elsewhere. In this way we are building our
+analysis in stages.</p>
+</div>
+
+<div class="warning">
+<p>The above command will ONLY work if you remembered to save and name
+your script exactly as above AND put that script inside a subfolder
+called scripts.</p>
+<p>Does your project look like the one below?</p>
+</div>
+
+
+<div class="figure" style="text-align: center">
+<img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-7)My neat project layout</p>
+</div>
+
+<div class="figure" style="text-align: center">
+<img src="images/r_script.png" alt="If you have sucessfully saved 02_visualisation_penguins.R it should be visible here too " width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-8)If you have sucessfully saved 02_visualisation_penguins.R it should be visible here too </p>
+</div>
+
+#### What if source isn't working?
+
+If source isn't working, or you can't figure out your project set-up you can complete this worksheet if you put the following commands at the top of your script *instead* of `source("scripts/01_import_penguins_data.R")`
+
+
+<div class='webex-solution'><button>Script adjustment</button>
+
+
+
+```r
+#___________________________----
+# SET UP ----
+## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----
+
+### Data first published in  Gorman, KB, TD Williams, and WR Fraser. 2014. “Ecological Sexual Dimorphism and Environmental Variability Within a Community of Antarctic Penguins (Genus Pygoscelis).” PLos One 9 (3): e90081. https://doi.org/10.1371/journal.pone.0090081. ----
+#__________________________----
+
+# PACKAGES ----
+library(tidyverse) # tidy data packages
+library(janitor) # cleans variable names
+library(lubridate) # make sure dates are processed properly
+#__________________________----
+
+# IMPORT DATA ----
+penguins <- read_csv ("data/penguins_raw.csv")
+
+penguins <- janitor::clean_names(penguins) # clean variable names
+#__________________________----
+```
+
+
+</div>
+
+
+## Building a plot
+
+To start building the plot We are going to use the penguin data we have been working with previously. First we must specify the data frame that contains the relevant data for our plot. We can do this in two ways: 
+
+1) Here we are ‘sending the penguins data set into the ggplot function’:
+
+
+```r
+# Building a ggplot step by step ----
+## Render a plot background ----
+penguins  |>  
+  ggplot()
+```
+
+2) Here we are specifying the dataframe *within* the `ggplot()` function
+
+The output is identical
+
+
+```r
+ggplot(data = penguins)
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
+
+<div class="info">
+<p>Running this command will produce an empty grey panel. This is
+because we need to specify how different columns of the data frame
+should be represented in the plot.</p>
+</div>
+
+### Aesthetics - `aes()`
+
+We can call in different columns of data from any dataset based on their column names. Column names are given as ‘aesthetic’ elements to the ggplot function, and are wrapped in the aes() function.
+
+Because we want a scatter plot, each point will have an x and a y coordinate. We want the x axis to represent flipper length ( x = flipper_length_mm ), and the y axis to represent the body mass ( y = body_mass_g ).
+
+We give these specifications separated by a comma. Quotes are not required when giving variables within `aes()`.
+
+<div class="info">
+<p>Those interested in why quotes aren’t required can read about <a
+href="https://edwinth.github.io/blog/nse/">non-standard
+evaluation</a>.</p>
+</div>
+
+
+
+```r
+## Set axes ----
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
+
+So far we have the grid lines for our x and y axis. `ggplot()` knows the variables required for the plot, and thus the scale, but has no information about how to display the data points.
+
+## Geometric representations - geom()
+
+Given we want a scatter plot, we need to specify that the geometric representation of the data will be in point form, using geom_point(). [There are many geometric object types](https://ggplot2.tidyverse.org/reference/#geoms).
+
+<div class="figure" style="text-align: center">
+<img src="images/geoms.png" alt="geom shapes" width="100%" />
+<p class="caption">(\#fig:img-objects-enviro)geom shapes</p>
+</div>
+
+Here we are adding a layer (hence the + sign) of points to the plot. We can think of this as similar to e.g. Adobe Photoshop which uses layers of images that can be reordered and modified individually. Because we add to plots layer by layer **the order** of your geoms may be important for your final aesthetic design. 
+
+For ggplot, each layer will be added over the plot according to its position in the code. Below I first show the full breakdown of the components in a layer. Each layer requires information on
+
+* data
+* aesthetics
+* geometric type
+* any summary of the data
+* position
+
+
+```r
+## Add a geom ----
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  layer(                # layer inherits data and aesthetic arguments from previous
+    geom="point",       # draw point objects
+    stat="identity",    # each individual data point gets a geom (no summaries)
+    position=position_identity()) # data points are not moved in any way e.g. we could specify jitter or dodge if we want to avoid busy overlapping data
+```
+
+This is quite a complicate way to write new layers - and it is more usual to see a simpler more compact approach
+
+
+```r
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  geom_point() # geom_point function will always draw points, and unless specified otherwise the arguments for position and stat are both "identity".
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
+
+Now we have the scatter plot! Each row (except for two rows of missing data) in the penguins data set now has an x coordinate, a y coordinate, and a designated geometric representation (point).
+
+From this we can see that smaller penguins tend to have smaller flipper lengths.
+
+### |> and +
+
+ggplot2, an early component of the tidyverse package, was written before the pipe was introduced. The + sign in ggplot2 functions in a similar way to the pipe in other functions in the tidyverse: by allowing code to be written from left to right.
+
+### Colour
+
+The colors of lines and points can be set directly using `colour="red"`, replacing “red” with a color name. The colors of filled objects, like bars, can be set using `fill="red"`.
+
+
+```r
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  geom_point(colour="red")
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" />
+
+However the current plot could be more informative if colour was used to convey information about the species of each penguin.
+
+In order to achieve this we need to use `aes()` again, and make the colour conditional upon a variable.
+
+Here, the `aes()` function containing the relevant column name, is given within the `geom_point()` function.
+
+<div class="warning">
+<p>A common mistake is to get confused about when to use (or not use)
+<code>aes()</code></p>
+<p>If specifying a fixed aesthetic e.g. red for everything it DOES NOT
+go inside <code>aes()</code> instead specify e.g. colour = “red” or
+shape =21.</p>
+<p>If you wish to modify an aethetic according to a variable in your
+data THEN it DOES go inside <code>aes()</code>
+e.g. <code>aes(colour = species)</code></p>
+</div>
+
+
+
+```r
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  geom_point(aes(colour=species))
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
+
+<div class="info">
+<p>You may (or may not) have noticed that the grammar of ggplot (and
+tidyverse in general) accepts British/Americanization for
+spelling!!!</p>
+</div>
+
+With data visualisations we can start to gain insights into our data very quickly, we can see that the Gentoo penguins tend to be both larger and have longer flippers
+
+<div class="info">
+<p>Add carriage returns (new lines) after each |&gt; or + symbols.</p>
+<p>In most cases, R is blind to white space and new lines, so this is
+simply to make our code more readable, and allow us to add readable
+comments.</p>
+</div>
+
+### More layers
+
+We can see the relationship between body size and flipper length. But what if we want to model this relationship with a trend line? We can add another ‘layer’ to this plot, using a different geometric representation of the data. In this case a trend line, which is in fact a summary of the data rather than a representation of each point.
+
+The `geom_smooth()` function draws a trend line through the data. The default behaviour is to draw a local regression line (curve) through the points, however these can be hard to interpret. We want to add a straight line based on a linear model (‘lm’) of the relationship between x and y. 
+
+This is our **first** encounter with linear models in this course, but we will learn a lot more about them later on. 
+
+
+```r
+## Add a second geom ----
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  geom_point(aes(colour=species))+
+  geom_smooth(method="lm",    #add another layer of data representation.
+              se=FALSE,
+              aes(colour=species)) # note layers inherit information from the top ggplot() function but not previous layers - if we want separate lines per species we need to either specify this again *or* move the color aesthetic to the top layer. 
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
+
+In the example above we may notice that we are assigning colour to the same variable (species) in both geometric layers. This means we have the option to simplify our code. Aesthetics set in the "top layer" of `ggplot()` are inherited by all subsequent layers.
+
+
+```r
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g,
+             colour=species))+ ### now colour is set here it will be inherited by ALL layers
+  geom_point()+
+  geom_smooth(method="lm",    #add another layer of data representation.
+              se=FALSE)
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+<div class="try">
+<p>Note - that the trend line is blocking out certain points, because it
+is the ‘top layer’ of the plot. The geom layers that appear early in the
+command are drawn first, and can be obscured by the geom layers that
+come after them.</p>
+<p>What happens if you switch the order of the geom_point() and
+geom_smooth() functions above? What do you notice about the trend
+line?</p>
+</div>
+
+
+### Co-ordinate space
+
+ggplot will automatically pick the scale for each axis, and the type of coordinate space. Most plots are in Cartesian (linear X vs linear Y) coordinate space.
+
+For this plot, let’s say we want the x and y origin to be set at 0. To do this we can add in `xlim()` and `ylim()` functions, which define the limits of the axes:
+
+
+```r
+## Set axis limits ----
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g,
+             colour=species))+ 
+  geom_point()+
+  geom_smooth(method="lm",    
+              se=FALSE)+
+  xlim(0,240) + ylim(0,7000)
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
+
+Further, we can control the coordinate space using `coord()` functions. Say we want to flip the x and y axes, we add `coord_flip()`:
+
+
+```r
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g,
+             colour=species))+ 
+  geom_point()+
+  geom_smooth(method="lm",    
+              se=FALSE)+
+  xlim(0,240) + ylim(0,7000)+
+  coord_flip()
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+
+## Labels
+
+By default, the axis labels will be the column names we gave as aesthetics aes(). We can change the axis labels using the xlab() and ylab() functions. Given that column names are often short and can be cryptic, this functionality is particularly important for effectively communicating results.
+
+
+```r
+## Custom labels ----
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g,
+             colour=species))+ 
+  geom_point()+
+  geom_smooth(method="lm",    
+              se=FALSE)+
+  labs(x = "Flipper length (mm)",
+       y = "Body mass (g)")
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+
+#### Titles and subtitles
+
+
+```r
+## Add titles ----
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g,
+             colour=species))+ 
+  geom_point()+
+  geom_smooth(method="lm",    
+              se=FALSE)+
+  labs(x = "Flipper length (mm)",
+       y = "Body mass (g)",
+       title= "Penguin Size, Palmer Station LTER",
+       subtitle= "Flipper length and body mass for three penguin species")
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+
+## Themes
+
+Finally, the overall appearance of the plot can be modified using theme() functions. The default theme has a grey background.
+You may prefer `theme_classic()`, a `theme_minimal()` or even `theme_void()`. Try them out.
+
+
+```r
+## Custom themes ----
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g,
+             colour=species))+ 
+  geom_point()+
+  geom_smooth(method="lm",    
+              se=FALSE)+
+  labs(x = "Flipper length (mm)",
+       y = "Body mass (g)",
+       title= "Penguin Size, Palmer Station LTER",
+       subtitle= "Flipper length and body mass for three penguin species")+
+  theme_void()
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+
+<div class="info">
+<p>There is a lot more customisation available through the theme()
+function. We will look at making our own custom themes in later
+lessons</p>
+<p>You can also try installing and running an even wider range of
+pre-built themes if you install the R package <a
+href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">ggthemes</a>.</p>
+<p>First you will need to run the
+<code>install.packages("ggthemes")</code> command. Remember this is one
+of the few times a command should NOT be written in your script but
+typed directly into the console. That’s because it’s rude to send
+someone a script that will install packages on their computer - think of
+<code>library()</code> as a polite request instead!</p>
+<p>To access the range of themes available type
+<code>help(ggthemes)</code> then follow the documentation to find out
+what you can do.</p>
+</div>
+
+## More geom shapes
+
+### Jitter
+
+The `geom_jitter()` command adds some random scatter to the points which can reduce over-plotting. Compare these two plots:
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+## geom point
+
+ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
+  geom_point(aes(color = species),
+              alpha = 0.7, 
+              show.legend = FALSE) 
+
+## More geoms ----
+ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
+  geom_jitter(aes(color = species),
+              width = 0.1, # specifies the width, change this to change the range of scatter
+              alpha = 0.7, # specifies the amount of transparency in the points
+              show.legend = FALSE) # don't leave a legend in a plot, if it doesn't add value
+```
+
+### Boxplots
+
+Box plots, or ‘box & whisker plots’ are another essential tool for data analysis. Box plots summarize the distribution of a set of values by displaying the minimum and maximum values, the median (i.e. middle-ranked value), and the range of the middle 50% of values (inter-quartile range).
+The whisker line extending above and below the IQR box define Q3 + (1.5 x IQR), and Q1 - (1.5 x IQR) respectively. You can watch a short video to learn more about box plots [here](https://www.youtube.com/watch?v=fHLhBnmwUM0).
+
+<img src="images/boxplot.png" width="80%" style="display: block; margin: auto;" />
+
+To create a box plot from our data we use (no prizes here) `geom_boxplot()`
+
+
+```r
+ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
+  geom_boxplot(aes(fill = species),
+              alpha = 0.7, 
+              width = 0.5, # change width of boxplot
+              show.legend = FALSE)
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-34-1.png" width="100%" style="display: block; margin: auto;" />
+
+<div class="try">
+<p>Note that when specifying colour variables using <code>aes()</code>
+some geometric shapes support an internal colour “fill” and an external
+colour “colour”. Try changing the aes fill for colour in the code above,
+and note what happens.</p>
+</div>
+
+The points indicate outlier values [i.e., those greater than Q3 + (1.5 x IQR)].
+
+We can overlay a boxplot on the scatter plot for the entire dataset, to fully communicate both the raw and summary data. Here we reduce the width of the jitter points slightly.
+
+
+
+```r
+ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
+  geom_boxplot(aes(fill = species), # note fill is "inside" colour and colour is "edges" - try it for yourself
+              alpha = 0.2, # fainter boxes so the points "pop"
+              width = 0.5, # change width of boxplot
+              outlier.shape=NA)+
+  geom_jitter(aes(colour = species),
+                width=0.2)+
+  theme(legend.position = "none")
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+<div class="warning">
+<p>In the above example I switched from using show.legend=FALSE inside
+the geom layer to using theme(legend.position=“none”). Why? This is an
+example of reducing redundant code. I would have to specify
+show.legend=FALSE for every geom layer in my plot, but the theme
+function applies to every layer. Save code, save time, reduce
+errors!</p>
+</div>
+
+
+### Density and histogram
+
+Compare the following two sets of code:
+
+
+```r
+penguins |> 
+    ggplot(aes(x=culmen_length_mm, fill=species),
+           position = "identity")+
+    geom_histogram(bins=50)
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;" />
+
+At first you might struggle to see/understand the difference between these two charts. The shapes should be roughly the same. 
+
+
+```r
+penguins |> 
+    ggplot(aes(x=culmen_length_mm, fill=species))+
+    geom_histogram(bins=50, 
+                   aes(y=..density..),
+                   position = "identity")
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+<div class='webex-solution'><button>Explain this</button>
+
+
+The first block of code produced a frequency histogram, each bar represents the actual number of observations made within each 'bin', the second block of code shows the 'relative density' within each bin. In a density histogram the area under the curve for each sub-group will sum to 1. This allows us to compare distributions and shapes between sub-groups of different sizes. For example there are far fewer Adelie penguins in our dataset, but in a density histogram they occupy the same area of the graph as the other two species.
+
+
+</div>
+
+
+<br>
+
+## More Colours
+
+There are two main differences when it comes to colors in `ggplot2`. Both arguments, color and fill, can be specified as single color or
+assigned to variables.
+
+As you have already seen in this tutorial, variables that are inside the aesthetics are encoded by variables and those that are outside are properties that are unrelated to the variables.
+
+
+```r
+penguins |> 
+    ggplot(aes(x=culmen_length_mm))+
+    geom_histogram(bins=50, 
+                   aes(y=..density..,
+                       fill=species), 
+                   position = "identity",
+                   colour="black")
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
+
+#### Choosing and using colour palettes
+
+You can specify what colours you want to assign to variables in a number of different ways. 
+
+In ggplot2, colors that are assigned to variables are modified via the scale_color_* and the scale_fill_* functions. In order to use color with your data, most importantly you need to know if you are dealing with a categorical or continuous variable. The color palette should be chosen depending on type of the variable:
+
+* **sequential or diverging** color palettes being used for continuous variables 
+
+* **qualitative** color palettes for (unordered) categorical variables:
+
+<img src="images/palette.png" width="80%" style="display: block; margin: auto;" />
+
+You can pick your own sets of colours and assign them to a categorical variable. The number of specified colours **has** to match the number of categories. You can use a wide number of preset colour [names](https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/) or you can use [hexadecimals](https://www.datanovia.com/en/blog/awesome-list-of-hexadecimal-colors-you-should-have/). 
+
+
+
+```r
+## Custom colours ----
+
+penguin_colours <- c("darkolivegreen4", "darkorchid3", "goldenrod1")
+
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  geom_point(aes(colour=species))+
+  scale_color_manual(values=penguin_colours)+
+  theme_minimal()
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" />
+
+You can also use a range of inbuilt colour palettes: 
+
+
+```r
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  geom_point(aes(colour=species))+
+  scale_color_brewer(palette="Set1")+
+  theme_minimal()
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+<div class="info">
+<p>You can explore all schemes available with the command
+<code>RColorBrewer::display.brewer.all()</code></p>
+</div>
+
+There are also many, many extensions that provide additional colour palettes. Some of my favourite packages include [ggsci](https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html) and [wesanderson](https://github.com/karthik/wesanderson)
+
+<img src="images/wesanderson.png" width="80%" style="display: block; margin: auto;" />
+
+## Accessibility
+
+#### Colour blindness
+
+It's very easy to get carried away with colour palettes, but you should remember at all times that your figures must be accessible. One way to check how accessible your figures are is to use a colour blindness checker [colorBlindness](https://cran.r-project.org/web/packages/colorBlindness/vignettes/colorBlindness.html)
+
+
+```r
+## Check accessibility ----
+
+library(colorBlindness)
+colorBlindness::cvdPlot() # will automatically run on the last plot you made
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-47-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+#### Guides to visual accessibility 
+
+Using colours to tell categories apart can be useful, but as we can see in the example above, you should choose carefully. Other aesthetics which you can access in your geoms include `shape`, and `size` - you can combine these in complimentary ways to enhance the accessibility of your plots. Here is a hierarchy of "interpretability" for different types of data 
+
+<img src="images/list.png" width="80%" style="display: block; margin: auto;" />
+
+
+<img src="images/shape_v_colour.png" width="80%" style="display: block; margin: auto;" />
+
+## Multiple plots
+
+#### Facets
+
+Adding combinations of different aesthetics allows you to layer more information onto a 2D plot, sometimes though things will just become *too* busy. At the point where it becomes difficult to see the trends or differences in your plot then we want to break up a single plot into sub-plots; this is called ‘faceting’. Facets are commonly used when there is too much data to display clearly in a single plot. We will revisit faceting below, however for now, let’s try to facet the plot according to sex.
+
+To do this we use the tilde symbol ‘~’ to indicate the column name that will form each facet.
+
+
+```r
+## Facetting ----
+penguins |> 
+  drop_na(sex) |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g,
+             colour=species))+ 
+  geom_point()+
+  geom_smooth(method="lm",    
+              se=FALSE)+
+  facet_wrap(~sex)
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;" />
+
+#### Patchwork
+
+There are many times you might want to *combine* separate figures into multi-panel plots. Probably the easiest way to do this is with the `patchwork` package (@R-patchwork). 
+
+
+```r
+## Patchwork ----
+library(patchwork)
+
+p1 <- penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = culmen_length_mm))+
+  geom_point(aes(colour=species))+
+  scale_color_manual(values=penguin_colours)+
+  theme_minimal()
+
+p2 <- penguins |> 
+  ggplot(aes(x=culmen_depth_mm, 
+             y = culmen_length_mm))+
+  geom_point(aes(colour=species))+
+  scale_color_manual(values=penguin_colours)+
+  theme_minimal()
+
+p3 <- penguins |>     
+  group_by(sex,species) |> 
+    summarise(n=n()) |> 
+     drop_na(sex) |> 
+     ggplot(aes(x=species, y=n)) + 
+  geom_col(aes(fill=sex), 
+               width=0.8,
+               position=position_dodge(width=0.9), 
+               alpha=0.6)+
+     scale_fill_manual(values=c("darkorange1", "azure4"))+
+     theme_classic()
+
+ (p1+p2)/p3+
+  plot_layout(guides = "collect") 
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" />
+
+## Activity: Replicate this figure
+
+<div class="try">
+<p>How close can you get to replicating the figure below?</p>
+<p>Make a NEW script for this assignment - replicate_figure.R</p>
+<p>Make sure to use the tips and links at the end of this chapter, when
+you are done save the file</p>
+</div>
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-53-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+
+<div class='webex-solution'><button>Solution</button>
+
+
+
+```r
+pal <- c(
+  "Adelie" = "#FF8C00", 
+  "Chinstrap" = "#A034F0", 
+  "Gentoo" = "#159090")
+
+penguins |> 
+  ggplot(aes(x = species,
+             y = body_mass_g,
+             fill = species,
+             colour = species))+
+  geom_violin(alpha = 0.2)+
+  geom_boxplot(width = 0.2,
+               alpha = 0.6)+
+  scale_fill_manual(values = pal)+
+  scale_colour_manual(values = pal)+
+  theme_classic()+
+  theme(legend.position = "none")+
+    labs(
+    x = "",
+    y = "Body mass (g)",
+    title = "Body mass of brush-tailed penguins",
+    subtitle = "Box and violin plot of body mass by species")
+```
+
+
+</div>
+
+
+
+## Saving
+
+One of the easiest ways to save a figure you have made is with the `ggsave()` function. By default it will save the last plot you made on the screen. 
+
+You should specify the output path to your **figures** folder, then provide a file name. Here I have decided to call my plot *plot* (imaginative!) and I want to save it as a .PNG image file. I can also specify the resolution (dpi 300 is good enough for most computer screens).
+
+
+```r
+# OUTPUT FIGURE TO FILE
+
+ggsave("outputs/YYYYMMDD_ggplot_workshop_final_plot.png", dpi=300)
+```
+
+<div class="try">
+<p>If you got this far and still have time why not try one of the
+following:</p>
+<ol style="list-style-type: decimal">
+<li><p>Making another type of figure using the penguins dataset, use the
+further reading below to use for inspiration.</p></li>
+<li><p>Use any of your own data</p></li>
+</ol>
+</div>
+
+
+#### Quitting
+
+<div class="warning">
+<p>Make sure you have saved your script! Remember to Download your image
+file from RStudio Cloud onto YOUR computer.</p>
+</div>
+
+
+<div class="info">
+<p>run <code>SessionInfo()</code> at the end of your script to gather
+the packages and versions you have been using. This is very useful for
+when you <a href="#how-to-cite-r-and-rstudio">cite R versions and
+packages</a> when writing reports later.</p>
+</div>
+
+## Finished
+
+* Make sure you have **saved your scripts 💾** in the ["scripts" folder](#activity-1-organising-our-workspace).
+
+
+#### What we learned
+
+You have learned
+
+* The anatomy of ggplots
+
+* How to add geoms on different layers
+
+* How to use colour, colour palettes, facets, labels and themes
+
+* Putting together multiple figures
+
+* How to save and export images
+
+
+## Further Reading, Guides and tips on data visualisation
+
+* [R Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+
+* [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/): this book tells you everything you need to know about presenting your figures for accessbility and clarity
+
+* [Beautiful Plotting in R](https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/): an incredibly handy ggplot guide for how to build and improve your figures
+
+* [The ggplot2 book](https://ggplot2-book.org/): the original Hadley Wickham book on ggplot2
+
+
+
+
+
+<!--chapter:end:03-basic-ggplot.Rmd-->
 
 # (PART\*) Functional Programming {.unnumbered}
 
@@ -4382,16 +5701,20 @@ Test passed 😸
 
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 This test fails, can you work out why?
+ </div></div>
 
+
+```r
 test_that("it works as expected", {
     expect_equal(fahr_to_kelvin_celsius(92), list(33, 306), tolerance = 1)  
     
-}) </div></div>
+})
+```
 
 
-<button id="displayTextunnamed-chunk-45" onclick="javascript:toggle('unnamed-chunk-45');">Show Solution</button>
+<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-45" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-46" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # the output is a named list
@@ -4623,9 +5946,9 @@ For `p = "a"` there is a warning but perhaps not a very intuitive one.
 We can make our own custom/specific warnings, try this and run it with the arguments above again! 
 
 
-<button id="displayTextunnamed-chunk-58" onclick="javascript:toggle('unnamed-chunk-58');">Show Solution</button>
+<button id="displayTextunnamed-chunk-59" onclick="javascript:toggle('unnamed-chunk-59');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-58" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-58 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-58', 'unnamed-chunk-58');">Base R</button><button class="tablinksunnamed-chunk-58" onclick="javascript:openCode(event, 'option2unnamed-chunk-58', 'unnamed-chunk-58');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-58" class="tabcontentunnamed-chunk-58">
+<div id="toggleTextunnamed-chunk-59" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-59 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-59', 'unnamed-chunk-59');">Base R</button><button class="tablinksunnamed-chunk-59" onclick="javascript:openCode(event, 'option2unnamed-chunk-59', 'unnamed-chunk-59');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
 
 ```r
  report_p <- function(p, digits = 3) {
@@ -4640,7 +5963,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
      return(reported)
  }
 ```
- </div><div id="option2unnamed-chunk-58" class="tabcontentunnamed-chunk-58">
+ </div><div id="option2unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
  
  
  ```r
@@ -4658,7 +5981,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
     return(result)
  }
  ```
- </div><script> javascript:hide('option2unnamed-chunk-58') </script></div></div></div>
+ </div><script> javascript:hide('option2unnamed-chunk-59') </script></div></div></div>
 
 
 ## Activities
@@ -4668,9 +5991,9 @@ We'll create a function that calculates the GC content of a DNA sequence, and th
 
 > Hint`stringr` and associated functions will be very helpful here
 
-<button id="displayTextunnamed-chunk-59" onclick="javascript:toggle('unnamed-chunk-59');">Show Solution</button>
+<button id="displayTextunnamed-chunk-60" onclick="javascript:toggle('unnamed-chunk-60');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-59" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-59 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-59', 'unnamed-chunk-59');">Base R</button><button class="tablinksunnamed-chunk-59" onclick="javascript:openCode(event, 'option2unnamed-chunk-59', 'unnamed-chunk-59');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
+<div id="toggleTextunnamed-chunk-60" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-60 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-60', 'unnamed-chunk-60');">Base R</button><button class="tablinksunnamed-chunk-60" onclick="javascript:openCode(event, 'option2unnamed-chunk-60', 'unnamed-chunk-60');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -4705,7 +6028,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
+</div><div id="option2unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -4739,14 +6062,14 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-59') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-60') </script></div></div></div>
 
 Exercise 2: Document the Function
 Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.
 
-<button id="displayTextunnamed-chunk-60" onclick="javascript:toggle('unnamed-chunk-60');">Show Solution</button>
+<button id="displayTextunnamed-chunk-61" onclick="javascript:toggle('unnamed-chunk-61');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-60" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-61" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 
 </div></div></div>
@@ -4754,9 +6077,9 @@ Add documentation to the factorial function using roxygen2-style comments. Inclu
 Exercise 3: Test the Function
 Create a test script that uses test_that to check if the function returns the correct GC percentage and melting temps
 
-<button id="displayTextunnamed-chunk-61" onclick="javascript:toggle('unnamed-chunk-61');">Show Solution</button>
+<button id="displayTextunnamed-chunk-62" onclick="javascript:toggle('unnamed-chunk-62');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-61" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-62" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 test_that("gc_content function tests", {
@@ -4768,16 +6091,16 @@ test_that("gc_content function tests", {
 ```
 
 ```
-## Test passed 😸
+## Test passed 🌈
 ```
 </div></div></div>
 
 Exercise 4: Handle Errors
 You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?
 
-<button id="displayTextunnamed-chunk-62" onclick="javascript:toggle('unnamed-chunk-62');">Show Solution</button>
+<button id="displayTextunnamed-chunk-63" onclick="javascript:toggle('unnamed-chunk-63');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-62" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-62 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-62', 'unnamed-chunk-62');">Base R</button><button class="tablinksunnamed-chunk-62" onclick="javascript:openCode(event, 'option2unnamed-chunk-62', 'unnamed-chunk-62');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
+<div id="toggleTextunnamed-chunk-63" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-63 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-63', 'unnamed-chunk-63');">Base R</button><button class="tablinksunnamed-chunk-63" onclick="javascript:openCode(event, 'option2unnamed-chunk-63', 'unnamed-chunk-63');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -4816,7 +6139,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
+</div><div id="option2unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -4854,7 +6177,7 @@ if (!str_detect(dna_sequence, "^[ATCG]+$")) stop("Invalid DNA sequence. Only A, 
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-62') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-63') </script></div></div></div>
 
 
 
@@ -4915,9 +6238,9 @@ What do you think will happen if you set both times to 3 and each to 2?
 rep(c("Adelie", "Gentoo", "Chinstrap"), times = 2, each = 3)
 ```
 
-<button id="displayTextunnamed-chunk-67" onclick="javascript:toggle('unnamed-chunk-67');">Show Solution</button>
+<button id="displayTextunnamed-chunk-68" onclick="javascript:toggle('unnamed-chunk-68');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-67" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-68" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```
 ##  [1] "Adelie"    "Adelie"    "Adelie"    "Gentoo"    "Gentoo"    "Gentoo"   
@@ -4995,12 +6318,12 @@ replicate(3, # times to replicate function
 ```
 
 ```
-##             [,1]       [,2]        [,3]
-## [1,]  1.16592053  0.5140128  0.10807777
-## [2,]  0.39284707  0.2624521 -0.18835393
-## [3,]  1.03595376  0.4665212  2.03492875
-## [4,] -0.02451715  0.2637972 -0.38042257
-## [5,]  1.62562205 -1.8899700 -0.04946246
+##           [,1]       [,2]        [,3]
+## [1,] 1.4362270  1.6341668 -0.04408416
+## [2,] 1.2631485  2.4478597  0.13857424
+## [3,] 2.4962831  3.2662317  0.20182700
+## [4,] 2.2226982  1.9456307  1.14361077
+## [5,] 0.3135905 -0.1382155  1.10380184
 ```
 
 https://www.r-bloggers.com/2023/07/the-replicate-function-in-r/
@@ -5301,7 +6624,7 @@ Unit: milliseconds
 autoplot(mbm)
 ```
 
-<img src="03-functional-programming_files/figure-html/unnamed-chunk-86-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-87-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -5551,9 +6874,9 @@ apply(df, MARGIN = 1, mean)
 Make a function that converts values with a normal distribution into their z scores </div></div>
 
 
-<button id="displayTextunnamed-chunk-95" onclick="javascript:toggle('unnamed-chunk-95');">Show Solution</button>
+<button id="displayTextunnamed-chunk-96" onclick="javascript:toggle('unnamed-chunk-96');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-95" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-96" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 z_score <- function(x) {
@@ -5566,9 +6889,9 @@ z_score <- function(x) {
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Choose the appropriate apply function to calculate a matrix of z-scores for the dataframe `df` </div></div>
 
-<button id="displayTextunnamed-chunk-97" onclick="javascript:toggle('unnamed-chunk-97');">Show Solution</button>
+<button id="displayTextunnamed-chunk-98" onclick="javascript:toggle('unnamed-chunk-98');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-97" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-98" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 apply(df, MARGIN = 2,  z_score)
 </div></div></div>
@@ -5599,19 +6922,19 @@ Basic `map()` will *always* return a `list`, other variants return different dat
 
 ## Example
 
-<div class="tab"><button class="tablinksunnamed-chunk-98 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-98', 'unnamed-chunk-98');">Base R</button><button class="tablinksunnamed-chunk-98" onclick="javascript:openCode(event, 'option2unnamed-chunk-98', 'unnamed-chunk-98');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-98" class="tabcontentunnamed-chunk-98">
+<div class="tab"><button class="tablinksunnamed-chunk-99 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-99', 'unnamed-chunk-99');">Base R</button><button class="tablinksunnamed-chunk-99" onclick="javascript:openCode(event, 'option2unnamed-chunk-99', 'unnamed-chunk-99');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-99" class="tabcontentunnamed-chunk-99">
 
 ```r
 lapply(df_list, mean)
 ```
-</div><div id="option2unnamed-chunk-98" class="tabcontentunnamed-chunk-98">
+</div><div id="option2unnamed-chunk-99" class="tabcontentunnamed-chunk-99">
 
 ```r
 map(.x = df_list, .f = mean)
 
 map(df_list, mean)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-98') </script>
+</div><script> javascript:hide('option2unnamed-chunk-99') </script>
 
 ## more maps
 
@@ -5781,7 +7104,7 @@ library(patchwork)
 plots$scatterplots |> wrap_plots()
 ```
 
-<img src="03-functional-programming_files/figure-html/unnamed-chunk-109-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-110-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## map2
 
@@ -5809,7 +7132,7 @@ plots$scatterplots |>
     wrap_plots(... = _, guides = "collect")
 ```
 
-<img src="03-functional-programming_files/figure-html/unnamed-chunk-110-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-111-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### Running different summary functions on each nested dataframe
 
@@ -5870,9 +7193,9 @@ result$summaries
 In the previous chapter with apply we wrote the `z_score()` function, can you apply this using map to our `df` tibble? </div></div>
 
 
-<button id="displayTextunnamed-chunk-113" onclick="javascript:toggle('unnamed-chunk-113');">Show Solution</button>
+<button id="displayTextunnamed-chunk-114" onclick="javascript:toggle('unnamed-chunk-114');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-113" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-114" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 map_df(.x = df, 
@@ -5957,7 +7280,7 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
     theme_minimal()
 ```
 
-<img src="03-functional-programming_files/figure-html/unnamed-chunk-115-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -6010,12 +7333,15 @@ simulation_results <- map_dbl(sample_sizes, simulate_power, effect_size)
 plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = "Power", main = "Power vs. Sample Size")
 ```
 
-<img src="03-functional-programming_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-117-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
 
 ## Further Reading:
+
+https://bookdown.org/ndphillips/YaRrr/generating-random-data.html
+
 
 Simulations: https://rstudio-education.github.io/hopr/
 
@@ -6053,31 +7379,32 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] patchwork_1.1.2       palmerpenguins_0.1.1  microbenchmark_1.4.10
-##  [4] testthat_3.1.10       knitr_1.43            webexercises_1.1.0   
+##  [1] patchwork_1.1.2       testthat_3.1.10       palmerpenguins_0.1.1 
+##  [4] microbenchmark_1.4.10 knitr_1.43            webexercises_1.1.0   
 ##  [7] glossary_1.0.0        lubridate_1.9.2       forcats_1.0.0        
 ## [10] stringr_1.5.0         dplyr_1.1.2           purrr_1.0.1          
 ## [13] readr_2.1.4           tidyr_1.3.0           tibble_3.2.1         
 ## [16] ggplot2_3.4.2         tidyverse_2.0.0      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
-##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
-##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    backports_1.4.1   brio_1.1.3       
-## [17] fansi_1.0.4       scales_1.2.1      codetools_0.2-19  jquerylib_0.1.4  
-## [21] cli_3.6.1         rlang_1.1.1       munsell_0.5.0     withr_2.5.0      
-## [25] cachem_1.0.8      yaml_2.3.7        tools_4.3.1       tzdb_0.4.0       
-## [29] memoise_2.0.1     colorspace_2.1-0  broom_1.0.5       vctrs_0.6.3      
-## [33] R6_2.5.1          lifecycle_1.0.3   fs_1.6.2          pkgconfig_2.0.3  
-## [37] pillar_1.9.0      bslib_0.5.0       gtable_0.3.3      glue_1.6.2       
-## [41] highr_0.10        xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
-## [45] farver_2.1.1      htmltools_0.5.5   labeling_0.4.2    rmarkdown_2.23   
-## [49] compiler_4.3.1    downlit_0.4.3
+##  [1] gtable_0.3.3      xfun_0.39         bslib_0.5.0       tzdb_0.4.0       
+##  [5] vctrs_0.6.3       tools_4.3.1       generics_0.1.3    fansi_1.0.4      
+##  [9] highr_0.10        pkgconfig_2.0.3   desc_1.4.2        lifecycle_1.0.3  
+## [13] compiler_4.3.1    farver_2.1.1      brio_1.1.3        munsell_0.5.0    
+## [17] codetools_0.2-19  htmltools_0.5.5   sass_0.4.6        yaml_2.3.7       
+## [21] pillar_1.9.0      jquerylib_0.1.4   cachem_1.0.8      tidyselect_1.2.0 
+## [25] digest_0.6.33     stringi_1.7.12    bookdown_0.34     labeling_0.4.2   
+## [29] rprojroot_2.0.3   fastmap_1.1.1     grid_4.3.1        colorspace_2.1-0 
+## [33] cli_3.6.1         magrittr_2.0.3    utf8_1.2.3        broom_1.0.5      
+## [37] withr_2.5.0       backports_1.4.1   waldo_0.5.1       scales_1.2.1     
+## [41] timechange_0.2.0  rmarkdown_2.23    hms_1.1.3         memoise_2.0.1    
+## [45] evaluate_0.21     rlang_1.1.1       downlit_0.4.3     glue_1.6.2       
+## [49] xml2_1.3.5        pkgload_1.3.2.1   rstudioapi_0.15.0 jsonlite_1.8.7   
+## [53] R6_2.5.1          fs_1.6.2
 ```
 
 
-<!--chapter:end:03-functional-programming.Rmd-->
+<!--chapter:end:04-functional-programming.Rmd-->
 
 # (PART\*) Getting the most out of tidyverse {.unnumbered}
 
@@ -6103,17 +7430,17 @@ Most of us would probably read the .CSV file first, then start data cleaning - f
 library(tidyverse)
 library(janitor)
 #load data
-penguins <- read_csv ("data/penguins_raw.csv")
+penguins_raw <- read_csv ("data/penguins_raw.csv")
 
-penguins |> read_csv()
-janitor::clean_names(penguins) 
+penguins_raw |> 
+janitor::clean_names() 
 ```
 
 In my previous example, I used the `clean_names()` function from the "janitor" package to convert the column names to lowercase. You can achieve the same result by using the `make_clean_names()` function within the `read_csv` function, specifying it in the `name_repair` argument.
 
 
 ```r
-penguins <- read_csv ("data/penguins_raw.csv",
+penguins_clean <- read_csv ("data/penguins_raw.csv",
                       name_repair = janitor::make_clean_names)
 ```
 
@@ -6126,7 +7453,7 @@ In addition to cleaning your column names, you can also directly select columns 
 
 
 ```r
-penguins <- read_csv ("data/penguins_raw.csv",
+penguins_clean <- read_csv ("data/penguins_raw.csv",
                       name_repair = janitor::make_clean_names,
                       col_select = c(species, body_mass_g, flipper_length_mm)) |> 
   glimpse()
@@ -6137,7 +7464,7 @@ penguins <- read_csv ("data/penguins_raw.csv",
 
 ```r
 dir.create(c("data/many_files"))
-peng_samples <- map(1:25, ~ slice_sample(penguins, n = 20))
+peng_samples <- map(1:25, ~ slice_sample(penguins_clean, n = 20))
 
 iwalk(peng_samples, ~ write_csv(., paste0("data/many_files/", .y, ".csv")))
 ```
@@ -6235,7 +7562,7 @@ In this section we will go through the following functions:
 
 
 ```r
-penguins |> 
+penguins_clean |> 
   select(last_col()) |> 
   glimpse()
 ```
@@ -6243,14 +7570,14 @@ penguins |>
 ```
 ## Rows: 344
 ## Columns: 1
-## $ flipper_range <fct> small, small, medium, NA, medium, small, small, medium, …
+## $ comments <chr> "Not enough blood for isotopes.", NA, NA, "Adult not sampled.…
 ```
 
 You can also select `n-to-the-last` with `last_col()`
 
 
 ```r
-penguins |> 
+penguins_clean |> 
   select(last_col(3)) |> 
   glimpse()
 ```
@@ -6258,7 +7585,7 @@ penguins |>
 ```
 ## Rows: 344
 ## Columns: 1
-## $ delta_13_c_o_oo <dbl> NA, -24.69454, -25.33302, NA, -25.32426, -25.29805, -2…
+## $ sex <chr> "MALE", "FEMALE", "FEMALE", NA, "FEMALE", "MALE", "FEMALE", "MALE"…
 ```
 
 <div class="info">
@@ -6270,7 +7597,7 @@ penguins |>
 
 
 ```r
-penguins |> 
+penguins_clean |> 
   select(starts_with("s")) |> 
   glimpse()
 ```
@@ -6289,7 +7616,7 @@ $ sex           <chr> "MALE", "FEMALE", "FEMALE", NA, "FEMALE", "MALE", "FEMALE"
 
 
 ```r
-penguins |> 
+penguins_clean |> 
   select(starts_with(c("s", "c"))) |> 
   glimpse()
 ```
@@ -6313,7 +7640,7 @@ We can also use the `contains()` function to search for columns that contain a s
 
 
 ```r
-penguins |> 
+penguins_clean |> 
   select(contains("length")) |> 
   glimpse()
 ```
@@ -6332,7 +7659,7 @@ https://help.relativity.com/RelativityOne/Content/Relativity/Regular_expressions
 
 
 ```r
-penguins |> 
+penguins_clean |> 
   select(matches("[0-9]")) |> 
   glimpse()
 ```
@@ -6346,14 +7673,14 @@ $ delta_13_c_o_oo <dbl> NA, -24.69454, -25.33302, NA, -25.32426, -25.29805, -25.
 
 
 ```r
-penguins |> 
+penguins_clean |> 
   select(matches("[0-9]")) |> 
   glimpse()
 ```
 
 
 ```r
-penguins |> 
+penguins_clean |> 
     select(matches("length_[a-z][a-z]")) |> 
     glimpse()
 ```
@@ -6366,7 +7693,7 @@ The where function is used when you want to select variables of a specific data 
 
 
 ```r
-penguins |> 
+penguins_clean |> 
     select(where(is.character)) |> 
     glimpse()
 ```
@@ -6404,7 +7731,7 @@ Using standard logical operators such as `|` and `&` we can string toether diffe
 
 
 ```r
-penguins |> 
+penguins_clean |> 
   select(where(is.numeric) | contains("species")) |> 
   glimpse()
 ```
@@ -6431,7 +7758,7 @@ $ species           <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Penguin
 
 
 ```r
-penguins |> 
+penguins_clean |> 
   separate(species,
           into = c("species", "full_latin_name"),
           sep = "\\("
@@ -6444,12 +7771,12 @@ Now suppose you want to separate the common names and latin names of the species
 
 
 ```r
-penguins <- penguins |> 
+penguins_clean_split <- penguins_clean |> 
   extract(species,
           into = c("species", "full_latin_name"),
           regex = "(\\w+) .* \\(([^)]+)\\)"
           )
-penguins |> colnames()
+penguins_clean_split |> colnames()
 ```
 
 ```
@@ -6458,8 +7785,7 @@ penguins |> colnames()
 ##  [7] "stage"             "individual_id"     "clutch_completion"
 ## [10] "date_egg"          "culmen_length_mm"  "culmen_depth_mm"  
 ## [13] "flipper_length_mm" "body_mass_g"       "sex"              
-## [16] "delta_15_n_o_oo"   "delta_13_c_o_oo"   "comments"         
-## [19] "date_egg_proper"   "flipper_range"
+## [16] "delta_15_n_o_oo"   "delta_13_c_o_oo"   "comments"
 ```
 
 - The first group captures at least 1 letter (\\w+).
@@ -6479,16 +7805,16 @@ Sometimes you want to make your data completely anonymous so that other people c
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   mutate(species = fct_anon(species,
          prefix = "species_"))
 ```
 
-## lump factors
+## Lump factors
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   mutate(body_size = fct_lump_min(as_factor(species), 50)) |> 
   ggplot(aes(x = body_size,
          y = flipper_length_mm))+
@@ -6499,45 +7825,45 @@ penguins |>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   mutate(species = fct_relevel(species, "Adelie", "Chinstrap", "Gentoo")) |> 
   ggplot(aes(x = species))+
   geom_bar()+
   coord_flip()
 ```
 
-<img src="04-tidyverse_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
 
 With the function `fct_infreq` we can change the order according to how frequently each level occurs
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   mutate(species = fct_infreq(species)) |> 
   ggplot(aes(x = species))+
   geom_bar()+
   coord_flip()
 ```
 
-<img src="04-tidyverse_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   mutate(species = fct_rev(as_factor(species))) |> 
   ggplot(aes(x = species))+
   geom_bar()+
   coord_flip()
 ```
 
-<img src="04-tidyverse_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
 
 `fct_reorder` allows us to order the levels based on another continuous variable
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   mutate(species = as_factor(species) |> 
            fct_reorder(body_mass_g,
                        .fun = median)) |> 
@@ -6552,7 +7878,7 @@ penguins |>
               alpha = .4)
 ```
 
-<img src="04-tidyverse_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Applying functions across columns
@@ -6561,7 +7887,7 @@ penguins |>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   group_by(species) |> 
   summarise(
     mean_body_mass = mean(body_mass_g, na.rm = T),
@@ -6571,7 +7897,7 @@ penguins |>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   group_by(species) |> 
   summarise(
     across(
@@ -6583,11 +7909,11 @@ penguins |>
 
 <div class="kable-table">
 
-|species                                   | mean_sample_number| mean_culmen_length_mm| mean_culmen_depth_mm| mean_flipper_length_mm| mean_body_mass_g| mean_delta_15_n_o_oo| mean_delta_13_c_o_oo|
-|:-----------------------------------------|------------------:|---------------------:|--------------------:|----------------------:|----------------:|--------------------:|--------------------:|
-|Adelie Penguin (Pygoscelis adeliae)       |               76.5|              38.79139|             18.34636|               189.9536|         3700.662|             8.859733|            -25.80419|
-|Chinstrap penguin (Pygoscelis antarctica) |               34.5|              48.83382|             18.42059|               195.8235|         3733.088|             9.356155|            -24.54654|
-|Gentoo penguin (Pygoscelis papua)         |               62.5|              47.50488|             14.98211|               217.1870|         5076.016|             8.245338|            -26.18530|
+|species   | mean_sample_number| mean_culmen_length_mm| mean_culmen_depth_mm| mean_flipper_length_mm| mean_body_mass_g| mean_delta_15_n_o_oo| mean_delta_13_c_o_oo|
+|:---------|------------------:|---------------------:|--------------------:|----------------------:|----------------:|--------------------:|--------------------:|
+|Adelie    |               76.5|              38.79139|             18.34636|               189.9536|         3700.662|             8.859733|            -25.80419|
+|Chinstrap |               34.5|              48.83382|             18.42059|               195.8235|         3733.088|             9.356155|            -24.54654|
+|Gentoo    |               62.5|              47.50488|             14.98211|               217.1870|         5076.016|             8.245338|            -26.18530|
 
 </div>
 
@@ -6595,7 +7921,7 @@ penguins |>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   mutate(
     across(.cols = c("species", "island", "region"),
            .fns = as_factor)
@@ -6606,11 +7932,10 @@ penguins |>
 
 ```
 ## Rows: 344
-## Columns: 4
-## $ species       <fct> Adelie Penguin (Pygoscelis adeliae), Adelie Penguin (Pyg…
-## $ region        <fct> Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, …
-## $ island        <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, T…
-## $ flipper_range <fct> small, small, medium, NA, medium, small, small, medium, …
+## Columns: 3
+## $ species <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie…
+## $ region  <fct> Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anvers…
+## $ island  <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgers…
 ```
 
 ```
@@ -6665,7 +7990,7 @@ typo_df |>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   filter(
     if_any(.cols = contains("culmen"),
            .fns = ~. < 40)
@@ -6676,7 +8001,7 @@ penguins |>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   filter(
     if_all(.cols = contains("culmen"),
            .fns = ~. < 40)
@@ -6688,7 +8013,7 @@ penguins |>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   filter(
     if_all(.cols = where(is.numeric),
            .fns = ~!is.na(.))
@@ -6707,31 +8032,31 @@ operator</p>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   arrange(desc(body_mass_g)) |> 
   slice(1:10)
 ```
 
 <div class="kable-table">
 
-|study_name | sample_number|species                           |region |island |stage              |individual_id |clutch_completion |date_egg   | culmen_length_mm| culmen_depth_mm| flipper_length_mm| body_mass_g|sex  | delta_15_n_o_oo| delta_13_c_o_oo|comments |date_egg_proper |flipper_range |
-|:----------|-------------:|:---------------------------------|:------|:------|:------------------|:-------------|:-----------------|:----------|----------------:|---------------:|-----------------:|-----------:|:----|---------------:|---------------:|:--------|:---------------|:-------------|
-|PAL0708    |            18|Gentoo penguin (Pygoscelis papua) |Anvers |Biscoe |Adult, 1 Egg Stage |N39A2         |Yes               |27/11/2007 |             49.2|            15.2|               221|        6300|MALE |         8.27376|       -25.00169|NA       |2007-11-27      |large         |
-|PAL0708    |            34|Gentoo penguin (Pygoscelis papua) |Anvers |Biscoe |Adult, 1 Egg Stage |N56A2         |Yes               |03/12/2007 |             59.6|            17.0|               230|        6050|MALE |         7.76843|       -25.68210|NA       |2007-12-03      |large         |
-|PAL0809    |            78|Gentoo penguin (Pygoscelis papua) |Anvers |Biscoe |Adult, 1 Egg Stage |N58A2         |Yes               |06/11/2008 |             51.1|            16.3|               220|        6000|MALE |         8.40327|       -26.76821|NA       |2008-11-06      |large         |
-|PAL0910    |           118|Gentoo penguin (Pygoscelis papua) |Anvers |Biscoe |Adult, 1 Egg Stage |N36A2         |Yes               |01/12/2009 |             48.8|            16.2|               222|        6000|MALE |         8.33825|       -25.88547|NA       |2009-12-01      |large         |
-|PAL0809    |            80|Gentoo penguin (Pygoscelis papua) |Anvers |Biscoe |Adult, 1 Egg Stage |N60A2         |Yes               |09/11/2008 |             45.2|            16.4|               223|        5950|MALE |         8.19749|       -26.65931|NA       |2008-11-09      |large         |
-|PAL0910    |           112|Gentoo penguin (Pygoscelis papua) |Anvers |Biscoe |Adult, 1 Egg Stage |N32A2         |Yes               |20/11/2009 |             49.8|            15.9|               229|        5950|MALE |         8.29226|       -26.21019|NA       |2009-11-20      |large         |
-|PAL0708    |            14|Gentoo penguin (Pygoscelis papua) |Anvers |Biscoe |Adult, 1 Egg Stage |N37A2         |Yes               |29/11/2007 |             48.4|            14.6|               213|        5850|MALE |         7.82080|       -25.48025|NA       |2007-11-29      |large         |
-|PAL0708    |            16|Gentoo penguin (Pygoscelis papua) |Anvers |Biscoe |Adult, 1 Egg Stage |N38A2         |Yes               |03/12/2007 |             49.3|            15.7|               217|        5850|MALE |         8.07137|       -25.52473|NA       |2007-12-03      |large         |
-|PAL0910    |           116|Gentoo penguin (Pygoscelis papua) |Anvers |Biscoe |Adult, 1 Egg Stage |N35A2         |Yes               |25/11/2009 |             55.1|            16.0|               230|        5850|MALE |         8.08354|       -26.18161|NA       |2009-11-25      |large         |
-|PAL0809    |            68|Gentoo penguin (Pygoscelis papua) |Anvers |Biscoe |Adult, 1 Egg Stage |N51A2         |Yes               |09/11/2008 |             49.5|            16.2|               229|        5800|MALE |         8.49854|       -26.74809|NA       |2008-11-09      |large         |
+|study_name | sample_number|species |full_latin_name  |region |island |stage              |individual_id |clutch_completion |date_egg   | culmen_length_mm| culmen_depth_mm| flipper_length_mm| body_mass_g|sex  | delta_15_n_o_oo| delta_13_c_o_oo|comments |
+|:----------|-------------:|:-------|:----------------|:------|:------|:------------------|:-------------|:-----------------|:----------|----------------:|---------------:|-----------------:|-----------:|:----|---------------:|---------------:|:--------|
+|PAL0708    |            18|Gentoo  |Pygoscelis papua |Anvers |Biscoe |Adult, 1 Egg Stage |N39A2         |Yes               |2007-11-27 |             49.2|            15.2|               221|        6300|MALE |         8.27376|       -25.00169|NA       |
+|PAL0708    |            34|Gentoo  |Pygoscelis papua |Anvers |Biscoe |Adult, 1 Egg Stage |N56A2         |Yes               |2007-12-03 |             59.6|            17.0|               230|        6050|MALE |         7.76843|       -25.68210|NA       |
+|PAL0809    |            78|Gentoo  |Pygoscelis papua |Anvers |Biscoe |Adult, 1 Egg Stage |N58A2         |Yes               |2008-11-06 |             51.1|            16.3|               220|        6000|MALE |         8.40327|       -26.76821|NA       |
+|PAL0910    |           118|Gentoo  |Pygoscelis papua |Anvers |Biscoe |Adult, 1 Egg Stage |N36A2         |Yes               |2009-12-01 |             48.8|            16.2|               222|        6000|MALE |         8.33825|       -25.88547|NA       |
+|PAL0809    |            80|Gentoo  |Pygoscelis papua |Anvers |Biscoe |Adult, 1 Egg Stage |N60A2         |Yes               |2008-11-09 |             45.2|            16.4|               223|        5950|MALE |         8.19749|       -26.65931|NA       |
+|PAL0910    |           112|Gentoo  |Pygoscelis papua |Anvers |Biscoe |Adult, 1 Egg Stage |N32A2         |Yes               |2009-11-20 |             49.8|            15.9|               229|        5950|MALE |         8.29226|       -26.21019|NA       |
+|PAL0708    |            14|Gentoo  |Pygoscelis papua |Anvers |Biscoe |Adult, 1 Egg Stage |N37A2         |Yes               |2007-11-29 |             48.4|            14.6|               213|        5850|MALE |         7.82080|       -25.48025|NA       |
+|PAL0708    |            16|Gentoo  |Pygoscelis papua |Anvers |Biscoe |Adult, 1 Egg Stage |N38A2         |Yes               |2007-12-03 |             49.3|            15.7|               217|        5850|MALE |         8.07137|       -25.52473|NA       |
+|PAL0910    |           116|Gentoo  |Pygoscelis papua |Anvers |Biscoe |Adult, 1 Egg Stage |N35A2         |Yes               |2009-11-25 |             55.1|            16.0|               230|        5850|MALE |         8.08354|       -26.18161|NA       |
+|PAL0809    |            68|Gentoo  |Pygoscelis papua |Anvers |Biscoe |Adult, 1 Egg Stage |N51A2         |Yes               |2008-11-09 |             49.5|            16.2|               229|        5800|MALE |         8.49854|       -26.74809|NA       |
 
 </div>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   arrange(desc(body_mass_g)) |> 
   rownames_to_column(var = "row_number") |> 
   slice(c(1,123,307))
@@ -6739,17 +8064,17 @@ penguins |>
 
 <div class="kable-table">
 
-|row_number |study_name | sample_number|species                                   |region |island |stage              |individual_id |clutch_completion |date_egg   | culmen_length_mm| culmen_depth_mm| flipper_length_mm| body_mass_g|sex    | delta_15_n_o_oo| delta_13_c_o_oo|comments                              |date_egg_proper |flipper_range |
-|:----------|:----------|-------------:|:-----------------------------------------|:------|:------|:------------------|:-------------|:-----------------|:----------|----------------:|---------------:|-----------------:|-----------:|:------|---------------:|---------------:|:-------------------------------------|:---------------|:-------------|
-|1          |PAL0708    |            18|Gentoo penguin (Pygoscelis papua)         |Anvers |Biscoe |Adult, 1 Egg Stage |N39A2         |Yes               |27/11/2007 |             49.2|            15.2|               221|        6300|MALE   |         8.27376|       -25.00169|NA                                    |2007-11-27      |large         |
-|123        |PAL0809    |            59|Gentoo penguin (Pygoscelis papua)         |Anvers |Biscoe |Adult, 1 Egg Stage |N17A1         |Yes               |06/11/2008 |             43.2|            14.5|               208|        4450|FEMALE |         8.48367|       -26.86485|NA                                    |2008-11-06      |medium        |
-|307        |PAL0708    |            17|Chinstrap penguin (Pygoscelis antarctica) |Anvers |Dream  |Adult, 1 Egg Stage |N71A1         |No                |30/11/2007 |             50.3|            20.0|               197|        3300|MALE   |        10.02019|       -24.54704|Nest never observed with full clutch. |2007-11-30      |medium        |
+|row_number |study_name | sample_number|species   |full_latin_name       |region |island |stage              |individual_id |clutch_completion |date_egg   | culmen_length_mm| culmen_depth_mm| flipper_length_mm| body_mass_g|sex    | delta_15_n_o_oo| delta_13_c_o_oo|comments                              |
+|:----------|:----------|-------------:|:---------|:---------------------|:------|:------|:------------------|:-------------|:-----------------|:----------|----------------:|---------------:|-----------------:|-----------:|:------|---------------:|---------------:|:-------------------------------------|
+|1          |PAL0708    |            18|Gentoo    |Pygoscelis papua      |Anvers |Biscoe |Adult, 1 Egg Stage |N39A2         |Yes               |2007-11-27 |             49.2|            15.2|               221|        6300|MALE   |         8.27376|       -25.00169|NA                                    |
+|123        |PAL0809    |            59|Gentoo    |Pygoscelis papua      |Anvers |Biscoe |Adult, 1 Egg Stage |N17A1         |Yes               |2008-11-06 |             43.2|            14.5|               208|        4450|FEMALE |         8.48367|       -26.86485|NA                                    |
+|307        |PAL0708    |            17|Chinstrap |Pygoscelis antarctica |Anvers |Dream  |Adult, 1 Egg Stage |N71A1         |No                |2007-11-30 |             50.3|            20.0|               197|        3300|MALE   |        10.02019|       -24.54704|Nest never observed with full clutch. |
 
 </div>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   arrange(desc(body_mass_g)) |> 
   rownames_to_column(var = "row_number") |> 
   slice(c(-1:-340))
@@ -6757,12 +8082,12 @@ penguins |>
 
 <div class="kable-table">
 
-|row_number |study_name | sample_number|species                                   |region |island    |stage              |individual_id |clutch_completion |date_egg   | culmen_length_mm| culmen_depth_mm| flipper_length_mm| body_mass_g|sex    | delta_15_n_o_oo| delta_13_c_o_oo|comments                                                 |date_egg_proper |flipper_range |
-|:----------|:----------|-------------:|:-----------------------------------------|:------|:---------|:------------------|:-------------|:-----------------|:----------|----------------:|---------------:|-----------------:|-----------:|:------|---------------:|---------------:|:--------------------------------------------------------|:---------------|:-------------|
-|341        |PAL0809    |            65|Adelie Penguin (Pygoscelis adeliae)       |Anvers |Biscoe    |Adult, 1 Egg Stage |N29A1         |Yes               |13/11/2008 |             36.4|            17.1|               184|        2850|FEMALE |         8.62623|       -26.11650|NA                                                       |2008-11-13      |small         |
-|342        |PAL0809    |            39|Chinstrap penguin (Pygoscelis antarctica) |Anvers |Dream     |Adult, 1 Egg Stage |N72A1         |No                |24/11/2008 |             46.9|            16.6|               192|        2700|FEMALE |         9.80589|       -24.73735|Nest never observed with full clutch.                    |2008-11-24      |medium        |
-|343        |PAL0708    |             4|Adelie Penguin (Pygoscelis adeliae)       |Anvers |Torgersen |Adult, 1 Egg Stage |N2A2          |Yes               |16/11/2007 |               NA|              NA|                NA|          NA|NA     |              NA|              NA|Adult not sampled.                                       |2007-11-16      |NA            |
-|344        |PAL0910    |           120|Gentoo penguin (Pygoscelis papua)         |Anvers |Biscoe    |Adult, 1 Egg Stage |N38A2         |No                |01/12/2009 |               NA|              NA|                NA|          NA|NA     |              NA|              NA|Adult not sampled. Nest never observed with full clutch. |2009-12-01      |NA            |
+|row_number |study_name | sample_number|species   |full_latin_name       |region |island    |stage              |individual_id |clutch_completion |date_egg   | culmen_length_mm| culmen_depth_mm| flipper_length_mm| body_mass_g|sex    | delta_15_n_o_oo| delta_13_c_o_oo|comments                                                 |
+|:----------|:----------|-------------:|:---------|:---------------------|:------|:---------|:------------------|:-------------|:-----------------|:----------|----------------:|---------------:|-----------------:|-----------:|:------|---------------:|---------------:|:--------------------------------------------------------|
+|341        |PAL0809    |            65|Adelie    |Pygoscelis adeliae    |Anvers |Biscoe    |Adult, 1 Egg Stage |N29A1         |Yes               |2008-11-13 |             36.4|            17.1|               184|        2850|FEMALE |         8.62623|       -26.11650|NA                                                       |
+|342        |PAL0809    |            39|Chinstrap |Pygoscelis antarctica |Anvers |Dream     |Adult, 1 Egg Stage |N72A1         |No                |2008-11-24 |             46.9|            16.6|               192|        2700|FEMALE |         9.80589|       -24.73735|Nest never observed with full clutch.                    |
+|343        |PAL0708    |             4|Adelie    |Pygoscelis adeliae    |Anvers |Torgersen |Adult, 1 Egg Stage |N2A2          |Yes               |2007-11-16 |               NA|              NA|                NA|          NA|NA     |              NA|              NA|Adult not sampled.                                       |
+|344        |PAL0910    |           120|Gentoo    |Pygoscelis papua      |Anvers |Biscoe    |Adult, 1 Egg Stage |N38A2         |No                |2009-12-01 |               NA|              NA|                NA|          NA|NA     |              NA|              NA|Adult not sampled. Nest never observed with full clutch. |
 
 </div>
 
@@ -6771,7 +8096,7 @@ We can use these functions to more quickly and easily filter our data under some
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   slice_max(order_by = body_mass_g,
             n = 20) |> # we can also use prop e.g. prop =.1 to slice the top 10%
   select(species, body_mass_g)
@@ -6779,28 +8104,28 @@ penguins |>
 
 <div class="kable-table">
 
-|species                           | body_mass_g|
-|:---------------------------------|-----------:|
-|Gentoo penguin (Pygoscelis papua) |        6300|
-|Gentoo penguin (Pygoscelis papua) |        6050|
-|Gentoo penguin (Pygoscelis papua) |        6000|
-|Gentoo penguin (Pygoscelis papua) |        6000|
-|Gentoo penguin (Pygoscelis papua) |        5950|
-|Gentoo penguin (Pygoscelis papua) |        5950|
-|Gentoo penguin (Pygoscelis papua) |        5850|
-|Gentoo penguin (Pygoscelis papua) |        5850|
-|Gentoo penguin (Pygoscelis papua) |        5850|
-|Gentoo penguin (Pygoscelis papua) |        5800|
-|Gentoo penguin (Pygoscelis papua) |        5800|
-|Gentoo penguin (Pygoscelis papua) |        5750|
-|Gentoo penguin (Pygoscelis papua) |        5700|
-|Gentoo penguin (Pygoscelis papua) |        5700|
-|Gentoo penguin (Pygoscelis papua) |        5700|
-|Gentoo penguin (Pygoscelis papua) |        5700|
-|Gentoo penguin (Pygoscelis papua) |        5700|
-|Gentoo penguin (Pygoscelis papua) |        5650|
-|Gentoo penguin (Pygoscelis papua) |        5650|
-|Gentoo penguin (Pygoscelis papua) |        5650|
+|species | body_mass_g|
+|:-------|-----------:|
+|Gentoo  |        6300|
+|Gentoo  |        6050|
+|Gentoo  |        6000|
+|Gentoo  |        6000|
+|Gentoo  |        5950|
+|Gentoo  |        5950|
+|Gentoo  |        5850|
+|Gentoo  |        5850|
+|Gentoo  |        5850|
+|Gentoo  |        5800|
+|Gentoo  |        5800|
+|Gentoo  |        5750|
+|Gentoo  |        5700|
+|Gentoo  |        5700|
+|Gentoo  |        5700|
+|Gentoo  |        5700|
+|Gentoo  |        5700|
+|Gentoo  |        5650|
+|Gentoo  |        5650|
+|Gentoo  |        5650|
 
 </div>
 
@@ -6808,7 +8133,7 @@ penguins |>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   group_by(species) |> 
   slice_max(order_by = body_mass_g,
             n = 3) |> 
@@ -6818,18 +8143,18 @@ penguins |>
 
 <div class="kable-table">
 
-|species                                   | body_mass_g|
-|:-----------------------------------------|-----------:|
-|Adelie Penguin (Pygoscelis adeliae)       |        4775|
-|Adelie Penguin (Pygoscelis adeliae)       |        4725|
-|Adelie Penguin (Pygoscelis adeliae)       |        4700|
-|Chinstrap penguin (Pygoscelis antarctica) |        4800|
-|Chinstrap penguin (Pygoscelis antarctica) |        4550|
-|Chinstrap penguin (Pygoscelis antarctica) |        4500|
-|Gentoo penguin (Pygoscelis papua)         |        6300|
-|Gentoo penguin (Pygoscelis papua)         |        6050|
-|Gentoo penguin (Pygoscelis papua)         |        6000|
-|Gentoo penguin (Pygoscelis papua)         |        6000|
+|species   | body_mass_g|
+|:---------|-----------:|
+|Adelie    |        4775|
+|Adelie    |        4725|
+|Adelie    |        4700|
+|Chinstrap |        4800|
+|Chinstrap |        4550|
+|Chinstrap |        4500|
+|Gentoo    |        6300|
+|Gentoo    |        6050|
+|Gentoo    |        6000|
+|Gentoo    |        6000|
 
 </div>
 
@@ -6838,19 +8163,19 @@ penguins |>
 
 ```r
 set.seed(342)
-bootstraps <- map(1:100, ~slice_sample(penguins, prop = .1, replace = TRUE))
+bootstraps <- map(1:100, ~slice_sample(penguins_clean_split, prop = .1, replace = TRUE))
 
 bootstraps %>%
     map_dbl(~ mean(.$body_mass_g, na.rm = TRUE)) |> 
   tibble(x = _ ) |> 
 ggplot(aes(x = x)) +
 geom_histogram(fill = "grey80", color = "black")+
-  geom_vline(data = penguins,
+  geom_vline(data = penguins_clean_split,
              aes(xintercept = mean(body_mass_g, na.rm = T)),
              linewidth = 2, colour = "red", linetype  ="dashed")
 ```
 
-<img src="04-tidyverse_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -6866,7 +8191,7 @@ with the summary function:
 
 
 ```r
-model <- lm(culmen_depth_mm ~ culmen_length_mm, data = penguins)
+model <- lm(culmen_depth_mm ~ culmen_length_mm, data = penguins_clean_split)
 
 summary(model)
 ```
@@ -6874,7 +8199,7 @@ summary(model)
 ```
 ## 
 ## Call:
-## lm(formula = culmen_depth_mm ~ culmen_length_mm, data = penguins)
+## lm(formula = culmen_depth_mm ~ culmen_length_mm, data = penguins_clean_split)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
@@ -6897,14 +8222,14 @@ Now we know that there are important covariates to consider - and the most appro
 
 
 ```r
-model <- lm(culmen_depth_mm ~ culmen_length_mm * species, data = penguins)
+model <- lm(culmen_depth_mm ~ culmen_length_mm * species, data = penguins_clean_split)
 
 summary(model)
 ```
 
 ```
 Call:
-lm(formula = culmen_depth_mm ~ culmen_length_mm * species, data = penguins)
+lm(formula = culmen_depth_mm ~ culmen_length_mm * species, data = penguins_clean_split)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
@@ -6932,7 +8257,7 @@ However, there may be occasions where we wish to apply simple models to each sub
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   group_by(species) |> 
   nest() |> 
   mutate(model = map(data, ~ lm(culmen_depth_mm ~ culmen_length_mm, data = .))) |> 
@@ -7096,20 +8421,20 @@ names_from.
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   group_by(species, island) |> 
   summarise(mean = mean(body_mass_g, na.rm = T))
 ```
 
 <div class="kable-table">
 
-|species                                   |island    |     mean|
-|:-----------------------------------------|:---------|--------:|
-|Adelie Penguin (Pygoscelis adeliae)       |Biscoe    | 3709.659|
-|Adelie Penguin (Pygoscelis adeliae)       |Dream     | 3688.393|
-|Adelie Penguin (Pygoscelis adeliae)       |Torgersen | 3706.373|
-|Chinstrap penguin (Pygoscelis antarctica) |Dream     | 3733.088|
-|Gentoo penguin (Pygoscelis papua)         |Biscoe    | 5076.016|
+|species   |island    |     mean|
+|:---------|:---------|--------:|
+|Adelie    |Biscoe    | 3709.659|
+|Adelie    |Dream     | 3688.393|
+|Adelie    |Torgersen | 3706.373|
+|Chinstrap |Dream     | 3733.088|
+|Gentoo    |Biscoe    | 5076.016|
 
 </div>
 
@@ -7117,7 +8442,7 @@ penguins |>
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   group_by(species, island) |> 
   summarise(mean = mean(body_mass_g, na.rm = T)) |> 
   pivot_wider(names_from = c(species, island),
@@ -7127,9 +8452,9 @@ penguins |>
 
 <div class="kable-table">
 
-| mean_Adelie Penguin (Pygoscelis adeliae)_Biscoe| mean_Adelie Penguin (Pygoscelis adeliae)_Dream| mean_Adelie Penguin (Pygoscelis adeliae)_Torgersen| mean_Chinstrap penguin (Pygoscelis antarctica)_Dream| mean_Gentoo penguin (Pygoscelis papua)_Biscoe|
-|-----------------------------------------------:|----------------------------------------------:|--------------------------------------------------:|----------------------------------------------------:|---------------------------------------------:|
-|                                        3709.659|                                       3688.393|                                           3706.373|                                             3733.088|                                      5076.016|
+| mean_Adelie_Biscoe| mean_Adelie_Dream| mean_Adelie_Torgersen| mean_Chinstrap_Dream| mean_Gentoo_Biscoe|
+|------------------:|-----------------:|---------------------:|--------------------:|------------------:|
+|           3709.659|          3688.393|              3706.373|             3733.088|           5076.016|
 
 </div>
 
@@ -7141,7 +8466,7 @@ Below is an example of some code to select a variable:
 
 
 ```r
-penguins |> 
+penguins_clean_split |> 
   select(species)
 ```
 
@@ -7150,7 +8475,7 @@ Put that exact working code into a function
 
 ```r
 test_function <- function(select_var){
-  penguins |> 
+  penguins_clean_split |> 
   select(select_var)
 }
 
@@ -7187,7 +8512,7 @@ Data masking is used by `arrange()`, `count()`, `filter()`, `group_by()`, `mutat
 
 ```r
 test_filter_species <- function(filter_var) {
-  penguins %>%
+  penguins_clean_split %>%
     filter(species == filter_var)
 }
 
@@ -7196,27 +8521,26 @@ test_filter_species("Adelie") %>%
 ```
 
 ```
-## Rows: 0
-## Columns: 19
-## $ study_name        <chr> 
-## $ sample_number     <dbl> 
-## $ species           <chr> 
-## $ region            <chr> 
-## $ island            <chr> 
-## $ stage             <chr> 
-## $ individual_id     <chr> 
-## $ clutch_completion <chr> 
-## $ date_egg          <chr> 
-## $ culmen_length_mm  <dbl> 
-## $ culmen_depth_mm   <dbl> 
-## $ flipper_length_mm <dbl> 
-## $ body_mass_g       <dbl> 
-## $ sex               <chr> 
-## $ delta_15_n_o_oo   <dbl> 
-## $ delta_13_c_o_oo   <dbl> 
-## $ comments          <chr> 
-## $ date_egg_proper   <date> 
-## $ flipper_range     <fct>
+## Rows: 152
+## Columns: 18
+## $ study_name        <chr> "PAL0708", "PAL0708", "PAL0708", "PAL0708", "PAL0708…
+## $ sample_number     <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1…
+## $ species           <chr> "Adelie", "Adelie", "Adelie", "Adelie", "Adelie", "A…
+## $ full_latin_name   <chr> "Pygoscelis adeliae", "Pygoscelis adeliae", "Pygosce…
+## $ region            <chr> "Anvers", "Anvers", "Anvers", "Anvers", "Anvers", "A…
+## $ island            <chr> "Torgersen", "Torgersen", "Torgersen", "Torgersen", …
+## $ stage             <chr> "Adult, 1 Egg Stage", "Adult, 1 Egg Stage", "Adult, …
+## $ individual_id     <chr> "N1A1", "N1A2", "N2A1", "N2A2", "N3A1", "N3A2", "N4A…
+## $ clutch_completion <chr> "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "No", "No"…
+## $ date_egg          <date> 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 200…
+## $ culmen_length_mm  <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+## $ culmen_depth_mm   <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+## $ flipper_length_mm <dbl> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+## $ body_mass_g       <dbl> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+## $ sex               <chr> "MALE", "FEMALE", "FEMALE", NA, "FEMALE", "MALE", "F…
+## $ delta_15_n_o_oo   <dbl> NA, 8.94956, 8.36821, NA, 8.76651, 8.66496, 9.18718,…
+## $ delta_13_c_o_oo   <dbl> NA, -24.69454, -25.33302, NA, -25.32426, -25.29805, …
+## $ comments          <chr> "Not enough blood for isotopes.", NA, NA, "Adult not…
 ```
 
 By passing quoted arguments to the function, you can use it directly in the expression, and the function will evaluate it as if it were part of the data frame. 
@@ -7224,7 +8548,7 @@ By passing quoted arguments to the function, you can use it directly in the expr
 
 ```r
 test_filter_general <- function(filter_condition) {
-  penguins %>%
+  penguins_clean_split %>%
     filter(filter_condition)
 }
 
@@ -7248,7 +8572,7 @@ However, we can avoid this by embracing the curly operators `{{.}}` this allows 
 
 ```r
 test_filter_general <- function(filter_condition) {
-  penguins %>%
+  penguins_clean_split %>%
     filter({{filter_condition}})
 }
 
@@ -7258,16 +8582,17 @@ test_filter_general(flipper_length_mm > 180) %>%
 
 ```
 ## Rows: 329
-## Columns: 19
+## Columns: 18
 ## $ study_name        <chr> "PAL0708", "PAL0708", "PAL0708", "PAL0708", "PAL0708…
 ## $ sample_number     <dbl> 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, …
-## $ species           <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Pengu…
+## $ species           <chr> "Adelie", "Adelie", "Adelie", "Adelie", "Adelie", "A…
+## $ full_latin_name   <chr> "Pygoscelis adeliae", "Pygoscelis adeliae", "Pygosce…
 ## $ region            <chr> "Anvers", "Anvers", "Anvers", "Anvers", "Anvers", "A…
 ## $ island            <chr> "Torgersen", "Torgersen", "Torgersen", "Torgersen", …
 ## $ stage             <chr> "Adult, 1 Egg Stage", "Adult, 1 Egg Stage", "Adult, …
 ## $ individual_id     <chr> "N1A1", "N1A2", "N2A1", "N3A1", "N3A2", "N4A1", "N4A…
 ## $ clutch_completion <chr> "Yes", "Yes", "Yes", "Yes", "Yes", "No", "No", "Yes"…
-## $ date_egg          <chr> "11/11/2007", "11/11/2007", "16/11/2007", "16/11/200…
+## $ date_egg          <date> 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 200…
 ## $ culmen_length_mm  <dbl> 39.1, 39.5, 40.3, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0…
 ## $ culmen_depth_mm   <dbl> 18.7, 17.4, 18.0, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2…
 ## $ flipper_length_mm <dbl> 181, 186, 195, 193, 190, 181, 195, 193, 190, 186, 18…
@@ -7276,8 +8601,6 @@ test_filter_general(flipper_length_mm > 180) %>%
 ## $ delta_15_n_o_oo   <dbl> NA, 8.94956, 8.36821, 8.76651, 8.66496, 9.18718, 9.4…
 ## $ delta_13_c_o_oo   <dbl> NA, -24.69454, -25.33302, -25.32426, -25.29805, -25.…
 ## $ comments          <chr> "Not enough blood for isotopes.", NA, NA, NA, NA, "N…
-## $ date_egg_proper   <date> 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 200…
-## $ flipper_range     <fct> small, small, medium, medium, small, small, medium, …
 ```
 
 Let's try another data-masked function
@@ -7290,7 +8613,7 @@ summary_table <- function(df, var){
               sd = sd({{var}}, na.rm = T))
 }
 
-summary_table(penguins, body_mass_g)
+summary_table(penguins_clean_split, body_mass_g)
 ```
 
 <div class="kable-table">
@@ -7313,7 +8636,7 @@ test_filter_general <- function(filter_condition) {
   
   filter_quo <- enquo(filter_condition)
   
-  penguins %>%
+  penguins_clean_split %>%
     filter(!!filter_quo)
 }
 
@@ -7323,16 +8646,17 @@ test_filter_general(flipper_length_mm > 180) %>%
 
 ```
 ## Rows: 329
-## Columns: 19
+## Columns: 18
 ## $ study_name        <chr> "PAL0708", "PAL0708", "PAL0708", "PAL0708", "PAL0708…
 ## $ sample_number     <dbl> 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, …
-## $ species           <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Pengu…
+## $ species           <chr> "Adelie", "Adelie", "Adelie", "Adelie", "Adelie", "A…
+## $ full_latin_name   <chr> "Pygoscelis adeliae", "Pygoscelis adeliae", "Pygosce…
 ## $ region            <chr> "Anvers", "Anvers", "Anvers", "Anvers", "Anvers", "A…
 ## $ island            <chr> "Torgersen", "Torgersen", "Torgersen", "Torgersen", …
 ## $ stage             <chr> "Adult, 1 Egg Stage", "Adult, 1 Egg Stage", "Adult, …
 ## $ individual_id     <chr> "N1A1", "N1A2", "N2A1", "N3A1", "N3A2", "N4A1", "N4A…
 ## $ clutch_completion <chr> "Yes", "Yes", "Yes", "Yes", "Yes", "No", "No", "Yes"…
-## $ date_egg          <chr> "11/11/2007", "11/11/2007", "16/11/2007", "16/11/200…
+## $ date_egg          <date> 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 200…
 ## $ culmen_length_mm  <dbl> 39.1, 39.5, 40.3, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0…
 ## $ culmen_depth_mm   <dbl> 18.7, 17.4, 18.0, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2…
 ## $ flipper_length_mm <dbl> 181, 186, 195, 193, 190, 181, 195, 193, 190, 186, 18…
@@ -7341,8 +8665,6 @@ test_filter_general(flipper_length_mm > 180) %>%
 ## $ delta_15_n_o_oo   <dbl> NA, 8.94956, 8.36821, 8.76651, 8.66496, 9.18718, 9.4…
 ## $ delta_13_c_o_oo   <dbl> NA, -24.69454, -25.33302, -25.32426, -25.29805, -25.…
 ## $ comments          <chr> "Not enough blood for isotopes.", NA, NA, NA, NA, "N…
-## $ date_egg_proper   <date> 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 200…
-## $ flipper_range     <fct> small, small, medium, medium, small, small, medium, …
 ```
 
 ## tidy-select
@@ -7352,7 +8674,7 @@ When using functions that use tidy-select, we put variable names in quotes and u
 
 ```r
 my_select_function <- function(select_variable){
-  penguins |> 
+  penguins_clean_split |> 
     dplyr::select(select_variable)
   }
 
@@ -7368,7 +8690,7 @@ Error: object 'species' not found
 
 ```r
 my_select_function <- function(select_variable){
-  penguins |> 
+  penguins_clean_split |> 
     dplyr::select(select_variable)
   }
 
@@ -7397,7 +8719,7 @@ data %>% select(all_of(select_variable))
 
 ```r
 my_select_function <- function(select_variable){
-  penguins |> 
+  penguins_clean_split |> 
     dplyr::select(dplyr::all_of(select_variable))
   }
 
@@ -7408,7 +8730,7 @@ my_select_function(select_variable = c("species", "sex")) |>
 ```
 ## Rows: 344
 ## Columns: 2
-## $ species <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Penguin (Pygosc…
+## $ species <chr> "Adelie", "Adelie", "Adelie", "Adelie", "Adelie", "Adelie", "A…
 ## $ sex     <chr> "MALE", "FEMALE", "FEMALE", NA, "FEMALE", "MALE", "FEMALE", "M…
 ```
 
@@ -7441,10 +8763,10 @@ compare_species_plot <- function(data, species_1, species_2, feature) {
 
 }
 
-compare_species_plot(penguins, "Adelie", "Chinstrap", culmen_length_mm)
+compare_species_plot(penguins_clean_split, "Adelie", "Chinstrap", culmen_length_mm)
 ```
 
-<img src="04-tidyverse_files/figure-html/unnamed-chunk-71-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-72-1.png" width="100%" style="display: block; margin: auto;" />
 </div></div></div>
 
 In the example below I have used `enquo` to enable conversion to character strings, this means all of the function arguments can be provided without "quotes". 
@@ -7473,7 +8795,7 @@ compare_species_plot <- function(data, species_1, species_2, feature) {
 
 # Example usage without quotes for species names
 
-compare_species_plot(penguins, Adelie, Chinstrap, culmen_length_mm)
+compare_species_plot(penguins_clean_split, Adelie, Chinstrap, culmen_length_mm)
 ```
 </div></div></div>
 
@@ -7510,26 +8832,28 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] janitor_2.2.0      knitr_1.43         webexercises_1.1.0 glossary_1.0.0    
-##  [5] lubridate_1.9.2    forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2       
-##  [9] purrr_1.0.1        readr_2.1.4        tidyr_1.3.0        tibble_3.2.1      
-## [13] ggplot2_3.4.2      tidyverse_2.0.0   
+##  [1] palmerpenguins_0.1.1 janitor_2.2.0        knitr_1.43          
+##  [4] webexercises_1.1.0   glossary_1.0.0       lubridate_1.9.2     
+##  [7] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.2         
+## [10] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
+## [13] tibble_3.2.1         ggplot2_3.4.2        tidyverse_2.0.0     
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
 ##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
 ##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
 ## [13] fastmap_1.1.1     jsonlite_1.8.7    fansi_1.0.4       scales_1.2.1     
-## [17] jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1       munsell_0.5.0    
-## [21] withr_2.5.0       cachem_1.0.8      yaml_2.3.7        tools_4.3.1      
-## [25] tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0  vctrs_0.6.3      
-## [29] R6_2.5.1          lifecycle_1.0.3   snakecase_0.11.0  fs_1.6.2         
-## [33] pkgconfig_2.0.3   pillar_1.9.0      bslib_0.5.0       gtable_0.3.3     
-## [37] glue_1.6.2        xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
-## [41] htmltools_0.5.5   rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
+## [17] codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1      
+## [21] munsell_0.5.0     withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
+## [25] tools_4.3.1       tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0 
+## [29] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   snakecase_0.11.0 
+## [33] fs_1.6.2          pkgconfig_2.0.3   pillar_1.9.0      bslib_0.5.0      
+## [37] gtable_0.3.3      glue_1.6.2        highr_0.10        xfun_0.39        
+## [41] tidyselect_1.2.0  rstudioapi_0.15.0 farver_2.1.1      htmltools_0.5.5  
+## [45] labeling_0.4.2    rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
 ```
 
-<!--chapter:end:04-tidyverse.Rmd-->
+<!--chapter:end:05-tidyverse.Rmd-->
 
 # (PART\*) Data Presentation {.unnumbered}
 
@@ -7670,7 +8994,7 @@ The output is identical
 ggplot(data = penguins)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>Running this command will produce an empty grey panel. This is
@@ -7701,7 +9025,7 @@ penguins |>
              y = body_mass_g))
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
 
 So far we have the grid lines for our x and y axis. `ggplot()` knows the variables required for the plot, and thus the scale, but has no information about how to display the data points.
 
@@ -7746,7 +9070,7 @@ penguins |>
   geom_point() # geom_point function will always draw points, and unless specified otherwise the arguments for position and stat are both "identity".
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
 
 Now we have the scatter plot! Each row (except for two rows of missing data) in the penguins data set now has an x coordinate, a y coordinate, and a designated geometric representation (point).
 
@@ -7768,7 +9092,7 @@ penguins |>
   geom_point(colour="red")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" />
 
 However the current plot could be more informative if colour was used to convey information about the species of each penguin.
 
@@ -7796,7 +9120,7 @@ penguins |>
   geom_point(aes(colour=species))
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>You may (or may not) have noticed that the grammar of ggplot (and
@@ -7833,7 +9157,7 @@ penguins |>
               aes(colour=species)) # note layers inherit information from the top ggplot() function but not previous layers - if we want separate lines per species we need to either specify this again *or* move the color aesthetic to the top layer. 
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
 
 In the example above we may notice that we are assigning colour to the same variable (species) in both geometric layers. This means we have the option to simplify our code. Aesthetics set in the "top layer" of `ggplot()` are inherited by all subsequent layers.
 
@@ -7848,7 +9172,7 @@ penguins |>
               se=FALSE)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 <div class="try">
@@ -7881,7 +9205,7 @@ penguins |>
   xlim(0,240) + ylim(0,7000)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
 
 Further, we can control the coordinate space using `coord()` functions. Say we want to flip the x and y axes, we add `coord_flip()`:
 
@@ -7898,7 +9222,7 @@ penguins |>
   coord_flip()
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Labels
 
@@ -7918,7 +9242,7 @@ penguins |>
        y = "Body mass (g)")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### Titles and subtitles
 
@@ -7938,7 +9262,7 @@ penguins |>
        subtitle= "Flipper length and body mass for three penguin species")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Themes
 
@@ -7962,7 +9286,7 @@ penguins |>
   theme_void()
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>There is a lot more customisation available through the theme()
@@ -7988,7 +9312,7 @@ what you can do.</p>
 
 The `geom_jitter()` command adds some random scatter to the points which can reduce over-plotting. Compare these two plots:
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -8025,7 +9349,7 @@ ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
               show.legend = FALSE)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-34-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-34-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="try">
 <p>Note that when specifying colour variables using <code>aes()</code>
@@ -8051,7 +9375,7 @@ ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
   theme(legend.position = "none")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 <div class="warning">
@@ -8076,7 +9400,7 @@ penguins |>
     geom_histogram(bins=50)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;" />
 
 At first you might struggle to see/understand the difference between these two charts. The shapes should be roughly the same. 
 
@@ -8089,7 +9413,7 @@ penguins |>
                    position = "identity")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 <div class='webex-solution'><button>Explain this</button>
@@ -8121,7 +9445,7 @@ penguins |>
                    colour="black")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### Choosing and using colour palettes
 
@@ -8152,7 +9476,7 @@ penguins |>
   theme_minimal()
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" />
 
 You can also use a range of inbuilt colour palettes: 
 
@@ -8166,7 +9490,7 @@ penguins |>
   theme_minimal()
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 <div class="info">
@@ -8192,7 +9516,7 @@ library(colorBlindness)
 colorBlindness::cvdPlot() # will automatically run on the last plot you made
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-47-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-47-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 #### Guides to visual accessibility 
@@ -8226,7 +9550,7 @@ penguins |>
   facet_wrap(~sex)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### Patchwork
 
@@ -8267,7 +9591,7 @@ p3 <- penguins |>
   plot_layout(guides = "collect") 
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Activity: Replicate this figure
 
@@ -8278,7 +9602,7 @@ p3 <- penguins |>
 you are done save the file</p>
 </div>
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-53-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-53-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -8433,7 +9757,7 @@ penguins |>
   coord_flip() # rotate figure
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ### Interval stats
@@ -8455,7 +9779,7 @@ penguins |>
   scale_color_viridis_d(option = "mako", direction = -1, end = .9)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Density
 
@@ -8472,7 +9796,7 @@ penguins |>
    scale_colour_manual(values = pal)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## ggridges
 
@@ -8490,7 +9814,7 @@ penguins |>
   theme(legend.position = "none")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Bump charts
 
@@ -8524,7 +9848,7 @@ penguin_summary |>
   theme(legend.position = "none")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Dumbell charts
@@ -8550,7 +9874,7 @@ ggplot(summary_counts,
        y = "")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Facets
 
@@ -8571,7 +9895,7 @@ penguins |>
   theme(legend.position = "none")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Highlighting
 
@@ -8589,7 +9913,7 @@ penguins |>
   facet_wrap(~ species)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-66-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-66-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -8605,7 +9929,7 @@ penguins |>
     gghighlight(body_mass_g > 4000)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-67-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-67-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Text
 
@@ -8633,7 +9957,7 @@ ggforce::geom_mark_ellipse(aes(
   scale_fill_manual(values = pal)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-68-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-68-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### textpaths
 
@@ -8649,7 +9973,7 @@ penguins |>
   theme(legend.position = "none")
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-69-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-69-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### ggtext
 
@@ -8688,7 +10012,7 @@ ggplot(aes(x = species,
       plot.title = element_markdown())
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-70-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-70-1.png" width="80%" style="display: block; margin: auto;" />
 
 
 
@@ -8737,7 +10061,7 @@ pt <- ggplot(text, aes(x = x, y = y)) +
 pt
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-73-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-73-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -8774,7 +10098,7 @@ p1 + p2 +
   plot_layout(design = layout)
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-74-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-74-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Scales
@@ -9023,23 +10347,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="nhahxtkbop" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nhahxtkbop table {
+<div id="ysldpfygvq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ysldpfygvq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nhahxtkbop thead, #nhahxtkbop tbody, #nhahxtkbop tfoot, #nhahxtkbop tr, #nhahxtkbop td, #nhahxtkbop th {
+#ysldpfygvq thead, #ysldpfygvq tbody, #ysldpfygvq tfoot, #ysldpfygvq tr, #ysldpfygvq td, #ysldpfygvq th {
   border-style: none;
 }
 
-#nhahxtkbop p {
+#ysldpfygvq p {
   margin: 0;
   padding: 0;
 }
 
-#nhahxtkbop .gt_table {
+#ysldpfygvq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -9065,12 +10389,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#nhahxtkbop .gt_caption {
+#ysldpfygvq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nhahxtkbop .gt_title {
+#ysldpfygvq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -9082,7 +10406,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#nhahxtkbop .gt_subtitle {
+#ysldpfygvq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -9094,7 +10418,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#nhahxtkbop .gt_heading {
+#ysldpfygvq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -9106,13 +10430,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#nhahxtkbop .gt_bottom_border {
+#ysldpfygvq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nhahxtkbop .gt_col_headings {
+#ysldpfygvq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -9127,7 +10451,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#nhahxtkbop .gt_col_heading {
+#ysldpfygvq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9147,7 +10471,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#nhahxtkbop .gt_column_spanner_outer {
+#ysldpfygvq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9159,15 +10483,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#nhahxtkbop .gt_column_spanner_outer:first-child {
+#ysldpfygvq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nhahxtkbop .gt_column_spanner_outer:last-child {
+#ysldpfygvq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nhahxtkbop .gt_column_spanner {
+#ysldpfygvq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -9179,11 +10503,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#nhahxtkbop .gt_spanner_row {
+#ysldpfygvq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nhahxtkbop .gt_group_heading {
+#ysldpfygvq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9209,7 +10533,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#nhahxtkbop .gt_empty_group_heading {
+#ysldpfygvq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -9224,15 +10548,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#nhahxtkbop .gt_from_md > :first-child {
+#ysldpfygvq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nhahxtkbop .gt_from_md > :last-child {
+#ysldpfygvq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nhahxtkbop .gt_row {
+#ysldpfygvq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9251,7 +10575,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#nhahxtkbop .gt_stub {
+#ysldpfygvq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9264,7 +10588,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#nhahxtkbop .gt_stub_row_group {
+#ysldpfygvq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9278,15 +10602,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#nhahxtkbop .gt_row_group_first td {
+#ysldpfygvq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nhahxtkbop .gt_row_group_first th {
+#ysldpfygvq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nhahxtkbop .gt_summary_row {
+#ysldpfygvq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -9296,16 +10620,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#nhahxtkbop .gt_first_summary_row {
+#ysldpfygvq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nhahxtkbop .gt_first_summary_row.thick {
+#ysldpfygvq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nhahxtkbop .gt_last_summary_row {
+#ysldpfygvq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9315,7 +10639,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#nhahxtkbop .gt_grand_summary_row {
+#ysldpfygvq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -9325,7 +10649,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#nhahxtkbop .gt_first_grand_summary_row {
+#ysldpfygvq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9335,7 +10659,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#nhahxtkbop .gt_last_grand_summary_row_top {
+#ysldpfygvq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9345,11 +10669,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#nhahxtkbop .gt_striped {
+#ysldpfygvq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nhahxtkbop .gt_table_body {
+#ysldpfygvq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -9358,7 +10682,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#nhahxtkbop .gt_footnotes {
+#ysldpfygvq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -9372,7 +10696,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#nhahxtkbop .gt_footnote {
+#ysldpfygvq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -9381,7 +10705,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#nhahxtkbop .gt_sourcenotes {
+#ysldpfygvq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -9395,7 +10719,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#nhahxtkbop .gt_sourcenote {
+#ysldpfygvq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -9403,63 +10727,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#nhahxtkbop .gt_left {
+#ysldpfygvq .gt_left {
   text-align: left;
 }
 
-#nhahxtkbop .gt_center {
+#ysldpfygvq .gt_center {
   text-align: center;
 }
 
-#nhahxtkbop .gt_right {
+#ysldpfygvq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nhahxtkbop .gt_font_normal {
+#ysldpfygvq .gt_font_normal {
   font-weight: normal;
 }
 
-#nhahxtkbop .gt_font_bold {
+#ysldpfygvq .gt_font_bold {
   font-weight: bold;
 }
 
-#nhahxtkbop .gt_font_italic {
+#ysldpfygvq .gt_font_italic {
   font-style: italic;
 }
 
-#nhahxtkbop .gt_super {
+#ysldpfygvq .gt_super {
   font-size: 65%;
 }
 
-#nhahxtkbop .gt_footnote_marks {
+#ysldpfygvq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nhahxtkbop .gt_asterisk {
+#ysldpfygvq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nhahxtkbop .gt_indent_1 {
+#ysldpfygvq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nhahxtkbop .gt_indent_2 {
+#ysldpfygvq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nhahxtkbop .gt_indent_3 {
+#ysldpfygvq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nhahxtkbop .gt_indent_4 {
+#ysldpfygvq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nhahxtkbop .gt_indent_5 {
+#ysldpfygvq .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -9579,23 +10903,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="wqblaspqgz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wqblaspqgz table {
+<div id="jblztibbld" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jblztibbld table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wqblaspqgz thead, #wqblaspqgz tbody, #wqblaspqgz tfoot, #wqblaspqgz tr, #wqblaspqgz td, #wqblaspqgz th {
+#jblztibbld thead, #jblztibbld tbody, #jblztibbld tfoot, #jblztibbld tr, #jblztibbld td, #jblztibbld th {
   border-style: none;
 }
 
-#wqblaspqgz p {
+#jblztibbld p {
   margin: 0;
   padding: 0;
 }
 
-#wqblaspqgz .gt_table {
+#jblztibbld .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -9621,12 +10945,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#wqblaspqgz .gt_caption {
+#jblztibbld .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wqblaspqgz .gt_title {
+#jblztibbld .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -9638,7 +10962,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#wqblaspqgz .gt_subtitle {
+#jblztibbld .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -9650,7 +10974,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#wqblaspqgz .gt_heading {
+#jblztibbld .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -9662,13 +10986,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#wqblaspqgz .gt_bottom_border {
+#jblztibbld .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wqblaspqgz .gt_col_headings {
+#jblztibbld .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -9683,7 +11007,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#wqblaspqgz .gt_col_heading {
+#jblztibbld .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9703,7 +11027,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#wqblaspqgz .gt_column_spanner_outer {
+#jblztibbld .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9715,15 +11039,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#wqblaspqgz .gt_column_spanner_outer:first-child {
+#jblztibbld .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wqblaspqgz .gt_column_spanner_outer:last-child {
+#jblztibbld .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wqblaspqgz .gt_column_spanner {
+#jblztibbld .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -9735,11 +11059,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#wqblaspqgz .gt_spanner_row {
+#jblztibbld .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wqblaspqgz .gt_group_heading {
+#jblztibbld .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9765,7 +11089,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#wqblaspqgz .gt_empty_group_heading {
+#jblztibbld .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -9780,15 +11104,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#wqblaspqgz .gt_from_md > :first-child {
+#jblztibbld .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wqblaspqgz .gt_from_md > :last-child {
+#jblztibbld .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wqblaspqgz .gt_row {
+#jblztibbld .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9807,7 +11131,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#wqblaspqgz .gt_stub {
+#jblztibbld .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9820,7 +11144,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#wqblaspqgz .gt_stub_row_group {
+#jblztibbld .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9834,15 +11158,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#wqblaspqgz .gt_row_group_first td {
+#jblztibbld .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wqblaspqgz .gt_row_group_first th {
+#jblztibbld .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wqblaspqgz .gt_summary_row {
+#jblztibbld .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -9852,16 +11176,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#wqblaspqgz .gt_first_summary_row {
+#jblztibbld .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wqblaspqgz .gt_first_summary_row.thick {
+#jblztibbld .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wqblaspqgz .gt_last_summary_row {
+#jblztibbld .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9871,7 +11195,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#wqblaspqgz .gt_grand_summary_row {
+#jblztibbld .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -9881,7 +11205,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#wqblaspqgz .gt_first_grand_summary_row {
+#jblztibbld .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9891,7 +11215,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#wqblaspqgz .gt_last_grand_summary_row_top {
+#jblztibbld .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9901,11 +11225,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#wqblaspqgz .gt_striped {
+#jblztibbld .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wqblaspqgz .gt_table_body {
+#jblztibbld .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -9914,7 +11238,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#wqblaspqgz .gt_footnotes {
+#jblztibbld .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -9928,7 +11252,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#wqblaspqgz .gt_footnote {
+#jblztibbld .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -9937,7 +11261,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#wqblaspqgz .gt_sourcenotes {
+#jblztibbld .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -9951,7 +11275,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#wqblaspqgz .gt_sourcenote {
+#jblztibbld .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -9959,63 +11283,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#wqblaspqgz .gt_left {
+#jblztibbld .gt_left {
   text-align: left;
 }
 
-#wqblaspqgz .gt_center {
+#jblztibbld .gt_center {
   text-align: center;
 }
 
-#wqblaspqgz .gt_right {
+#jblztibbld .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wqblaspqgz .gt_font_normal {
+#jblztibbld .gt_font_normal {
   font-weight: normal;
 }
 
-#wqblaspqgz .gt_font_bold {
+#jblztibbld .gt_font_bold {
   font-weight: bold;
 }
 
-#wqblaspqgz .gt_font_italic {
+#jblztibbld .gt_font_italic {
   font-style: italic;
 }
 
-#wqblaspqgz .gt_super {
+#jblztibbld .gt_super {
   font-size: 65%;
 }
 
-#wqblaspqgz .gt_footnote_marks {
+#jblztibbld .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wqblaspqgz .gt_asterisk {
+#jblztibbld .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wqblaspqgz .gt_indent_1 {
+#jblztibbld .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wqblaspqgz .gt_indent_2 {
+#jblztibbld .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wqblaspqgz .gt_indent_3 {
+#jblztibbld .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wqblaspqgz .gt_indent_4 {
+#jblztibbld .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wqblaspqgz .gt_indent_5 {
+#jblztibbld .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -10145,23 +11469,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="hiogfdhkwv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hiogfdhkwv table {
+<div id="uqgfysolta" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uqgfysolta table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hiogfdhkwv thead, #hiogfdhkwv tbody, #hiogfdhkwv tfoot, #hiogfdhkwv tr, #hiogfdhkwv td, #hiogfdhkwv th {
+#uqgfysolta thead, #uqgfysolta tbody, #uqgfysolta tfoot, #uqgfysolta tr, #uqgfysolta td, #uqgfysolta th {
   border-style: none;
 }
 
-#hiogfdhkwv p {
+#uqgfysolta p {
   margin: 0;
   padding: 0;
 }
 
-#hiogfdhkwv .gt_table {
+#uqgfysolta .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -10187,12 +11511,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#hiogfdhkwv .gt_caption {
+#uqgfysolta .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hiogfdhkwv .gt_title {
+#uqgfysolta .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -10204,7 +11528,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#hiogfdhkwv .gt_subtitle {
+#uqgfysolta .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -10216,7 +11540,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#hiogfdhkwv .gt_heading {
+#uqgfysolta .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -10228,13 +11552,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#hiogfdhkwv .gt_bottom_border {
+#uqgfysolta .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hiogfdhkwv .gt_col_headings {
+#uqgfysolta .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -10249,7 +11573,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#hiogfdhkwv .gt_col_heading {
+#uqgfysolta .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10269,7 +11593,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#hiogfdhkwv .gt_column_spanner_outer {
+#uqgfysolta .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10281,15 +11605,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#hiogfdhkwv .gt_column_spanner_outer:first-child {
+#uqgfysolta .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hiogfdhkwv .gt_column_spanner_outer:last-child {
+#uqgfysolta .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hiogfdhkwv .gt_column_spanner {
+#uqgfysolta .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -10301,11 +11625,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#hiogfdhkwv .gt_spanner_row {
+#uqgfysolta .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hiogfdhkwv .gt_group_heading {
+#uqgfysolta .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10331,7 +11655,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#hiogfdhkwv .gt_empty_group_heading {
+#uqgfysolta .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -10346,15 +11670,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#hiogfdhkwv .gt_from_md > :first-child {
+#uqgfysolta .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hiogfdhkwv .gt_from_md > :last-child {
+#uqgfysolta .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hiogfdhkwv .gt_row {
+#uqgfysolta .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10373,7 +11697,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#hiogfdhkwv .gt_stub {
+#uqgfysolta .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10386,7 +11710,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#hiogfdhkwv .gt_stub_row_group {
+#uqgfysolta .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10400,15 +11724,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#hiogfdhkwv .gt_row_group_first td {
+#uqgfysolta .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hiogfdhkwv .gt_row_group_first th {
+#uqgfysolta .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hiogfdhkwv .gt_summary_row {
+#uqgfysolta .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -10418,16 +11742,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#hiogfdhkwv .gt_first_summary_row {
+#uqgfysolta .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hiogfdhkwv .gt_first_summary_row.thick {
+#uqgfysolta .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hiogfdhkwv .gt_last_summary_row {
+#uqgfysolta .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10437,7 +11761,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#hiogfdhkwv .gt_grand_summary_row {
+#uqgfysolta .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -10447,7 +11771,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#hiogfdhkwv .gt_first_grand_summary_row {
+#uqgfysolta .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10457,7 +11781,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#hiogfdhkwv .gt_last_grand_summary_row_top {
+#uqgfysolta .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10467,11 +11791,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#hiogfdhkwv .gt_striped {
+#uqgfysolta .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hiogfdhkwv .gt_table_body {
+#uqgfysolta .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -10480,7 +11804,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#hiogfdhkwv .gt_footnotes {
+#uqgfysolta .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -10494,7 +11818,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#hiogfdhkwv .gt_footnote {
+#uqgfysolta .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -10503,7 +11827,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#hiogfdhkwv .gt_sourcenotes {
+#uqgfysolta .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -10517,7 +11841,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#hiogfdhkwv .gt_sourcenote {
+#uqgfysolta .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -10525,63 +11849,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#hiogfdhkwv .gt_left {
+#uqgfysolta .gt_left {
   text-align: left;
 }
 
-#hiogfdhkwv .gt_center {
+#uqgfysolta .gt_center {
   text-align: center;
 }
 
-#hiogfdhkwv .gt_right {
+#uqgfysolta .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hiogfdhkwv .gt_font_normal {
+#uqgfysolta .gt_font_normal {
   font-weight: normal;
 }
 
-#hiogfdhkwv .gt_font_bold {
+#uqgfysolta .gt_font_bold {
   font-weight: bold;
 }
 
-#hiogfdhkwv .gt_font_italic {
+#uqgfysolta .gt_font_italic {
   font-style: italic;
 }
 
-#hiogfdhkwv .gt_super {
+#uqgfysolta .gt_super {
   font-size: 65%;
 }
 
-#hiogfdhkwv .gt_footnote_marks {
+#uqgfysolta .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hiogfdhkwv .gt_asterisk {
+#uqgfysolta .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hiogfdhkwv .gt_indent_1 {
+#uqgfysolta .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hiogfdhkwv .gt_indent_2 {
+#uqgfysolta .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hiogfdhkwv .gt_indent_3 {
+#uqgfysolta .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hiogfdhkwv .gt_indent_4 {
+#uqgfysolta .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hiogfdhkwv .gt_indent_5 {
+#uqgfysolta .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -10734,23 +12058,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="orttzafpxv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#orttzafpxv table {
+<div id="dbdabecjco" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dbdabecjco table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#orttzafpxv thead, #orttzafpxv tbody, #orttzafpxv tfoot, #orttzafpxv tr, #orttzafpxv td, #orttzafpxv th {
+#dbdabecjco thead, #dbdabecjco tbody, #dbdabecjco tfoot, #dbdabecjco tr, #dbdabecjco td, #dbdabecjco th {
   border-style: none;
 }
 
-#orttzafpxv p {
+#dbdabecjco p {
   margin: 0;
   padding: 0;
 }
 
-#orttzafpxv .gt_table {
+#dbdabecjco .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -10776,12 +12100,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#orttzafpxv .gt_caption {
+#dbdabecjco .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#orttzafpxv .gt_title {
+#dbdabecjco .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -10793,7 +12117,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#orttzafpxv .gt_subtitle {
+#dbdabecjco .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -10805,7 +12129,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#orttzafpxv .gt_heading {
+#dbdabecjco .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -10817,13 +12141,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#orttzafpxv .gt_bottom_border {
+#dbdabecjco .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#orttzafpxv .gt_col_headings {
+#dbdabecjco .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -10838,7 +12162,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#orttzafpxv .gt_col_heading {
+#dbdabecjco .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10858,7 +12182,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#orttzafpxv .gt_column_spanner_outer {
+#dbdabecjco .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10870,15 +12194,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#orttzafpxv .gt_column_spanner_outer:first-child {
+#dbdabecjco .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#orttzafpxv .gt_column_spanner_outer:last-child {
+#dbdabecjco .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#orttzafpxv .gt_column_spanner {
+#dbdabecjco .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -10890,11 +12214,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#orttzafpxv .gt_spanner_row {
+#dbdabecjco .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#orttzafpxv .gt_group_heading {
+#dbdabecjco .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10920,7 +12244,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#orttzafpxv .gt_empty_group_heading {
+#dbdabecjco .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -10935,15 +12259,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#orttzafpxv .gt_from_md > :first-child {
+#dbdabecjco .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#orttzafpxv .gt_from_md > :last-child {
+#dbdabecjco .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#orttzafpxv .gt_row {
+#dbdabecjco .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10962,7 +12286,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#orttzafpxv .gt_stub {
+#dbdabecjco .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10975,7 +12299,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#orttzafpxv .gt_stub_row_group {
+#dbdabecjco .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10989,15 +12313,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#orttzafpxv .gt_row_group_first td {
+#dbdabecjco .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#orttzafpxv .gt_row_group_first th {
+#dbdabecjco .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#orttzafpxv .gt_summary_row {
+#dbdabecjco .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -11007,16 +12331,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#orttzafpxv .gt_first_summary_row {
+#dbdabecjco .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#orttzafpxv .gt_first_summary_row.thick {
+#dbdabecjco .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#orttzafpxv .gt_last_summary_row {
+#dbdabecjco .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11026,7 +12350,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#orttzafpxv .gt_grand_summary_row {
+#dbdabecjco .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -11036,7 +12360,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#orttzafpxv .gt_first_grand_summary_row {
+#dbdabecjco .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11046,7 +12370,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#orttzafpxv .gt_last_grand_summary_row_top {
+#dbdabecjco .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11056,11 +12380,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#orttzafpxv .gt_striped {
+#dbdabecjco .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#orttzafpxv .gt_table_body {
+#dbdabecjco .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -11069,7 +12393,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#orttzafpxv .gt_footnotes {
+#dbdabecjco .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -11083,7 +12407,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#orttzafpxv .gt_footnote {
+#dbdabecjco .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -11092,7 +12416,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#orttzafpxv .gt_sourcenotes {
+#dbdabecjco .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -11106,7 +12430,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#orttzafpxv .gt_sourcenote {
+#dbdabecjco .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -11114,63 +12438,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#orttzafpxv .gt_left {
+#dbdabecjco .gt_left {
   text-align: left;
 }
 
-#orttzafpxv .gt_center {
+#dbdabecjco .gt_center {
   text-align: center;
 }
 
-#orttzafpxv .gt_right {
+#dbdabecjco .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#orttzafpxv .gt_font_normal {
+#dbdabecjco .gt_font_normal {
   font-weight: normal;
 }
 
-#orttzafpxv .gt_font_bold {
+#dbdabecjco .gt_font_bold {
   font-weight: bold;
 }
 
-#orttzafpxv .gt_font_italic {
+#dbdabecjco .gt_font_italic {
   font-style: italic;
 }
 
-#orttzafpxv .gt_super {
+#dbdabecjco .gt_super {
   font-size: 65%;
 }
 
-#orttzafpxv .gt_footnote_marks {
+#dbdabecjco .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#orttzafpxv .gt_asterisk {
+#dbdabecjco .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#orttzafpxv .gt_indent_1 {
+#dbdabecjco .gt_indent_1 {
   text-indent: 5px;
 }
 
-#orttzafpxv .gt_indent_2 {
+#dbdabecjco .gt_indent_2 {
   text-indent: 10px;
 }
 
-#orttzafpxv .gt_indent_3 {
+#dbdabecjco .gt_indent_3 {
   text-indent: 15px;
 }
 
-#orttzafpxv .gt_indent_4 {
+#dbdabecjco .gt_indent_4 {
   text-indent: 20px;
 }
 
-#orttzafpxv .gt_indent_5 {
+#dbdabecjco .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -11302,28 +12626,28 @@ penguin_counts_wider |>
   ) |> 
    tab_header(
     title = 'Penguins of the Palmer Archipelago',
-    subtitle = 'Data is courtesy of the `palmerpenguins` R package by Allison Horst'
+    subtitle = 'Data is courtesy of the palmerpenguins R package by Allison Horst'
   ) 
 ```
 
 ```{=html}
-<div id="uluhbkpxqf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#uluhbkpxqf table {
+<div id="etqphyxues" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#etqphyxues table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#uluhbkpxqf thead, #uluhbkpxqf tbody, #uluhbkpxqf tfoot, #uluhbkpxqf tr, #uluhbkpxqf td, #uluhbkpxqf th {
+#etqphyxues thead, #etqphyxues tbody, #etqphyxues tfoot, #etqphyxues tr, #etqphyxues td, #etqphyxues th {
   border-style: none;
 }
 
-#uluhbkpxqf p {
+#etqphyxues p {
   margin: 0;
   padding: 0;
 }
 
-#uluhbkpxqf .gt_table {
+#etqphyxues .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -11349,12 +12673,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#uluhbkpxqf .gt_caption {
+#etqphyxues .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#uluhbkpxqf .gt_title {
+#etqphyxues .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -11366,7 +12690,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#uluhbkpxqf .gt_subtitle {
+#etqphyxues .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -11378,7 +12702,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#uluhbkpxqf .gt_heading {
+#etqphyxues .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -11390,13 +12714,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#uluhbkpxqf .gt_bottom_border {
+#etqphyxues .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uluhbkpxqf .gt_col_headings {
+#etqphyxues .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -11411,7 +12735,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#uluhbkpxqf .gt_col_heading {
+#etqphyxues .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11431,7 +12755,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#uluhbkpxqf .gt_column_spanner_outer {
+#etqphyxues .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11443,15 +12767,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#uluhbkpxqf .gt_column_spanner_outer:first-child {
+#etqphyxues .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uluhbkpxqf .gt_column_spanner_outer:last-child {
+#etqphyxues .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uluhbkpxqf .gt_column_spanner {
+#etqphyxues .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -11463,11 +12787,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#uluhbkpxqf .gt_spanner_row {
+#etqphyxues .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#uluhbkpxqf .gt_group_heading {
+#etqphyxues .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11493,7 +12817,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#uluhbkpxqf .gt_empty_group_heading {
+#etqphyxues .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -11508,15 +12832,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#uluhbkpxqf .gt_from_md > :first-child {
+#etqphyxues .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uluhbkpxqf .gt_from_md > :last-child {
+#etqphyxues .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uluhbkpxqf .gt_row {
+#etqphyxues .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11535,7 +12859,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#uluhbkpxqf .gt_stub {
+#etqphyxues .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11548,7 +12872,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#uluhbkpxqf .gt_stub_row_group {
+#etqphyxues .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11562,15 +12886,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#uluhbkpxqf .gt_row_group_first td {
+#etqphyxues .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uluhbkpxqf .gt_row_group_first th {
+#etqphyxues .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#uluhbkpxqf .gt_summary_row {
+#etqphyxues .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -11580,16 +12904,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#uluhbkpxqf .gt_first_summary_row {
+#etqphyxues .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uluhbkpxqf .gt_first_summary_row.thick {
+#etqphyxues .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uluhbkpxqf .gt_last_summary_row {
+#etqphyxues .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11599,7 +12923,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#uluhbkpxqf .gt_grand_summary_row {
+#etqphyxues .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -11609,7 +12933,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#uluhbkpxqf .gt_first_grand_summary_row {
+#etqphyxues .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11619,7 +12943,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#uluhbkpxqf .gt_last_grand_summary_row_top {
+#etqphyxues .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11629,11 +12953,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#uluhbkpxqf .gt_striped {
+#etqphyxues .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#uluhbkpxqf .gt_table_body {
+#etqphyxues .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -11642,7 +12966,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#uluhbkpxqf .gt_footnotes {
+#etqphyxues .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -11656,7 +12980,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#uluhbkpxqf .gt_footnote {
+#etqphyxues .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -11665,7 +12989,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#uluhbkpxqf .gt_sourcenotes {
+#etqphyxues .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -11679,7 +13003,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#uluhbkpxqf .gt_sourcenote {
+#etqphyxues .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -11687,63 +13011,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#uluhbkpxqf .gt_left {
+#etqphyxues .gt_left {
   text-align: left;
 }
 
-#uluhbkpxqf .gt_center {
+#etqphyxues .gt_center {
   text-align: center;
 }
 
-#uluhbkpxqf .gt_right {
+#etqphyxues .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uluhbkpxqf .gt_font_normal {
+#etqphyxues .gt_font_normal {
   font-weight: normal;
 }
 
-#uluhbkpxqf .gt_font_bold {
+#etqphyxues .gt_font_bold {
   font-weight: bold;
 }
 
-#uluhbkpxqf .gt_font_italic {
+#etqphyxues .gt_font_italic {
   font-style: italic;
 }
 
-#uluhbkpxqf .gt_super {
+#etqphyxues .gt_super {
   font-size: 65%;
 }
 
-#uluhbkpxqf .gt_footnote_marks {
+#etqphyxues .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#uluhbkpxqf .gt_asterisk {
+#etqphyxues .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uluhbkpxqf .gt_indent_1 {
+#etqphyxues .gt_indent_1 {
   text-indent: 5px;
 }
 
-#uluhbkpxqf .gt_indent_2 {
+#etqphyxues .gt_indent_2 {
   text-indent: 10px;
 }
 
-#uluhbkpxqf .gt_indent_3 {
+#etqphyxues .gt_indent_3 {
   text-indent: 15px;
 }
 
-#uluhbkpxqf .gt_indent_4 {
+#etqphyxues .gt_indent_4 {
   text-indent: 20px;
 }
 
-#uluhbkpxqf .gt_indent_5 {
+#etqphyxues .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -11753,7 +13077,7 @@ penguin_counts_wider |>
       <td colspan="8" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" scope="col" id="Island">Island</th>
@@ -11878,7 +13202,7 @@ labels_and_title <- function(gt_tbl){
   ) |> 
    tab_header(
     title = 'Penguins of the Palmer Archipelago',
-    subtitle = 'Data is courtesy of the `palmerpenguins` R package by Allison Horst'
+    subtitle = 'Data is courtesy of the palmerpenguins R package by Allison Horst'
   )
 }
 
@@ -11890,23 +13214,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="ntmkfidydp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ntmkfidydp table {
+<div id="cgpuhrhepp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cgpuhrhepp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ntmkfidydp thead, #ntmkfidydp tbody, #ntmkfidydp tfoot, #ntmkfidydp tr, #ntmkfidydp td, #ntmkfidydp th {
+#cgpuhrhepp thead, #cgpuhrhepp tbody, #cgpuhrhepp tfoot, #cgpuhrhepp tr, #cgpuhrhepp td, #cgpuhrhepp th {
   border-style: none;
 }
 
-#ntmkfidydp p {
+#cgpuhrhepp p {
   margin: 0;
   padding: 0;
 }
 
-#ntmkfidydp .gt_table {
+#cgpuhrhepp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -11932,12 +13256,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#ntmkfidydp .gt_caption {
+#cgpuhrhepp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ntmkfidydp .gt_title {
+#cgpuhrhepp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -11949,7 +13273,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#ntmkfidydp .gt_subtitle {
+#cgpuhrhepp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -11961,7 +13285,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#ntmkfidydp .gt_heading {
+#cgpuhrhepp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -11973,13 +13297,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#ntmkfidydp .gt_bottom_border {
+#cgpuhrhepp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ntmkfidydp .gt_col_headings {
+#cgpuhrhepp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -11994,7 +13318,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#ntmkfidydp .gt_col_heading {
+#cgpuhrhepp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -12014,7 +13338,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#ntmkfidydp .gt_column_spanner_outer {
+#cgpuhrhepp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -12026,15 +13350,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#ntmkfidydp .gt_column_spanner_outer:first-child {
+#cgpuhrhepp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ntmkfidydp .gt_column_spanner_outer:last-child {
+#cgpuhrhepp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ntmkfidydp .gt_column_spanner {
+#cgpuhrhepp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -12046,11 +13370,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#ntmkfidydp .gt_spanner_row {
+#cgpuhrhepp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ntmkfidydp .gt_group_heading {
+#cgpuhrhepp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -12076,7 +13400,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#ntmkfidydp .gt_empty_group_heading {
+#cgpuhrhepp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -12091,15 +13415,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#ntmkfidydp .gt_from_md > :first-child {
+#cgpuhrhepp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ntmkfidydp .gt_from_md > :last-child {
+#cgpuhrhepp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ntmkfidydp .gt_row {
+#cgpuhrhepp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -12118,7 +13442,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#ntmkfidydp .gt_stub {
+#cgpuhrhepp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -12131,7 +13455,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#ntmkfidydp .gt_stub_row_group {
+#cgpuhrhepp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -12145,15 +13469,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#ntmkfidydp .gt_row_group_first td {
+#cgpuhrhepp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ntmkfidydp .gt_row_group_first th {
+#cgpuhrhepp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ntmkfidydp .gt_summary_row {
+#cgpuhrhepp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -12163,16 +13487,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#ntmkfidydp .gt_first_summary_row {
+#cgpuhrhepp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ntmkfidydp .gt_first_summary_row.thick {
+#cgpuhrhepp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ntmkfidydp .gt_last_summary_row {
+#cgpuhrhepp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -12182,7 +13506,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#ntmkfidydp .gt_grand_summary_row {
+#cgpuhrhepp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -12192,7 +13516,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#ntmkfidydp .gt_first_grand_summary_row {
+#cgpuhrhepp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -12202,7 +13526,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#ntmkfidydp .gt_last_grand_summary_row_top {
+#cgpuhrhepp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -12212,11 +13536,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#ntmkfidydp .gt_striped {
+#cgpuhrhepp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ntmkfidydp .gt_table_body {
+#cgpuhrhepp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -12225,7 +13549,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#ntmkfidydp .gt_footnotes {
+#cgpuhrhepp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -12239,7 +13563,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#ntmkfidydp .gt_footnote {
+#cgpuhrhepp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -12248,7 +13572,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#ntmkfidydp .gt_sourcenotes {
+#cgpuhrhepp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -12262,7 +13586,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#ntmkfidydp .gt_sourcenote {
+#cgpuhrhepp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -12270,63 +13594,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#ntmkfidydp .gt_left {
+#cgpuhrhepp .gt_left {
   text-align: left;
 }
 
-#ntmkfidydp .gt_center {
+#cgpuhrhepp .gt_center {
   text-align: center;
 }
 
-#ntmkfidydp .gt_right {
+#cgpuhrhepp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ntmkfidydp .gt_font_normal {
+#cgpuhrhepp .gt_font_normal {
   font-weight: normal;
 }
 
-#ntmkfidydp .gt_font_bold {
+#cgpuhrhepp .gt_font_bold {
   font-weight: bold;
 }
 
-#ntmkfidydp .gt_font_italic {
+#cgpuhrhepp .gt_font_italic {
   font-style: italic;
 }
 
-#ntmkfidydp .gt_super {
+#cgpuhrhepp .gt_super {
   font-size: 65%;
 }
 
-#ntmkfidydp .gt_footnote_marks {
+#cgpuhrhepp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ntmkfidydp .gt_asterisk {
+#cgpuhrhepp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ntmkfidydp .gt_indent_1 {
+#cgpuhrhepp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ntmkfidydp .gt_indent_2 {
+#cgpuhrhepp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ntmkfidydp .gt_indent_3 {
+#cgpuhrhepp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ntmkfidydp .gt_indent_4 {
+#cgpuhrhepp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ntmkfidydp .gt_indent_5 {
+#cgpuhrhepp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -12336,7 +13660,7 @@ penguin_counts_wider |>
       <td colspan="8" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" scope="col" id="Island">Island</th>
@@ -12468,23 +13792,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="exbfgwdkfz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#exbfgwdkfz table {
+<div id="lsdcmowbnk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lsdcmowbnk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#exbfgwdkfz thead, #exbfgwdkfz tbody, #exbfgwdkfz tfoot, #exbfgwdkfz tr, #exbfgwdkfz td, #exbfgwdkfz th {
+#lsdcmowbnk thead, #lsdcmowbnk tbody, #lsdcmowbnk tfoot, #lsdcmowbnk tr, #lsdcmowbnk td, #lsdcmowbnk th {
   border-style: none;
 }
 
-#exbfgwdkfz p {
+#lsdcmowbnk p {
   margin: 0;
   padding: 0;
 }
 
-#exbfgwdkfz .gt_table {
+#lsdcmowbnk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -12510,12 +13834,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#exbfgwdkfz .gt_caption {
+#lsdcmowbnk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#exbfgwdkfz .gt_title {
+#lsdcmowbnk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -12527,7 +13851,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#exbfgwdkfz .gt_subtitle {
+#lsdcmowbnk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -12539,7 +13863,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#exbfgwdkfz .gt_heading {
+#lsdcmowbnk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -12551,13 +13875,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#exbfgwdkfz .gt_bottom_border {
+#lsdcmowbnk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#exbfgwdkfz .gt_col_headings {
+#lsdcmowbnk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -12572,7 +13896,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#exbfgwdkfz .gt_col_heading {
+#lsdcmowbnk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -12592,7 +13916,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#exbfgwdkfz .gt_column_spanner_outer {
+#lsdcmowbnk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -12604,15 +13928,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#exbfgwdkfz .gt_column_spanner_outer:first-child {
+#lsdcmowbnk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#exbfgwdkfz .gt_column_spanner_outer:last-child {
+#lsdcmowbnk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#exbfgwdkfz .gt_column_spanner {
+#lsdcmowbnk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -12624,11 +13948,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#exbfgwdkfz .gt_spanner_row {
+#lsdcmowbnk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#exbfgwdkfz .gt_group_heading {
+#lsdcmowbnk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -12654,7 +13978,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#exbfgwdkfz .gt_empty_group_heading {
+#lsdcmowbnk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -12669,15 +13993,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#exbfgwdkfz .gt_from_md > :first-child {
+#lsdcmowbnk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#exbfgwdkfz .gt_from_md > :last-child {
+#lsdcmowbnk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#exbfgwdkfz .gt_row {
+#lsdcmowbnk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -12696,7 +14020,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#exbfgwdkfz .gt_stub {
+#lsdcmowbnk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -12709,7 +14033,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#exbfgwdkfz .gt_stub_row_group {
+#lsdcmowbnk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -12723,15 +14047,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#exbfgwdkfz .gt_row_group_first td {
+#lsdcmowbnk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#exbfgwdkfz .gt_row_group_first th {
+#lsdcmowbnk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#exbfgwdkfz .gt_summary_row {
+#lsdcmowbnk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -12741,16 +14065,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#exbfgwdkfz .gt_first_summary_row {
+#lsdcmowbnk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#exbfgwdkfz .gt_first_summary_row.thick {
+#lsdcmowbnk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#exbfgwdkfz .gt_last_summary_row {
+#lsdcmowbnk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -12760,7 +14084,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#exbfgwdkfz .gt_grand_summary_row {
+#lsdcmowbnk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -12770,7 +14094,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#exbfgwdkfz .gt_first_grand_summary_row {
+#lsdcmowbnk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -12780,7 +14104,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#exbfgwdkfz .gt_last_grand_summary_row_top {
+#lsdcmowbnk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -12790,11 +14114,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#exbfgwdkfz .gt_striped {
+#lsdcmowbnk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#exbfgwdkfz .gt_table_body {
+#lsdcmowbnk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -12803,7 +14127,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#exbfgwdkfz .gt_footnotes {
+#lsdcmowbnk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -12817,7 +14141,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#exbfgwdkfz .gt_footnote {
+#lsdcmowbnk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -12826,7 +14150,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#exbfgwdkfz .gt_sourcenotes {
+#lsdcmowbnk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -12840,7 +14164,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#exbfgwdkfz .gt_sourcenote {
+#lsdcmowbnk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -12848,63 +14172,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#exbfgwdkfz .gt_left {
+#lsdcmowbnk .gt_left {
   text-align: left;
 }
 
-#exbfgwdkfz .gt_center {
+#lsdcmowbnk .gt_center {
   text-align: center;
 }
 
-#exbfgwdkfz .gt_right {
+#lsdcmowbnk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#exbfgwdkfz .gt_font_normal {
+#lsdcmowbnk .gt_font_normal {
   font-weight: normal;
 }
 
-#exbfgwdkfz .gt_font_bold {
+#lsdcmowbnk .gt_font_bold {
   font-weight: bold;
 }
 
-#exbfgwdkfz .gt_font_italic {
+#lsdcmowbnk .gt_font_italic {
   font-style: italic;
 }
 
-#exbfgwdkfz .gt_super {
+#lsdcmowbnk .gt_super {
   font-size: 65%;
 }
 
-#exbfgwdkfz .gt_footnote_marks {
+#lsdcmowbnk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#exbfgwdkfz .gt_asterisk {
+#lsdcmowbnk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#exbfgwdkfz .gt_indent_1 {
+#lsdcmowbnk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#exbfgwdkfz .gt_indent_2 {
+#lsdcmowbnk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#exbfgwdkfz .gt_indent_3 {
+#lsdcmowbnk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#exbfgwdkfz .gt_indent_4 {
+#lsdcmowbnk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#exbfgwdkfz .gt_indent_5 {
+#lsdcmowbnk .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -12914,7 +14238,7 @@ penguin_counts_wider |>
       <td colspan="8" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="Island">Island</th>
@@ -13035,23 +14359,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="fpludfhnsg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fpludfhnsg table {
+<div id="vxqctkswjg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vxqctkswjg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fpludfhnsg thead, #fpludfhnsg tbody, #fpludfhnsg tfoot, #fpludfhnsg tr, #fpludfhnsg td, #fpludfhnsg th {
+#vxqctkswjg thead, #vxqctkswjg tbody, #vxqctkswjg tfoot, #vxqctkswjg tr, #vxqctkswjg td, #vxqctkswjg th {
   border-style: none;
 }
 
-#fpludfhnsg p {
+#vxqctkswjg p {
   margin: 0;
   padding: 0;
 }
 
-#fpludfhnsg .gt_table {
+#vxqctkswjg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -13077,12 +14401,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#fpludfhnsg .gt_caption {
+#vxqctkswjg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fpludfhnsg .gt_title {
+#vxqctkswjg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -13094,7 +14418,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#fpludfhnsg .gt_subtitle {
+#vxqctkswjg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -13106,7 +14430,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#fpludfhnsg .gt_heading {
+#vxqctkswjg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -13118,13 +14442,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#fpludfhnsg .gt_bottom_border {
+#vxqctkswjg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fpludfhnsg .gt_col_headings {
+#vxqctkswjg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -13139,7 +14463,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#fpludfhnsg .gt_col_heading {
+#vxqctkswjg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -13159,7 +14483,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#fpludfhnsg .gt_column_spanner_outer {
+#vxqctkswjg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -13171,15 +14495,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#fpludfhnsg .gt_column_spanner_outer:first-child {
+#vxqctkswjg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fpludfhnsg .gt_column_spanner_outer:last-child {
+#vxqctkswjg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fpludfhnsg .gt_column_spanner {
+#vxqctkswjg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -13191,11 +14515,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#fpludfhnsg .gt_spanner_row {
+#vxqctkswjg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fpludfhnsg .gt_group_heading {
+#vxqctkswjg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -13221,7 +14545,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#fpludfhnsg .gt_empty_group_heading {
+#vxqctkswjg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -13236,15 +14560,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#fpludfhnsg .gt_from_md > :first-child {
+#vxqctkswjg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fpludfhnsg .gt_from_md > :last-child {
+#vxqctkswjg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fpludfhnsg .gt_row {
+#vxqctkswjg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -13263,7 +14587,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#fpludfhnsg .gt_stub {
+#vxqctkswjg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -13276,7 +14600,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#fpludfhnsg .gt_stub_row_group {
+#vxqctkswjg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -13290,15 +14614,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#fpludfhnsg .gt_row_group_first td {
+#vxqctkswjg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fpludfhnsg .gt_row_group_first th {
+#vxqctkswjg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fpludfhnsg .gt_summary_row {
+#vxqctkswjg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -13308,16 +14632,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#fpludfhnsg .gt_first_summary_row {
+#vxqctkswjg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fpludfhnsg .gt_first_summary_row.thick {
+#vxqctkswjg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fpludfhnsg .gt_last_summary_row {
+#vxqctkswjg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -13327,7 +14651,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#fpludfhnsg .gt_grand_summary_row {
+#vxqctkswjg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -13337,7 +14661,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#fpludfhnsg .gt_first_grand_summary_row {
+#vxqctkswjg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -13347,7 +14671,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#fpludfhnsg .gt_last_grand_summary_row_top {
+#vxqctkswjg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -13357,11 +14681,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#fpludfhnsg .gt_striped {
+#vxqctkswjg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fpludfhnsg .gt_table_body {
+#vxqctkswjg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -13370,7 +14694,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#fpludfhnsg .gt_footnotes {
+#vxqctkswjg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -13384,7 +14708,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#fpludfhnsg .gt_footnote {
+#vxqctkswjg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -13393,7 +14717,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#fpludfhnsg .gt_sourcenotes {
+#vxqctkswjg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -13407,7 +14731,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#fpludfhnsg .gt_sourcenote {
+#vxqctkswjg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -13415,63 +14739,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#fpludfhnsg .gt_left {
+#vxqctkswjg .gt_left {
   text-align: left;
 }
 
-#fpludfhnsg .gt_center {
+#vxqctkswjg .gt_center {
   text-align: center;
 }
 
-#fpludfhnsg .gt_right {
+#vxqctkswjg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fpludfhnsg .gt_font_normal {
+#vxqctkswjg .gt_font_normal {
   font-weight: normal;
 }
 
-#fpludfhnsg .gt_font_bold {
+#vxqctkswjg .gt_font_bold {
   font-weight: bold;
 }
 
-#fpludfhnsg .gt_font_italic {
+#vxqctkswjg .gt_font_italic {
   font-style: italic;
 }
 
-#fpludfhnsg .gt_super {
+#vxqctkswjg .gt_super {
   font-size: 65%;
 }
 
-#fpludfhnsg .gt_footnote_marks {
+#vxqctkswjg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fpludfhnsg .gt_asterisk {
+#vxqctkswjg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fpludfhnsg .gt_indent_1 {
+#vxqctkswjg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fpludfhnsg .gt_indent_2 {
+#vxqctkswjg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fpludfhnsg .gt_indent_3 {
+#vxqctkswjg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fpludfhnsg .gt_indent_4 {
+#vxqctkswjg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fpludfhnsg .gt_indent_5 {
+#vxqctkswjg .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -13481,7 +14805,7 @@ penguin_counts_wider |>
       <td colspan="7" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id=""></th>
@@ -13600,23 +14924,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="zyinyrziwx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zyinyrziwx table {
+<div id="lxkjgqftfg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lxkjgqftfg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zyinyrziwx thead, #zyinyrziwx tbody, #zyinyrziwx tfoot, #zyinyrziwx tr, #zyinyrziwx td, #zyinyrziwx th {
+#lxkjgqftfg thead, #lxkjgqftfg tbody, #lxkjgqftfg tfoot, #lxkjgqftfg tr, #lxkjgqftfg td, #lxkjgqftfg th {
   border-style: none;
 }
 
-#zyinyrziwx p {
+#lxkjgqftfg p {
   margin: 0;
   padding: 0;
 }
 
-#zyinyrziwx .gt_table {
+#lxkjgqftfg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -13642,12 +14966,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#zyinyrziwx .gt_caption {
+#lxkjgqftfg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zyinyrziwx .gt_title {
+#lxkjgqftfg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -13659,7 +14983,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#zyinyrziwx .gt_subtitle {
+#lxkjgqftfg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -13671,7 +14995,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#zyinyrziwx .gt_heading {
+#lxkjgqftfg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -13683,13 +15007,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#zyinyrziwx .gt_bottom_border {
+#lxkjgqftfg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zyinyrziwx .gt_col_headings {
+#lxkjgqftfg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -13704,7 +15028,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#zyinyrziwx .gt_col_heading {
+#lxkjgqftfg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -13724,7 +15048,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#zyinyrziwx .gt_column_spanner_outer {
+#lxkjgqftfg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -13736,15 +15060,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#zyinyrziwx .gt_column_spanner_outer:first-child {
+#lxkjgqftfg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zyinyrziwx .gt_column_spanner_outer:last-child {
+#lxkjgqftfg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zyinyrziwx .gt_column_spanner {
+#lxkjgqftfg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -13756,11 +15080,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#zyinyrziwx .gt_spanner_row {
+#lxkjgqftfg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zyinyrziwx .gt_group_heading {
+#lxkjgqftfg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -13786,7 +15110,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#zyinyrziwx .gt_empty_group_heading {
+#lxkjgqftfg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -13801,15 +15125,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#zyinyrziwx .gt_from_md > :first-child {
+#lxkjgqftfg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zyinyrziwx .gt_from_md > :last-child {
+#lxkjgqftfg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zyinyrziwx .gt_row {
+#lxkjgqftfg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -13828,7 +15152,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#zyinyrziwx .gt_stub {
+#lxkjgqftfg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -13841,7 +15165,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#zyinyrziwx .gt_stub_row_group {
+#lxkjgqftfg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -13855,15 +15179,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#zyinyrziwx .gt_row_group_first td {
+#lxkjgqftfg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zyinyrziwx .gt_row_group_first th {
+#lxkjgqftfg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zyinyrziwx .gt_summary_row {
+#lxkjgqftfg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -13873,16 +15197,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#zyinyrziwx .gt_first_summary_row {
+#lxkjgqftfg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zyinyrziwx .gt_first_summary_row.thick {
+#lxkjgqftfg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zyinyrziwx .gt_last_summary_row {
+#lxkjgqftfg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -13892,7 +15216,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#zyinyrziwx .gt_grand_summary_row {
+#lxkjgqftfg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -13902,7 +15226,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#zyinyrziwx .gt_first_grand_summary_row {
+#lxkjgqftfg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -13912,7 +15236,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#zyinyrziwx .gt_last_grand_summary_row_top {
+#lxkjgqftfg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -13922,11 +15246,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#zyinyrziwx .gt_striped {
+#lxkjgqftfg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zyinyrziwx .gt_table_body {
+#lxkjgqftfg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -13935,7 +15259,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#zyinyrziwx .gt_footnotes {
+#lxkjgqftfg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -13949,7 +15273,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#zyinyrziwx .gt_footnote {
+#lxkjgqftfg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -13958,7 +15282,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#zyinyrziwx .gt_sourcenotes {
+#lxkjgqftfg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -13972,7 +15296,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#zyinyrziwx .gt_sourcenote {
+#lxkjgqftfg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -13980,63 +15304,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#zyinyrziwx .gt_left {
+#lxkjgqftfg .gt_left {
   text-align: left;
 }
 
-#zyinyrziwx .gt_center {
+#lxkjgqftfg .gt_center {
   text-align: center;
 }
 
-#zyinyrziwx .gt_right {
+#lxkjgqftfg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zyinyrziwx .gt_font_normal {
+#lxkjgqftfg .gt_font_normal {
   font-weight: normal;
 }
 
-#zyinyrziwx .gt_font_bold {
+#lxkjgqftfg .gt_font_bold {
   font-weight: bold;
 }
 
-#zyinyrziwx .gt_font_italic {
+#lxkjgqftfg .gt_font_italic {
   font-style: italic;
 }
 
-#zyinyrziwx .gt_super {
+#lxkjgqftfg .gt_super {
   font-size: 65%;
 }
 
-#zyinyrziwx .gt_footnote_marks {
+#lxkjgqftfg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zyinyrziwx .gt_asterisk {
+#lxkjgqftfg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zyinyrziwx .gt_indent_1 {
+#lxkjgqftfg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zyinyrziwx .gt_indent_2 {
+#lxkjgqftfg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zyinyrziwx .gt_indent_3 {
+#lxkjgqftfg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zyinyrziwx .gt_indent_4 {
+#lxkjgqftfg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zyinyrziwx .gt_indent_5 {
+#lxkjgqftfg .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -14046,7 +15370,7 @@ penguin_counts_wider |>
       <td colspan="7" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id=""></th>
@@ -14168,23 +15492,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="zegybwtcvr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zegybwtcvr table {
+<div id="faixjfyceh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#faixjfyceh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zegybwtcvr thead, #zegybwtcvr tbody, #zegybwtcvr tfoot, #zegybwtcvr tr, #zegybwtcvr td, #zegybwtcvr th {
+#faixjfyceh thead, #faixjfyceh tbody, #faixjfyceh tfoot, #faixjfyceh tr, #faixjfyceh td, #faixjfyceh th {
   border-style: none;
 }
 
-#zegybwtcvr p {
+#faixjfyceh p {
   margin: 0;
   padding: 0;
 }
 
-#zegybwtcvr .gt_table {
+#faixjfyceh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -14210,12 +15534,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#zegybwtcvr .gt_caption {
+#faixjfyceh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zegybwtcvr .gt_title {
+#faixjfyceh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -14227,7 +15551,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#zegybwtcvr .gt_subtitle {
+#faixjfyceh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -14239,7 +15563,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#zegybwtcvr .gt_heading {
+#faixjfyceh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -14251,13 +15575,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#zegybwtcvr .gt_bottom_border {
+#faixjfyceh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zegybwtcvr .gt_col_headings {
+#faixjfyceh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -14272,7 +15596,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#zegybwtcvr .gt_col_heading {
+#faixjfyceh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -14292,7 +15616,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#zegybwtcvr .gt_column_spanner_outer {
+#faixjfyceh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -14304,15 +15628,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#zegybwtcvr .gt_column_spanner_outer:first-child {
+#faixjfyceh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zegybwtcvr .gt_column_spanner_outer:last-child {
+#faixjfyceh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zegybwtcvr .gt_column_spanner {
+#faixjfyceh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -14324,11 +15648,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#zegybwtcvr .gt_spanner_row {
+#faixjfyceh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zegybwtcvr .gt_group_heading {
+#faixjfyceh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -14354,7 +15678,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#zegybwtcvr .gt_empty_group_heading {
+#faixjfyceh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -14369,15 +15693,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#zegybwtcvr .gt_from_md > :first-child {
+#faixjfyceh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zegybwtcvr .gt_from_md > :last-child {
+#faixjfyceh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zegybwtcvr .gt_row {
+#faixjfyceh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -14396,7 +15720,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#zegybwtcvr .gt_stub {
+#faixjfyceh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -14409,7 +15733,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#zegybwtcvr .gt_stub_row_group {
+#faixjfyceh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -14423,15 +15747,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#zegybwtcvr .gt_row_group_first td {
+#faixjfyceh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zegybwtcvr .gt_row_group_first th {
+#faixjfyceh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zegybwtcvr .gt_summary_row {
+#faixjfyceh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -14441,16 +15765,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#zegybwtcvr .gt_first_summary_row {
+#faixjfyceh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zegybwtcvr .gt_first_summary_row.thick {
+#faixjfyceh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zegybwtcvr .gt_last_summary_row {
+#faixjfyceh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -14460,7 +15784,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#zegybwtcvr .gt_grand_summary_row {
+#faixjfyceh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -14470,7 +15794,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#zegybwtcvr .gt_first_grand_summary_row {
+#faixjfyceh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -14480,7 +15804,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#zegybwtcvr .gt_last_grand_summary_row_top {
+#faixjfyceh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -14490,11 +15814,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#zegybwtcvr .gt_striped {
+#faixjfyceh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zegybwtcvr .gt_table_body {
+#faixjfyceh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -14503,7 +15827,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#zegybwtcvr .gt_footnotes {
+#faixjfyceh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -14517,7 +15841,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#zegybwtcvr .gt_footnote {
+#faixjfyceh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -14526,7 +15850,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#zegybwtcvr .gt_sourcenotes {
+#faixjfyceh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -14540,7 +15864,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#zegybwtcvr .gt_sourcenote {
+#faixjfyceh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -14548,63 +15872,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#zegybwtcvr .gt_left {
+#faixjfyceh .gt_left {
   text-align: left;
 }
 
-#zegybwtcvr .gt_center {
+#faixjfyceh .gt_center {
   text-align: center;
 }
 
-#zegybwtcvr .gt_right {
+#faixjfyceh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zegybwtcvr .gt_font_normal {
+#faixjfyceh .gt_font_normal {
   font-weight: normal;
 }
 
-#zegybwtcvr .gt_font_bold {
+#faixjfyceh .gt_font_bold {
   font-weight: bold;
 }
 
-#zegybwtcvr .gt_font_italic {
+#faixjfyceh .gt_font_italic {
   font-style: italic;
 }
 
-#zegybwtcvr .gt_super {
+#faixjfyceh .gt_super {
   font-size: 65%;
 }
 
-#zegybwtcvr .gt_footnote_marks {
+#faixjfyceh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zegybwtcvr .gt_asterisk {
+#faixjfyceh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zegybwtcvr .gt_indent_1 {
+#faixjfyceh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zegybwtcvr .gt_indent_2 {
+#faixjfyceh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zegybwtcvr .gt_indent_3 {
+#faixjfyceh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zegybwtcvr .gt_indent_4 {
+#faixjfyceh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zegybwtcvr .gt_indent_5 {
+#faixjfyceh .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -14614,7 +15938,7 @@ penguin_counts_wider |>
       <td colspan="7" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id=""></th>
@@ -14734,23 +16058,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="hvjhiihicw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hvjhiihicw table {
+<div id="brfnphkbbl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#brfnphkbbl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hvjhiihicw thead, #hvjhiihicw tbody, #hvjhiihicw tfoot, #hvjhiihicw tr, #hvjhiihicw td, #hvjhiihicw th {
+#brfnphkbbl thead, #brfnphkbbl tbody, #brfnphkbbl tfoot, #brfnphkbbl tr, #brfnphkbbl td, #brfnphkbbl th {
   border-style: none;
 }
 
-#hvjhiihicw p {
+#brfnphkbbl p {
   margin: 0;
   padding: 0;
 }
 
-#hvjhiihicw .gt_table {
+#brfnphkbbl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -14776,12 +16100,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#hvjhiihicw .gt_caption {
+#brfnphkbbl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hvjhiihicw .gt_title {
+#brfnphkbbl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -14793,7 +16117,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#hvjhiihicw .gt_subtitle {
+#brfnphkbbl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -14805,7 +16129,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#hvjhiihicw .gt_heading {
+#brfnphkbbl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -14817,13 +16141,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#hvjhiihicw .gt_bottom_border {
+#brfnphkbbl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hvjhiihicw .gt_col_headings {
+#brfnphkbbl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -14838,7 +16162,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#hvjhiihicw .gt_col_heading {
+#brfnphkbbl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -14858,7 +16182,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#hvjhiihicw .gt_column_spanner_outer {
+#brfnphkbbl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -14870,15 +16194,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#hvjhiihicw .gt_column_spanner_outer:first-child {
+#brfnphkbbl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hvjhiihicw .gt_column_spanner_outer:last-child {
+#brfnphkbbl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hvjhiihicw .gt_column_spanner {
+#brfnphkbbl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -14890,11 +16214,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#hvjhiihicw .gt_spanner_row {
+#brfnphkbbl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hvjhiihicw .gt_group_heading {
+#brfnphkbbl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -14920,7 +16244,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#hvjhiihicw .gt_empty_group_heading {
+#brfnphkbbl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -14935,15 +16259,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#hvjhiihicw .gt_from_md > :first-child {
+#brfnphkbbl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hvjhiihicw .gt_from_md > :last-child {
+#brfnphkbbl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hvjhiihicw .gt_row {
+#brfnphkbbl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -14962,7 +16286,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#hvjhiihicw .gt_stub {
+#brfnphkbbl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -14975,7 +16299,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#hvjhiihicw .gt_stub_row_group {
+#brfnphkbbl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -14989,15 +16313,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#hvjhiihicw .gt_row_group_first td {
+#brfnphkbbl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hvjhiihicw .gt_row_group_first th {
+#brfnphkbbl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hvjhiihicw .gt_summary_row {
+#brfnphkbbl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -15007,16 +16331,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#hvjhiihicw .gt_first_summary_row {
+#brfnphkbbl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hvjhiihicw .gt_first_summary_row.thick {
+#brfnphkbbl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hvjhiihicw .gt_last_summary_row {
+#brfnphkbbl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -15026,7 +16350,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#hvjhiihicw .gt_grand_summary_row {
+#brfnphkbbl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -15036,7 +16360,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#hvjhiihicw .gt_first_grand_summary_row {
+#brfnphkbbl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -15046,7 +16370,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#hvjhiihicw .gt_last_grand_summary_row_top {
+#brfnphkbbl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -15056,11 +16380,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#hvjhiihicw .gt_striped {
+#brfnphkbbl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hvjhiihicw .gt_table_body {
+#brfnphkbbl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -15069,7 +16393,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#hvjhiihicw .gt_footnotes {
+#brfnphkbbl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -15083,7 +16407,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#hvjhiihicw .gt_footnote {
+#brfnphkbbl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -15092,7 +16416,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#hvjhiihicw .gt_sourcenotes {
+#brfnphkbbl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -15106,7 +16430,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#hvjhiihicw .gt_sourcenote {
+#brfnphkbbl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -15114,63 +16438,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#hvjhiihicw .gt_left {
+#brfnphkbbl .gt_left {
   text-align: left;
 }
 
-#hvjhiihicw .gt_center {
+#brfnphkbbl .gt_center {
   text-align: center;
 }
 
-#hvjhiihicw .gt_right {
+#brfnphkbbl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hvjhiihicw .gt_font_normal {
+#brfnphkbbl .gt_font_normal {
   font-weight: normal;
 }
 
-#hvjhiihicw .gt_font_bold {
+#brfnphkbbl .gt_font_bold {
   font-weight: bold;
 }
 
-#hvjhiihicw .gt_font_italic {
+#brfnphkbbl .gt_font_italic {
   font-style: italic;
 }
 
-#hvjhiihicw .gt_super {
+#brfnphkbbl .gt_super {
   font-size: 65%;
 }
 
-#hvjhiihicw .gt_footnote_marks {
+#brfnphkbbl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hvjhiihicw .gt_asterisk {
+#brfnphkbbl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hvjhiihicw .gt_indent_1 {
+#brfnphkbbl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hvjhiihicw .gt_indent_2 {
+#brfnphkbbl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hvjhiihicw .gt_indent_3 {
+#brfnphkbbl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hvjhiihicw .gt_indent_4 {
+#brfnphkbbl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hvjhiihicw .gt_indent_5 {
+#brfnphkbbl .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -15180,7 +16504,7 @@ penguin_counts_wider |>
       <td colspan="7" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id=""></th>
@@ -15311,23 +16635,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="xpclqzzkes" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xpclqzzkes table {
+<div id="hjmbkumklb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hjmbkumklb table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xpclqzzkes thead, #xpclqzzkes tbody, #xpclqzzkes tfoot, #xpclqzzkes tr, #xpclqzzkes td, #xpclqzzkes th {
+#hjmbkumklb thead, #hjmbkumklb tbody, #hjmbkumklb tfoot, #hjmbkumklb tr, #hjmbkumklb td, #hjmbkumklb th {
   border-style: none;
 }
 
-#xpclqzzkes p {
+#hjmbkumklb p {
   margin: 0;
   padding: 0;
 }
 
-#xpclqzzkes .gt_table {
+#hjmbkumklb .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -15353,12 +16677,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#xpclqzzkes .gt_caption {
+#hjmbkumklb .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xpclqzzkes .gt_title {
+#hjmbkumklb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -15370,7 +16694,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#xpclqzzkes .gt_subtitle {
+#hjmbkumklb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -15382,7 +16706,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#xpclqzzkes .gt_heading {
+#hjmbkumklb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -15394,13 +16718,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#xpclqzzkes .gt_bottom_border {
+#hjmbkumklb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xpclqzzkes .gt_col_headings {
+#hjmbkumklb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -15415,7 +16739,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#xpclqzzkes .gt_col_heading {
+#hjmbkumklb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -15435,7 +16759,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#xpclqzzkes .gt_column_spanner_outer {
+#hjmbkumklb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -15447,15 +16771,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#xpclqzzkes .gt_column_spanner_outer:first-child {
+#hjmbkumklb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xpclqzzkes .gt_column_spanner_outer:last-child {
+#hjmbkumklb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xpclqzzkes .gt_column_spanner {
+#hjmbkumklb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -15467,11 +16791,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#xpclqzzkes .gt_spanner_row {
+#hjmbkumklb .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xpclqzzkes .gt_group_heading {
+#hjmbkumklb .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -15497,7 +16821,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#xpclqzzkes .gt_empty_group_heading {
+#hjmbkumklb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -15512,15 +16836,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#xpclqzzkes .gt_from_md > :first-child {
+#hjmbkumklb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xpclqzzkes .gt_from_md > :last-child {
+#hjmbkumklb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xpclqzzkes .gt_row {
+#hjmbkumklb .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -15539,7 +16863,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#xpclqzzkes .gt_stub {
+#hjmbkumklb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -15552,7 +16876,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#xpclqzzkes .gt_stub_row_group {
+#hjmbkumklb .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -15566,15 +16890,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#xpclqzzkes .gt_row_group_first td {
+#hjmbkumklb .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xpclqzzkes .gt_row_group_first th {
+#hjmbkumklb .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xpclqzzkes .gt_summary_row {
+#hjmbkumklb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -15584,16 +16908,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#xpclqzzkes .gt_first_summary_row {
+#hjmbkumklb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xpclqzzkes .gt_first_summary_row.thick {
+#hjmbkumklb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xpclqzzkes .gt_last_summary_row {
+#hjmbkumklb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -15603,7 +16927,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#xpclqzzkes .gt_grand_summary_row {
+#hjmbkumklb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -15613,7 +16937,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#xpclqzzkes .gt_first_grand_summary_row {
+#hjmbkumklb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -15623,7 +16947,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#xpclqzzkes .gt_last_grand_summary_row_top {
+#hjmbkumklb .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -15633,11 +16957,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#xpclqzzkes .gt_striped {
+#hjmbkumklb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xpclqzzkes .gt_table_body {
+#hjmbkumklb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -15646,7 +16970,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#xpclqzzkes .gt_footnotes {
+#hjmbkumklb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -15660,7 +16984,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#xpclqzzkes .gt_footnote {
+#hjmbkumklb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -15669,7 +16993,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#xpclqzzkes .gt_sourcenotes {
+#hjmbkumklb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -15683,7 +17007,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#xpclqzzkes .gt_sourcenote {
+#hjmbkumklb .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -15691,63 +17015,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#xpclqzzkes .gt_left {
+#hjmbkumklb .gt_left {
   text-align: left;
 }
 
-#xpclqzzkes .gt_center {
+#hjmbkumklb .gt_center {
   text-align: center;
 }
 
-#xpclqzzkes .gt_right {
+#hjmbkumklb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xpclqzzkes .gt_font_normal {
+#hjmbkumklb .gt_font_normal {
   font-weight: normal;
 }
 
-#xpclqzzkes .gt_font_bold {
+#hjmbkumklb .gt_font_bold {
   font-weight: bold;
 }
 
-#xpclqzzkes .gt_font_italic {
+#hjmbkumklb .gt_font_italic {
   font-style: italic;
 }
 
-#xpclqzzkes .gt_super {
+#hjmbkumklb .gt_super {
   font-size: 65%;
 }
 
-#xpclqzzkes .gt_footnote_marks {
+#hjmbkumklb .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xpclqzzkes .gt_asterisk {
+#hjmbkumklb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xpclqzzkes .gt_indent_1 {
+#hjmbkumklb .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xpclqzzkes .gt_indent_2 {
+#hjmbkumklb .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xpclqzzkes .gt_indent_3 {
+#hjmbkumklb .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xpclqzzkes .gt_indent_4 {
+#hjmbkumklb .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xpclqzzkes .gt_indent_5 {
+#hjmbkumklb .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -15757,7 +17081,7 @@ penguin_counts_wider |>
       <td colspan="7" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id=""></th>
@@ -15938,23 +17262,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="foekzlywks" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#foekzlywks table {
+<div id="kcrdsqyrpf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kcrdsqyrpf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#foekzlywks thead, #foekzlywks tbody, #foekzlywks tfoot, #foekzlywks tr, #foekzlywks td, #foekzlywks th {
+#kcrdsqyrpf thead, #kcrdsqyrpf tbody, #kcrdsqyrpf tfoot, #kcrdsqyrpf tr, #kcrdsqyrpf td, #kcrdsqyrpf th {
   border-style: none;
 }
 
-#foekzlywks p {
+#kcrdsqyrpf p {
   margin: 0;
   padding: 0;
 }
 
-#foekzlywks .gt_table {
+#kcrdsqyrpf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -15980,12 +17304,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#foekzlywks .gt_caption {
+#kcrdsqyrpf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#foekzlywks .gt_title {
+#kcrdsqyrpf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -15997,7 +17321,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#foekzlywks .gt_subtitle {
+#kcrdsqyrpf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -16009,7 +17333,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#foekzlywks .gt_heading {
+#kcrdsqyrpf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -16021,13 +17345,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#foekzlywks .gt_bottom_border {
+#kcrdsqyrpf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #5F5F5F;
 }
 
-#foekzlywks .gt_col_headings {
+#kcrdsqyrpf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #5F5F5F;
@@ -16042,7 +17366,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#foekzlywks .gt_col_heading {
+#kcrdsqyrpf .gt_col_heading {
   color: #FFFFFF;
   background-color: #5F5F5F;
   font-size: 100%;
@@ -16062,7 +17386,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#foekzlywks .gt_column_spanner_outer {
+#kcrdsqyrpf .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #5F5F5F;
   font-size: 100%;
@@ -16074,15 +17398,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#foekzlywks .gt_column_spanner_outer:first-child {
+#kcrdsqyrpf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#foekzlywks .gt_column_spanner_outer:last-child {
+#kcrdsqyrpf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#foekzlywks .gt_column_spanner {
+#kcrdsqyrpf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #5F5F5F;
@@ -16094,11 +17418,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#foekzlywks .gt_spanner_row {
+#kcrdsqyrpf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#foekzlywks .gt_group_heading {
+#kcrdsqyrpf .gt_group_heading {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -16124,7 +17448,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#foekzlywks .gt_empty_group_heading {
+#kcrdsqyrpf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -16139,15 +17463,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#foekzlywks .gt_from_md > :first-child {
+#kcrdsqyrpf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#foekzlywks .gt_from_md > :last-child {
+#kcrdsqyrpf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#foekzlywks .gt_row {
+#kcrdsqyrpf .gt_row {
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 5px;
@@ -16166,7 +17490,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#foekzlywks .gt_stub {
+#kcrdsqyrpf .gt_stub {
   color: #333333;
   background-color: #D5D5D5;
   font-size: 100%;
@@ -16179,7 +17503,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#foekzlywks .gt_stub_row_group {
+#kcrdsqyrpf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -16193,15 +17517,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#foekzlywks .gt_row_group_first td {
+#kcrdsqyrpf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#foekzlywks .gt_row_group_first th {
+#kcrdsqyrpf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#foekzlywks .gt_summary_row {
+#kcrdsqyrpf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -16211,16 +17535,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#foekzlywks .gt_first_summary_row {
+#kcrdsqyrpf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #5F5F5F;
 }
 
-#foekzlywks .gt_first_summary_row.thick {
+#kcrdsqyrpf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#foekzlywks .gt_last_summary_row {
+#kcrdsqyrpf .gt_last_summary_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -16230,7 +17554,7 @@ penguin_counts_wider |>
   border-bottom-color: #5F5F5F;
 }
 
-#foekzlywks .gt_grand_summary_row {
+#kcrdsqyrpf .gt_grand_summary_row {
   color: #333333;
   background-color: #D5D5D5;
   text-transform: inherit;
@@ -16240,7 +17564,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#foekzlywks .gt_first_grand_summary_row {
+#kcrdsqyrpf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -16250,7 +17574,7 @@ penguin_counts_wider |>
   border-top-color: #5F5F5F;
 }
 
-#foekzlywks .gt_last_grand_summary_row_top {
+#kcrdsqyrpf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -16260,11 +17584,11 @@ penguin_counts_wider |>
   border-bottom-color: #5F5F5F;
 }
 
-#foekzlywks .gt_striped {
+#kcrdsqyrpf .gt_striped {
   background-color: #F4F4F4;
 }
 
-#foekzlywks .gt_table_body {
+#kcrdsqyrpf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #5F5F5F;
@@ -16273,7 +17597,7 @@ penguin_counts_wider |>
   border-bottom-color: #5F5F5F;
 }
 
-#foekzlywks .gt_footnotes {
+#kcrdsqyrpf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -16287,7 +17611,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#foekzlywks .gt_footnote {
+#kcrdsqyrpf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -16296,7 +17620,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#foekzlywks .gt_sourcenotes {
+#kcrdsqyrpf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -16310,7 +17634,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#foekzlywks .gt_sourcenote {
+#kcrdsqyrpf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -16318,63 +17642,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#foekzlywks .gt_left {
+#kcrdsqyrpf .gt_left {
   text-align: left;
 }
 
-#foekzlywks .gt_center {
+#kcrdsqyrpf .gt_center {
   text-align: center;
 }
 
-#foekzlywks .gt_right {
+#kcrdsqyrpf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#foekzlywks .gt_font_normal {
+#kcrdsqyrpf .gt_font_normal {
   font-weight: normal;
 }
 
-#foekzlywks .gt_font_bold {
+#kcrdsqyrpf .gt_font_bold {
   font-weight: bold;
 }
 
-#foekzlywks .gt_font_italic {
+#kcrdsqyrpf .gt_font_italic {
   font-style: italic;
 }
 
-#foekzlywks .gt_super {
+#kcrdsqyrpf .gt_super {
   font-size: 65%;
 }
 
-#foekzlywks .gt_footnote_marks {
+#kcrdsqyrpf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#foekzlywks .gt_asterisk {
+#kcrdsqyrpf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#foekzlywks .gt_indent_1 {
+#kcrdsqyrpf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#foekzlywks .gt_indent_2 {
+#kcrdsqyrpf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#foekzlywks .gt_indent_3 {
+#kcrdsqyrpf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#foekzlywks .gt_indent_4 {
+#kcrdsqyrpf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#foekzlywks .gt_indent_5 {
+#kcrdsqyrpf .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -16384,7 +17708,7 @@ penguin_counts_wider |>
       <td colspan="7" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id=""></th>
@@ -16535,23 +17859,23 @@ Try and implement this, then check below the code fold for the answer
 
 
 ```{=html}
-<div id="qkazvpnpww" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#qkazvpnpww table {
+<div id="oomgkvnnsr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#oomgkvnnsr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#qkazvpnpww thead, #qkazvpnpww tbody, #qkazvpnpww tfoot, #qkazvpnpww tr, #qkazvpnpww td, #qkazvpnpww th {
+#oomgkvnnsr thead, #oomgkvnnsr tbody, #oomgkvnnsr tfoot, #oomgkvnnsr tr, #oomgkvnnsr td, #oomgkvnnsr th {
   border-style: none;
 }
 
-#qkazvpnpww p {
+#oomgkvnnsr p {
   margin: 0;
   padding: 0;
 }
 
-#qkazvpnpww .gt_table {
+#oomgkvnnsr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -16577,12 +17901,12 @@ Try and implement this, then check below the code fold for the answer
   border-left-color: #D3D3D3;
 }
 
-#qkazvpnpww .gt_caption {
+#oomgkvnnsr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#qkazvpnpww .gt_title {
+#oomgkvnnsr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -16594,7 +17918,7 @@ Try and implement this, then check below the code fold for the answer
   border-bottom-width: 0;
 }
 
-#qkazvpnpww .gt_subtitle {
+#oomgkvnnsr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -16606,7 +17930,7 @@ Try and implement this, then check below the code fold for the answer
   border-top-width: 0;
 }
 
-#qkazvpnpww .gt_heading {
+#oomgkvnnsr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -16618,13 +17942,13 @@ Try and implement this, then check below the code fold for the answer
   border-right-color: #D3D3D3;
 }
 
-#qkazvpnpww .gt_bottom_border {
+#oomgkvnnsr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #5F5F5F;
 }
 
-#qkazvpnpww .gt_col_headings {
+#oomgkvnnsr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #5F5F5F;
@@ -16639,7 +17963,7 @@ Try and implement this, then check below the code fold for the answer
   border-right-color: #D3D3D3;
 }
 
-#qkazvpnpww .gt_col_heading {
+#oomgkvnnsr .gt_col_heading {
   color: #FFFFFF;
   background-color: #5F5F5F;
   font-size: 100%;
@@ -16659,7 +17983,7 @@ Try and implement this, then check below the code fold for the answer
   overflow-x: hidden;
 }
 
-#qkazvpnpww .gt_column_spanner_outer {
+#oomgkvnnsr .gt_column_spanner_outer {
   color: #FFFFFF;
   background-color: #5F5F5F;
   font-size: 100%;
@@ -16671,15 +17995,15 @@ Try and implement this, then check below the code fold for the answer
   padding-right: 4px;
 }
 
-#qkazvpnpww .gt_column_spanner_outer:first-child {
+#oomgkvnnsr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qkazvpnpww .gt_column_spanner_outer:last-child {
+#oomgkvnnsr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qkazvpnpww .gt_column_spanner {
+#oomgkvnnsr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #5F5F5F;
@@ -16691,11 +18015,11 @@ Try and implement this, then check below the code fold for the answer
   width: 100%;
 }
 
-#qkazvpnpww .gt_spanner_row {
+#oomgkvnnsr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#qkazvpnpww .gt_group_heading {
+#oomgkvnnsr .gt_group_heading {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -16721,7 +18045,7 @@ Try and implement this, then check below the code fold for the answer
   text-align: left;
 }
 
-#qkazvpnpww .gt_empty_group_heading {
+#oomgkvnnsr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -16736,15 +18060,15 @@ Try and implement this, then check below the code fold for the answer
   vertical-align: middle;
 }
 
-#qkazvpnpww .gt_from_md > :first-child {
+#oomgkvnnsr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qkazvpnpww .gt_from_md > :last-child {
+#oomgkvnnsr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qkazvpnpww .gt_row {
+#oomgkvnnsr .gt_row {
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 5px;
@@ -16763,7 +18087,7 @@ Try and implement this, then check below the code fold for the answer
   overflow-x: hidden;
 }
 
-#qkazvpnpww .gt_stub {
+#oomgkvnnsr .gt_stub {
   color: #333333;
   background-color: #D5D5D5;
   font-size: 100%;
@@ -16776,7 +18100,7 @@ Try and implement this, then check below the code fold for the answer
   padding-right: 5px;
 }
 
-#qkazvpnpww .gt_stub_row_group {
+#oomgkvnnsr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -16790,15 +18114,15 @@ Try and implement this, then check below the code fold for the answer
   vertical-align: top;
 }
 
-#qkazvpnpww .gt_row_group_first td {
+#oomgkvnnsr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qkazvpnpww .gt_row_group_first th {
+#oomgkvnnsr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#qkazvpnpww .gt_summary_row {
+#oomgkvnnsr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -16808,16 +18132,16 @@ Try and implement this, then check below the code fold for the answer
   padding-right: 5px;
 }
 
-#qkazvpnpww .gt_first_summary_row {
+#oomgkvnnsr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #5F5F5F;
 }
 
-#qkazvpnpww .gt_first_summary_row.thick {
+#oomgkvnnsr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qkazvpnpww .gt_last_summary_row {
+#oomgkvnnsr .gt_last_summary_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -16827,7 +18151,7 @@ Try and implement this, then check below the code fold for the answer
   border-bottom-color: #5F5F5F;
 }
 
-#qkazvpnpww .gt_grand_summary_row {
+#oomgkvnnsr .gt_grand_summary_row {
   color: #333333;
   background-color: #D5D5D5;
   text-transform: inherit;
@@ -16837,7 +18161,7 @@ Try and implement this, then check below the code fold for the answer
   padding-right: 5px;
 }
 
-#qkazvpnpww .gt_first_grand_summary_row {
+#oomgkvnnsr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -16847,7 +18171,7 @@ Try and implement this, then check below the code fold for the answer
   border-top-color: #5F5F5F;
 }
 
-#qkazvpnpww .gt_last_grand_summary_row_top {
+#oomgkvnnsr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -16857,11 +18181,11 @@ Try and implement this, then check below the code fold for the answer
   border-bottom-color: #5F5F5F;
 }
 
-#qkazvpnpww .gt_striped {
+#oomgkvnnsr .gt_striped {
   background-color: #F4F4F4;
 }
 
-#qkazvpnpww .gt_table_body {
+#oomgkvnnsr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #5F5F5F;
@@ -16870,7 +18194,7 @@ Try and implement this, then check below the code fold for the answer
   border-bottom-color: #5F5F5F;
 }
 
-#qkazvpnpww .gt_footnotes {
+#oomgkvnnsr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -16884,7 +18208,7 @@ Try and implement this, then check below the code fold for the answer
   border-right-color: #D3D3D3;
 }
 
-#qkazvpnpww .gt_footnote {
+#oomgkvnnsr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -16893,7 +18217,7 @@ Try and implement this, then check below the code fold for the answer
   padding-right: 5px;
 }
 
-#qkazvpnpww .gt_sourcenotes {
+#oomgkvnnsr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -16907,7 +18231,7 @@ Try and implement this, then check below the code fold for the answer
   border-right-color: #D3D3D3;
 }
 
-#qkazvpnpww .gt_sourcenote {
+#oomgkvnnsr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -16915,63 +18239,63 @@ Try and implement this, then check below the code fold for the answer
   padding-right: 5px;
 }
 
-#qkazvpnpww .gt_left {
+#oomgkvnnsr .gt_left {
   text-align: left;
 }
 
-#qkazvpnpww .gt_center {
+#oomgkvnnsr .gt_center {
   text-align: center;
 }
 
-#qkazvpnpww .gt_right {
+#oomgkvnnsr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qkazvpnpww .gt_font_normal {
+#oomgkvnnsr .gt_font_normal {
   font-weight: normal;
 }
 
-#qkazvpnpww .gt_font_bold {
+#oomgkvnnsr .gt_font_bold {
   font-weight: bold;
 }
 
-#qkazvpnpww .gt_font_italic {
+#oomgkvnnsr .gt_font_italic {
   font-style: italic;
 }
 
-#qkazvpnpww .gt_super {
+#oomgkvnnsr .gt_super {
   font-size: 65%;
 }
 
-#qkazvpnpww .gt_footnote_marks {
+#oomgkvnnsr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#qkazvpnpww .gt_asterisk {
+#oomgkvnnsr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qkazvpnpww .gt_indent_1 {
+#oomgkvnnsr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#qkazvpnpww .gt_indent_2 {
+#oomgkvnnsr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#qkazvpnpww .gt_indent_3 {
+#oomgkvnnsr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#qkazvpnpww .gt_indent_4 {
+#oomgkvnnsr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#qkazvpnpww .gt_indent_5 {
+#oomgkvnnsr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -16981,7 +18305,7 @@ Try and implement this, then check below the code fold for the answer
       <td colspan="7" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id=""></th>
@@ -17209,23 +18533,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="ydllvisbjd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ydllvisbjd table {
+<div id="pkdjtnhpfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pkdjtnhpfi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ydllvisbjd thead, #ydllvisbjd tbody, #ydllvisbjd tfoot, #ydllvisbjd tr, #ydllvisbjd td, #ydllvisbjd th {
+#pkdjtnhpfi thead, #pkdjtnhpfi tbody, #pkdjtnhpfi tfoot, #pkdjtnhpfi tr, #pkdjtnhpfi td, #pkdjtnhpfi th {
   border-style: none;
 }
 
-#ydllvisbjd p {
+#pkdjtnhpfi p {
   margin: 0;
   padding: 0;
 }
 
-#ydllvisbjd .gt_table {
+#pkdjtnhpfi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -17251,12 +18575,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#ydllvisbjd .gt_caption {
+#pkdjtnhpfi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ydllvisbjd .gt_title {
+#pkdjtnhpfi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -17268,7 +18592,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#ydllvisbjd .gt_subtitle {
+#pkdjtnhpfi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -17280,7 +18604,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#ydllvisbjd .gt_heading {
+#pkdjtnhpfi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -17292,13 +18616,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#ydllvisbjd .gt_bottom_border {
+#pkdjtnhpfi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ydllvisbjd .gt_col_headings {
+#pkdjtnhpfi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -17313,7 +18637,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#ydllvisbjd .gt_col_heading {
+#pkdjtnhpfi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -17333,7 +18657,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#ydllvisbjd .gt_column_spanner_outer {
+#pkdjtnhpfi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -17345,15 +18669,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#ydllvisbjd .gt_column_spanner_outer:first-child {
+#pkdjtnhpfi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ydllvisbjd .gt_column_spanner_outer:last-child {
+#pkdjtnhpfi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ydllvisbjd .gt_column_spanner {
+#pkdjtnhpfi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -17365,11 +18689,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#ydllvisbjd .gt_spanner_row {
+#pkdjtnhpfi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ydllvisbjd .gt_group_heading {
+#pkdjtnhpfi .gt_group_heading {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -17395,7 +18719,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#ydllvisbjd .gt_empty_group_heading {
+#pkdjtnhpfi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -17410,15 +18734,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#ydllvisbjd .gt_from_md > :first-child {
+#pkdjtnhpfi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ydllvisbjd .gt_from_md > :last-child {
+#pkdjtnhpfi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ydllvisbjd .gt_row {
+#pkdjtnhpfi .gt_row {
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 5px;
@@ -17437,7 +18761,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#ydllvisbjd .gt_stub {
+#pkdjtnhpfi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -17450,7 +18774,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#ydllvisbjd .gt_stub_row_group {
+#pkdjtnhpfi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -17464,15 +18788,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#ydllvisbjd .gt_row_group_first td {
+#pkdjtnhpfi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ydllvisbjd .gt_row_group_first th {
+#pkdjtnhpfi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ydllvisbjd .gt_summary_row {
+#pkdjtnhpfi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -17482,16 +18806,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#ydllvisbjd .gt_first_summary_row {
+#pkdjtnhpfi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ydllvisbjd .gt_first_summary_row.thick {
+#pkdjtnhpfi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ydllvisbjd .gt_last_summary_row {
+#pkdjtnhpfi .gt_last_summary_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -17501,7 +18825,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#ydllvisbjd .gt_grand_summary_row {
+#pkdjtnhpfi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -17511,7 +18835,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#ydllvisbjd .gt_first_grand_summary_row {
+#pkdjtnhpfi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -17521,7 +18845,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#ydllvisbjd .gt_last_grand_summary_row_top {
+#pkdjtnhpfi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -17531,11 +18855,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#ydllvisbjd .gt_striped {
+#pkdjtnhpfi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ydllvisbjd .gt_table_body {
+#pkdjtnhpfi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -17544,7 +18868,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#ydllvisbjd .gt_footnotes {
+#pkdjtnhpfi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -17558,7 +18882,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#ydllvisbjd .gt_footnote {
+#pkdjtnhpfi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -17567,7 +18891,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#ydllvisbjd .gt_sourcenotes {
+#pkdjtnhpfi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -17581,7 +18905,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#ydllvisbjd .gt_sourcenote {
+#pkdjtnhpfi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -17589,63 +18913,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#ydllvisbjd .gt_left {
+#pkdjtnhpfi .gt_left {
   text-align: left;
 }
 
-#ydllvisbjd .gt_center {
+#pkdjtnhpfi .gt_center {
   text-align: center;
 }
 
-#ydllvisbjd .gt_right {
+#pkdjtnhpfi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ydllvisbjd .gt_font_normal {
+#pkdjtnhpfi .gt_font_normal {
   font-weight: normal;
 }
 
-#ydllvisbjd .gt_font_bold {
+#pkdjtnhpfi .gt_font_bold {
   font-weight: bold;
 }
 
-#ydllvisbjd .gt_font_italic {
+#pkdjtnhpfi .gt_font_italic {
   font-style: italic;
 }
 
-#ydllvisbjd .gt_super {
+#pkdjtnhpfi .gt_super {
   font-size: 65%;
 }
 
-#ydllvisbjd .gt_footnote_marks {
+#pkdjtnhpfi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ydllvisbjd .gt_asterisk {
+#pkdjtnhpfi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ydllvisbjd .gt_indent_1 {
+#pkdjtnhpfi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ydllvisbjd .gt_indent_2 {
+#pkdjtnhpfi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ydllvisbjd .gt_indent_3 {
+#pkdjtnhpfi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ydllvisbjd .gt_indent_4 {
+#pkdjtnhpfi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ydllvisbjd .gt_indent_5 {
+#pkdjtnhpfi .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -17655,7 +18979,7 @@ penguin_counts_wider |>
       <td colspan="7" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id=""></th>
@@ -17840,23 +19164,23 @@ penguin_counts_wider |>
 ```
 
 ```{=html}
-<div id="vfydfuucvk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vfydfuucvk table {
+<div id="nljvffbyag" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nljvffbyag table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vfydfuucvk thead, #vfydfuucvk tbody, #vfydfuucvk tfoot, #vfydfuucvk tr, #vfydfuucvk td, #vfydfuucvk th {
+#nljvffbyag thead, #nljvffbyag tbody, #nljvffbyag tfoot, #nljvffbyag tr, #nljvffbyag td, #nljvffbyag th {
   border-style: none;
 }
 
-#vfydfuucvk p {
+#nljvffbyag p {
   margin: 0;
   padding: 0;
 }
 
-#vfydfuucvk .gt_table {
+#nljvffbyag .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -17882,12 +19206,12 @@ penguin_counts_wider |>
   border-left-color: #D3D3D3;
 }
 
-#vfydfuucvk .gt_caption {
+#nljvffbyag .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vfydfuucvk .gt_title {
+#nljvffbyag .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -17899,7 +19223,7 @@ penguin_counts_wider |>
   border-bottom-width: 0;
 }
 
-#vfydfuucvk .gt_subtitle {
+#nljvffbyag .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -17911,7 +19235,7 @@ penguin_counts_wider |>
   border-top-width: 0;
 }
 
-#vfydfuucvk .gt_heading {
+#nljvffbyag .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -17923,13 +19247,13 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#vfydfuucvk .gt_bottom_border {
+#nljvffbyag .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vfydfuucvk .gt_col_headings {
+#nljvffbyag .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -17944,7 +19268,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#vfydfuucvk .gt_col_heading {
+#nljvffbyag .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -17964,7 +19288,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#vfydfuucvk .gt_column_spanner_outer {
+#nljvffbyag .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -17976,15 +19300,15 @@ penguin_counts_wider |>
   padding-right: 4px;
 }
 
-#vfydfuucvk .gt_column_spanner_outer:first-child {
+#nljvffbyag .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vfydfuucvk .gt_column_spanner_outer:last-child {
+#nljvffbyag .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vfydfuucvk .gt_column_spanner {
+#nljvffbyag .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -17996,11 +19320,11 @@ penguin_counts_wider |>
   width: 100%;
 }
 
-#vfydfuucvk .gt_spanner_row {
+#nljvffbyag .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vfydfuucvk .gt_group_heading {
+#nljvffbyag .gt_group_heading {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -18026,7 +19350,7 @@ penguin_counts_wider |>
   text-align: left;
 }
 
-#vfydfuucvk .gt_empty_group_heading {
+#nljvffbyag .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -18041,15 +19365,15 @@ penguin_counts_wider |>
   vertical-align: middle;
 }
 
-#vfydfuucvk .gt_from_md > :first-child {
+#nljvffbyag .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vfydfuucvk .gt_from_md > :last-child {
+#nljvffbyag .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vfydfuucvk .gt_row {
+#nljvffbyag .gt_row {
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 5px;
@@ -18068,7 +19392,7 @@ penguin_counts_wider |>
   overflow-x: hidden;
 }
 
-#vfydfuucvk .gt_stub {
+#nljvffbyag .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -18081,7 +19405,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#vfydfuucvk .gt_stub_row_group {
+#nljvffbyag .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -18095,15 +19419,15 @@ penguin_counts_wider |>
   vertical-align: top;
 }
 
-#vfydfuucvk .gt_row_group_first td {
+#nljvffbyag .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vfydfuucvk .gt_row_group_first th {
+#nljvffbyag .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vfydfuucvk .gt_summary_row {
+#nljvffbyag .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -18113,16 +19437,16 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#vfydfuucvk .gt_first_summary_row {
+#nljvffbyag .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vfydfuucvk .gt_first_summary_row.thick {
+#nljvffbyag .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vfydfuucvk .gt_last_summary_row {
+#nljvffbyag .gt_last_summary_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -18132,7 +19456,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#vfydfuucvk .gt_grand_summary_row {
+#nljvffbyag .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -18142,7 +19466,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#vfydfuucvk .gt_first_grand_summary_row {
+#nljvffbyag .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -18152,7 +19476,7 @@ penguin_counts_wider |>
   border-top-color: #D3D3D3;
 }
 
-#vfydfuucvk .gt_last_grand_summary_row_top {
+#nljvffbyag .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -18162,11 +19486,11 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#vfydfuucvk .gt_striped {
+#nljvffbyag .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vfydfuucvk .gt_table_body {
+#nljvffbyag .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -18175,7 +19499,7 @@ penguin_counts_wider |>
   border-bottom-color: #D3D3D3;
 }
 
-#vfydfuucvk .gt_footnotes {
+#nljvffbyag .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -18189,7 +19513,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#vfydfuucvk .gt_footnote {
+#nljvffbyag .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -18198,7 +19522,7 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#vfydfuucvk .gt_sourcenotes {
+#nljvffbyag .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -18212,7 +19536,7 @@ penguin_counts_wider |>
   border-right-color: #D3D3D3;
 }
 
-#vfydfuucvk .gt_sourcenote {
+#nljvffbyag .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -18220,63 +19544,63 @@ penguin_counts_wider |>
   padding-right: 5px;
 }
 
-#vfydfuucvk .gt_left {
+#nljvffbyag .gt_left {
   text-align: left;
 }
 
-#vfydfuucvk .gt_center {
+#nljvffbyag .gt_center {
   text-align: center;
 }
 
-#vfydfuucvk .gt_right {
+#nljvffbyag .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vfydfuucvk .gt_font_normal {
+#nljvffbyag .gt_font_normal {
   font-weight: normal;
 }
 
-#vfydfuucvk .gt_font_bold {
+#nljvffbyag .gt_font_bold {
   font-weight: bold;
 }
 
-#vfydfuucvk .gt_font_italic {
+#nljvffbyag .gt_font_italic {
   font-style: italic;
 }
 
-#vfydfuucvk .gt_super {
+#nljvffbyag .gt_super {
   font-size: 65%;
 }
 
-#vfydfuucvk .gt_footnote_marks {
+#nljvffbyag .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vfydfuucvk .gt_asterisk {
+#nljvffbyag .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vfydfuucvk .gt_indent_1 {
+#nljvffbyag .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vfydfuucvk .gt_indent_2 {
+#nljvffbyag .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vfydfuucvk .gt_indent_3 {
+#nljvffbyag .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vfydfuucvk .gt_indent_4 {
+#nljvffbyag .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vfydfuucvk .gt_indent_5 {
+#nljvffbyag .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -18286,7 +19610,7 @@ penguin_counts_wider |>
       <td colspan="7" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id=""></th>
@@ -18437,23 +19761,23 @@ If we repeat this code for each column, we generate the result shown below
 
 
 ```{=html}
-<div id="igcuavfvpv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#igcuavfvpv table {
+<div id="azxsmneueg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#azxsmneueg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#igcuavfvpv thead, #igcuavfvpv tbody, #igcuavfvpv tfoot, #igcuavfvpv tr, #igcuavfvpv td, #igcuavfvpv th {
+#azxsmneueg thead, #azxsmneueg tbody, #azxsmneueg tfoot, #azxsmneueg tr, #azxsmneueg td, #azxsmneueg th {
   border-style: none;
 }
 
-#igcuavfvpv p {
+#azxsmneueg p {
   margin: 0;
   padding: 0;
 }
 
-#igcuavfvpv .gt_table {
+#azxsmneueg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -18479,12 +19803,12 @@ If we repeat this code for each column, we generate the result shown below
   border-left-color: #D3D3D3;
 }
 
-#igcuavfvpv .gt_caption {
+#azxsmneueg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#igcuavfvpv .gt_title {
+#azxsmneueg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -18496,7 +19820,7 @@ If we repeat this code for each column, we generate the result shown below
   border-bottom-width: 0;
 }
 
-#igcuavfvpv .gt_subtitle {
+#azxsmneueg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -18508,7 +19832,7 @@ If we repeat this code for each column, we generate the result shown below
   border-top-width: 0;
 }
 
-#igcuavfvpv .gt_heading {
+#azxsmneueg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -18520,13 +19844,13 @@ If we repeat this code for each column, we generate the result shown below
   border-right-color: #D3D3D3;
 }
 
-#igcuavfvpv .gt_bottom_border {
+#azxsmneueg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#igcuavfvpv .gt_col_headings {
+#azxsmneueg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -18541,7 +19865,7 @@ If we repeat this code for each column, we generate the result shown below
   border-right-color: #D3D3D3;
 }
 
-#igcuavfvpv .gt_col_heading {
+#azxsmneueg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -18561,7 +19885,7 @@ If we repeat this code for each column, we generate the result shown below
   overflow-x: hidden;
 }
 
-#igcuavfvpv .gt_column_spanner_outer {
+#azxsmneueg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -18573,15 +19897,15 @@ If we repeat this code for each column, we generate the result shown below
   padding-right: 4px;
 }
 
-#igcuavfvpv .gt_column_spanner_outer:first-child {
+#azxsmneueg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#igcuavfvpv .gt_column_spanner_outer:last-child {
+#azxsmneueg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#igcuavfvpv .gt_column_spanner {
+#azxsmneueg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -18593,11 +19917,11 @@ If we repeat this code for each column, we generate the result shown below
   width: 100%;
 }
 
-#igcuavfvpv .gt_spanner_row {
+#azxsmneueg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#igcuavfvpv .gt_group_heading {
+#azxsmneueg .gt_group_heading {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -18623,7 +19947,7 @@ If we repeat this code for each column, we generate the result shown below
   text-align: left;
 }
 
-#igcuavfvpv .gt_empty_group_heading {
+#azxsmneueg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -18638,15 +19962,15 @@ If we repeat this code for each column, we generate the result shown below
   vertical-align: middle;
 }
 
-#igcuavfvpv .gt_from_md > :first-child {
+#azxsmneueg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#igcuavfvpv .gt_from_md > :last-child {
+#azxsmneueg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#igcuavfvpv .gt_row {
+#azxsmneueg .gt_row {
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 5px;
@@ -18665,7 +19989,7 @@ If we repeat this code for each column, we generate the result shown below
   overflow-x: hidden;
 }
 
-#igcuavfvpv .gt_stub {
+#azxsmneueg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -18678,7 +20002,7 @@ If we repeat this code for each column, we generate the result shown below
   padding-right: 5px;
 }
 
-#igcuavfvpv .gt_stub_row_group {
+#azxsmneueg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -18692,15 +20016,15 @@ If we repeat this code for each column, we generate the result shown below
   vertical-align: top;
 }
 
-#igcuavfvpv .gt_row_group_first td {
+#azxsmneueg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#igcuavfvpv .gt_row_group_first th {
+#azxsmneueg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#igcuavfvpv .gt_summary_row {
+#azxsmneueg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -18710,16 +20034,16 @@ If we repeat this code for each column, we generate the result shown below
   padding-right: 5px;
 }
 
-#igcuavfvpv .gt_first_summary_row {
+#azxsmneueg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#igcuavfvpv .gt_first_summary_row.thick {
+#azxsmneueg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#igcuavfvpv .gt_last_summary_row {
+#azxsmneueg .gt_last_summary_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -18729,7 +20053,7 @@ If we repeat this code for each column, we generate the result shown below
   border-bottom-color: #D3D3D3;
 }
 
-#igcuavfvpv .gt_grand_summary_row {
+#azxsmneueg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -18739,7 +20063,7 @@ If we repeat this code for each column, we generate the result shown below
   padding-right: 5px;
 }
 
-#igcuavfvpv .gt_first_grand_summary_row {
+#azxsmneueg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -18749,7 +20073,7 @@ If we repeat this code for each column, we generate the result shown below
   border-top-color: #D3D3D3;
 }
 
-#igcuavfvpv .gt_last_grand_summary_row_top {
+#azxsmneueg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -18759,11 +20083,11 @@ If we repeat this code for each column, we generate the result shown below
   border-bottom-color: #D3D3D3;
 }
 
-#igcuavfvpv .gt_striped {
+#azxsmneueg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#igcuavfvpv .gt_table_body {
+#azxsmneueg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -18772,7 +20096,7 @@ If we repeat this code for each column, we generate the result shown below
   border-bottom-color: #D3D3D3;
 }
 
-#igcuavfvpv .gt_footnotes {
+#azxsmneueg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -18786,7 +20110,7 @@ If we repeat this code for each column, we generate the result shown below
   border-right-color: #D3D3D3;
 }
 
-#igcuavfvpv .gt_footnote {
+#azxsmneueg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -18795,7 +20119,7 @@ If we repeat this code for each column, we generate the result shown below
   padding-right: 5px;
 }
 
-#igcuavfvpv .gt_sourcenotes {
+#azxsmneueg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -18809,7 +20133,7 @@ If we repeat this code for each column, we generate the result shown below
   border-right-color: #D3D3D3;
 }
 
-#igcuavfvpv .gt_sourcenote {
+#azxsmneueg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -18817,63 +20141,63 @@ If we repeat this code for each column, we generate the result shown below
   padding-right: 5px;
 }
 
-#igcuavfvpv .gt_left {
+#azxsmneueg .gt_left {
   text-align: left;
 }
 
-#igcuavfvpv .gt_center {
+#azxsmneueg .gt_center {
   text-align: center;
 }
 
-#igcuavfvpv .gt_right {
+#azxsmneueg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#igcuavfvpv .gt_font_normal {
+#azxsmneueg .gt_font_normal {
   font-weight: normal;
 }
 
-#igcuavfvpv .gt_font_bold {
+#azxsmneueg .gt_font_bold {
   font-weight: bold;
 }
 
-#igcuavfvpv .gt_font_italic {
+#azxsmneueg .gt_font_italic {
   font-style: italic;
 }
 
-#igcuavfvpv .gt_super {
+#azxsmneueg .gt_super {
   font-size: 65%;
 }
 
-#igcuavfvpv .gt_footnote_marks {
+#azxsmneueg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#igcuavfvpv .gt_asterisk {
+#azxsmneueg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#igcuavfvpv .gt_indent_1 {
+#azxsmneueg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#igcuavfvpv .gt_indent_2 {
+#azxsmneueg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#igcuavfvpv .gt_indent_3 {
+#azxsmneueg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#igcuavfvpv .gt_indent_4 {
+#azxsmneueg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#igcuavfvpv .gt_indent_5 {
+#azxsmneueg .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -18883,7 +20207,7 @@ If we repeat this code for each column, we generate the result shown below
       <td colspan="7" class="gt_heading gt_title gt_font_normal" style>Penguins of the Palmer Archipelago</td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the `palmerpenguins` R package by Allison Horst</td>
+      <td colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Data is courtesy of the palmerpenguins R package by Allison Horst</td>
     </tr>
     <tr class="gt_col_headings gt_spanner_row">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id=""></th>
@@ -19043,24 +20367,24 @@ penguins |>
 ```
 
 ```{=html}
-<div id="pvhwkrpepb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="rhvrgcvbad" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#pvhwkrpepb table {
+#rhvrgcvbad table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pvhwkrpepb thead, #pvhwkrpepb tbody, #pvhwkrpepb tfoot, #pvhwkrpepb tr, #pvhwkrpepb td, #pvhwkrpepb th {
+#rhvrgcvbad thead, #rhvrgcvbad tbody, #rhvrgcvbad tfoot, #rhvrgcvbad tr, #rhvrgcvbad td, #rhvrgcvbad th {
   border-style: none;
 }
 
-#pvhwkrpepb p {
+#rhvrgcvbad p {
   margin: 0;
   padding: 0;
 }
 
-#pvhwkrpepb .gt_table {
+#rhvrgcvbad .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -19086,12 +20410,12 @@ penguins |>
   border-left-color: #D3D3D3;
 }
 
-#pvhwkrpepb .gt_caption {
+#rhvrgcvbad .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pvhwkrpepb .gt_title {
+#rhvrgcvbad .gt_title {
   color: #333333;
   font-size: 24px;
   font-weight: initial;
@@ -19103,7 +20427,7 @@ penguins |>
   border-bottom-width: 0;
 }
 
-#pvhwkrpepb .gt_subtitle {
+#rhvrgcvbad .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -19115,7 +20439,7 @@ penguins |>
   border-top-width: 0;
 }
 
-#pvhwkrpepb .gt_heading {
+#rhvrgcvbad .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -19127,13 +20451,13 @@ penguins |>
   border-right-color: #D3D3D3;
 }
 
-#pvhwkrpepb .gt_bottom_border {
+#rhvrgcvbad .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 0px;
   border-bottom-color: #D3D3D3;
 }
 
-#pvhwkrpepb .gt_col_headings {
+#rhvrgcvbad .gt_col_headings {
   border-top-style: solid;
   border-top-width: 0px;
   border-top-color: #D3D3D3;
@@ -19148,7 +20472,7 @@ penguins |>
   border-right-color: #D3D3D3;
 }
 
-#pvhwkrpepb .gt_col_heading {
+#rhvrgcvbad .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -19168,7 +20492,7 @@ penguins |>
   overflow-x: hidden;
 }
 
-#pvhwkrpepb .gt_column_spanner_outer {
+#rhvrgcvbad .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -19180,15 +20504,15 @@ penguins |>
   padding-right: 4px;
 }
 
-#pvhwkrpepb .gt_column_spanner_outer:first-child {
+#rhvrgcvbad .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pvhwkrpepb .gt_column_spanner_outer:last-child {
+#rhvrgcvbad .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pvhwkrpepb .gt_column_spanner {
+#rhvrgcvbad .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -19200,11 +20524,11 @@ penguins |>
   width: 100%;
 }
 
-#pvhwkrpepb .gt_spanner_row {
+#rhvrgcvbad .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pvhwkrpepb .gt_group_heading {
+#rhvrgcvbad .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -19230,7 +20554,7 @@ penguins |>
   text-align: left;
 }
 
-#pvhwkrpepb .gt_empty_group_heading {
+#rhvrgcvbad .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -19245,15 +20569,15 @@ penguins |>
   vertical-align: middle;
 }
 
-#pvhwkrpepb .gt_from_md > :first-child {
+#rhvrgcvbad .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pvhwkrpepb .gt_from_md > :last-child {
+#rhvrgcvbad .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pvhwkrpepb .gt_row {
+#rhvrgcvbad .gt_row {
   padding-top: 7px;
   padding-bottom: 7px;
   padding-left: 5px;
@@ -19272,7 +20596,7 @@ penguins |>
   overflow-x: hidden;
 }
 
-#pvhwkrpepb .gt_stub {
+#rhvrgcvbad .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -19285,7 +20609,7 @@ penguins |>
   padding-right: 5px;
 }
 
-#pvhwkrpepb .gt_stub_row_group {
+#rhvrgcvbad .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -19299,15 +20623,15 @@ penguins |>
   vertical-align: top;
 }
 
-#pvhwkrpepb .gt_row_group_first td {
+#rhvrgcvbad .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pvhwkrpepb .gt_row_group_first th {
+#rhvrgcvbad .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pvhwkrpepb .gt_summary_row {
+#rhvrgcvbad .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -19317,16 +20641,16 @@ penguins |>
   padding-right: 5px;
 }
 
-#pvhwkrpepb .gt_first_summary_row {
+#rhvrgcvbad .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pvhwkrpepb .gt_first_summary_row.thick {
+#rhvrgcvbad .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pvhwkrpepb .gt_last_summary_row {
+#rhvrgcvbad .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -19336,7 +20660,7 @@ penguins |>
   border-bottom-color: #D3D3D3;
 }
 
-#pvhwkrpepb .gt_grand_summary_row {
+#rhvrgcvbad .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -19346,7 +20670,7 @@ penguins |>
   padding-right: 5px;
 }
 
-#pvhwkrpepb .gt_first_grand_summary_row {
+#rhvrgcvbad .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -19356,7 +20680,7 @@ penguins |>
   border-top-color: #D3D3D3;
 }
 
-#pvhwkrpepb .gt_last_grand_summary_row_top {
+#rhvrgcvbad .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -19366,11 +20690,11 @@ penguins |>
   border-bottom-color: #D3D3D3;
 }
 
-#pvhwkrpepb .gt_striped {
+#rhvrgcvbad .gt_striped {
   background-color: #FAFAFA;
 }
 
-#pvhwkrpepb .gt_table_body {
+#rhvrgcvbad .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -19379,7 +20703,7 @@ penguins |>
   border-bottom-color: #D3D3D3;
 }
 
-#pvhwkrpepb .gt_footnotes {
+#rhvrgcvbad .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -19393,7 +20717,7 @@ penguins |>
   border-right-color: #D3D3D3;
 }
 
-#pvhwkrpepb .gt_footnote {
+#rhvrgcvbad .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -19402,7 +20726,7 @@ penguins |>
   padding-right: 5px;
 }
 
-#pvhwkrpepb .gt_sourcenotes {
+#rhvrgcvbad .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -19416,7 +20740,7 @@ penguins |>
   border-right-color: #D3D3D3;
 }
 
-#pvhwkrpepb .gt_sourcenote {
+#rhvrgcvbad .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -19424,63 +20748,63 @@ penguins |>
   padding-right: 5px;
 }
 
-#pvhwkrpepb .gt_left {
+#rhvrgcvbad .gt_left {
   text-align: left;
 }
 
-#pvhwkrpepb .gt_center {
+#rhvrgcvbad .gt_center {
   text-align: center;
 }
 
-#pvhwkrpepb .gt_right {
+#rhvrgcvbad .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pvhwkrpepb .gt_font_normal {
+#rhvrgcvbad .gt_font_normal {
   font-weight: normal;
 }
 
-#pvhwkrpepb .gt_font_bold {
+#rhvrgcvbad .gt_font_bold {
   font-weight: bold;
 }
 
-#pvhwkrpepb .gt_font_italic {
+#rhvrgcvbad .gt_font_italic {
   font-style: italic;
 }
 
-#pvhwkrpepb .gt_super {
+#rhvrgcvbad .gt_super {
   font-size: 65%;
 }
 
-#pvhwkrpepb .gt_footnote_marks {
+#rhvrgcvbad .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pvhwkrpepb .gt_asterisk {
+#rhvrgcvbad .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pvhwkrpepb .gt_indent_1 {
+#rhvrgcvbad .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pvhwkrpepb .gt_indent_2 {
+#rhvrgcvbad .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pvhwkrpepb .gt_indent_3 {
+#rhvrgcvbad .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pvhwkrpepb .gt_indent_4 {
+#rhvrgcvbad .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pvhwkrpepb .gt_indent_5 {
+#rhvrgcvbad .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -19599,23 +20923,23 @@ penguins |>
 ```
 
 ```{=html}
-<div id="tuselqmpwe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tuselqmpwe table {
+<div id="seuodkfods" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#seuodkfods table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tuselqmpwe thead, #tuselqmpwe tbody, #tuselqmpwe tfoot, #tuselqmpwe tr, #tuselqmpwe td, #tuselqmpwe th {
+#seuodkfods thead, #seuodkfods tbody, #seuodkfods tfoot, #seuodkfods tr, #seuodkfods td, #seuodkfods th {
   border-style: none;
 }
 
-#tuselqmpwe p {
+#seuodkfods p {
   margin: 0;
   padding: 0;
 }
 
-#tuselqmpwe .gt_table {
+#seuodkfods .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -19641,12 +20965,12 @@ penguins |>
   border-left-color: #D3D3D3;
 }
 
-#tuselqmpwe .gt_caption {
+#seuodkfods .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tuselqmpwe .gt_title {
+#seuodkfods .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -19658,7 +20982,7 @@ penguins |>
   border-bottom-width: 0;
 }
 
-#tuselqmpwe .gt_subtitle {
+#seuodkfods .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -19670,7 +20994,7 @@ penguins |>
   border-top-width: 0;
 }
 
-#tuselqmpwe .gt_heading {
+#seuodkfods .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -19682,13 +21006,13 @@ penguins |>
   border-right-color: #D3D3D3;
 }
 
-#tuselqmpwe .gt_bottom_border {
+#seuodkfods .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tuselqmpwe .gt_col_headings {
+#seuodkfods .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -19703,7 +21027,7 @@ penguins |>
   border-right-color: #D3D3D3;
 }
 
-#tuselqmpwe .gt_col_heading {
+#seuodkfods .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -19723,7 +21047,7 @@ penguins |>
   overflow-x: hidden;
 }
 
-#tuselqmpwe .gt_column_spanner_outer {
+#seuodkfods .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -19735,15 +21059,15 @@ penguins |>
   padding-right: 4px;
 }
 
-#tuselqmpwe .gt_column_spanner_outer:first-child {
+#seuodkfods .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tuselqmpwe .gt_column_spanner_outer:last-child {
+#seuodkfods .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tuselqmpwe .gt_column_spanner {
+#seuodkfods .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -19755,11 +21079,11 @@ penguins |>
   width: 100%;
 }
 
-#tuselqmpwe .gt_spanner_row {
+#seuodkfods .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tuselqmpwe .gt_group_heading {
+#seuodkfods .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -19785,7 +21109,7 @@ penguins |>
   text-align: left;
 }
 
-#tuselqmpwe .gt_empty_group_heading {
+#seuodkfods .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -19800,15 +21124,15 @@ penguins |>
   vertical-align: middle;
 }
 
-#tuselqmpwe .gt_from_md > :first-child {
+#seuodkfods .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tuselqmpwe .gt_from_md > :last-child {
+#seuodkfods .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tuselqmpwe .gt_row {
+#seuodkfods .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -19827,7 +21151,7 @@ penguins |>
   overflow-x: hidden;
 }
 
-#tuselqmpwe .gt_stub {
+#seuodkfods .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -19840,7 +21164,7 @@ penguins |>
   padding-right: 5px;
 }
 
-#tuselqmpwe .gt_stub_row_group {
+#seuodkfods .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -19854,15 +21178,15 @@ penguins |>
   vertical-align: top;
 }
 
-#tuselqmpwe .gt_row_group_first td {
+#seuodkfods .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tuselqmpwe .gt_row_group_first th {
+#seuodkfods .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tuselqmpwe .gt_summary_row {
+#seuodkfods .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -19872,16 +21196,16 @@ penguins |>
   padding-right: 5px;
 }
 
-#tuselqmpwe .gt_first_summary_row {
+#seuodkfods .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tuselqmpwe .gt_first_summary_row.thick {
+#seuodkfods .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tuselqmpwe .gt_last_summary_row {
+#seuodkfods .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -19891,7 +21215,7 @@ penguins |>
   border-bottom-color: #D3D3D3;
 }
 
-#tuselqmpwe .gt_grand_summary_row {
+#seuodkfods .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -19901,7 +21225,7 @@ penguins |>
   padding-right: 5px;
 }
 
-#tuselqmpwe .gt_first_grand_summary_row {
+#seuodkfods .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -19911,7 +21235,7 @@ penguins |>
   border-top-color: #D3D3D3;
 }
 
-#tuselqmpwe .gt_last_grand_summary_row_top {
+#seuodkfods .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -19921,11 +21245,11 @@ penguins |>
   border-bottom-color: #D3D3D3;
 }
 
-#tuselqmpwe .gt_striped {
+#seuodkfods .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tuselqmpwe .gt_table_body {
+#seuodkfods .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -19934,7 +21258,7 @@ penguins |>
   border-bottom-color: #D3D3D3;
 }
 
-#tuselqmpwe .gt_footnotes {
+#seuodkfods .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -19948,7 +21272,7 @@ penguins |>
   border-right-color: #D3D3D3;
 }
 
-#tuselqmpwe .gt_footnote {
+#seuodkfods .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -19957,7 +21281,7 @@ penguins |>
   padding-right: 5px;
 }
 
-#tuselqmpwe .gt_sourcenotes {
+#seuodkfods .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -19971,7 +21295,7 @@ penguins |>
   border-right-color: #D3D3D3;
 }
 
-#tuselqmpwe .gt_sourcenote {
+#seuodkfods .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -19979,63 +21303,63 @@ penguins |>
   padding-right: 5px;
 }
 
-#tuselqmpwe .gt_left {
+#seuodkfods .gt_left {
   text-align: left;
 }
 
-#tuselqmpwe .gt_center {
+#seuodkfods .gt_center {
   text-align: center;
 }
 
-#tuselqmpwe .gt_right {
+#seuodkfods .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tuselqmpwe .gt_font_normal {
+#seuodkfods .gt_font_normal {
   font-weight: normal;
 }
 
-#tuselqmpwe .gt_font_bold {
+#seuodkfods .gt_font_bold {
   font-weight: bold;
 }
 
-#tuselqmpwe .gt_font_italic {
+#seuodkfods .gt_font_italic {
   font-style: italic;
 }
 
-#tuselqmpwe .gt_super {
+#seuodkfods .gt_super {
   font-size: 65%;
 }
 
-#tuselqmpwe .gt_footnote_marks {
+#seuodkfods .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tuselqmpwe .gt_asterisk {
+#seuodkfods .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tuselqmpwe .gt_indent_1 {
+#seuodkfods .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tuselqmpwe .gt_indent_2 {
+#seuodkfods .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tuselqmpwe .gt_indent_3 {
+#seuodkfods .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tuselqmpwe .gt_indent_4 {
+#seuodkfods .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tuselqmpwe .gt_indent_5 {
+#seuodkfods .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -20087,23 +21411,23 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
 ```
 
 ```{=html}
-<div id="ryhuygkwhj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ryhuygkwhj table {
+<div id="xzfiortizo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xzfiortizo table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ryhuygkwhj thead, #ryhuygkwhj tbody, #ryhuygkwhj tfoot, #ryhuygkwhj tr, #ryhuygkwhj td, #ryhuygkwhj th {
+#xzfiortizo thead, #xzfiortizo tbody, #xzfiortizo tfoot, #xzfiortizo tr, #xzfiortizo td, #xzfiortizo th {
   border-style: none;
 }
 
-#ryhuygkwhj p {
+#xzfiortizo p {
   margin: 0;
   padding: 0;
 }
 
-#ryhuygkwhj .gt_table {
+#xzfiortizo .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -20129,12 +21453,12 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   border-left-color: #D3D3D3;
 }
 
-#ryhuygkwhj .gt_caption {
+#xzfiortizo .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ryhuygkwhj .gt_title {
+#xzfiortizo .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -20146,7 +21470,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   border-bottom-width: 0;
 }
 
-#ryhuygkwhj .gt_subtitle {
+#xzfiortizo .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -20158,7 +21482,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   border-top-width: 0;
 }
 
-#ryhuygkwhj .gt_heading {
+#xzfiortizo .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -20170,13 +21494,13 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   border-right-color: #D3D3D3;
 }
 
-#ryhuygkwhj .gt_bottom_border {
+#xzfiortizo .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ryhuygkwhj .gt_col_headings {
+#xzfiortizo .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -20191,7 +21515,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   border-right-color: #D3D3D3;
 }
 
-#ryhuygkwhj .gt_col_heading {
+#xzfiortizo .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -20211,7 +21535,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   overflow-x: hidden;
 }
 
-#ryhuygkwhj .gt_column_spanner_outer {
+#xzfiortizo .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -20223,15 +21547,15 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   padding-right: 4px;
 }
 
-#ryhuygkwhj .gt_column_spanner_outer:first-child {
+#xzfiortizo .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ryhuygkwhj .gt_column_spanner_outer:last-child {
+#xzfiortizo .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ryhuygkwhj .gt_column_spanner {
+#xzfiortizo .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -20243,11 +21567,11 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   width: 100%;
 }
 
-#ryhuygkwhj .gt_spanner_row {
+#xzfiortizo .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ryhuygkwhj .gt_group_heading {
+#xzfiortizo .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -20273,7 +21597,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   text-align: left;
 }
 
-#ryhuygkwhj .gt_empty_group_heading {
+#xzfiortizo .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -20288,15 +21612,15 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   vertical-align: middle;
 }
 
-#ryhuygkwhj .gt_from_md > :first-child {
+#xzfiortizo .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ryhuygkwhj .gt_from_md > :last-child {
+#xzfiortizo .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ryhuygkwhj .gt_row {
+#xzfiortizo .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -20315,7 +21639,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   overflow-x: hidden;
 }
 
-#ryhuygkwhj .gt_stub {
+#xzfiortizo .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -20328,7 +21652,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   padding-right: 5px;
 }
 
-#ryhuygkwhj .gt_stub_row_group {
+#xzfiortizo .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -20342,15 +21666,15 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   vertical-align: top;
 }
 
-#ryhuygkwhj .gt_row_group_first td {
+#xzfiortizo .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ryhuygkwhj .gt_row_group_first th {
+#xzfiortizo .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ryhuygkwhj .gt_summary_row {
+#xzfiortizo .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -20360,16 +21684,16 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   padding-right: 5px;
 }
 
-#ryhuygkwhj .gt_first_summary_row {
+#xzfiortizo .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ryhuygkwhj .gt_first_summary_row.thick {
+#xzfiortizo .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ryhuygkwhj .gt_last_summary_row {
+#xzfiortizo .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -20379,7 +21703,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   border-bottom-color: #D3D3D3;
 }
 
-#ryhuygkwhj .gt_grand_summary_row {
+#xzfiortizo .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -20389,7 +21713,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   padding-right: 5px;
 }
 
-#ryhuygkwhj .gt_first_grand_summary_row {
+#xzfiortizo .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -20399,7 +21723,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   border-top-color: #D3D3D3;
 }
 
-#ryhuygkwhj .gt_last_grand_summary_row_top {
+#xzfiortizo .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -20409,11 +21733,11 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   border-bottom-color: #D3D3D3;
 }
 
-#ryhuygkwhj .gt_striped {
+#xzfiortizo .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ryhuygkwhj .gt_table_body {
+#xzfiortizo .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -20422,7 +21746,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   border-bottom-color: #D3D3D3;
 }
 
-#ryhuygkwhj .gt_footnotes {
+#xzfiortizo .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -20436,7 +21760,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   border-right-color: #D3D3D3;
 }
 
-#ryhuygkwhj .gt_footnote {
+#xzfiortizo .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -20445,7 +21769,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   padding-right: 5px;
 }
 
-#ryhuygkwhj .gt_sourcenotes {
+#xzfiortizo .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -20459,7 +21783,7 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   border-right-color: #D3D3D3;
 }
 
-#ryhuygkwhj .gt_sourcenote {
+#xzfiortizo .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -20467,63 +21791,63 @@ left_join(penguin_mass_wide, penguin_mass_total) |>
   padding-right: 5px;
 }
 
-#ryhuygkwhj .gt_left {
+#xzfiortizo .gt_left {
   text-align: left;
 }
 
-#ryhuygkwhj .gt_center {
+#xzfiortizo .gt_center {
   text-align: center;
 }
 
-#ryhuygkwhj .gt_right {
+#xzfiortizo .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ryhuygkwhj .gt_font_normal {
+#xzfiortizo .gt_font_normal {
   font-weight: normal;
 }
 
-#ryhuygkwhj .gt_font_bold {
+#xzfiortizo .gt_font_bold {
   font-weight: bold;
 }
 
-#ryhuygkwhj .gt_font_italic {
+#xzfiortizo .gt_font_italic {
   font-style: italic;
 }
 
-#ryhuygkwhj .gt_super {
+#xzfiortizo .gt_super {
   font-size: 65%;
 }
 
-#ryhuygkwhj .gt_footnote_marks {
+#xzfiortizo .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ryhuygkwhj .gt_asterisk {
+#xzfiortizo .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ryhuygkwhj .gt_indent_1 {
+#xzfiortizo .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ryhuygkwhj .gt_indent_2 {
+#xzfiortizo .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ryhuygkwhj .gt_indent_3 {
+#xzfiortizo .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ryhuygkwhj .gt_indent_4 {
+#xzfiortizo .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ryhuygkwhj .gt_indent_5 {
+#xzfiortizo .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -20589,23 +21913,23 @@ penguin_weights |>
 ```
 
 ```{=html}
-<div id="sonquhpqjq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#sonquhpqjq table {
+<div id="fktgpyxvxp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fktgpyxvxp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#sonquhpqjq thead, #sonquhpqjq tbody, #sonquhpqjq tfoot, #sonquhpqjq tr, #sonquhpqjq td, #sonquhpqjq th {
+#fktgpyxvxp thead, #fktgpyxvxp tbody, #fktgpyxvxp tfoot, #fktgpyxvxp tr, #fktgpyxvxp td, #fktgpyxvxp th {
   border-style: none;
 }
 
-#sonquhpqjq p {
+#fktgpyxvxp p {
   margin: 0;
   padding: 0;
 }
 
-#sonquhpqjq .gt_table {
+#fktgpyxvxp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -20631,12 +21955,12 @@ penguin_weights |>
   border-left-color: #D3D3D3;
 }
 
-#sonquhpqjq .gt_caption {
+#fktgpyxvxp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#sonquhpqjq .gt_title {
+#fktgpyxvxp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -20648,7 +21972,7 @@ penguin_weights |>
   border-bottom-width: 0;
 }
 
-#sonquhpqjq .gt_subtitle {
+#fktgpyxvxp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -20660,7 +21984,7 @@ penguin_weights |>
   border-top-width: 0;
 }
 
-#sonquhpqjq .gt_heading {
+#fktgpyxvxp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -20672,13 +21996,13 @@ penguin_weights |>
   border-right-color: #D3D3D3;
 }
 
-#sonquhpqjq .gt_bottom_border {
+#fktgpyxvxp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sonquhpqjq .gt_col_headings {
+#fktgpyxvxp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -20693,7 +22017,7 @@ penguin_weights |>
   border-right-color: #D3D3D3;
 }
 
-#sonquhpqjq .gt_col_heading {
+#fktgpyxvxp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -20713,7 +22037,7 @@ penguin_weights |>
   overflow-x: hidden;
 }
 
-#sonquhpqjq .gt_column_spanner_outer {
+#fktgpyxvxp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -20725,15 +22049,15 @@ penguin_weights |>
   padding-right: 4px;
 }
 
-#sonquhpqjq .gt_column_spanner_outer:first-child {
+#fktgpyxvxp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sonquhpqjq .gt_column_spanner_outer:last-child {
+#fktgpyxvxp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sonquhpqjq .gt_column_spanner {
+#fktgpyxvxp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -20745,11 +22069,11 @@ penguin_weights |>
   width: 100%;
 }
 
-#sonquhpqjq .gt_spanner_row {
+#fktgpyxvxp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#sonquhpqjq .gt_group_heading {
+#fktgpyxvxp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -20775,7 +22099,7 @@ penguin_weights |>
   text-align: left;
 }
 
-#sonquhpqjq .gt_empty_group_heading {
+#fktgpyxvxp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -20790,15 +22114,15 @@ penguin_weights |>
   vertical-align: middle;
 }
 
-#sonquhpqjq .gt_from_md > :first-child {
+#fktgpyxvxp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sonquhpqjq .gt_from_md > :last-child {
+#fktgpyxvxp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sonquhpqjq .gt_row {
+#fktgpyxvxp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -20817,7 +22141,7 @@ penguin_weights |>
   overflow-x: hidden;
 }
 
-#sonquhpqjq .gt_stub {
+#fktgpyxvxp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -20830,7 +22154,7 @@ penguin_weights |>
   padding-right: 5px;
 }
 
-#sonquhpqjq .gt_stub_row_group {
+#fktgpyxvxp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -20844,15 +22168,15 @@ penguin_weights |>
   vertical-align: top;
 }
 
-#sonquhpqjq .gt_row_group_first td {
+#fktgpyxvxp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#sonquhpqjq .gt_row_group_first th {
+#fktgpyxvxp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#sonquhpqjq .gt_summary_row {
+#fktgpyxvxp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -20862,16 +22186,16 @@ penguin_weights |>
   padding-right: 5px;
 }
 
-#sonquhpqjq .gt_first_summary_row {
+#fktgpyxvxp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#sonquhpqjq .gt_first_summary_row.thick {
+#fktgpyxvxp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#sonquhpqjq .gt_last_summary_row {
+#fktgpyxvxp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -20881,7 +22205,7 @@ penguin_weights |>
   border-bottom-color: #D3D3D3;
 }
 
-#sonquhpqjq .gt_grand_summary_row {
+#fktgpyxvxp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -20891,7 +22215,7 @@ penguin_weights |>
   padding-right: 5px;
 }
 
-#sonquhpqjq .gt_first_grand_summary_row {
+#fktgpyxvxp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -20901,7 +22225,7 @@ penguin_weights |>
   border-top-color: #D3D3D3;
 }
 
-#sonquhpqjq .gt_last_grand_summary_row_top {
+#fktgpyxvxp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -20911,11 +22235,11 @@ penguin_weights |>
   border-bottom-color: #D3D3D3;
 }
 
-#sonquhpqjq .gt_striped {
+#fktgpyxvxp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sonquhpqjq .gt_table_body {
+#fktgpyxvxp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -20924,7 +22248,7 @@ penguin_weights |>
   border-bottom-color: #D3D3D3;
 }
 
-#sonquhpqjq .gt_footnotes {
+#fktgpyxvxp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -20938,7 +22262,7 @@ penguin_weights |>
   border-right-color: #D3D3D3;
 }
 
-#sonquhpqjq .gt_footnote {
+#fktgpyxvxp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -20947,7 +22271,7 @@ penguin_weights |>
   padding-right: 5px;
 }
 
-#sonquhpqjq .gt_sourcenotes {
+#fktgpyxvxp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -20961,7 +22285,7 @@ penguin_weights |>
   border-right-color: #D3D3D3;
 }
 
-#sonquhpqjq .gt_sourcenote {
+#fktgpyxvxp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -20969,63 +22293,63 @@ penguin_weights |>
   padding-right: 5px;
 }
 
-#sonquhpqjq .gt_left {
+#fktgpyxvxp .gt_left {
   text-align: left;
 }
 
-#sonquhpqjq .gt_center {
+#fktgpyxvxp .gt_center {
   text-align: center;
 }
 
-#sonquhpqjq .gt_right {
+#fktgpyxvxp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sonquhpqjq .gt_font_normal {
+#fktgpyxvxp .gt_font_normal {
   font-weight: normal;
 }
 
-#sonquhpqjq .gt_font_bold {
+#fktgpyxvxp .gt_font_bold {
   font-weight: bold;
 }
 
-#sonquhpqjq .gt_font_italic {
+#fktgpyxvxp .gt_font_italic {
   font-style: italic;
 }
 
-#sonquhpqjq .gt_super {
+#fktgpyxvxp .gt_super {
   font-size: 65%;
 }
 
-#sonquhpqjq .gt_footnote_marks {
+#fktgpyxvxp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#sonquhpqjq .gt_asterisk {
+#fktgpyxvxp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#sonquhpqjq .gt_indent_1 {
+#fktgpyxvxp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#sonquhpqjq .gt_indent_2 {
+#fktgpyxvxp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#sonquhpqjq .gt_indent_3 {
+#fktgpyxvxp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#sonquhpqjq .gt_indent_4 {
+#fktgpyxvxp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#sonquhpqjq .gt_indent_5 {
+#fktgpyxvxp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -21068,23 +22392,23 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
 
 
 ```{=html}
-<div id="ubwukhngul" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ubwukhngul table {
+<div id="trhtwjltqd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#trhtwjltqd table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ubwukhngul thead, #ubwukhngul tbody, #ubwukhngul tfoot, #ubwukhngul tr, #ubwukhngul td, #ubwukhngul th {
+#trhtwjltqd thead, #trhtwjltqd tbody, #trhtwjltqd tfoot, #trhtwjltqd tr, #trhtwjltqd td, #trhtwjltqd th {
   border-style: none;
 }
 
-#ubwukhngul p {
+#trhtwjltqd p {
   margin: 0;
   padding: 0;
 }
 
-#ubwukhngul .gt_table {
+#trhtwjltqd .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -21110,12 +22434,12 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   border-left-color: #D3D3D3;
 }
 
-#ubwukhngul .gt_caption {
+#trhtwjltqd .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ubwukhngul .gt_title {
+#trhtwjltqd .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -21127,7 +22451,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   border-bottom-width: 0;
 }
 
-#ubwukhngul .gt_subtitle {
+#trhtwjltqd .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -21139,7 +22463,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   border-top-width: 0;
 }
 
-#ubwukhngul .gt_heading {
+#trhtwjltqd .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -21151,13 +22475,13 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   border-right-color: #D3D3D3;
 }
 
-#ubwukhngul .gt_bottom_border {
+#trhtwjltqd .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ubwukhngul .gt_col_headings {
+#trhtwjltqd .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -21172,7 +22496,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   border-right-color: #D3D3D3;
 }
 
-#ubwukhngul .gt_col_heading {
+#trhtwjltqd .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -21192,7 +22516,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   overflow-x: hidden;
 }
 
-#ubwukhngul .gt_column_spanner_outer {
+#trhtwjltqd .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -21204,15 +22528,15 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   padding-right: 4px;
 }
 
-#ubwukhngul .gt_column_spanner_outer:first-child {
+#trhtwjltqd .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ubwukhngul .gt_column_spanner_outer:last-child {
+#trhtwjltqd .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ubwukhngul .gt_column_spanner {
+#trhtwjltqd .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -21224,11 +22548,11 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   width: 100%;
 }
 
-#ubwukhngul .gt_spanner_row {
+#trhtwjltqd .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ubwukhngul .gt_group_heading {
+#trhtwjltqd .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -21254,7 +22578,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   text-align: left;
 }
 
-#ubwukhngul .gt_empty_group_heading {
+#trhtwjltqd .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -21269,15 +22593,15 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   vertical-align: middle;
 }
 
-#ubwukhngul .gt_from_md > :first-child {
+#trhtwjltqd .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ubwukhngul .gt_from_md > :last-child {
+#trhtwjltqd .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ubwukhngul .gt_row {
+#trhtwjltqd .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -21296,7 +22620,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   overflow-x: hidden;
 }
 
-#ubwukhngul .gt_stub {
+#trhtwjltqd .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -21309,7 +22633,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   padding-right: 5px;
 }
 
-#ubwukhngul .gt_stub_row_group {
+#trhtwjltqd .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -21323,15 +22647,15 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   vertical-align: top;
 }
 
-#ubwukhngul .gt_row_group_first td {
+#trhtwjltqd .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ubwukhngul .gt_row_group_first th {
+#trhtwjltqd .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ubwukhngul .gt_summary_row {
+#trhtwjltqd .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -21341,16 +22665,16 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   padding-right: 5px;
 }
 
-#ubwukhngul .gt_first_summary_row {
+#trhtwjltqd .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ubwukhngul .gt_first_summary_row.thick {
+#trhtwjltqd .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ubwukhngul .gt_last_summary_row {
+#trhtwjltqd .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -21360,7 +22684,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   border-bottom-color: #D3D3D3;
 }
 
-#ubwukhngul .gt_grand_summary_row {
+#trhtwjltqd .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -21370,7 +22694,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   padding-right: 5px;
 }
 
-#ubwukhngul .gt_first_grand_summary_row {
+#trhtwjltqd .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -21380,7 +22704,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   border-top-color: #D3D3D3;
 }
 
-#ubwukhngul .gt_last_grand_summary_row_top {
+#trhtwjltqd .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -21390,11 +22714,11 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   border-bottom-color: #D3D3D3;
 }
 
-#ubwukhngul .gt_striped {
+#trhtwjltqd .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ubwukhngul .gt_table_body {
+#trhtwjltqd .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -21403,7 +22727,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   border-bottom-color: #D3D3D3;
 }
 
-#ubwukhngul .gt_footnotes {
+#trhtwjltqd .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -21417,7 +22741,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   border-right-color: #D3D3D3;
 }
 
-#ubwukhngul .gt_footnote {
+#trhtwjltqd .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -21426,7 +22750,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   padding-right: 5px;
 }
 
-#ubwukhngul .gt_sourcenotes {
+#trhtwjltqd .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -21440,7 +22764,7 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   border-right-color: #D3D3D3;
 }
 
-#ubwukhngul .gt_sourcenote {
+#trhtwjltqd .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -21448,63 +22772,63 @@ To create this table, let us begin with the basics. Let’s compute the numeric 
   padding-right: 5px;
 }
 
-#ubwukhngul .gt_left {
+#trhtwjltqd .gt_left {
   text-align: left;
 }
 
-#ubwukhngul .gt_center {
+#trhtwjltqd .gt_center {
   text-align: center;
 }
 
-#ubwukhngul .gt_right {
+#trhtwjltqd .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ubwukhngul .gt_font_normal {
+#trhtwjltqd .gt_font_normal {
   font-weight: normal;
 }
 
-#ubwukhngul .gt_font_bold {
+#trhtwjltqd .gt_font_bold {
   font-weight: bold;
 }
 
-#ubwukhngul .gt_font_italic {
+#trhtwjltqd .gt_font_italic {
   font-style: italic;
 }
 
-#ubwukhngul .gt_super {
+#trhtwjltqd .gt_super {
   font-size: 65%;
 }
 
-#ubwukhngul .gt_footnote_marks {
+#trhtwjltqd .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ubwukhngul .gt_asterisk {
+#trhtwjltqd .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ubwukhngul .gt_indent_1 {
+#trhtwjltqd .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ubwukhngul .gt_indent_2 {
+#trhtwjltqd .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ubwukhngul .gt_indent_3 {
+#trhtwjltqd .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ubwukhngul .gt_indent_4 {
+#trhtwjltqd .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ubwukhngul .gt_indent_5 {
+#trhtwjltqd .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -21570,7 +22894,7 @@ plot_density_species <- function(my_species) {
 plot_density_species('Adelie')
 ```
 
-<img src="05-ggplot_files/figure-html/unnamed-chunk-107-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-107-1.png" width="100%" style="display: block; margin: auto;" />
 
 Notice that I have set the coordinate system of the plot to the full range of the data (regardless of the species). This part is important. Without this trick, the three plots would not share a common x-axis. 
 
@@ -21595,23 +22919,23 @@ penguin_weights |>
 ```
 
 ```{=html}
-<div id="vrdjwoklta" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vrdjwoklta table {
+<div id="qfuwtbuwck" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qfuwtbuwck table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vrdjwoklta thead, #vrdjwoklta tbody, #vrdjwoklta tfoot, #vrdjwoklta tr, #vrdjwoklta td, #vrdjwoklta th {
+#qfuwtbuwck thead, #qfuwtbuwck tbody, #qfuwtbuwck tfoot, #qfuwtbuwck tr, #qfuwtbuwck td, #qfuwtbuwck th {
   border-style: none;
 }
 
-#vrdjwoklta p {
+#qfuwtbuwck p {
   margin: 0;
   padding: 0;
 }
 
-#vrdjwoklta .gt_table {
+#qfuwtbuwck .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -21637,12 +22961,12 @@ penguin_weights |>
   border-left-color: #D3D3D3;
 }
 
-#vrdjwoklta .gt_caption {
+#qfuwtbuwck .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vrdjwoklta .gt_title {
+#qfuwtbuwck .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -21654,7 +22978,7 @@ penguin_weights |>
   border-bottom-width: 0;
 }
 
-#vrdjwoklta .gt_subtitle {
+#qfuwtbuwck .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -21666,7 +22990,7 @@ penguin_weights |>
   border-top-width: 0;
 }
 
-#vrdjwoklta .gt_heading {
+#qfuwtbuwck .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -21678,13 +23002,13 @@ penguin_weights |>
   border-right-color: #D3D3D3;
 }
 
-#vrdjwoklta .gt_bottom_border {
+#qfuwtbuwck .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vrdjwoklta .gt_col_headings {
+#qfuwtbuwck .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -21699,7 +23023,7 @@ penguin_weights |>
   border-right-color: #D3D3D3;
 }
 
-#vrdjwoklta .gt_col_heading {
+#qfuwtbuwck .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -21719,7 +23043,7 @@ penguin_weights |>
   overflow-x: hidden;
 }
 
-#vrdjwoklta .gt_column_spanner_outer {
+#qfuwtbuwck .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -21731,15 +23055,15 @@ penguin_weights |>
   padding-right: 4px;
 }
 
-#vrdjwoklta .gt_column_spanner_outer:first-child {
+#qfuwtbuwck .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vrdjwoklta .gt_column_spanner_outer:last-child {
+#qfuwtbuwck .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vrdjwoklta .gt_column_spanner {
+#qfuwtbuwck .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -21751,11 +23075,11 @@ penguin_weights |>
   width: 100%;
 }
 
-#vrdjwoklta .gt_spanner_row {
+#qfuwtbuwck .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vrdjwoklta .gt_group_heading {
+#qfuwtbuwck .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -21781,7 +23105,7 @@ penguin_weights |>
   text-align: left;
 }
 
-#vrdjwoklta .gt_empty_group_heading {
+#qfuwtbuwck .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -21796,15 +23120,15 @@ penguin_weights |>
   vertical-align: middle;
 }
 
-#vrdjwoklta .gt_from_md > :first-child {
+#qfuwtbuwck .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vrdjwoklta .gt_from_md > :last-child {
+#qfuwtbuwck .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vrdjwoklta .gt_row {
+#qfuwtbuwck .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -21823,7 +23147,7 @@ penguin_weights |>
   overflow-x: hidden;
 }
 
-#vrdjwoklta .gt_stub {
+#qfuwtbuwck .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -21836,7 +23160,7 @@ penguin_weights |>
   padding-right: 5px;
 }
 
-#vrdjwoklta .gt_stub_row_group {
+#qfuwtbuwck .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -21850,15 +23174,15 @@ penguin_weights |>
   vertical-align: top;
 }
 
-#vrdjwoklta .gt_row_group_first td {
+#qfuwtbuwck .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vrdjwoklta .gt_row_group_first th {
+#qfuwtbuwck .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vrdjwoklta .gt_summary_row {
+#qfuwtbuwck .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -21868,16 +23192,16 @@ penguin_weights |>
   padding-right: 5px;
 }
 
-#vrdjwoklta .gt_first_summary_row {
+#qfuwtbuwck .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vrdjwoklta .gt_first_summary_row.thick {
+#qfuwtbuwck .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vrdjwoklta .gt_last_summary_row {
+#qfuwtbuwck .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -21887,7 +23211,7 @@ penguin_weights |>
   border-bottom-color: #D3D3D3;
 }
 
-#vrdjwoklta .gt_grand_summary_row {
+#qfuwtbuwck .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -21897,7 +23221,7 @@ penguin_weights |>
   padding-right: 5px;
 }
 
-#vrdjwoklta .gt_first_grand_summary_row {
+#qfuwtbuwck .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -21907,7 +23231,7 @@ penguin_weights |>
   border-top-color: #D3D3D3;
 }
 
-#vrdjwoklta .gt_last_grand_summary_row_top {
+#qfuwtbuwck .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -21917,11 +23241,11 @@ penguin_weights |>
   border-bottom-color: #D3D3D3;
 }
 
-#vrdjwoklta .gt_striped {
+#qfuwtbuwck .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vrdjwoklta .gt_table_body {
+#qfuwtbuwck .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -21930,7 +23254,7 @@ penguin_weights |>
   border-bottom-color: #D3D3D3;
 }
 
-#vrdjwoklta .gt_footnotes {
+#qfuwtbuwck .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -21944,7 +23268,7 @@ penguin_weights |>
   border-right-color: #D3D3D3;
 }
 
-#vrdjwoklta .gt_footnote {
+#qfuwtbuwck .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -21953,7 +23277,7 @@ penguin_weights |>
   padding-right: 5px;
 }
 
-#vrdjwoklta .gt_sourcenotes {
+#qfuwtbuwck .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -21967,7 +23291,7 @@ penguin_weights |>
   border-right-color: #D3D3D3;
 }
 
-#vrdjwoklta .gt_sourcenote {
+#qfuwtbuwck .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -21975,63 +23299,63 @@ penguin_weights |>
   padding-right: 5px;
 }
 
-#vrdjwoklta .gt_left {
+#qfuwtbuwck .gt_left {
   text-align: left;
 }
 
-#vrdjwoklta .gt_center {
+#qfuwtbuwck .gt_center {
   text-align: center;
 }
 
-#vrdjwoklta .gt_right {
+#qfuwtbuwck .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vrdjwoklta .gt_font_normal {
+#qfuwtbuwck .gt_font_normal {
   font-weight: normal;
 }
 
-#vrdjwoklta .gt_font_bold {
+#qfuwtbuwck .gt_font_bold {
   font-weight: bold;
 }
 
-#vrdjwoklta .gt_font_italic {
+#qfuwtbuwck .gt_font_italic {
   font-style: italic;
 }
 
-#vrdjwoklta .gt_super {
+#qfuwtbuwck .gt_super {
   font-size: 65%;
 }
 
-#vrdjwoklta .gt_footnote_marks {
+#qfuwtbuwck .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vrdjwoklta .gt_asterisk {
+#qfuwtbuwck .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vrdjwoklta .gt_indent_1 {
+#qfuwtbuwck .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vrdjwoklta .gt_indent_2 {
+#qfuwtbuwck .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vrdjwoklta .gt_indent_3 {
+#qfuwtbuwck .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vrdjwoklta .gt_indent_4 {
+#qfuwtbuwck .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vrdjwoklta .gt_indent_5 {
+#qfuwtbuwck .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -22120,11 +23444,11 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] palmerpenguins_0.1.1 gtExtras_0.5.0       gt_0.10.0           
-##  [4] ggbeeswarm_0.7.2     gghighlight_0.4.0    ggh4x_0.2.6         
-##  [7] ggpubr_0.6.0         png_0.1-8            ggdensity_1.0.0     
-## [10] ggdist_3.3.0         ggbump_0.1.0         ggtext_0.1.2        
-## [13] ggalt_0.4.0          ggridges_0.5.4       geomtextpath_0.1.1  
+##  [1] gtExtras_0.5.0       gt_0.10.0            palmerpenguins_0.1.1
+##  [4] ggpubr_0.6.0         png_0.1-8            ggtext_0.1.2        
+##  [7] geomtextpath_0.1.1   ggbeeswarm_0.7.2     gghighlight_0.4.0   
+## [10] ggh4x_0.2.6          ggalt_0.4.0          ggbump_0.1.0        
+## [13] ggridges_0.5.4       ggdensity_1.0.0      ggdist_3.3.0        
 ## [16] colorBlindness_0.1.9 patchwork_1.1.2      janitor_2.2.0       
 ## [19] knitr_1.43           webexercises_1.1.0   glossary_1.0.0      
 ## [22] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
@@ -22134,36 +23458,41 @@ sessionInfo()
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] rematch2_2.1.2       rlang_1.1.1          magrittr_2.0.3      
-##  [4] snakecase_0.11.0     compiler_4.3.1       systemfonts_1.0.4   
-##  [7] vctrs_0.6.3          maps_3.4.1           pkgconfig_2.0.3     
-## [10] fastmap_1.1.1        backports_1.4.1      labeling_0.4.2      
-## [13] fontawesome_0.5.1    utf8_1.2.3           rmarkdown_2.23      
-## [16] markdown_1.7         tzdb_0.4.0           ragg_1.2.5          
-## [19] xfun_0.39            cachem_1.0.8         ash_1.0-15          
-## [22] jsonlite_1.8.7       highr_0.10           broom_1.0.5         
-## [25] R6_2.5.1             bslib_0.5.0          stringi_1.7.12      
-## [28] RColorBrewer_1.1-3   car_3.1-2            extrafontdb_1.0     
-## [31] jquerylib_0.1.4      Rcpp_1.0.11          bookdown_0.34       
-## [34] base64enc_0.1-3      extrafont_0.19       timechange_0.2.0    
-## [37] tidyselect_1.2.0     rstudioapi_0.15.0    abind_1.4-5         
-## [40] yaml_2.3.7           codetools_0.2-19     withr_2.5.0         
-## [43] evaluate_0.21        gridGraphics_0.5-1   xml2_1.3.5          
-## [46] pillar_1.9.0         carData_3.0-5        KernSmooth_2.23-21  
-## [49] distributional_0.3.2 generics_0.1.3       paletteer_1.5.0     
-## [52] hms_1.1.3            commonmark_1.9.0     munsell_0.5.0       
-## [55] scales_1.2.1         glue_1.6.2           tools_4.3.1         
-## [58] ggsignif_0.6.4       fs_1.6.2             cowplot_1.1.1       
-## [61] grid_4.3.1           Rttf2pt1_1.3.12      colorspace_2.1-0    
-## [64] beeswarm_0.4.0       vipor_0.4.5          cli_3.6.1           
-## [67] textshaping_0.3.6    proj4_1.0-13         fansi_1.0.4         
-## [70] svglite_2.1.1        downlit_0.4.3        gtable_0.3.3        
-## [73] rstatix_0.7.2        sass_0.4.6           digest_0.6.33       
-## [76] farver_2.1.1         memoise_2.0.1        htmltools_0.5.5     
-## [79] lifecycle_1.0.3      gridtext_0.1.5       MASS_7.3-60
+##  [4] snakecase_0.11.0     compiler_4.3.1       mgcv_1.8-42         
+##  [7] systemfonts_1.0.4    vctrs_0.6.3          maps_3.4.1          
+## [10] quadprog_1.5-8       pkgconfig_2.0.3      fastmap_1.1.1       
+## [13] backports_1.4.1      fontawesome_0.5.1    labeling_0.4.2      
+## [16] utf8_1.2.3           rmarkdown_2.23       markdown_1.7        
+## [19] tzdb_0.4.0           ragg_1.2.5           xfun_0.39           
+## [22] cachem_1.0.8         ash_1.0-15           jsonlite_1.8.7      
+## [25] highr_0.10           tweenr_2.0.2         broom_1.0.5         
+## [28] R6_2.5.1             bslib_0.5.0          stringi_1.7.12      
+## [31] RColorBrewer_1.1-3   car_3.1-2            extrafontdb_1.0     
+## [34] jquerylib_0.1.4      Rcpp_1.0.11          bookdown_0.34       
+## [37] base64enc_0.1-3      extrafont_0.19       Matrix_1.6-0        
+## [40] splines_4.3.1        timechange_0.2.0     tidyselect_1.2.0    
+## [43] abind_1.4-5          rstudioapi_0.15.0    yaml_2.3.7          
+## [46] codetools_0.2-19     lattice_0.21-8       withr_2.5.0         
+## [49] evaluate_0.21        gridGraphics_0.5-1   isoband_0.2.7       
+## [52] polyclip_1.10-6      xml2_1.3.5           pillar_1.9.0        
+## [55] carData_3.0-5        KernSmooth_2.23-21   distributional_0.3.2
+## [58] generics_0.1.3       rprojroot_2.0.3      paletteer_1.5.0     
+## [61] hms_1.1.3            commonmark_1.9.0     munsell_0.5.0       
+## [64] scales_1.2.1         glue_1.6.2           tools_4.3.1         
+## [67] ggsignif_0.6.4       fs_1.6.2             cowplot_1.1.1       
+## [70] grid_4.3.1           Rttf2pt1_1.3.12      colorspace_2.1-0    
+## [73] nlme_3.1-162         beeswarm_0.4.0       ggforce_0.4.1       
+## [76] vipor_0.4.5          cli_3.6.1            textshaping_0.3.6   
+## [79] proj4_1.0-13         fansi_1.0.4          viridisLite_0.4.2   
+## [82] svglite_2.1.1        downlit_0.4.3        gtable_0.3.3        
+## [85] rstatix_0.7.2        sass_0.4.6           digest_0.6.33       
+## [88] farver_2.1.1         memoise_2.0.1        htmltools_0.5.5     
+## [91] lifecycle_1.0.3      here_1.0.1           gridtext_0.1.5      
+## [94] MASS_7.3-60
 ```
 
 
-<!--chapter:end:05-ggplot.Rmd-->
+<!--chapter:end:06-ggplot-principles.Rmd-->
 
 
 # (PART\*) Introduction to Shiny {.unnumbered}
@@ -23085,30 +24414,26 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] bslib_0.5.0          palmerpenguins_0.1.1 shiny_1.7.4.1       
-##  [4] knitr_1.43           webexercises_1.1.0   glossary_1.0.0      
-##  [7] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
-## [10] dplyr_1.1.2          purrr_1.0.1          readr_2.1.4         
-## [13] tidyr_1.3.0          tibble_3.2.1         ggplot2_3.4.2       
-## [16] tidyverse_2.0.0     
+##  [1] knitr_1.43         webexercises_1.1.0 glossary_1.0.0     lubridate_1.9.2   
+##  [5] forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2        purrr_1.0.1       
+##  [9] readr_2.1.4        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.2     
+## [13] tidyverse_2.0.0   
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
 ##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
 ##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    promises_1.2.0.1  fansi_1.0.4      
-## [17] scales_1.2.1      jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1      
-## [21] ellipsis_0.3.2    munsell_0.5.0     withr_2.5.0       cachem_1.0.8     
-## [25] yaml_2.3.7        tools_4.3.1       tzdb_0.4.0        memoise_2.0.1    
-## [29] colorspace_2.1-0  httpuv_1.6.11     mime_0.12         vctrs_0.6.3      
-## [33] R6_2.5.1          lifecycle_1.0.3   fs_1.6.2          pkgconfig_2.0.3  
-## [37] later_1.3.1       pillar_1.9.0      gtable_0.3.3      Rcpp_1.0.11      
-## [41] glue_1.6.2        xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
-## [45] xtable_1.8-4      htmltools_0.5.5   rmarkdown_2.23    compiler_4.3.1   
-## [49] downlit_0.4.3
+## [13] fastmap_1.1.1     jsonlite_1.8.7    fansi_1.0.4       scales_1.2.1     
+## [17] jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1       munsell_0.5.0    
+## [21] withr_2.5.0       cachem_1.0.8      yaml_2.3.7        tools_4.3.1      
+## [25] tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0  vctrs_0.6.3      
+## [29] R6_2.5.1          lifecycle_1.0.3   fs_1.6.2          pkgconfig_2.0.3  
+## [33] pillar_1.9.0      bslib_0.5.0       gtable_0.3.3      glue_1.6.2       
+## [37] xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0 htmltools_0.5.5  
+## [41] rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
 ```
 
-<!--chapter:end:06-shiny.rmd-->
+<!--chapter:end:07-shiny.rmd-->
 
 # (PART\*) Literate Programming and Reproducibility {.unnumbered}
 
@@ -23427,7 +24752,7 @@ This book was printed on `` `r Sys.Date()` ``
 
 When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead: 
 
-This book was printed on 2023-11-02
+This book was printed on 2023-11-04
 
 ### Running code {-}
 
@@ -24848,4682 +26173,5 @@ Reading
 
 
 
-<!--chapter:end:09-sql.Rmd-->
-
-# Iteration
-
-
-
-
-
-
-We’ve seen how to write a function and how they can be used to create concise re-usable operations that can be applied multiple times in a script without having to copy and paste, but where functions really come into their own is when combined with iteration. Iteration is the process of running the same operation on a group of objects, further minimising code replication. 
-
-
-## Data structures
-
-Functional programming in R requires a good understanding of the types of data structure available in R. Here we have a quick introduction
-
-|Data type|Definition|
-|---|---|
-| Vector| Contains multiple elements of the same type of data `logical`, `integer`, `double`, `character`|
-| Lists| Can contain elements of any type, each element can be a single value, a vector or even an entire dataframe|
-| Matrix| A collection of elements of the same data type `logical`, `integer`, `double`, `character` arranged into rows and columns|
-| Dataframe| A collection of vectors, each vector is a column, each row contains one set of values from each column. Data stored in a dataframe can be of any type of data|
-| tibble| as dataframe, displays data types for each column alongside data|
-
-### Vector
-
-
-```r
-vector_one <- (1:3)
-
-vector_two <- c("apples", "bananas", "pears")
-```
-
-### List
-
-
-```r
-new_list <- list(vector_one, vector_two)
-
-names(new_list) <- c("numbers", "fruit")
-```
-
-### Matrix
-
-
-```r
-new_matrix <- cbind(vector_one, vector_two)
-
-is.matrix(new_matrix)
-
-
-matrix(nrow = 2, ncol = 2)
-```
-
-```
-## [1] TRUE
-##      [,1] [,2]
-## [1,]   NA   NA
-## [2,]   NA   NA
-```
-
-### Dataframe
-
-
-```r
-new_dataframe <- data.frame(vector_one, vector_two)
-```
-
-### tibble
-
-
-```r
-new_tibble <- tibble(vector_one, vector_two)
-```
-
-
-## Simple iteration functions
-
-### `rep()`
-
-The function `rep()` lets you repeat the first argument a set number of times.
-
-
-```r
-rep(1:5, 5)
-
-rep(c("Adelie", "Gentoo", "Chinstrap"), 2)
-```
-
-```
-##  [1] 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5
-## [1] "Adelie"    "Gentoo"    "Chinstrap" "Adelie"    "Gentoo"    "Chinstrap"
-```
-
-The default for the amount of repetition is `times = ` it will print the entire vector start to finish THEN repeat.
-
-If the second argument is a vector with the same number of elements as the *first* vector, then it will repeat to the specified values for each
-
-
-```r
-rep(c("Adelie", "Gentoo", "Chinstrap"), c(2, 1, 3))
-```
-
-```
-## [1] "Adelie"    "Adelie"    "Gentoo"    "Chinstrap" "Chinstrap" "Chinstrap"
-```
-
-Or if you use the argument `each` then it will rep all of the first element *first* followed by the second etc.
-
-
-
-```r
-rep(c("Adelie", "Gentoo", "Chinstrap"), each = 3)
-```
-
-```
-## [1] "Adelie"    "Adelie"    "Adelie"    "Gentoo"    "Gentoo"    "Gentoo"   
-## [7] "Chinstrap" "Chinstrap" "Chinstrap"
-```
-What do you think will happen if you set both times to 3 and each to 2?
-
-
-```r
-rep(c("Adelie", "Gentoo", "Chinstrap"), times = 2, each = 3)
-```
-
-<button id="displayTextunnamed-chunk-12" onclick="javascript:toggle('unnamed-chunk-12');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-12" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
-
-```
-##  [1] "Adelie"    "Adelie"    "Adelie"    "Gentoo"    "Gentoo"    "Gentoo"   
-##  [7] "Chinstrap" "Chinstrap" "Chinstrap" "Adelie"    "Adelie"    "Adelie"   
-## [13] "Gentoo"    "Gentoo"    "Gentoo"    "Chinstrap" "Chinstrap" "Chinstrap"
-```
-</div></div></div>
-
-
-### `seq()`
-
-The function `seq()` is useful for generating a sequence of numbers with some pattern.
-
-Use `seq()` to create a vector of the integers 0 to 10.
-
-
-
-```r
-seq(1,5)
-```
-
-```
-## [1] 1 2 3 4 5
-```
-
-This is initially very similar to just making a vector with
-
-
-```r
-c(1:5)
-```
-
-```
-## [1] 1 2 3 4 5
-```
-
-But with `seq` we have extra functions. You can set the by argument to count by numbers other than 1 (the default). Use `seq()` to create a vector of the numbers 0 to 100 by 10s.
-
-
-```r
-seq(0, 100, by = 10)
-```
-
-```
-##  [1]   0  10  20  30  40  50  60  70  80  90 100
-```
-
-
-We also have the argument `length.out`, which is useful when you want to know how to many steps to divide something into
-
-
-```r
-seq(0, 100, length.out = 12)
-```
-
-```
-##  [1]   0.000000   9.090909  18.181818  27.272727  36.363636  45.454545
-##  [7]  54.545455  63.636364  72.727273  81.818182  90.909091 100.000000
-```
-
-### `replicate()`
-
-Replicate is our first example of a function whose purpose is to iterate *other* functions
-
-For example the `rnorm` function generates numbers from a normal distribution.
-
-Nesting this inside the `replicate()` function will repeat this command a specified number of times
-
-
-```r
-replicate(3, # times to replicate function
-          expr = rnorm(n = 5, 
-                       mean = 1,
-                       sd = 1))
-```
-
-```
-##            [,1]        [,2]       [,3]
-## [1,]  1.2431513  2.18451380  2.2123819
-## [2,]  1.5756564  0.25297244  1.1631301
-## [3,]  0.8755848  1.01707686  0.5347344
-## [4,]  2.4954751 -0.01397108 -0.1592592
-## [5,] -0.4872208  1.32018052  0.7511214
-```
-
-
-Here we will introduce two approaches to iterative operations - using for loops and using the package `purrr`.
-
-1. for loops iterate code across a series of inputs, but are less common in R than in other programming languages. Nevertheless, we introduce them here as a learning tool and reference
-
-2. The `purrr` package is the tidyverse approach to iterative operations - it works by “mapping” a function across many inputs (values, columns, datasets, etc.)
-
-
-## For Loops
-
-For loops are an **essential** part of many programming languages, but they are often less utilised in R because of our ability to apply functions to all elements of a vector. However, I will include them here for completeness. 
-
-A for loop has three core parts:
-
-1) The sequence of items to iterate through
-
-2) The operations to conduct per item in the sequence
-
-3) The container for the results (optional)
-
-The basic syntax is: for (item in sequence) {do operations using item}. Note the parentheses and the curly brackets. The results could be printed to console, or stored in a container R object.
-
-```
-for(i in list){
-    # PERFORM SOME ACTION
-}
-```
-
-A simple for loop **example** is below. For every number in the vector add 2. There is no *container object* here, the results of the function are printed directly into the console.  
-
-
-```r
-for (num in c(1,2,3,4,5)) {  # the SEQUENCE is defined (numbers 1 to 5) and loop is opened with "{"
-  print(num + 2)             # The OPERATIONS (add two to each sequence number and print)
-}                            # The loop is closed with "}"                            
-```
-
-```
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6
-## [1] 7
-```
-
-```
-[1] 3
-[1] 4
-[1] 5
-[1] 6
-[1] 7
-```
-
-So let's make a slightly more complicated function - first we are making a new tibble, first we have four vectors - made of 10 numbers each randomly generated to be roughly close to a 0 mean with a s.d. of 1. Then we combine them to make a tibble
-
-
-```r
-set.seed(1234)
-
-# a simple tibble
-df <- tibble(
-  a =  rnorm(10),
-  b =  rnorm(10),
-  c =  rnorm(10),
-  d = rnorm(10)
-)
-
-df
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> a </th>
-   <th style="text-align:right;"> b </th>
-   <th style="text-align:right;"> c </th>
-   <th style="text-align:right;"> d </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> -1.2070657 </td>
-   <td style="text-align:right;"> -0.4771927 </td>
-   <td style="text-align:right;"> 0.1340882 </td>
-   <td style="text-align:right;"> 1.1022975 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.2774292 </td>
-   <td style="text-align:right;"> -0.9983864 </td>
-   <td style="text-align:right;"> -0.4906859 </td>
-   <td style="text-align:right;"> -0.4755931 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1.0844412 </td>
-   <td style="text-align:right;"> -0.7762539 </td>
-   <td style="text-align:right;"> -0.4405479 </td>
-   <td style="text-align:right;"> -0.7094400 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> -2.3456977 </td>
-   <td style="text-align:right;"> 0.0644588 </td>
-   <td style="text-align:right;"> 0.4595894 </td>
-   <td style="text-align:right;"> -0.5012581 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.4291247 </td>
-   <td style="text-align:right;"> 0.9594941 </td>
-   <td style="text-align:right;"> -0.6937202 </td>
-   <td style="text-align:right;"> -1.6290935 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5060559 </td>
-   <td style="text-align:right;"> -0.1102855 </td>
-   <td style="text-align:right;"> -1.4482049 </td>
-   <td style="text-align:right;"> -1.1676193 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> -0.5747400 </td>
-   <td style="text-align:right;"> -0.5110095 </td>
-   <td style="text-align:right;"> 0.5747557 </td>
-   <td style="text-align:right;"> -2.1800396 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> -0.5466319 </td>
-   <td style="text-align:right;"> -0.9111954 </td>
-   <td style="text-align:right;"> -1.0236557 </td>
-   <td style="text-align:right;"> -1.3409932 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> -0.5644520 </td>
-   <td style="text-align:right;"> -0.8371717 </td>
-   <td style="text-align:right;"> -0.0151383 </td>
-   <td style="text-align:right;"> -0.2942939 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> -0.8900378 </td>
-   <td style="text-align:right;"> 2.4158352 </td>
-   <td style="text-align:right;"> -0.9359486 </td>
-   <td style="text-align:right;"> -0.4658975 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-
-Each vector is randomly generated so the actual averages will be slightly different, we can test that here:
-
-
-```r
-mean(df$a)
-
-mean(df$b)
-
-mean(df$c)
-
-mean(df$d)
-```
-
-```
-## [1] -0.3831574
-## [1] -0.1181707
-## [1] -0.3879468
-## [1] -0.7661931
-```
-
-So the above code works, but it is repetitive, applying the same function again and again. 
-
-Below we have a simple for loop 
-
-
-```r
-output <- vector("double", ncol(df))  # 1. output having a predefined empty vector of the right size works best, here we choose to make the vector "double" specifying that it is empty and ready to receive number values, ncol(df) means that the vector will be as long as the number of columns in our tibble 
-output
-```
-
-```
-## [1] 0 0 0 0
-```
-Now we run our loop:
-
-
-```r
-for (i in seq_along(df)) {            # 2. sequence - determines what to loop over - here we are looping along df, rather than down the length of each vector
-  
-  output[[i]] <- mean(df[[i]])      # 3. body - each time the loop runs it allocates a value to output, 
-}
-output
-```
-
-```
-## [1] -0.3831574 -0.1181707 -0.3879468 -0.7661931
-```
-
-Each time the mean is calculate for one column in `df` this is then stored as an element in the previously empty `output` vector.
-
-`for()` loops are very useful for quickly iterating over a list, but because R prefers to store everything as a new object with each loop iteration, loops can become quite slow if they are complex, or running many processes and many iterations. As an alternative the `apply` family of functions from base R and `purrr::map` from tidyverse more broadly can be used as an alternative to loops.
-
-
-### Activity 1: Loop exercise
-
-We have made a function that converts values with a normal distribution into their z scores:
-
-
-```r
-z_score <- function(x) {
-  (x - min(x, na.rm = TRUE)) /  
-  diff(range(x, na.rm = TRUE))
-}
-```
-
-Assuming that *each* column in the dataframe `df` comes from a different population. How would you use a loop to apply this function to each column independently?
-
-Hint copy your `df` to a new object `z_df` with `z_df <- df` as a destination tibble for your new z scores.
-
-<button id="displayTextunnamed-chunk-24" onclick="javascript:toggle('unnamed-chunk-24');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-24" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
-
-```r
-z_df <- df
-
-for (i in 1:ncol(df)) { # loop through each element
-  z_df[i] <- z_score(df[[i]]) #apply function and store in out[]
-}
-z_df
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> a </th>
-   <th style="text-align:right;"> b </th>
-   <th style="text-align:right;"> c </th>
-   <th style="text-align:right;"> d </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 0.3319492 </td>
-   <td style="text-align:right;"> 0.1526538 </td>
-   <td style="text-align:right;"> 0.7821670 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.7647291 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.4733256 </td>
-   <td style="text-align:right;"> 0.5192783 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.0650610 </td>
-   <td style="text-align:right;"> 0.4981101 </td>
-   <td style="text-align:right;"> 0.4480343 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.3112994 </td>
-   <td style="text-align:right;"> 0.9430704 </td>
-   <td style="text-align:right;"> 0.5114592 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.8089534 </td>
-   <td style="text-align:right;"> 0.5734486 </td>
-   <td style="text-align:right;"> 0.3729606 </td>
-   <td style="text-align:right;"> 0.1678518 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.8313814 </td>
-   <td style="text-align:right;"> 0.2601181 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.3084450 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5162933 </td>
-   <td style="text-align:right;"> 0.1427491 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5244878 </td>
-   <td style="text-align:right;"> 0.0255376 </td>
-   <td style="text-align:right;"> 0.2098653 </td>
-   <td style="text-align:right;"> 0.2556247 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5192926 </td>
-   <td style="text-align:right;"> 0.0472186 </td>
-   <td style="text-align:right;"> 0.7084006 </td>
-   <td style="text-align:right;"> 0.5745131 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.4243735 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.2532211 </td>
-   <td style="text-align:right;"> 0.5222322 </td>
-  </tr>
-</tbody>
-</table>
-
-</div></div></div></div>
-
-
-## apply
-
-We can perform exactly the same action with `apply` - the `apply` functions in R allow iteration without the use of loop constructs. They can be used for an input list or matrix.
-
-`MARGIN = 1` means apply function over rows
-
-`MARGIN = 2` means apply function over columns
-
-
-```r
-apply(df, MARGIN = 2,  z_score)
-```
-
-```
-##               a          b         c         d
-##  [1,] 0.3319492 0.15265375 0.7821670 1.0000000
-##  [2,] 0.7647291 0.00000000 0.4733256 0.5192783
-##  [3,] 1.0000000 0.06506096 0.4981101 0.4480343
-##  [4,] 0.0000000 0.31129943 0.9430704 0.5114592
-##  [5,] 0.8089534 0.57344857 0.3729606 0.1678518
-##  [6,] 0.8313814 0.26011813 0.0000000 0.3084450
-##  [7,] 0.5162933 0.14274906 1.0000000 0.0000000
-##  [8,] 0.5244878 0.02553760 0.2098653 0.2556247
-##  [9,] 0.5192926 0.04721860 0.7084006 0.5745131
-## [10,] 0.4243735 1.00000000 0.2532211 0.5222322
-```
-
-|Function|Arguments|Objective|Input|Output|
-|---|---|---|---|---|
-|apply|apply(X, MARGIN, FUN)|Apply a function to the rows, columns or both| Dataframe or matrix| vector, list or matrix|
-|lapply| lapply(X,FUN)|Apply a function to all the elements of the input| List, vector or dataframe| list|
-|sapply| sapply(X,FUN)| Apply a function to all the elements of the input| List, vector or dataframe| vector or matrix|
-
-
-```r
-is.matrix(apply(df, 2,  z_score))
-
-is.data.frame(apply(df, 2,  z_score))
-```
-
-## map
-
-`map` is the tidyverse equivalent of `apply` it work well with %>% and there are a few extended functions to it works better with tibbles and dataframes
-
-The basic syntax is map(`.x` = SEQUENCE, `.f` = FUNCTION, OTHER ARGUMENTS). In a bit more detail:
-
-* `.x` = are the inputs upon which the .f function will be iteratively applied - e.g. a vector of jurisdiction names, columns in a data frame, or a list of data frames
-
-* `.f` = is the function to apply to each element of the .x input - it could be a function like print() that already exists, or a custom function that you define. The function is often written after a tilde ~ (details below).
-A few more notes on syntax:
-
-* If the function needs no further arguments specified, it can be written with no parentheses and no tilde (e.g. `.f = mean`). To provide arguments that will be the same value for each iteration, provide them within `map()` but outside the `.f = argument`, such as the `na.rm = T` in `map(.x = my_list, .f = mean, na.rm=T)`.
-
-* You can use `.x` (or simply `.`) within the `.f = function` as a placeholder for the `.x` value of that iteration
-
-* Use tilde syntax (`~`) to have greater control over the function - write the function as normal with parentheses, such as: `map(.x = my_list, .f = ~mean(., na.rm = T))`. Use this syntax particularly if the value of an argument will change each iteration, or if it is the value `.x` itself.
-
-**The output of using` map()` is a list** - a list is an object class like a vector but whose elements can be of different classes. So, a list produced by `map()` could contain many data frames, or many vectors, many single values, or even many lists! There are alternative versions of `map()` explained below that produce other types of outputs (e.g. `map_dfr()` to produce a data frame, `map_chr()` to produce character vectors, and `map_dbl()` to produce numeric vectors).
-
-Basic `map()` will *always* return a `list`, othr variants return different data types.Unlike `apply` `map` will ONLY return one type of data, removing the potential for changing data types that occasionally happens when using `apply`. 
-
-|Function| Data type returned|
-|------|------|
-|`map_lgl()`| returns a logical|
-| `map_int()`| returns an integer vector|
-| `map_dbl()`| returns a double vector|
-| `map_chr()`| returns a character vector|
-| `map_df()`| returns a data frame|
-
-
-Thre different ways of applyig syntax the `map` function
-
-
-```r
-map_df(.x = df, 
-       .f = z_score)
-
-df %>% 
-  map_df(z_score)
-
-df %>% 
-    map_df(~z_score(.))
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> a </th>
-   <th style="text-align:right;"> b </th>
-   <th style="text-align:right;"> c </th>
-   <th style="text-align:right;"> d </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 0.3319492 </td>
-   <td style="text-align:right;"> 0.1526538 </td>
-   <td style="text-align:right;"> 0.7821670 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.7647291 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.4733256 </td>
-   <td style="text-align:right;"> 0.5192783 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.0650610 </td>
-   <td style="text-align:right;"> 0.4981101 </td>
-   <td style="text-align:right;"> 0.4480343 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.3112994 </td>
-   <td style="text-align:right;"> 0.9430704 </td>
-   <td style="text-align:right;"> 0.5114592 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.8089534 </td>
-   <td style="text-align:right;"> 0.5734486 </td>
-   <td style="text-align:right;"> 0.3729606 </td>
-   <td style="text-align:right;"> 0.1678518 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.8313814 </td>
-   <td style="text-align:right;"> 0.2601181 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.3084450 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5162933 </td>
-   <td style="text-align:right;"> 0.1427491 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5244878 </td>
-   <td style="text-align:right;"> 0.0255376 </td>
-   <td style="text-align:right;"> 0.2098653 </td>
-   <td style="text-align:right;"> 0.2556247 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5192926 </td>
-   <td style="text-align:right;"> 0.0472186 </td>
-   <td style="text-align:right;"> 0.7084006 </td>
-   <td style="text-align:right;"> 0.5745131 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.4243735 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.2532211 </td>
-   <td style="text-align:right;"> 0.5222322 </td>
-  </tr>
-</tbody>
-</table>
-
-</div><div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> a </th>
-   <th style="text-align:right;"> b </th>
-   <th style="text-align:right;"> c </th>
-   <th style="text-align:right;"> d </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 0.3319492 </td>
-   <td style="text-align:right;"> 0.1526538 </td>
-   <td style="text-align:right;"> 0.7821670 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.7647291 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.4733256 </td>
-   <td style="text-align:right;"> 0.5192783 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.0650610 </td>
-   <td style="text-align:right;"> 0.4981101 </td>
-   <td style="text-align:right;"> 0.4480343 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.3112994 </td>
-   <td style="text-align:right;"> 0.9430704 </td>
-   <td style="text-align:right;"> 0.5114592 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.8089534 </td>
-   <td style="text-align:right;"> 0.5734486 </td>
-   <td style="text-align:right;"> 0.3729606 </td>
-   <td style="text-align:right;"> 0.1678518 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.8313814 </td>
-   <td style="text-align:right;"> 0.2601181 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.3084450 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5162933 </td>
-   <td style="text-align:right;"> 0.1427491 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5244878 </td>
-   <td style="text-align:right;"> 0.0255376 </td>
-   <td style="text-align:right;"> 0.2098653 </td>
-   <td style="text-align:right;"> 0.2556247 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5192926 </td>
-   <td style="text-align:right;"> 0.0472186 </td>
-   <td style="text-align:right;"> 0.7084006 </td>
-   <td style="text-align:right;"> 0.5745131 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.4243735 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.2532211 </td>
-   <td style="text-align:right;"> 0.5222322 </td>
-  </tr>
-</tbody>
-</table>
-
-</div><div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> a </th>
-   <th style="text-align:right;"> b </th>
-   <th style="text-align:right;"> c </th>
-   <th style="text-align:right;"> d </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 0.3319492 </td>
-   <td style="text-align:right;"> 0.1526538 </td>
-   <td style="text-align:right;"> 0.7821670 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.7647291 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.4733256 </td>
-   <td style="text-align:right;"> 0.5192783 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.0650610 </td>
-   <td style="text-align:right;"> 0.4981101 </td>
-   <td style="text-align:right;"> 0.4480343 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.3112994 </td>
-   <td style="text-align:right;"> 0.9430704 </td>
-   <td style="text-align:right;"> 0.5114592 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.8089534 </td>
-   <td style="text-align:right;"> 0.5734486 </td>
-   <td style="text-align:right;"> 0.3729606 </td>
-   <td style="text-align:right;"> 0.1678518 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.8313814 </td>
-   <td style="text-align:right;"> 0.2601181 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.3084450 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5162933 </td>
-   <td style="text-align:right;"> 0.1427491 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5244878 </td>
-   <td style="text-align:right;"> 0.0255376 </td>
-   <td style="text-align:right;"> 0.2098653 </td>
-   <td style="text-align:right;"> 0.2556247 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5192926 </td>
-   <td style="text-align:right;"> 0.0472186 </td>
-   <td style="text-align:right;"> 0.7084006 </td>
-   <td style="text-align:right;"> 0.5745131 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.4243735 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.2532211 </td>
-   <td style="text-align:right;"> 0.5222322 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-
-
-## Anonymous functions
-
-In the previous chapter we were introduced to anonymous functions, if we do not plan to use a function outside of this particular iteration example, we might choose just to write it in directly
-
-
-
-```r
-map_df(.x = df, 
-       .f = function(x) {
-  (x - min(x, na.rm = TRUE)) /  
-  diff(range(x, na.rm = TRUE))
-       }
-)
-```
-
-<div class="kable-table">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> a </th>
-   <th style="text-align:right;"> b </th>
-   <th style="text-align:right;"> c </th>
-   <th style="text-align:right;"> d </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 0.3319492 </td>
-   <td style="text-align:right;"> 0.1526538 </td>
-   <td style="text-align:right;"> 0.7821670 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.7647291 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.4733256 </td>
-   <td style="text-align:right;"> 0.5192783 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.0650610 </td>
-   <td style="text-align:right;"> 0.4981101 </td>
-   <td style="text-align:right;"> 0.4480343 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.3112994 </td>
-   <td style="text-align:right;"> 0.9430704 </td>
-   <td style="text-align:right;"> 0.5114592 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.8089534 </td>
-   <td style="text-align:right;"> 0.5734486 </td>
-   <td style="text-align:right;"> 0.3729606 </td>
-   <td style="text-align:right;"> 0.1678518 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.8313814 </td>
-   <td style="text-align:right;"> 0.2601181 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.3084450 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5162933 </td>
-   <td style="text-align:right;"> 0.1427491 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5244878 </td>
-   <td style="text-align:right;"> 0.0255376 </td>
-   <td style="text-align:right;"> 0.2098653 </td>
-   <td style="text-align:right;"> 0.2556247 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.5192926 </td>
-   <td style="text-align:right;"> 0.0472186 </td>
-   <td style="text-align:right;"> 0.7084006 </td>
-   <td style="text-align:right;"> 0.5745131 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0.4243735 </td>
-   <td style="text-align:right;"> 1.0000000 </td>
-   <td style="text-align:right;"> 0.2532211 </td>
-   <td style="text-align:right;"> 0.5222322 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-
-
-
-### Exercise for For Loops
-
-This part of the exercise is a real world example of using simple `for()` loops to create graphs. This data comes from the [Living Planet Index](https://livingplanetindex.org/home/index), which holds data on various vertebrate species collected from 1974 to 2014. 
-
-
-```{=html}
-<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv">
-<button class="btn btn-success"><i class="fa fa-save"></i> Download LPI data as csv</button>
-</a>
-```
-
-First we should import the data:
-
-
-
-
-```r
-LPI_UK <- read_csv("data/LPI_data_loops.csv")
-```
-
-
-Let's take a look at using functions and loops to help us build figures. 
-
-
-```r
-# Pick 4 species and make scatterplots with a simple regression model fits that show how the population has varied through time
-
-# Careful with the spelling of the names, it needs to match the names of the species in the LPI.UK dataframe
-
-house_sparrow <- filter(LPI_UK, Common.Name == "House sparrow")
-great_tit <- filter(LPI_UK, Common.Name == "Great tit")
-corn_bunting <- filter(LPI_UK, Common.Name == "Corn bunting")
-meadow_pipit <- filter(LPI_UK, Common.Name == "Meadow pipit")
-```
-
-So now we have four separate R objects holding data from four bird species, our standard approach might then be to make four figures looking at abundance over time. 
-
-
-```r
-house_sparrow_scatter <- ggplot(house_sparrow, aes (x = year, y = abundance)) +
-    geom_point(size = 2, colour = "#00868B") +                                                
-    geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +          
-    theme_classic() +
-    labs(y = "Abundance\n", x = "", title = "House sparrow")
-
-great_tit_scatter <- ggplot(great_tit, aes (x = year, y = abundance)) +
-    geom_point(size = 2, colour = "#00868B") +                                                
-    geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +          
-    theme_classic() +
-    labs(y = "Abundance\n", x = "", title = "Great tit")
-
-corn_bunting_scatter <- ggplot(corn_bunting, aes (x = year, y = abundance)) +
-    geom_point(size = 2, colour = "#00868B") +                                                
-    geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +          
-    theme_classic() +
-    labs(y = "Abundance\n", x = "", title = "Corn bunting")
-
-meadow_pipit_scatter <- ggplot(meadow_pipit, aes (x = year, y = abundance)) +
-    geom_point(size = 2, colour = "#00868B") +                                                
-    geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +          
-    theme_classic() +
-    labs(y = "Abundance\n", x = "", title = "Meadow pipit")
-```
-
-If we want to look at all four plots at once we can use the layout functions from the package `patchwork`. 
-
-
-```r
-# put at the top of your script
-library(patchwork)
-
-layout <- "AABB
-           CCDD"
-
-house_sparrow_scatter+
-  great_tit_scatter+
-  corn_bunting_scatter+
-  meadow_pipit_scatter+
-  plot_layout(design=layout)
-```
-
-<img src="21-Iteration_files/figure-html/unnamed-chunk-34-1.png" width="100%" style="display: block; margin: auto;" />
-
-This is ok, but arguably still requires a lot of code repetition. We have used the same lines of code four times to recreate four plots that are functionally the same. If we want to make any changes to the look of our plots we have to make four separate edits & mistakes can easily creep in. 
-
-If we want to apply a loop, then the easiest thing is to first make our objects into an R list:
-
-
-```r
-Sp_list <- list(house_sparrow, great_tit, corn_bunting, meadow_pipit)
-```
-
-Then loop down the length of our list:
-
-
-```r
-my_plots <- list(length(Sp_list))
-
-for (i in 1:length(Sp_list)) {                                    
-  # For every item along the length of Sp_list we want R to perform the following functions
-  data <- as.data.frame(Sp_list[i])                               
-  # Create a dataframe for each species
-  sp.name <- unique(data$Common.Name)                             
-  # Create an object that holds the species name, so that we can title each graph
-  plot <- ggplot(data, aes (x = year, y = abundance)) +               
-    # Make the plots and add our customised theme
-    geom_point(size = 2, colour = "#00868B") +                              
-    geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +        
-    theme_classic() +
-    labs(y = "Abundance\n", x = "", title = sp.name)
- 
-   # makes a list of all the plots generates
-  my_plots[[i]] <- plot 
-  
-
-
-}
-```
-
-So now we have a new object `my_plots` which is a list containing the four plots. This loop allowed us to code the details of our figures once, then iterate across four different groups.
-
-
-```r
-wrap_plots(my_plots)+
-  plot_layout(design=layout) 
-```
-
-<img src="21-Iteration_files/figure-html/unnamed-chunk-37-1.png" width="100%" style="display: block; margin: auto;" />
-
-```r
-#wrap_plots function from patchwork can take a list of ggplots
-```
-
-What if you want to write a loop to save all four plots at once - can you modify the script to do this?
-
-<button id="displayTextunnamed-chunk-38" onclick="javascript:toggle('unnamed-chunk-38');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-38" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
-
-```r
-for (i in 1:length(Sp_list)) {                                    
-  # For every item along the length of Sp_list we want R to perform the following functions
-  data <- as.data.frame(Sp_list[i])                               
-  # Create a dataframe for each species
-  sp.name <- unique(data$Common.Name)                             
-  # Create an object that holds the species name, so that we can title each graph
-  plot <- ggplot(data, aes (x = year, y = abundance)) +               
-    # Make the plots and add our customised theme
-    geom_point(size = 2, colour = "#00868B") +                                                
-    geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +          
-    theme_classic() +
-    labs(y = "Abundance\n", x = "", title = sp.name)
-  
-    if(i %% 1==0){    # The %% operator is the remainder, this handy if line prints a number every time it completes a loop
-    print(i)
-    }
-# use paste to automatically add filename
-  ggsave(plot, file=paste("figure/", sp.name, ".png", sep=''), dpi=900) 
-}
-```
-</div></div></div>
-
-
-
-## Automating analyses with `map`
-
-### Writing a dataframe into multiple csv files
-
-
-```r
-LPI_list <- LPI %>% 
-  group_split(Class)
-```
-
-
-I’ll also use `purrr::map()` to take the character values from the Class column itself for assigning names to the list. `map()` transforms an input by applying a function to each element of the input, and then returns a vector the same length as the input. In this immediate example, the input is the list_of_dfs and we apply the function `dplyr::pull()` to extract the Class variable from each data frame. We then repeat this approach to convert Class into character type with `as.character()` and take out a single value with `unique()`:
-
-
-
-
-```
-
- [1] "Actinopterygii"            "Amphibia"                  "Aves"                      "Cephalaspidomorphi"       
- [5] "Cetacea"                   "Chondrichthyes"            "Elasmobranchii"            "Holocephali"              
- [9] "Mammalia"                  "Myxini"                    "Perciformes"               "Reptilia"                 
-[13] "Sarcopterygii"             "Testudinidae"              "updated by Nancy - Feb/02"
-
-```
-
-Exporting the list of data frames into multiple CSV files will take a few more lines of code, but is relatively straightforward. There are three main steps:
-
-1. Define a function that tells R what the names for each CSV file should be, which I’ve called output_csv() below. The data argument will take in a data frame whilst the names argument will take in a character string that will form part of the file name for the individual CSV file.
-
-2. Create a named list where the names match the arguments of the function you’ve just defined (data and names), and should contain the objects that you would like to pass through to the function for the respective arguments. In this case, list_of_dfs will provide the three data frames, and names(list_of_dfs) will provide the names of those three data frames. This is necessary for running pmap(), which in my view is basically a super-powered version of map() that lets you iterate over multiple inputs simultaneously.
-
-3. `map()` will then iterate through the two sets of inputs through output_csv() (the inputs are used as arguments), which then writes the three CSV files with the file names you want. For the “writing” function, you could either use write_csv() from readr (part of tidyverse) or fwrite() from data.table, depending on your workflow / style.
-
-
-
-```r
-LPI_list %>% 
-  map(~write_csv(.x, 
-  paste0("data/", .x$Class[1], ".csv")))
-```
-
-
-
-### Reading multiple csv files into one object
-
-The method for reading CSV files into a directory is slightly different, as you’ll need to find a way to identify or create a character vector of names of all the files that you want to load into R. To do this, we’ll use `list.files()`, which produces a character vector of the names of files or directories in the named directory:
-
-
-```r
-data_path <- "data/"
-
-list.files(path = data_path, 
-           pattern = "*.csv")
-```
-```
- [1] "class-Actinopterygii.csv"     "class-Amphibia.csv"           "class-Aves.csv"               "class-Cephalaspidomorphi.csv"
- [5] "class-Cetacea.csv"            "class-Chondrichthyes.csv"     "class-Elasmobranchii.csv"     "class-Holocephali.csv"       
- [9] "class-Mammalia.csv"           "class-Myxini.csv"             "class-Perciformes.csv"        "class-Reptilia.csv"          
-[13] "class-Sarcopterygii.csv"      "class-Testudinidae.csv"
-
-```
-
-The code below takes that list of files, pipes it to a `map_df()` function that runs read_csv on each file, then outputs everything to a 'nested' dataframe.
-
-
-```r
-data <- files %>%
-    map(~read_csv(.)) %>%    # read in all the files individually, using
-    # the function read_csv() from the readr package
-    reduce(rbind)        # reduce with rbind into one dataframe
-data
-```
-
-
-
-```r
-# Keep info on where data came from
-
-data <- tibble(filename = files) %>% 
-  mutate(file_contents = 
-           map(filename, 
-               ~ read_csv(file.path(data_path, .))))
-
-data
-```
-
-
-```r
-unnest(data)
-```
-
-
-### Plotting with `map`
-
-
-```r
-# map the plots to a dataframe
-nested_plots <- LPI_UK %>% 
-    filter(Common.Name == "House sparrow" | 
-               Common.Name == "Great tit" | 
-               Common.Name == "Corn bunting" | 
-               Common.Name == "Meadow pipit" ) %>% 
-    group_by(Common.Name) %>% 
-    nest() %>% 
-    mutate(plots = map(data, ~ ggplot(., aes (x = year, y = abundance)) +              
-            geom_point(size = 2, colour = "#00868B") +                                                
-            geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +          
-            labs(y = "Abundance\n", x = "")))
-# print the plots
-print(nested_plots$plots)
-```
-
-<img src="21-Iteration_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" /><img src="21-Iteration_files/figure-html/unnamed-chunk-45-2.png" width="100%" style="display: block; margin: auto;" /><img src="21-Iteration_files/figure-html/unnamed-chunk-45-3.png" width="100%" style="display: block; margin: auto;" /><img src="21-Iteration_files/figure-html/unnamed-chunk-45-4.png" width="100%" style="display: block; margin: auto;" />
-
-```
-## [[1]]
-## 
-## [[2]]
-## 
-## [[3]]
-## 
-## [[4]]
-```
-
-
-
-## Activity 4: Test yourself
-
-**Question 1.** Predict the output of the following when executed in R:
-
-
-```r
-foo=function(d,n,max){
-   nums=seq(from=1, by=d, length.out=n)
-   return(nums[nums <= max])
-}
-foo(4,5,10)
-```
-
-<select class='webex-select'><option value='blank'></option><option value=''>4, 5, 10</option><option value='answer'>1, 5, 9</option><option value=''>4, 8, 12</option></select>
-
-
-**Question 2.** Predict the output of the following when executed in R:
-
-
-```r
-fum=function(a,b) {
-  a = a[a<b]
-  return(a)
-}
-
-fum(3:7,(1:5)^2)
-```
-
-<select class='webex-select'><option value='blank'></option><option value='answer'>5, 6, 7</option><option value=''>3, 4, 5, 6, 7</option><option value=''>3, 4</option></select>
-
-
-**Question 3.** Write a function that adds two numbers and divides the results by 2.
-
-<button id="displayTextunnamed-chunk-48" onclick="javascript:toggle('unnamed-chunk-48');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-48" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
-
-```r
-addtwo <- function(num1, num2){
-(num1 + num2)/2
-}
-```
-</div></div></div>
-
-
-**Question 4.**  Recode values of a datase. For example, if you have a survey of age data, you may want to convert any crazy values (like anything below 0 or above 100) to NA. Write a function called recode.integer() with 3 arguments: x, lb, and ub. We’ll assume that x is a numeric vector. The function should look at the values of x, convert any values below lb and above ub to NA, and then return the resulting vector. Here is the function in action:
-
-Some hints: there are multiple ways to solve this. 
-
-
-```r
-vector <- c(-5:30)
-```
-
-
-
-```r
-recode.integer(x = vector,
-               lb = 0,
-               ub = 10)
-```
-
-<button id="displayTextunnamed-chunk-51" onclick="javascript:toggle('unnamed-chunk-51');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-51" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
-
-```r
-recode.integer <- function(x, lb, ub){
-  x[x<lb] <- NA
-  x[x>ub] <- NA
-  return(x)
-}
-```
-
-```r
-recode.integer <- function(x, lb, ub){
-    x <- x %>% as_tibble() %>% 
-      mutate(value = replace(value, value<lb, NA)) %>% 
-      mutate(value = replace(value, value>ub, NA))
-return(x)}
-
-recode.numeric <- function(x, lb, ub){
-x <- if_else(x < lb, NA_integer_, x)
-x <- if_else(x > ub, NA_integer_, x)
-return(x)
-}
-```
-</div></div></div>
-
-
-
-## Activity 5
-
-If you are hungry for more `map()` then check out [this blogpost](https://www.rebeccabarter.com/blog/2019-08-19_purrr/#simplest-usage-repeated-looping-with-map)
-
-## Summary
-
-Making functions and iterations are advanced R skills, and can often seem daunting. I do not expect you to HAVE to implement these for this course, but I do want to give you an insight into some core programming skills that you might be interested in and want to develop.
-
-Below are some links you may find useful
-
-* [RStudio education cheat sheet for purr](https://www.rstudio.com/resources/cheatsheets/)
-
-* [R4DS - intro to programming](https://r4ds.had.co.nz/program-intro.html)
-
-
-
-* [EpiR handbook](https://epirhandbook.com/en/iteration-loops-and-lists.html)
-
-
-
-```r
-sessionInfo()
-```
-
-```
-## R version 4.3.1 (2023-06-16)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.6 LTS
-## 
-## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
-## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
-## 
-## locale:
-##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
-##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
-##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
-## 
-## time zone: UTC
-## tzcode source: system (glibc)
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] here_1.0.1         patchwork_1.1.2    kableExtra_1.3.4   xml2_1.3.5        
-##  [5] rvest_1.0.3        faux_1.2.1         extrafont_0.19     knitr_1.43        
-##  [9] webexercises_1.1.0 glossary_1.0.0     lubridate_1.9.2    forcats_1.0.0     
-## [13] stringr_1.5.0      dplyr_1.1.2        purrr_1.0.1        readr_2.1.4       
-## [17] tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.2      tidyverse_2.0.0   
-## 
-## loaded via a namespace (and not attached):
-##  [1] gtable_0.3.3      xfun_0.39         bslib_0.5.0       tzdb_0.4.0       
-##  [5] vctrs_0.6.3       tools_4.3.1       generics_0.1.3    fansi_1.0.4      
-##  [9] pkgconfig_2.0.3   webshot_0.5.5     lifecycle_1.0.3   compiler_4.3.1   
-## [13] munsell_0.5.0     htmltools_0.5.5   sass_0.4.6        yaml_2.3.7       
-## [17] Rttf2pt1_1.3.12   pillar_1.9.0      jquerylib_0.1.4   extrafontdb_1.0  
-## [21] cachem_1.0.8      tidyselect_1.2.0  digest_0.6.33     stringi_1.7.12   
-## [25] bookdown_0.34     rprojroot_2.0.3   fastmap_1.1.1     grid_4.3.1       
-## [29] colorspace_2.1-0  cli_3.6.1         magrittr_2.0.3    utf8_1.2.3       
-## [33] withr_2.5.0       scales_1.2.1      timechange_0.2.0  rmarkdown_2.23   
-## [37] httr_1.4.6        hms_1.1.3         memoise_2.0.1     evaluate_0.21    
-## [41] viridisLite_0.4.2 rlang_1.1.1       downlit_0.4.3     glue_1.6.2       
-## [45] svglite_2.1.1     rstudioapi_0.15.0 jsonlite_1.8.7    R6_2.5.1         
-## [49] systemfonts_1.0.4 fs_1.6.2
-```
-
-<!--chapter:end:21-Iteration.Rmd-->
-
-
-# Starting up R{#startingR}
-
-One way or another, regardless of what operating system you're using and regardless of whether you're using RStudio, or the default GUI, or even the command line, it's time to open R and get started. When you do that, the first thing you'll see (assuming that you're looking at the **_R console_**, that is) is a whole lot of text that doesn't make much sense. It should look something like this:
-
-```
-R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
-Copyright (C) 2013 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin10.8.0 (64-bit)
-
-R is free software and comes with ABSOLUTELY NO WARRANTY.
-You are welcome to redistribute it under certain conditions.
-Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
-
-R is a collaborative project with many contributors.
-Type 'contributors()' for more information and
-'citation()' on how to cite R or R packages in publications.
-
-Type 'demo()' for some demos, 'help()' for on-line help, or
-'help.start()' for an HTML browser interface to help.
-Type 'q()' to quit R.
-
-> 
-```
-
-Most of this text is pretty uninteresting, and when doing real data analysis you'll never really pay much attention to it. The important part of it is this...
-
-```
->
-```
-
-... which has a flashing cursor next to it. That's the ***command prompt***. When you see this, it means that R is waiting patiently for you to do something! 
-
-## Typing commands at the R console{#firstcommand}
-
-One of the easiest things you can do with R is use it as a simple calculator, so it's a good place to start. For instance, try typing `10 + 20`, and hitting enter.^[Seriously. If you're in a position to do so, open up R and start typing. The simple act of typing it rather than "just reading" makes a big difference. It makes the concepts more concrete, and it ties the abstract ideas (programming and statistics) to the actual context in which you need to use them. Statistics is something you *do*, not just something you read about in a textbook.] When you do this, you've entered a ***command***, and R will "execute" that command. What you see on screen now will be this:
-
-
-
-```r
-> 10 + 20
-[1] 30
-```
-
-
-Not a lot of surprises in this extract. But there's a few things worth talking about, even with such a simple example. Firstly, it's important that you understand how to read the extract. In this example, what *I* typed was the `10 + 20` part. I didn't type the `>` symbol: that's just the R command prompt and isn't part of the actual command. And neither did I type the `[1] 30` part. That's what R printed out in response to my command. 
-
-Secondly, it's important to understand how the output is formatted. Obviously, the correct answer to the sum `10 + 20` is `30`, and not surprisingly R has printed that out as part of its response. But it's also printed out this `[1]` part, which probably doesn't make a lot of sense to you right now. You're going to see that a lot. I'll talk about what this means in a bit more detail later on, but for now you can think of `[1] 30` as if R were saying "the answer to the 1st question you asked is 30". That's not quite the truth, but it's close enough for now. And in any case it's not really very interesting at the moment: we only asked R to calculate one thing, so obviously there's only one answer printed on the screen. Later on this will change, and the `[1]` part will start to make a bit more sense. For now, I just don't want you to get confused or concerned by it. 
-
-
-
-### An important digression about formatting
-
-Now that I've taught you these rules I'm going to change them pretty much immediately. That is because I want you to be able to copy code from the book directly into R if if you want to test things or conduct your own analyses. However, if you copy this kind of code (that shows the command prompt and the results) directly into R you will get an error 
-
-
-```r
-> 10 + 20
-[1] 30
-```
-
-So instead, I'm going to provide code in a slightly different format so that it looks like this...
-
-
-```r
-10 + 20
-```
-
-```
-## [1] 30
-```
-
-There are two main differences. 
-
-- In your console, you type after the >, but from now I I won’t show the command prompt in the book.  
-- In the book, output is commented out with \#\#, in your console it appears directly after your code. 
-
-These two differences mean that if you’re working with an electronic version of the book, you can easily copy code out of the book and into the console.
-
-So for example if you copied the two lines of code from the book you'd get this
-
-
-```r
-10 + 20
-## [1] 30
-```
-
-```
-## [1] 30
-```
-
-### Be very careful to avoid typos
-
-Before we go on to talk about other types of calculations that we can do with R, there's a few other things I want to point out. The first thing is that, while R is good software, it's still software. It's pretty stupid, and because it's stupid it can't handle typos. It takes it on faith that you meant to type *exactly* what you did type. For example, suppose that you forgot to hit the shift key when trying to type `+`, and as a result your command ended up being `10 = 20` rather than `10 + 20`. Here's what happens:
-
-
-```r
-10 = 20
-```
-
-```
-## Error in 10 = 20: invalid (do_set) left-hand side to assignment
-```
-
-What's happened here is that R has attempted to interpret `10 = 20` as a command, and spits out an error message because the command doesn't make any sense to it. When a *human* looks at this, and then looks down at his or her keyboard and sees that `+` and `=` are on the same key, it's pretty obvious that the command was a typo. But R doesn't know this, so it gets upset. And, if you look at it from its perspective, this makes sense. All that R "knows" is that `10` is a legitimate number, `20` is a legitimate number, and `=` is a legitimate part of the language too. In other words, from its perspective this really does look like the user meant to type `10 = 20`, since all the individual parts of that statement are legitimate and it's too stupid to realise that this is probably a typo. Therefore, R takes it on faith that this is exactly what you meant... it only "discovers" that the command is nonsense when it tries to follow your instructions, typo and all. And then it whinges, and spits out an error.
-
-Even more subtle is the fact that some typos won't produce errors at all, because they happen to correspond to "well-formed" R commands. For instance, suppose that not only did I forget to hit the shift key when trying to type `10 + 20`, I also managed to press the key next to one I meant do. The resulting typo would produce the command `10 - 20`. Clearly, R has no way of knowing that you meant to *add* 20 to 10, not *subtract* 20 from 10, so what happens this time is this:
-
-
-```r
-10 - 20
-```
-
-```
-## [1] -10
-```
-
-
-In this case, R produces the right answer, but to the the wrong question. 
-
-To some extent, I'm stating the obvious here, but it's important. The people who wrote R are smart. You, the user, are smart. But R itself is dumb. And because it's dumb, it has to be mindlessly obedient. It does *exactly* what you ask it to do. There is  no equivalent to "autocorrect" in R, and for good reason. When doing advanced stuff -- and even the simplest of statistics is pretty advanced in a lot of ways -- it's dangerous to let a mindless automaton like R try to overrule the human user. But because of this, it's your responsibility to be careful. Always make sure you type *exactly what you mean*. When dealing with computers, it's not enough to type "approximately" the right thing. In general, you absolutely *must* be precise in what you say to R ... like all machines it is too stupid to be anything other than absurdly literal in its interpretation.
-
-### R is (a bit) flexible with spacing
-
-Of course, now that I've been so uptight about the importance of always being precise, I should point out that there are some exceptions. Or, more accurately, there are some situations in which R does show a bit more flexibility than my previous description suggests. The first thing R is smart enough to do is ignore redundant spacing. What I mean by this is that, when I typed `10 + 20` before, I could equally have done this
-
-
-```r
-10    + 20
-```
-
-```
-## [1] 30
-```
-
-or this
-
-```r
-10+20
-```
-
-```
-## [1] 30
-```
-
-and I would get exactly the same answer. However, that doesn't mean that you can insert spaces in any old place. When we looked at the startup documentation in Section \@ref(startingR) it suggested that you could type `citation()` to get some information about how to cite R. If I do so...
-
-
-```r
-citation()
-```
-
-```
-## To cite R in publications use:
-## 
-##   R Core Team (2023). _R: A Language and Environment for Statistical
-##   Computing_. R Foundation for Statistical Computing, Vienna, Austria.
-##   <https://www.R-project.org/>.
-## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Manual{,
-##     title = {R: A Language and Environment for Statistical Computing},
-##     author = {{R Core Team}},
-##     organization = {R Foundation for Statistical Computing},
-##     address = {Vienna, Austria},
-##     year = {2023},
-##     url = {https://www.R-project.org/},
-##   }
-## 
-## We have invested a lot of time and effort in creating R, please cite it
-## when using it for data analysis. See also 'citation("pkgname")' for
-## citing R packages.
-```
-
-... it tells me to cite the R manual [@R2013]. Let's see what happens when I try changing the spacing. If I insert spaces in between the word and the parentheses, or inside the parentheses themselves, then all is well. That is, either of these two commands
-
-
-```r
-citation ()
-```
-
-
-```r
-citation(  )
-```
-
-
-will produce exactly the same response. However, what I can't do is insert spaces in the middle of the word. If I try to do this, R gets upset:
-
-
-```r
-citat ion()
-```
-
-```
-## Error: <text>:1:7: unexpected symbol
-## 1: citat ion
-##           ^
-```
-
-Throughout this book I'll vary the way I use spacing a little bit, just to give you a feel for the different ways in which spacing can be used. I'll try not to do it too much though, since it's generally considered to be good practice to be consistent in how you format your commands. 
-
-### R can sometimes tell that you're not finished yet (but not often)
-
-One more thing I should point out. If you hit enter in a situation where it's "obvious" to R that you haven't actually finished typing the command, R is just smart enough to keep waiting. For example, if you type `10 + ` and then press enter, even R is smart enough to realise that you probably wanted to type in another number. So here's what happens (for illustrative purposes I'm breaking my own code formatting rules in this section):
-
-```
-> 10+
-+ 
-```
-
-and there's a blinking cursor next to the plus sign. What this means is that R is still waiting for you to finish. It "thinks" you're still typing your command, so it hasn't tried to execute it yet. In other words, this plus sign is actually another command prompt. It's different from the usual one (i.e., the `>` symbol) to remind you that R is going to "add" whatever you type now to what you typed last time. For example, if I then go on to type `3` and hit enter, what I get is this:
-
-```
-> 10 +
-+ 20
-[1] 30
-```
-
-And as far as R is concerned, this is *exactly* the same as if you had typed `10 + 20`. Similarly, consider the `citation()` command that we talked about in the previous section. Suppose you hit enter after typing `citation(`. Once again, R is smart enough to realise that there must be more coming -- since you need to add the `)` character --  so it waits. I can even hit enter several times and it will keep waiting: 
-```
-> citation(
-+ 
-+ 
-+ )
-```
-I'll make use of this a lot in this book. A lot of the commands that we'll have to type are pretty long, and they're visually a bit easier to read if I break it up over several lines. If you start doing this yourself, you'll eventually get yourself in trouble (it happens to us all). Maybe you start typing a command, and then you realise you've screwed up. For example,
-
-```
-> citblation( 
-+ 
-+ 
-```
-You'd probably prefer R not to try running this command, right? If you want to get out of this situation, just hit the 'escape' key.^[If you're running R from the terminal rather than from RStudio, escape doesn't work: use CTRL-C instead.] R will return you to the normal command prompt (i.e. `>`) *without* attempting to execute the botched command.
-
-
-That being said, it's not often the case that R is smart enough to tell that there's more coming.
-For instance, in the same way that I can't add a space in the middle of a word, I can't hit enter in the middle of a word either. If I hit enter after typing `citat` I get an error, because R thinks I'm interested in an "object" called `citat` and can't find it:
-
-```
-> citat
-Error: object 'citat' not found
-```
-
-What about if I typed `citation` and hit enter? In this case we get something very odd, something that we definitely *don't* want, at least at this stage. Here's what happens:
-
-```
-citation
-## function (package = "base", lib.loc = NULL, auto = NULL) 
-## {
-##     dir <- system.file(package = package, lib.loc = lib.loc)
-##     if (dir == "") 
-##         stop(gettextf("package '%s' not found", package), domain = NA)
-
-BLAH BLAH BLAH
-```
-where the `BLAH BLAH BLAH` goes on for rather a long time, and you don't know enough R yet to understand what all this gibberish actually means (of course, it doesn't actually say BLAH BLAH BLAH - it says some other things we don't understand or need to know that I've edited for length) This incomprehensible output can be quite intimidating to novice users, and unfortunately it's very easy to forget to type the parentheses; so almost certainly you'll do this by accident. Do not panic when this happens. Simply ignore the gibberish.  As you become more experienced this gibberish will start to make sense, and you'll find it quite handy to print this stuff out.^[For advanced users: yes, as you've probably guessed, R is printing out the source code for the function.]  But for now just try to remember to add the parentheses when typing your commands.
-
-## Doing simple calculations with R{#arithmetic}
-
-Okay, now that we've discussed some of the tedious details associated with typing R commands, let's get back to learning how to use the most powerful piece of statistical software in the world as a \$2 calculator. So far, all we know how to do is addition. Clearly, a calculator that only did addition would be a bit stupid, so I should tell you about how to perform other simple calculations using R. But first, some more terminology. Addition is an example of an "operation" that you can perform (specifically, an arithmetic operation), and the ***operator*** that performs it is `+`. To people with a programming or mathematics background, this terminology probably feels pretty natural, but to other people it might feel like I'm trying to make something very simple (addition) sound more complicated than it is (by calling it an arithmetic operation). To some extent, that's true: if addition was the only operation that we were interested in, it'd be a bit silly to introduce all this extra terminology. However, as we go along, we'll start using more and more different kinds of operations, so it's probably a good idea to get the language straight now, while we're still talking about very familiar concepts like addition! 
-
-### Adding, subtracting, multiplying and dividing
-
-So, now that we have the terminology, let's learn how to perform some arithmetic operations in R. To that end, Table \@ref(tab:arithmetic1) lists the operators that correspond to the basic arithmetic we learned in primary school: addition, subtraction, multiplication and division. 
-
-
-Table: (\#tab:arithmetic1)Basic arithmetic operations in R. These five operators are used very frequently throughout the text, so it's important to be familiar with them at the outset.
-
-|operation      | operator | example input | example output |
-|:--------------|:--------:|:-------------:|:--------------:|
-|addition       |   `+`    |    10 + 2     |       12       |
-|subtraction    |   `-`    |     9 - 3     |       6        |
-|multiplication |   `*`    |     5 * 5     |       25       |
-|division       |   `/`    |    10 / 3     |       3        |
-|power          |   `^`    |     5 ^ 2     |       25       |
-
-As you can see, R uses fairly standard symbols to denote each of the different operations you might want to perform: addition is done using the `+` operator, subtraction is performed by the `-` operator, and so on. So if I wanted to find out what 57 times 61 is (and who wouldn't?), I can use R instead of a calculator, like so:
-
-```r
-57 * 61
-```
-
-```
-## [1] 3477
-```
-
-So that's handy. 
-
-### Taking powers
-
-
-The first four operations listed in Table \@ref(tab:arithmetic1) are things we all learned in primary school, but they aren't the only arithmetic operations built into R. There are three other arithmetic operations that I should probably mention: taking powers, doing integer division, and calculating a modulus. Of the three, the only one that is of any real importance for the purposes of this book is taking powers, so I'll discuss that one here: the other two are discussed in Chapter \@ref(datahandling).
-
-For those of you who can still remember your high school maths, this should be familiar. But for some people high school maths was a long time ago, and others of us didn't listen very hard in high school. It's not complicated. As I'm sure everyone will probably remember the moment they read this, the act of multiplying a number $x$ by itself $n$ times is called "raising $x$ to the $n$-th power". Mathematically, this is written as $x^n$. Some values of $n$ have special names: in particular $x^2$ is called $x$-squared, and $x^3$ is called $x$-cubed. So, the 4th power of 5 is calculated like this:
-$$
-5^4 = 5 \times 5 \times 5 \times 5 
-$$
-
-One way that we could calculate $5^4$ in R would be to type in the complete multiplication as it is shown in the equation above. That is, we could do this
-
-
-```r
-5 * 5 * 5 * 5
-```
-
-```
-## [1] 625
-```
-
-but it does seem a bit tedious. It would be very annoying indeed if you wanted to calculate $5^{15}$, since the command would end up being quite long. Therefore, to make our lives easier, we use the power operator instead. When we do that, our command to calculate $5^4$ goes like this:
-
-```r
-5 ^ 4
-```
-
-```
-## [1] 625
-```
-Much easier.
-
-
-### Doing calculations in the right order{#bedmas}
-
-Okay. At this point, you know how to take one of the most powerful pieces of statistical software in the world, and use it as a \$2 calculator. And as a bonus, you've learned a few very basic programming concepts. That's not nothing (you could argue that you've just saved yourself \$2) but on the other hand, it's not very much either. In order to use R more effectively, we need to introduce more programming concepts.
-
-In most situations where you would want to use a calculator, you might want to do multiple calculations. R lets you do this, just by typing in longer commands. ^[If you're reading this with R open, a good learning trick is to try typing in a few different variations on what I've done here. If you experiment with your commands, you'll quickly learn what works and what doesn't] In fact, we've already seen an example of this earlier, when I typed in `5 * 5 * 5 * 5`. However, let's try a slightly different example:
-
-
-```r
-1 + 2 * 4
-```
-
-```
-## [1] 9
-```
-
-Clearly, this isn't a problem for R either. However, it's worth stopping for a second, and thinking about what R just did. Clearly, since it gave us an answer of `9` it must have multiplied `2 * 4` (to get an interim answer of 8) and then added 1 to that. But, suppose it had decided to just go from left to right: if R had decided instead to add `1+2` (to get an interim answer of 3) and then multiplied by 4, it would have come up with an answer of `12`. 
-
-To answer this, you need to know the **_order of operations_** that R uses. If you remember back to your high school maths classes, it's actually the same order that you got taught when you were at school: the "**_BEDMAS_**" order.^[For advanced users: if you want a table showing the complete order of operator precedence in R, type `?Syntax`. I haven't included it in this book since there are quite a few different operators, and we don't need that much detail. Besides, in practice most people seem to figure it out from seeing examples: until writing this book I never looked at the formal statement of operator precedence for any language I ever coded in, and never ran into any difficulties.] That is, first calculate things inside **B**rackets `()`, then calculate **E**xponents `^`, then **D**ivision `/` and **M**ultiplication `*`, then **A**ddition `+` and **S**ubtraction `-`. So, to continue the example above, if we want to force R to calculate the `1+2` part before the multiplication, all we would have to do is enclose it in brackets:
-
-
-```r
-(1 + 2) * 4 
-```
-
-```
-## [1] 12
-```
-
-This is a fairly useful thing to be able to do. The only other thing I should point out about order of operations is what to expect when you have two operations that have the same priority: that is, how does R resolve ties? For instance, multiplication and division are actually the same priority, but what should we expect when we give R a problem like `4 / 2 * 3` to solve? If it evaluates the multiplication first and then the division, it would calculate a value of two-thirds. But if it evaluates the division first it calculates a value of 6. The answer, in this case, is that R goes from *left to right*, so in this case the division step would come first:
-
-
-```r
-4 / 2 * 3
-```
-
-```
-## [1] 6
-```
-
-All of the above being said, it's helpful to remember that *brackets always come first*. So, if you're ever unsure about what order R will do things in, an easy solution is to enclose the thing *you* want it to do first in brackets.  There's nothing stopping you from typing `(4 / 2) * 3`. By enclosing the division in brackets we make it clear which thing is supposed to happen first. In this instance you wouldn't have needed to, since R would have done the division first anyway, but when you're first starting out it's better to make sure R does what you want!
-
-
-
-## Storing a number as a variable{#assign}
-
-One of the most important things to be able to do in R (or any programming language, for that matter) is to store information in **_variables_**. Variables in R aren't exactly the same thing as the variables we talked about in the last chapter on research methods, but they are similar. At a conceptual level you can think of a variable as *label* for a certain piece of information, or even several different pieces of information. When doing statistical analysis in R all of your data (the variables you measured in your study) will be stored as variables in R, but as well see later in the book you'll find that you end up creating variables for other things too. However, before we delve into all the messy details of data sets and statistical analysis, let's look at the very basics for how we create variables and work with them. 
-
-### Variable assignment using `<-` and `->`
-
-Since we've been working with numbers so far, let's start by creating variables to store our numbers. And since most people like concrete examples, let's invent one. Suppose I'm trying to calculate how much money I'm going to make from this book. There's several different numbers I might want to store. Firstly, I need to figure out how many copies I'll sell. This isn't exactly *Harry Potter*, so let's assume I'm only going to sell one copy per student in my class. That's 350 sales, so let's create a variable called `sales`. What I want to do is assign a **_value_** to my variable `sales`, and that value should be `350`. We do this by using the **_assignment operator_**, which is `<-`. Here's how we do it:
-
-
-```r
-sales <- 350
-```
-
-When you hit enter, R doesn't print out any output.^[If you are using RStudio, and the "environment" panel (formerly known as the "workspace" panel) is visible when you typed the command, then you probably saw something happening there. That's to be expected, and is quite helpful. However, there's two things to note here (1) I haven't yet explained what that panel does, so for now just ignore it, and (2) this is one of the helpful things RStudio does, not a part of R itself.] It just gives you another command prompt. However, behind the scenes R has created a variable called `sales` and given it a value of `350`. You can check that this has happened by asking R to print the variable on screen. And the simplest way to do *that* is to type the name of the variable and hit enter^[As we'll discuss later, by doing this we are implicitly using the `print()` function].
-
-
-```r
-sales
-```
-
-```
-## [1] 350
-```
-
-So that's nice to know. Anytime you can't remember what R has got stored in a particular variable, you can just type the name of the variable and hit enter. 
-
-Okay, so now we know how to assign variables. Actually, there's a bit more you should know. Firstly, one of the curious features of R is that there are several different ways of making assignments. In addition to the `<-` operator, we can also use `->` and `=`, and it's pretty important to understand the differences between them.^[Actually, in keeping with the R tradition of providing you with a billion different screwdrivers (even when you're actually looking for a hammer) these aren't the only options. There's also the`assign()` function, and the `<<-` and `->>` operators. However, we won't be using these at all in this book.] Let's start by considering `->`, since that's the easy one (we'll discuss the use of `=` in Section \@ref(functionarguments). As you might expect from just looking at the symbol, it's almost identical to `<-`. It's just that the arrow (i.e., the assignment) goes from left to right. So if I wanted to define my `sales` variable using `->`, I would write it like this:
-
-
-```r
-350 -> sales
-```
-This has the same effect: and it *still* means that I'm only going to sell `350` copies. Sigh. Apart from this superficial difference, `<-` and `->` are identical. In fact, as far as R is concerned, they're actually the same operator, just in a "left form" and a "right form".^[A quick reminder: when using operators like `<-` and `->` that span multiple characters, you can't insert spaces in the middle. That is, if you type `- >` or `< -`, R will interpret your command the wrong way. And I will cry.]
-
-
-### Doing calculations using variables
-
-Okay, let's get back to my original story. In my quest to become rich, I've written this textbook. To figure out how good a strategy is, I've started creating some variables in R. In addition to defining a `sales` variable that counts the number of copies I'm going to sell, I can also create a variable called `royalty`, indicating how much money I get per copy. Let's say that my royalties are about $7 per book:
-
-
-```r
-sales <- 350
-royalty <- 7
-```
-
-The nice thing about variables (in fact, the whole point of having variables) is that we can do anything with a variable that we ought to be able to do with the information that it stores. That is, since R allows me to multiply `350` by `7`
-
-
-```r
-350 * 7
-```
-
-```
-## [1] 2450
-```
-
-it also allows me to multiply `sales` by `royalty`
-
-
-```r
-sales * royalty
-```
-
-```
-## [1] 2450
-```
-
-As far as R is concerned, the `sales * royalty` command is the same as the `350 * 7` command. Not surprisingly, I can assign the output of this calculation to a new variable, which I'll call `revenue`. And when we do this, the new variable `revenue` gets the value `2450`. So let's do that, and then get R to print out the value of `revenue` so that we can verify that it's done what we asked:
-
-
-```r
-revenue <- sales * royalty
-revenue
-```
-
-```
-## [1] 2450
-```
-
-That's fairly straightforward. A slightly more subtle thing we can do is reassign the value of my variable, based on its current value. For instance, suppose that one of my students (no doubt under the influence of psychotropic drugs) loves the book so much that he or she donates me an extra \$550. The simplest way to capture this is by a command like this:
-
-
-```r
-revenue <- revenue + 550
-revenue
-```
-
-```
-## [1] 3000
-```
-
-In this calculation, R has taken the old value of `revenue` (i.e., 2450) and added 550 to that value, producing a value of 3000. This new value is assigned to the `revenue` variable, overwriting its previous value. In any case, we now know that I'm expecting to make $3000 off this. Pretty sweet, I thinks to myself. Or at least, that's what I thinks until I do a few more calculation and work out what the implied hourly wage I'm making off this looks like. 
-
-### Rules and conventions for naming variables
-
-In the examples that we've seen so far, my variable names (`sales` and `revenue`) have just been English-language words written using lowercase letters. However, R allows a lot more flexibility when it comes to naming your variables, as the following list of rules^[Actually, you can override any of these rules if you want to, and quite easily. All you have to do is add quote marks or backticks around your non-standard variable name. For instance ``` `my sales ` <- 350 ``` would work just fine, but it's almost never a good idea to do this.] illustrates:
-
-
-- Variable names can only use the upper case alphabetic characters `A`-`Z` as well as the lower case characters `a`-`z`. You can also include numeric characters `0`-`9` in the variable name, as well as the period `.` or underscore `_` character. In other words, you can use `SaL.e_s` as a variable name (though I can't think why you would want to), but you can't use `Sales?`. 
-- Variable names cannot include spaces: therefore `my sales` is not a valid name, but `my.sales` is.
-- Variable names are case sensitive: that is, `Sales` and `sales` are *different* variable names.
-- Variable names must start with a letter or a period. You can't use something like `_sales` or `1sales` as a variable name. You can use `.sales` as a variable name if you want, but it's not usually a good idea. By convention, variables starting with a `.` are used for special purposes, so you should avoid doing so. 
-- Variable names cannot be one of the reserved keywords. These are special names that R needs to keep "safe" from us mere users, so you can't use them as the names of variables. The keywords are: `if`, `else`, `repeat`, `while`, `function`, `for`, `in`, `next`, `break`, `TRUE`, `FALSE`, `NULL`, `Inf`, `NaN`, `NA`, `NA_integer_`, `NA_real_`, `NA_complex_`, and finally,  `NA_character_`. Don't feel especially obliged to memorise these: if you make a mistake and try to use one of the keywords as a variable name, R will complain about it like the whiny little automaton it is.
-
-
-
-In addition to those rules that R enforces, there are some informal conventions that people tend to follow when naming variables. One of them you've already seen: i.e., don't use variables that start with a period. But there are several others. You aren't obliged to follow these conventions, and there are many situations in which it's advisable to ignore them, but it's generally a good idea to follow them when you can:
-
-
-- Use informative variable names. As a general rule, using meaningful names like `sales` and `revenue` is preferred over arbitrary ones like `variable1` and `variable2`. Otherwise it's very hard to remember what the contents of different variables are, and it becomes hard to understand what your commands actually do. 
-- Use short variable names. Typing is a pain and no-one likes doing it. So we much prefer to use a name like `sales` over a name like `sales.for.this.book.that.you.are.reading`. Obviously there's a bit of a tension between using informative names (which tend to be long) and using short names (which tend to be meaningless), so use a bit of common sense when trading off these two conventions.
-- Use one of the conventional naming styles for multi-word variable names. Suppose I want to name a variable that stores "my new salary". Obviously I can't include spaces in the variable name, so how should I do this? There are three different conventions that you sometimes see R users employing. Firstly, you can separate the words using periods, which would give you `my.new.salary` as the variable name. Alternatively, you could separate words using underscores, as in `my_new_salary`. Finally, you could use capital letters at the beginning of each word (except the first one), which gives you `myNewSalary` as the variable name. I don't think there's any strong reason to prefer one over the other,^[For very advanced users: there is one exception to this. If you're naming a function, don't use `.` in the name unless you are intending to make use of the S3 object oriented programming system in R. If you don't know what S3 is, then you definitely don't want to be using it! For function naming, there's been a trend among R users to prefer `myFunctionName`.] but it's important to be consistent.
-
-
-
-
-
-## Using functions to do calculations{#usingfunctions}
-
-The symbols `+`, `-`, `*` and so on are examples of operators. As we've seen, you can do quite a lot of calculations just by using these operators. However, in order to do more advanced calculations (and later on, to do actual statistics), you're going to need to start using **_functions_**.^[A side note for students with a programming background. Technically speaking, operators *are* functions in R: the addition operator `+` is actually a convenient way of calling the addition function ``+()``. Thus `10+20` is equivalent to the function call `+(20, 30)`. Not surprisingly, no-one ever uses this version. Because that would be stupid.] I'll talk in more detail about functions and how they work in Section \@ref(functions), but for now let's just dive in and use a few. To get started, suppose I wanted to take the square root of 225. The  square root, in case your high school maths is a bit rusty, is just the opposite of squaring a number. So, for instance, since "5 squared is 25" I can say that "5 is the square root of 25". The usual notation for this is 
-
-$$
-\sqrt{25} = 5
-$$
-
-though sometimes you'll also see it written like this
-$25^{0.5} = 5.$
-This second way of writing it is kind of useful to "remind" you of the mathematical fact that "square root of $x$" is actually the same as "raising $x$ to the power of 0.5". Personally, I've never found this to be terribly meaningful psychologically, though I have to admit it's quite convenient mathematically. Anyway, it's not important. What is important is that you remember what a square root is, since we're going to need it later on.
-
-To calculate the square root of 25, I can do it in my head pretty easily, since I memorised my multiplication tables when I was a kid. It gets harder when the numbers get bigger, and pretty much impossible if they're not whole numbers. This is where something like R comes in very handy. Let's say I wanted to calculate $\sqrt{225}$, the square root of 225. There's two ways I could do this using R. Firstly, since the square root of 255 is the same thing as raising 225 to the power of 0.5, I could use the power operator `^`, just like we did earlier:
-
-
-```r
-225 ^ 0.5
-```
-
-```
-## [1] 15
-```
-
-However, there's a second way that we can do this, since R also provides a ***square root function***, `sqrt()`. To calculate the square root of 255 using this function, what I do is insert the number `225` in the parentheses. That is, the command I type is this:
-
-
-```r
-sqrt( 225 )
-```
-
-```
-## [1] 15
-```
-
-and as you might expect from our previous discussion, the spaces in between the parentheses are purely cosmetic. I could have typed `sqrt(225)` or `sqrt( 225   )` and gotten the same result. When we use a function to do something, we generally refer to this as **_calling_** the function, and the values that we type into the function (there can be more than one) are referred to as the **_arguments_** of that function. 
-
-Obviously, the `sqrt()` function doesn't really give us any new functionality, since we already knew how to do square root calculations by using the power operator `^`, though I do think it looks nicer when we use `sqrt()`. However, there are lots of other functions in R: in fact, almost everything of interest that I'll talk about in this book is an R function of some kind. For example, one function that we will need to use in this book is the ***absolute value function***. Compared to the square root function, it's extremely simple: it just converts negative numbers to positive numbers, and leaves positive numbers alone. Mathematically, the absolute value of $x$ is written $|x|$ or sometimes $\mbox{abs}(x)$. Calculating absolute values in R is pretty easy, since R provides the `abs()` function that you can use for this purpose. When you feed it a positive number...
-
-```r
-abs( 21 )
-```
-
-```
-## [1] 21
-```
-the absolute value function does nothing to it at all. But when you feed it a negative number, it spits out the positive version of the same number, like this:
-
-
-```r
-abs( -13 )
-```
-
-```
-## [1] 13
-```
-
-In all honesty, there's nothing that the absolute value function does that you couldn't do just by looking at the number and erasing the minus sign if there is one. However, there's a few places later in the book where we have to use absolute values, so I thought it might be a good idea to explain the meaning of the term early on.
-
-
-Before moving on, it's worth noting that -- in the same way that R allows us to put multiple operations together into a longer command, like `1 + 2*4` for instance -- it also lets us put functions together and even combine functions with operators if we so desire. For example, the following is a perfectly legitimate command:
-
-
-```r
-sqrt( 1 + abs(-8) )
-```
-
-```
-## [1] 3
-```
-
-When R executes this command, starts out by calculating the value of `abs(-8)`, which produces an intermediate value of `8`. Having done so, the command simplifies to `sqrt( 1 + 8 )`. To solve the square root^[A note for the mathematically inclined: R does support complex numbers, but unless you explicitly specify that you want them it assumes all calculations must be real valued. By default, the square root of a negative number is treated as undefined: `sqrt(-9)` will produce `NaN` (not a number) as its output. To get complex numbers, you would type `sqrt(-9+0i)`  and R would now return `0+3i`. However, since we won't have any need for complex numbers in this book, I won't refer to them again.] it first needs to add `1 + 8` to get `9`, at which point it evaluates `sqrt(9)`, and so it finally outputs a value of `3`.
-
-
-
-### Function arguments, their names and their defaults{#functionarguments}
-
-There's two more fairly important things that you need to understand about how functions work in R, and that's the use of "named" arguments, and default values" for arguments. Not surprisingly, that's not to say that this is the last we'll hear about how functions work, but they are the last things we desperately need to discuss in order to get you started. To understand what these two concepts are all about, I'll introduce another function. The `round()` function can be used to round some value to the nearest whole number. For example, I could type this:
-
-
-```r
-round( 3.1415 )
-```
-
-```
-## [1] 3
-```
-Pretty straightforward, really. However, suppose I only wanted to round it to two decimal places: that is, I want to get `3.14` as the output. The `round()` function supports this, by allowing you to input a second argument to the function that specifies the number of decimal places that you want to round the number to. In other words, I could do this: 
-
-
-```r
-round( 3.14165, 2 )
-```
-
-```
-## [1] 3.14
-```
-
-What's happening here is that I've specified *two* arguments: the first argument is the number that needs to be rounded (i.e., `3.1415`), the second argument is the number of decimal places that it should be rounded to (i.e., `2`), and the two arguments are separated by a comma. In this simple example, it's quite easy to remember which one argument comes first and which one comes second, but for more complicated functions this is not easy. Fortunately, most R functions make use of ***argument names***. For the `round()` function, for example the number that needs to be rounded is specified using the `x` argument, and the number of decimal points that you want it rounded to is specified using the `digits` argument. Because we have these names available to us, we can specify the arguments to the function by name. We do so like this:
-
-```r
-round( x = 3.1415, digits = 2 )
-```
-
-```
-## [1] 3.14
-```
-
-Notice that this is kind of similar in spirit to variable assignment (Section \@ref(assign)), except that I used `=` here, rather than `<-`. In both cases we're specifying specific values to be associated with a label. However, there are some differences between what I was doing earlier on when creating variables, and what I'm doing here when specifying arguments, and so as a consequence it's important that you use `=` in this context.
-
-
-As you can see, specifying the arguments by name involves a lot more typing, but it's also a lot easier to read. Because of this, the commands in this book will usually specify arguments by name,^[The two functions discussed previously, `sqrt()` and `abs()`, both only have a single argument, `x`. So I could have typed something like `sqrt(x = 225)` or `abs(x = -13)` earlier. The fact that all these functions use `x` as the name of the argument that corresponds the "main" variable that you're working with is no coincidence. That's a fairly widely used convention. Quite often, the writers of R functions will try to use conventional names like this to make your life easier. Or at least that's the theory. In practice it doesn't always work as well as you'd hope.] since that makes it clearer to you what I'm doing. However, one important thing to note is that when specifying the arguments using their names, it doesn't matter what order you type them in. But if you don't use the argument names, then you have to input the arguments in the correct order. In other words, these three commands all produce the same output...
-
-
-```r
-round( 3.14165, 2 )
-round( x = 3.1415, digits = 2 )
-round( digits = 2, x = 3.1415 )
-```
-
-```
-## [1] 3.14
-## [1] 3.14
-## [1] 3.14
-```
-
-but this one does not...
-
-
-```r
-round( 2, 3.14165 )
-```
-
-```
-## [1] 2
-```
-
-How do you find out what the correct order is? There's a few different ways, but the easiest one is to look at the help documentation for the function (see Section \@ref(help). However, if you're ever unsure, it's probably best to actually type in the argument name.
-
-Okay, so that's the first thing I said you'd need to know: argument names. The second thing you need to know about is default values. Notice that the first time I called the `round()` function I didn't actually specify the `digits` argument at all, and yet R somehow knew that this meant it should round to the nearest whole number. How did that happen? The answer is that the `digits` argument has a ***default value*** of `0`, meaning that if you decide not to specify a value for `digits` then R will act as if you had typed `digits = 0`. This is quite handy: the vast majority of the time when you want to round a number you want to round it to the nearest whole number, and it would be pretty annoying to have to specify the `digits` argument every single time. On the other hand, sometimes you actually do want to round to something other than the nearest whole number, and it would be even more annoying if R didn't allow this! Thus, by having `digits = 0` as the default value, we get the best of both worlds.
-
-
-## Letting RStudio help you with your commands{#RStudio1}
-
-Time for a bit of a digression. At this stage you know how to type in basic commands, including how to use R functions. And it's probably beginning to dawn on you that there are a *lot* of R functions, all of which have their own arguments. You're probably also worried that you're going to have to remember all of them! Thankfully, it's not that bad. In fact, very few data analysts bother to try to remember all the commands. What they really do is use tricks to make their lives easier. The first (and arguably most important one) is to use the internet. If you don't know how a particular R function works, Google it. Second, you can look up the R help documentation. I'll talk more about these two tricks in  Section \@ref(help). But right now I want to call your attention to a couple of simple tricks that RStudio makes available to you.
-
-### Autocomplete using "tab"
-
-The first thing I  want to call your attention to is the *autocomplete* ability in RStudio.^[For advanced users:  obviously, this isn't just an RStudio thing. If you're running R in a terminal window, tab autocomplete still works, and does so in exactly the way you'd expect. It's not as visually pretty as the RStudio version, of course, and lacks some of the cooler features that RStudio provides. I don't bother to document that here: my assumption is that if you are running R in the terminal then you're already familiar with using tab autocomplete.]
-
-Let's stick to our example above and assume that what you want to do is to round a number. This time around, start typing the name of the function that you want, and then hit the "tab" key. RStudio will then display a little window like the one shown in Figure \@ref(fig:RStudiotab). In this figure, I've typed the letters `ro` at the command line, and then hit tab. The window has two panels. On the left, there's a list of variables and functions that start with the letters that I've typed shown in black text, and some grey text that tells you where that variable/function is stored. Ignore the grey text for now: it won't make much sense to you until we've talked about packages in Section \@ref(packageinstall). In Figure \@ref(fig:RStudiotab) you can see that there's quite a few things that start with the letters `ro`: there's something called `rock`, something called `round`, something called `round.Date` and so on. The one we want is `round`, but if you're typing this yourself you'll notice that when you hit the tab key the window pops up with the top entry (i.e., `rock`) highlighted. You can use the up and down arrow keys to select the one that you want. Or, if none of the options look right to you, you can hit the escape key ("esc") or the left arrow key to make the window go away. 
-
-
-In our case, the thing we want is the `round` option, so we'll select that. When you do this, you'll see that the panel on the right changes. Previously, it had been telling us something about the `rock` data set (i.e., "Measurements on 48 rock samples...") that is distributed as part of R. But when we select `round`, it displays information about the `round()` function, exactly as it is shown in Figure \@ref(fig:RStudiotab). This display is really handy. The very first thing it says is `round(x, digits = 0)`: what this is telling you is that the `round()` function has two arguments. The first argument is called `x`, and it doesn't have a default value. The second argument is `digits`, and it has a default value of 0. In a lot of situations, that's all the information you need. But RStudio goes a bit further, and provides some additional information about the function underneath. Sometimes that additional information is very helpful, sometimes it's not: RStudio pulls that text from the R help documentation, and my experience is that the helpfulness of that documentation varies wildly. Anyway, if you've decided that `round()` is the function that you want to use, you can hit the right arrow or the enter key, and RStudio will finish typing the rest of the function name for you. 
-
-The RStudio autocomplete tool works slightly differently if you've already got the name of the function typed and you're now trying to type the arguments. For instance, suppose I've typed `round(` into the console, and *then* I hit tab. RStudio is smart enough to recognise that I already know the name of the function that I want, because I've already typed it! Instead, it figures that what I'm interested in is the *arguments* to that function. So that's what pops up in the little window. You can see this in Figure \@ref(fig:RStudiotab2). Again, the window has two panels, and you can interact with this window in exactly the same way that you did with the window shown in Figure \@ref(fig:RStudiotab). On the left hand panel, you can see a list of the argument names. On the right hand side, it displays some information about what the selected argument does. 
-
-
-### Browsing your command history
-
-One thing that R does automatically is keep track of your "command history". That is, it remembers all the commands that you've previously typed. You can access this history in a few different ways. The simplest way is to use the up and down arrow keys. If you hit the up key, the R console will show you the most recent command that you've typed. Hit it again, and it will show you the command before that. If you want the text on the screen to go away, hit escape^[Incidentally, that always works: if you've started typing a command and you want to clear it and start again, hit escape.] Using the up and down keys can be really handy if you've typed a long command that had one typo in it. Rather than having to type it all again from scratch, you can use the up key to bring up the command and fix it. 
-
-The second way to get access to your command history is to look at the history panel in RStudio. On the upper right hand side of the RStudio window you'll see a tab labelled "History". Click on that, and you'll see a list of all your recent commands displayed in that panel: it should look something like Figure \@ref(fig:RStudiohistory). If you double click on one of the commands, it will be copied to the R console. (You can achieve the same result by selecting the command you want with the mouse and then clicking the "To Console" button).^[Another method is to start typing some text and then hit the Control key and the up arrow together (on Windows or Linux) or the Command key and the up arrow together (on a Mac). This will bring up a window showing all your recent commands that started with the same text as what you've currently typed. That can come in quite handy sometimes.]
-
-
-
-## Storing many numbers as a vector{#vectors}
-
-At this point we've covered functions in enough detail to get us safely through the next couple of chapters (with one small exception: see Section \@ref(generics), so let's return to our discussion of variables. When I introduced variables in Section \@ref(assign) I showed you how we can use variables to store a single number. In this section, we'll extend this idea and look at how to store multiple numbers within the one variable. In R, the name for a variable that can store multiple values is a **_vector_**. So let's create one. 
-
-### Creating a vector
-Let's stick to my silly "get rich quick by textbook writing" example. Suppose the textbook company (if I actually had one, that is) sends me sales data on a monthly basis. Since my class start in late February, we might expect most of the sales to occur towards the start of the year. Let's suppose that I have 100 sales in February, 200 sales in March and 50 sales in April, and no other sales for the rest of the year. What I would like to do is have a variable -- let's call it `sales.by.month` -- that stores all this sales data. The first number stored should be `0` since I had no sales in January, the second should be `100`, and so on. The simplest way to do this in R is to use the **_combine_** function, `c()`. To do so, all we have to do is type all the numbers you want to store in a comma separated list, like this:^[Notice that I didn't specify any argument names here. The `c()` function is one of those cases where we don't use names. We just type all the numbers, and R just dumps them all in a single variable.]
-
-
-```r
-sales.by.month <- c(0, 100, 200, 50, 0, 0, 0, 0, 0, 0, 0, 0)
-sales.by.month
-```
-
-```
-##  [1]   0 100 200  50   0   0   0   0   0   0   0   0
-```
-To use the correct terminology here, we have a single variable here called `sales.by.month`: this variable is a vector that consists of 12 **_elements_**. 
-
-
-
-
-### A handy digression
-
-Now that we've learned how to put information into a vector, the next  thing to understand is how to pull that information back out again. However, before I do so it's worth taking a slight detour. If you've been following along, typing all the commands into R yourself, it's possible that the output that you saw when we printed out the `sales.by.month` vector was slightly different to what I showed above. This would have happened if the window (or the RStudio panel) that contains the R console is really, really narrow. If that were the case, you might have seen output that looks something like this:
-
-
-
-
-```r
-sales.by.month
-```
-
-```
-##  [1]   0 100 200  50
-##  [5]   0   0   0   0
-##  [9]   0   0   0   0
-```
-Because there wasn't much room on the screen, R has printed out the results over three lines. But that's not the important thing to notice. The important point is that the first line has a `[1]` in front of it, whereas the second line starts with `[5]` and the third with `[9]`. It's pretty clear what's happening here. For the first row, R has printed out the 1st element through to the 4th element, so it starts that row with a `[1]`. For the second row, R has printed out the 5th element of the vector through to the 8th one, and so it begins that row with a `[5]` so that you can tell where it's up to at a glance. It might seem a bit odd to you that R does this, but in some ways it's a kindness, especially when dealing with larger data sets!
-
-
-
-### Getting information out of vectors{#vectorsubset}
-
-To get back to the main story, let's consider the problem of how to get information out of a vector. At this point, you might have a sneaking suspicion that the answer has something to do with the `[1]` and `[9]` things that R has been printing out. And of course you are correct. Suppose I want to pull out the February sales data only. February is the second month of the year, so let's try this:
-
-
-```r
-sales.by.month[2]
-```
-
-```
-## [1] 100
-```
-Yep, that's the February sales all right. But there's a subtle detail to be aware of here: notice that R outputs `[1] 100`, *not* `[2] 100`. This is because R is being extremely literal. When we typed in `sales.by.month[2]`, we asked R to find exactly *one* thing, and that one thing happens to be the second element of our `sales.by.month` vector. So, when it outputs `[1] 100` what R is saying is that the first number *that we just asked for* is `100`. This behaviour makes more sense when you realise that we can use this trick to create new variables. For example, I could create a `february.sales` variable like this:
-
-
-```r
-february.sales <- sales.by.month[2]
-february.sales
-```
-
-```
-## [1] 100
-```
-Obviously, the new variable `february.sales` should only have one element and so when I print it out this new variable, the R output begins with a `[1]` because `100` is the value of the first (and only) element of `february.sales`. The fact that this also happens to be the value of the second element of `sales.by.month` is irrelevant. We'll pick this topic up again shortly (Section \@ref(indexing)). 
-
-### Altering the elements of a vector
-
-Sometimes you'll want to change the values stored in a vector. Imagine my surprise when the publisher rings me up to tell me that the sales data for May are wrong. There were actually an additional 25 books sold in May, but there was an error or something so they hadn't told me about it. How can I fix my `sales.by.month` variable? One possibility would be to assign the whole vector again from the beginning, using `c()`. But that's a lot of typing. Also, it's a little wasteful: why should R have to redefine the sales figures for all 12 months, when only the 5th one is wrong? Fortunately, we can tell R to change only the 5th element, using this trick:
-
-
-```r
-sales.by.month[5] <- 25
-sales.by.month
-```
-
-```
-##  [1]   0 100 200  50  25   0   0   0   0   0   0   0
-```
-
-Another way to edit variables is to use the `edit()` or `fix()` functions. I won't discuss them in detail right now, but you can check them out on your own. 
-
-
-### Useful things to know about vectors{#veclength}
-
-Before moving on, I want to mention a couple of other things about vectors. Firstly, you often find yourself wanting to know how many elements there are in a vector (usually because you've forgotten). You can use the `length()` function to do this. It's quite straightforward:
-
-
-```r
-length( x = sales.by.month )
-```
-
-```
-## [1] 12
-```
-
-
-Secondly, you often want to alter all of the elements of a vector at once. For instance, suppose I wanted to figure out how much money I made in each month. Since I'm earning an exciting \$7 per book (no seriously, that's actually pretty close to what authors get on the very expensive textbooks that you're expected to purchase), what I want to do is multiply each element in the `sales.by.month` vector by `7`. R makes this pretty easy, as the following example shows:
-
-
-```r
-sales.by.month * 7
-```
-
-```
-##  [1]    0  700 1400  350  175    0    0    0    0    0    0    0
-```
-In other words, when you multiply a vector by a single number, all elements in the vector get multiplied. The same is true for addition, subtraction, division and taking powers. So that's neat. On the other hand, suppose I wanted to know how much money I was making per day, rather than per month. Since not every month has the same number of days, I need to do something slightly different. Firstly, I'll create two new vectors:
-
-
-```r
-days.per.month <- c(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
-profit <- sales.by.month * 7
-```
-
-Obviously, the `profit` variable is the same one we created earlier, and the `days.per.month` variable is pretty straightforward. What I want to do is divide every element of `profit` by the *corresponding* element of `days.per.month`. Again, R makes this pretty easy:
-
-
-```r
-profit / days.per.month
-```
-
-```
-##  [1]  0.000000 25.000000 45.161290 11.666667  5.645161  0.000000  0.000000
-##  [8]  0.000000  0.000000  0.000000  0.000000  0.000000
-```
-I still don't like all those zeros, but that's not what matters here. Notice that the second element of the output is 25, because R has divided the second element of `profit` (i.e. 700) by the second element of `days.per.month` (i.e. 28). Similarly, the third element of the output is equal to 1400 divided by 31, and so on. We'll talk more about calculations involving vectors later on (and in particular a thing called the "recycling rule"; Section \@ref(recycling)), but that's enough detail for now.
-
-## Storing text data{#text}
-
-A lot of the time your data will be numeric in nature, but not always. Sometimes your data really needs to be described using text, not using numbers. To address this, we need to consider the situation where our variables store text. To create a variable that stores the word "hello", we can type this:
-
-```r
-greeting <- "hello"
-greeting
-```
-
-```
-## [1] "hello"
-```
-When interpreting this, it's important to recognise that the quote marks here *aren't* part of the string itself. They're just something that we use to make sure that R knows to treat the characters that they enclose as a piece of text data, known as a **_character string_**. In other words, R treats `"hello"` as a string containing the word "hello"; but if I had typed `hello` instead, R would go looking for a variable by that name! You can also use `'hello'` to specify a character string.
-
-Okay, so that's how we store the text. Next, it's important to recognise that when we do this, R stores the entire word `"hello"` as a *single* element: our `greeting` variable is *not* a vector of five different letters. Rather, it has only the one element, and that element corresponds to the entire character string `"hello"`. To illustrate this, if I actually ask R to find the first element of `greeting`, it prints the whole string:
-
-```r
-greeting[1]
-```
-
-```
-## [1] "hello"
-```
-Of course, there's no reason why I can't create a vector of character strings. For instance, if we were to continue with the example of my attempts to look at the monthly sales data for my book, one variable I might want would include the names of all 12 `months`.^[Though actually there's no real need to do this, since R has an inbuilt variable called `month.name` that you can use for this purpose.] To do so, I could type in a command like this
-
-```r
-months <- c("January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", 
-            "December")
-```
-This is a **_character vector_** containing 12 elements, each of which is the name of a month. So if I wanted R to tell me the name of the fourth month, all I would do is this:
-
-```r
-months[4]
-```
-
-```
-## [1] "April"
-```
-
-
-### Working with text{#simpletext}
-
-Working with text data is somewhat more complicated than working with numeric data, and I discuss some of the basic ideas in Section \@ref(textprocessing), but for purposes of the current chapter we only need this bare bones sketch. The only other thing I want to do before moving on is show you an example of a function that can be applied to text data. So far, most of the functions that we have seen (i.e., `sqrt()`, `abs()` and `round()`) only make sense when applied to numeric data (e.g., you can't calculate the square root of "hello"), and we've seen one function that can be applied to pretty much any variable or vector (i.e., `length()`). So it might be nice to see an example of a function that can be applied to text. 
-
-The function I'm going to introduce you to is called `nchar()`, and what it does is count the number of individual characters that make up a string. Recall earlier that when we tried to calculate the `length()` of our `greeting` variable it returned a value of `1`: the `greeting` variable contains only the one string, which happens to be `"hello"`. But what if I want to know how many letters there are in the word? Sure, I could *count* them, but that's boring, and more to the point it's a terrible strategy if what I wanted to know was the number of letters in *War and Peace*. That's where the `nchar()` function is helpful:
-
-```r
-nchar( x = greeting )
-```
-
-```
-## [1] 5
-```
-That makes sense, since there are in fact 5 letters in the string `"hello"`. Better yet, you can apply `nchar()` to whole vectors. So, for instance, if I want R to tell me how many letters there are in the names of each of the 12 months, I can do this:
-
-```r
-nchar( x = months )
-```
-
-```
-##  [1] 7 8 5 5 3 4 4 6 9 7 8 8
-```
-So that's nice to know. The `nchar()` function can do a bit more than this, and there's a lot of other functions that you can do to extract more information from text or do all sorts of fancy things. However, the goal here is not to teach any of that! The goal right now is just to see an example of a function that actually does work when applied to text. 
-
-
-## Storing "true or false" data{#logicals}
-
-Time to move onto a third kind of data. A key concept in that a lot of R relies on is the idea of a **_logical value_**. A logical value is an assertion about whether something is true or false. This is implemented in R in a pretty straightforward way. There are two logical values, namely `TRUE` and `FALSE`. Despite the simplicity, a logical values are very useful things. Let's see how they work.
-
-### Assessing mathematical truths
-
-In George Orwell's classic book *1984*, one of the slogans used by the totalitarian Party was "two plus two equals five", the idea being that the political domination of human freedom becomes complete when it is possible to subvert even the most basic of truths. It's a terrifying thought, especially when the protagonist Winston Smith finally breaks down under torture and agrees to the proposition. "Man is infinitely malleable", the book says. I'm pretty sure that this isn't true of humans^[I offer up my teenage attempts to be "cool" as evidence that some things just can't be done.] but it's definitely not true of R. R is not infinitely malleable. It has rather firm opinions on the topic of what is and isn't true, at least as regards basic mathematics. If I ask it to calculate `2 + 2`, it always gives the same answer, and it's not bloody 5:
-
-```r
-2 + 2
-```
-
-```
-## [1] 4
-```
-Of course, so far R is just doing the calculations. I haven't asked it to explicitly assert that $2+2 = 4$ is a true statement. If I want R to make an explicit judgement, I can use a command like this: 
-
-```r
-2 + 2 == 4
-```
-
-```
-## [1] TRUE
-```
-What I've done here is use the **_equality operator_**, `==`, to force R to make a "true or false" judgement.^[Note that this is a very different operator to the assignment operator `=` that I talked about in Section \@ref(assign). A common typo that people make when trying to write logical commands in R (or other languages, since the "`=` versus `==`" distinction is important in most programming languages) is to accidentally type `=` when you really mean `==`. Be especially cautious with this -- I've been programming in various languages since I was a teenager, and I *still* screw this up a lot. Hm. I think I see why I wasn't cool as a teenager. And why I'm still not cool.] Okay, let's see what R thinks of the Party slogan:
-
-```r
-2+2 == 5
-```
-
-```
-## [1] FALSE
-```
-Booyah! Freedom and ponies for all! Or something like that. Anyway, it's worth having a look at what happens if I try to *force* R to believe that two plus two is five by making an assignment statement like  `2 + 2 = 5` or `2 + 2 <- 5`. When I do this, here's what happens:
-
-```r
-2 + 2 = 5
-```
-
-```
-## Error in 2 + 2 = 5: target of assignment expands to non-language object
-```
-R doesn't like this very much. It recognises that `2 + 2` is *not* a variable (that's what the "non-language object" part is saying), and it won't let you try to "reassign" it. While R is pretty flexible, and actually does let you do some quite remarkable things to redefine parts of R itself, there are just some basic, primitive truths that it refuses to give up. It won't change the laws of addition, and it won't change the definition of the number `2`. 
-
-That's probably for the best.
-
-### Logical operations
-So now we've seen logical operations at work, but so far we've only seen the simplest possible example. You probably won't be surprised to discover that we can combine logical operations with other operations and functions in a more complicated way, like this:
-
-```r
-3*3 + 4*4 == 5*5
-```
-
-```
-## [1] TRUE
-```
-or this
-
-```r
-sqrt( 25 ) == 5
-```
-
-```
-## [1] TRUE
-```
-Not only that, but as Table \@ref(tab:logicals) illustrates, there are several other logical operators that you can use, corresponding to some basic mathematical concepts. 
-
-
-Table: (\#tab:logicals)Some logical operators. Technically I should be calling these "binary relational operators", but quite frankly I don't want to. It's my book so no-one can make me.
-
-|operation                |operator |example input |answer  |
-|:------------------------|:--------|:-------------|:-------|
-|less than                |<        |2 < 3         |`TRUE`  |
-|less than or equal to    |<=       |2 <= 2        |`TRUE`  |
-|greater than             |>        |2 > 3         |`FALSE` |
-|greater than or equal to |>=       |2 >= 2        |`TRUE`  |
-|equal to                 |==       |2 == 3        |`FALSE` |
-|not equal to             |!=       |2 != 3        |`TRUE`  |
-
-Hopefully these are all pretty self-explanatory: for example, the **_less than_** operator `<` checks to see if the number on the left is less than the number on the right. If it's less, then R returns an answer of `TRUE`:
-
-```r
-99 < 100
-```
-
-```
-## [1] TRUE
-```
-but if the two numbers are equal, or if the one on the right is larger, then R returns an answer of `FALSE`, as the following two examples illustrate:
-
-```r
-100 < 100
-
-100 < 99
-```
-
-```
-## [1] FALSE
-## [1] FALSE
-```
-In contrast, the **_less than or equal to_** operator `<=` will do exactly what it says. It returns a value of `TRUE` if the number of the left hand side is less than or equal to the number on the right hand side. So if we repeat the previous two examples using `<=`, here's what we get: 
-
-```r
-100 <= 100
-
-100 <= 99
-```
-
-```
-## [1] TRUE
-## [1] FALSE
-```
-And at this point I hope it's pretty obvious what the **_greater than_** operator `>` and the **_greater than or equal to_** operator `>=` do! Next on the list of logical operators is the **_not equal to_** operator `!=` which -- as with all the others -- does what it says it does. It returns a value of `TRUE` when things on either side are not identical to each other. Therefore, since $2+2$ isn't equal to $5$, we get:
-
-```r
-2 + 2 != 5
-```
-
-```
-## [1] TRUE
-```
-
-
-
-We're not quite done yet. There are three more logical operations that are worth knowing about, listed in Table \@ref(tab:logicals2). 
-
-
-Table: (\#tab:logicals2)Some more logical operators.
-
-|operation |operator |example input        |answer  |
-|:---------|:--------|:--------------------|:-------|
-|not       |!        |!(1==1)              |`FALSE` |
-|or        |&#124;   |(1==1) &#124; (2==3) |`TRUE`  |
-|and       |&        |(1==1) & (2==3)      |`FALSE` |
-
-
-These are the **_not_** operator `!`, the **_and_** operator `&`, and the **_or_** operator `|`. Like the other logical operators, their behaviour is more or less exactly what you'd expect given their names. For instance, if I ask you to assess the claim that "either $2+2 = 4$ *or* $2+2 = 5$" you'd say that it's true. Since it's an "either-or" statement, all we need is for one of the two parts to be true. That's what the `|` operator does:
-
-```r
-(2+2 == 4) | (2+2 == 5)
-```
-
-```
-## [1] TRUE
-```
-On the other hand, if I ask you to assess the claim that "both $2+2 = 4$ *and* $2+2 = 5$" you'd say that it's false. Since this is an *and* statement we need both parts to be true. And that's what the `&` operator does:
-
-```r
-(2+2 == 4) & (2+2 == 5)
-```
-
-```
-## [1] FALSE
-```
-Finally, there's the *not* operator, which is simple but annoying to describe in English. If I ask you to assess my claim that "it is not true that $2+2 = 5$" then you would say that my claim is true; because my claim is that "$2+2 = 5$ is false". And I'm right. If we write this as an R command we get this:  
-
-```r
-! (2+2 == 5)
-```
-
-```
-## [1] TRUE
-```
-In other words, since `2+2 == 5` is a `FALSE` statement, it must be the case that `!(2+2 == 5)` is a `TRUE` one. Essentially, what we've really done is claim that "not false" is the same thing as "true". Obviously, this isn't really quite right in real life. But R lives in a much more black or white world: for R everything is either true or false. No shades of gray are allowed. We can actually see this much more explicitly, like this:
-
-```r
-! FALSE
-```
-
-```
-## [1] TRUE
-```
-Of course, in our $2+2 = 5$ example, we didn't really need to use "not" `!` and "equals to" `==` as two separate operators. We could have just used the "not equals to" operator `!=` like this:
-
-```r
-2+2 != 5
-```
-
-```
-## [1] TRUE
-```
-But there are many situations where you really do need to use the `!` operator. We'll see some later on.^[A note for those of you who have taken a computer science class: yes, R does have a function for exclusive-or, namely `xor()`. Also worth noting is the fact that R makes the distinction between element-wise operators `&` and `|` and operators that look only at the first element of the vector, namely `&&` and `||`. To see the distinction, compare the behaviour of a command like `c(FALSE,TRUE) & c(TRUE,TRUE)` to the behaviour of something like `c(FALSE,TRUE) && c(TRUE,TRUE)`. If this doesn't mean anything to you, ignore this footnote entirely. It's not important for the content of this book.]
- 
-### Storing and using logical data
-
-Up to this point, I've introduced *numeric data* (in Sections \@ref(assign) and \@ref(vectors)) and *character data* (in Section \@ref(text)). So you might not be surprised to discover that these `TRUE` and `FALSE` values that R has been producing are actually a third kind of data, called *logical data*. That is, when I asked R if `2 + 2 == 5` and it said `[1] FALSE` in reply, it was actually producing information that we can store in variables. For instance, I could create a variable called `is.the.Party.correct`, which would store R's opinion:
-
-```r
-is.the.Party.correct <- 2 + 2 == 5
-is.the.Party.correct
-```
-
-```
-## [1] FALSE
-```
-Alternatively, you can assign the value directly, by typing `TRUE` or `FALSE` in your command. Like this:
-
-```r
-is.the.Party.correct <- FALSE
-is.the.Party.correct
-```
-
-```
-## [1] FALSE
-```
-Better yet, because it's kind of tedious to type `TRUE` or `FALSE` over and over again, R provides you with a shortcut: you can use `T` and `F` instead (but it's case sensitive: `t` and `f` won't work).^[Warning! `TRUE` and `FALSE` are reserved keywords in R, so you can trust that they always mean what they say they do. Unfortunately, the shortcut versions `T` and `F` do not have this property. It's even possible to create variables that set up the reverse meanings, by typing commands like `T <- FALSE` and `F <- TRUE`. This is kind of insane, and something that is generally thought to be a design flaw in R. Anyway, the long and short of it is that it's safer to use `TRUE` and `FALSE`.] So this works:
-
-```r
-is.the.Party.correct <- F
-is.the.Party.correct
-```
-
-```
-## [1] FALSE
-```
-but this doesn't:
-
-```r
-is.the.Party.correct <- f
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'f' not found
-```
-
-### Vectors of logicals
-
-The next thing to mention is that you can store vectors of logical values in exactly the same way that you can store vectors of numbers (Section \@ref(vectors)) and vectors of text data (Section \@ref(text)). Again, we can define them directly via the `c()` function, like this:
-
-```r
-x <- c(TRUE, TRUE, FALSE)
-x
-```
-
-```
-## [1]  TRUE  TRUE FALSE
-```
-or you can produce a vector of logicals by applying a logical operator to a vector. This might not make a lot of sense to you, so let's unpack it slowly. First, let's suppose we have a vector of numbers (i.e., a "non-logical vector"). For instance, we could use the `sales.by.month` vector that we were using in Section \@ref(vectors). Suppose I wanted R to tell me, for each month of the year, whether I actually sold a book in that month. I can do that by typing this: 
-
-```r
-sales.by.month > 0
-```
-
-```
-##  [1] FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
-## [12] FALSE
-```
-and again, I can store this in a vector if I want, as the example below illustrates:
-
-```r
-any.sales.this.month <- sales.by.month > 0
-any.sales.this.month
-```
-
-```
-##  [1] FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
-## [12] FALSE
-```
-In other words, `any.sales.this.month` is a logical vector whose elements are `TRUE` only if the corresponding element of `sales.by.month` is greater than zero. For instance, since I sold zero books in January, the first element is `FALSE`. 
-
-
-### Applying logical operation to text{#logictext}
-
-In a moment (Section \@ref(indexing)) I'll show you why these logical operations and logical vectors are so handy, but before I do so I want to very briefly point out that you can apply them to text as well as to logical data. It's just that we need to be a bit more careful in understanding how R interprets the different operations. In this section I'll talk about how the equal to operator `==` applies to text, since this is the most important one. Obviously, the not equal to operator `!=` gives the exact opposite answers to `==` so I'm implicitly talking about that one too, but I won't give specific commands showing the use of `!=`. As for the other operators, I'll defer a more detailed discussion of this topic to Section \@ref(logictext2). 
-
-Okay, let's see how it works. In one sense, it's very simple. For instance, I can ask R if the word `"cat"` is the same as the word `"dog"`, like this:
-
-```r
-"cat" == "dog"
-```
-
-```
-## [1] FALSE
-```
-That's pretty obvious, and it's good to know that even R can figure that out. Similarly, R does recognise that a `"cat"` is a `"cat"`:
-
-```r
-"cat" == "cat"
-```
-
-```
-## [1] TRUE
-```
-Again, that's exactly what we'd expect. However, what you need to keep in mind is that R is not at all tolerant when it comes to grammar and spacing. If two strings differ in any way whatsoever, R will say that they're not equal to each other, as the following examples indicate:
-
-```r
-" cat" == "cat"
-
-"cat" == "CAT"
-
-"cat" == "c a t"
-```
-
-```
-## [1] FALSE
-## [1] FALSE
-## [1] FALSE
-```
-
-
-
-## Indexing vectors{#indexing} 
-
-One last thing to add before finishing up this chapter. So far, whenever I've had to get information out of a vector, all I've done is typed something like `months[4]`; and when I do this R prints out the fourth element of the `months` vector. In this section, I'll show you two additional tricks for getting information out of the vector.
-
-### Extracting multiple elements
-
-One very useful thing we can do is pull out more than one element at a time. In the previous example, we only used a single number (i.e., `2`) to indicate which element we wanted. Alternatively, we can use a vector. So, suppose I wanted the data for February, March and April. What I could do is use the vector `c(2,3,4)` to indicate which elements I want R to pull out. That is, I'd type this:
-
-```r
-sales.by.month[ c(2,3,4) ]
-```
-
-```
-## [1] 100 200  50
-```
-Notice that the order matters here. If I asked for the data in the reverse order (i.e., April first, then March, then February) by using the vector `c(4,3,2)`, then R outputs the data in the reverse order:
-
-```r
-sales.by.month[ c(4,3,2) ]
-```
-
-```
-## [1]  50 200 100
-```
-
-A second thing to be aware of is that R provides you with handy shortcuts for very common situations. For instance, suppose that I wanted to extract everything from the 2nd month through to the 8th month. One way to do this is to do the same thing I did above, and use the vector `c(2,3,4,5,6,7,8)` to indicate the elements that I want. That works just fine
-
-```r
-sales.by.month[ c(2,3,4,5,6,7,8) ]
-```
-
-```
-## [1] 100 200  50  25   0   0   0
-```
-but it's kind of a lot of typing. To help make this easier, R lets you use `2:8` as shorthand for `c(2,3,4,5,6,7,8)`, which makes things a lot simpler. First, let's just check that this is true:
-
-```r
-2:8
-```
-
-```
-## [1] 2 3 4 5 6 7 8
-```
-Next, let's check that we can use the `2:8` shorthand as a way to pull out the 2nd through 8th elements of `sales.by.months`:
-
-```r
-sales.by.month[2:8]
-```
-
-```
-## [1] 100 200  50  25   0   0   0
-```
-So that's kind of neat.
-
-### Logical indexing
-
-At this point, I can introduce an extremely useful tool called **_logical indexing_**. In the last section, I created a logical vector `any.sales.this.month`, whose elements are `TRUE` for any month in which I sold at least one book, and `FALSE` for all the others. However, that big long list of `TRUE`s and `FALSE`s is a little bit hard to read, so what I'd like to do is to have R select the names of the `months` for which I sold any books. Earlier on, I created a vector `months` that contains the names of each of the months. This is where logical indexing is handy. What I need to do is this:
-
-```r
-months[ sales.by.month > 0 ]
-```
-
-```
-## [1] "February" "March"    "April"    "May"
-```
-To understand what's happening here, it's helpful to notice that `sales.by.month > 0` is the same logical expression that we used to create the `any.sales.this.month` vector in the last section. In fact, I could have just done this:
-
-```r
-months[ any.sales.this.month ]
-```
-
-```
-## [1] "February" "March"    "April"    "May"
-```
-and gotten exactly the same result. In order to figure out which elements of `months` to include in the output, what R does is look to see if the corresponding element in `any.sales.this.month` is `TRUE`. Thus, since element 1 of `any.sales.this.month` is `FALSE`, R does not include `"January"` as part of the output; but since element 2 of `any.sales.this.month` is `TRUE`, R does include `"February"` in the output. Note that there's no reason why I can't use the same trick to find the actual sales numbers for those months. The command to do that would just be this:
-
-```r
-sales.by.month [ sales.by.month > 0 ]
-```
-
-```
-## [1] 100 200  50  25
-```
-In fact, we can do the same thing with text. Here's an example. Suppose that -- to continue the saga of the textbook sales -- I later find out that the bookshop only had sufficient stocks for a few months of the year. They tell me that early in the year they had `"high"` stocks, which then dropped to `"low"` levels, and in fact for one month they were `"out"` of copies of the book for a while before they were able to replenish them. Thus I might have a variable called `stock.levels` which looks like this:
-
-```r
-stock.levels<-c("high", "high", "low", "out", "out", "high",
-                "high", "high", "high", "high", "high", "high")
-
-stock.levels
-```
-
-```
-##  [1] "high" "high" "low"  "out"  "out"  "high" "high" "high" "high" "high"
-## [11] "high" "high"
-```
-Thus, if I want to know the months for which the bookshop was out of my book, I could apply the logical indexing trick, but with the character vector `stock.levels`, like this:
-
-```r
-months[stock.levels == "out"]
-```
-
-```
-## [1] "April" "May"
-```
-Alternatively, if I want to know when the bookshop was either low on copies or out of copies, I could do this:
-
-```r
-months[stock.levels == "out" | stock.levels == "low"]
-```
-
-```
-## [1] "March" "April" "May"
-```
-or this
-
-```r
-months[stock.levels != "high" ]
-```
-
-```
-## [1] "March" "April" "May"
-```
-Either way, I get the answer I want.
-
-At this point, I hope you can see why logical indexing is such a useful thing. It's a very basic, yet very powerful way to manipulate data. We'll talk a lot more about how to manipulate data in Chapter \@ref(datahandling), since it's a critical skill for real world research that is often overlooked in introductory research methods classes (or at least, that's been my experience). It does take a bit of practice to become completely comfortable using logical indexing, so it's a good idea to play around with these sorts of commands. Try creating a few different variables of your own, and then ask yourself questions like "how do I get R to spit out all the elements that are [blah]". Practice makes perfect, and it's only by practicing logical indexing that you'll perfect the art of yelling frustrated insults at your computer.^[Well, I say that... but in my personal experience it wasn't until I started learning "regular expressions" that my loathing of computers reached its peak.]
-
-
-## Quitting R
-
-
-
-There's one last thing I should cover in this chapter: how to quit R. When I say this, I'm not trying to imply that R is some kind of pathological addition and that you need to call the R QuitLine or wear patches to control the cravings (although you certainly might argue that there's something seriously pathological about being addicted to R). I just mean how to exit the program. Assuming you're running R in the usual way (i.e., through RStudio or the default GUI on a Windows or Mac computer), then you can just shut down the application in the normal way. However, R also has a function, called `q()` that you can use to quit, which is pretty handy if you're running R in a terminal window.
-
-Regardless of what method you use to quit R, when you do so for the first time R will probably ask you if you want to save the "workspace image". We'll talk a lot more about loading and saving data in Section \@ref(load), but I figured we'd better quickly cover this now otherwise you're going to get annoyed when you close R at the end of the chapter. If you're using RStudio, you'll see a dialog box that looks like the one shown in Figure \@ref(fig:quitR). If you're using a text based interface you'll see this:
-
-```r
-q()
-
-## Save workspace image? [y/n/c]: 
-```
-The `y/n/c` part here is short for "yes / no / cancel". Type `y` if you want to save, `n` if you don't, and `c` if you've changed your mind and you don't want to quit after all. 
-
-What does this actually *mean*? What's going on is that R wants to know if you want to save all those variables that you've been creating, so that you can use them later. This sounds like a great idea, so it's really tempting to type `y` or click the "Save" button. To be honest though, I very rarely do this, and it kind of annoys me a little bit... what R is *really* asking is if you want it to store these variables in a "default" data file, which it will automatically reload for you next time you open R. And quite frankly, if I'd wanted to save the variables, then I'd have already saved them before trying to quit. Not only that, I'd have saved them to a location of *my* choice, so that I can find it again later. So I personally never bother with this. 
-
-In fact, every time I install R on a new machine one of the first things I do is change the settings so that it never asks me again. You can do this in RStudio really easily: use the menu system to find the RStudio option; the dialog box that comes up will give you an option to tell R never to whine about this again (see Figure \@ref(fig:RStudiooptions). On a Mac, you can open this window by going to the "RStudio" menu and selecting "Preferences". On a Windows machine you go to the "Tools" menu and select "Global Options". Under the "General" tab you'll see an option that reads "Save workspace to .Rdata on exit". By default this is set to "ask". If you want R to stop asking, change it to "never".
-
-
-
-## Summary
-
-Every book that tries to introduce basic programming ideas to novices has to cover roughly the same topics, and in roughly the same order. Mine is no exception, and so in the grand tradition of doing it just the same way everyone else did it, this chapter covered the following topics:
-
-
-- [Getting started](#gettingR). We downloaded and installed R and RStudio
-- [Basic commands](#arithmetic). We talked a bit about the logic of how R works and in particular how to type commands into the R console (Section \@ref(#firstcommand), and in doing so learned how to perform basic calculations using the arithmetic operators `+`, `-`, `*`, `/` and `^`.
-- [Introduction to functions](#usingfunctions). We saw several different functions, three that are used to perform numeric calculations (`sqrt()`, `abs()`, `round()`, one that applies to text (`nchar()`; Section \@ref(simpletext)), and one that works on any variable (`length()`; Section \@ref(veclength)). In doing so, we talked a bit about  how argument names work, and learned about default values for arguments. (Section \@ref(functionarguments))
-- Introduction to variables. We learned the basic idea behind variables, and how to assign values to variables using the assignment operator `<-` (Section \@ref(assign)). We also learned how to create vectors using the combine function `c()` (Section \@ref(vectors)).
-- Data types. Learned the distinction between numeric, character and logical data; including the basics of how to enter and use each of them. (Sections \@ref(assign) to \@ref(logicals))
-- [Logical operations](#logicals). Learned how to use the logical operators `==`, `!=`, `<`, `>`, `<=`, `=>`, `!`, `&` and `|`. And learned how to use logical indexing. (Section \@ref(indexing))
-
-<!--chapter:end:a-learningR.Rmd-->
-
-
-# Session 1: Foundations of Programming in R
-
-## Introduction to R and RStudio (30 minutes)
-
-Brief overview of R and its applications in data analysis and programming.
-Introduction to RStudio as an integrated development environment (IDE) for R.
-Navigating the RStudio interface: scripts, console, environment, and plots.
-
-## Objects, Variables, and Data Types (1 hour)
-
-Understanding the concept of objects in R: vectors, matrices, data frames, lists.
-Assigning values to variables and creating different data types.
-Basic operations with objects: arithmetic, indexing, and subsetting.
-
-## Good Coding Practices and Style (1 hour)
-
-Importance of clean and readable code.
-Naming conventions for variables, functions, and objects.
-Indentation, spacing, and commenting for code clarity.
-Introduction to linting tools for code style checking.
-
-## Control Flow: If-Else Statements (1 hour)
-
-Introduction to control structures for conditional execution.
-Writing if-else statements for decision-making in code.
-Handling multiple conditions using nested if-else statements.
-
-## Writing Functions in R (1 hour)
-
-Understanding the role and benefits of functions in programming.
-Creating custom functions using the function() keyword.
-Passing arguments to functions and returning values.
-Best practices for function design and documentation.
-
-## Hands-On Exercises and Practice (30 minutes)
-Interactive coding exercises to reinforce concepts learned.
-Applying if-else statements and writing basic functions.
-Encouraging participants to practice coding in RStudio.
-
-## Nucleotide generator
-
-### Note use numbers 
-
-
-
-
-
-```r
-# Create a vector representing the nucleotide bases A, T, C, and G
-nucleotides <- c("A", "T", "C", "G")
-nucleotides
-```
-
-```
-## [1] "A" "T" "C" "G"
-```
-
-To use your nucleotide generator and get a base back, we will use the function `sample()` and sample one element from it. You’ll get a new (maybe different) base each time you roll it:
-
-```
-sample(x = nucleotides, size = 1)
-## A
-
-sample(x = nucleotides, size = 1)
-## C
-
-sample(x = nucleotides, size = 1)
-## G
-```
-Every argument in every R function has a name. You can specify which data should be assigned to which argument by setting a name equal to data, as in the preceding code. This becomes important as you begin to pass multiple arguments to the same function; names help you avoid passing the wrong data to the wrong argument. However, using names is optional. You will notice that R users do not often use the name of the first argument in a function. So you might see the previous code written as:
-
-
-```r
-sample(nucleotides, 1)
-```
-
-```
-## [1] "G"
-```
-
-Often, the name of the first argument is not very descriptive, and it is usually obvious what the first piece of data refers to anyways.
-
-But how do you know which argument names to use? If you try to use a name that a function does not expect, you will likely get an error:
-
-
-
-<!--chapter:end:b-nucleotide-generator.Rmd-->
-
-
-### Starting up R{#startingR}
-
-One way or another, regardless of what operating system you're using and regardless of whether you're using RStudio, or the default GUI, or even the command line, it's time to open R and get started. When you do that, the first thing you'll see (assuming that you're looking at the **_R console_**, that is) is a whole lot of text that doesn't make much sense. It should look something like this:
-
-```
-R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
-Copyright (C) 2013 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin10.8.0 (64-bit)
-
-R is free software and comes with ABSOLUTELY NO WARRANTY.
-You are welcome to redistribute it under certain conditions.
-Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
-
-R is a collaborative project with many contributors.
-Type 'contributors()' for more information and
-'citation()' on how to cite R or R packages in publications.
-
-Type 'demo()' for some demos, 'help()' for on-line help, or
-'help.start()' for an HTML browser interface to help.
-Type 'q()' to quit R.
-
-> 
-```
-
-Most of this text is pretty uninteresting, and when doing real data analysis you'll never really pay much attention to it. The important part of it is this...
-
-```
->
-```
-
-... which has a flashing cursor next to it. That's the ***command prompt***. When you see this, it means that R is waiting patiently for you to do something! 
-
-## Typing commands at the R console{#firstcommand}
-
-One of the easiest things you can do with R is use it as a simple calculator, so it's a good place to start. For instance, try typing `10 + 20`, and hitting enter.^[Seriously. If you're in a position to do so, open up R and start typing. The simple act of typing it rather than "just reading" makes a big difference. It makes the concepts more concrete, and it ties the abstract ideas (programming and statistics) to the actual context in which you need to use them. Statistics is something you *do*, not just something you read about in a textbook.] When you do this, you've entered a ***command***, and R will "execute" that command. What you see on screen now will be this:
-
-
-
-```r
-> 10 + 20
-[1] 30
-```
-
-
-Not a lot of surprises in this extract. But there's a few things worth talking about, even with such a simple example. Firstly, it's important that you understand how to read the extract. In this example, what *I* typed was the `10 + 20` part. I didn't type the `>` symbol: that's just the R command prompt and isn't part of the actual command. And neither did I type the `[1] 30` part. That's what R printed out in response to my command. 
-
-Secondly, it's important to understand how the output is formatted. Obviously, the correct answer to the sum `10 + 20` is `30`, and not surprisingly R has printed that out as part of its response. But it's also printed out this `[1]` part, which probably doesn't make a lot of sense to you right now. You're going to see that a lot. I'll talk about what this means in a bit more detail later on, but for now you can think of `[1] 30` as if R were saying "the answer to the 1st question you asked is 30". That's not quite the truth, but it's close enough for now. And in any case it's not really very interesting at the moment: we only asked R to calculate one thing, so obviously there's only one answer printed on the screen. Later on this will change, and the `[1]` part will start to make a bit more sense. For now, I just don't want you to get confused or concerned by it. 
-
-
-
-### An important digression about formatting
-
-Now that I've taught you these rules I'm going to change them pretty much immediately. That is because I want you to be able to copy code from the book directly into R if if you want to test things or conduct your own analyses. However, if you copy this kind of code (that shows the command prompt and the results) directly into R you will get an error 
-
-
-```r
-> 10 + 20
-[1] 30
-```
-
-So instead, I'm going to provide code in a slightly different format so that it looks like this...
-
-
-```r
-10 + 20
-```
-
-```
-## [1] 30
-```
-
-There are two main differences. 
-
-- In your console, you type after the >, but from now I I won’t show the command prompt in the book.  
-- In the book, output is commented out with \#\#, in your console it appears directly after your code. 
-
-These two differences mean that if you’re working with an electronic version of the book, you can easily copy code out of the book and into the console.
-
-So for example if you copied the two lines of code from the book you'd get this
-
-
-```r
-10 + 20
-## [1] 30
-```
-
-```
-## [1] 30
-```
-
-### Be very careful to avoid typos
-
-Before we go on to talk about other types of calculations that we can do with R, there's a few other things I want to point out. The first thing is that, while R is good software, it's still software. It's pretty stupid, and because it's stupid it can't handle typos. It takes it on faith that you meant to type *exactly* what you did type. For example, suppose that you forgot to hit the shift key when trying to type `+`, and as a result your command ended up being `10 = 20` rather than `10 + 20`. Here's what happens:
-
-
-```r
-10 = 20
-```
-
-```
-## Error in 10 = 20: invalid (do_set) left-hand side to assignment
-```
-
-What's happened here is that R has attempted to interpret `10 = 20` as a command, and spits out an error message because the command doesn't make any sense to it. When a *human* looks at this, and then looks down at his or her keyboard and sees that `+` and `=` are on the same key, it's pretty obvious that the command was a typo. But R doesn't know this, so it gets upset. And, if you look at it from its perspective, this makes sense. All that R "knows" is that `10` is a legitimate number, `20` is a legitimate number, and `=` is a legitimate part of the language too. In other words, from its perspective this really does look like the user meant to type `10 = 20`, since all the individual parts of that statement are legitimate and it's too stupid to realise that this is probably a typo. Therefore, R takes it on faith that this is exactly what you meant... it only "discovers" that the command is nonsense when it tries to follow your instructions, typo and all. And then it whinges, and spits out an error.
-
-Even more subtle is the fact that some typos won't produce errors at all, because they happen to correspond to "well-formed" R commands. For instance, suppose that not only did I forget to hit the shift key when trying to type `10 + 20`, I also managed to press the key next to one I meant do. The resulting typo would produce the command `10 - 20`. Clearly, R has no way of knowing that you meant to *add* 20 to 10, not *subtract* 20 from 10, so what happens this time is this:
-
-
-```r
-10 - 20
-```
-
-```
-## [1] -10
-```
-
-
-In this case, R produces the right answer, but to the the wrong question. 
-
-To some extent, I'm stating the obvious here, but it's important. The people who wrote R are smart. You, the user, are smart. But R itself is dumb. And because it's dumb, it has to be mindlessly obedient. It does *exactly* what you ask it to do. There is  no equivalent to "autocorrect" in R, and for good reason. When doing advanced stuff -- and even the simplest of statistics is pretty advanced in a lot of ways -- it's dangerous to let a mindless automaton like R try to overrule the human user. But because of this, it's your responsibility to be careful. Always make sure you type *exactly what you mean*. When dealing with computers, it's not enough to type "approximately" the right thing. In general, you absolutely *must* be precise in what you say to R ... like all machines it is too stupid to be anything other than absurdly literal in its interpretation.
-
-### R is (a bit) flexible with spacing
-
-Of course, now that I've been so uptight about the importance of always being precise, I should point out that there are some exceptions. Or, more accurately, there are some situations in which R does show a bit more flexibility than my previous description suggests. The first thing R is smart enough to do is ignore redundant spacing. What I mean by this is that, when I typed `10 + 20` before, I could equally have done this
-
-
-```r
-10    + 20
-```
-
-```
-## [1] 30
-```
-
-or this
-
-```r
-10+20
-```
-
-```
-## [1] 30
-```
-
-and I would get exactly the same answer. However, that doesn't mean that you can insert spaces in any old place. When we looked at the startup documentation in Section \@ref(startingR) it suggested that you could type `citation()` to get some information about how to cite R. If I do so...
-
-
-```r
-citation()
-```
-
-```
-## To cite R in publications use:
-## 
-##   R Core Team (2023). _R: A Language and Environment for Statistical
-##   Computing_. R Foundation for Statistical Computing, Vienna, Austria.
-##   <https://www.R-project.org/>.
-## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Manual{,
-##     title = {R: A Language and Environment for Statistical Computing},
-##     author = {{R Core Team}},
-##     organization = {R Foundation for Statistical Computing},
-##     address = {Vienna, Austria},
-##     year = {2023},
-##     url = {https://www.R-project.org/},
-##   }
-## 
-## We have invested a lot of time and effort in creating R, please cite it
-## when using it for data analysis. See also 'citation("pkgname")' for
-## citing R packages.
-```
-
-... it tells me to cite the R manual [@R2013]. Let's see what happens when I try changing the spacing. If I insert spaces in between the word and the parentheses, or inside the parentheses themselves, then all is well. That is, either of these two commands
-
-
-```r
-citation ()
-```
-
-
-```r
-citation(  )
-```
-
-
-will produce exactly the same response. However, what I can't do is insert spaces in the middle of the word. If I try to do this, R gets upset:
-
-
-```r
-citat ion()
-```
-
-```
-## Error: <text>:1:7: unexpected symbol
-## 1: citat ion
-##           ^
-```
-
-Throughout this book I'll vary the way I use spacing a little bit, just to give you a feel for the different ways in which spacing can be used. I'll try not to do it too much though, since it's generally considered to be good practice to be consistent in how you format your commands. 
-
-### R can sometimes tell that you're not finished yet (but not often)
-
-One more thing I should point out. If you hit enter in a situation where it's "obvious" to R that you haven't actually finished typing the command, R is just smart enough to keep waiting. For example, if you type `10 + ` and then press enter, even R is smart enough to realise that you probably wanted to type in another number. So here's what happens (for illustrative purposes I'm breaking my own code formatting rules in this section):
-
-```
-> 10+
-+ 
-```
-
-and there's a blinking cursor next to the plus sign. What this means is that R is still waiting for you to finish. It "thinks" you're still typing your command, so it hasn't tried to execute it yet. In other words, this plus sign is actually another command prompt. It's different from the usual one (i.e., the `>` symbol) to remind you that R is going to "add" whatever you type now to what you typed last time. For example, if I then go on to type `3` and hit enter, what I get is this:
-
-```
-> 10 +
-+ 20
-[1] 30
-```
-
-And as far as R is concerned, this is *exactly* the same as if you had typed `10 + 20`. Similarly, consider the `citation()` command that we talked about in the previous section. Suppose you hit enter after typing `citation(`. Once again, R is smart enough to realise that there must be more coming -- since you need to add the `)` character --  so it waits. I can even hit enter several times and it will keep waiting: 
-```
-> citation(
-+ 
-+ 
-+ )
-```
-I'll make use of this a lot in this book. A lot of the commands that we'll have to type are pretty long, and they're visually a bit easier to read if I break it up over several lines. If you start doing this yourself, you'll eventually get yourself in trouble (it happens to us all). Maybe you start typing a command, and then you realise you've screwed up. For example,
-
-```
-> citblation( 
-+ 
-+ 
-```
-You'd probably prefer R not to try running this command, right? If you want to get out of this situation, just hit the 'escape' key.^[If you're running R from the terminal rather than from RStudio, escape doesn't work: use CTRL-C instead.] R will return you to the normal command prompt (i.e. `>`) *without* attempting to execute the botched command.
-
-
-That being said, it's not often the case that R is smart enough to tell that there's more coming.
-For instance, in the same way that I can't add a space in the middle of a word, I can't hit enter in the middle of a word either. If I hit enter after typing `citat` I get an error, because R thinks I'm interested in an "object" called `citat` and can't find it:
-
-```
-> citat
-Error: object 'citat' not found
-```
-
-What about if I typed `citation` and hit enter? In this case we get something very odd, something that we definitely *don't* want, at least at this stage. Here's what happens:
-
-```
-citation
-## function (package = "base", lib.loc = NULL, auto = NULL) 
-## {
-##     dir <- system.file(package = package, lib.loc = lib.loc)
-##     if (dir == "") 
-##         stop(gettextf("package '%s' not found", package), domain = NA)
-
-BLAH BLAH BLAH
-```
-where the `BLAH BLAH BLAH` goes on for rather a long time, and you don't know enough R yet to understand what all this gibberish actually means (of course, it doesn't actually say BLAH BLAH BLAH - it says some other things we don't understand or need to know that I've edited for length) This incomprehensible output can be quite intimidating to novice users, and unfortunately it's very easy to forget to type the parentheses; so almost certainly you'll do this by accident. Do not panic when this happens. Simply ignore the gibberish.  As you become more experienced this gibberish will start to make sense, and you'll find it quite handy to print this stuff out.^[For advanced users: yes, as you've probably guessed, R is printing out the source code for the function.]  But for now just try to remember to add the parentheses when typing your commands.
-
-## Doing simple calculations with R{#arithmetic}
-
-Okay, now that we've discussed some of the tedious details associated with typing R commands, let's get back to learning how to use the most powerful piece of statistical software in the world as a \$2 calculator. So far, all we know how to do is addition. Clearly, a calculator that only did addition would be a bit stupid, so I should tell you about how to perform other simple calculations using R. But first, some more terminology. Addition is an example of an "operation" that you can perform (specifically, an arithmetic operation), and the ***operator*** that performs it is `+`. To people with a programming or mathematics background, this terminology probably feels pretty natural, but to other people it might feel like I'm trying to make something very simple (addition) sound more complicated than it is (by calling it an arithmetic operation). To some extent, that's true: if addition was the only operation that we were interested in, it'd be a bit silly to introduce all this extra terminology. However, as we go along, we'll start using more and more different kinds of operations, so it's probably a good idea to get the language straight now, while we're still talking about very familiar concepts like addition! 
-
-### Adding, subtracting, multiplying and dividing
-
-So, now that we have the terminology, let's learn how to perform some arithmetic operations in R. To that end, Table \@ref(tab:arithmetic1) lists the operators that correspond to the basic arithmetic we learned in primary school: addition, subtraction, multiplication and division. 
-
-
-Table: (\#tab:arithmetic1)Basic arithmetic operations in R. These five operators are used very frequently throughout the text, so it's important to be familiar with them at the outset.
-
-|operation      | operator | example input | example output |
-|:--------------|:--------:|:-------------:|:--------------:|
-|addition       |   `+`    |    10 + 2     |       12       |
-|subtraction    |   `-`    |     9 - 3     |       6        |
-|multiplication |   `*`    |     5 * 5     |       25       |
-|division       |   `/`    |    10 / 3     |       3        |
-|power          |   `^`    |     5 ^ 2     |       25       |
-
-As you can see, R uses fairly standard symbols to denote each of the different operations you might want to perform: addition is done using the `+` operator, subtraction is performed by the `-` operator, and so on. So if I wanted to find out what 57 times 61 is (and who wouldn't?), I can use R instead of a calculator, like so:
-
-```r
-57 * 61
-```
-
-```
-## [1] 3477
-```
-
-So that's handy. 
-
-### Taking powers
-
-
-The first four operations listed in Table \@ref(tab:arithmetic1) are things we all learned in primary school, but they aren't the only arithmetic operations built into R. There are three other arithmetic operations that I should probably mention: taking powers, doing integer division, and calculating a modulus. Of the three, the only one that is of any real importance for the purposes of this book is taking powers, so I'll discuss that one here: the other two are discussed in Chapter \@ref(datahandling).
-
-For those of you who can still remember your high school maths, this should be familiar. But for some people high school maths was a long time ago, and others of us didn't listen very hard in high school. It's not complicated. As I'm sure everyone will probably remember the moment they read this, the act of multiplying a number $x$ by itself $n$ times is called "raising $x$ to the $n$-th power". Mathematically, this is written as $x^n$. Some values of $n$ have special names: in particular $x^2$ is called $x$-squared, and $x^3$ is called $x$-cubed. So, the 4th power of 5 is calculated like this:
-$$
-5^4 = 5 \times 5 \times 5 \times 5 
-$$
-
-One way that we could calculate $5^4$ in R would be to type in the complete multiplication as it is shown in the equation above. That is, we could do this
-
-
-```r
-5 * 5 * 5 * 5
-```
-
-```
-## [1] 625
-```
-
-but it does seem a bit tedious. It would be very annoying indeed if you wanted to calculate $5^{15}$, since the command would end up being quite long. Therefore, to make our lives easier, we use the power operator instead. When we do that, our command to calculate $5^4$ goes like this:
-
-```r
-5 ^ 4
-```
-
-```
-## [1] 625
-```
-Much easier.
-
-
-### Doing calculations in the right order{#bedmas}
-
-Okay. At this point, you know how to take one of the most powerful pieces of statistical software in the world, and use it as a \$2 calculator. And as a bonus, you've learned a few very basic programming concepts. That's not nothing (you could argue that you've just saved yourself \$2) but on the other hand, it's not very much either. In order to use R more effectively, we need to introduce more programming concepts.
-
-In most situations where you would want to use a calculator, you might want to do multiple calculations. R lets you do this, just by typing in longer commands. ^[If you're reading this with R open, a good learning trick is to try typing in a few different variations on what I've done here. If you experiment with your commands, you'll quickly learn what works and what doesn't] In fact, we've already seen an example of this earlier, when I typed in `5 * 5 * 5 * 5`. However, let's try a slightly different example:
-
-
-```r
-1 + 2 * 4
-```
-
-```
-## [1] 9
-```
-
-Clearly, this isn't a problem for R either. However, it's worth stopping for a second, and thinking about what R just did. Clearly, since it gave us an answer of `9` it must have multiplied `2 * 4` (to get an interim answer of 8) and then added 1 to that. But, suppose it had decided to just go from left to right: if R had decided instead to add `1+2` (to get an interim answer of 3) and then multiplied by 4, it would have come up with an answer of `12`. 
-
-To answer this, you need to know the **_order of operations_** that R uses. If you remember back to your high school maths classes, it's actually the same order that you got taught when you were at school: the "**_BEDMAS_**" order.^[For advanced users: if you want a table showing the complete order of operator precedence in R, type `?Syntax`. I haven't included it in this book since there are quite a few different operators, and we don't need that much detail. Besides, in practice most people seem to figure it out from seeing examples: until writing this book I never looked at the formal statement of operator precedence for any language I ever coded in, and never ran into any difficulties.] That is, first calculate things inside **B**rackets `()`, then calculate **E**xponents `^`, then **D**ivision `/` and **M**ultiplication `*`, then **A**ddition `+` and **S**ubtraction `-`. So, to continue the example above, if we want to force R to calculate the `1+2` part before the multiplication, all we would have to do is enclose it in brackets:
-
-
-```r
-(1 + 2) * 4 
-```
-
-```
-## [1] 12
-```
-
-This is a fairly useful thing to be able to do. The only other thing I should point out about order of operations is what to expect when you have two operations that have the same priority: that is, how does R resolve ties? For instance, multiplication and division are actually the same priority, but what should we expect when we give R a problem like `4 / 2 * 3` to solve? If it evaluates the multiplication first and then the division, it would calculate a value of two-thirds. But if it evaluates the division first it calculates a value of 6. The answer, in this case, is that R goes from *left to right*, so in this case the division step would come first:
-
-
-```r
-4 / 2 * 3
-```
-
-```
-## [1] 6
-```
-
-All of the above being said, it's helpful to remember that *brackets always come first*. So, if you're ever unsure about what order R will do things in, an easy solution is to enclose the thing *you* want it to do first in brackets.  There's nothing stopping you from typing `(4 / 2) * 3`. By enclosing the division in brackets we make it clear which thing is supposed to happen first. In this instance you wouldn't have needed to, since R would have done the division first anyway, but when you're first starting out it's better to make sure R does what you want!
-
-
-
-## Storing a number as a variable{#assign}
-
-One of the most important things to be able to do in R (or any programming language, for that matter) is to store information in **_variables_**. Variables in R aren't exactly the same thing as the variables we talked about in the last chapter on research methods, but they are similar. At a conceptual level you can think of a variable as *label* for a certain piece of information, or even several different pieces of information. When doing statistical analysis in R all of your data (the variables you measured in your study) will be stored as variables in R, but as well see later in the book you'll find that you end up creating variables for other things too. However, before we delve into all the messy details of data sets and statistical analysis, let's look at the very basics for how we create variables and work with them. 
-
-### Variable assignment using `<-` and `->`
-
-Since we've been working with numbers so far, let's start by creating variables to store our numbers. And since most people like concrete examples, let's invent one. Suppose I'm trying to calculate how much money I'm going to make from this book. There's several different numbers I might want to store. Firstly, I need to figure out how many copies I'll sell. This isn't exactly *Harry Potter*, so let's assume I'm only going to sell one copy per student in my class. That's 350 sales, so let's create a variable called `sales`. What I want to do is assign a **_value_** to my variable `sales`, and that value should be `350`. We do this by using the **_assignment operator_**, which is `<-`. Here's how we do it:
-
-
-```r
-sales <- 350
-```
-
-When you hit enter, R doesn't print out any output.^[If you are using RStudio, and the "environment" panel (formerly known as the "workspace" panel) is visible when you typed the command, then you probably saw something happening there. That's to be expected, and is quite helpful. However, there's two things to note here (1) I haven't yet explained what that panel does, so for now just ignore it, and (2) this is one of the helpful things RStudio does, not a part of R itself.] It just gives you another command prompt. However, behind the scenes R has created a variable called `sales` and given it a value of `350`. You can check that this has happened by asking R to print the variable on screen. And the simplest way to do *that* is to type the name of the variable and hit enter^[As we'll discuss later, by doing this we are implicitly using the `print()` function].
-
-
-```r
-sales
-```
-
-```
-## [1] 350
-```
-
-So that's nice to know. Anytime you can't remember what R has got stored in a particular variable, you can just type the name of the variable and hit enter. 
-
-Okay, so now we know how to assign variables. Actually, there's a bit more you should know. Firstly, one of the curious features of R is that there are several different ways of making assignments. In addition to the `<-` operator, we can also use `->` and `=`, and it's pretty important to understand the differences between them.^[Actually, in keeping with the R tradition of providing you with a billion different screwdrivers (even when you're actually looking for a hammer) these aren't the only options. There's also the`assign()` function, and the `<<-` and `->>` operators. However, we won't be using these at all in this book.] Let's start by considering `->`, since that's the easy one (we'll discuss the use of `=` in Section \@ref(functionarguments). As you might expect from just looking at the symbol, it's almost identical to `<-`. It's just that the arrow (i.e., the assignment) goes from left to right. So if I wanted to define my `sales` variable using `->`, I would write it like this:
-
-
-```r
-350 -> sales
-```
-This has the same effect: and it *still* means that I'm only going to sell `350` copies. Sigh. Apart from this superficial difference, `<-` and `->` are identical. In fact, as far as R is concerned, they're actually the same operator, just in a "left form" and a "right form".^[A quick reminder: when using operators like `<-` and `->` that span multiple characters, you can't insert spaces in the middle. That is, if you type `- >` or `< -`, R will interpret your command the wrong way. And I will cry.]
-
-
-### Doing calculations using variables
-
-Okay, let's get back to my original story. In my quest to become rich, I've written this textbook. To figure out how good a strategy is, I've started creating some variables in R. In addition to defining a `sales` variable that counts the number of copies I'm going to sell, I can also create a variable called `royalty`, indicating how much money I get per copy. Let's say that my royalties are about $7 per book:
-
-
-```r
-sales <- 350
-royalty <- 7
-```
-
-The nice thing about variables (in fact, the whole point of having variables) is that we can do anything with a variable that we ought to be able to do with the information that it stores. That is, since R allows me to multiply `350` by `7`
-
-
-```r
-350 * 7
-```
-
-```
-## [1] 2450
-```
-
-it also allows me to multiply `sales` by `royalty`
-
-
-```r
-sales * royalty
-```
-
-```
-## [1] 2450
-```
-
-As far as R is concerned, the `sales * royalty` command is the same as the `350 * 7` command. Not surprisingly, I can assign the output of this calculation to a new variable, which I'll call `revenue`. And when we do this, the new variable `revenue` gets the value `2450`. So let's do that, and then get R to print out the value of `revenue` so that we can verify that it's done what we asked:
-
-
-```r
-revenue <- sales * royalty
-revenue
-```
-
-```
-## [1] 2450
-```
-
-That's fairly straightforward. A slightly more subtle thing we can do is reassign the value of my variable, based on its current value. For instance, suppose that one of my students (no doubt under the influence of psychotropic drugs) loves the book so much that he or she donates me an extra \$550. The simplest way to capture this is by a command like this:
-
-
-```r
-revenue <- revenue + 550
-revenue
-```
-
-```
-## [1] 3000
-```
-
-In this calculation, R has taken the old value of `revenue` (i.e., 2450) and added 550 to that value, producing a value of 3000. This new value is assigned to the `revenue` variable, overwriting its previous value. In any case, we now know that I'm expecting to make $3000 off this. Pretty sweet, I thinks to myself. Or at least, that's what I thinks until I do a few more calculation and work out what the implied hourly wage I'm making off this looks like. 
-
-### Rules and conventions for naming variables
-
-In the examples that we've seen so far, my variable names (`sales` and `revenue`) have just been English-language words written using lowercase letters. However, R allows a lot more flexibility when it comes to naming your variables, as the following list of rules^[Actually, you can override any of these rules if you want to, and quite easily. All you have to do is add quote marks or backticks around your non-standard variable name. For instance ``` `my sales ` <- 350 ``` would work just fine, but it's almost never a good idea to do this.] illustrates:
-
-
-- Variable names can only use the upper case alphabetic characters `A`-`Z` as well as the lower case characters `a`-`z`. You can also include numeric characters `0`-`9` in the variable name, as well as the period `.` or underscore `_` character. In other words, you can use `SaL.e_s` as a variable name (though I can't think why you would want to), but you can't use `Sales?`. 
-- Variable names cannot include spaces: therefore `my sales` is not a valid name, but `my.sales` is.
-- Variable names are case sensitive: that is, `Sales` and `sales` are *different* variable names.
-- Variable names must start with a letter or a period. You can't use something like `_sales` or `1sales` as a variable name. You can use `.sales` as a variable name if you want, but it's not usually a good idea. By convention, variables starting with a `.` are used for special purposes, so you should avoid doing so. 
-- Variable names cannot be one of the reserved keywords. These are special names that R needs to keep "safe" from us mere users, so you can't use them as the names of variables. The keywords are: `if`, `else`, `repeat`, `while`, `function`, `for`, `in`, `next`, `break`, `TRUE`, `FALSE`, `NULL`, `Inf`, `NaN`, `NA`, `NA_integer_`, `NA_real_`, `NA_complex_`, and finally,  `NA_character_`. Don't feel especially obliged to memorise these: if you make a mistake and try to use one of the keywords as a variable name, R will complain about it like the whiny little automaton it is.
-
-
-
-In addition to those rules that R enforces, there are some informal conventions that people tend to follow when naming variables. One of them you've already seen: i.e., don't use variables that start with a period. But there are several others. You aren't obliged to follow these conventions, and there are many situations in which it's advisable to ignore them, but it's generally a good idea to follow them when you can:
-
-
-- Use informative variable names. As a general rule, using meaningful names like `sales` and `revenue` is preferred over arbitrary ones like `variable1` and `variable2`. Otherwise it's very hard to remember what the contents of different variables are, and it becomes hard to understand what your commands actually do. 
-- Use short variable names. Typing is a pain and no-one likes doing it. So we much prefer to use a name like `sales` over a name like `sales.for.this.book.that.you.are.reading`. Obviously there's a bit of a tension between using informative names (which tend to be long) and using short names (which tend to be meaningless), so use a bit of common sense when trading off these two conventions.
-- Use one of the conventional naming styles for multi-word variable names. Suppose I want to name a variable that stores "my new salary". Obviously I can't include spaces in the variable name, so how should I do this? There are three different conventions that you sometimes see R users employing. Firstly, you can separate the words using periods, which would give you `my.new.salary` as the variable name. Alternatively, you could separate words using underscores, as in `my_new_salary`. Finally, you could use capital letters at the beginning of each word (except the first one), which gives you `myNewSalary` as the variable name. I don't think there's any strong reason to prefer one over the other,^[For very advanced users: there is one exception to this. If you're naming a function, don't use `.` in the name unless you are intending to make use of the S3 object oriented programming system in R. If you don't know what S3 is, then you definitely don't want to be using it! For function naming, there's been a trend among R users to prefer `myFunctionName`.] but it's important to be consistent.
-
-
-
-
-
-## Using functions to do calculations{#usingfunctions}
-
-The symbols `+`, `-`, `*` and so on are examples of operators. As we've seen, you can do quite a lot of calculations just by using these operators. However, in order to do more advanced calculations (and later on, to do actual statistics), you're going to need to start using **_functions_**.^[A side note for students with a programming background. Technically speaking, operators *are* functions in R: the addition operator `+` is actually a convenient way of calling the addition function ``+()``. Thus `10+20` is equivalent to the function call `+(20, 30)`. Not surprisingly, no-one ever uses this version. Because that would be stupid.] I'll talk in more detail about functions and how they work in Section \@ref(functions), but for now let's just dive in and use a few. To get started, suppose I wanted to take the square root of 225. The  square root, in case your high school maths is a bit rusty, is just the opposite of squaring a number. So, for instance, since "5 squared is 25" I can say that "5 is the square root of 25". The usual notation for this is 
-
-$$
-\sqrt{25} = 5
-$$
-
-though sometimes you'll also see it written like this
-$25^{0.5} = 5.$
-This second way of writing it is kind of useful to "remind" you of the mathematical fact that "square root of $x$" is actually the same as "raising $x$ to the power of 0.5". Personally, I've never found this to be terribly meaningful psychologically, though I have to admit it's quite convenient mathematically. Anyway, it's not important. What is important is that you remember what a square root is, since we're going to need it later on.
-
-To calculate the square root of 25, I can do it in my head pretty easily, since I memorised my multiplication tables when I was a kid. It gets harder when the numbers get bigger, and pretty much impossible if they're not whole numbers. This is where something like R comes in very handy. Let's say I wanted to calculate $\sqrt{225}$, the square root of 225. There's two ways I could do this using R. Firstly, since the square root of 255 is the same thing as raising 225 to the power of 0.5, I could use the power operator `^`, just like we did earlier:
-
-
-```r
-225 ^ 0.5
-```
-
-```
-## [1] 15
-```
-
-However, there's a second way that we can do this, since R also provides a ***square root function***, `sqrt()`. To calculate the square root of 255 using this function, what I do is insert the number `225` in the parentheses. That is, the command I type is this:
-
-
-```r
-sqrt( 225 )
-```
-
-```
-## [1] 15
-```
-
-and as you might expect from our previous discussion, the spaces in between the parentheses are purely cosmetic. I could have typed `sqrt(225)` or `sqrt( 225   )` and gotten the same result. When we use a function to do something, we generally refer to this as **_calling_** the function, and the values that we type into the function (there can be more than one) are referred to as the **_arguments_** of that function. 
-
-Obviously, the `sqrt()` function doesn't really give us any new functionality, since we already knew how to do square root calculations by using the power operator `^`, though I do think it looks nicer when we use `sqrt()`. However, there are lots of other functions in R: in fact, almost everything of interest that I'll talk about in this book is an R function of some kind. For example, one function that we will need to use in this book is the ***absolute value function***. Compared to the square root function, it's extremely simple: it just converts negative numbers to positive numbers, and leaves positive numbers alone. Mathematically, the absolute value of $x$ is written $|x|$ or sometimes $\mbox{abs}(x)$. Calculating absolute values in R is pretty easy, since R provides the `abs()` function that you can use for this purpose. When you feed it a positive number...
-
-```r
-abs( 21 )
-```
-
-```
-## [1] 21
-```
-the absolute value function does nothing to it at all. But when you feed it a negative number, it spits out the positive version of the same number, like this:
-
-
-```r
-abs( -13 )
-```
-
-```
-## [1] 13
-```
-
-In all honesty, there's nothing that the absolute value function does that you couldn't do just by looking at the number and erasing the minus sign if there is one. However, there's a few places later in the book where we have to use absolute values, so I thought it might be a good idea to explain the meaning of the term early on.
-
-
-Before moving on, it's worth noting that -- in the same way that R allows us to put multiple operations together into a longer command, like `1 + 2*4` for instance -- it also lets us put functions together and even combine functions with operators if we so desire. For example, the following is a perfectly legitimate command:
-
-
-```r
-sqrt( 1 + abs(-8) )
-```
-
-```
-## [1] 3
-```
-
-When R executes this command, starts out by calculating the value of `abs(-8)`, which produces an intermediate value of `8`. Having done so, the command simplifies to `sqrt( 1 + 8 )`. To solve the square root^[A note for the mathematically inclined: R does support complex numbers, but unless you explicitly specify that you want them it assumes all calculations must be real valued. By default, the square root of a negative number is treated as undefined: `sqrt(-9)` will produce `NaN` (not a number) as its output. To get complex numbers, you would type `sqrt(-9+0i)`  and R would now return `0+3i`. However, since we won't have any need for complex numbers in this book, I won't refer to them again.] it first needs to add `1 + 8` to get `9`, at which point it evaluates `sqrt(9)`, and so it finally outputs a value of `3`.
-
-
-
-### Function arguments, their names and their defaults{#functionarguments}
-
-There's two more fairly important things that you need to understand about how functions work in R, and that's the use of "named" arguments, and default values" for arguments. Not surprisingly, that's not to say that this is the last we'll hear about how functions work, but they are the last things we desperately need to discuss in order to get you started. To understand what these two concepts are all about, I'll introduce another function. The `round()` function can be used to round some value to the nearest whole number. For example, I could type this:
-
-
-```r
-round( 3.1415 )
-```
-
-```
-## [1] 3
-```
-Pretty straightforward, really. However, suppose I only wanted to round it to two decimal places: that is, I want to get `3.14` as the output. The `round()` function supports this, by allowing you to input a second argument to the function that specifies the number of decimal places that you want to round the number to. In other words, I could do this: 
-
-
-```r
-round( 3.14165, 2 )
-```
-
-```
-## [1] 3.14
-```
-
-What's happening here is that I've specified *two* arguments: the first argument is the number that needs to be rounded (i.e., `3.1415`), the second argument is the number of decimal places that it should be rounded to (i.e., `2`), and the two arguments are separated by a comma. In this simple example, it's quite easy to remember which one argument comes first and which one comes second, but for more complicated functions this is not easy. Fortunately, most R functions make use of ***argument names***. For the `round()` function, for example the number that needs to be rounded is specified using the `x` argument, and the number of decimal points that you want it rounded to is specified using the `digits` argument. Because we have these names available to us, we can specify the arguments to the function by name. We do so like this:
-
-```r
-round( x = 3.1415, digits = 2 )
-```
-
-```
-## [1] 3.14
-```
-
-Notice that this is kind of similar in spirit to variable assignment (Section \@ref(assign)), except that I used `=` here, rather than `<-`. In both cases we're specifying specific values to be associated with a label. However, there are some differences between what I was doing earlier on when creating variables, and what I'm doing here when specifying arguments, and so as a consequence it's important that you use `=` in this context.
-
-
-As you can see, specifying the arguments by name involves a lot more typing, but it's also a lot easier to read. Because of this, the commands in this book will usually specify arguments by name,^[The two functions discussed previously, `sqrt()` and `abs()`, both only have a single argument, `x`. So I could have typed something like `sqrt(x = 225)` or `abs(x = -13)` earlier. The fact that all these functions use `x` as the name of the argument that corresponds the "main" variable that you're working with is no coincidence. That's a fairly widely used convention. Quite often, the writers of R functions will try to use conventional names like this to make your life easier. Or at least that's the theory. In practice it doesn't always work as well as you'd hope.] since that makes it clearer to you what I'm doing. However, one important thing to note is that when specifying the arguments using their names, it doesn't matter what order you type them in. But if you don't use the argument names, then you have to input the arguments in the correct order. In other words, these three commands all produce the same output...
-
-
-```r
-round( 3.14165, 2 )
-round( x = 3.1415, digits = 2 )
-round( digits = 2, x = 3.1415 )
-```
-
-```
-## [1] 3.14
-## [1] 3.14
-## [1] 3.14
-```
-
-but this one does not...
-
-
-```r
-round( 2, 3.14165 )
-```
-
-```
-## [1] 2
-```
-
-How do you find out what the correct order is? There's a few different ways, but the easiest one is to look at the help documentation for the function (see Section \@ref(help). However, if you're ever unsure, it's probably best to actually type in the argument name.
-
-Okay, so that's the first thing I said you'd need to know: argument names. The second thing you need to know about is default values. Notice that the first time I called the `round()` function I didn't actually specify the `digits` argument at all, and yet R somehow knew that this meant it should round to the nearest whole number. How did that happen? The answer is that the `digits` argument has a ***default value*** of `0`, meaning that if you decide not to specify a value for `digits` then R will act as if you had typed `digits = 0`. This is quite handy: the vast majority of the time when you want to round a number you want to round it to the nearest whole number, and it would be pretty annoying to have to specify the `digits` argument every single time. On the other hand, sometimes you actually do want to round to something other than the nearest whole number, and it would be even more annoying if R didn't allow this! Thus, by having `digits = 0` as the default value, we get the best of both worlds.
-
-
-## Letting RStudio help you with your commands{#RStudio1}
-
-Time for a bit of a digression. At this stage you know how to type in basic commands, including how to use R functions. And it's probably beginning to dawn on you that there are a *lot* of R functions, all of which have their own arguments. You're probably also worried that you're going to have to remember all of them! Thankfully, it's not that bad. In fact, very few data analysts bother to try to remember all the commands. What they really do is use tricks to make their lives easier. The first (and arguably most important one) is to use the internet. If you don't know how a particular R function works, Google it. Second, you can look up the R help documentation. I'll talk more about these two tricks in  Section \@ref(help). But right now I want to call your attention to a couple of simple tricks that RStudio makes available to you.
-
-### Autocomplete using "tab"
-
-The first thing I  want to call your attention to is the *autocomplete* ability in RStudio.^[For advanced users:  obviously, this isn't just an RStudio thing. If you're running R in a terminal window, tab autocomplete still works, and does so in exactly the way you'd expect. It's not as visually pretty as the RStudio version, of course, and lacks some of the cooler features that RStudio provides. I don't bother to document that here: my assumption is that if you are running R in the terminal then you're already familiar with using tab autocomplete.]
-
-Let's stick to our example above and assume that what you want to do is to round a number. This time around, start typing the name of the function that you want, and then hit the "tab" key. RStudio will then display a little window like the one shown in Figure \@ref(fig:RStudiotab). In this figure, I've typed the letters `ro` at the command line, and then hit tab. The window has two panels. On the left, there's a list of variables and functions that start with the letters that I've typed shown in black text, and some grey text that tells you where that variable/function is stored. Ignore the grey text for now: it won't make much sense to you until we've talked about packages in Section \@ref(packageinstall). In Figure \@ref(fig:RStudiotab) you can see that there's quite a few things that start with the letters `ro`: there's something called `rock`, something called `round`, something called `round.Date` and so on. The one we want is `round`, but if you're typing this yourself you'll notice that when you hit the tab key the window pops up with the top entry (i.e., `rock`) highlighted. You can use the up and down arrow keys to select the one that you want. Or, if none of the options look right to you, you can hit the escape key ("esc") or the left arrow key to make the window go away. 
-
-
-In our case, the thing we want is the `round` option, so we'll select that. When you do this, you'll see that the panel on the right changes. Previously, it had been telling us something about the `rock` data set (i.e., "Measurements on 48 rock samples...") that is distributed as part of R. But when we select `round`, it displays information about the `round()` function, exactly as it is shown in Figure \@ref(fig:RStudiotab). This display is really handy. The very first thing it says is `round(x, digits = 0)`: what this is telling you is that the `round()` function has two arguments. The first argument is called `x`, and it doesn't have a default value. The second argument is `digits`, and it has a default value of 0. In a lot of situations, that's all the information you need. But RStudio goes a bit further, and provides some additional information about the function underneath. Sometimes that additional information is very helpful, sometimes it's not: RStudio pulls that text from the R help documentation, and my experience is that the helpfulness of that documentation varies wildly. Anyway, if you've decided that `round()` is the function that you want to use, you can hit the right arrow or the enter key, and RStudio will finish typing the rest of the function name for you. 
-
-The RStudio autocomplete tool works slightly differently if you've already got the name of the function typed and you're now trying to type the arguments. For instance, suppose I've typed `round(` into the console, and *then* I hit tab. RStudio is smart enough to recognise that I already know the name of the function that I want, because I've already typed it! Instead, it figures that what I'm interested in is the *arguments* to that function. So that's what pops up in the little window. You can see this in Figure \@ref(fig:RStudiotab2). Again, the window has two panels, and you can interact with this window in exactly the same way that you did with the window shown in Figure \@ref(fig:RStudiotab). On the left hand panel, you can see a list of the argument names. On the right hand side, it displays some information about what the selected argument does. 
-
-
-### Browsing your command history
-
-One thing that R does automatically is keep track of your "command history". That is, it remembers all the commands that you've previously typed. You can access this history in a few different ways. The simplest way is to use the up and down arrow keys. If you hit the up key, the R console will show you the most recent command that you've typed. Hit it again, and it will show you the command before that. If you want the text on the screen to go away, hit escape^[Incidentally, that always works: if you've started typing a command and you want to clear it and start again, hit escape.] Using the up and down keys can be really handy if you've typed a long command that had one typo in it. Rather than having to type it all again from scratch, you can use the up key to bring up the command and fix it. 
-
-The second way to get access to your command history is to look at the history panel in RStudio. On the upper right hand side of the RStudio window you'll see a tab labelled "History". Click on that, and you'll see a list of all your recent commands displayed in that panel: it should look something like Figure \@ref(fig:RStudiohistory). If you double click on one of the commands, it will be copied to the R console. (You can achieve the same result by selecting the command you want with the mouse and then clicking the "To Console" button).^[Another method is to start typing some text and then hit the Control key and the up arrow together (on Windows or Linux) or the Command key and the up arrow together (on a Mac). This will bring up a window showing all your recent commands that started with the same text as what you've currently typed. That can come in quite handy sometimes.]
-
-
-
-## Storing many numbers as a vector{#vectors}
-
-At this point we've covered functions in enough detail to get us safely through the next couple of chapters (with one small exception: see Section \@ref(generics), so let's return to our discussion of variables. When I introduced variables in Section \@ref(assign) I showed you how we can use variables to store a single number. In this section, we'll extend this idea and look at how to store multiple numbers within the one variable. In R, the name for a variable that can store multiple values is a **_vector_**. So let's create one. 
-
-### Creating a vector
-Let's stick to my silly "get rich quick by textbook writing" example. Suppose the textbook company (if I actually had one, that is) sends me sales data on a monthly basis. Since my class start in late February, we might expect most of the sales to occur towards the start of the year. Let's suppose that I have 100 sales in February, 200 sales in March and 50 sales in April, and no other sales for the rest of the year. What I would like to do is have a variable -- let's call it `sales.by.month` -- that stores all this sales data. The first number stored should be `0` since I had no sales in January, the second should be `100`, and so on. The simplest way to do this in R is to use the **_combine_** function, `c()`. To do so, all we have to do is type all the numbers you want to store in a comma separated list, like this:^[Notice that I didn't specify any argument names here. The `c()` function is one of those cases where we don't use names. We just type all the numbers, and R just dumps them all in a single variable.]
-
-
-```r
-sales.by.month <- c(0, 100, 200, 50, 0, 0, 0, 0, 0, 0, 0, 0)
-sales.by.month
-```
-
-```
-##  [1]   0 100 200  50   0   0   0   0   0   0   0   0
-```
-To use the correct terminology here, we have a single variable here called `sales.by.month`: this variable is a vector that consists of 12 **_elements_**. 
-
-
-
-
-### A handy digression
-
-Now that we've learned how to put information into a vector, the next  thing to understand is how to pull that information back out again. However, before I do so it's worth taking a slight detour. If you've been following along, typing all the commands into R yourself, it's possible that the output that you saw when we printed out the `sales.by.month` vector was slightly different to what I showed above. This would have happened if the window (or the RStudio panel) that contains the R console is really, really narrow. If that were the case, you might have seen output that looks something like this:
-
-
-
-
-```r
-sales.by.month
-```
-
-```
-##  [1]   0 100 200  50
-##  [5]   0   0   0   0
-##  [9]   0   0   0   0
-```
-Because there wasn't much room on the screen, R has printed out the results over three lines. But that's not the important thing to notice. The important point is that the first line has a `[1]` in front of it, whereas the second line starts with `[5]` and the third with `[9]`. It's pretty clear what's happening here. For the first row, R has printed out the 1st element through to the 4th element, so it starts that row with a `[1]`. For the second row, R has printed out the 5th element of the vector through to the 8th one, and so it begins that row with a `[5]` so that you can tell where it's up to at a glance. It might seem a bit odd to you that R does this, but in some ways it's a kindness, especially when dealing with larger data sets!
-
-
-
-### Getting information out of vectors{#vectorsubset}
-
-To get back to the main story, let's consider the problem of how to get information out of a vector. At this point, you might have a sneaking suspicion that the answer has something to do with the `[1]` and `[9]` things that R has been printing out. And of course you are correct. Suppose I want to pull out the February sales data only. February is the second month of the year, so let's try this:
-
-
-```r
-sales.by.month[2]
-```
-
-```
-## [1] 100
-```
-Yep, that's the February sales all right. But there's a subtle detail to be aware of here: notice that R outputs `[1] 100`, *not* `[2] 100`. This is because R is being extremely literal. When we typed in `sales.by.month[2]`, we asked R to find exactly *one* thing, and that one thing happens to be the second element of our `sales.by.month` vector. So, when it outputs `[1] 100` what R is saying is that the first number *that we just asked for* is `100`. This behaviour makes more sense when you realise that we can use this trick to create new variables. For example, I could create a `february.sales` variable like this:
-
-
-```r
-february.sales <- sales.by.month[2]
-february.sales
-```
-
-```
-## [1] 100
-```
-Obviously, the new variable `february.sales` should only have one element and so when I print it out this new variable, the R output begins with a `[1]` because `100` is the value of the first (and only) element of `february.sales`. The fact that this also happens to be the value of the second element of `sales.by.month` is irrelevant. We'll pick this topic up again shortly (Section \@ref(indexing)). 
-
-### Altering the elements of a vector
-
-Sometimes you'll want to change the values stored in a vector. Imagine my surprise when the publisher rings me up to tell me that the sales data for May are wrong. There were actually an additional 25 books sold in May, but there was an error or something so they hadn't told me about it. How can I fix my `sales.by.month` variable? One possibility would be to assign the whole vector again from the beginning, using `c()`. But that's a lot of typing. Also, it's a little wasteful: why should R have to redefine the sales figures for all 12 months, when only the 5th one is wrong? Fortunately, we can tell R to change only the 5th element, using this trick:
-
-
-```r
-sales.by.month[5] <- 25
-sales.by.month
-```
-
-```
-##  [1]   0 100 200  50  25   0   0   0   0   0   0   0
-```
-
-Another way to edit variables is to use the `edit()` or `fix()` functions. I won't discuss them in detail right now, but you can check them out on your own. 
-
-
-### Useful things to know about vectors{#veclength}
-
-Before moving on, I want to mention a couple of other things about vectors. Firstly, you often find yourself wanting to know how many elements there are in a vector (usually because you've forgotten). You can use the `length()` function to do this. It's quite straightforward:
-
-
-```r
-length( x = sales.by.month )
-```
-
-```
-## [1] 12
-```
-
-
-Secondly, you often want to alter all of the elements of a vector at once. For instance, suppose I wanted to figure out how much money I made in each month. Since I'm earning an exciting \$7 per book (no seriously, that's actually pretty close to what authors get on the very expensive textbooks that you're expected to purchase), what I want to do is multiply each element in the `sales.by.month` vector by `7`. R makes this pretty easy, as the following example shows:
-
-
-```r
-sales.by.month * 7
-```
-
-```
-##  [1]    0  700 1400  350  175    0    0    0    0    0    0    0
-```
-In other words, when you multiply a vector by a single number, all elements in the vector get multiplied. The same is true for addition, subtraction, division and taking powers. So that's neat. On the other hand, suppose I wanted to know how much money I was making per day, rather than per month. Since not every month has the same number of days, I need to do something slightly different. Firstly, I'll create two new vectors:
-
-
-```r
-days.per.month <- c(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
-profit <- sales.by.month * 7
-```
-
-Obviously, the `profit` variable is the same one we created earlier, and the `days.per.month` variable is pretty straightforward. What I want to do is divide every element of `profit` by the *corresponding* element of `days.per.month`. Again, R makes this pretty easy:
-
-
-```r
-profit / days.per.month
-```
-
-```
-##  [1]  0.000000 25.000000 45.161290 11.666667  5.645161  0.000000  0.000000
-##  [8]  0.000000  0.000000  0.000000  0.000000  0.000000
-```
-I still don't like all those zeros, but that's not what matters here. Notice that the second element of the output is 25, because R has divided the second element of `profit` (i.e. 700) by the second element of `days.per.month` (i.e. 28). Similarly, the third element of the output is equal to 1400 divided by 31, and so on. We'll talk more about calculations involving vectors later on (and in particular a thing called the "recycling rule"; Section \@ref(recycling)), but that's enough detail for now.
-
-## Storing text data{#text}
-
-A lot of the time your data will be numeric in nature, but not always. Sometimes your data really needs to be described using text, not using numbers. To address this, we need to consider the situation where our variables store text. To create a variable that stores the word "hello", we can type this:
-
-```r
-greeting <- "hello"
-greeting
-```
-
-```
-## [1] "hello"
-```
-When interpreting this, it's important to recognise that the quote marks here *aren't* part of the string itself. They're just something that we use to make sure that R knows to treat the characters that they enclose as a piece of text data, known as a **_character string_**. In other words, R treats `"hello"` as a string containing the word "hello"; but if I had typed `hello` instead, R would go looking for a variable by that name! You can also use `'hello'` to specify a character string.
-
-Okay, so that's how we store the text. Next, it's important to recognise that when we do this, R stores the entire word `"hello"` as a *single* element: our `greeting` variable is *not* a vector of five different letters. Rather, it has only the one element, and that element corresponds to the entire character string `"hello"`. To illustrate this, if I actually ask R to find the first element of `greeting`, it prints the whole string:
-
-```r
-greeting[1]
-```
-
-```
-## [1] "hello"
-```
-Of course, there's no reason why I can't create a vector of character strings. For instance, if we were to continue with the example of my attempts to look at the monthly sales data for my book, one variable I might want would include the names of all 12 `months`.^[Though actually there's no real need to do this, since R has an inbuilt variable called `month.name` that you can use for this purpose.] To do so, I could type in a command like this
-
-```r
-months <- c("January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", 
-            "December")
-```
-This is a **_character vector_** containing 12 elements, each of which is the name of a month. So if I wanted R to tell me the name of the fourth month, all I would do is this:
-
-```r
-months[4]
-```
-
-```
-## [1] "April"
-```
-
-
-### Working with text{#simpletext}
-
-Working with text data is somewhat more complicated than working with numeric data, and I discuss some of the basic ideas in Section \@ref(textprocessing), but for purposes of the current chapter we only need this bare bones sketch. The only other thing I want to do before moving on is show you an example of a function that can be applied to text data. So far, most of the functions that we have seen (i.e., `sqrt()`, `abs()` and `round()`) only make sense when applied to numeric data (e.g., you can't calculate the square root of "hello"), and we've seen one function that can be applied to pretty much any variable or vector (i.e., `length()`). So it might be nice to see an example of a function that can be applied to text. 
-
-The function I'm going to introduce you to is called `nchar()`, and what it does is count the number of individual characters that make up a string. Recall earlier that when we tried to calculate the `length()` of our `greeting` variable it returned a value of `1`: the `greeting` variable contains only the one string, which happens to be `"hello"`. But what if I want to know how many letters there are in the word? Sure, I could *count* them, but that's boring, and more to the point it's a terrible strategy if what I wanted to know was the number of letters in *War and Peace*. That's where the `nchar()` function is helpful:
-
-```r
-nchar( x = greeting )
-```
-
-```
-## [1] 5
-```
-That makes sense, since there are in fact 5 letters in the string `"hello"`. Better yet, you can apply `nchar()` to whole vectors. So, for instance, if I want R to tell me how many letters there are in the names of each of the 12 months, I can do this:
-
-```r
-nchar( x = months )
-```
-
-```
-##  [1] 7 8 5 5 3 4 4 6 9 7 8 8
-```
-So that's nice to know. The `nchar()` function can do a bit more than this, and there's a lot of other functions that you can do to extract more information from text or do all sorts of fancy things. However, the goal here is not to teach any of that! The goal right now is just to see an example of a function that actually does work when applied to text. 
-
-
-## Storing "true or false" data{#logicals}
-
-Time to move onto a third kind of data. A key concept in that a lot of R relies on is the idea of a **_logical value_**. A logical value is an assertion about whether something is true or false. This is implemented in R in a pretty straightforward way. There are two logical values, namely `TRUE` and `FALSE`. Despite the simplicity, a logical values are very useful things. Let's see how they work.
-
-### Assessing mathematical truths
-
-In George Orwell's classic book *1984*, one of the slogans used by the totalitarian Party was "two plus two equals five", the idea being that the political domination of human freedom becomes complete when it is possible to subvert even the most basic of truths. It's a terrifying thought, especially when the protagonist Winston Smith finally breaks down under torture and agrees to the proposition. "Man is infinitely malleable", the book says. I'm pretty sure that this isn't true of humans^[I offer up my teenage attempts to be "cool" as evidence that some things just can't be done.] but it's definitely not true of R. R is not infinitely malleable. It has rather firm opinions on the topic of what is and isn't true, at least as regards basic mathematics. If I ask it to calculate `2 + 2`, it always gives the same answer, and it's not bloody 5:
-
-```r
-2 + 2
-```
-
-```
-## [1] 4
-```
-Of course, so far R is just doing the calculations. I haven't asked it to explicitly assert that $2+2 = 4$ is a true statement. If I want R to make an explicit judgement, I can use a command like this: 
-
-```r
-2 + 2 == 4
-```
-
-```
-## [1] TRUE
-```
-What I've done here is use the **_equality operator_**, `==`, to force R to make a "true or false" judgement.^[Note that this is a very different operator to the assignment operator `=` that I talked about in Section \@ref(assign). A common typo that people make when trying to write logical commands in R (or other languages, since the "`=` versus `==`" distinction is important in most programming languages) is to accidentally type `=` when you really mean `==`. Be especially cautious with this -- I've been programming in various languages since I was a teenager, and I *still* screw this up a lot. Hm. I think I see why I wasn't cool as a teenager. And why I'm still not cool.] Okay, let's see what R thinks of the Party slogan:
-
-```r
-2+2 == 5
-```
-
-```
-## [1] FALSE
-```
-Booyah! Freedom and ponies for all! Or something like that. Anyway, it's worth having a look at what happens if I try to *force* R to believe that two plus two is five by making an assignment statement like  `2 + 2 = 5` or `2 + 2 <- 5`. When I do this, here's what happens:
-
-```r
-2 + 2 = 5
-```
-
-```
-## Error in 2 + 2 = 5: target of assignment expands to non-language object
-```
-R doesn't like this very much. It recognises that `2 + 2` is *not* a variable (that's what the "non-language object" part is saying), and it won't let you try to "reassign" it. While R is pretty flexible, and actually does let you do some quite remarkable things to redefine parts of R itself, there are just some basic, primitive truths that it refuses to give up. It won't change the laws of addition, and it won't change the definition of the number `2`. 
-
-That's probably for the best.
-
-### Logical operations
-So now we've seen logical operations at work, but so far we've only seen the simplest possible example. You probably won't be surprised to discover that we can combine logical operations with other operations and functions in a more complicated way, like this:
-
-```r
-3*3 + 4*4 == 5*5
-```
-
-```
-## [1] TRUE
-```
-or this
-
-```r
-sqrt( 25 ) == 5
-```
-
-```
-## [1] TRUE
-```
-Not only that, but as Table \@ref(tab:logicals) illustrates, there are several other logical operators that you can use, corresponding to some basic mathematical concepts. 
-
-
-Table: (\#tab:logicals)Some logical operators. Technically I should be calling these "binary relational operators", but quite frankly I don't want to. It's my book so no-one can make me.
-
-|operation                |operator |example input |answer  |
-|:------------------------|:--------|:-------------|:-------|
-|less than                |<        |2 < 3         |`TRUE`  |
-|less than or equal to    |<=       |2 <= 2        |`TRUE`  |
-|greater than             |>        |2 > 3         |`FALSE` |
-|greater than or equal to |>=       |2 >= 2        |`TRUE`  |
-|equal to                 |==       |2 == 3        |`FALSE` |
-|not equal to             |!=       |2 != 3        |`TRUE`  |
-
-Hopefully these are all pretty self-explanatory: for example, the **_less than_** operator `<` checks to see if the number on the left is less than the number on the right. If it's less, then R returns an answer of `TRUE`:
-
-```r
-99 < 100
-```
-
-```
-## [1] TRUE
-```
-but if the two numbers are equal, or if the one on the right is larger, then R returns an answer of `FALSE`, as the following two examples illustrate:
-
-```r
-100 < 100
-
-100 < 99
-```
-
-```
-## [1] FALSE
-## [1] FALSE
-```
-In contrast, the **_less than or equal to_** operator `<=` will do exactly what it says. It returns a value of `TRUE` if the number of the left hand side is less than or equal to the number on the right hand side. So if we repeat the previous two examples using `<=`, here's what we get: 
-
-```r
-100 <= 100
-
-100 <= 99
-```
-
-```
-## [1] TRUE
-## [1] FALSE
-```
-And at this point I hope it's pretty obvious what the **_greater than_** operator `>` and the **_greater than or equal to_** operator `>=` do! Next on the list of logical operators is the **_not equal to_** operator `!=` which -- as with all the others -- does what it says it does. It returns a value of `TRUE` when things on either side are not identical to each other. Therefore, since $2+2$ isn't equal to $5$, we get:
-
-```r
-2 + 2 != 5
-```
-
-```
-## [1] TRUE
-```
-
-
-
-We're not quite done yet. There are three more logical operations that are worth knowing about, listed in Table \@ref(tab:logicals2). 
-
-
-Table: (\#tab:logicals2)Some more logical operators.
-
-|operation |operator |example input        |answer  |
-|:---------|:--------|:--------------------|:-------|
-|not       |!        |!(1==1)              |`FALSE` |
-|or        |&#124;   |(1==1) &#124; (2==3) |`TRUE`  |
-|and       |&        |(1==1) & (2==3)      |`FALSE` |
-
-
-These are the **_not_** operator `!`, the **_and_** operator `&`, and the **_or_** operator `|`. Like the other logical operators, their behaviour is more or less exactly what you'd expect given their names. For instance, if I ask you to assess the claim that "either $2+2 = 4$ *or* $2+2 = 5$" you'd say that it's true. Since it's an "either-or" statement, all we need is for one of the two parts to be true. That's what the `|` operator does:
-
-```r
-(2+2 == 4) | (2+2 == 5)
-```
-
-```
-## [1] TRUE
-```
-On the other hand, if I ask you to assess the claim that "both $2+2 = 4$ *and* $2+2 = 5$" you'd say that it's false. Since this is an *and* statement we need both parts to be true. And that's what the `&` operator does:
-
-```r
-(2+2 == 4) & (2+2 == 5)
-```
-
-```
-## [1] FALSE
-```
-Finally, there's the *not* operator, which is simple but annoying to describe in English. If I ask you to assess my claim that "it is not true that $2+2 = 5$" then you would say that my claim is true; because my claim is that "$2+2 = 5$ is false". And I'm right. If we write this as an R command we get this:  
-
-```r
-! (2+2 == 5)
-```
-
-```
-## [1] TRUE
-```
-In other words, since `2+2 == 5` is a `FALSE` statement, it must be the case that `!(2+2 == 5)` is a `TRUE` one. Essentially, what we've really done is claim that "not false" is the same thing as "true". Obviously, this isn't really quite right in real life. But R lives in a much more black or white world: for R everything is either true or false. No shades of gray are allowed. We can actually see this much more explicitly, like this:
-
-```r
-! FALSE
-```
-
-```
-## [1] TRUE
-```
-Of course, in our $2+2 = 5$ example, we didn't really need to use "not" `!` and "equals to" `==` as two separate operators. We could have just used the "not equals to" operator `!=` like this:
-
-```r
-2+2 != 5
-```
-
-```
-## [1] TRUE
-```
-But there are many situations where you really do need to use the `!` operator. We'll see some later on.^[A note for those of you who have taken a computer science class: yes, R does have a function for exclusive-or, namely `xor()`. Also worth noting is the fact that R makes the distinction between element-wise operators `&` and `|` and operators that look only at the first element of the vector, namely `&&` and `||`. To see the distinction, compare the behaviour of a command like `c(FALSE,TRUE) & c(TRUE,TRUE)` to the behaviour of something like `c(FALSE,TRUE) && c(TRUE,TRUE)`. If this doesn't mean anything to you, ignore this footnote entirely. It's not important for the content of this book.]
- 
-### Storing and using logical data
-
-Up to this point, I've introduced *numeric data* (in Sections \@ref(assign) and \@ref(vectors)) and *character data* (in Section \@ref(text)). So you might not be surprised to discover that these `TRUE` and `FALSE` values that R has been producing are actually a third kind of data, called *logical data*. That is, when I asked R if `2 + 2 == 5` and it said `[1] FALSE` in reply, it was actually producing information that we can store in variables. For instance, I could create a variable called `is.the.Party.correct`, which would store R's opinion:
-
-```r
-is.the.Party.correct <- 2 + 2 == 5
-is.the.Party.correct
-```
-
-```
-## [1] FALSE
-```
-Alternatively, you can assign the value directly, by typing `TRUE` or `FALSE` in your command. Like this:
-
-```r
-is.the.Party.correct <- FALSE
-is.the.Party.correct
-```
-
-```
-## [1] FALSE
-```
-Better yet, because it's kind of tedious to type `TRUE` or `FALSE` over and over again, R provides you with a shortcut: you can use `T` and `F` instead (but it's case sensitive: `t` and `f` won't work).^[Warning! `TRUE` and `FALSE` are reserved keywords in R, so you can trust that they always mean what they say they do. Unfortunately, the shortcut versions `T` and `F` do not have this property. It's even possible to create variables that set up the reverse meanings, by typing commands like `T <- FALSE` and `F <- TRUE`. This is kind of insane, and something that is generally thought to be a design flaw in R. Anyway, the long and short of it is that it's safer to use `TRUE` and `FALSE`.] So this works:
-
-```r
-is.the.Party.correct <- F
-is.the.Party.correct
-```
-
-```
-## [1] FALSE
-```
-but this doesn't:
-
-```r
-is.the.Party.correct <- f
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'f' not found
-```
-
-### Vectors of logicals
-
-The next thing to mention is that you can store vectors of logical values in exactly the same way that you can store vectors of numbers (Section \@ref(vectors)) and vectors of text data (Section \@ref(text)). Again, we can define them directly via the `c()` function, like this:
-
-```r
-x <- c(TRUE, TRUE, FALSE)
-x
-```
-
-```
-## [1]  TRUE  TRUE FALSE
-```
-or you can produce a vector of logicals by applying a logical operator to a vector. This might not make a lot of sense to you, so let's unpack it slowly. First, let's suppose we have a vector of numbers (i.e., a "non-logical vector"). For instance, we could use the `sales.by.month` vector that we were using in Section \@ref(vectors). Suppose I wanted R to tell me, for each month of the year, whether I actually sold a book in that month. I can do that by typing this: 
-
-```r
-sales.by.month > 0
-```
-
-```
-##  [1] FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
-## [12] FALSE
-```
-and again, I can store this in a vector if I want, as the example below illustrates:
-
-```r
-any.sales.this.month <- sales.by.month > 0
-any.sales.this.month
-```
-
-```
-##  [1] FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
-## [12] FALSE
-```
-In other words, `any.sales.this.month` is a logical vector whose elements are `TRUE` only if the corresponding element of `sales.by.month` is greater than zero. For instance, since I sold zero books in January, the first element is `FALSE`. 
-
-
-### Applying logical operation to text{#logictext}
-
-In a moment (Section \@ref(indexing)) I'll show you why these logical operations and logical vectors are so handy, but before I do so I want to very briefly point out that you can apply them to text as well as to logical data. It's just that we need to be a bit more careful in understanding how R interprets the different operations. In this section I'll talk about how the equal to operator `==` applies to text, since this is the most important one. Obviously, the not equal to operator `!=` gives the exact opposite answers to `==` so I'm implicitly talking about that one too, but I won't give specific commands showing the use of `!=`. As for the other operators, I'll defer a more detailed discussion of this topic to Section \@ref(logictext2). 
-
-Okay, let's see how it works. In one sense, it's very simple. For instance, I can ask R if the word `"cat"` is the same as the word `"dog"`, like this:
-
-```r
-"cat" == "dog"
-```
-
-```
-## [1] FALSE
-```
-That's pretty obvious, and it's good to know that even R can figure that out. Similarly, R does recognise that a `"cat"` is a `"cat"`:
-
-```r
-"cat" == "cat"
-```
-
-```
-## [1] TRUE
-```
-Again, that's exactly what we'd expect. However, what you need to keep in mind is that R is not at all tolerant when it comes to grammar and spacing. If two strings differ in any way whatsoever, R will say that they're not equal to each other, as the following examples indicate:
-
-```r
-" cat" == "cat"
-
-"cat" == "CAT"
-
-"cat" == "c a t"
-```
-
-```
-## [1] FALSE
-## [1] FALSE
-## [1] FALSE
-```
-
-
-
-## Indexing vectors{#indexing} 
-
-One last thing to add before finishing up this chapter. So far, whenever I've had to get information out of a vector, all I've done is typed something like `months[4]`; and when I do this R prints out the fourth element of the `months` vector. In this section, I'll show you two additional tricks for getting information out of the vector.
-
-### Extracting multiple elements
-
-One very useful thing we can do is pull out more than one element at a time. In the previous example, we only used a single number (i.e., `2`) to indicate which element we wanted. Alternatively, we can use a vector. So, suppose I wanted the data for February, March and April. What I could do is use the vector `c(2,3,4)` to indicate which elements I want R to pull out. That is, I'd type this:
-
-```r
-sales.by.month[ c(2,3,4) ]
-```
-
-```
-## [1] 100 200  50
-```
-Notice that the order matters here. If I asked for the data in the reverse order (i.e., April first, then March, then February) by using the vector `c(4,3,2)`, then R outputs the data in the reverse order:
-
-```r
-sales.by.month[ c(4,3,2) ]
-```
-
-```
-## [1]  50 200 100
-```
-
-A second thing to be aware of is that R provides you with handy shortcuts for very common situations. For instance, suppose that I wanted to extract everything from the 2nd month through to the 8th month. One way to do this is to do the same thing I did above, and use the vector `c(2,3,4,5,6,7,8)` to indicate the elements that I want. That works just fine
-
-```r
-sales.by.month[ c(2,3,4,5,6,7,8) ]
-```
-
-```
-## [1] 100 200  50  25   0   0   0
-```
-but it's kind of a lot of typing. To help make this easier, R lets you use `2:8` as shorthand for `c(2,3,4,5,6,7,8)`, which makes things a lot simpler. First, let's just check that this is true:
-
-```r
-2:8
-```
-
-```
-## [1] 2 3 4 5 6 7 8
-```
-Next, let's check that we can use the `2:8` shorthand as a way to pull out the 2nd through 8th elements of `sales.by.months`:
-
-```r
-sales.by.month[2:8]
-```
-
-```
-## [1] 100 200  50  25   0   0   0
-```
-So that's kind of neat.
-
-### Logical indexing
-
-At this point, I can introduce an extremely useful tool called **_logical indexing_**. In the last section, I created a logical vector `any.sales.this.month`, whose elements are `TRUE` for any month in which I sold at least one book, and `FALSE` for all the others. However, that big long list of `TRUE`s and `FALSE`s is a little bit hard to read, so what I'd like to do is to have R select the names of the `months` for which I sold any books. Earlier on, I created a vector `months` that contains the names of each of the months. This is where logical indexing is handy. What I need to do is this:
-
-```r
-months[ sales.by.month > 0 ]
-```
-
-```
-## [1] "February" "March"    "April"    "May"
-```
-To understand what's happening here, it's helpful to notice that `sales.by.month > 0` is the same logical expression that we used to create the `any.sales.this.month` vector in the last section. In fact, I could have just done this:
-
-```r
-months[ any.sales.this.month ]
-```
-
-```
-## [1] "February" "March"    "April"    "May"
-```
-and gotten exactly the same result. In order to figure out which elements of `months` to include in the output, what R does is look to see if the corresponding element in `any.sales.this.month` is `TRUE`. Thus, since element 1 of `any.sales.this.month` is `FALSE`, R does not include `"January"` as part of the output; but since element 2 of `any.sales.this.month` is `TRUE`, R does include `"February"` in the output. Note that there's no reason why I can't use the same trick to find the actual sales numbers for those months. The command to do that would just be this:
-
-```r
-sales.by.month [ sales.by.month > 0 ]
-```
-
-```
-## [1] 100 200  50  25
-```
-In fact, we can do the same thing with text. Here's an example. Suppose that -- to continue the saga of the textbook sales -- I later find out that the bookshop only had sufficient stocks for a few months of the year. They tell me that early in the year they had `"high"` stocks, which then dropped to `"low"` levels, and in fact for one month they were `"out"` of copies of the book for a while before they were able to replenish them. Thus I might have a variable called `stock.levels` which looks like this:
-
-```r
-stock.levels<-c("high", "high", "low", "out", "out", "high",
-                "high", "high", "high", "high", "high", "high")
-
-stock.levels
-```
-
-```
-##  [1] "high" "high" "low"  "out"  "out"  "high" "high" "high" "high" "high"
-## [11] "high" "high"
-```
-Thus, if I want to know the months for which the bookshop was out of my book, I could apply the logical indexing trick, but with the character vector `stock.levels`, like this:
-
-```r
-months[stock.levels == "out"]
-```
-
-```
-## [1] "April" "May"
-```
-Alternatively, if I want to know when the bookshop was either low on copies or out of copies, I could do this:
-
-```r
-months[stock.levels == "out" | stock.levels == "low"]
-```
-
-```
-## [1] "March" "April" "May"
-```
-or this
-
-```r
-months[stock.levels != "high" ]
-```
-
-```
-## [1] "March" "April" "May"
-```
-Either way, I get the answer I want.
-
-At this point, I hope you can see why logical indexing is such a useful thing. It's a very basic, yet very powerful way to manipulate data. We'll talk a lot more about how to manipulate data in Chapter \@ref(datahandling), since it's a critical skill for real world research that is often overlooked in introductory research methods classes (or at least, that's been my experience). It does take a bit of practice to become completely comfortable using logical indexing, so it's a good idea to play around with these sorts of commands. Try creating a few different variables of your own, and then ask yourself questions like "how do I get R to spit out all the elements that are [blah]". Practice makes perfect, and it's only by practicing logical indexing that you'll perfect the art of yelling frustrated insults at your computer.^[Well, I say that... but in my personal experience it wasn't until I started learning "regular expressions" that my loathing of computers reached its peak.]
-
-
-## Quitting R
-
-
-
-There's one last thing I should cover in this chapter: how to quit R. When I say this, I'm not trying to imply that R is some kind of pathological addition and that you need to call the R QuitLine or wear patches to control the cravings (although you certainly might argue that there's something seriously pathological about being addicted to R). I just mean how to exit the program. Assuming you're running R in the usual way (i.e., through RStudio or the default GUI on a Windows or Mac computer), then you can just shut down the application in the normal way. However, R also has a function, called `q()` that you can use to quit, which is pretty handy if you're running R in a terminal window.
-
-Regardless of what method you use to quit R, when you do so for the first time R will probably ask you if you want to save the "workspace image". We'll talk a lot more about loading and saving data in Section \@ref(load), but I figured we'd better quickly cover this now otherwise you're going to get annoyed when you close R at the end of the chapter. If you're using RStudio, you'll see a dialog box that looks like the one shown in Figure \@ref(fig:quitR). If you're using a text based interface you'll see this:
-
-```r
-q()
-
-## Save workspace image? [y/n/c]: 
-```
-The `y/n/c` part here is short for "yes / no / cancel". Type `y` if you want to save, `n` if you don't, and `c` if you've changed your mind and you don't want to quit after all. 
-
-What does this actually *mean*? What's going on is that R wants to know if you want to save all those variables that you've been creating, so that you can use them later. This sounds like a great idea, so it's really tempting to type `y` or click the "Save" button. To be honest though, I very rarely do this, and it kind of annoys me a little bit... what R is *really* asking is if you want it to store these variables in a "default" data file, which it will automatically reload for you next time you open R. And quite frankly, if I'd wanted to save the variables, then I'd have already saved them before trying to quit. Not only that, I'd have saved them to a location of *my* choice, so that I can find it again later. So I personally never bother with this. 
-
-In fact, every time I install R on a new machine one of the first things I do is change the settings so that it never asks me again. You can do this in RStudio really easily: use the menu system to find the RStudio option; the dialog box that comes up will give you an option to tell R never to whine about this again (see Figure \@ref(fig:RStudiooptions). On a Mac, you can open this window by going to the "RStudio" menu and selecting "Preferences". On a Windows machine you go to the "Tools" menu and select "Global Options". Under the "General" tab you'll see an option that reads "Save workspace to .Rdata on exit". By default this is set to "ask". If you want R to stop asking, change it to "never".
-
-
-
-## Summary
-
-Every book that tries to introduce basic programming ideas to novices has to cover roughly the same topics, and in roughly the same order. Mine is no exception, and so in the grand tradition of doing it just the same way everyone else did it, this chapter covered the following topics:
-
-
-- [Getting started](#gettingR). We downloaded and installed R and RStudio
-- [Basic commands](#arithmetic). We talked a bit about the logic of how R works and in particular how to type commands into the R console (Section \@ref(#firstcommand), and in doing so learned how to perform basic calculations using the arithmetic operators `+`, `-`, `*`, `/` and `^`.
-- [Introduction to functions](#usingfunctions). We saw several different functions, three that are used to perform numeric calculations (`sqrt()`, `abs()`, `round()`, one that applies to text (`nchar()`; Section \@ref(simpletext)), and one that works on any variable (`length()`; Section \@ref(veclength)). In doing so, we talked a bit about  how argument names work, and learned about default values for arguments. (Section \@ref(functionarguments))
-- Introduction to variables. We learned the basic idea behind variables, and how to assign values to variables using the assignment operator `<-` (Section \@ref(assign)). We also learned how to create vectors using the combine function `c()` (Section \@ref(vectors)).
-- Data types. Learned the distinction between numeric, character and logical data; including the basics of how to enter and use each of them. (Sections \@ref(assign) to \@ref(logicals))
-- [Logical operations](#logicals). Learned how to use the logical operators `==`, `!=`, `<`, `>`, `<=`, `=>`, `!`, `&` and `|`. And learned how to use logical indexing. (Section \@ref(indexing))
-
-<!--chapter:end:c.Rmd-->
-
-
-# R Basics
-
-
-
-
-
-To load packages we use the function `library()`. Typically you would start any analysis script by loading all of the packages you need. 
-
-The [tidyverse](https://www.tidyverse.org/) is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. This means the functions across the tidyverse are all designed to work together and make the process of data science easier.
-
-## Using packages
-
-Run the below code to load the tidyverse package. You can do this regardless of whether you are using your own computer or the cloud.  
-
-
-```r
-library(tidyverse)
-```
-
-You will get what looks like an error message - it's not. It's just R telling you what it's done. You should **read this** it gives you a full list of the packages it has made available to you. One of these should look familiar to you from last week?
-
-<select class='webex-select'><option value='blank'></option><option value='answer'>ggplot2</option><option value=''>tibble</option><option value=''>tidyr</option><option value=''>dplyr</option></select>
-
-Now that we've loaded the `tidyverse` package we can use **any** of the functions it contains but remember, you need to run the `library()` function every time you start R.
-
-
-<div class='webex-solution'><button>Install the tidyverse. You DO NOT need to do this on RStudio Cloud.</button>
-
-
-In order to use a package, you must first install it. The following code installs the package tidyverse, a package we will use very frequently.
-
-If you are working on your own computer, use the below code to install the tidyverse.
-
-
-
-```r
-install.packages("tidyverse")
-```
-
-
-
-You only need to install a package once, however, each time you start R you need to load the packages you want to use, in a similar way that you need to install an app on your phone once, but you need to open it every time you want to use it.
-
-
-</div>
- 
-<br>
-
-<div class="danger">
-<p>If you get an error message that says something like “WARNING: Rtools
-is required to build R packages” you may need to download and install an
-extra bit of software called <a
-href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>.</p>
-</div>
-
-## Package updates
-
-In addition to updates to R and R Studio, the creators of packages also sometimes update their code. This can be to add functions to a package, or it can be to fix errors. One thing to avoid is unintentionally updating an installed package. When you run `install.packages()` it will always install the latest version of the package and it will overwrite any older versions you may have installed. Sometimes this isn't a problem, however, sometimes you will find that the update means your code no longer works as the package has changed substantially. It is possible to revert back to an older version of a package but try to avoid this anyway.
-
-<div class="danger">
-<p>To avoid accidentally overwriting a package with a later version, you
-should <strong>never</strong> include <code>install.packages()</code> in
-your analysis scripts in case you, or someone else runs the code by
-mistake. Remember, the server will already have all of the packages you
-need for this course so you only need to install packages if you are
-using your own machine.</p>
-</div>
-
-## Package conflicts
-
-There are thousands of different R packages with even more functions. Unfortunately, sometimes different packages have the same function names. For example, the packages `dplyr` and `MASS` both have a function named `select()`. If you load both of these packages, R will produce a warning telling you that there is a conflict.
-
-
-```r
-library(dplyr)
-library(MASS)
-```
-```
-package �dplyr� was built under R version 3.6.3
-Attaching package: �dplyr�
-
-The following objects are masked from �package:stats�:
-
-    filter, lag
-
-The following objects are masked from �package:base�:
-
-    intersect, setdiff, setequal, union
-
-
-Attaching package: �MASS�
-
-The following object is masked from �package:dplyr�:
-
-    select
-```
-
-In this case, R is telling you that the function `select()` in the `dplyr` package is being hidden (or 'masked') by another function with the same name. If you were to try and use `select()`, R would use the function from the package that was loaded most recently - in this case it would use the function from `MASS`.
-
-If you want to specify which package you want to use for a particular function you can use code in the format `package::function`, for example:
-
-
-```r
-dplyr::select()
-MASS::select()
-```
-
-<div class="info">
-<p>Why do we get naming conflicts?</p>
-<p>This is because R is open source software. Anyone can write and
-submit useful R packages. As a result it is impossible to make sure that
-there are NEVER any functions with identical names.</p>
-</div>
-
-## Objects
-
-A large part of your coding will involve creating and manipulating objects. Objects contain stuff, and we made our first R objects in the previous chapter. The values contained in an object can be numbers, words, or the result of operations and analyses.You assign content to an object using `<-`.
-
-### Activity 1: Create some objects
-
-Copy and paste the following code into the console, change the code so that it uses your own name and age and run it. You should see that `name`, `age`, `today`, `new_year`, and `data` appear in the environment pane.  
-
-
-```r
-name <- "emily"
-age <- 16 + 19 
-today <- Sys.Date()
-new_year <- as.Date("2022-01-01")
-data <- rnorm(n = 10, mean = 15, sd = 3)
-```
-
-What command should we use if you need `help` to understand the function `rnorm()`?
-
-<input class='webex-solveme nospaces' size='11' data-answer='["help(rnorm)"]'/>
-
-`
-
-<div class="figure" style="text-align: center">
-<img src="images/objects-enviro.png" alt="Objects in the environment" width="100%" />
-<p class="caption">(\#fig:img-objects-enviro)Objects in the environment</p>
-</div>
-
-Note that in these examples, `name`,`age`, and `new_year` would always contain the values `emily`, `35`, and the date of New Year's Day 2021, however, `today` will draw the date from the operating system and `data` will be a randomly generated set of data so the values of these objects will not be static.
-
-As a side note, if you ever have to teach programming and statistics, don't use your age as an example because every time you have to update your teaching materials you get a reminder of the fragility of existence and your advancing age. 2021 update: I have now given up updating my age, I will remain forever 35. 
-
-Importantly, objects can be involved in calculations and can interact with each other. For example:
-
-
-```r
-age + 10
-new_year - today
-mean(data)
-```
-
-```
-## [1] 45
-## Time difference of -661 days
-## [1] 13.65941
-```
-
-Finally, you can store the result of these operations in a new object:
-
-
-```r
-decade <- age + 10
-```
-
-<div class="info">
-<p>You may find it helpful to read <code>&lt;-</code> as
-<code>contains</code>, e.g., <code>name</code> contains the text
-<code>emily</code>.</p>
-</div>
-
-You will constantly be creating objects throughout this course and you will learn more about them and how they behave as we go along, however, for now it is enough to understand that they are a way of saving values, that these values can be numbers, text, or the result of operations, and that they can be used in further operations to create new variables.
-
-<div class="info">
-<p>You may also see objects referred to as ‘variables’. There is a
-difference between the two in programming terms, however, they are used
-synonymously very frequently.</p>
-</div>
-
-## Vectors
-
-We have been working with R objects containing a single element of data, but we will more commonly work with vectors. A vector is a *sequence* of elements, **all of the same data type**. These could be logical, numerical, character etc.
-
-
-```r
-numeric_vector <- c(1,2,3)
-
-character_vector <- c("fruits", "vegetables", "seeds")
-
-logical_vector <- c(TRUE, TRUE, FALSE)
-```
-
-The function `c` lets you 'concatenate' or link each of these separate elements together into a single vector.
-
-## Dataframes and tibbles
-
-No we have looked at R objects that contain:
-
-* single elements of data
-
-* multiple elements of the same data type - vectors
-
-
-But most often when we import data into R it is put into an object called a **tibble** which is a type of **dataframe**. 
-
-<div class="info">
-<p>A dataframe is data structure that organises data into a table.
-Dataframes can have a mix of different types of data in them. Each
-column in a dataframe is a different vector, and each row is a different
-element within the vectors.</p>
-</div>
-
-Let's have a quick go at making our own **tibble** from scratch. 
-
-
-```r
-# make some variables/ vectors
-person <- c("Mark", "Phil", "Becky", "Tony")
-
-hobby <- c("kickboxing", "coding", "dog walking", "car boot sales")
-
-awesomeness <- c(1,100,1,1)
-```
-
-<div class="try">
-<p>Use <code>str()</code> on an object or vector to find out important
-information, like the data type of each vector and how many elements it
-contains.</p>
-</div>
-
-Now we put these vectors together, where they become the variables in a new tibble using the function `tibble()`
-
-
-```r
-# make a tibble
-my_data <- tibble(person, hobby, awesomeness)
-my_data
-```
-
-```
-# A tibble: 4 x 3
-  person hobby          awesomeness
-  <chr>  <chr>                <dbl>
-1 Mark   kickboxing               1
-2 Phil   coding                 100
-3 Becky  dog walking              1
-4 Tony   car boot sales           1
-```
-Have a go at messing about with your script and figure out what each of the functions below does. 
-
-
-```r
-# Some R functions for looking at tibbles and dataframes
-
-head(my_data, n=2)
-tail(my_data, n=1)
-nrow(my_data)
-ncol(my_data)
-colnames(my_data)
-view(my_data)
-glimpse(my_data)
-str(my_data)
-```
-
-
-## Organising data in wide and long formats
-
-There are two main conventions for dataframes in R, these are *wide* and *long* formats. 
-
-* A wide data format does not repeat values in the first column, data relating to the same "measured thing" are found in different columns
-
-* A long data format is where we have a **different** column for each type of thing we have measures in our data. Each *variable* has a unique column. 
-
-
-<div class="figure" style="text-align: center">
-<img src="images/data_shapes.png" alt="A visual representation of long and wide format data shapes" width="100%" />
-<p class="caption">(\#fig:img-shapes)A visual representation of long and wide format data shapes</p>
-</div>
-
-While neither *wide* or *long* data is more correct than the other, we will work with *long* data as it is clearer how many distinct types of variables there are in our data *and* the tools we will be using from the `tidyverse` are designed to work with *long* data.
-
-## Using `pivot` functions
-
-There are functions found as part of the `tidyverse` that can help us to reshape data. 
-
-* `tidyr::pivot_wider()` - from *long* to *wide* format
-
-* `tidyr::pivot_longer()` - from *wide* to *long* format
-
-
-```r
- country <- c("x", "y", "z")
- yr1960 <-  c(10, 20, 30)
- yr1970 <-  c(13, 23, 33)
- yr2010 <-  c(15, 25, 35)
-
-country_data <- tibble(country, yr1960, yr1970, yr2010)
-country_data
-```
-
-<div class="kable-table">
-
-|country | yr1960| yr1970| yr2010|
-|:-------|------:|------:|------:|
-|x       |     10|     13|     15|
-|y       |     20|     23|     25|
-|z       |     30|     33|     35|
-
-</div>
-
-
-
-
-```r
-pivot_longer(data = country_data,
-             cols = yr1960:yr2010,
-             names_to = "year",
-             names_prefix = "yr",
-             values_to = "metric")
-```
-
-<div class="figure" style="text-align: center">
-<img src="images/tidyr_pivot.png" alt="Reshaping data with pivot" width="100%" />
-<p class="caption">(\#fig:img-pivot)Reshaping data with pivot</p>
-</div>
-
-
-To *save* these changes to your data format, you must assign this to an object, and you have two options
-
-* Use the same name as the original R object, this will *overwrite* the original with the new format
-
-* Use a *new* name for the reformatted data both R objects will exist in your Environment
-
-Neither is more *correct* than the other but be aware of what you are doing.
-
-
-### Overwrite the original object 
-
-
-```r
-country_data <- pivot_longer(data = country_data,
-             cols = yr1960:yr2010,
-             names_to = "year",
-             names_prefix = "yr",
-             values_to = "metric")
-```
-
-### Create a new r object
-
-
-```r
-long_country_data <- pivot_longer(data = country_data,
-             cols = yr1960:yr2010,
-             names_to = "year",
-             names_prefix = "yr",
-             values_to = "metric")
-```
-
-## Looking after the environment
-
-If you've been writing a lot of code you may find that the environment pane (or workspace) has become cluttered with many objects. This can make it difficult to figure out which object you need and therefore you run the risk of using the wrong data frame. If you're working on a new dataset, or if you've tried lots of different code before getting the final version, it is good practice to remember to clear the environment to avoid using the wrong object. You can do this in several way.
-
-1. To remove individual objects, you can type `rm(object_name)` in the console. Try this now to remove one of the objects you created in the previous section. 
-2. To clear all objects from the environment run `rm(list = ls())` in the console.
-3. To clear all objects from the environment you can also click the broom icon in the environment pane. 
-
-
-<div class="figure" style="text-align: center">
-<img src="images/broom.png" alt="Clearing the workspace" width="100%" />
-<p class="caption">(\#fig:img-broom)Clearing the workspace</p>
-</div>
-
-## Global options
-
-By default, when you open R Studio it will show you what you were last working on, including your code and any objects you have created. This might sound helpful, but actually it tends to cause more problems than it's worth because it means that you risk accidentally using an old version of an object. We recommend changing the settings so that each time you start R Studio, it opens a fresh copy. You can do this by clicking `Tools` -  `Global Options` and then deselecting boxes so that it looks like the below.
-
-<div class="figure" style="text-align: center">
-<img src="images/session.png" alt="Set these options to increase reproducibility" width="100%" />
-<p class="caption">(\#fig:img-options)Set these options to increase reproducibility</p>
-</div>
-
-
-
-Restore .RData into workspace at startup <select class='webex-select'><option value='blank'></option><option value=''>checked</option><option value='answer'>unchecked</option></select>
-
-Save workspace to .RData on exit <select class='webex-select'><option value='blank'></option><option value=''>Always</option><option value='answer'>Never</option><option value=''>Ask</option></select>
-
-
-## R sessions
-
-When you open up R and start writing code, loading packages, and creating objects, you're doing so in a new **session**. In addition to clearing the workspace, it can sometimes be useful to start a new session. This will happen automatically each time you start R on your computer, although sessions can persist on the cloud. If you find that your code isn't working and you can't figure out why, it might be worth starting a new session. This will clear the environment and detach all loaded packages - think of it like restarting your phone.
-
-## Activity 2
-
-Click 'Session - Restart R'. 
-
-Have you tried turning it off and on again? It is vital to restart R regularly. Restarting R helps to avoid accidentally using the wrong data or functions stored in the environment. Restarting R only takes a second and we do it several times per day! Once you get used to saving everything in a script, you’ll always be happy to restart R. This will help you develop robust and reproducible data analysis skills.
-
-<div class="figure" style="text-align: center">
-<img src="images/new_session.png" alt="The truth about programming" width="100%" />
-<p class="caption">(\#fig:img-session)The truth about programming</p>
-</div>
-
-<div class="info">
-<p>This does not mean you can’t or shouldn’t ever save your work in
-.RData/.rda files.</p>
-<p>But it is best to do it consciously and load exactly what you want to
-load. Letting R silently save and load everything for you may also
-include broken data or objects.</p>
-</div>
-
-## How to cite R and RStudio
-
-You may be some way off writing a scientific report where you have to cite and reference R, however, when the time comes it is important to do so to the people who built it (most of them for free!) credit. You should provide separate citations for R, RStudio, and the packages you use.
-
-To get the citation for the version of R you are using, simply run the `citation()` function which will always provide you with he most recent citation.
-
-
-```r
-citation()
-```
-
-```
-## To cite R in publications use:
-## 
-##   R Core Team (2023). _R: A Language and Environment for Statistical
-##   Computing_. R Foundation for Statistical Computing, Vienna, Austria.
-##   <https://www.R-project.org/>.
-## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Manual{,
-##     title = {R: A Language and Environment for Statistical Computing},
-##     author = {{R Core Team}},
-##     organization = {R Foundation for Statistical Computing},
-##     address = {Vienna, Austria},
-##     year = {2023},
-##     url = {https://www.R-project.org/},
-##   }
-## 
-## We have invested a lot of time and effort in creating R, please cite it
-## when using it for data analysis. See also 'citation("pkgname")' for
-## citing R packages.
-```
-
-To generate the citation for any packages you are using, you can also use the `citation()` function with the name of the package you wish to cite.
-
-
-```r
-citation("tidyverse")
-```
-
-```
-## To cite package 'tidyverse' in publications use:
-## 
-##   Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R,
-##   Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller
-##   E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V,
-##   Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). "Welcome to
-##   the tidyverse." _Journal of Open Source Software_, *4*(43), 1686.
-##   doi:10.21105/joss.01686 <https://doi.org/10.21105/joss.01686>.
-## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Article{,
-##     title = {Welcome to the {tidyverse}},
-##     author = {Hadley Wickham and Mara Averick and Jennifer Bryan and Winston Chang and Lucy D'Agostino McGowan and Romain François and Garrett Grolemund and Alex Hayes and Lionel Henry and Jim Hester and Max Kuhn and Thomas Lin Pedersen and Evan Miller and Stephan Milton Bache and Kirill Müller and Jeroen Ooms and David Robinson and Dana Paige Seidel and Vitalie Spinu and Kohske Takahashi and Davis Vaughan and Claus Wilke and Kara Woo and Hiroaki Yutani},
-##     year = {2019},
-##     journal = {Journal of Open Source Software},
-##     volume = {4},
-##     number = {43},
-##     pages = {1686},
-##     doi = {10.21105/joss.01686},
-##   }
-```
-
-To generate the citation for the version of RStudio you are using, you can use the `RStudio.Version()` function:
-
-
-```r
-RStudio.Version()
-```
-
-Finally, here's an example of how that might look in the write-up of your method section:
-
-> Analysis was conducted using R ver 4.0.0 (R Core Team, 2020), RStudio (Rstudio Team, 2020), and the tidyverse range of packages (Wickham, 2017).
-
-As noted, you may not have to do this for a while, but come back to this when you do as it's important to give the open-source community credit for their work.
-
-## Help and additional resources
-
-<div class="figure" style="text-align: center">
-<img src="images/kitteh.png" alt="The truth about programming" width="100%" />
-<p class="caption">(\#fig:img-kitteh)The truth about programming</p>
-</div>
-
-Getting good at programming really means getting good trying stuff out,  searching for help online, and finding examples of code to copy. If you are having difficulty with any of the exercises contained in this book then you can ask for help on Teams, however, learning to problem-solve effectively is a key skill that you need to develop throughout this course. 
-
-* Use the help documentation. If you're struggling to understand how a function works, remember the `?function` and `help()` command.
-
-* If you get an error message, copy and paste it in to Google - it's very likely someone else has had the same problem.
-
-* If you are struggling to produce a particular output or process - try organising your google searches to include key terms such as "in R" or "tidyverse". - e.g. *"how to change character strings into NA values with tidyverse"*
-
-*  The official [Cheatsheets](https://posit.co/resources/cheatsheets/) are a great resource to keep bookmarked. 
-
-* **Remember to ask for help** 
-
-* In addition to these course materials there are a number of excellent resources for learning R:
-  * [StackOverflow](https://stackoverflow.com/)
-  * [R for Data Science](https://r4ds.had.co.nz/)
-  * Search or use the [#rstats](https://twitter.com/search?f=tweets&q=%23rstats&src=typd) hashtag on Twitter
-
-
-## Debugging tips
-
-A large part of coding is trying to figure why your code doesn't work and this is true whether you are a novice or an expert. As you progress through this course  you should keep a record of mistakes you make and how you fixed them. In each chapter we will provide a number of common mistakes to look out for but you will undoubtedly make (and fix!) new mistakes yourself.
-
-### Prevent errors
-
-**Read console outputs as you go**
-
-**Check that functions are producing the output you expect**
-
-**Build complex code in simple stages**
-
-### Fix errors
-
-* Have you loaded the correct packages for the functions you are trying to use? One very common mistake is to write the code to load the package, e.g., `library(tidyverse)` but then forget to run it.
-
-* Have you made a typo? Remember `data` is not the same as `DATA` and `t.test` is not the same as `t_test`.
-
-* Is there a package conflict? Have you tried specifying the package and function with `package::function`?
-
-* Is it definitely an error? Not all red text in R means an error - sometimes it is just giving you a message with information. 
-
-## Activity 7: Test yourself
-
-**Question 1.** Why should you never include the code `install.packages()` in your analysis scripts? <select class='webex-select'><option value='blank'></option><option value=''>You should use library() instead</option><option value=''>Packages are already part of Base R</option><option value='answer'>You (or someone else) may accidentally install a package update that stops your code working</option><option value=''>You already have the latest version of the package</option></select> 
-
-
-
-<div class='webex-solution'><button>Explain This Answer</button>
-
-Remember, when you run `install.packages()` it will always install the latest version of the package and it will overwrite any older versions of the package you may have installed.
-
-</div>
- 
-<br>
-**Question 2.** What will the following code produce?
-  
-
-```r
-rnorm(6, 50, 10)
-```
-
-<select class='webex-select'><option value='blank'></option><option value=''>A dataset with 10 numbers that has a mean of 6 and an SD of 50</option><option value='answer'>A dataset with 6 numbers that has a mean of 50 and an SD of 10</option><option value=''>A dataset with 50 numbers that has a mean of 10 and an SD of 6</option><option value=''>A dataset with 50 numbers that has a mean of 10 and an SD of 6</option></select>  
-
-
-<div class='webex-solution'><button>Explain This Answer</button>
-
-The default form for `rnorm()` is `rnorm(n, mean, sd)`. If you need help remembering what each argument of a function does, look up the help documentation by running `?rnorm`
-
-</div>
-  
-<br>
-**Question 3.** If you have two packages that have functions with the same name and you want to specify exactly which package to use, what code would you use? 
-
-<select class='webex-select'><option value='blank'></option><option value='answer'>package::function</option><option value=''>function::package</option><option value=''>library(package)</option><option value=''>install.packages(package)</option></select>  
-
-
-<div class='webex-solution'><button>Explain This Answer</button>
-
-You should use the form `package::function`, for example `dplyr::select`. Remember that when you first load your packages R will warn you if any functions have the same name - remember to look out for this!
-
-</div>
-  
-
-**Question 4.** Which of the following is most likely to be an argument? <select class='webex-select'><option value='blank'></option><option value='answer'>35</option><option value=''>read_csv()</option><option value=''><-</option></select>
-
-**Question 5.** An easy way to spot functions is to look for <select class='webex-select'><option value='blank'></option><option value=''>computers</option><option value=''>numbers</option><option value='answer'>brackets</option></select>.
-
-**Question 6.** The job of `<-` is to send the output from the function to a/an <select class='webex-select'><option value='blank'></option><option value=''>argument</option><option value=''>assignment</option><option value='answer'>object</option></select>.
-
-**Question 7.** A vector must always contain elements of the same data type (e.g logical, character, numeric) <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select>.
-
-**Question 8.** A dataframe/tibble must always contain elements of the same data type <select class='webex-select'><option value='blank'></option><option value=''>TRUE</option><option value='answer'>FALSE</option></select>
-
-
-
-<!--chapter:end:d-programming-basics.Rmd-->
+<!--chapter:end:10-sql.Rmd-->
 

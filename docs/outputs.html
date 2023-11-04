@@ -1,33 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 31 Outputs | Advancing in R</title>
-<meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="# Packages ---- library(shiny)    # Essential for running any Shiny app library(tidyverse) library(palmerpenguins)  # The source of your data # Load the data penguins &lt;- as_tibble(penguins) # ui.R...">
-<meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 31 Outputs | Advancing in R">
-<meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/outputs.html">
-<meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="# Packages ---- library(shiny)    # Essential for running any Shiny app library(tidyverse) library(palmerpenguins)  # The source of your data # Load the data penguins &lt;- as_tibble(penguins) # ui.R...">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 31 Outputs | Advancing in R">
-<meta name="twitter:description" content="# Packages ---- library(shiny)    # Essential for running any Shiny app library(tidyverse) library(palmerpenguins)  # The source of your data # Load the data penguins &lt;- as_tibble(penguins) # ui.R...">
-<meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Chapter 42 Outputs | Advancing in R</title>
+
+    <meta name="author" content="Philip T. Leftwich" />
+  
+   <meta name="description" content="This book ..." />
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="Chapter 42 Outputs | Advancing in R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
+  <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
+  <meta property="og:description" content="This book ..." />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 42 Outputs | Advancing in R" />
+  
+  <meta name="twitter:description" content="This book ..." />
+  <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.5.0/transition.js"></script>
+    <script src="libs/bs3compat-0.5.0/tabs.js"></script>
+    <script src="libs/bs3compat-0.5.0/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="libs/font-awesome-5.13.0/js/script.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script>
+    <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'G-6NP3MF25W3');
-    </script><script language="javascript"> 
+    </script>
+    <script language="javascript"> 
         function toggle(id) {
             var ele = document.getElementById("toggleText" + id);
             var text = document.getElementById("displayText" + id);
@@ -41,7 +60,9 @@
                 text.innerHTML = "Hide " + buttonText;
             }
         } 
-    </script><script language="javascript">
+    </script>
+
+    <script language="javascript">
         function openCode(evt, codeName, id) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent" + id);
@@ -55,15 +76,24 @@
             document.getElementById(codeName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-    </script><script language="javascript">
+    </script>
+
+    <script language="javascript">
         function hide(id){
             document.getElementById(id).style.display = "none";
         }
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    </script>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<style type="text/css">
+    <style type="text/css">
     /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
     div.csl-bib-body { }
     div.csl-entry {
@@ -85,15 +115,18 @@
       margin-left: 2em;
     }
   </style>
-<link rel="stylesheet" href="include/psyteachr.css">
-<link rel="stylesheet" href="include/webex.css">
-<link rel="stylesheet" href="include/style.css">
+      <link rel="stylesheet" href="include/psyteachr.css" />
+    <link rel="stylesheet" href="include/webex.css" />
+    <link rel="stylesheet" href="include/style.css" />
+  
 </head>
+
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -106,276 +139,207 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-</form>
+      </form>
 
-      <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Overview</a></li>
-<li class="book-part">Get Started in R</li>
-<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
-<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R basics</a></li>
-<li class="book-part">Exploring Data</li>
-<li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
-<li><a class="" href="data-wrangling-part-one.html"><span class="header-section-number">4</span> Data wrangling part one</a></li>
-<li><a class="" href="data-wrangling-part-two.html"><span class="header-section-number">5</span> Data wrangling part two</a></li>
-<li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
-<li class="book-part">Functional Programming</li>
-<li><a class="" href="writing-functions.html"><span class="header-section-number">7</span> Writing Functions</a></li>
-<li><a class="" href="flow-control.html"><span class="header-section-number">8</span> Flow control</a></li>
-<li><a class="" href="simple-iteration.html"><span class="header-section-number">9</span> Simple iteration</a></li>
-<li><a class="" href="loops.html"><span class="header-section-number">10</span> Loops</a></li>
-<li><a class="" href="apply.html"><span class="header-section-number">11</span> Apply</a></li>
-<li><a class="" href="purrr.html"><span class="header-section-number">12</span> Purrr</a></li>
-<li><a class="" href="bonus-simulation.html"><span class="header-section-number">13</span> Bonus: Simulation</a></li>
-<li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">14</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">15</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">16</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">17</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">18</span> Applying functions across columns</a></li>
-<li><a class="" href="working-with-rows.html"><span class="header-section-number">19</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">20</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">21</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">22</span> Writing Functions in Tidyverse</a></li>
-<li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">23</span> Data visualisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">24</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">25</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">26</span> Making tables with gt</a></li>
-<li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">27</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">28</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">29</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">30</span> Inputs</a></li>
-<li><a class="active" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
-<li><a class="" href="download.html"><span class="header-section-number">34</span> Download?</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
-<li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="rmarkdown.html"><span class="header-section-number">36</span> RMarkdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">37</span> Github</a></li>
-<li><a class="" href="NA.html">
-to upload commits
-to the remote repository.
-</a></li>
-<li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
-<li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">41</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">42</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">43</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">44</span> R Basics</a></li>
-</ul>
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/UEABIO/physalia-intro-stats-2023">View book source <i class="fab fa-github"></i></a></p>
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
         </div>
       </nav>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="outputs" class="section level1" number="42">
+<h1><span class="header-section-number">Chapter 42</span> Outputs</h1>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="outputs.html#cb534-1" tabindex="-1"></a><span class="co"># Packages ----</span></span>
+<span id="cb534-2"><a href="outputs.html#cb534-2" tabindex="-1"></a><span class="fu">library</span>(shiny)       <span class="co"># Essential for running any Shiny app</span></span>
+<span id="cb534-3"><a href="outputs.html#cb534-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb534-4"><a href="outputs.html#cb534-4" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)    <span class="co"># The source of your data</span></span>
+<span id="cb534-5"><a href="outputs.html#cb534-5" tabindex="-1"></a></span>
+<span id="cb534-6"><a href="outputs.html#cb534-6" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb534-7"><a href="outputs.html#cb534-7" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins)</span>
+<span id="cb534-8"><a href="outputs.html#cb534-8" tabindex="-1"></a></span>
+<span id="cb534-9"><a href="outputs.html#cb534-9" tabindex="-1"></a><span class="co"># ui.R ----</span></span>
+<span id="cb534-10"><a href="outputs.html#cb534-10" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb534-11"><a href="outputs.html#cb534-11" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb534-12"><a href="outputs.html#cb534-12" tabindex="-1"></a>     <span class="fu">sidebarPanel</span>(</span>
+<span id="cb534-13"><a href="outputs.html#cb534-13" tabindex="-1"></a>      demo_sp <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;species&quot;</span>,  <span class="co"># Give the input a name &quot;genotype&quot;</span></span>
+<span id="cb534-14"><a href="outputs.html#cb534-14" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;1. Select species&quot;</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
+<span id="cb534-15"><a href="outputs.html#cb534-15" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Gentoo&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;Adelie&quot;</span>),  <span class="co"># Create the choices that can be selected. e.g. Display &quot;Adelie&quot; and link to value &quot;Adelie&quot;</span></span>
+<span id="cb534-16"><a href="outputs.html#cb534-16" tabindex="-1"></a>      demo_select <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;colour&quot;</span>, </span>
+<span id="cb534-17"><a href="outputs.html#cb534-17" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;2. Select histogram colour&quot;</span>, </span>
+<span id="cb534-18"><a href="outputs.html#cb534-18" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;grey&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;grey&quot;</span>),</span>
+<span id="cb534-19"><a href="outputs.html#cb534-19" tabindex="-1"></a>      demo_slide <span class="ot">&lt;-</span> <span class="fu">sliderInput</span>(<span class="at">inputId =</span> <span class="st">&quot;bin&quot;</span>, </span>
+<span id="cb534-20"><a href="outputs.html#cb534-20" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;3. Select number of histogram bins&quot;</span>, </span>
+<span id="cb534-21"><a href="outputs.html#cb534-21" tabindex="-1"></a>                  <span class="at">min=</span><span class="dv">1</span>, <span class="at">max=</span><span class="dv">25</span>, <span class="at">value=</span> <span class="fu">c</span>(<span class="dv">10</span>)),</span>
+<span id="cb534-22"><a href="outputs.html#cb534-22" tabindex="-1"></a>      demo_text <span class="ot">&lt;-</span> <span class="fu">textAreaInput</span>(<span class="at">inputId =</span> <span class="st">&quot;text&quot;</span>, </span>
+<span id="cb534-23"><a href="outputs.html#cb534-23" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;4. Enter some text to be displayed&quot;</span>,</span>
+<span id="cb534-24"><a href="outputs.html#cb534-24" tabindex="-1"></a>                <span class="at">rows =</span> <span class="dv">5</span>,</span>
+<span id="cb534-25"><a href="outputs.html#cb534-25" tabindex="-1"></a>                <span class="at">placeholder =</span> <span class="st">&quot;Enter some information here&quot;</span>)</span>
+<span id="cb534-26"><a href="outputs.html#cb534-26" tabindex="-1"></a>    ),</span>
+<span id="cb534-27"><a href="outputs.html#cb534-27" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb534-28"><a href="outputs.html#cb534-28" tabindex="-1"></a>      <span class="co"># Output elements go here</span></span>
+<span id="cb534-29"><a href="outputs.html#cb534-29" tabindex="-1"></a>        <span class="fu">textOutput</span>(<span class="st">&quot;demo_text&quot;</span>),</span>
+<span id="cb534-30"><a href="outputs.html#cb534-30" tabindex="-1"></a>        </span>
+<span id="cb534-31"><a href="outputs.html#cb534-31" tabindex="-1"></a>        <span class="fu">plotOutput</span>(<span class="st">&quot;demo_plot&quot;</span>, <span class="at">width =</span> <span class="st">&quot;500px&quot;</span>, <span class="at">height=</span><span class="st">&quot;300px&quot;</span>),</span>
+<span id="cb534-32"><a href="outputs.html#cb534-32" tabindex="-1"></a>        </span>
+<span id="cb534-33"><a href="outputs.html#cb534-33" tabindex="-1"></a>        DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;demo_table&quot;</span>,</span>
+<span id="cb534-34"><a href="outputs.html#cb534-34" tabindex="-1"></a>                    <span class="at">width =</span> <span class="st">&quot;50%&quot;</span>,</span>
+<span id="cb534-35"><a href="outputs.html#cb534-35" tabindex="-1"></a>                    <span class="at">height =</span> <span class="st">&quot;auto&quot;</span>)</span>
+<span id="cb534-36"><a href="outputs.html#cb534-36" tabindex="-1"></a>    )</span>
+<span id="cb534-37"><a href="outputs.html#cb534-37" tabindex="-1"></a>  )</span>
+<span id="cb534-38"><a href="outputs.html#cb534-38" tabindex="-1"></a>)</span>
+<span id="cb534-39"><a href="outputs.html#cb534-39" tabindex="-1"></a><span class="co"># server.R ----</span></span>
+<span id="cb534-40"><a href="outputs.html#cb534-40" tabindex="-1"></a></span>
+<span id="cb534-41"><a href="outputs.html#cb534-41" tabindex="-1"></a> </span>
+<span id="cb534-42"><a href="outputs.html#cb534-42" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb534-43"><a href="outputs.html#cb534-43" tabindex="-1"></a>   <span class="co"># Your server logic will be defined here</span></span>
+<span id="cb534-44"><a href="outputs.html#cb534-44" tabindex="-1"></a>  output<span class="sc">$</span>demo_text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb534-45"><a href="outputs.html#cb534-45" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;Figure 1.&quot;</span>, input<span class="sc">$</span>species, input<span class="sc">$</span>text)</span>
+<span id="cb534-46"><a href="outputs.html#cb534-46" tabindex="-1"></a>  })</span>
+<span id="cb534-47"><a href="outputs.html#cb534-47" tabindex="-1"></a>  </span>
+<span id="cb534-48"><a href="outputs.html#cb534-48" tabindex="-1"></a>  output<span class="sc">$</span>demo_plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb534-49"><a href="outputs.html#cb534-49" tabindex="-1"></a>    penguins_filtered <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb534-50"><a href="outputs.html#cb534-50" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species)</span>
+<span id="cb534-51"><a href="outputs.html#cb534-51" tabindex="-1"></a>    </span>
+<span id="cb534-52"><a href="outputs.html#cb534-52" tabindex="-1"></a>    <span class="fu">ggplot</span>(penguins_filtered, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb534-53"><a href="outputs.html#cb534-53" tabindex="-1"></a>      <span class="fu">geom_histogram</span>(<span class="at">fill =</span> input<span class="sc">$</span>colour, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">bins =</span> input<span class="sc">$</span>bin) <span class="sc">+</span></span>
+<span id="cb534-54"><a href="outputs.html#cb534-54" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Color&quot;</span>) <span class="sc">+</span></span>
+<span id="cb534-55"><a href="outputs.html#cb534-55" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()</span>
+<span id="cb534-56"><a href="outputs.html#cb534-56" tabindex="-1"></a>  })</span>
+<span id="cb534-57"><a href="outputs.html#cb534-57" tabindex="-1"></a>  </span>
+<span id="cb534-58"><a href="outputs.html#cb534-58" tabindex="-1"></a>  output<span class="sc">$</span>demo_table <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
+<span id="cb534-59"><a href="outputs.html#cb534-59" tabindex="-1"></a>   penguins  <span class="sc">|&gt;</span> </span>
+<span id="cb534-60"><a href="outputs.html#cb534-60" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species) <span class="sc">|&gt;</span> </span>
+<span id="cb534-61"><a href="outputs.html#cb534-61" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">flipper_length_mm =</span> <span class="fu">quantile</span>(flipper_length_mm, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> T), <span class="at">quantile =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span>
+<span id="cb534-62"><a href="outputs.html#cb534-62" tabindex="-1"></a>})</span>
+<span id="cb534-63"><a href="outputs.html#cb534-63" tabindex="-1"></a>  </span>
+<span id="cb534-64"><a href="outputs.html#cb534-64" tabindex="-1"></a>}</span>
+<span id="cb534-65"><a href="outputs.html#cb534-65" tabindex="-1"></a></span>
+<span id="cb534-66"><a href="outputs.html#cb534-66" tabindex="-1"></a></span>
+<span id="cb534-67"><a href="outputs.html#cb534-67" tabindex="-1"></a></span>
+<span id="cb534-68"><a href="outputs.html#cb534-68" tabindex="-1"></a><span class="co"># Run the app ----</span></span>
+<span id="cb534-69"><a href="outputs.html#cb534-69" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
+<div id="text-1" class="section level2" number="42.1">
+<h2><span class="header-section-number">42.1</span> Text</h2>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="outputs" class="section level1" number="31">
-<h1>
-<span class="header-section-number">31</span> Outputs<a class="anchor" aria-label="anchor" href="#outputs"><i class="fas fa-link"></i></a>
-</h1>
-<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>    <span class="co"># The source of your data</span></span>
-<span></span>
-<span><span class="co"># Load the data</span></span>
-<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># ui.R ----</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
-<span>     <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
-<span>      <span class="va">demo_sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"species"</span>,  <span class="co"># Give the input a name "genotype"</span></span>
-<span>                  label <span class="op">=</span> <span class="st">"1. Select species"</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
-<span>                  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Adelie"</span> <span class="op">=</span> <span class="st">"Adelie"</span>, <span class="st">"Chinstrap"</span> <span class="op">=</span> <span class="st">"Chinstrap"</span>, <span class="st">"Gentoo"</span> <span class="op">=</span> <span class="st">"Gentoo"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"Adelie"</span><span class="op">)</span>,  <span class="co"># Create the choices that can be selected. e.g. Display "Adelie" and link to value "Adelie"</span></span>
-<span>      <span class="va">demo_select</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"colour"</span>, </span>
-<span>                  label <span class="op">=</span> <span class="st">"2. Select histogram colour"</span>, </span>
-<span>                  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>,<span class="st">"green"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>,<span class="st">"grey"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span>,</span>
-<span>      <span class="va">demo_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"bin"</span>, </span>
-<span>                  label <span class="op">=</span> <span class="st">"3. Select number of histogram bins"</span>, </span>
-<span>                  min<span class="op">=</span><span class="fl">1</span>, max<span class="op">=</span><span class="fl">25</span>, value<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      <span class="va">demo_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textAreaInput.html">textAreaInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"text"</span>, </span>
-<span>                label <span class="op">=</span> <span class="st">"4. Enter some text to be displayed"</span>,</span>
-<span>                rows <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>                placeholder <span class="op">=</span> <span class="st">"Enter some information here"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
-<span>      <span class="co"># Output elements go here</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"demo_text"</span><span class="op">)</span>,</span>
-<span>        </span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"demo_plot"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, height<span class="op">=</span><span class="st">"300px"</span><span class="op">)</span>,</span>
-<span>        </span>
-<span>        <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">dataTableOutput</a></span><span class="op">(</span><span class="st">"demo_table"</span>,</span>
-<span>                    width <span class="op">=</span> <span class="st">"50%"</span>,</span>
-<span>                    height <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co"># server.R ----</span></span>
-<span></span>
-<span> </span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   <span class="co"># Your server logic will be defined here</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Figure 1."</span>, <span class="va">input</span><span class="op">$</span><span class="va">species</span>, <span class="va">input</span><span class="op">$</span><span class="va">text</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="va">penguins_filtered</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
-<span>    </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">penguins_filtered</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">colour</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span>, bins <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">bin</span><span class="op">)</span> <span class="op">+</span></span>
-<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Color"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_table</span> <span class="op">&lt;-</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">renderDataTable</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>   <span class="va">penguins</span>  <span class="op">|&gt;</span> </span>
-<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>flipper_length_mm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, quantile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span>  </span>
-<span><span class="op">}</span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># Run the app ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<div id="text-1" class="section level2" number="31.1">
-<h2>
-<span class="header-section-number">31.1</span> Text<a class="anchor" aria-label="anchor" href="#text-1"><i class="fas fa-link"></i></a>
-</h2>
+<div id="plots-1" class="section level2" number="42.2">
+<h2><span class="header-section-number">42.2</span> Plots</h2>
 </div>
-<div id="plots" class="section level2" number="31.2">
-<h2>
-<span class="header-section-number">31.2</span> Plots<a class="anchor" aria-label="anchor" href="#plots"><i class="fas fa-link"></i></a>
-</h2>
+<div id="images" class="section level2" number="42.3">
+<h2><span class="header-section-number">42.3</span> Images</h2>
 </div>
-<div id="images" class="section level2" number="31.3">
-<h2>
-<span class="header-section-number">31.3</span> Images<a class="anchor" aria-label="anchor" href="#images"><i class="fas fa-link"></i></a>
-</h2>
+<div id="tables" class="section level2" number="42.4">
+<h2><span class="header-section-number">42.4</span> Tables</h2>
 </div>
-<div id="tables" class="section level2" number="31.4">
-<h2>
-<span class="header-section-number">31.4</span> Tables<a class="anchor" aria-label="anchor" href="#tables"><i class="fas fa-link"></i></a>
-</h2>
-</div>
-<div id="layouts-themes-html" class="section level2" number="31.5">
-<h2>
-<span class="header-section-number">31.5</span> Layouts, themes, HTML<a class="anchor" aria-label="anchor" href="#layouts-themes-html"><i class="fas fa-link"></i></a>
-</h2>
+<div id="layouts-themes-html" class="section level2" number="42.5">
+<h2><span class="header-section-number">42.5</span> Layouts, themes, HTML</h2>
 <p>Exercise: Customize the app's appearance by adding a custom color scheme, a title with a different font, and adjusting the size of the plot.</p>
 <pre><code>  
-p("p creates a paragraph of text."),
+p(&quot;p creates a paragraph of text.&quot;),
 
       
-      p("A new p() command starts a new paragraph. Supply a style attribute to change the format of the entire paragraph.", style = "font-family: 'times'; font-si16pt"),
+      p(&quot;A new p() command starts a new paragraph. Supply a style attribute to change the format of the entire paragraph.&quot;, style = &quot;font-family: &#39;times&#39;; font-si16pt&quot;),
       
-      strong("strong() makes bold text."),
+      strong(&quot;strong() makes bold text.&quot;),
       
-      em("em() creates italicized (i.e, emphasized) text."),
-      
-      br(),
-      
-      code("code displays your text similar to computer code"),
-      
-      div("div creates segments of text with a similar style. This division of text is all blue because I passed the argument 'style = color:blue' to div", style = "color:blue"),
+      em(&quot;em() creates italicized (i.e, emphasized) text.&quot;),
       
       br(),
       
-      p("span does the same thing as div, but it works with",
-        span("groups of words", style = "color:blue"),
-        "that appear inside a paragraph."),
+      code(&quot;code displays your text similar to computer code&quot;),
+      
+      div(&quot;div creates segments of text with a similar style. This division of text is all blue because I passed the argument &#39;style = color:blue&#39; to div&quot;, style = &quot;color:blue&quot;),
+      
+      br(),
+      
+      p(&quot;span does the same thing as div, but it works with&quot;,
+        span(&quot;groups of words&quot;, style = &quot;color:blue&quot;),
+        &quot;that appear inside a paragraph.&quot;),
 </code></pre>
-<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>    <span class="co"># The source of your data</span></span>
-<span></span>
-<span><span class="co"># Load the data</span></span>
-<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># ui.R ----</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
-<span>     <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
-<span>      <span class="va">demo_sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"species"</span>,  <span class="co"># Give the input a name "genotype"</span></span>
-<span>                  label <span class="op">=</span> <span class="st">"1. Select species"</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
-<span>                  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Adelie"</span> <span class="op">=</span> <span class="st">"Adelie"</span>, <span class="st">"Chinstrap"</span> <span class="op">=</span> <span class="st">"Chinstrap"</span>, <span class="st">"Gentoo"</span> <span class="op">=</span> <span class="st">"Gentoo"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"Adelie"</span><span class="op">)</span>,  <span class="co"># Create the choices that can be selected. e.g. Display "Adelie" and link to value "Adelie"</span></span>
-<span>      <span class="va">demo_select</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"colour"</span>, </span>
-<span>                  label <span class="op">=</span> <span class="st">"2. Select histogram colour"</span>, </span>
-<span>                  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>,<span class="st">"green"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>,<span class="st">"grey"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span>,</span>
-<span>      <span class="va">demo_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"bin"</span>, </span>
-<span>                  label <span class="op">=</span> <span class="st">"3. Select number of histogram bins"</span>, </span>
-<span>                  min<span class="op">=</span><span class="fl">1</span>, max<span class="op">=</span><span class="fl">25</span>, value<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      <span class="va">demo_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textAreaInput.html">textAreaInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"text"</span>, </span>
-<span>                label <span class="op">=</span> <span class="st">"4. Enter some text to be displayed"</span>,</span>
-<span>                rows <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>                placeholder <span class="op">=</span> <span class="st">"Enter some information here"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
-<span>      <span class="co"># Output elements go here</span></span>
-<span>        </span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">ul</span><span class="op">(</span></span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">strong</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"demo_sp"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"demo_text"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  </span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"demo_plot"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, height<span class="op">=</span><span class="st">"300px"</span><span class="op">)</span>,</span>
-<span>        </span>
-<span>        <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">dataTableOutput</a></span><span class="op">(</span><span class="st">"demo_table"</span>,</span>
-<span>                    width <span class="op">=</span> <span class="st">"50%"</span>,</span>
-<span>                    height <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co"># server.R ----</span></span>
-<span></span>
-<span> </span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  </span>
-<span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Figure 1."</span>, <span class="va">input</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  </span>
-<span><span class="va">output</span><span class="op">$</span><span class="va">demo_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>  <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">text</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span>   </span>
-<span>    </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="va">penguins_filtered</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span>
-<span>    </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">penguins_filtered</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">colour</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span>, bins <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">bin</span><span class="op">)</span> <span class="op">+</span></span>
-<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Color"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_table</span> <span class="op">&lt;-</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">renderDataTable</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>   <span class="va">penguins</span> <span class="op">|&gt;</span></span>
-<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>flipper_length_mm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, quantile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span>  </span>
-<span><span class="op">}</span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># Run the app ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="outputs.html#cb536-1" tabindex="-1"></a><span class="co"># Packages ----</span></span>
+<span id="cb536-2"><a href="outputs.html#cb536-2" tabindex="-1"></a><span class="fu">library</span>(shiny)       <span class="co"># Essential for running any Shiny app</span></span>
+<span id="cb536-3"><a href="outputs.html#cb536-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb536-4"><a href="outputs.html#cb536-4" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)    <span class="co"># The source of your data</span></span>
+<span id="cb536-5"><a href="outputs.html#cb536-5" tabindex="-1"></a></span>
+<span id="cb536-6"><a href="outputs.html#cb536-6" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb536-7"><a href="outputs.html#cb536-7" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins)</span>
+<span id="cb536-8"><a href="outputs.html#cb536-8" tabindex="-1"></a></span>
+<span id="cb536-9"><a href="outputs.html#cb536-9" tabindex="-1"></a><span class="co"># ui.R ----</span></span>
+<span id="cb536-10"><a href="outputs.html#cb536-10" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb536-11"><a href="outputs.html#cb536-11" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb536-12"><a href="outputs.html#cb536-12" tabindex="-1"></a>     <span class="fu">sidebarPanel</span>(</span>
+<span id="cb536-13"><a href="outputs.html#cb536-13" tabindex="-1"></a>      demo_sp <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;species&quot;</span>,  <span class="co"># Give the input a name &quot;genotype&quot;</span></span>
+<span id="cb536-14"><a href="outputs.html#cb536-14" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;1. Select species&quot;</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
+<span id="cb536-15"><a href="outputs.html#cb536-15" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Gentoo&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;Adelie&quot;</span>),  <span class="co"># Create the choices that can be selected. e.g. Display &quot;Adelie&quot; and link to value &quot;Adelie&quot;</span></span>
+<span id="cb536-16"><a href="outputs.html#cb536-16" tabindex="-1"></a>      demo_select <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;colour&quot;</span>, </span>
+<span id="cb536-17"><a href="outputs.html#cb536-17" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;2. Select histogram colour&quot;</span>, </span>
+<span id="cb536-18"><a href="outputs.html#cb536-18" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;grey&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;grey&quot;</span>),</span>
+<span id="cb536-19"><a href="outputs.html#cb536-19" tabindex="-1"></a>      demo_slide <span class="ot">&lt;-</span> <span class="fu">sliderInput</span>(<span class="at">inputId =</span> <span class="st">&quot;bin&quot;</span>, </span>
+<span id="cb536-20"><a href="outputs.html#cb536-20" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;3. Select number of histogram bins&quot;</span>, </span>
+<span id="cb536-21"><a href="outputs.html#cb536-21" tabindex="-1"></a>                  <span class="at">min=</span><span class="dv">1</span>, <span class="at">max=</span><span class="dv">25</span>, <span class="at">value=</span> <span class="fu">c</span>(<span class="dv">10</span>)),</span>
+<span id="cb536-22"><a href="outputs.html#cb536-22" tabindex="-1"></a>      demo_text <span class="ot">&lt;-</span> <span class="fu">textAreaInput</span>(<span class="at">inputId =</span> <span class="st">&quot;text&quot;</span>, </span>
+<span id="cb536-23"><a href="outputs.html#cb536-23" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;4. Enter some text to be displayed&quot;</span>,</span>
+<span id="cb536-24"><a href="outputs.html#cb536-24" tabindex="-1"></a>                <span class="at">rows =</span> <span class="dv">5</span>,</span>
+<span id="cb536-25"><a href="outputs.html#cb536-25" tabindex="-1"></a>                <span class="at">placeholder =</span> <span class="st">&quot;Enter some information here&quot;</span>)</span>
+<span id="cb536-26"><a href="outputs.html#cb536-26" tabindex="-1"></a>    ),</span>
+<span id="cb536-27"><a href="outputs.html#cb536-27" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb536-28"><a href="outputs.html#cb536-28" tabindex="-1"></a>      <span class="co"># Output elements go here</span></span>
+<span id="cb536-29"><a href="outputs.html#cb536-29" tabindex="-1"></a>        </span>
+<span id="cb536-30"><a href="outputs.html#cb536-30" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">ul</span>(</span>
+<span id="cb536-31"><a href="outputs.html#cb536-31" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">strong</span>(<span class="fu">textOutput</span>(<span class="st">&quot;demo_sp&quot;</span>)),</span>
+<span id="cb536-32"><a href="outputs.html#cb536-32" tabindex="-1"></a>    <span class="fu">textOutput</span>(<span class="st">&quot;demo_text&quot;</span>)),</span>
+<span id="cb536-33"><a href="outputs.html#cb536-33" tabindex="-1"></a>  </span>
+<span id="cb536-34"><a href="outputs.html#cb536-34" tabindex="-1"></a>        <span class="fu">plotOutput</span>(<span class="st">&quot;demo_plot&quot;</span>, <span class="at">width =</span> <span class="st">&quot;500px&quot;</span>, <span class="at">height=</span><span class="st">&quot;300px&quot;</span>),</span>
+<span id="cb536-35"><a href="outputs.html#cb536-35" tabindex="-1"></a>        </span>
+<span id="cb536-36"><a href="outputs.html#cb536-36" tabindex="-1"></a>        DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;demo_table&quot;</span>,</span>
+<span id="cb536-37"><a href="outputs.html#cb536-37" tabindex="-1"></a>                    <span class="at">width =</span> <span class="st">&quot;50%&quot;</span>,</span>
+<span id="cb536-38"><a href="outputs.html#cb536-38" tabindex="-1"></a>                    <span class="at">height =</span> <span class="st">&quot;auto&quot;</span>)</span>
+<span id="cb536-39"><a href="outputs.html#cb536-39" tabindex="-1"></a>    )</span>
+<span id="cb536-40"><a href="outputs.html#cb536-40" tabindex="-1"></a>  )</span>
+<span id="cb536-41"><a href="outputs.html#cb536-41" tabindex="-1"></a>)</span>
+<span id="cb536-42"><a href="outputs.html#cb536-42" tabindex="-1"></a><span class="co"># server.R ----</span></span>
+<span id="cb536-43"><a href="outputs.html#cb536-43" tabindex="-1"></a></span>
+<span id="cb536-44"><a href="outputs.html#cb536-44" tabindex="-1"></a> </span>
+<span id="cb536-45"><a href="outputs.html#cb536-45" tabindex="-1"></a></span>
+<span id="cb536-46"><a href="outputs.html#cb536-46" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb536-47"><a href="outputs.html#cb536-47" tabindex="-1"></a>  </span>
+<span id="cb536-48"><a href="outputs.html#cb536-48" tabindex="-1"></a></span>
+<span id="cb536-49"><a href="outputs.html#cb536-49" tabindex="-1"></a>  output<span class="sc">$</span>demo_sp <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb536-50"><a href="outputs.html#cb536-50" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;Figure 1.&quot;</span>, input<span class="sc">$</span>species)</span>
+<span id="cb536-51"><a href="outputs.html#cb536-51" tabindex="-1"></a>  })</span>
+<span id="cb536-52"><a href="outputs.html#cb536-52" tabindex="-1"></a>  </span>
+<span id="cb536-53"><a href="outputs.html#cb536-53" tabindex="-1"></a>output<span class="sc">$</span>demo_text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb536-54"><a href="outputs.html#cb536-54" tabindex="-1"></a>  (input<span class="sc">$</span>text)</span>
+<span id="cb536-55"><a href="outputs.html#cb536-55" tabindex="-1"></a>})</span>
+<span id="cb536-56"><a href="outputs.html#cb536-56" tabindex="-1"></a>   </span>
+<span id="cb536-57"><a href="outputs.html#cb536-57" tabindex="-1"></a>    </span>
+<span id="cb536-58"><a href="outputs.html#cb536-58" tabindex="-1"></a>  output<span class="sc">$</span>demo_plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb536-59"><a href="outputs.html#cb536-59" tabindex="-1"></a>    penguins_filtered <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb536-60"><a href="outputs.html#cb536-60" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species)</span>
+<span id="cb536-61"><a href="outputs.html#cb536-61" tabindex="-1"></a>    </span>
+<span id="cb536-62"><a href="outputs.html#cb536-62" tabindex="-1"></a>    <span class="fu">ggplot</span>(penguins_filtered, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb536-63"><a href="outputs.html#cb536-63" tabindex="-1"></a>      <span class="fu">geom_histogram</span>(<span class="at">fill =</span> input<span class="sc">$</span>colour, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">bins =</span> input<span class="sc">$</span>bin) <span class="sc">+</span></span>
+<span id="cb536-64"><a href="outputs.html#cb536-64" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Color&quot;</span>) <span class="sc">+</span></span>
+<span id="cb536-65"><a href="outputs.html#cb536-65" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()</span>
+<span id="cb536-66"><a href="outputs.html#cb536-66" tabindex="-1"></a>  })</span>
+<span id="cb536-67"><a href="outputs.html#cb536-67" tabindex="-1"></a>  </span>
+<span id="cb536-68"><a href="outputs.html#cb536-68" tabindex="-1"></a>  output<span class="sc">$</span>demo_table <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
+<span id="cb536-69"><a href="outputs.html#cb536-69" tabindex="-1"></a>   penguins <span class="sc">|&gt;</span></span>
+<span id="cb536-70"><a href="outputs.html#cb536-70" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species) <span class="sc">|&gt;</span> </span>
+<span id="cb536-71"><a href="outputs.html#cb536-71" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">flipper_length_mm =</span> <span class="fu">quantile</span>(flipper_length_mm, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> T), <span class="at">quantile =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span>
+<span id="cb536-72"><a href="outputs.html#cb536-72" tabindex="-1"></a>})</span>
+<span id="cb536-73"><a href="outputs.html#cb536-73" tabindex="-1"></a>  </span>
+<span id="cb536-74"><a href="outputs.html#cb536-74" tabindex="-1"></a>}</span>
+<span id="cb536-75"><a href="outputs.html#cb536-75" tabindex="-1"></a></span>
+<span id="cb536-76"><a href="outputs.html#cb536-76" tabindex="-1"></a></span>
+<span id="cb536-77"><a href="outputs.html#cb536-77" tabindex="-1"></a></span>
+<span id="cb536-78"><a href="outputs.html#cb536-78" tabindex="-1"></a><span class="co"># Run the app ----</span></span>
+<span id="cb536-79"><a href="outputs.html#cb536-79" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
 </div>
 </div>
 <script>
@@ -548,7 +512,8 @@ window.onload = function() {
   update_total_correct();
 }
 
-</script><script>
+</script>
+<script>
 $( document ).ready(function() {
   var cite = ' ';
   var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
@@ -557,36 +522,32 @@ $( document ).ready(function() {
     license
   );
 });
-</script><div class="chapter-nav">
-<div class="prev"><a href="inputs.html"><span class="header-section-number">30</span> Inputs</a></div>
-<div class="next"><a href="reactive.html"><span class="header-section-number">32</span> Reactive</a></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#outputs"><span class="header-section-number">31</span> Outputs</a></li>
-<li><a class="nav-link" href="#text-1"><span class="header-section-number">31.1</span> Text</a></li>
-<li><a class="nav-link" href="#plots"><span class="header-section-number">31.2</span> Plots</a></li>
-<li><a class="nav-link" href="#images"><span class="header-section-number">31.3</span> Images</a></li>
-<li><a class="nav-link" href="#tables"><span class="header-section-number">31.4</span> Tables</a></li>
-<li><a class="nav-link" href="#layouts-themes-html"><span class="header-section-number">31.5</span> Layouts, themes, HTML</a></li>
-</ul>
+</script>
+
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/06-shiny.rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/06-shiny.rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
-</div>
+      </div>
     </nav>
-</div>
+  </div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-02.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-04.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -594,7 +555,11 @@ $( document ).ready(function() {
   </div>
 
 </div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -606,7 +571,8 @@ $( document ).ready(function() {
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
 for (let popover of popovers) {
   const div = document.createElement('div');
   div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
@@ -624,4 +590,5 @@ for (let popover of popovers) {
 }
 </script>
 </body>
+
 </html>

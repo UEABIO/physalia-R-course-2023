@@ -1,11 +1,394 @@
-# (PART\*) Exploring Data {.unnumbered}
+# (PART\*) Organising workflows {.unnumbered}
 
-# Loading data
+# Project-oriented workflows
+
+In RStudio, a project is a way to organize your work within the IDE. It's a fundamental concept designed to enhance your workflow by providing a structured and efficient means of managing your R-related tasks and files. Here's why R projects are useful:
+
+**1. Organized File Structure:** R projects encourage you to maintain a well-organized file structure for your work. Instead of having scattered R scripts, data files, and figures, you create a dedicated folder for each project. This folder typically contains all project-related materials, including data, code, figures, notes, and any other relevant files.
+
+**2. Working Directory Management:** When you open an R project in RStudio, it automatically sets the working directory to the project's folder. This ensures that all file paths are relative to the project's location. This working directory intentionality eliminates the need for setting working directories manually or using absolute paths in your code.
+
+**3. Portability and Collaboration:** R projects make your work more portable and collaborative. Since all paths are relative to the project folder, the project can be easily shared with others. It ensures that the code works consistently across different computers and for other users, promoting collaboration and reproducibility.
+
+**4. RStudio Integration:** RStudio integrates project management seamlessly. You can designate a folder as an R project, and RStudio leaves a `.Rproj` file in that folder to store project-specific settings. When you double-click on this file, it opens a fresh instance of RStudio with the project's working directory and file browser pointed at the project folder.
+
+**5. Efficient Workflow:** RStudio provides various menu options and keyboard shortcuts for managing projects. This includes the ability to open existing projects, switch between projects, and even launch multiple instances of RStudio for different projects.
+
+In essence, R projects help you maintain a clean and organized workspace, improve collaboration, and ensure that your work remains reproducible and transferable across different environments and over time. It's a best practice for data scientists and analysts working with R, as it fosters the disciplined use of relative file paths and working directories, which is crucial for the reliability and scalability of your R projects.
+
+
+## Setting up a new project
+
+You should start a new R project when you begin working on a distinct task, research project, or analysis. This ensures that your work is well-organized, and it's especially beneficial when you need to collaborate, share, or revisit the project later.
+
+To create and open an R project in RStudio:
+
+1. Go to "File" in the RStudio menu.
+
+2. Select "New Project..."
+
+3. Choose a project type or create a new directory for the project.
+
+4. Click "Create Project."
+
+The new project will be created with a .Rproj file. You can open it by double-clicking on this file or by using the "File" menu in RStudio.
+
+This will set up a dedicated workspace for your project, ensuring that the working directory and file paths are appropriately managed.
+
+## Avoiding setwd() and Promoting Safe File Paths:
+
+To maintain a clean and efficient workflow in R, it's advisable to avoid using `setwd()` at the beginning of each script. This practice promotes the use of safe file paths and is particularly important for projects with multiple collaborators or when working across different computers.
+
+### Absolute vs. Relative Paths:
+
+While absolute file paths provide an explicit way to locate resources, they have significant drawbacks, such as incompatibility and reduced reproducibility. Relative file paths, on the other hand, are relative to the current working directory, making them shorter, more portable, and more reproducible.
+
+An **Absolute file path** is a path that contains the entire path to a file or directory starting from your Home directory and ending at the file or directory you wish to access e.g.
+
+```
+/home/your-username/project/data/penguins_raw.csv
+```
+
+- If you share files, another user won’t have the same directory structure as you, so they will need to recreate the file paths
+
+- If you alter your directory structure, you’ll need to rewrite the paths
+
+- An absolute file path will likely be longer than a relative path, more of the backslashes will need to be edited, so there is more scope for error.
+
+A **Relative filepath** is the path that is relative to the working directory location on your computer.
+
+When you use RStudio Projects, wherever the `.Rproj` file is located is set to the working directory. This means that if the `.Rproj` file is located in your project folder then the relative path to your data is:
+
+```
+data/penguins_raw.csv
+```
+
+This filepath is shorter and it means you could share your project with someone else and the script would run without any editing.
+
+### Organizing Projects:
+
+A key aspect of this workflow is organizing each logical project into a separate folder on your computer. This ensures that files and scripts are well-structured, making it easier to manage your work.
+
+### The `here` Package:
+
+To further enhance this organization and ensure that file paths are independent of specific working directories, the here package comes into play. The `here()` function provided by this package builds file paths relative to the top-level directory of your project.
+
+```
+my_project.RProj/
+    |- data/
+    |   |- raw/
+    |       |- penguins_raw.csv
+    |   |- processed/
+    |- scripts/
+    |   |- analysis.R
+    |- results/
+
+
+```
+
+In the above project example you have raw data files in the data/raw directory, scripts in the scripts directory, and you want to save processed data in the data/processed directory.
+
+To access this data using a relative filepath we need:
+
+
+```r
+raw_data <- read.csv("data/raw/penguins_raw.csv")
+```
+
+To access this data with `here` we provide the directories and desired file, and `here()` builds the required filepath starting at the top level of our project each time
+
+
+```r
+library(here)
+
+raw_data <- read.csv(here("data", "raw", "penguins.csv"))
+```
+
+#### here and Rmarkdown
+
+One quirk of working in a `.Rmd` Rmarkdown file is that when you "knit" all code is compiled with the working directory as the folder that .Rmd file lives in, but if you are working in a script `.R` or in a live session then the default working directory is the top level of the project file. This frustrating and confusing process can lead to errors when attempting to compile documents. 
+
+**BUT** if you use the `here` package then this default behaviour is overridden. The working directory when knitting will be the top-level .Rproj location again!
+
+
+### Reading
+
+https://github.com/jennybc/here_here
+
+https://cran.r-project.org/web/packages/here/index.html
+
+
+## Blank slates
+
+When working on data analysis and coding projects in R, it's crucial to ensure that your analysis remains clean, reproducible, and free from hidden dependencies. 
+
+Hidden dependencies are elements in your R session that might not be immediately apparent but can significantly impact the reliability and predictability of your work.
+
+For example many data analysis scripts start with the command `rm(list = ls())`. While this command clears user-created objects from the workspace, it leaves hidden dependencies as it does not reset the R session, and can cause issues such as: 
+
+- **Hidden Dependencies:** Users might unintentionally rely on packages or settings applied in the current session.
+
+- **Incomplete Reset:** Package attachments made with `library()` persist, and customized options remain set.
+
+- **Working Directory:** The working directory is not affected, potentially causing path-related problems in future scripts.
+
+### Restart R sessions
+
+Restarting R sessions and using scripts as your history is a best practice for maintaining a clean, reproducible, and efficient workflow. It addresses the limitations of `rm(list = ls())` by ensuring a complete reset and minimizing hidden dependencies, enhancing code organization, and ensuring your analysis remains robust and predictable across sessions and when shared with others.
+
+<img src="images/rstudio-workspace.png" width="80%" style="display: block; margin: auto;" />
+
+# Basic Import/Export
+
+When loading data into R, the choice of method matters, especially for tabular data like CSV files. There are three common approaches: 
+
+- base R's `read.csv()`
+
+- the `data.table` package with `fread()`
+
+the `readr` package with functions like `read_csv()`
+
+The performance gains of `data.table` and `readr` become significant as data size grows, especially for datasets with many rows. For files larger than 100 MB, `fread()` and `read_csv()` are about five times faster than `read.csv()`. However, the choice should consider memory usage, as very large datasets may impact it.
+
+Keep in mind that `data.table` and `readr` are separate packages, requiring installation and loading.
+
+>readr functions
+
+| Function         | Description                                          |
+|------------------|------------------------------------------------------|
+| `read_csv()`     | CSV file format                                      |
+| `read_tsv()`     | TSV (Tab-Separated Values) file format               |
+| `read_delim()`   | User-specified delimited files                       |
+| `read_fwf()`     | Fixed-width files                                    |
+| `read_table()`   | Whitespace-separated files                           |
+| `read_log()`     | Web log files                                        |
+
+
+## Export
+
+Each of these packages and functions has the inverse "write" function to produce files in a variety of formats from R objects.
+
+## R data files
+
+R has binary file formats for easy saving and loading of data, `.Rdata` and `RDS`:
+
+**.Rdata** file is a binary file format in R used to save the entire workspace, which includes objects, functions, data frames, and more. It captures the current R session's state, allowing you to save and load the entire workspace, including all objects, in a single file.
+
+
+
+```r
+# Create some sample data
+my_data <- data.frame(
+  ID = 1:3,
+  Name = c("Alice", "Bob", "Charlie"),
+  Score = c(95, 87, 92)
+)
+
+# Save the entire workspace to an .Rdata file
+save.image(file = "my_workspace.Rdata")
+
+# Clear the current workspace
+rm(list = ls())
+
+# Load the entire workspace from the .Rdata file
+load("my_workspace.Rdata")
+
+# Access the loaded data
+print(my_data)
+```
+
+
+**.RDS** file, or R Data Serialization file, is a binary file format in R used to save individual R objects. Unlike .Rdata, it is not meant to save the entire workspace but specific objects or data structures.
+
+
+```r
+# Create some sample data
+my_data <- data.frame(
+  ID = 1:3,
+  Name = c("Alice", "Bob", "Charlie"),
+  Score = c(95, 87, 92)
+)
+
+# Save the data frame to an .RDS file
+saveRDS(my_data, file = "my_data.RDS")
+
+# Clear the current workspace
+rm(list = ls())
+
+# Load the data frame from the .RDS file
+loaded_data <- readRDS("my_data.RDS")
+
+# Access the loaded data
+print(loaded_data)
+```
+
+Using these file formats can have several advantages:
+
+**Preservation of Data Types and Structure:** .RDS files preserve the original data types and structure of R objects, including lists, data frames, functions and more.
+
+**Efficiency and Speed:** Reading and writing data in the .RDS format is more efficient and faster than working with text-based formats like CSV. 
+
+**Control Over Specific Objects:** .RDS files allow you to save and load specific R objects or datasets, providing control and flexibility. 
+
+### Objects that take a long time
+
+If there are parts of your analysis that are time-consuming to execute, it's an indication that it's a suitable time to adopt a modular approach. This approach involves dividing your analysis into distinct phases, with each phase having its dedicated script and resulting outputs. 
+
+You can address this by isolating computationally intensive steps in separate scripts and saving the critical object to a file using `saveRDS`. Subsequently, you can create scripts for downstream tasks that reload the essential object with `readRDS`. Breaking down your analysis into logical steps with clear inputs and outputs is generally a sound practice.
+
+
+# Scripts
+
+To ensure clarity and understanding, begin your script with a brief description of its purpose. This description will serve as a reference point for anyone who accesses your script. Even if you make updates later on, having this initial description will help maintain clarity and context, preventing confusion when revisiting the code in the future.
+
+## Organised scripts
+
+Load all necessary packages at the beginning of your script.
+It's common to start with basic packages and then add more specialized libraries as your analysis progresses. However, it's crucial to load all required packages at the beginning of your script. This practice ensures that when you or someone else needs to run the script again, all necessary libraries are readily available, preventing issues in the middle of execution due to unrecognized functions. Small coding details matter.
+
+Name your code sections and use them for quick navigation.
+As your code grows, it may become extensive and challenging to manage. To keep it organized, divide your code into sections, each with a specific name, which can be folded or unfolded for easy navigation. You can also use the 'drop-up' menu at the bottom of the script screen to move between sections.
+
+To create a new code section, insert "####" or "----" at the end of a comment that marks the beginning of a new section.
+
+<img src="images/organised script.png" width="80%" style="display: block; margin: auto;" />
+
+I understand, we all have good intentions, but we often neglect the task of thoroughly commenting our code. I've made that promise to myself many times, but even now, I struggle to do it consistently. Why, you ask? Here are a few reasons:
+
+1. I often tell myself that the analysis itself is more crucial.
+2. I believe I understand my own code.
+3. I usually don't have immediate collaborators who need to use my code.
+
+However, these arguments are somewhat shortsighted. The reality is that:
+
+- The most valuable and relevant analysis loses its value if neither you nor others can understand it. (More on this below)
+- While you may know what you're doing at the moment, it won't feel the same way in a month or two when you've moved on to another project, and someone innocently asks you about how you defined a critical variable. Our memory is unreliable. It's important not to rely on it for every piece of code you produce.
+- Even if you don't have active collaborators at the time of your analysis, someone will eventually need to use your code. You won't be in the same position forever. You're creating a legacy that, someday, someone will rely on, no matter how distant that day may seem right now.
+
+So, what makes code good and reproducible?
+
+1. Thoughtful and clear comments.
+2. Code that is logical and efficient.
+3. Code that has been appropriately timed and tested.
+
+## Use style guides
+
+Consider using a style guide, such as the [tidyverse style guide](https://style.tidyverse.org/), is a beneficial practice for several reasons:
+
+Consistency: A style guide enforces consistent code formatting and naming conventions throughout your project. This consistency improves code readability and makes it easier for you and others to understand the code. When you have multiple people working on a project, a shared style guide ensures that everyone's code looks similar, reducing confusion and errors.
+
+Readability: Following a style guide leads to more readable code. Code is often read more frequently than it is written, so making it easy to understand is crucial. The tidyverse style guide, for example, emphasizes clear and self-explanatory code, improving comprehension for both current and future users. Good coding style is like correct punctuation: you can manage without it, butitsuremakesthingseasiertoread
+
+Collaboration: When working with a team, adhering to a common style guide makes it easier to collaborate. It reduces the friction associated with different team members using varying coding styles and preferences. This streamlines code reviews and simplifies the process of maintaining and extending the codebase.
+
+Error Reduction: A style guide can help identify and prevent common coding errors. It promotes best practices and can include guidelines for avoiding pitfalls and potential issues. This reduces the likelihood of bugs and enhances the overall quality of the code.
+
+## Separate your scripts
+
+Separating your analysis into distinct scripts for different steps is a sound practice in data analysis. Each script can focus on a specific task or step, making your work more organized and understandable.
+
+You can use the `source` function in R to run previous dependencies, ensuring that you can reproduce your work easily. Additionally, for computationally intensive processes or when dealing with large datasets, you can save and load intermediate results in RDS format. This approach not only conserves memory but also saves time when re-running your analysis.
+
+```
+project_folder/
+│
+├── data/
+│   ├── data.csv
+│   ├── processed_data.rds
+│
+├── scripts/
+│   ├── data_preparation.R
+│   ├── data_analysis.R
+│   ├── visualization.R
+│   ├── helper_functions.R
+│
+├── output/
+│   ├── result.csv
+│
+├── README.md
+│
+├── project.Rproj
+
+```
+
+## Activity
+
+Using the [Tidyverse style guide](https://style.tidyverse.org/index.html) for help, how could you improve the layout and readability of this script?
+
+
+```r
+# Install and load necessary packages
+library(dplyr)
+library(ggplot2)
+library(palmerpenguins)
+
+penguins_clean <- janitor::clean_names(penguins_raw)
+
+
+## Data is selected by species, island, culmen length and depth and flipper, then NAs are dropped and a new column is made of length/depth and the mean is summaries for flipper length and length/depth ratio
+penguins_clean |> select(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm)  |> drop_na(culmen_length_mm, culmen_depth_mm, flipper_length_mm) |> mutate(culmen_ratio = culmen_length_mm / culmen_depth_mm) |> group_by(species, island) |> summarise(mean_flipper_length = mean(flipper_length_mm), mean_culmen_ratio = mean(culmen_ratio)) |> arrange(species, island) -> penguins_culmen_ratio
+
+## View summary table
+print(penguins_culmen_ratio)
+
+
+### Data visualization 
+penguins_clean |>
+  ggplot(aes(x = culmen_length_mm, y = culmen_depth_mm, color = species)) +
+          geom_point() +
+                labs(x = "Culmen Length (mm)", y = "Culmen Depth (mm)") +
+                      theme_minimal()
+```
+
+
+::: {.solution}
+
+``{r, eval = F}
+# Packages ====
+# Install and load necessary packages
+library(tidyverse)
+library(janitor)
+# Loads the penguins dataset
+library(palmerpenguins)
+
+
+# Clean the data ====
+penguins_raw <- janitor::clean_names(penguins_raw)
+
+# Analysis====
+# Data exploration and manipulation to make culmen ratio
+penguins_culmen_ratio <- penguins_raw |> 
+  select(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm)  |> 
+  drop_na(culmen_length_mm, culmen_depth_mm, flipper_length_mm) |> 
+  mutate(culmen_ratio = culmen_length_mm / culmen_depth_mm) |>
+  group_by(species, island) |>
+  summarise(mean_flipper_length = mean(flipper_length_mm), 
+            mean_culmen_ratio = mean(culmen_ratio)) |>
+  arrange(species, island)
+
+# View summary table
+print(penguins_culmen_ratio)
+
+# Plots====
+# Data visualization using ggplot2
+penguins_clean |>
+  ggplot(aes(x = culmen_length_mm, y = culmen_depth_mm, color = species)) +
+  geom_point() +
+  labs(x = "Culmen Length (mm)", y = "Culmen Depth (mm)") +
+  theme_minimal()
+``
+
+:::
+
+# Naming things
+
+
+# Penguin project
 
 
 
 
-In this workshop we work through loading data. Once we have a curated and cleaned dataset we can work on generating insights from the data.
+In this workshop we will work through setting up a project and loading data. Once we have a curated and cleaned the dataset we can work on generating insights from the data.
 
 As a biologist you should be used to asking questions and gathering data. It is also important that you learn all aspects of the research process. This includes responsible data management (understanding data files & spreadsheet organisation, keeping data safe) and data analysis.
 
@@ -41,10 +424,29 @@ Before we can begin working with the data, we need to do some set-up.
   * data
   * outputs
   * scripts
+  
 
 <div class="warning">
 <p>R is case-sensitive so type everything EXACTLY as printed here</p>
 </div>
+
+
+
+```r
+dir.create("data",
+           showWarnings = FALSE)
+
+dir.create("outputs",
+           showWarnings = FALSE)
+
+dir.create("scripts",
+           showWarnings = FALSE)
+
+# or this can be run using apply
+lapply(c("data", "outputs", "scripts"), function(dir_name) {
+  dir.create(dir_name, showWarnings = FALSE)
+})
+```
 
 Having these separate subfolders within our project helps keep things tidy, means it's harder to lose things, and lets you easily tell R exactly where to go to retrieve data.  
 
@@ -56,7 +458,7 @@ A Project will contain several files, possibly organised into sub-folders contai
 
 <div class="figure" style="text-align: center">
 <img src="images/project.png" alt="An example of a typical R project set-up" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-6)An example of a typical R project set-up</p>
+<p class="caption">(\#fig:unnamed-chunk-15)An example of a typical R project set-up</p>
 </div>
 
 Within this project you will notice there is already one file *.Rproj*. This is an R project file, this is a very useful feature, it interacts with R to tell it you are working in a very specific place on the computer (in this case the cloud server we have dialed into). It means R will automatically treat the location of your project file as the 'working directory' and makes importing and exporting easier^[More on projects can be found in the R4DS book (https://r4ds.had.co.nz/workflow-projects.html)]. 
@@ -74,7 +476,6 @@ Now that we have a project workspace, we are ready to import some data.
 
 * Right-click Save As to download in csv format to your computer (Make a note of **where** the file is being downloaded to e.g. Downloads)
 
-* Compare how the data looks in "raw" format to when you open the same data with Excel
 
 
 ```{=html}
@@ -84,40 +485,13 @@ Now that we have a project workspace, we are ready to import some data.
 ```
 
 
-At first glance the data might look quite strange and messy. It has been stored as a **CSV** or comma-separated values file. CSV files are plain text files that can store large amounts of data, and can readily be imported into a spreadsheet or storage database. 
-
-These files are the simplest form of database, no coloured cells, no formulae, no text formatting. Each row is a row of the data, each value of a row (previously separate columns) is separated by a comma. 
-
-This file format helps us maintain an ethos **Keep Raw Data Raw** - 
-
-In many cases, the captured or collected data may be unique and impossible to reproduce, such as measurements in a lab or field observations. For this reason, they should be protected from any possible loss. Every time a change is made to a raw data file it threatens the integrity of that information.
-
-In practice, that means we only use our data file for data entry and storage. All the data manipulation, cleaning and analysis happens in R, using transparent and reproducible scripts.
-
-<div class="info">
-<p>We avoid saving files in the Excel format because they have a nasty
-habit of formatting or even losing data when the file gets large
-enough.</p>
-<p>[https://www.theguardian.com/politics/2020/oct/05/how-excel-may-have-caused-loss-of-16000-covid-tests-in-england].</p>
-<p>If you need to add data to a csv file, you can always open it in an
-Excel-like program and add more information, but remember to save it in
-the original csv format afterwards.</p>
-</div>
 
 <div class="figure" style="text-align: center">
 <img src="images/excel_csv.png" alt="excel view, csv view" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-10)Top image: Penguins data viewed in Excel, Bottom image: Penguins data in native csv format</p>
+<p class="caption">(\#fig:unnamed-chunk-18)Top image: Penguins data viewed in Excel, Bottom image: Penguins data in native csv format</p>
 </div>
 
 In raw format, each line of a CSV is separated by commas for different values. When you open this in a spreadsheet program like Excel it automatically converts those comma-separated values into tables and columns. 
-
-<div class="info">
-<p>You are probably more used to working with Excel (.xls and .xlsx)
-file formats, but while these are widely supported, CSV files, as simple
-text formats are supported by ALL data interfaces. They are also not
-proprietary (e.g. the Excel format is owned by Microsoft), so by working
-with a .csv format your data is more open and accessible.</p>
-</div>
 
 
 ## Activity 3: Upload our data
@@ -130,12 +504,22 @@ with a .csv format your data is more open and accessible.</p>
 
 <div class="figure" style="text-align: center">
 <img src="images/upload.png" alt="File tab" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-12)Highlighted the buttons to upload files, and more options</p>
+<p class="caption">(\#fig:unnamed-chunk-19)Highlighted the buttons to upload files, and more options</p>
 </div>
+
+
+### Read data from a url
+
+It is also possible to use a url as a filepath
+
+
+```r
+read_csv("https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/penguins_raw.csv")
+```
 
 ## Activity 4: Make a script
 
-Let's now create a new R script file in which we will write instructions and store comments for manipulating data, developing tables and figures. Use the File > New Script menu item and select an R Script. 
+Let's now create a new R script file in which we will write instructions and store comments for manipulating data, developing tables and figures. Use the `File > New Script` menu item and select an R Script. 
 
 Add the following:
 
@@ -158,7 +542,6 @@ Add the following to your script:
 # PACKAGES ----
 library(tidyverse) # tidy data packages
 library(janitor) # cleans variable names
-library(lubridate) # make sure dates are processed properly
 #__________________________----
 ```
 
@@ -181,7 +564,7 @@ Now we can read in the data. To do this we will use the function `readr::read_cs
 * Add the following to your script, and check the document outline:
 
 
-<div class="tab"><button class="tablinksunnamed-chunk-16 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-16', 'unnamed-chunk-16');">Base R</button><button class="tablinksunnamed-chunk-16" onclick="javascript:openCode(event, 'option2unnamed-chunk-16', 'unnamed-chunk-16');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
+<div class="tab"><button class="tablinksunnamed-chunk-24 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-24', 'unnamed-chunk-24');">Base R</button><button class="tablinksunnamed-chunk-24" onclick="javascript:openCode(event, 'option2unnamed-chunk-24', 'unnamed-chunk-24');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-24" class="tabcontentunnamed-chunk-24">
 
 ```r
 penguins <- read.csv ("data/penguins_raw.csv")
@@ -190,7 +573,7 @@ attributes(penguins) # reads as data.frame
 
 head(penguins) # check the data has loaded, prints first 10 rows of dataframe
 ```
-</div><div id="option2unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
+</div><div id="option2unnamed-chunk-24" class="tabcontentunnamed-chunk-24">
 
 ```r
 # IMPORT DATA ----
@@ -201,7 +584,7 @@ attributes(penguins) # reads as tibble
 head(penguins) # check the data has loaded, prints first 10 rows of dataframe
 #__________________________----
 ```
-</div><script> javascript:hide('option2unnamed-chunk-16') </script>
+</div><script> javascript:hide('option2unnamed-chunk-24') </script>
 
 
 <div class="danger">
@@ -211,75 +594,8 @@ and dataframes - here most obviously is a difference in column
 names.</p>
 </div>
 
-## Filepaths
 
-In the example above the `read_csv()` function requires you to provide a filepath (in "quotes"), in order to tell R where the file you wish to read is located in this example there are two components
-
-* "data/" - specifies the directory in which to look for the file
-
-* "penguins_raw.csv" - specifies the name and format of the file
-
-#### Directories
-
-A directory refers to a folder on a computer that has relationships to other folders. The term “directory” considers the relationship between that folder and the folders within and around it. Directories are hierarchical which means that they can exist within other folders as well as have folders exist within them.
-
-<div class="info">
-<p>No idea what directories or files are? You are not alone <a
-href="https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z">File
-not Found</a></p>
-</div>
-
-A "parent" directory is any folder that contains a subdirectory. For example your downloads folder is a directory, it is the parent directory to any subdirectories or files contained within it. 
-
-#### Home directory
-
-The home directory on a computer is a directory defined by your operating system. The home directory is the primary directory for your user account on your computer. Your files are by default stored in your home directory.
-
-* On Windows, the home directory is typically `C:\Users\your-username`.
-
-* On Mac and Linux, the home directory is typically `/home/your-username`.
-
-#### Working directory
-
-The working directory refers to the directory on your computer that a tool assumes is the starting place for all filepaths
-
-### Absolute vs Relative filepaths
-
-What has this got to do with working in R? 
-
-When you use any programming language, you have to specify filepaths in order for the program to find files to read-in or where to output files. 
-
-An **Absolute** file path is a path that contains the entire path to a file or directory starting from your Home directory and ending at the file or directory you wish to access e.g.
-
-`/home/your-username/project/data/penguins_raw.csv`
-
-The main drawbacks of using absolute file paths are:
-
-* If you share files, another user won’t have the same directory structure as you, so they will need to recreate the file paths
-
-* if you alter your directory structure, you’ll need to rewrite the paths
-
-* an absolute file path will likely be longer than a relative path, more of the backslashes will need to be edited, so there is more scope for error.
-
-As different computers can have different path constructions, any scripts that use absolute filepaths are not very reproducible. 
-
-A **Relative** filepath is the path that is relative to the working directory location on your computer. 
-
-When you use RStudio Projects, wherever the `.Rproj` file is located is set to the working directory. This means that if the `.Rproj` file is located in your `project folder` then the *relative* path to your data is:
-
-`data/penguins_raw.csv`
-
-This filepath is shorter *and* it means you could share your project with someone else and the script would run without any editing. 
-
-<div class="info">
-<p>For those of you using RStudio Cloud, remember you are working on a
-Linux OS cloud server, each of you will have a different absolute
-filepath - but the scripts for the project you are working on right now
-work because you are using relative filepaths</p>
-</div>
-
-
-## Activity 5: Check your script
+## Activity: Check your script
 
 
 <div class='webex-solution'><button>Solution</button>
@@ -311,7 +627,7 @@ head(penguins) # check the data has loaded, prints first 10 rows of dataframe
 </div>
 
 
-## Activity 7: Test yourself
+## Activity: Test yourself
 
 **Question 1.** In order to make your R project reproducible what filepath should you use? 
 
@@ -361,13 +677,8 @@ Each column is a unique variable and each row is a unique observation so this da
 
 
 
-It may surprise you to learn that scientists actually spend far more time cleaning and preparing their data than they spend actually analysing it. This means completing tasks such as cleaning up bad values, changing the structure of dataframes, reducing the data down to a subset of observations, and producing data summaries. 
 
-Many people seem to operate under the assumption that the only option for data cleaning is the painstaking and time-consuming cutting and pasting of data within a spreadsheet program like Excel. We have witnessed students and colleagues waste days, weeks, and even months manually transforming their data in Excel, cutting, copying, and pasting data. Fixing up your data by hand is not only a terrible use of your time, but it is error-prone and not reproducible. Additionally, in this age where we can easily collect massive datasets online, you will not be able to organise, clean, and prepare these by hand.
-
-In short, you will not thrive as a scientist if you do not learn some key data wrangling skills. Although every dataset presents unique challenges, there are some systematic principles you should follow that will make your analyses easier, less error-prone, more efficient, and more reproducible.
-
-In this chapter you will see how data science skills will allow you to efficiently get answers to nearly any question you might want to ask about your data. By learning how to properly make your computer do the hard and boring work for you, you can focus on the bigger issues.
+In this chapter you will learn how to use tidyverse functions to data clean and wrangle: 
 
 ## Activity 1: Change column names
 
@@ -458,14 +769,14 @@ colnames(penguins) # quickly check the new variable names
 
 The `clean_names` function quickly converts all variable names into snake case. The N and C blood isotope ratio names are still quite long though, so let's clean those with `dplyr::rename()` where "new_name" = "old_name".
 
-<div class="tab"><button class="tablinksunnamed-chunk-27 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-27', 'unnamed-chunk-27');">Base R</button><button class="tablinksunnamed-chunk-27" onclick="javascript:openCode(event, 'option2unnamed-chunk-27', 'unnamed-chunk-27');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
+<div class="tab"><button class="tablinksunnamed-chunk-33 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-33', 'unnamed-chunk-33');">Base R</button><button class="tablinksunnamed-chunk-33" onclick="javascript:openCode(event, 'option2unnamed-chunk-33', 'unnamed-chunk-33');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
 
 ```r
 names(penguins)[names(penguins) == "delta_15_n_o_oo"] <- "delta_15n"
 
 names(penguins)[names(penguins) == "delta_13_c_o_oo"] <- "delta_13c"
 ```
-</div><div id="option2unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
+</div><div id="option2unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
 
 ```r
 # shorten the variable names for N and C isotope blood samples
@@ -474,7 +785,7 @@ penguins <- rename(penguins,
          "delta_15n"="delta_15_n_o_oo",  # use rename from the dplyr package
          "delta_13c"="delta_13_c_o_oo")
 ```
-</div><script> javascript:hide('option2unnamed-chunk-27') </script>
+</div><script> javascript:hide('option2unnamed-chunk-33') </script>
 
 ## Check data
 
@@ -483,17 +794,17 @@ penguins <- rename(penguins,
 When we run `glimpse()` we get several lines of output. The number of observations "rows", the number of variables "columns". Check this against the csv file you have - they should be the same. In the next lines we see variable names and the type of data. 
 
 
-<div class="tab"><button class="tablinksunnamed-chunk-28 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-28', 'unnamed-chunk-28');">Base R</button><button class="tablinksunnamed-chunk-28" onclick="javascript:openCode(event, 'option2unnamed-chunk-28', 'unnamed-chunk-28');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-28" class="tabcontentunnamed-chunk-28">
+<div class="tab"><button class="tablinksunnamed-chunk-34 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-34', 'unnamed-chunk-34');">Base R</button><button class="tablinksunnamed-chunk-34" onclick="javascript:openCode(event, 'option2unnamed-chunk-34', 'unnamed-chunk-34');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-34" class="tabcontentunnamed-chunk-34">
 
 ```r
 attributes(penguins)
 ```
-</div><div id="option2unnamed-chunk-28" class="tabcontentunnamed-chunk-28">
+</div><div id="option2unnamed-chunk-34" class="tabcontentunnamed-chunk-34">
 
 ```r
 glimpse(penguins)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-28') </script>
+</div><script> javascript:hide('option2unnamed-chunk-34') </script>
 
 We can see a dataset with 345 rows (including the headers) and 17 variables
 It also provides information on the *type* of data in each column
@@ -507,7 +818,7 @@ It also provides information on the *type* of data in each column
 Sometimes we may want to rename the values in our variables in order to make a shorthand that is easier to follow. This is changing the **values** in our columns, not the column names. 
 
 
-<div class="tab"><button class="tablinksunnamed-chunk-29 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-29', 'unnamed-chunk-29');">Base R</button><button class="tablinksunnamed-chunk-29" onclick="javascript:openCode(event, 'option2unnamed-chunk-29', 'unnamed-chunk-29');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-29" class="tabcontentunnamed-chunk-29">
+<div class="tab"><button class="tablinksunnamed-chunk-35 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-35', 'unnamed-chunk-35');">Base R</button><button class="tablinksunnamed-chunk-35" onclick="javascript:openCode(event, 'option2unnamed-chunk-35', 'unnamed-chunk-35');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
 
 ```r
 penguins$species <- ifelse(penguins$species == "Adelie Penguin (Pygoscelis adeliae)", "Adelie",
@@ -515,7 +826,7 @@ penguins$species <- ifelse(penguins$species == "Adelie Penguin (Pygoscelis adeli
                                  ifelse(penguins$species == "Chinstrap penguin (Pygoscelis antarctica)", "Chinstrap",
                                         penguins$species)))
 ```
-</div><div id="option2unnamed-chunk-29" class="tabcontentunnamed-chunk-29">
+</div><div id="option2unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
 
 ```r
 # use mutate and case_when for a statement that conditionally changes the names of the values in a variable
@@ -524,7 +835,7 @@ penguins <- penguins |>
                              species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
                              species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap"))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-29') </script>
+</div><script> javascript:hide('option2unnamed-chunk-35') </script>
 
 
 
@@ -585,12 +896,12 @@ For example I might wish to create a simplified dataset that only contains `spec
 
 Run the below code to select only those columns
 
-<div class="tab"><button class="tablinksunnamed-chunk-32 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-32', 'unnamed-chunk-32');">Base R</button><button class="tablinksunnamed-chunk-32" onclick="javascript:openCode(event, 'option2unnamed-chunk-32', 'unnamed-chunk-32');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-32" class="tabcontentunnamed-chunk-32">
+<div class="tab"><button class="tablinksunnamed-chunk-38 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-38', 'unnamed-chunk-38');">Base R</button><button class="tablinksunnamed-chunk-38" onclick="javascript:openCode(event, 'option2unnamed-chunk-38', 'unnamed-chunk-38');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-38" class="tabcontentunnamed-chunk-38">
 
 ```r
 penguins[c("species", "sex", "flipper_length_mm", "body_mass_g")]
 ```
-</div><div id="option2unnamed-chunk-32" class="tabcontentunnamed-chunk-32">
+</div><div id="option2unnamed-chunk-38" class="tabcontentunnamed-chunk-38">
 
 ```r
 # DPLYR VERBS ----
@@ -598,22 +909,22 @@ penguins[c("species", "sex", "flipper_length_mm", "body_mass_g")]
 select(.data = penguins, # the data object
        species, sex, flipper_length_mm, body_mass_g) # the variables you want to select
 ```
-</div><script> javascript:hide('option2unnamed-chunk-32') </script>
+</div><script> javascript:hide('option2unnamed-chunk-38') </script>
 
 Alternatively you could tell R the columns you **don't** want e.g. 
 
-<div class="tab"><button class="tablinksunnamed-chunk-33 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-33', 'unnamed-chunk-33');">Base R</button><button class="tablinksunnamed-chunk-33" onclick="javascript:openCode(event, 'option2unnamed-chunk-33', 'unnamed-chunk-33');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
+<div class="tab"><button class="tablinksunnamed-chunk-39 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-39', 'unnamed-chunk-39');">Base R</button><button class="tablinksunnamed-chunk-39" onclick="javascript:openCode(event, 'option2unnamed-chunk-39', 'unnamed-chunk-39');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
 
 ```r
 penguins[, !colnames(penguins) %in% c("study_name", "sample_number")]
 ```
-</div><div id="option2unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
+</div><div id="option2unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
 
 ```r
 select(.data = penguins,
        -study_name, -sample_number)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-33') </script>
+</div><script> javascript:hide('option2unnamed-chunk-39') </script>
 
 Note that `select()` does **not** change the original `penguins` tibble. It spits out the new tibble directly into your console. 
 
@@ -633,22 +944,22 @@ Having previously used `select()` to select certain variables, we will now use `
 
 We can do this with the equivalence operator `==`
 
-<div class="tab"><button class="tablinksunnamed-chunk-35 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-35', 'unnamed-chunk-35');">Base R</button><button class="tablinksunnamed-chunk-35" onclick="javascript:openCode(event, 'option2unnamed-chunk-35', 'unnamed-chunk-35');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
+<div class="tab"><button class="tablinksunnamed-chunk-41 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-41', 'unnamed-chunk-41');">Base R</button><button class="tablinksunnamed-chunk-41" onclick="javascript:openCode(event, 'option2unnamed-chunk-41', 'unnamed-chunk-41');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-41" class="tabcontentunnamed-chunk-41">
 
 ```r
 filtered_penguins <- new_penguins[new_penguins$species == "Adelie Penguin (Pygoscelis adeliae"), ]
 ```
-</div><div id="option2unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
+</div><div id="option2unnamed-chunk-41" class="tabcontentunnamed-chunk-41">
 
 ```r
 filter(.data = new_penguins, species == "Adelie Penguin (Pygoscelis adeliae)")
 ```
-</div><script> javascript:hide('option2unnamed-chunk-35') </script>
+</div><script> javascript:hide('option2unnamed-chunk-41') </script>
 
 We can use several different operators to assess the way in which we should filter our data that work the same in tidyverse or base R.
 
 <table class="table" style="font-size: 16px; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-36)Boolean expressions</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-42)Boolean expressions</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Operator </th>
@@ -705,33 +1016,33 @@ You can include multiple expressions within `filter()` and it will pull out only
 
 For example the below code will pull out only those observations of Adelie penguins where flipper length was measured as greater than 190mm. 
 
-<div class="tab"><button class="tablinksunnamed-chunk-39 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-39', 'unnamed-chunk-39');">Base R</button><button class="tablinksunnamed-chunk-39" onclick="javascript:openCode(event, 'option2unnamed-chunk-39', 'unnamed-chunk-39');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
+<div class="tab"><button class="tablinksunnamed-chunk-45 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-45', 'unnamed-chunk-45');">Base R</button><button class="tablinksunnamed-chunk-45" onclick="javascript:openCode(event, 'option2unnamed-chunk-45', 'unnamed-chunk-45');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
 
 ```r
 new_penguins[new_penguins$species == "Adelie" & new_penguins$flipper_length_mm > 190, ]
 ```
-</div><div id="option2unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
+</div><div id="option2unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
 
 ```r
 filter(.data = new_penguins, species == "Adelie", flipper_length_mm > 190)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-39') </script>
+</div><script> javascript:hide('option2unnamed-chunk-45') </script>
 
 ### Arrange
 
 The function `arrange()` sorts the rows in the table according to the columns supplied. For example
 
-<div class="tab"><button class="tablinksunnamed-chunk-40 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-40', 'unnamed-chunk-40');">Base R</button><button class="tablinksunnamed-chunk-40" onclick="javascript:openCode(event, 'option2unnamed-chunk-40', 'unnamed-chunk-40');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-40" class="tabcontentunnamed-chunk-40">
+<div class="tab"><button class="tablinksunnamed-chunk-46 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-46', 'unnamed-chunk-46');">Base R</button><button class="tablinksunnamed-chunk-46" onclick="javascript:openCode(event, 'option2unnamed-chunk-46', 'unnamed-chunk-46');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
 
 ```r
 new_penguins[order(new_penguins$sex), ] # define columns to be arranged
 ```
-</div><div id="option2unnamed-chunk-40" class="tabcontentunnamed-chunk-40">
+</div><div id="option2unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
 
 ```r
 arrange(.data = new_penguins, sex)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-40') </script>
+</div><script> javascript:hide('option2unnamed-chunk-46') </script>
 
 The data is now arranged in alphabetical order by sex. So all of the observations of female penguins are listed before males. 
 
@@ -760,18 +1071,18 @@ To create new variables we use the function `mutate()`.
 
 Note that as before, if you want to save your new column you must save it as an object. Here we are mutating a new column and attaching it to the `new_penguins` data oject.
 
-<div class="tab"><button class="tablinksunnamed-chunk-43 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-43', 'unnamed-chunk-43');">Base R</button><button class="tablinksunnamed-chunk-43" onclick="javascript:openCode(event, 'option2unnamed-chunk-43', 'unnamed-chunk-43');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-43" class="tabcontentunnamed-chunk-43">
+<div class="tab"><button class="tablinksunnamed-chunk-49 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-49', 'unnamed-chunk-49');">Base R</button><button class="tablinksunnamed-chunk-49" onclick="javascript:openCode(event, 'option2unnamed-chunk-49', 'unnamed-chunk-49');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
 
 ```r
 new_penguins$body_mass_kg <- new_penguins$body_mass_g / 1000
 ```
-</div><div id="option2unnamed-chunk-43" class="tabcontentunnamed-chunk-43">
+</div><div id="option2unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
 
 ```r
 new_penguins <- mutate(.data = new_penguins,
                      body_mass_kg = body_mass_g/1000)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-43') </script>
+</div><script> javascript:hide('option2unnamed-chunk-49') </script>
 
 ## Pipes
 
@@ -854,6 +1165,23 @@ penguins |>
 ```
 Great! 
 
+If I did have duplications I could investigate further
+
+
+```r
+# Check duplicated rows
+penguins |> 
+    filter(duplicated(penguins))
+```
+
+
+
+```r
+# Keep only unduplicated data
+penguins |> 
+    filter(!duplicated(penguins))
+```
+
 ### Summarise
 
 We can also  explore our data for very obvious typos by checking for implausibly small or large values, this is a simple use of the `summarise` function.
@@ -877,7 +1205,7 @@ our dataset is nearly half the size of the largest penguin.</p>
 
 Many data analysis tasks can be approached using the “split-apply-combine” paradigm: split the data into groups, apply some analysis to each group, and then combine the results. `dplyr` makes this very easy with the `group_by()` function. In the `summarise` example above we were able to find the max-min body mass values for the penguins in our dataset. But what if we wanted to break that down by a grouping such as species of penguin. This is where `group_by()` comes in.
 
-<div class="tab"><button class="tablinksunnamed-chunk-53 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-53', 'unnamed-chunk-53');">Base R</button><button class="tablinksunnamed-chunk-53" onclick="javascript:openCode(event, 'option2unnamed-chunk-53', 'unnamed-chunk-53');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
+<div class="tab"><button class="tablinksunnamed-chunk-61 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-61', 'unnamed-chunk-61');">Base R</button><button class="tablinksunnamed-chunk-61" onclick="javascript:openCode(event, 'option2unnamed-chunk-61', 'unnamed-chunk-61');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
 
 ```r
 #Things start to get more complicated with Base R
@@ -887,7 +1215,7 @@ split(penguins$body_mass_g, penguins$species) |>
     do.call(rbind, args = _ ) |> 
   as.data.frame()
 ```
-</div><div id="option2unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
+</div><div id="option2unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
 
 ```r
 penguins |> 
@@ -895,7 +1223,7 @@ penguins |>
   summarise(min=min(body_mass_g, na.rm=TRUE), 
             max=max(body_mass_g, na.rm=TRUE))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-53') </script>
+</div><script> javascript:hide('option2unnamed-chunk-61') </script>
 
 Now we know a little more about our data, the max weight of our Gentoo penguins is much larger than the other two species. In fact, the minimum weight of a Gentoo penguin is not far off the max weight of the other two species. 
 
@@ -904,18 +1232,18 @@ Now we know a little more about our data, the max weight of our Gentoo penguins 
 
 We can also look for typos by asking R to produce all of the distinct values in a variable. This is more useful for categorical data, where we expect there to be only a few distinct categories
 
-<div class="tab"><button class="tablinksunnamed-chunk-54 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-54', 'unnamed-chunk-54');">Base R</button><button class="tablinksunnamed-chunk-54" onclick="javascript:openCode(event, 'option2unnamed-chunk-54', 'unnamed-chunk-54');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
+<div class="tab"><button class="tablinksunnamed-chunk-62 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-62', 'unnamed-chunk-62');">Base R</button><button class="tablinksunnamed-chunk-62" onclick="javascript:openCode(event, 'option2unnamed-chunk-62', 'unnamed-chunk-62');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
 
 ```r
 unique(penquins$sex) # only works on vectord
 ```
-</div><div id="option2unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
+</div><div id="option2unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
 
 ```r
 penguins |>  
   distinct(sex)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-54') </script>
+</div><script> javascript:hide('option2unnamed-chunk-62') </script>
 
 Here if someone had mistyped e.g. 'FMALE' it would be obvious. We could do the same thing (and probably should have before we changed the names) for species. 
 
@@ -990,6 +1318,7 @@ If you want to check your answers (or are just completely stuck) then click here
 
 
 
+
 # Data wrangling part two
 
 
@@ -1005,7 +1334,7 @@ Think about some basic checks before you start your work today.
 
 ### Checklist
 
-* Are there objects already in your Environment pane? [There shouldn't be](#global-options), if there are use `rm(list=ls())`
+* Restart your R session and check the environment clears
 
 * Re-run your script from [last time](#data-wrangling-part-one) from line 1 to the last line
 
@@ -1022,13 +1351,13 @@ Very often we want to make calculations aobut groups of observations, such as th
 out # and add short descriptions of what you are achieving with them</p>
 </div>
 
-<div class="tab"><button class="tablinksunnamed-chunk-63 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-63', 'unnamed-chunk-63');">Base R</button><button class="tablinksunnamed-chunk-63" onclick="javascript:openCode(event, 'option2unnamed-chunk-63', 'unnamed-chunk-63');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
+<div class="tab"><button class="tablinksunnamed-chunk-71 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-71', 'unnamed-chunk-71');">Base R</button><button class="tablinksunnamed-chunk-71" onclick="javascript:openCode(event, 'option2unnamed-chunk-71', 'unnamed-chunk-71');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-71" class="tabcontentunnamed-chunk-71">
 
 ```r
 unique(penguins$individual_id) |> 
   length()
 ```
-</div><div id="option2unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
+</div><div id="option2unnamed-chunk-71" class="tabcontentunnamed-chunk-71">
 
 ```r
 penguins |> 
@@ -1051,11 +1380,11 @@ penguins |>
 </table>
 
 </div>
-</div><script> javascript:hide('option2unnamed-chunk-63') </script>
+</div><script> javascript:hide('option2unnamed-chunk-71') </script>
 
 Now consider when the groups are subsets of observations, as when we find out the number of penguins in each species and sex.
 
-<div class="tab"><button class="tablinksunnamed-chunk-64 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-64', 'unnamed-chunk-64');">Base R</button><button class="tablinksunnamed-chunk-64" onclick="javascript:openCode(event, 'option2unnamed-chunk-64', 'unnamed-chunk-64');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-64" class="tabcontentunnamed-chunk-64">
+<div class="tab"><button class="tablinksunnamed-chunk-72 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-72', 'unnamed-chunk-72');">Base R</button><button class="tablinksunnamed-chunk-72" onclick="javascript:openCode(event, 'option2unnamed-chunk-72', 'unnamed-chunk-72');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-72" class="tabcontentunnamed-chunk-72">
 
 ```r
 # note aggregate doesn't have functionality to deal with missing data
@@ -1063,14 +1392,14 @@ aggregate(individual_id ~ species + sex,
           data = penguins, 
           FUN = function(x) length(unique(x)))
 ```
-</div><div id="option2unnamed-chunk-64" class="tabcontentunnamed-chunk-64">
+</div><div id="option2unnamed-chunk-72" class="tabcontentunnamed-chunk-72">
 
 ```r
 penguins |> 
   group_by(species, sex) |> 
   summarise(n_distinct(individual_id))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-64') </script>
+</div><script> javascript:hide('option2unnamed-chunk-72') </script>
 
 As we progress, not only are we learning how to use our data wrangling tools. We are also gaining insights into our data. 
 
@@ -1155,11 +1484,11 @@ the <code>=</code></p>
 calculation</p>
 </div>
 
+
 <div class="try">
 <p>What happens when you try to produce calculations that include
 <code>NA</code>? e.g <code>NA</code> + 4 or <code>NA</code> * 5</p>
 </div>
-
 
 We can use several functions in `summarise`. Which means we can string several calculations together in a single step, and generate more insights into our data.
 
@@ -1172,14 +1501,13 @@ penguins |>
             prop_female = sum(sex == "FEMALE", na.rm=TRUE) / n()) # proportion of observations that are coded as female
 ```
 
-<div class='webex-solution'><button>Solution</button>
 
+<button id="displayTextunnamed-chunk-78" onclick="javascript:toggle('unnamed-chunk-78');">Show Solution</button>
 
-* There are 190 unique IDs and 344 total observations so it would appear that there are roughly twice as many observations as unique individuals. The sex ratio is roughly even (48% female) and the average flipper length is 201 mm.
+<div id="toggleTextunnamed-chunk-78" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
-
-</div>
-
+There are 190 unique IDs and 344 total observations so it would appear that there are roughly twice as many observations as unique individuals. The sex ratio is roughly even (48% female) and the average flipper length is 201 mm.
+</div></div></div>
 
 
 #### Summarize `across` columns
@@ -1473,20 +1801,19 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_KRWXYUNFTX'><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_KRWXYUNFTX" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_SUJDAGNCXO'><label><input type="radio" autocomplete="off" name="radio_SUJDAGNCXO" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_SUJDAGNCXO" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_SUJDAGNCXO" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_SUJDAGNCXO" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
+<button id="displayTextunnamed-chunk-97" onclick="javascript:toggle('unnamed-chunk-97');">Show Solution</button>
 
-<div class='webex-solution'><button>Solution</button>
-
-
-
+<div id="toggleTextunnamed-chunk-97" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 penguins <- penguins |>
   mutate(date_egg_proper = lubridate::dmy(date_egg))
 ```
+</div></div></div>
 
 
 Here we use the `mutate` function from `dplyr` to create a *new variable* called `date_egg_proper` based on the output of converting the characters in `date_egg` to date format. The original variable is left intact, if we had specified the "new" variable was also called `date_egg` then it would have overwritten the original variable. 
@@ -1562,7 +1889,7 @@ penguins |>
   geom_bar()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-93-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-102-1.png" width="100%" style="display: block; margin: auto;" />
 
 To convert a character or numeric column to class factor, you can use any function from the `forcats` package. They will convert to class factor and then also perform or allow certain ordering of the levels - for example using `forcats::fct_relevel()` lets you manually specify the level order. 
 
@@ -1572,18 +1899,18 @@ The `base R` function `factor()` converts a column to factor and allows you to m
 
 Below we use `mutate()` and `fct_relevel()` to convert the column flipper_range from class character to class factor. 
 
-<div class="tab"><button class="tablinksunnamed-chunk-94 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-94', 'unnamed-chunk-94');">Base R</button><button class="tablinksunnamed-chunk-94" onclick="javascript:openCode(event, 'option2unnamed-chunk-94', 'unnamed-chunk-94');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-94" class="tabcontentunnamed-chunk-94">
+<div class="tab"><button class="tablinksunnamed-chunk-103 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-103', 'unnamed-chunk-103');">Base R</button><button class="tablinksunnamed-chunk-103" onclick="javascript:openCode(event, 'option2unnamed-chunk-103', 'unnamed-chunk-103');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-103" class="tabcontentunnamed-chunk-103">
 
 ```r
 penguins$flipper_range <- factor(penguins$flipper_range)
 ```
-</div><div id="option2unnamed-chunk-94" class="tabcontentunnamed-chunk-94">
+</div><div id="option2unnamed-chunk-103" class="tabcontentunnamed-chunk-103">
 
 ```r
 penguins <- penguins |> 
   mutate(flipper_range = fct_relevel(flipper_range))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-94') </script>
+</div><script> javascript:hide('option2unnamed-chunk-103') </script>
 
 
 
@@ -1595,20 +1922,21 @@ levels(penguins$flipper_range)
 ## [1] "large"  "medium" "small"
 ```
 
-<div class="tab"><button class="tablinksunnamed-chunk-96 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-96', 'unnamed-chunk-96');">Base R</button><button class="tablinksunnamed-chunk-96" onclick="javascript:openCode(event, 'option2unnamed-chunk-96', 'unnamed-chunk-96');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-96" class="tabcontentunnamed-chunk-96">
+
+<div class="tab"><button class="tablinksunnamed-chunk-105 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-105', 'unnamed-chunk-105');">Base R</button><button class="tablinksunnamed-chunk-105" onclick="javascript:openCode(event, 'option2unnamed-chunk-105', 'unnamed-chunk-105');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
 
 ```r
 penguins$flipper_range <- factor(penguins$flipper_range,
                                   levels = c("small", "medium", "large"))
 ```
-</div><div id="option2unnamed-chunk-96" class="tabcontentunnamed-chunk-96">
+</div><div id="option2unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
 
 ```r
 # Correct the code in your script with this version
 penguins <- penguins |> 
   mutate(flipper_range = fct_relevel(flipper_range, "small", "medium", "large"))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-96') </script>
+</div><script> javascript:hide('option2unnamed-chunk-105') </script>
 
 Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels. 
 
@@ -1619,7 +1947,7 @@ penguins |>
   geom_bar()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-97-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-106-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>Factors will also be important when we build linear models a bit
@@ -1639,12 +1967,12 @@ appropriate choice, and by changing this to an ordered
 
 <div class="figure" style="text-align: center">
 <img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-99)My neat project layout</p>
+<p class="caption">(\#fig:unnamed-chunk-108)My neat project layout</p>
 </div>
 
 <div class="figure" style="text-align: center">
 <img src="images/r_script.png" alt="My scripts and file subdirectory" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-100)My scripts and file subdirectory</p>
+<p class="caption">(\#fig:unnamed-chunk-109)My scripts and file subdirectory</p>
 </div>
 
 ## Activity: Test yourself
@@ -1744,7 +2072,7 @@ skimr::skim(penguins)
 
 <table style='width: auto;'
       class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-105)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-114)Data summary</caption>
 <tbody>
   <tr>
    <td style="text-align:left;"> Name </td>
@@ -1824,8 +2152,8 @@ skimr::skim(penguins)
    <td style="text-align:left;"> species </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 33 </td>
-   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 9 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 3 </td>
    <td style="text-align:right;"> 0 </td>
@@ -2053,7 +2381,7 @@ skimr::skim(penguins)
    <td style="text-align:left;"> ▃▇▆▃▂ </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> delta_15_n_o_oo </td>
+   <td style="text-align:left;"> delta_15n </td>
    <td style="text-align:right;"> 14 </td>
    <td style="text-align:right;"> 0.96 </td>
    <td style="text-align:right;"> 8.73 </td>
@@ -2066,7 +2394,7 @@ skimr::skim(penguins)
    <td style="text-align:left;"> ▃▇▆▅▂ </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> delta_13_c_o_oo </td>
+   <td style="text-align:left;"> delta_13c </td>
    <td style="text-align:right;"> 13 </td>
    <td style="text-align:right;"> 0.96 </td>
    <td style="text-align:right;"> -25.69 </td>
@@ -2137,7 +2465,7 @@ penguins |>
   pairs()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-107-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### GGally
 
@@ -2155,7 +2483,7 @@ penguins |>
   ggpairs()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-109-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-118-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -2164,14 +2492,14 @@ penguins |>
   ggpairs(columns = 10:12, ggplot2::aes(colour = species))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-110-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-119-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 penguins |> 
   ggpairs(columns = 10:12, upper = "blank")
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-111-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-120-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2179,7 +2507,7 @@ penguins |>
   ggpairs(columns = 10:14, columnLabels = c("Bill length", "Bill depth", "Flipper length", "Body mass", "Sex"))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-112-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-121-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2188,7 +2516,7 @@ penguins |>
           lower = list(continuous = "points", combo = "dot_no_facet"))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-113-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-122-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2198,7 +2526,7 @@ penguins |>
           ggplot2::aes(colour = species))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-114-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-123-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2206,7 +2534,7 @@ penguins |>
   ggpairs(columns = 10:14, axisLabels = "internal")
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-115-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-124-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## dataxray
 
@@ -2283,31 +2611,36 @@ sessionInfo()
 ## [17] ggplot2_3.4.2      tidyverse_2.0.0   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.2.0    viridisLite_0.4.2   fastmap_1.1.1      
-##  [4] lazyeval_0.2.2      reshape_0.8.9       promises_1.2.0.1   
-##  [7] digest_0.6.33       rpart_4.1.19        mime_0.12          
-## [10] timechange_0.2.0    lifecycle_1.0.3     cluster_2.1.4      
-## [13] ellipsis_0.3.2      magrittr_2.0.3      compiler_4.3.1     
-## [16] rlang_1.1.1         Hmisc_5.1-1         sass_0.4.6         
-## [19] tools_4.3.1         utf8_1.2.3          yaml_2.3.7         
-## [22] data.table_1.14.8   htmlwidgets_1.6.2   plyr_1.8.8         
-## [25] xml2_1.3.5          RColorBrewer_1.1-3  withr_2.5.0        
-## [28] foreign_0.8-84      nnet_7.3-19         grid_4.3.1         
-## [31] fansi_1.0.4         xtable_1.8-4        colorspace_2.1-0   
-## [34] scales_1.2.1        cli_3.6.1           rmarkdown_2.23     
-## [37] generics_0.1.3      rstudioapi_0.15.0   httr_1.4.6         
-## [40] tzdb_0.4.0          cachem_1.0.8        rvest_1.0.3        
-## [43] base64enc_0.1-3     vctrs_0.6.3         webshot_0.5.5      
-## [46] jsonlite_1.8.7      bookdown_0.34       hms_1.1.3          
-## [49] Formula_1.2-5       htmlTable_2.4.1     systemfonts_1.0.4  
-## [52] plotly_4.10.2       jquerylib_0.1.4     glue_1.6.2         
-## [55] stringi_1.7.12      gtable_0.3.3        later_1.3.1        
-## [58] downlit_0.4.3       munsell_0.5.0       pillar_1.9.0       
-## [61] htmltools_0.5.5     reactable_0.4.4     R6_2.5.1           
-## [64] reactablefmtr_2.0.0 rprojroot_2.0.3     evaluate_0.21      
-## [67] shiny_1.7.4.1       backports_1.4.1     memoise_2.0.1      
-## [70] snakecase_0.11.0    httpuv_1.6.11       bslib_0.5.0        
-## [73] Rcpp_1.0.11         svglite_2.1.1       gridExtra_2.3      
-## [76] checkmate_2.2.0     xfun_0.39           fs_1.6.2           
-## [79] pkgconfig_2.0.3
+##  [1] gridExtra_2.3       rlang_1.1.1         magrittr_2.0.3     
+##  [4] snakecase_0.11.0    compiler_4.3.1      systemfonts_1.0.4  
+##  [7] vctrs_0.6.3         rvest_1.0.3         pkgconfig_2.0.3    
+## [10] crayon_1.5.2        fastmap_1.1.1       backports_1.4.1    
+## [13] ellipsis_0.3.2      labeling_0.4.2      utf8_1.2.3         
+## [16] promises_1.2.0.1    rmarkdown_2.23      tzdb_0.4.0         
+## [19] bit_4.0.5           xfun_0.39           cachem_1.0.8       
+## [22] jsonlite_1.8.7      highr_0.10          later_1.3.1        
+## [25] reshape_0.8.9       parallel_4.3.1      cluster_2.1.4      
+## [28] R6_2.5.1            bslib_0.5.0         stringi_1.7.12     
+## [31] RColorBrewer_1.1-3  rpart_4.1.19        bsplus_0.1.4       
+## [34] jquerylib_0.1.4     Rcpp_1.0.11         bookdown_0.34      
+## [37] base64enc_0.1-3     httpuv_1.6.11       nnet_7.3-19        
+## [40] timechange_0.2.0    tidyselect_1.2.0    rstudioapi_0.15.0  
+## [43] yaml_2.3.7          codetools_0.2-19    plyr_1.8.8         
+## [46] shiny_1.7.4.1       withr_2.5.0         evaluate_0.21      
+## [49] foreign_0.8-84      isoband_0.2.7       xml2_1.3.5         
+## [52] pillar_1.9.0        checkmate_2.2.0     plotly_4.10.2      
+## [55] generics_0.1.3      vroom_1.6.3         rprojroot_2.0.3    
+## [58] hms_1.1.3           munsell_0.5.0       scales_1.2.1       
+## [61] xtable_1.8-4        glue_1.6.2          Hmisc_5.1-1        
+## [64] lazyeval_0.2.2      tools_4.3.1         data.table_1.14.8  
+## [67] webshot_0.5.5       reactable_0.4.4     fs_1.6.2           
+## [70] grid_4.3.1          colorspace_2.1-0    repr_1.1.6         
+## [73] htmlTable_2.4.1     Formula_1.2-5       cli_3.6.1          
+## [76] fansi_1.0.4         viridisLite_0.4.2   svglite_2.1.1      
+## [79] downlit_0.4.3       gtable_0.3.3        sass_0.4.6         
+## [82] digest_0.6.33       reactablefmtr_2.0.0 skimr_2.1.5        
+## [85] farver_2.1.1        htmlwidgets_1.6.2   memoise_2.0.1      
+## [88] htmltools_0.5.5     downloadthis_0.3.2  lifecycle_1.0.3    
+## [91] httr_1.4.6          mime_0.12           MASS_7.3-60        
+## [94] bit64_4.0.5
 ```

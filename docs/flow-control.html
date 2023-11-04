@@ -1,33 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 8 Flow control | Advancing in R</title>
-<meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="https://modern-rstats.eu/defining-your-own-functions.html#control-flow https://bookdown.org/rdpeng/rprogdatascience/control-structures.html Imagine you want a variable to be equal to a certain...">
-<meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 8 Flow control | Advancing in R">
-<meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/flow-control.html">
-<meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="https://modern-rstats.eu/defining-your-own-functions.html#control-flow https://bookdown.org/rdpeng/rprogdatascience/control-structures.html Imagine you want a variable to be equal to a certain...">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 8 Flow control | Advancing in R">
-<meta name="twitter:description" content="https://modern-rstats.eu/defining-your-own-functions.html#control-flow https://bookdown.org/rdpeng/rprogdatascience/control-structures.html Imagine you want a variable to be equal to a certain...">
-<meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Chapter 19 Flow control | Advancing in R</title>
+
+    <meta name="author" content="Philip T. Leftwich" />
+  
+   <meta name="description" content="This book ..." />
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="Chapter 19 Flow control | Advancing in R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
+  <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
+  <meta property="og:description" content="This book ..." />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 19 Flow control | Advancing in R" />
+  
+  <meta name="twitter:description" content="This book ..." />
+  <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.5.0/transition.js"></script>
+    <script src="libs/bs3compat-0.5.0/tabs.js"></script>
+    <script src="libs/bs3compat-0.5.0/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="libs/font-awesome-5.13.0/js/script.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script>
+    <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'G-6NP3MF25W3');
-    </script><script language="javascript"> 
+    </script>
+    <script language="javascript"> 
         function toggle(id) {
             var ele = document.getElementById("toggleText" + id);
             var text = document.getElementById("displayText" + id);
@@ -41,7 +60,9 @@
                 text.innerHTML = "Hide " + buttonText;
             }
         } 
-    </script><script language="javascript">
+    </script>
+
+    <script language="javascript">
         function openCode(evt, codeName, id) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent" + id);
@@ -55,15 +76,24 @@
             document.getElementById(codeName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-    </script><script language="javascript">
+    </script>
+
+    <script language="javascript">
         function hide(id){
             document.getElementById(id).style.display = "none";
         }
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    </script>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<style type="text/css">
+    <style type="text/css">
     /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
     div.csl-bib-body { }
     div.csl-entry {
@@ -85,15 +115,18 @@
       margin-left: 2em;
     }
   </style>
-<link rel="stylesheet" href="include/psyteachr.css">
-<link rel="stylesheet" href="include/webex.css">
-<link rel="stylesheet" href="include/style.css">
+      <link rel="stylesheet" href="include/psyteachr.css" />
+    <link rel="stylesheet" href="include/webex.css" />
+    <link rel="stylesheet" href="include/style.css" />
+  
 </head>
+
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -106,212 +139,137 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-</form>
+      </form>
 
-      <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Overview</a></li>
-<li class="book-part">Get Started in R</li>
-<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
-<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R basics</a></li>
-<li class="book-part">Exploring Data</li>
-<li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
-<li><a class="" href="data-wrangling-part-one.html"><span class="header-section-number">4</span> Data wrangling part one</a></li>
-<li><a class="" href="data-wrangling-part-two.html"><span class="header-section-number">5</span> Data wrangling part two</a></li>
-<li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
-<li class="book-part">Functional Programming</li>
-<li><a class="" href="writing-functions.html"><span class="header-section-number">7</span> Writing Functions</a></li>
-<li><a class="active" href="flow-control.html"><span class="header-section-number">8</span> Flow control</a></li>
-<li><a class="" href="simple-iteration.html"><span class="header-section-number">9</span> Simple iteration</a></li>
-<li><a class="" href="loops.html"><span class="header-section-number">10</span> Loops</a></li>
-<li><a class="" href="apply.html"><span class="header-section-number">11</span> Apply</a></li>
-<li><a class="" href="purrr.html"><span class="header-section-number">12</span> Purrr</a></li>
-<li><a class="" href="bonus-simulation.html"><span class="header-section-number">13</span> Bonus: Simulation</a></li>
-<li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">14</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">15</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">16</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">17</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">18</span> Applying functions across columns</a></li>
-<li><a class="" href="working-with-rows.html"><span class="header-section-number">19</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">20</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">21</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">22</span> Writing Functions in Tidyverse</a></li>
-<li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">23</span> Data visualisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">24</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">25</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">26</span> Making tables with gt</a></li>
-<li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">27</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">28</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">29</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">30</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
-<li><a class="" href="download.html"><span class="header-section-number">34</span> Download?</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
-<li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="rmarkdown.html"><span class="header-section-number">36</span> RMarkdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">37</span> Github</a></li>
-<li><a class="" href="NA.html">
-to upload commits
-to the remote repository.
-</a></li>
-<li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
-<li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">41</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">42</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">43</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">44</span> R Basics</a></li>
-</ul>
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/UEABIO/physalia-intro-stats-2023">View book source <i class="fab fa-github"></i></a></p>
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
         </div>
       </nav>
-</div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="flow-control" class="section level1" number="8">
-<h1>
-<span class="header-section-number">8</span> Flow control<a class="anchor" aria-label="anchor" href="#flow-control"><i class="fas fa-link"></i></a>
-</h1>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="flow-control" class="section level1" number="19">
+<h1><span class="header-section-number">Chapter 19</span> Flow control</h1>
 <p><a href="https://modern-rstats.eu/defining-your-own-functions.html#control-flow" class="uri">https://modern-rstats.eu/defining-your-own-functions.html#control-flow</a></p>
 <p><a href="https://bookdown.org/rdpeng/rprogdatascience/control-structures.html" class="uri">https://bookdown.org/rdpeng/rprogdatascience/control-structures.html</a></p>
 <p>Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical problem that requires the <code>if</code> and <code>else</code> construct. For instance:</p>
-<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></code></pre></div>
-<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;</span> <span class="va">b</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">f</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
-<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>  <span class="va">f</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">f</span></span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="flow-control.html#cb263-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb263-2"><a href="flow-control.html#cb263-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="flow-control.html#cb264-1" tabindex="-1"></a><span class="cf">if</span> (a <span class="sc">&gt;</span> b) {</span>
+<span id="cb264-2"><a href="flow-control.html#cb264-2" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb264-3"><a href="flow-control.html#cb264-3" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb264-4"><a href="flow-control.html#cb264-4" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb264-5"><a href="flow-control.html#cb264-5" tabindex="-1"></a>}</span>
+<span id="cb264-6"><a href="flow-control.html#cb264-6" tabindex="-1"></a></span>
+<span id="cb264-7"><a href="flow-control.html#cb264-7" tabindex="-1"></a>f</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<p>Another way to achieve this is by using the <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> function:</p>
-<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">a</span> <span class="op">&gt;</span> <span class="va">b</span>, <span class="fl">20</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="va">f</span></span></code></pre></div>
+<p>Another way to achieve this is by using the <code>ifelse()</code> function:</p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="flow-control.html#cb266-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(a <span class="sc">&gt;</span> b, <span class="dv">20</span>, <span class="dv">10</span>)</span>
+<span id="cb266-2"><a href="flow-control.html#cb266-2" tabindex="-1"></a>f</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<p><code>if</code> and <code>else</code> might seem interchangeable with <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>, but they’re not. <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> is vectorized. Let’s try the following:</p>
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="st">"yes"</span>, <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "no"  "yes" "yes"</code></pre>
+<p><code>if</code> and <code>else</code> might seem interchangeable with <code>ifelse()</code>, but they’re not. <code>ifelse()</code> is vectorized. Let’s try the following:</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="flow-control.html#cb268-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>) <span class="sc">&gt;</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;no&quot;  &quot;yes&quot; &quot;yes&quot;</code></pre>
 <p>Trying to attempt the same with <code>if</code> and <code>else</code> will result in an error as only the first element can be evaluated</p>
-<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"yes"</span><span class="op">)</span> <span class="kw">else</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Error in if (c(1, 2, 4) &gt; c(3, 1, 0)) print("yes") else print("no") : 
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="flow-control.html#cb270-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>) <span class="sc">&gt;</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="fu">print</span>(<span class="st">&quot;yes&quot;</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">&quot;no&quot;</span>)</span></code></pre></div>
+<pre><code>Error in if (c(1, 2, 4) &gt; c(3, 1, 0)) print(&quot;yes&quot;) else print(&quot;no&quot;) : 
   the condition has length &gt; 1
 </code></pre>
 <p>The work around for this would to be use a loop, so that each element along the vector can be evaluated in turn. We will revisit loops shortly.</p>
-<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">vector1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="va">vector2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">vector1</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Create an empty character vector to store the results</span></span>
-<span></span>
-<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">vector1</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">vector1</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&gt;</span> <span class="va">vector2</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">result</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"yes"</span></span>
-<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>    <span class="va">result</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"no"</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "no"  "yes" "yes"</code></pre>
-<div id="case_when" class="section level3" number="8.0.1">
-<h3>
-<span class="header-section-number">8.0.1</span> <code>case_when</code><a class="anchor" aria-label="anchor" href="#case_when"><i class="fas fa-link"></i></a>
-</h3>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="flow-control.html#cb272-1" tabindex="-1"></a>vector1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb272-2"><a href="flow-control.html#cb272-2" tabindex="-1"></a>vector2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb272-3"><a href="flow-control.html#cb272-3" tabindex="-1"></a></span>
+<span id="cb272-4"><a href="flow-control.html#cb272-4" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">character</span>(<span class="fu">length</span>(vector1))  <span class="co"># Create an empty character vector to store the results</span></span>
+<span id="cb272-5"><a href="flow-control.html#cb272-5" tabindex="-1"></a></span>
+<span id="cb272-6"><a href="flow-control.html#cb272-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vector1)) {</span>
+<span id="cb272-7"><a href="flow-control.html#cb272-7" tabindex="-1"></a>  <span class="cf">if</span> (vector1[i] <span class="sc">&gt;</span> vector2[i]) {</span>
+<span id="cb272-8"><a href="flow-control.html#cb272-8" tabindex="-1"></a>    result[i] <span class="ot">&lt;-</span> <span class="st">&quot;yes&quot;</span></span>
+<span id="cb272-9"><a href="flow-control.html#cb272-9" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb272-10"><a href="flow-control.html#cb272-10" tabindex="-1"></a>    result[i] <span class="ot">&lt;-</span> <span class="st">&quot;no&quot;</span></span>
+<span id="cb272-11"><a href="flow-control.html#cb272-11" tabindex="-1"></a>  }</span>
+<span id="cb272-12"><a href="flow-control.html#cb272-12" tabindex="-1"></a>}</span>
+<span id="cb272-13"><a href="flow-control.html#cb272-13" tabindex="-1"></a></span>
+<span id="cb272-14"><a href="flow-control.html#cb272-14" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
+<pre><code>## [1] &quot;no&quot;  &quot;yes&quot; &quot;yes&quot;</code></pre>
+<div id="case_when" class="section level3" number="19.0.1">
+<h3><span class="header-section-number">19.0.1</span> <code>case_when</code></h3>
 <p><code>case_when</code> is a powerful <code>tidyverse</code> function in R that serves as an extension of <code>if_else</code>, providing a flexible way to create conditional transformations on multiple values within a dataset. While <code>if_else</code> is primarily used for a single condition, <code>case_when</code> is designed to handle multiple conditions and allows you to assign specific values or perform operations based on these conditions.</p>
 <p>Here's a simple introduction to case_when as an extension of <code>if_else</code>:</p>
 <p>Imagine you have a dataset with a column called "temperature," and you want to create a new column called "weather" based on different temperature ranges. With if_else, you might write something like this:</p>
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">5</span>, <span class="fl">30</span>, <span class="fl">15</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">10</span>, <span class="st">"Cold"</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;=</span> <span class="fl">10</span> <span class="op">&amp;</span> <span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">25</span>, <span class="st">"Moderate"</span>, <span class="st">"Hot"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "Moderate" "Hot"      "Cold"     "Hot"      "Moderate"</code></pre>
-<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
-<span>    <span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">10</span> <span class="op">~</span> <span class="st">"Cold"</span>,</span>
-<span>    <span class="va">temperature</span> <span class="op">&gt;=</span> <span class="fl">10</span> <span class="op">&amp;</span> <span class="va">temperature</span> <span class="op">&lt;</span> <span class="fl">25</span> <span class="op">~</span> <span class="st">"Moderate"</span>,</span>
-<span>    <span class="va">temperature</span> <span class="op">&gt;=</span> <span class="fl">25</span> <span class="op">~</span> <span class="st">"Hot"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "Moderate" "Hot"      "Cold"     "Hot"      "Moderate"</code></pre>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="flow-control.html#cb274-1" tabindex="-1"></a>temperature <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">15</span>)</span>
+<span id="cb274-2"><a href="flow-control.html#cb274-2" tabindex="-1"></a></span>
+<span id="cb274-3"><a href="flow-control.html#cb274-3" tabindex="-1"></a><span class="fu">ifelse</span>(temperature <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="st">&quot;Cold&quot;</span>,</span>
+<span id="cb274-4"><a href="flow-control.html#cb274-4" tabindex="-1"></a>        <span class="fu">ifelse</span>(temperature <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> temperature <span class="sc">&lt;</span> <span class="dv">25</span>, <span class="st">&quot;Moderate&quot;</span>, <span class="st">&quot;Hot&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;Moderate&quot; &quot;Hot&quot;      &quot;Cold&quot;     &quot;Hot&quot;      &quot;Moderate&quot;</code></pre>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="flow-control.html#cb276-1" tabindex="-1"></a><span class="fu">case_when</span>(</span>
+<span id="cb276-2"><a href="flow-control.html#cb276-2" tabindex="-1"></a>    temperature <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">&quot;Cold&quot;</span>,</span>
+<span id="cb276-3"><a href="flow-control.html#cb276-3" tabindex="-1"></a>    temperature <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> temperature <span class="sc">&lt;</span> <span class="dv">25</span> <span class="sc">~</span> <span class="st">&quot;Moderate&quot;</span>,</span>
+<span id="cb276-4"><a href="flow-control.html#cb276-4" tabindex="-1"></a>    temperature <span class="sc">&gt;=</span> <span class="dv">25</span> <span class="sc">~</span> <span class="st">&quot;Hot&quot;</span></span>
+<span id="cb276-5"><a href="flow-control.html#cb276-5" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## [1] &quot;Moderate&quot; &quot;Hot&quot;      &quot;Cold&quot;     &quot;Hot&quot;      &quot;Moderate&quot;</code></pre>
 </div>
-<div id="conditional-functions" class="section level2" number="8.1">
-<h2>
-<span class="header-section-number">8.1</span> Conditional functions<a class="anchor" aria-label="anchor" href="#conditional-functions"><i class="fas fa-link"></i></a>
-</h2>
+<div id="conditional-functions" class="section level2" number="19.1">
+<h2><span class="header-section-number">19.1</span> Conditional functions</h2>
 <p>Let's make a function that reports p-values in APA format (with "p = [rounded value]" when p &gt;= .001 and "p &lt; .001" when p &lt; .001).</p>
 <p>You can add a default value to any argument. If that argument is skipped, then the function uses the default argument.</p>
 <p>First we could make a function that rounds any value to three digits.</p>
-<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">roundp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span></span>
-<span>    <span class="va">reported</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">roundp</span><span class="op">)</span></span>
-<span>    </span>
-<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="flow-control.html#cb278-1" tabindex="-1"></a>report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb278-2"><a href="flow-control.html#cb278-2" tabindex="-1"></a>      roundp <span class="ot">&lt;-</span> <span class="fu">round</span>(p, digits)</span>
+<span id="cb278-3"><a href="flow-control.html#cb278-3" tabindex="-1"></a>    reported <span class="ot">&lt;-</span>  <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, roundp)</span>
+<span id="cb278-4"><a href="flow-control.html#cb278-4" tabindex="-1"></a>    </span>
+<span id="cb278-5"><a href="flow-control.html#cb278-5" tabindex="-1"></a>    <span class="fu">return</span>(reported)</span>
+<span id="cb278-6"><a href="flow-control.html#cb278-6" tabindex="-1"></a>}</span></code></pre></div>
 <p>But we would like this to have a conditional response as well: so we need an <code>if</code> <code>else</code> statement.</p>
-<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="kw">if</span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span><span class="op">)</span><span class="op">{</span></span>
-<span>             <span class="st">"p &lt; 0.001"</span><span class="op">}</span> <span class="kw">else</span><span class="op">{</span></span>
-<span>             <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span>
-<span>             </span>
-<span>     </span>
-<span>     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
-<span> <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="flow-control.html#cb279-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb279-2"><a href="flow-control.html#cb279-2" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="cf">if</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>){</span>
+<span id="cb279-3"><a href="flow-control.html#cb279-3" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>} <span class="cf">else</span>{</span>
+<span id="cb279-4"><a href="flow-control.html#cb279-4" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits))}</span>
+<span id="cb279-5"><a href="flow-control.html#cb279-5" tabindex="-1"></a>             </span>
+<span id="cb279-6"><a href="flow-control.html#cb279-6" tabindex="-1"></a>     </span>
+<span id="cb279-7"><a href="flow-control.html#cb279-7" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
+<span id="cb279-8"><a href="flow-control.html#cb279-8" tabindex="-1"></a> }</span></code></pre></div>
 <p>However we soon hit our first problem, this function works well when provided a single numeric value, but when applied to a vector or a dataframe we encounter an error:</p>
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.05</span>,<span class="fl">0.3</span>,<span class="fl">0.4</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">report_p</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="flow-control.html#cb280-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.05</span>,<span class="fl">0.3</span>,<span class="fl">0.4</span>)</span>
+<span id="cb280-2"><a href="flow-control.html#cb280-2" tabindex="-1"></a></span>
+<span id="cb280-3"><a href="flow-control.html#cb280-3" tabindex="-1"></a><span class="fu">report_p</span>(x)</span></code></pre></div>
 <pre><code>Error in if (p &lt; 0.001) { : the condition has length &gt; 1</code></pre>
-<p>In R, conditional statements are not vector operations. They deal only with a single value. If you pass in, for example, a vector, the <code>if</code> statement will only check the very first element and issue a warning. The solution to this is the <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> or the tidyverse equivalent <code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code> function</p>
+<p>In R, conditional statements are not vector operations. They deal only with a single value. If you pass in, for example, a vector, the <code>if</code> statement will only check the very first element and issue a warning. The solution to this is the <code>ifelse()</code> or the tidyverse equivalent <code>if_else()</code> function</p>
 <div class="tab">
-<button class="tablinks= T active" onclick="javascript:openCode(event, 'option1= T', '= T');">
+<button class="tablinks= T active" onclick="javascript:openCode(event, &#39;option1= T&#39;, &#39;= T&#39;);">
 Base R
 </button>
-<button class="tablinks= T" onclick="javascript:openCode(event, 'option2= T', '= T');">
+<button class="tablinks= T" onclick="javascript:openCode(event, &#39;option2= T&#39;, &#39;= T&#39;);">
 <tt>tidyverse</tt>
 </button>
 </div>
 <div id="option1= T" class="tabcontent= T">
-<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span>,</span>
-<span>             <span class="st">"p &lt; 0.001"</span>,</span>
-<span>             <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>     </span>
-<span>     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
-<span> <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="flow-control.html#cb282-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb282-2"><a href="flow-control.html#cb282-2" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>,</span>
+<span id="cb282-3"><a href="flow-control.html#cb282-3" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
+<span id="cb282-4"><a href="flow-control.html#cb282-4" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits)))</span>
+<span id="cb282-5"><a href="flow-control.html#cb282-5" tabindex="-1"></a>     </span>
+<span id="cb282-6"><a href="flow-control.html#cb282-6" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
+<span id="cb282-7"><a href="flow-control.html#cb282-7" tabindex="-1"></a> }</span></code></pre></div>
 </div>
 <div id="option2= T" class="tabcontent= T">
-<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span>,</span>
-<span>             <span class="st">"p &lt; 0.001"</span>,</span>
-<span>             <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>     </span>
-<span>     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
-<span> <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="flow-control.html#cb283-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb283-2"><a href="flow-control.html#cb283-2" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="fu">if_else</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>,</span>
+<span id="cb283-3"><a href="flow-control.html#cb283-3" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
+<span id="cb283-4"><a href="flow-control.html#cb283-4" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits)))</span>
+<span id="cb283-5"><a href="flow-control.html#cb283-5" tabindex="-1"></a>     </span>
+<span id="cb283-6"><a href="flow-control.html#cb283-6" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
+<span id="cb283-7"><a href="flow-control.html#cb283-7" tabindex="-1"></a> }</span></code></pre></div>
 </div>
-<script> javascript:hide('option2= T') </script><p><a href="https://stackoverflow.com/questions/50646133/dplyr-if-else-vs-base-r-ifelse" class="uri">https://stackoverflow.com/questions/50646133/dplyr-if-else-vs-base-r-ifelse</a></p>
+<script> javascript:hide('option2= T') </script>
+<p><a href="https://stackoverflow.com/questions/50646133/dplyr-if-else-vs-base-r-ifelse" class="uri">https://stackoverflow.com/questions/50646133/dplyr-if-else-vs-base-r-ifelse</a></p>
 </div>
-<div id="warnings-and-errors" class="section level2" number="8.2">
-<h2>
-<span class="header-section-number">8.2</span> Warnings and errors<a class="anchor" aria-label="anchor" href="#warnings-and-errors"><i class="fas fa-link"></i></a>
-</h2>
+<div id="warnings-and-errors" class="section level2" number="19.2">
+<h2><span class="header-section-number">19.2</span> Warnings and errors</h2>
 <div class="try">
 <p>
 What happens when omit an argument for p, set the value to 1.5 or a
@@ -322,68 +280,7 @@ character “a”?
 <p>For <code>p = 1.5</code> it probably <em>shouldn't</em> run (p = 1.5 makes no sense), but it does!</p>
 <p>For <code>p = "a"</code> there is a warning but perhaps not a very intuitive one.</p>
 <p>We can make our own custom/specific warnings, try this and run it with the arguments above again!</p>
-<button id="displayTextunnamed-chunk-58" onclick="javascript:toggle('unnamed-chunk-58');">
-Show Solution
-</button>
-<div id="toggleTextunnamed-chunk-58" style="display: none">
-<div class="panel panel-default">
-<div class="panel-heading panel-heading1">
-Solution
-</div>
-<div class="panel-body">
-<div class="tab">
-<button class="tablinksunnamed-chunk-58 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-58', 'unnamed-chunk-58');">
-Base R
-</button>
-<button class="tablinksunnamed-chunk-58" onclick="javascript:openCode(event, 'option2unnamed-chunk-58', 'unnamed-chunk-58');">
-<tt>tidyverse</tt>
-</button>
-</div>
-<div id="option1unnamed-chunk-58" class="tabcontentunnamed-chunk-58">
-<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   </span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">p</span> <span class="op">&lt;=</span> <span class="fl">0</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot less 0"</span><span class="op">)</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">p</span> <span class="op">&gt;=</span> <span class="fl">1</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot be greater than 1"</span><span class="op">)</span></span>
-<span>   </span>
-<span>     <span class="va">reported</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span>,</span>
-<span>             <span class="st">"p &lt; 0.001"</span>,</span>
-<span>             <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">reported</span><span class="op">)</span></span>
-<span> <span class="op">}</span></span></code></pre></div>
-</div>
-<div id="option2unnamed-chunk-58" class="tabcontentunnamed-chunk-58">
-<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">report_p</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span> </span>
-<span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
-<span> </span>
-<span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
-<span>       <span class="va">p</span> <span class="op">&lt;=</span> <span class="fl">0</span> <span class="op">~</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot be less than or equal to 0"</span><span class="op">)</span>,</span>
-<span>       <span class="va">p</span> <span class="op">&gt;=</span> <span class="fl">1</span> <span class="op">~</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot be greater than or equal to 1"</span><span class="op">)</span>,</span>
-<span>       <span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span> <span class="op">~</span> <span class="st">"p &lt; 0.001"</span>,</span>
-<span>       <span class="cn">TRUE</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span><span class="op">)</span></span>
-<span>   <span class="op">)</span></span>
-<span>   </span>
-<span>   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-</div>
-<script> javascript:hide('option2unnamed-chunk-58') </script>
-</div>
-</div>
-</div>
-</div>
-<div id="activities" class="section level2" number="8.3">
-<h2>
-<span class="header-section-number">8.3</span> Activities<a class="anchor" aria-label="anchor" href="#activities"><i class="fas fa-link"></i></a>
-</h2>
-<p>Exercise 1: Write a Simple Function
-We'll create a function that calculates the GC content of a DNA sequence, and the result melting temperature of the sequence and returns both in a list. GC content is the percentage of the DNA molecule's nitrogenous bases that are either guanine (G) or cytosine (C). This is a common metric used in molecular biology and genetics to analyze DNA sequences. Each GC base addes 4 degrees to melting temp while each AT base adds 2 degrees.</p>
-<blockquote>
-<p>Hint<code>stringr</code> and associated functions will be very helpful here</p>
-</blockquote>
-<button id="displayTextunnamed-chunk-59" onclick="javascript:toggle('unnamed-chunk-59');">
+<button id="displayTextunnamed-chunk-59" onclick="javascript:toggle(&#39;unnamed-chunk-59&#39;);">
 Show Solution
 </button>
 <div id="toggleTextunnamed-chunk-59" style="display: none">
@@ -393,90 +290,145 @@ Solution
 </div>
 <div class="panel-body">
 <div class="tab">
-<button class="tablinksunnamed-chunk-59 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-59', 'unnamed-chunk-59');">
+<button class="tablinksunnamed-chunk-59 active" onclick="javascript:openCode(event, &#39;option1unnamed-chunk-59&#39;, &#39;unnamed-chunk-59&#39;);">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-59" onclick="javascript:openCode(event, 'option2unnamed-chunk-59', 'unnamed-chunk-59');">
+<button class="tablinksunnamed-chunk-59" onclick="javascript:openCode(event, &#39;option2unnamed-chunk-59&#39;, &#39;unnamed-chunk-59&#39;);">
 <tt>tidyverse</tt>
 </button>
 </div>
 <div id="option1unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
-<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
-<span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
-<span>  </span>
-<span> </span>
-<span>  </span>
-<span>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
-<span> <span class="va">gc_positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gregexpr</a></span><span class="op">(</span><span class="st">"[GC]"</span>, <span class="va">dna_sequence</span><span class="op">)</span><span class="op">)</span></span>
-<span> <span class="va">gc_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">gc_positions</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
-<span>  <span class="va">total_bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate the GC content as a percentage</span></span>
-<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span> <span class="op">/</span> <span class="va">total_bases</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
-<span>  </span>
-<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate AT numbers</span></span>
-<span>  <span class="va">at_count</span> <span class="op">&lt;-</span> <span class="va">total_bases</span> <span class="op">-</span> <span class="va">gc_count</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate melting temp of sequence</span></span>
-<span>  <span class="va">melt_temp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span><span class="op">*</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">at_count</span><span class="op">*</span><span class="fl">2</span><span class="op">)</span></span>
-<span>  </span>
-<span>  </span>
-<span>  <span class="va">dna_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="va">melt_temp</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GC Percentage"</span>, <span class="st">"Melting temp (celsius)"</span><span class="op">)</span></span>
-<span>  </span>
-<span>  </span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="flow-control.html#cb284-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb284-2"><a href="flow-control.html#cb284-2" tabindex="-1"></a>   </span>
+<span id="cb284-3"><a href="flow-control.html#cb284-3" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(p)) <span class="fu">stop</span>(<span class="st">&quot;p must be a number&quot;</span>)</span>
+<span id="cb284-4"><a href="flow-control.html#cb284-4" tabindex="-1"></a>  <span class="cf">if</span> (p <span class="sc">&lt;=</span> <span class="dv">0</span>) <span class="fu">warning</span>(<span class="st">&quot;p-values cannot less 0&quot;</span>)</span>
+<span id="cb284-5"><a href="flow-control.html#cb284-5" tabindex="-1"></a>  <span class="cf">if</span> (p <span class="sc">&gt;=</span> <span class="dv">1</span>) <span class="fu">warning</span>(<span class="st">&quot;p-values cannot be greater than 1&quot;</span>)</span>
+<span id="cb284-6"><a href="flow-control.html#cb284-6" tabindex="-1"></a>   </span>
+<span id="cb284-7"><a href="flow-control.html#cb284-7" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>,</span>
+<span id="cb284-8"><a href="flow-control.html#cb284-8" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
+<span id="cb284-9"><a href="flow-control.html#cb284-9" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits)))</span>
+<span id="cb284-10"><a href="flow-control.html#cb284-10" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
+<span id="cb284-11"><a href="flow-control.html#cb284-11" tabindex="-1"></a> }</span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
-<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
-<span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
-<span>  </span>
-<span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
-<span>  <span class="va">gc_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">dna_sequence</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"G"</span>, <span class="st">"C"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
-<span>  <span class="va">total_bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate the GC content as a percentage</span></span>
-<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span> <span class="op">/</span> <span class="va">total_bases</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
-<span>  </span>
-<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span>  </span>
-<span>   <span class="co"># Calculate AT numbers</span></span>
-<span>  <span class="va">at_count</span> <span class="op">&lt;-</span> <span class="va">total_bases</span> <span class="op">-</span> <span class="va">gc_count</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate melting temp of sequence</span></span>
-<span>  <span class="va">melt_temp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span><span class="op">*</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">at_count</span><span class="op">*</span><span class="fl">2</span><span class="op">)</span></span>
-<span>  </span>
-<span>  </span>
-<span>  <span class="va">dna_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="va">melt_temp</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GC Percentage"</span>, <span class="st">"Melting temp (celsius)"</span><span class="op">)</span></span>
-<span>  </span>
-<span>  </span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="flow-control.html#cb285-1" tabindex="-1"></a>report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb285-2"><a href="flow-control.html#cb285-2" tabindex="-1"></a> </span>
+<span id="cb285-3"><a href="flow-control.html#cb285-3" tabindex="-1"></a> <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(p)) <span class="fu">stop</span>(<span class="st">&quot;p must be a number&quot;</span>)</span>
+<span id="cb285-4"><a href="flow-control.html#cb285-4" tabindex="-1"></a> </span>
+<span id="cb285-5"><a href="flow-control.html#cb285-5" tabindex="-1"></a>   result <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
+<span id="cb285-6"><a href="flow-control.html#cb285-6" tabindex="-1"></a>       p <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">~</span> <span class="fu">warning</span>(<span class="st">&quot;p-values cannot be less than or equal to 0&quot;</span>),</span>
+<span id="cb285-7"><a href="flow-control.html#cb285-7" tabindex="-1"></a>       p <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="fu">warning</span>(<span class="st">&quot;p-values cannot be greater than or equal to 1&quot;</span>),</span>
+<span id="cb285-8"><a href="flow-control.html#cb285-8" tabindex="-1"></a>       p <span class="sc">&lt;</span> <span class="fl">0.001</span> <span class="sc">~</span> <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
+<span id="cb285-9"><a href="flow-control.html#cb285-9" tabindex="-1"></a>       <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits))</span>
+<span id="cb285-10"><a href="flow-control.html#cb285-10" tabindex="-1"></a>   )</span>
+<span id="cb285-11"><a href="flow-control.html#cb285-11" tabindex="-1"></a>   </span>
+<span id="cb285-12"><a href="flow-control.html#cb285-12" tabindex="-1"></a>   <span class="fu">return</span>(result)</span>
+<span id="cb285-13"><a href="flow-control.html#cb285-13" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-59') </script>
 </div>
 </div>
 </div>
-<p>Exercise 2: Document the Function
-Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.</p>
-<button id="displayTextunnamed-chunk-60" onclick="javascript:toggle('unnamed-chunk-60');">
+</div>
+<div id="activities" class="section level2" number="19.3">
+<h2><span class="header-section-number">19.3</span> Activities</h2>
+<p>Exercise 1: Write a Simple Function
+We'll create a function that calculates the GC content of a DNA sequence, and the result melting temperature of the sequence and returns both in a list. GC content is the percentage of the DNA molecule's nitrogenous bases that are either guanine (G) or cytosine (C). This is a common metric used in molecular biology and genetics to analyze DNA sequences. Each GC base addes 4 degrees to melting temp while each AT base adds 2 degrees.</p>
+<blockquote>
+<p>Hint<code>stringr</code> and associated functions will be very helpful here</p>
+</blockquote>
+<button id="displayTextunnamed-chunk-60" onclick="javascript:toggle(&#39;unnamed-chunk-60&#39;);">
 Show Solution
 </button>
 <div id="toggleTextunnamed-chunk-60" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="tab">
+<button class="tablinksunnamed-chunk-60 active" onclick="javascript:openCode(event, &#39;option1unnamed-chunk-60&#39;, &#39;unnamed-chunk-60&#39;);">
+Base R
+</button>
+<button class="tablinksunnamed-chunk-60" onclick="javascript:openCode(event, &#39;option2unnamed-chunk-60&#39;, &#39;unnamed-chunk-60&#39;);">
+<tt>tidyverse</tt>
+</button>
+</div>
+<div id="option1unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="flow-control.html#cb286-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
+<span id="cb286-2"><a href="flow-control.html#cb286-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span id="cb286-3"><a href="flow-control.html#cb286-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">toupper</span>(dna_sequence)</span>
+<span id="cb286-4"><a href="flow-control.html#cb286-4" tabindex="-1"></a>  </span>
+<span id="cb286-5"><a href="flow-control.html#cb286-5" tabindex="-1"></a> </span>
+<span id="cb286-6"><a href="flow-control.html#cb286-6" tabindex="-1"></a>  </span>
+<span id="cb286-7"><a href="flow-control.html#cb286-7" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span id="cb286-8"><a href="flow-control.html#cb286-8" tabindex="-1"></a> gc_positions <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">gregexpr</span>(<span class="st">&quot;[GC]&quot;</span>, dna_sequence))</span>
+<span id="cb286-9"><a href="flow-control.html#cb286-9" tabindex="-1"></a> gc_count <span class="ot">&lt;-</span> <span class="fu">length</span>(gc_positions)</span>
+<span id="cb286-10"><a href="flow-control.html#cb286-10" tabindex="-1"></a></span>
+<span id="cb286-11"><a href="flow-control.html#cb286-11" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span id="cb286-12"><a href="flow-control.html#cb286-12" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">nchar</span>(dna_sequence)</span>
+<span id="cb286-13"><a href="flow-control.html#cb286-13" tabindex="-1"></a>  </span>
+<span id="cb286-14"><a href="flow-control.html#cb286-14" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span id="cb286-15"><a href="flow-control.html#cb286-15" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb286-16"><a href="flow-control.html#cb286-16" tabindex="-1"></a>  </span>
+<span id="cb286-17"><a href="flow-control.html#cb286-17" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
+<span id="cb286-18"><a href="flow-control.html#cb286-18" tabindex="-1"></a>  </span>
+<span id="cb286-19"><a href="flow-control.html#cb286-19" tabindex="-1"></a>  <span class="co"># Calculate AT numbers</span></span>
+<span id="cb286-20"><a href="flow-control.html#cb286-20" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
+<span id="cb286-21"><a href="flow-control.html#cb286-21" tabindex="-1"></a>  </span>
+<span id="cb286-22"><a href="flow-control.html#cb286-22" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span id="cb286-23"><a href="flow-control.html#cb286-23" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb286-24"><a href="flow-control.html#cb286-24" tabindex="-1"></a>  </span>
+<span id="cb286-25"><a href="flow-control.html#cb286-25" tabindex="-1"></a>  </span>
+<span id="cb286-26"><a href="flow-control.html#cb286-26" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
+<span id="cb286-27"><a href="flow-control.html#cb286-27" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
+<span id="cb286-28"><a href="flow-control.html#cb286-28" tabindex="-1"></a>  </span>
+<span id="cb286-29"><a href="flow-control.html#cb286-29" tabindex="-1"></a>  </span>
+<span id="cb286-30"><a href="flow-control.html#cb286-30" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
+<span id="cb286-31"><a href="flow-control.html#cb286-31" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="option2unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="flow-control.html#cb287-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
+<span id="cb287-2"><a href="flow-control.html#cb287-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span id="cb287-3"><a href="flow-control.html#cb287-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">str_to_upper</span>(dna_sequence)</span>
+<span id="cb287-4"><a href="flow-control.html#cb287-4" tabindex="-1"></a>  </span>
+<span id="cb287-5"><a href="flow-control.html#cb287-5" tabindex="-1"></a></span>
+<span id="cb287-6"><a href="flow-control.html#cb287-6" tabindex="-1"></a>  </span>
+<span id="cb287-7"><a href="flow-control.html#cb287-7" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span id="cb287-8"><a href="flow-control.html#cb287-8" tabindex="-1"></a>  gc_count <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">str_count</span>(dna_sequence <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;G&quot;</span>, <span class="st">&quot;C&quot;</span>)))</span>
+<span id="cb287-9"><a href="flow-control.html#cb287-9" tabindex="-1"></a>  </span>
+<span id="cb287-10"><a href="flow-control.html#cb287-10" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span id="cb287-11"><a href="flow-control.html#cb287-11" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">str_length</span>(dna_sequence)</span>
+<span id="cb287-12"><a href="flow-control.html#cb287-12" tabindex="-1"></a>  </span>
+<span id="cb287-13"><a href="flow-control.html#cb287-13" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span id="cb287-14"><a href="flow-control.html#cb287-14" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb287-15"><a href="flow-control.html#cb287-15" tabindex="-1"></a>  </span>
+<span id="cb287-16"><a href="flow-control.html#cb287-16" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
+<span id="cb287-17"><a href="flow-control.html#cb287-17" tabindex="-1"></a>  </span>
+<span id="cb287-18"><a href="flow-control.html#cb287-18" tabindex="-1"></a>   <span class="co"># Calculate AT numbers</span></span>
+<span id="cb287-19"><a href="flow-control.html#cb287-19" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
+<span id="cb287-20"><a href="flow-control.html#cb287-20" tabindex="-1"></a>  </span>
+<span id="cb287-21"><a href="flow-control.html#cb287-21" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span id="cb287-22"><a href="flow-control.html#cb287-22" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb287-23"><a href="flow-control.html#cb287-23" tabindex="-1"></a>  </span>
+<span id="cb287-24"><a href="flow-control.html#cb287-24" tabindex="-1"></a>  </span>
+<span id="cb287-25"><a href="flow-control.html#cb287-25" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
+<span id="cb287-26"><a href="flow-control.html#cb287-26" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
+<span id="cb287-27"><a href="flow-control.html#cb287-27" tabindex="-1"></a>  </span>
+<span id="cb287-28"><a href="flow-control.html#cb287-28" tabindex="-1"></a>  </span>
+<span id="cb287-29"><a href="flow-control.html#cb287-29" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
+<span id="cb287-30"><a href="flow-control.html#cb287-30" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<script> javascript:hide('option2unnamed-chunk-60') </script>
+</div>
+</div>
+</div>
+<p>Exercise 2: Document the Function
+Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.</p>
+<button id="displayTextunnamed-chunk-61" onclick="javascript:toggle(&#39;unnamed-chunk-61&#39;);">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-61" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
@@ -488,29 +440,7 @@ Solution
 </div>
 <p>Exercise 3: Test the Function
 Create a test script that uses test_that to check if the function returns the correct GC percentage and melting temps</p>
-<button id="displayTextunnamed-chunk-61" onclick="javascript:toggle('unnamed-chunk-61');">
-Show Solution
-</button>
-<div id="toggleTextunnamed-chunk-61" style="display: none">
-<div class="panel panel-default">
-<div class="panel-heading panel-heading1">
-Solution
-</div>
-<div class="panel-body">
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"gc_content function tests"</span>, <span class="op">{</span></span>
-<span>    <span class="co"># Test valid input and GC content calculation</span></span>
-<span>    <span class="va">dna_seq1</span> <span class="op">&lt;-</span> <span class="st">"ATGCGTAGCT"</span></span>
-<span>    <span class="va">result1</span> <span class="op">&lt;-</span> <span class="fu">gc_content</span><span class="op">(</span><span class="va">dna_seq1</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">`GC Percentage`</span>, <span class="fl">50</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="va">result1</span><span class="op">$</span><span class="va">`Melting temp (celsius)`</span>, <span class="fl">30</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Test passed 😸</code></pre>
-</div>
-</div>
-</div>
-<p>Exercise 4: Handle Errors
-You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?</p>
-<button id="displayTextunnamed-chunk-62" onclick="javascript:toggle('unnamed-chunk-62');">
+<button id="displayTextunnamed-chunk-62" onclick="javascript:toggle(&#39;unnamed-chunk-62&#39;);">
 Show Solution
 </button>
 <div id="toggleTextunnamed-chunk-62" style="display: none">
@@ -519,90 +449,109 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="flow-control.html#cb288-1" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;gc_content function tests&quot;</span>, {</span>
+<span id="cb288-2"><a href="flow-control.html#cb288-2" tabindex="-1"></a>    <span class="co"># Test valid input and GC content calculation</span></span>
+<span id="cb288-3"><a href="flow-control.html#cb288-3" tabindex="-1"></a>    dna_seq1 <span class="ot">&lt;-</span> <span class="st">&quot;ATGCGTAGCT&quot;</span></span>
+<span id="cb288-4"><a href="flow-control.html#cb288-4" tabindex="-1"></a>    result1 <span class="ot">&lt;-</span> <span class="fu">gc_content</span>(dna_seq1)</span>
+<span id="cb288-5"><a href="flow-control.html#cb288-5" tabindex="-1"></a>    <span class="fu">expect_equal</span>(result1<span class="sc">$</span><span class="st">`</span><span class="at">GC Percentage</span><span class="st">`</span>, <span class="dv">50</span>)</span>
+<span id="cb288-6"><a href="flow-control.html#cb288-6" tabindex="-1"></a>    <span class="fu">expect_equal</span>(result1<span class="sc">$</span><span class="st">`</span><span class="at">Melting temp (celsius)</span><span class="st">`</span>, <span class="dv">30</span>)})</span></code></pre></div>
+<pre><code>## Test passed 🌈</code></pre>
+</div>
+</div>
+</div>
+<p>Exercise 4: Handle Errors
+You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?</p>
+<button id="displayTextunnamed-chunk-63" onclick="javascript:toggle(&#39;unnamed-chunk-63&#39;);">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-63" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
 <div class="tab">
-<button class="tablinksunnamed-chunk-62 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-62', 'unnamed-chunk-62');">
+<button class="tablinksunnamed-chunk-63 active" onclick="javascript:openCode(event, &#39;option1unnamed-chunk-63&#39;, &#39;unnamed-chunk-63&#39;);">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-62" onclick="javascript:openCode(event, 'option2unnamed-chunk-62', 'unnamed-chunk-62');">
+<button class="tablinksunnamed-chunk-63" onclick="javascript:openCode(event, &#39;option2unnamed-chunk-63&#39;, &#39;unnamed-chunk-63&#39;);">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
-<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
-<span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Check if the input sequence contains only valid DNA characters (A, T, C, G)</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"^[ATCG]+$"</span>, <span class="va">dna_sequence</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Invalid DNA sequence. Only A, T, C, and G are allowed."</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">30</span> <span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"Sequence is &gt; 30 nt temperature predictions may be inaccurate"</span><span class="op">)</span></span>
-<span>  </span>
-<span>  </span>
-<span>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
-<span> <span class="va">gc_positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gregexpr</a></span><span class="op">(</span><span class="st">"[GC]"</span>, <span class="va">dna_sequence</span><span class="op">)</span><span class="op">)</span></span>
-<span> <span class="va">gc_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">gc_positions</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
-<span>  <span class="va">total_bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate the GC content as a percentage</span></span>
-<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span> <span class="op">/</span> <span class="va">total_bases</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
-<span>  </span>
-<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate AT numbers</span></span>
-<span>  <span class="va">at_count</span> <span class="op">&lt;-</span> <span class="va">total_bases</span> <span class="op">-</span> <span class="va">gc_count</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate melting temp of sequence</span></span>
-<span>  <span class="va">melt_temp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span><span class="op">*</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">at_count</span><span class="op">*</span><span class="fl">2</span><span class="op">)</span></span>
-<span>  </span>
-<span>  </span>
-<span>  <span class="va">dna_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="va">melt_temp</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GC Percentage"</span>, <span class="st">"Melting temp (celsius)"</span><span class="op">)</span></span>
-<span>  </span>
-<span>  </span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<div id="option1unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="flow-control.html#cb290-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
+<span id="cb290-2"><a href="flow-control.html#cb290-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span id="cb290-3"><a href="flow-control.html#cb290-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">toupper</span>(dna_sequence)</span>
+<span id="cb290-4"><a href="flow-control.html#cb290-4" tabindex="-1"></a>  </span>
+<span id="cb290-5"><a href="flow-control.html#cb290-5" tabindex="-1"></a>  <span class="co"># Check if the input sequence contains only valid DNA characters (A, T, C, G)</span></span>
+<span id="cb290-6"><a href="flow-control.html#cb290-6" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;^[ATCG]+$&quot;</span>, dna_sequence)) <span class="fu">stop</span>(<span class="st">&quot;Invalid DNA sequence. Only A, T, C, and G are allowed.&quot;</span>)</span>
+<span id="cb290-7"><a href="flow-control.html#cb290-7" tabindex="-1"></a>  </span>
+<span id="cb290-8"><a href="flow-control.html#cb290-8" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nchar</span>(dna_sequence) <span class="sc">&gt;</span> <span class="dv">30</span> ) <span class="fu">warning</span>(<span class="st">&quot;Sequence is &gt; 30 nt temperature predictions may be inaccurate&quot;</span>)</span>
+<span id="cb290-9"><a href="flow-control.html#cb290-9" tabindex="-1"></a>  </span>
+<span id="cb290-10"><a href="flow-control.html#cb290-10" tabindex="-1"></a>  </span>
+<span id="cb290-11"><a href="flow-control.html#cb290-11" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span id="cb290-12"><a href="flow-control.html#cb290-12" tabindex="-1"></a> gc_positions <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">gregexpr</span>(<span class="st">&quot;[GC]&quot;</span>, dna_sequence))</span>
+<span id="cb290-13"><a href="flow-control.html#cb290-13" tabindex="-1"></a> gc_count <span class="ot">&lt;-</span> <span class="fu">length</span>(gc_positions)</span>
+<span id="cb290-14"><a href="flow-control.html#cb290-14" tabindex="-1"></a></span>
+<span id="cb290-15"><a href="flow-control.html#cb290-15" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span id="cb290-16"><a href="flow-control.html#cb290-16" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">nchar</span>(dna_sequence)</span>
+<span id="cb290-17"><a href="flow-control.html#cb290-17" tabindex="-1"></a>  </span>
+<span id="cb290-18"><a href="flow-control.html#cb290-18" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span id="cb290-19"><a href="flow-control.html#cb290-19" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb290-20"><a href="flow-control.html#cb290-20" tabindex="-1"></a>  </span>
+<span id="cb290-21"><a href="flow-control.html#cb290-21" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
+<span id="cb290-22"><a href="flow-control.html#cb290-22" tabindex="-1"></a>  </span>
+<span id="cb290-23"><a href="flow-control.html#cb290-23" tabindex="-1"></a>  <span class="co"># Calculate AT numbers</span></span>
+<span id="cb290-24"><a href="flow-control.html#cb290-24" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
+<span id="cb290-25"><a href="flow-control.html#cb290-25" tabindex="-1"></a>  </span>
+<span id="cb290-26"><a href="flow-control.html#cb290-26" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span id="cb290-27"><a href="flow-control.html#cb290-27" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb290-28"><a href="flow-control.html#cb290-28" tabindex="-1"></a>  </span>
+<span id="cb290-29"><a href="flow-control.html#cb290-29" tabindex="-1"></a>  </span>
+<span id="cb290-30"><a href="flow-control.html#cb290-30" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
+<span id="cb290-31"><a href="flow-control.html#cb290-31" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
+<span id="cb290-32"><a href="flow-control.html#cb290-32" tabindex="-1"></a>  </span>
+<span id="cb290-33"><a href="flow-control.html#cb290-33" tabindex="-1"></a>  </span>
+<span id="cb290-34"><a href="flow-control.html#cb290-34" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
+<span id="cb290-35"><a href="flow-control.html#cb290-35" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
-<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
-<span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Check if the input sequence contains only valid DNA characters (A, T, C, G)</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">dna_sequence</span>, <span class="st">"^[ATCG]+$"</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Invalid DNA sequence. Only A, T, C, and G are allowed."</span><span class="op">)</span></span>
-<span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">30</span> <span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"Sequence is &gt; 30 nt temperature predictions may be inaccurate"</span><span class="op">)</span></span>
-<span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
-<span>  <span class="va">gc_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">dna_sequence</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"G"</span>, <span class="st">"C"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
-<span>  <span class="va">total_bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate the GC content as a percentage</span></span>
-<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span> <span class="op">/</span> <span class="va">total_bases</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
-<span>  </span>
-<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span>  </span>
-<span>   <span class="co"># Calculate AT numbers</span></span>
-<span>  <span class="va">at_count</span> <span class="op">&lt;-</span> <span class="va">total_bases</span> <span class="op">-</span> <span class="va">gc_count</span></span>
-<span>  </span>
-<span>  <span class="co"># Calculate melting temp of sequence</span></span>
-<span>  <span class="va">melt_temp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span><span class="op">*</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">at_count</span><span class="op">*</span><span class="fl">2</span><span class="op">)</span></span>
-<span>  </span>
-<span>  </span>
-<span>  <span class="va">dna_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="va">melt_temp</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GC Percentage"</span>, <span class="st">"Melting temp (celsius)"</span><span class="op">)</span></span>
-<span>  </span>
-<span>  </span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<div id="option2unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="flow-control.html#cb291-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
+<span id="cb291-2"><a href="flow-control.html#cb291-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span id="cb291-3"><a href="flow-control.html#cb291-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">str_to_upper</span>(dna_sequence)</span>
+<span id="cb291-4"><a href="flow-control.html#cb291-4" tabindex="-1"></a>  </span>
+<span id="cb291-5"><a href="flow-control.html#cb291-5" tabindex="-1"></a>  <span class="co"># Check if the input sequence contains only valid DNA characters (A, T, C, G)</span></span>
+<span id="cb291-6"><a href="flow-control.html#cb291-6" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">str_detect</span>(dna_sequence, <span class="st">&quot;^[ATCG]+$&quot;</span>)) <span class="fu">stop</span>(<span class="st">&quot;Invalid DNA sequence. Only A, T, C, and G are allowed.&quot;</span>)</span>
+<span id="cb291-7"><a href="flow-control.html#cb291-7" tabindex="-1"></a></span>
+<span id="cb291-8"><a href="flow-control.html#cb291-8" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">str_length</span>(dna_sequence) <span class="sc">&gt;</span> <span class="dv">30</span> ) <span class="fu">warning</span>(<span class="st">&quot;Sequence is &gt; 30 nt temperature predictions may be inaccurate&quot;</span>)</span>
+<span id="cb291-9"><a href="flow-control.html#cb291-9" tabindex="-1"></a></span>
+<span id="cb291-10"><a href="flow-control.html#cb291-10" tabindex="-1"></a>  </span>
+<span id="cb291-11"><a href="flow-control.html#cb291-11" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span id="cb291-12"><a href="flow-control.html#cb291-12" tabindex="-1"></a>  gc_count <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">str_count</span>(dna_sequence <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;G&quot;</span>, <span class="st">&quot;C&quot;</span>)))</span>
+<span id="cb291-13"><a href="flow-control.html#cb291-13" tabindex="-1"></a>  </span>
+<span id="cb291-14"><a href="flow-control.html#cb291-14" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span id="cb291-15"><a href="flow-control.html#cb291-15" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">str_length</span>(dna_sequence)</span>
+<span id="cb291-16"><a href="flow-control.html#cb291-16" tabindex="-1"></a>  </span>
+<span id="cb291-17"><a href="flow-control.html#cb291-17" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span id="cb291-18"><a href="flow-control.html#cb291-18" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb291-19"><a href="flow-control.html#cb291-19" tabindex="-1"></a>  </span>
+<span id="cb291-20"><a href="flow-control.html#cb291-20" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
+<span id="cb291-21"><a href="flow-control.html#cb291-21" tabindex="-1"></a>  </span>
+<span id="cb291-22"><a href="flow-control.html#cb291-22" tabindex="-1"></a>   <span class="co"># Calculate AT numbers</span></span>
+<span id="cb291-23"><a href="flow-control.html#cb291-23" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
+<span id="cb291-24"><a href="flow-control.html#cb291-24" tabindex="-1"></a>  </span>
+<span id="cb291-25"><a href="flow-control.html#cb291-25" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span id="cb291-26"><a href="flow-control.html#cb291-26" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb291-27"><a href="flow-control.html#cb291-27" tabindex="-1"></a>  </span>
+<span id="cb291-28"><a href="flow-control.html#cb291-28" tabindex="-1"></a>  </span>
+<span id="cb291-29"><a href="flow-control.html#cb291-29" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
+<span id="cb291-30"><a href="flow-control.html#cb291-30" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
+<span id="cb291-31"><a href="flow-control.html#cb291-31" tabindex="-1"></a>  </span>
+<span id="cb291-32"><a href="flow-control.html#cb291-32" tabindex="-1"></a>  </span>
+<span id="cb291-33"><a href="flow-control.html#cb291-33" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
+<span id="cb291-34"><a href="flow-control.html#cb291-34" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-62') </script>
+<script> javascript:hide('option2unnamed-chunk-63') </script>
 </div>
 </div>
 </div>
@@ -778,7 +727,8 @@ window.onload = function() {
   update_total_correct();
 }
 
-</script><script>
+</script>
+<script>
 $( document ).ready(function() {
   var cite = ' ';
   var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
@@ -787,36 +737,32 @@ $( document ).ready(function() {
     license
   );
 });
-</script><div class="chapter-nav">
-<div class="prev"><a href="writing-functions.html"><span class="header-section-number">7</span> Writing Functions</a></div>
-<div class="next"><a href="simple-iteration.html"><span class="header-section-number">9</span> Simple iteration</a></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li>
-<a class="nav-link" href="#flow-control"><span class="header-section-number">8</span> Flow control</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#case_when"><span class="header-section-number">8.0.1</span> case_when</a></li></ul>
-</li>
-<li><a class="nav-link" href="#conditional-functions"><span class="header-section-number">8.1</span> Conditional functions</a></li>
-<li><a class="nav-link" href="#warnings-and-errors"><span class="header-section-number">8.2</span> Warnings and errors</a></li>
-<li><a class="nav-link" href="#activities"><span class="header-section-number">8.3</span> Activities</a></li>
-</ul>
+</script>
+
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/03-functional-programming.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/03-functional-programming.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
-</div>
+      </div>
     </nav>
-</div>
+  </div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-02.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-04.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -824,7 +770,11 @@ $( document ).ready(function() {
   </div>
 
 </div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -836,7 +786,8 @@ $( document ).ready(function() {
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
 for (let popover of popovers) {
   const div = document.createElement('div');
   div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
@@ -854,4 +805,5 @@ for (let popover of popovers) {
 }
 </script>
 </body>
+
 </html>
