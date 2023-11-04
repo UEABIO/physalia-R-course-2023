@@ -920,48 +920,13 @@ survey
 
 <div class="kable-table">
 
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> index </th>
-   <th style="text-align:left;"> sex </th>
-   <th style="text-align:right;"> age </th>
-   <th style="text-align:left;"> follow_up </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> m </td>
-   <td style="text-align:right;"> 99 </td>
-   <td style="text-align:left;"> TRUE </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:left;"> m </td>
-   <td style="text-align:right;"> 46 </td>
-   <td style="text-align:left;"> FALSE </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:left;"> m </td>
-   <td style="text-align:right;"> 23 </td>
-   <td style="text-align:left;"> TRUE </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 4 </td>
-   <td style="text-align:left;"> f </td>
-   <td style="text-align:right;"> 54 </td>
-   <td style="text-align:left;"> FALSE </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 5 </td>
-   <td style="text-align:left;"> f </td>
-   <td style="text-align:right;"> 23 </td>
-   <td style="text-align:left;"> FALSE </td>
-  </tr>
-</tbody>
-</table>
+| index|sex | age|follow_up |
+|-----:|:---|---:|:---------|
+|     1|m   |  99|TRUE      |
+|     2|m   |  46|FALSE     |
+|     3|m   |  23|TRUE      |
+|     4|f   |  54|FALSE     |
+|     5|f   |  23|FALSE     |
 
 </div>
 
@@ -976,48 +941,13 @@ survey
 
 <div class="kable-table">
 
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> ID </th>
-   <th style="text-align:left;"> sex </th>
-   <th style="text-align:right;"> age </th>
-   <th style="text-align:left;"> follow_up </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> m </td>
-   <td style="text-align:right;"> 99 </td>
-   <td style="text-align:left;"> TRUE </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:left;"> m </td>
-   <td style="text-align:right;"> 46 </td>
-   <td style="text-align:left;"> FALSE </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:left;"> m </td>
-   <td style="text-align:right;"> 23 </td>
-   <td style="text-align:left;"> TRUE </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 4 </td>
-   <td style="text-align:left;"> f </td>
-   <td style="text-align:right;"> 54 </td>
-   <td style="text-align:left;"> FALSE </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 5 </td>
-   <td style="text-align:left;"> f </td>
-   <td style="text-align:right;"> 23 </td>
-   <td style="text-align:left;"> FALSE </td>
-  </tr>
-</tbody>
-</table>
+| ID|sex | age|follow_up |
+|--:|:---|---:|:---------|
+|  1|m   |  99|TRUE      |
+|  2|m   |  46|FALSE     |
+|  3|m   |  23|TRUE      |
+|  4|f   |  54|FALSE     |
+|  5|f   |  23|FALSE     |
 
 </div>
 
@@ -1057,33 +987,10 @@ survey_slice
 
 <div class="kable-table">
 
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> ID </th>
-   <th style="text-align:left;"> sex </th>
-   <th style="text-align:right;"> age </th>
-   <th style="text-align:left;"> follow_up </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 2 </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:left;"> m </td>
-   <td style="text-align:right;"> 46 </td>
-   <td style="text-align:left;"> FALSE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 3 </td>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:left;"> m </td>
-   <td style="text-align:right;"> 23 </td>
-   <td style="text-align:left;"> TRUE </td>
-  </tr>
-</tbody>
-</table>
+|   | ID|sex | age|follow_up |
+|:--|--:|:---|---:|:---------|
+|2  |  2|m   |  46|FALSE     |
+|3  |  3|m   |  23|TRUE      |
 
 </div>
 
@@ -1460,26 +1367,22 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] palmerpenguins_0.1.1 kableExtra_1.3.4     xml2_1.3.5          
-##  [4] rvest_1.0.3          faux_1.2.1           extrafont_0.19      
-##  [7] knitr_1.43           webexercises_1.1.0   glossary_1.0.0      
-## [10] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
-## [13] dplyr_1.1.2          purrr_1.0.1          readr_2.1.4         
-## [16] tidyr_1.3.0          tibble_3.2.1         ggplot2_3.4.2       
-## [19] tidyverse_2.0.0     
+##  [1] knitr_1.43         webexercises_1.1.0 glossary_1.0.0     lubridate_1.9.2   
+##  [5] forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2        purrr_1.0.1       
+##  [9] readr_2.1.4        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.2     
+## [13] tidyverse_2.0.0   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] gtable_0.3.3      xfun_0.39         bslib_0.5.0       tzdb_0.4.0       
-##  [5] vctrs_0.6.3       tools_4.3.1       generics_0.1.3    fansi_1.0.4      
-##  [9] highr_0.10        pkgconfig_2.0.3   webshot_0.5.5     lifecycle_1.0.3  
-## [13] compiler_4.3.1    munsell_0.5.0     codetools_0.2-19  htmltools_0.5.5  
-## [17] sass_0.4.6        yaml_2.3.7        Rttf2pt1_1.3.12   pillar_1.9.0     
-## [21] jquerylib_0.1.4   extrafontdb_1.0   cachem_1.0.8      tidyselect_1.2.0 
-## [25] digest_0.6.33     stringi_1.7.12    bookdown_0.34     fastmap_1.1.1    
-## [29] grid_4.3.1        colorspace_2.1-0  cli_3.6.1         magrittr_2.0.3   
-## [33] utf8_1.2.3        withr_2.5.0       scales_1.2.1      timechange_0.2.0 
-## [37] rmarkdown_2.23    httr_1.4.6        hms_1.1.3         memoise_2.0.1    
-## [41] evaluate_0.21     viridisLite_0.4.2 rlang_1.1.1       downlit_0.4.3    
-## [45] glue_1.6.2        svglite_2.1.1     rstudioapi_0.15.0 jsonlite_1.8.7   
-## [49] R6_2.5.1          systemfonts_1.0.4 fs_1.6.2
+##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
+##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
+##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
+## [13] fastmap_1.1.1     jsonlite_1.8.7    fansi_1.0.4       scales_1.2.1     
+## [17] codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1      
+## [21] munsell_0.5.0     withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
+## [25] tools_4.3.1       tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0 
+## [29] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   fs_1.6.2         
+## [33] pkgconfig_2.0.3   pillar_1.9.0      bslib_0.5.0       gtable_0.3.3     
+## [37] glue_1.6.2        highr_0.10        xfun_0.39         tidyselect_1.2.0 
+## [41] rstudioapi_0.15.0 htmltools_0.5.5   rmarkdown_2.23    compiler_4.3.1   
+## [45] downlit_0.4.3
 ```

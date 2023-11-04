@@ -1331,11 +1331,13 @@ my_select_function(select_variable = c("species", "sex")) |>
 
 ## Practice
 
+
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 
-Write a `function` that uses filter to take any two of the penguin species then selects one numeric variable e.g. body_mass_g and compares them with a violin plot (`geom_violin()`)
+Write a `function` that uses filter to take any two of the penguin species then selects one numeric variable e.g. body_mass_g and compares them with a violin plot geom_violin()
 
  </div></div>
+
 
 
 <button id="displayTextunnamed-chunk-68" onclick="javascript:toggle('unnamed-chunk-68');">Show Solution</button>
@@ -1424,7 +1426,7 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] palmerpenguins_0.1.1 janitor_2.2.0        knitr_1.43          
+##  [1] janitor_2.2.0        palmerpenguins_0.1.1 knitr_1.43          
 ##  [4] webexercises_1.1.0   glossary_1.0.0       lubridate_1.9.2     
 ##  [7] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.2         
 ## [10] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         

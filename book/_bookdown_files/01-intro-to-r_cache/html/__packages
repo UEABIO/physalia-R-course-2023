@@ -1,4 +1,3 @@
-extrafont
 tidyverse
 ggplot2
 tibble
@@ -8,12 +7,7 @@ purrr
 dplyr
 stringr
 forcats
+lubridate
+glossary
 webexercises
 knitr
-faux
-rvest
-xml2
-kableExtra
-glossary
-palmerpenguins
-lubridate

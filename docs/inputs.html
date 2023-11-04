@@ -1,52 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Chapter 35 Inputs | Advancing in R</title>
-
-    <meta name="author" content="Philip T. Leftwich" />
-  
-   <meta name="description" content="This book ..." />
-   <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 35 Inputs | Advancing in R" />
-  <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
-  <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
-  <meta property="og:description" content="This book ..." />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 35 Inputs | Advancing in R" />
-  
-  <meta name="twitter:description" content="This book ..." />
-  <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
-  <!-- JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
-    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
-    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
-    <script src="libs/bs3compat-0.5.0/transition.js"></script>
-    <script src="libs/bs3compat-0.5.0/tabs.js"></script>
-    <script src="libs/bs3compat-0.5.0/bs3compat.js"></script>
-    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
-    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
-    <script src="libs/font-awesome-5.13.0/js/script.js"></script>
-    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
-    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script>
-    <script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 33 Inputs | Advancing in R</title>
+<meta name="author" content="Philip T. Leftwich">
+<meta name="description" content="Now that you have the basic structure of your Shiny app, you can start adding input and output elements to make it interactive. This example app includes four input widgets: a selectInput for...">
+<meta name="generator" content="bookdown 0.34 with bs4_book()">
+<meta property="og:title" content="Chapter 33 Inputs | Advancing in R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/inputs.html">
+<meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
+<meta property="og:description" content="Now that you have the basic structure of your Shiny app, you can start adding input and output elements to make it interactive. This example app includes four input widgets: a selectInput for...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 33 Inputs | Advancing in R">
+<meta name="twitter:description" content="Now that you have the basic structure of your Shiny app, you can start adding input and output elements to make it interactive. This example app includes four input widgets: a selectInput for...">
+<meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'G-6NP3MF25W3');
-    </script>
-    <script language="javascript"> 
+    </script><script language="javascript"> 
         function toggle(id) {
             var ele = document.getElementById("toggleText" + id);
             var text = document.getElementById("displayText" + id);
@@ -60,9 +41,7 @@
                 text.innerHTML = "Hide " + buttonText;
             }
         } 
-    </script>
-
-    <script language="javascript">
+    </script><script language="javascript">
         function openCode(evt, codeName, id) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent" + id);
@@ -76,24 +55,15 @@
             document.getElementById(codeName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-    </script>
-
-    <script language="javascript">
+    </script><script language="javascript">
         function hide(id){
             document.getElementById(id).style.display = "none";
         }
-    </script>
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
-
-  <!-- CSS -->
-  <style type="text/css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-    <style type="text/css">
+<style type="text/css">
     /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
     div.csl-bib-body { }
     div.csl-entry {
@@ -115,18 +85,15 @@
       margin-left: 2em;
     }
   </style>
-      <link rel="stylesheet" href="include/psyteachr.css" />
-    <link rel="stylesheet" href="include/webex.css" />
-    <link rel="stylesheet" href="include/style.css" />
-  
+<link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
 </head>
-
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
-    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -139,77 +106,139 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-      </form>
+</form>
 
-      <nav aria-label="Table of contents">
-        <h2>Table of contents</h2>
-        <div id="book-toc"></div>
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li class="book-part">Get Started in R</li>
+<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R basics</a></li>
+<li class="book-part">Organising workflows</li>
+<li><a class="" href="project-oriented-workflows.html"><span class="header-section-number">3</span> Project-oriented workflows</a></li>
+<li><a class="" href="basic-importexport.html"><span class="header-section-number">4</span> Basic Import/Export</a></li>
+<li><a class="" href="scripts.html"><span class="header-section-number">5</span> Scripts</a></li>
+<li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
+<li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
+<li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
+<li class="book-part">Functional Programming</li>
+<li><a class="" href="writing-functions.html"><span class="header-section-number">10</span> Writing Functions</a></li>
+<li><a class="" href="flow-control.html"><span class="header-section-number">11</span> Flow control</a></li>
+<li><a class="" href="simple-iteration.html"><span class="header-section-number">12</span> Simple iteration</a></li>
+<li><a class="" href="loops.html"><span class="header-section-number">13</span> Loops</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">14</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">15</span> Purrr</a></li>
+<li><a class="" href="bonus-simulation.html"><span class="header-section-number">16</span> Bonus: Simulation</a></li>
+<li class="book-part">Getting the most out of tidyverse</li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">17</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">18</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">19</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">20</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">21</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">22</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">23</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">24</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">25</span> Writing Functions in Tidyverse</a></li>
+<li class="book-part">Data Presentation</li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">26</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">27</span> Extensions for ggplot2</a></li>
+<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">28</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">29</span> Making tables with gt</a></li>
+<li class="book-part">Introduction to Shiny</li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">30</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">31</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">32</span> Make our own App</a></li>
+<li><a class="active" href="inputs.html"><span class="header-section-number">33</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">34</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">35</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">36</span> Customising</a></li>
+<li><a class="" href="download.html"><span class="header-section-number">37</span> Download?</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">38</span> Sharing</a></li>
+<li class="book-part">Literate Programming and Reproducibility</li>
+<li><a class="" href="rmarkdown.html"><span class="header-section-number">39</span> RMarkdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">40</span> Github</a></li>
+<li><a class="" href="NA.html">
+to upload commits
+to the remote repository.
+</a></li>
+<li class="book-part">BONUS: Working with big data</li>
+<li><a class="" href="reading-in-data.html"><span class="header-section-number">41</span> Reading in data</a></li>
+<li><a class="" href="write-to-sql.html"><span class="header-section-number">42</span> write to sql</a></li>
+<li><a class="" href="querying-sql.html"><span class="header-section-number">43</span> querying sql</a></li>
+<li class="book-part">BONUS: Automated Exploratory Analysis</li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">44</span> Packages for Automated Exploratory Data Analysis</a></li>
+</ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+          <p><a id="book-repo" href="https://github.com/UEABIO/physalia-intro-stats-2023">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
-    </div>
-  </header>
-
-  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="inputs" class="section level1" number="35">
-<h1><span class="header-section-number">Chapter 35</span> Inputs</h1>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="inputs" class="section level1" number="33">
+<h1>
+<span class="header-section-number">33</span> Inputs<a class="anchor" aria-label="anchor" href="#inputs"><i class="fas fa-link"></i></a>
+</h1>
 <p>Now that you have the basic structure of your Shiny app, you can start adding input and output elements to make it interactive. This example app includes four input widgets: a <code>selectInput</code> for genotype, another <code>selectInput</code> for histogram color, a <code>sliderInput</code> for the number of bins, and a <code>textInput</code> for arbitrary text. These widgets provide information on how to display a histogram and its accompanying table. In the example app, all these widgets are placed in the <code>sidebarPanel</code>. Here's how you can incorporate these widgets into your app:</p>
-<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="inputs.html#cb525-1" tabindex="-1"></a><span class="co"># Packages ----</span></span>
-<span id="cb525-2"><a href="inputs.html#cb525-2" tabindex="-1"></a><span class="fu">library</span>(shiny)       <span class="co"># Essential for running any Shiny app</span></span>
-<span id="cb525-3"><a href="inputs.html#cb525-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb525-4"><a href="inputs.html#cb525-4" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)    <span class="co"># The source of your data</span></span>
-<span id="cb525-5"><a href="inputs.html#cb525-5" tabindex="-1"></a></span>
-<span id="cb525-6"><a href="inputs.html#cb525-6" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb525-7"><a href="inputs.html#cb525-7" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins)</span>
-<span id="cb525-8"><a href="inputs.html#cb525-8" tabindex="-1"></a></span>
-<span id="cb525-9"><a href="inputs.html#cb525-9" tabindex="-1"></a><span class="co"># ui.R ----</span></span>
-<span id="cb525-10"><a href="inputs.html#cb525-10" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb525-11"><a href="inputs.html#cb525-11" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
-<span id="cb525-12"><a href="inputs.html#cb525-12" tabindex="-1"></a>     <span class="fu">sidebarPanel</span>(</span>
-<span id="cb525-13"><a href="inputs.html#cb525-13" tabindex="-1"></a>      demo_sp <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;species&quot;</span>,  <span class="co"># Give the input a name &quot;genotype&quot;</span></span>
-<span id="cb525-14"><a href="inputs.html#cb525-14" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;1. Select species&quot;</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
-<span id="cb525-15"><a href="inputs.html#cb525-15" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Gentoo&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;Adelie&quot;</span>),  <span class="co"># Create the choices that can be selected. e.g. Display &quot;Adelie&quot; and link to value &quot;Adelie&quot;</span></span>
-<span id="cb525-16"><a href="inputs.html#cb525-16" tabindex="-1"></a>      demo_select <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;colour&quot;</span>, </span>
-<span id="cb525-17"><a href="inputs.html#cb525-17" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;2. Select histogram colour&quot;</span>, </span>
-<span id="cb525-18"><a href="inputs.html#cb525-18" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;grey&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;grey&quot;</span>),</span>
-<span id="cb525-19"><a href="inputs.html#cb525-19" tabindex="-1"></a>      demo_slide <span class="ot">&lt;-</span> <span class="fu">sliderInput</span>(<span class="at">inputId =</span> <span class="st">&quot;bin&quot;</span>, </span>
-<span id="cb525-20"><a href="inputs.html#cb525-20" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;3. Select number of histogram bins&quot;</span>, </span>
-<span id="cb525-21"><a href="inputs.html#cb525-21" tabindex="-1"></a>                  <span class="at">min=</span><span class="dv">1</span>, <span class="at">max=</span><span class="dv">25</span>, <span class="at">value=</span> <span class="fu">c</span>(<span class="dv">10</span>)),</span>
-<span id="cb525-22"><a href="inputs.html#cb525-22" tabindex="-1"></a>      demo_text <span class="ot">&lt;-</span> <span class="fu">textAreaInput</span>(<span class="at">inputId =</span> <span class="st">&quot;text&quot;</span>, </span>
-<span id="cb525-23"><a href="inputs.html#cb525-23" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;4. Enter some text to be displayed&quot;</span>,</span>
-<span id="cb525-24"><a href="inputs.html#cb525-24" tabindex="-1"></a>                <span class="at">rows =</span> <span class="dv">5</span>,</span>
-<span id="cb525-25"><a href="inputs.html#cb525-25" tabindex="-1"></a>                <span class="at">placeholder =</span> <span class="st">&quot;Enter some information here&quot;</span>)</span>
-<span id="cb525-26"><a href="inputs.html#cb525-26" tabindex="-1"></a>    ),</span>
-<span id="cb525-27"><a href="inputs.html#cb525-27" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
-<span id="cb525-28"><a href="inputs.html#cb525-28" tabindex="-1"></a>      <span class="co"># Output elements go here</span></span>
-<span id="cb525-29"><a href="inputs.html#cb525-29" tabindex="-1"></a>    )</span>
-<span id="cb525-30"><a href="inputs.html#cb525-30" tabindex="-1"></a>  )</span>
-<span id="cb525-31"><a href="inputs.html#cb525-31" tabindex="-1"></a>)</span>
-<span id="cb525-32"><a href="inputs.html#cb525-32" tabindex="-1"></a><span class="co"># server.R ----</span></span>
-<span id="cb525-33"><a href="inputs.html#cb525-33" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb525-34"><a href="inputs.html#cb525-34" tabindex="-1"></a>  <span class="co"># Your server logic will be defined here</span></span>
-<span id="cb525-35"><a href="inputs.html#cb525-35" tabindex="-1"></a></span>
-<span id="cb525-36"><a href="inputs.html#cb525-36" tabindex="-1"></a>}</span>
-<span id="cb525-37"><a href="inputs.html#cb525-37" tabindex="-1"></a></span>
-<span id="cb525-38"><a href="inputs.html#cb525-38" tabindex="-1"></a></span>
-<span id="cb525-39"><a href="inputs.html#cb525-39" tabindex="-1"></a></span>
-<span id="cb525-40"><a href="inputs.html#cb525-40" tabindex="-1"></a><span class="co"># Run the app ----</span></span>
-<span id="cb525-41"><a href="inputs.html#cb525-41" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>    <span class="co"># The source of your data</span></span>
+<span></span>
+<span><span class="co"># Load the data</span></span>
+<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ui.R ----</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>     <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>      <span class="va">demo_sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"species"</span>,  <span class="co"># Give the input a name "genotype"</span></span>
+<span>                  label <span class="op">=</span> <span class="st">"1. Select species"</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
+<span>                  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Adelie"</span> <span class="op">=</span> <span class="st">"Adelie"</span>, <span class="st">"Chinstrap"</span> <span class="op">=</span> <span class="st">"Chinstrap"</span>, <span class="st">"Gentoo"</span> <span class="op">=</span> <span class="st">"Gentoo"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"Adelie"</span><span class="op">)</span>,  <span class="co"># Create the choices that can be selected. e.g. Display "Adelie" and link to value "Adelie"</span></span>
+<span>      <span class="va">demo_select</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"colour"</span>, </span>
+<span>                  label <span class="op">=</span> <span class="st">"2. Select histogram colour"</span>, </span>
+<span>                  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>,<span class="st">"green"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span>,<span class="st">"grey"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span>,</span>
+<span>      <span class="va">demo_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"bin"</span>, </span>
+<span>                  label <span class="op">=</span> <span class="st">"3. Select number of histogram bins"</span>, </span>
+<span>                  min<span class="op">=</span><span class="fl">1</span>, max<span class="op">=</span><span class="fl">25</span>, value<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="va">demo_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textAreaInput.html">textAreaInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"text"</span>, </span>
+<span>                label <span class="op">=</span> <span class="st">"4. Enter some text to be displayed"</span>,</span>
+<span>                rows <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>                placeholder <span class="op">=</span> <span class="st">"Enter some information here"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>      <span class="co"># Output elements go here</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># server.R ----</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Your server logic will be defined here</span></span>
+<span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Run the app ----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <p>In the code above, we've added the input widgets in the <code>sidebarPanel</code> section of your <code>ui</code> object. These widgets allow users to select a genotype, choose a histogram color, set the number of bins for the histogram, and add arbitrary text.</p>
-<p>Let's take a moment to understand the <code>selectInput()</code> function and how it's configured:</p>
+<p>Let's take a moment to understand the <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> function and how it's configured:</p>
 <p><strong>inputId = "species":</strong> This is the unique identifier for this input element. It's crucial for later referencing this input within your app script.</p>
 <p><strong>label = "1. Select species":</strong> This is the label you want to display above the input in your app. It provides clarity to users by describing the purpose of the input.</p>
 <p><strong>choices = c("Adelie" = "Adelie", "Chinstrap" = "Chinstrap", ...):</strong> Here, you define a list of choices that will be presented in the dropdown menu. Each choice has two parts: the display label (on the left) and the corresponding value that the app will collect and use in its output (on the right).</p>
 <p><strong>selected = "grey":</strong> This specifies the default value selected in the dropdown menu when the app is first loaded. In this example, 'grey' will be preselected.</p>
-<p>Now that you've grasped how <code>selectInput()</code> works, let's use it to customize your Shiny app further."</p>
-<p>The above explanation clarifies the purpose and settings of the <code>selectInput()</code> function, and you can use this understanding to configure other input elements in your Shiny app. Below is a summary of the different Input functions available for Shiny</p>
-<div id="textinput" class="section level2" number="35.1">
-<h2><span class="header-section-number">35.1</span> textInput</h2>
+<p>Now that you've grasped how <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> works, let's use it to customize your Shiny app further."</p>
+<p>The above explanation clarifies the purpose and settings of the <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> function, and you can use this understanding to configure other input elements in your Shiny app. Below is a summary of the different Input functions available for Shiny</p>
+<div id="textinput" class="section level2" number="33.1">
+<h2>
+<span class="header-section-number">33.1</span> textInput<a class="anchor" aria-label="anchor" href="#textinput"><i class="fas fa-link"></i></a>
+</h2>
 </div>
-<div id="textareainput" class="section level2" number="35.2">
-<h2><span class="header-section-number">35.2</span> textAreaInput</h2>
+<div id="textareainput" class="section level2" number="33.2">
+<h2>
+<span class="header-section-number">33.2</span> textAreaInput<a class="anchor" aria-label="anchor" href="#textareainput"><i class="fas fa-link"></i></a>
+</h2>
 <p>##selectInput</p>
 <p>##checkboxGroupInput</p>
 <p>##checkboxInput</p>
@@ -221,8 +250,10 @@
 <p>Remember that Shiny allows you to create reactive expressions and functions that respond to changes in input values. You can use these reactive expressions to generate the histogram and associated table based on user input.</p>
 <p>As you proceed, you can add more details to your <code>server.R</code> to handle these inputs and create the corresponding outputs.</p>
 </div>
-<div id="exercise-2" class="section level2" number="35.3">
-<h2><span class="header-section-number">35.3</span> Exercise</h2>
+<div id="exercise-2" class="section level2" number="33.3">
+<h2>
+<span class="header-section-number">33.3</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise-2"><i class="fas fa-link"></i></a>
+</h2>
 <p>Create an interface that gets people to enter their name, date of birth and select what type of cake they want from a selection OF -</p>
 <ul>
 <li><p>Chocolate</p></li>
@@ -402,8 +433,7 @@ window.onload = function() {
   update_total_correct();
 }
 
-</script>
-<script>
+</script><script>
 $( document ).ready(function() {
   var cite = ' ';
   var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
@@ -412,29 +442,31 @@ $( document ).ready(function() {
     license
   );
 });
-</script>
-
-  </main>
-
-  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page">
-      <h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+</script><div class="chapter-nav">
+<div class="prev"><a href="make-our-own-app.html"><span class="header-section-number">32</span> Make our own App</a></div>
+<div class="next"><a href="outputs.html"><span class="header-section-number">34</span> Outputs</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#inputs"><span class="header-section-number">33</span> Inputs</a></li>
+<li><a class="nav-link" href="#textinput"><span class="header-section-number">33.1</span> textInput</a></li>
+<li><a class="nav-link" href="#textareainput"><span class="header-section-number">33.2</span> textAreaInput</a></li>
+<li><a class="nav-link" href="#exercise-2"><span class="header-section-number">33.3</span> Exercise</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/07-shiny.rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/07-shiny.rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
-      </div>
+</div>
     </nav>
-  </div>
+</div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5">
-  <div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
     <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-04.</p>
@@ -445,11 +477,7 @@ $( document ).ready(function() {
   </div>
 
 </div></div>
-</footer>
-
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -461,8 +489,7 @@ $( document ).ready(function() {
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script>
-<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
 for (let popover of popovers) {
   const div = document.createElement('div');
   div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
@@ -480,5 +507,4 @@ for (let popover of popovers) {
 }
 </script>
 </body>
-
 </html>

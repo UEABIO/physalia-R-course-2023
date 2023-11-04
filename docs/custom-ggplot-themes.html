@@ -1,52 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Chapter 30 Custom ggplot themes | Advancing in R</title>
-
-    <meta name="author" content="Philip T. Leftwich" />
-  
-   <meta name="description" content="This book ..." />
-   <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 30 Custom ggplot themes | Advancing in R" />
-  <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
-  <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
-  <meta property="og:description" content="This book ..." />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 30 Custom ggplot themes | Advancing in R" />
-  
-  <meta name="twitter:description" content="This book ..." />
-  <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
-  <!-- JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
-    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
-    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
-    <script src="libs/bs3compat-0.5.0/transition.js"></script>
-    <script src="libs/bs3compat-0.5.0/tabs.js"></script>
-    <script src="libs/bs3compat-0.5.0/bs3compat.js"></script>
-    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
-    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
-    <script src="libs/font-awesome-5.13.0/js/script.js"></script>
-    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
-    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script>
-    <script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 28 Custom ggplot themes | Advancing in R</title>
+<meta name="author" content="Philip T. Leftwich">
+<meta name="description" content="Custom ggplot themes It is often the case that we start to default to a particular 'style' for our figures, or you may be making several similar figures within a research paper. Creating custom...">
+<meta name="generator" content="bookdown 0.34 with bs4_book()">
+<meta property="og:title" content="Chapter 28 Custom ggplot themes | Advancing in R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/custom-ggplot-themes.html">
+<meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
+<meta property="og:description" content="Custom ggplot themes It is often the case that we start to default to a particular 'style' for our figures, or you may be making several similar figures within a research paper. Creating custom...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 28 Custom ggplot themes | Advancing in R">
+<meta name="twitter:description" content="Custom ggplot themes It is often the case that we start to default to a particular 'style' for our figures, or you may be making several similar figures within a research paper. Creating custom...">
+<meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'G-6NP3MF25W3');
-    </script>
-    <script language="javascript"> 
+    </script><script language="javascript"> 
         function toggle(id) {
             var ele = document.getElementById("toggleText" + id);
             var text = document.getElementById("displayText" + id);
@@ -60,9 +41,7 @@
                 text.innerHTML = "Hide " + buttonText;
             }
         } 
-    </script>
-
-    <script language="javascript">
+    </script><script language="javascript">
         function openCode(evt, codeName, id) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent" + id);
@@ -76,24 +55,15 @@
             document.getElementById(codeName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-    </script>
-
-    <script language="javascript">
+    </script><script language="javascript">
         function hide(id){
             document.getElementById(id).style.display = "none";
         }
-    </script>
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
-
-  <!-- CSS -->
-  <style type="text/css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-    <style type="text/css">
+<style type="text/css">
     /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
     div.csl-bib-body { }
     div.csl-entry {
@@ -115,18 +85,15 @@
       margin-left: 2em;
     }
   </style>
-      <link rel="stylesheet" href="include/psyteachr.css" />
-    <link rel="stylesheet" href="include/webex.css" />
-    <link rel="stylesheet" href="include/style.css" />
-  
+<link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
 </head>
-
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
-    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -139,36 +106,95 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-      </form>
+</form>
 
-      <nav aria-label="Table of contents">
-        <h2>Table of contents</h2>
-        <div id="book-toc"></div>
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li class="book-part">Get Started in R</li>
+<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R basics</a></li>
+<li class="book-part">Organising workflows</li>
+<li><a class="" href="project-oriented-workflows.html"><span class="header-section-number">3</span> Project-oriented workflows</a></li>
+<li><a class="" href="basic-importexport.html"><span class="header-section-number">4</span> Basic Import/Export</a></li>
+<li><a class="" href="scripts.html"><span class="header-section-number">5</span> Scripts</a></li>
+<li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
+<li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
+<li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
+<li class="book-part">Functional Programming</li>
+<li><a class="" href="writing-functions.html"><span class="header-section-number">10</span> Writing Functions</a></li>
+<li><a class="" href="flow-control.html"><span class="header-section-number">11</span> Flow control</a></li>
+<li><a class="" href="simple-iteration.html"><span class="header-section-number">12</span> Simple iteration</a></li>
+<li><a class="" href="loops.html"><span class="header-section-number">13</span> Loops</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">14</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">15</span> Purrr</a></li>
+<li><a class="" href="bonus-simulation.html"><span class="header-section-number">16</span> Bonus: Simulation</a></li>
+<li class="book-part">Getting the most out of tidyverse</li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">17</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">18</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">19</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">20</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">21</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">22</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">23</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">24</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">25</span> Writing Functions in Tidyverse</a></li>
+<li class="book-part">Data Presentation</li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">26</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">27</span> Extensions for ggplot2</a></li>
+<li><a class="active" href="custom-ggplot-themes.html"><span class="header-section-number">28</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">29</span> Making tables with gt</a></li>
+<li class="book-part">Introduction to Shiny</li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">30</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">31</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">32</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">33</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">34</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">35</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">36</span> Customising</a></li>
+<li><a class="" href="download.html"><span class="header-section-number">37</span> Download?</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">38</span> Sharing</a></li>
+<li class="book-part">Literate Programming and Reproducibility</li>
+<li><a class="" href="rmarkdown.html"><span class="header-section-number">39</span> RMarkdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">40</span> Github</a></li>
+<li><a class="" href="NA.html">
+to upload commits
+to the remote repository.
+</a></li>
+<li class="book-part">BONUS: Working with big data</li>
+<li><a class="" href="reading-in-data.html"><span class="header-section-number">41</span> Reading in data</a></li>
+<li><a class="" href="write-to-sql.html"><span class="header-section-number">42</span> write to sql</a></li>
+<li><a class="" href="querying-sql.html"><span class="header-section-number">43</span> querying sql</a></li>
+<li class="book-part">BONUS: Automated Exploratory Analysis</li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">44</span> Packages for Automated Exploratory Data Analysis</a></li>
+</ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+          <p><a id="book-repo" href="https://github.com/UEABIO/physalia-intro-stats-2023">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
-    </div>
-  </header>
-
-  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="custom-ggplot-themes" class="section level1" number="30">
-<h1><span class="header-section-number">Chapter 30</span> Custom ggplot themes</h1>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="custom-ggplot-themes" class="section level1" number="28">
+<h1>
+<span class="header-section-number">28</span> Custom ggplot themes<a class="anchor" aria-label="anchor" href="#custom-ggplot-themes"><i class="fas fa-link"></i></a>
+</h1>
 <p>Custom ggplot themes</p>
-<p>It is often the case that we start to default to a particular 'style' for our figures, or you may be making several similar figures within a research paper. Creating custom functions can extend to making our own custom ggplot themes. You have probably already used theme variants such as <code>theme_bw()</code>, <code>theme_void()</code>, <code>theme_minimal()</code> - these are incredibly useful, but you might find you still wish to make consistent changes.</p>
+<p>It is often the case that we start to default to a particular 'style' for our figures, or you may be making several similar figures within a research paper. Creating custom functions can extend to making our own custom ggplot themes. You have probably already used theme variants such as <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> - these are incredibly useful, but you might find you still wish to make consistent changes.</p>
 <p>Here is a plot we can make with the <code>dros_weight</code> tibble:</p>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="custom-ggplot-themes.html#cb487-1" tabindex="-1"></a>plot <span class="ot">&lt;-</span> dros_weight <span class="sc">%&gt;%</span> </span>
-<span id="cb487-2"><a href="custom-ggplot-themes.html#cb487-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>sex,</span>
-<span id="cb487-3"><a href="custom-ggplot-themes.html#cb487-3" tabindex="-1"></a>         <span class="at">y=</span>weight_mg))<span class="sc">+</span></span>
-<span id="cb487-4"><a href="custom-ggplot-themes.html#cb487-4" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>)</span>
-<span id="cb487-5"><a href="custom-ggplot-themes.html#cb487-5" tabindex="-1"></a></span>
-<span id="cb487-6"><a href="custom-ggplot-themes.html#cb487-6" tabindex="-1"></a>plot</span></code></pre></div>
-<p>With the addition of a title and <code>theme_classic()</code> we can improve the style quickly</p>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="custom-ggplot-themes.html#cb488-1" tabindex="-1"></a>plot<span class="sc">+</span></span>
-<span id="cb488-2"><a href="custom-ggplot-themes.html#cb488-2" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Comparison of weights (mg) between </span><span class="sc">\n</span><span class="st">male and female Drosophila&quot;</span>)<span class="sc">+</span></span>
-<span id="cb488-3"><a href="custom-ggplot-themes.html#cb488-3" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
-<p>But I <strong>still</strong> want to make some more changes, rather than do this work for one figure, and potentially have to repeat this several times for subsequent figures, I can decide to make a new function instead. See <a href="https://ggplot2.tidyverse.org/reference/theme.html">here</a> for a full breakdown of the arguments for the <code>theme()</code> function.</p>
+<div class="sourceCode" id="cb455"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="va">dros_weight</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">sex</span>,</span>
+<span>         y<span class="op">=</span><span class="va">weight_mg</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">plot</span></span></code></pre></div>
+<p>With the addition of a title and <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code> we can improve the style quickly</p>
+<div class="sourceCode" id="cb456"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plot</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Comparison of weights (mg) between \nmale and female Drosophila"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>But I <strong>still</strong> want to make some more changes, rather than do this work for one figure, and potentially have to repeat this several times for subsequent figures, I can decide to make a new function instead. See <a href="https://ggplot2.tidyverse.org/reference/theme.html">here</a> for a full breakdown of the arguments for the <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code> function.</p>
 <div class="info">
 <p>
 Note when using a pre-set theme, and then modifying it further, it is
@@ -181,44 +207,46 @@ theme_classic + theme() # is correct
 theme() + theme_classic() # will not work as intended
 </p>
 </div>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="custom-ggplot-themes.html#cb489-1" tabindex="-1"></a><span class="co"># custom theme sets defaults for font and size, but these can be changed without changing the function</span></span>
-<span id="cb489-2"><a href="custom-ggplot-themes.html#cb489-2" tabindex="-1"></a>theme_custom <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">base_size=</span><span class="dv">12</span>, <span class="at">base_family=</span><span class="st">&quot;serif&quot;</span>){</span>
-<span id="cb489-3"><a href="custom-ggplot-themes.html#cb489-3" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> base_size, </span>
-<span id="cb489-4"><a href="custom-ggplot-themes.html#cb489-4" tabindex="-1"></a>                <span class="at">base_family =</span> base_family,</span>
-<span id="cb489-5"><a href="custom-ggplot-themes.html#cb489-5" tabindex="-1"></a>                )  <span class="sc">%+replace%</span></span>
-<span id="cb489-6"><a href="custom-ggplot-themes.html#cb489-6" tabindex="-1"></a><span class="co"># update theme minimal </span></span>
-<span id="cb489-7"><a href="custom-ggplot-themes.html#cb489-7" tabindex="-1"></a><span class="fu">theme</span>(</span>
-<span id="cb489-8"><a href="custom-ggplot-themes.html#cb489-8" tabindex="-1"></a>  <span class="co"># specify default settings for plot titles - use rel to set titles relative to base size</span></span>
-<span id="cb489-9"><a href="custom-ggplot-themes.html#cb489-9" tabindex="-1"></a>  <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="fu">rel</span>(<span class="fl">1.5</span>),</span>
-<span id="cb489-10"><a href="custom-ggplot-themes.html#cb489-10" tabindex="-1"></a>      <span class="at">face=</span><span class="st">&quot;bold&quot;</span>,</span>
-<span id="cb489-11"><a href="custom-ggplot-themes.html#cb489-11" tabindex="-1"></a>      <span class="at">family=</span>base_family),</span>
-<span id="cb489-12"><a href="custom-ggplot-themes.html#cb489-12" tabindex="-1"></a>  <span class="co">#specify defaults for axis titles</span></span>
-<span id="cb489-13"><a href="custom-ggplot-themes.html#cb489-13" tabindex="-1"></a>  <span class="at">axis.title=</span><span class="fu">element_text</span>(</span>
-<span id="cb489-14"><a href="custom-ggplot-themes.html#cb489-14" tabindex="-1"></a>    <span class="at">size=</span><span class="fu">rel</span>(<span class="dv">1</span>),</span>
-<span id="cb489-15"><a href="custom-ggplot-themes.html#cb489-15" tabindex="-1"></a>    <span class="at">family=</span>base_family),</span>
-<span id="cb489-16"><a href="custom-ggplot-themes.html#cb489-16" tabindex="-1"></a>  <span class="co"># specify position for y axis title</span></span>
-<span id="cb489-17"><a href="custom-ggplot-themes.html#cb489-17" tabindex="-1"></a>  <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="dv">10</span>, <span class="at">l=</span> <span class="dv">10</span>)),</span>
-<span id="cb489-18"><a href="custom-ggplot-themes.html#cb489-18" tabindex="-1"></a>  <span class="co"># specify position for x axis title</span></span>
-<span id="cb489-19"><a href="custom-ggplot-themes.html#cb489-19" tabindex="-1"></a>  <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>( <span class="at">t =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="dv">10</span>)),</span>
-<span id="cb489-20"><a href="custom-ggplot-themes.html#cb489-20" tabindex="-1"></a>  <span class="co"># set major y grid lines</span></span>
-<span id="cb489-21"><a href="custom-ggplot-themes.html#cb489-21" tabindex="-1"></a>  <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">colour=</span><span class="st">&quot;gray&quot;</span>, <span class="at">size=</span><span class="fl">0.5</span>),</span>
-<span id="cb489-22"><a href="custom-ggplot-themes.html#cb489-22" tabindex="-1"></a>  <span class="co"># add axis lines</span></span>
-<span id="cb489-23"><a href="custom-ggplot-themes.html#cb489-23" tabindex="-1"></a>  <span class="at">axis.line=</span><span class="fu">element_line</span>(),</span>
-<span id="cb489-24"><a href="custom-ggplot-themes.html#cb489-24" tabindex="-1"></a>   <span class="co"># Adding a 0.5cm margin around the plot</span></span>
-<span id="cb489-25"><a href="custom-ggplot-themes.html#cb489-25" tabindex="-1"></a>  <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">units =</span> , <span class="st">&quot;cm&quot;</span>),    </span>
-<span id="cb489-26"><a href="custom-ggplot-themes.html#cb489-26" tabindex="-1"></a>   <span class="co"># Setting the font for the legend text</span></span>
-<span id="cb489-27"><a href="custom-ggplot-themes.html#cb489-27" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;italic&quot;</span>),   </span>
-<span id="cb489-28"><a href="custom-ggplot-themes.html#cb489-28" tabindex="-1"></a>    <span class="co"># Removing the legend title</span></span>
-<span id="cb489-29"><a href="custom-ggplot-themes.html#cb489-29" tabindex="-1"></a>          <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),    </span>
-<span id="cb489-30"><a href="custom-ggplot-themes.html#cb489-30" tabindex="-1"></a>   <span class="co"># Setting the position for the legend - 0 is left/bottom, 1 is top/right</span></span>
-<span id="cb489-31"><a href="custom-ggplot-themes.html#cb489-31" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.8</span>)             </span>
-<span id="cb489-32"><a href="custom-ggplot-themes.html#cb489-32" tabindex="-1"></a>)</span>
-<span id="cb489-33"><a href="custom-ggplot-themes.html#cb489-33" tabindex="-1"></a>  </span>
-<span id="cb489-34"><a href="custom-ggplot-themes.html#cb489-34" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># custom theme sets defaults for font and size, but these can be changed without changing the function</span></span>
+<span><span class="va">theme_custom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">base_size</span><span class="op">=</span><span class="fl">12</span>, <span class="va">base_family</span><span class="op">=</span><span class="st">"serif"</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="va">base_size</span>, </span>
+<span>                base_family <span class="op">=</span> <span class="va">base_family</span>,</span>
+<span>                <span class="op">)</span>  <span class="op"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">%+replace%</a></span></span>
+<span><span class="co"># update theme minimal </span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
+<span>  <span class="co"># specify default settings for plot titles - use rel to set titles relative to base size</span></span>
+<span>  plot.title<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">1.5</span><span class="op">)</span>,</span>
+<span>      face<span class="op">=</span><span class="st">"bold"</span>,</span>
+<span>      family<span class="op">=</span><span class="va">base_family</span><span class="op">)</span>,</span>
+<span>  <span class="co">#specify defaults for axis titles</span></span>
+<span>  axis.title<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span></span>
+<span>    size<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>    family<span class="op">=</span><span class="va">base_family</span><span class="op">)</span>,</span>
+<span>  <span class="co"># specify position for y axis title</span></span>
+<span>  axis.title.y<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fl">10</span>, l<span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="co"># specify position for x axis title</span></span>
+<span>  axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span> t <span class="op">=</span> <span class="fl">10</span>, b <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="co"># set major y grid lines</span></span>
+<span>  panel.grid.major.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span><span class="op">(</span>colour<span class="op">=</span><span class="st">"gray"</span>, size<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>  <span class="co"># add axis lines</span></span>
+<span>  axis.line<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>   <span class="co"># Adding a 0.5cm margin around the plot</span></span>
+<span>  plot.margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span>, units <span class="op">=</span> , <span class="st">"cm"</span><span class="op">)</span>,    </span>
+<span>   <span class="co"># Setting the font for the legend text</span></span>
+<span>  legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"italic"</span><span class="op">)</span>,   </span>
+<span>    <span class="co"># Removing the legend title</span></span>
+<span>          legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,    </span>
+<span>   <span class="co"># Setting the position for the legend - 0 is left/bottom, 1 is top/right</span></span>
+<span>          legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.8</span><span class="op">)</span>             </span>
+<span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>With this function set, I can now use it for as many figures as I wish. To use it in the future I should probably save it in a unique script, with a clear title and comments for future use.</p>
 <p>I could then easily use <code>source("custom_theme_function.R")</code> to make this available to any scripts I was using.</p>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="custom-ggplot-themes.html#cb490-1" tabindex="-1"></a>plot<span class="sc">+</span></span>
-<span id="cb490-2"><a href="custom-ggplot-themes.html#cb490-2" tabindex="-1"></a><span class="fu">theme_custom</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plot</span><span class="op">+</span></span>
+<span><span class="fu">theme_custom</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <script>
 
@@ -390,8 +418,7 @@ window.onload = function() {
   update_total_correct();
 }
 
-</script>
-<script>
+</script><script>
 $( document ).ready(function() {
   var cite = ' ';
   var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
@@ -400,29 +427,26 @@ $( document ).ready(function() {
     license
   );
 });
-</script>
-
-  </main>
-
-  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page">
-      <h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+</script><div class="chapter-nav">
+<div class="prev"><a href="extensions-for-ggplot2.html"><span class="header-section-number">27</span> Extensions for ggplot2</a></div>
+<div class="next"><a href="making-tables-with-gt.html"><span class="header-section-number">29</span> Making tables with gt</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#custom-ggplot-themes"><span class="header-section-number">28</span> Custom ggplot themes</a></li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/06-ggplot-principles.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/06-ggplot-principles.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
-      </div>
+</div>
     </nav>
-  </div>
+</div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5">
-  <div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
     <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-04.</p>
@@ -433,11 +457,7 @@ $( document ).ready(function() {
   </div>
 
 </div></div>
-</footer>
-
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -449,8 +469,7 @@ $( document ).ready(function() {
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script>
-<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
 for (let popover of popovers) {
   const div = document.createElement('div');
   div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
@@ -468,5 +487,4 @@ for (let popover of popovers) {
 }
 </script>
 </body>
-
 </html>

@@ -1,9 +1,9 @@
-
 # Basic ggplot
 
 ```{r, child= '_setup.Rmd', warning = F, message = F}
 
 ```
+
 
 ```{r, warning = FALSE, message = FALSE, echo = FALSE}
 load(here::here("book", "files", "chapter5.RData"))

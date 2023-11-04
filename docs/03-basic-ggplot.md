@@ -1,5 +1,5 @@
-
 # Basic ggplot
+
 
 
 
@@ -403,9 +403,4 @@ penguins |>
 ```r
 #Because the density plots are overlapping, we set alpha = 0.75 to make the geoms 75% transparent.
 ```
-
-
-
-
-
 

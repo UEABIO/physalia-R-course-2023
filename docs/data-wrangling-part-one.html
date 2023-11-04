@@ -138,7 +138,7 @@
 <h2>
 <span class="header-section-number">8.1</span> Activity 1: Change column names<a class="anchor" aria-label="anchor" href="#activity-1-change-column-names"><i class="fas fa-link"></i></a>
 </h2>
-<p>We are going to learn how to organise data using the <em>tidy</em> format<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;(&lt;a href="http://vita.had.co.nz/papers/tidy-data.pdf" class="uri"&gt;http://vita.had.co.nz/papers/tidy-data.pdf&lt;/a&gt;)&lt;/p&gt;'><sup>2</sup></a>. This is because we are using the <code>tidyverse</code> packages <span class="citation">Wickham (<a href="querying-sql.html#ref-R-tidyverse">2023</a>)</span>. This is an opinionated, but highly effective method for generating reproducible analyses with a wide-range of data manipulation tools. Tidy data is an easy format for computers to read. It is also the required data structure for our <strong>statistical tests</strong> that we will work with later.</p>
+<p>We are going to learn how to organise data using the <em>tidy</em> format<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;(&lt;a href="http://vita.had.co.nz/papers/tidy-data.pdf" class="uri"&gt;http://vita.had.co.nz/papers/tidy-data.pdf&lt;/a&gt;)&lt;/p&gt;'><sup>2</sup></a>. This is because we are using the <code>tidyverse</code> packages <span class="citation">Wickham (<a href="packages-for-automated-exploratory-data-analysis.html#ref-R-tidyverse">2023</a>)</span>. This is an opinionated, but highly effective method for generating reproducible analyses with a wide-range of data manipulation tools. Tidy data is an easy format for computers to read. It is also the required data structure for our <strong>statistical tests</strong> that we will work with later.</p>
 <p>Here 'tidy' refers to a specific structure that lets us manipulate and visualise data with ease. In a tidy dataset each <em>variable</em> is in one column and each row contains one <em>observation</em>. Each cell of the table/spreadsheet contains the <em>values</em>. One observation you might make about tidy data is it is quite long - it generates a lot of rows of data - you might remember then that <em>tidy</em> data can be referred to as <em>long</em>-format data (as opposed to <em>wide</em> data).</p>
 <div class="inline-figure"><img src="images/tidy-1.png" alt="tidy data overview" width="80%" style="display: block; margin: auto;"></div>
 <p>So we know our data is in R, and we know the columns and names have been imported. But we still don't know whether all of our values imported correctly, or whether it captured all the rows.</p>
@@ -203,20 +203,20 @@
 </h4>
 <p>The <code>clean_names</code> function quickly converts all variable names into snake case. The N and C blood isotope ratio names are still quite long though, so let's clean those with <code><a href="https://dplyr.tidyverse.org/reference/rename.html">dplyr::rename()</a></code> where "new_name" = "old_name".</p>
 <div class="tab">
-<button class="tablinksunnamed-chunk-33 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-33', 'unnamed-chunk-33');">
+<button class="tablinksunnamed-chunk-25 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-25', 'unnamed-chunk-25');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-33" onclick="javascript:openCode(event, 'option2unnamed-chunk-33', 'unnamed-chunk-33');">
+<button class="tablinksunnamed-chunk-25" onclick="javascript:openCode(event, 'option2unnamed-chunk-25', 'unnamed-chunk-25');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
+<div id="option1unnamed-chunk-25" class="tabcontentunnamed-chunk-25">
 <div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="op">==</span> <span class="st">"delta_15_n_o_oo"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"delta_15n"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="op">==</span> <span class="st">"delta_13_c_o_oo"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"delta_13c"</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
+<div id="option2unnamed-chunk-25" class="tabcontentunnamed-chunk-25">
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># shorten the variable names for N and C isotope blood samples</span></span>
 <span></span>
@@ -224,7 +224,7 @@ Base R
 <span>         <span class="st">"delta_15n"</span><span class="op">=</span><span class="st">"delta_15_n_o_oo"</span>,  <span class="co"># use rename from the dplyr package</span></span>
 <span>         <span class="st">"delta_13c"</span><span class="op">=</span><span class="st">"delta_13_c_o_oo"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-33') </script>
+<script> javascript:hide('option2unnamed-chunk-25') </script>
 </div>
 </div>
 <div id="check-data" class="section level2" number="8.2">
@@ -237,22 +237,22 @@ Base R
 </h4>
 <p>When we run <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code> we get several lines of output. The number of observations "rows", the number of variables "columns". Check this against the csv file you have - they should be the same. In the next lines we see variable names and the type of data.</p>
 <div class="tab">
-<button class="tablinksunnamed-chunk-34 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-34', 'unnamed-chunk-34');">
+<button class="tablinksunnamed-chunk-26 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-26', 'unnamed-chunk-26');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-34" onclick="javascript:openCode(event, 'option2unnamed-chunk-34', 'unnamed-chunk-34');">
+<button class="tablinksunnamed-chunk-26" onclick="javascript:openCode(event, 'option2unnamed-chunk-26', 'unnamed-chunk-26');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-34" class="tabcontentunnamed-chunk-34">
+<div id="option1unnamed-chunk-26" class="tabcontentunnamed-chunk-26">
 <div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-34" class="tabcontentunnamed-chunk-34">
+<div id="option2unnamed-chunk-26" class="tabcontentunnamed-chunk-26">
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-34') </script><p>We can see a dataset with 345 rows (including the headers) and 17 variables
+<script> javascript:hide('option2unnamed-chunk-26') </script><p>We can see a dataset with 345 rows (including the headers) and 17 variables
 It also provides information on the <em>type</em> of data in each column</p>
 <ul>
 <li><p><code>&lt;chr&gt;</code> - means character or text data</p></li>
@@ -265,21 +265,21 @@ It also provides information on the <em>type</em> of data in each column</p>
 </h4>
 <p>Sometimes we may want to rename the values in our variables in order to make a shorthand that is easier to follow. This is changing the <strong>values</strong> in our columns, not the column names.</p>
 <div class="tab">
-<button class="tablinksunnamed-chunk-35 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-35', 'unnamed-chunk-35');">
+<button class="tablinksunnamed-chunk-27 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-27', 'unnamed-chunk-27');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-35" onclick="javascript:openCode(event, 'option2unnamed-chunk-35', 'unnamed-chunk-35');">
+<button class="tablinksunnamed-chunk-27" onclick="javascript:openCode(event, 'option2unnamed-chunk-27', 'unnamed-chunk-27');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
+<div id="option1unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span>, <span class="st">"Adelie"</span>,</span>
 <span>                          <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span>, <span class="st">"Gentoo"</span>,</span>
 <span>                                 <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span>, <span class="st">"Chinstrap"</span>,</span>
 <span>                                        <span class="va">penguins</span><span class="op">$</span><span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
+<div id="option2unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
 <div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># use mutate and case_when for a statement that conditionally changes the names of the values in a variable</span></span>
 <span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
@@ -287,7 +287,7 @@ Base R
 <span>                             <span class="va">species</span> <span class="op">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span> <span class="op">~</span> <span class="st">"Gentoo"</span>,</span>
 <span>                             <span class="va">species</span> <span class="op">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span> <span class="op">~</span> <span class="st">"Chinstrap"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-35') </script><div class="warning">
+<script> javascript:hide('option2unnamed-chunk-27') </script><div class="warning">
 <p>
 Have you checked that the above code block worked? Inspect your new
 tibble and check the variables have been renamed as you wanted.
@@ -370,43 +370,43 @@ create a new variable
 <p>For example I might wish to create a simplified dataset that only contains <code>species</code>, <code>sex</code>, <code>flipper_length_mm</code> and <code>body_mass_g</code>.</p>
 <p>Run the below code to select only those columns</p>
 <div class="tab">
-<button class="tablinksunnamed-chunk-38 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-38', 'unnamed-chunk-38');">
+<button class="tablinksunnamed-chunk-30 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-30', 'unnamed-chunk-30');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-38" onclick="javascript:openCode(event, 'option2unnamed-chunk-38', 'unnamed-chunk-38');">
+<button class="tablinksunnamed-chunk-30" onclick="javascript:openCode(event, 'option2unnamed-chunk-30', 'unnamed-chunk-30');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-38" class="tabcontentunnamed-chunk-38">
+<div id="option1unnamed-chunk-30" class="tabcontentunnamed-chunk-30">
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"sex"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-38" class="tabcontentunnamed-chunk-38">
+<div id="option2unnamed-chunk-30" class="tabcontentunnamed-chunk-30">
 <div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># DPLYR VERBS ----</span></span>
 <span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>, <span class="co"># the data object</span></span>
 <span>       <span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span>, <span class="va">body_mass_g</span><span class="op">)</span> <span class="co"># the variables you want to select</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-38') </script><p>Alternatively you could tell R the columns you <strong>don't</strong> want e.g.</p>
+<script> javascript:hide('option2unnamed-chunk-30') </script><p>Alternatively you could tell R the columns you <strong>don't</strong> want e.g.</p>
 <div class="tab">
-<button class="tablinksunnamed-chunk-39 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-39', 'unnamed-chunk-39');">
+<button class="tablinksunnamed-chunk-31 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-31', 'unnamed-chunk-31');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-39" onclick="javascript:openCode(event, 'option2unnamed-chunk-39', 'unnamed-chunk-39');">
+<button class="tablinksunnamed-chunk-31" onclick="javascript:openCode(event, 'option2unnamed-chunk-31', 'unnamed-chunk-31');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
+<div id="option1unnamed-chunk-31" class="tabcontentunnamed-chunk-31">
 <div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span><span class="op">[</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"study_name"</span>, <span class="st">"sample_number"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-39" class="tabcontentunnamed-chunk-39">
+<div id="option2unnamed-chunk-31" class="tabcontentunnamed-chunk-31">
 <div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>,</span>
 <span>       <span class="op">-</span><span class="va">study_name</span>, <span class="op">-</span><span class="va">sample_number</span><span class="op">)</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-39') </script><p>Note that <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> does <strong>not</strong> change the original <code>penguins</code> tibble. It spits out the new tibble directly into your console.</p>
+<script> javascript:hide('option2unnamed-chunk-31') </script><p>Note that <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> does <strong>not</strong> change the original <code>penguins</code> tibble. It spits out the new tibble directly into your console.</p>
 <p>If you don't <strong>save</strong> this new tibble, it won't be stored. If you want to keep it, then you must create a new object.</p>
 <p>When you run this new code, you will not see anything in your console, but you will see a new object appear in your Environment pane.</p>
 <div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
@@ -420,24 +420,24 @@ Base R
 <p>Having previously used <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> to select certain variables, we will now use <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> to select only certain rows or observations. For example only Adelie penguins.</p>
 <p>We can do this with the equivalence operator <code>==</code></p>
 <div class="tab">
-<button class="tablinksunnamed-chunk-41 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-41', 'unnamed-chunk-41');">
+<button class="tablinksunnamed-chunk-33 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-33', 'unnamed-chunk-33');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-41" onclick="javascript:openCode(event, 'option2unnamed-chunk-41', 'unnamed-chunk-41');">
+<button class="tablinksunnamed-chunk-33" onclick="javascript:openCode(event, 'option2unnamed-chunk-33', 'unnamed-chunk-33');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-41" class="tabcontentunnamed-chunk-41">
+<div id="option1unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="data-wrangling-part-one.html#cb119-1" tabindex="-1"></a>filtered_penguins <span class="ot">&lt;-</span> new_penguins[new_penguins<span class="sc">$</span>species <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae"</span><span class="er">)</span>, ]</span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-41" class="tabcontentunnamed-chunk-41">
+<div id="option2unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
 <div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-41') </script><p>We can use several different operators to assess the way in which we should filter our data that work the same in tidyverse or base R.</p>
+<script> javascript:hide('option2unnamed-chunk-33') </script><p>We can use several different operators to assess the way in which we should filter our data that work the same in tidyverse or base R.</p>
 <div class="inline-table"><table class="table" style="font-size: 16px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-42">Table 8.1: </span>Boolean expressions
+<span id="tab:unnamed-chunk-34">Table 8.1: </span>Boolean expressions
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -515,22 +515,22 @@ in
 <p>You can include multiple expressions within <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> and it will pull out only those rows that evaluate to <code>TRUE</code> for all of your conditions.</p>
 <p>For example the below code will pull out only those observations of Adelie penguins where flipper length was measured as greater than 190mm.</p>
 <div class="tab">
-<button class="tablinksunnamed-chunk-45 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-45', 'unnamed-chunk-45');">
+<button class="tablinksunnamed-chunk-37 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-37', 'unnamed-chunk-37');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-45" onclick="javascript:openCode(event, 'option2unnamed-chunk-45', 'unnamed-chunk-45');">
+<button class="tablinksunnamed-chunk-37" onclick="javascript:openCode(event, 'option2unnamed-chunk-37', 'unnamed-chunk-37');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
+<div id="option1unnamed-chunk-37" class="tabcontentunnamed-chunk-37">
 <div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_penguins</span><span class="op">[</span><span class="va">new_penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span> <span class="op">&amp;</span> <span class="va">new_penguins</span><span class="op">$</span><span class="va">flipper_length_mm</span> <span class="op">&gt;</span> <span class="fl">190</span>, <span class="op">]</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-45" class="tabcontentunnamed-chunk-45">
+<div id="option2unnamed-chunk-37" class="tabcontentunnamed-chunk-37">
 <div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span>, <span class="va">flipper_length_mm</span> <span class="op">&gt;</span> <span class="fl">190</span><span class="op">)</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-45') </script>
+<script> javascript:hide('option2unnamed-chunk-37') </script>
 </div>
 <div id="arrange" class="section level3" number="8.3.3">
 <h3>
@@ -538,22 +538,22 @@ Base R
 </h3>
 <p>The function <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> sorts the rows in the table according to the columns supplied. For example</p>
 <div class="tab">
-<button class="tablinksunnamed-chunk-46 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-46', 'unnamed-chunk-46');">
+<button class="tablinksunnamed-chunk-38 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-38', 'unnamed-chunk-38');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-46" onclick="javascript:openCode(event, 'option2unnamed-chunk-46', 'unnamed-chunk-46');">
+<button class="tablinksunnamed-chunk-38" onclick="javascript:openCode(event, 'option2unnamed-chunk-38', 'unnamed-chunk-38');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
+<div id="option1unnamed-chunk-38" class="tabcontentunnamed-chunk-38">
 <div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_penguins</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">new_penguins</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span>, <span class="op">]</span> <span class="co"># define columns to be arranged</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-46" class="tabcontentunnamed-chunk-46">
+<div id="option2unnamed-chunk-38" class="tabcontentunnamed-chunk-38">
 <div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-46') </script><p>The data is now arranged in alphabetical order by sex. So all of the observations of female penguins are listed before males.</p>
+<script> javascript:hide('option2unnamed-chunk-38') </script><p>The data is now arranged in alphabetical order by sex. So all of the observations of female penguins are listed before males.</p>
 <p>You can also reverse this with <code><a href="https://dplyr.tidyverse.org/reference/desc.html">desc()</a></code></p>
 <div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -572,23 +572,23 @@ Base R
 <p>To create new variables we use the function <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>.</p>
 <p>Note that as before, if you want to save your new column you must save it as an object. Here we are mutating a new column and attaching it to the <code>new_penguins</code> data oject.</p>
 <div class="tab">
-<button class="tablinksunnamed-chunk-49 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-49', 'unnamed-chunk-49');">
+<button class="tablinksunnamed-chunk-41 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-41', 'unnamed-chunk-41');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-49" onclick="javascript:openCode(event, 'option2unnamed-chunk-49', 'unnamed-chunk-49');">
+<button class="tablinksunnamed-chunk-41" onclick="javascript:openCode(event, 'option2unnamed-chunk-41', 'unnamed-chunk-41');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
+<div id="option1unnamed-chunk-41" class="tabcontentunnamed-chunk-41">
 <div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_penguins</span><span class="op">$</span><span class="va">body_mass_kg</span> <span class="op">&lt;-</span> <span class="va">new_penguins</span><span class="op">$</span><span class="va">body_mass_g</span> <span class="op">/</span> <span class="fl">1000</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-49" class="tabcontentunnamed-chunk-49">
+<div id="option2unnamed-chunk-41" class="tabcontentunnamed-chunk-41">
 <div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>,</span>
 <span>                     body_mass_kg <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-49') </script>
+<script> javascript:hide('option2unnamed-chunk-41') </script>
 </div>
 </div>
 <div id="pipes" class="section level2" number="8.4">
@@ -687,7 +687,7 @@ site</a> does a good job of explaining .
 <p>The minimum weight for our penguins is 2.7kg, and the max is 6.3kg - not outrageous. If the min had come out at 27g we might have been suspicious. We will use <code>summarise</code> again to calculate other metrics in the future.</p>
 <div class="info">
 <p>
-our first data insight, the difference the smallest adult penguin in
+Our first data insight, the difference the smallest adult penguin in
 our dataset is nearly half the size of the largest penguin.
 </p>
 </div>
@@ -698,14 +698,14 @@ our dataset is nearly half the size of the largest penguin.
 </h3>
 <p>Many data analysis tasks can be approached using the “split-apply-combine” paradigm: split the data into groups, apply some analysis to each group, and then combine the results. <code>dplyr</code> makes this very easy with the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function. In the <code>summarise</code> example above we were able to find the max-min body mass values for the penguins in our dataset. But what if we wanted to break that down by a grouping such as species of penguin. This is where <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> comes in.</p>
 <div class="tab">
-<button class="tablinksunnamed-chunk-61 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-61', 'unnamed-chunk-61');">
+<button class="tablinksunnamed-chunk-53 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-53', 'unnamed-chunk-53');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-61" onclick="javascript:openCode(event, 'option2unnamed-chunk-61', 'unnamed-chunk-61');">
+<button class="tablinksunnamed-chunk-53" onclick="javascript:openCode(event, 'option2unnamed-chunk-53', 'unnamed-chunk-53');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
+<div id="option1unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Things start to get more complicated with Base R</span></span>
 <span></span>
@@ -714,14 +714,14 @@ Base R
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, args <span class="op">=</span> <span class="va">_</span> <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
+<div id="option2unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
 <div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># subsequent functions are perform "by group"</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>min<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, </span>
 <span>            max<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-61') </script><p>Now we know a little more about our data, the max weight of our Gentoo penguins is much larger than the other two species. In fact, the minimum weight of a Gentoo penguin is not far off the max weight of the other two species.</p>
+<script> javascript:hide('option2unnamed-chunk-53') </script><p>Now we know a little more about our data, the max weight of our Gentoo penguins is much larger than the other two species. In fact, the minimum weight of a Gentoo penguin is not far off the max weight of the other two species.</p>
 </div>
 <div id="distinct" class="section level3" number="8.5.4">
 <h3>
@@ -729,23 +729,23 @@ Base R
 </h3>
 <p>We can also look for typos by asking R to produce all of the distinct values in a variable. This is more useful for categorical data, where we expect there to be only a few distinct categories</p>
 <div class="tab">
-<button class="tablinksunnamed-chunk-62 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-62', 'unnamed-chunk-62');">
+<button class="tablinksunnamed-chunk-54 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-54', 'unnamed-chunk-54');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-62" onclick="javascript:openCode(event, 'option2unnamed-chunk-62', 'unnamed-chunk-62');">
+<button class="tablinksunnamed-chunk-54" onclick="javascript:openCode(event, 'option2unnamed-chunk-54', 'unnamed-chunk-54');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
+<div id="option1unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
 <div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">penquins</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span> <span class="co"># only works on vectord</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
+<div id="option2unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
 <div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-62') </script><p>Here if someone had mistyped e.g. 'FMALE' it would be obvious. We could do the same thing (and probably should have before we changed the names) for species.</p>
+<script> javascript:hide('option2unnamed-chunk-54') </script><p>Here if someone had mistyped e.g. 'FMALE' it would be obvious. We could do the same thing (and probably should have before we changed the names) for species.</p>
 </div>
 <div id="missing-values-na" class="section level3" number="8.5.5">
 <h3>
@@ -779,25 +779,6 @@ Base R
 <p>That was a lot of work! But remember you don't have to remember all of these functions, remember this chapter when you do more data wrangling in the future. Also bookmark the <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheatsheets Page</a>.</p>
 <p>Finally, make sure you have saved the changes made to your script 💾 &amp; make sure your workspace is set <strong>not</strong> to save objects from the environment <a href="#global-options"><em>between</em> sessions</a>.</p>
 <p>We want our script to be our record of work and progress, and not to be confused by a cluttered R Environment.</p>
-</div>
-<div id="activity-reorganise-this-script" class="section level2" number="8.8">
-<h2>
-<span class="header-section-number">8.8</span> Activity: Reorganise this script<a class="anchor" aria-label="anchor" href="#activity-reorganise-this-script"><i class="fas fa-link"></i></a>
-</h2>
-<p>Using the link below take the text and copy/paste into a <strong>new</strong> R script and save this as <code>YYYY_MM_DD_workshop_4_jumbled_script.R</code></p>
-<p>All of the correct lines of code, comments and document markers are present, but not in the correct order. Can you unscramble them to produce a sensible output and a clear document outline?</p>
-<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/jumbled_script.R">
-<button class="btn btn-success"><i class="fa fa-save"></i> Download jumbled R script</button>
-</a>
-<div class="webex-solution">
-<button>
-Solution
-</button>
-<p>If you want to check your answers (or are just completely stuck) then click here</p>
-<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/unjumbled_script.R">
-<button class="btn btn-success"><i class="fa fa-save"></i> Unjumbled script</button>
-</a>
-</div>
 </div>
 </div>
 
@@ -1009,13 +990,12 @@ $( document ).ready(function() {
 </li>
 <li><a class="nav-link" href="#summary"><span class="header-section-number">8.6</span> Summary</a></li>
 <li><a class="nav-link" href="#finished"><span class="header-section-number">8.7</span> Finished</a></li>
-<li><a class="nav-link" href="#activity-reorganise-this-script"><span class="header-section-number">8.8</span> Activity: Reorganise this script</a></li>
 </ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/02-loading-data.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/02-loading-data.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/02a-penguin.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/02a-penguin.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

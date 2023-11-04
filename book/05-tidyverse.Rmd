@@ -1052,12 +1052,14 @@ my_select_function(select_variable = c("species", "sex")) |>
 
 ## Practice
 
+
 ```{task}
 
-Write a `function` that uses filter to take any two of the penguin species then selects one numeric variable e.g. body_mass_g and compares them with a violin plot (`geom_violin()`)
+Write a `function` that uses filter to take any two of the penguin species then selects one numeric variable e.g. body_mass_g and compares them with a violin plot geom_violin()
 
 
 ```
+
 
 
 ```{solution}

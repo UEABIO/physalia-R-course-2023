@@ -1,52 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Chapter 27 Writing Functions in Tidyverse | Advancing in R</title>
-
-    <meta name="author" content="Philip T. Leftwich" />
-  
-   <meta name="description" content="This book ..." />
-   <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 27 Writing Functions in Tidyverse | Advancing in R" />
-  <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
-  <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
-  <meta property="og:description" content="This book ..." />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 27 Writing Functions in Tidyverse | Advancing in R" />
-  
-  <meta name="twitter:description" content="This book ..." />
-  <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
-  <!-- JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
-    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
-    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
-    <script src="libs/bs3compat-0.5.0/transition.js"></script>
-    <script src="libs/bs3compat-0.5.0/tabs.js"></script>
-    <script src="libs/bs3compat-0.5.0/bs3compat.js"></script>
-    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
-    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
-    <script src="libs/font-awesome-5.13.0/js/script.js"></script>
-    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
-    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script>
-    <script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 25 Writing Functions in Tidyverse | Advancing in R</title>
+<meta name="author" content="Philip T. Leftwich">
+<meta name="description" content="The goal here is to understand how to use tidy evaluation to write functions that incorporate {tidyverse} functions e.g. (mutate, select, filter) etc. Below is an example of some code to select a...">
+<meta name="generator" content="bookdown 0.34 with bs4_book()">
+<meta property="og:title" content="Chapter 25 Writing Functions in Tidyverse | Advancing in R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/writing-functions-in-tidyverse.html">
+<meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
+<meta property="og:description" content="The goal here is to understand how to use tidy evaluation to write functions that incorporate {tidyverse} functions e.g. (mutate, select, filter) etc. Below is an example of some code to select a...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 25 Writing Functions in Tidyverse | Advancing in R">
+<meta name="twitter:description" content="The goal here is to understand how to use tidy evaluation to write functions that incorporate {tidyverse} functions e.g. (mutate, select, filter) etc. Below is an example of some code to select a...">
+<meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/font-awesome-5.13.0/js/script.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'G-6NP3MF25W3');
-    </script>
-    <script language="javascript"> 
+    </script><script language="javascript"> 
         function toggle(id) {
             var ele = document.getElementById("toggleText" + id);
             var text = document.getElementById("displayText" + id);
@@ -60,9 +41,7 @@
                 text.innerHTML = "Hide " + buttonText;
             }
         } 
-    </script>
-
-    <script language="javascript">
+    </script><script language="javascript">
         function openCode(evt, codeName, id) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent" + id);
@@ -76,24 +55,15 @@
             document.getElementById(codeName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-    </script>
-
-    <script language="javascript">
+    </script><script language="javascript">
         function hide(id){
             document.getElementById(id).style.display = "none";
         }
-    </script>
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
-
-  <!-- CSS -->
-  <style type="text/css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-    <style type="text/css">
+<style type="text/css">
     /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
     div.csl-bib-body { }
     div.csl-entry {
@@ -115,18 +85,15 @@
       margin-left: 2em;
     }
   </style>
-      <link rel="stylesheet" href="include/psyteachr.css" />
-    <link rel="stylesheet" href="include/webex.css" />
-    <link rel="stylesheet" href="include/style.css" />
-  
+<link rel="stylesheet" href="include/psyteachr.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/style.css">
 </head>
-
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
-    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -139,34 +106,93 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-      </form>
+</form>
 
-      <nav aria-label="Table of contents">
-        <h2>Table of contents</h2>
-        <div id="book-toc"></div>
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li class="book-part">Get Started in R</li>
+<li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
+<li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R basics</a></li>
+<li class="book-part">Organising workflows</li>
+<li><a class="" href="project-oriented-workflows.html"><span class="header-section-number">3</span> Project-oriented workflows</a></li>
+<li><a class="" href="basic-importexport.html"><span class="header-section-number">4</span> Basic Import/Export</a></li>
+<li><a class="" href="scripts.html"><span class="header-section-number">5</span> Scripts</a></li>
+<li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
+<li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
+<li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
+<li class="book-part">Functional Programming</li>
+<li><a class="" href="writing-functions.html"><span class="header-section-number">10</span> Writing Functions</a></li>
+<li><a class="" href="flow-control.html"><span class="header-section-number">11</span> Flow control</a></li>
+<li><a class="" href="simple-iteration.html"><span class="header-section-number">12</span> Simple iteration</a></li>
+<li><a class="" href="loops.html"><span class="header-section-number">13</span> Loops</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">14</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">15</span> Purrr</a></li>
+<li><a class="" href="bonus-simulation.html"><span class="header-section-number">16</span> Bonus: Simulation</a></li>
+<li class="book-part">Getting the most out of tidyverse</li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">17</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">18</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">19</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">20</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">21</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">22</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">23</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">24</span> Pivot</a></li>
+<li><a class="active" href="writing-functions-in-tidyverse.html"><span class="header-section-number">25</span> Writing Functions in Tidyverse</a></li>
+<li class="book-part">Data Presentation</li>
+<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">26</span> Data visualisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">27</span> Extensions for ggplot2</a></li>
+<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">28</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">29</span> Making tables with gt</a></li>
+<li class="book-part">Introduction to Shiny</li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">30</span> Getting to work with Shiny</a></li>
+<li><a class="" href="layout.html"><span class="header-section-number">31</span> Layout</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">32</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">33</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">34</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">35</span> Reactive</a></li>
+<li><a class="" href="customising.html"><span class="header-section-number">36</span> Customising</a></li>
+<li><a class="" href="download.html"><span class="header-section-number">37</span> Download?</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">38</span> Sharing</a></li>
+<li class="book-part">Literate Programming and Reproducibility</li>
+<li><a class="" href="rmarkdown.html"><span class="header-section-number">39</span> RMarkdown</a></li>
+<li><a class="" href="github.html"><span class="header-section-number">40</span> Github</a></li>
+<li><a class="" href="NA.html">
+to upload commits
+to the remote repository.
+</a></li>
+<li class="book-part">BONUS: Working with big data</li>
+<li><a class="" href="reading-in-data.html"><span class="header-section-number">41</span> Reading in data</a></li>
+<li><a class="" href="write-to-sql.html"><span class="header-section-number">42</span> write to sql</a></li>
+<li><a class="" href="querying-sql.html"><span class="header-section-number">43</span> querying sql</a></li>
+<li class="book-part">BONUS: Automated Exploratory Analysis</li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">44</span> Packages for Automated Exploratory Data Analysis</a></li>
+</ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+          <p><a id="book-repo" href="https://github.com/UEABIO/physalia-intro-stats-2023">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
-    </div>
-  </header>
-
-  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="writing-functions-in-tidyverse" class="section level1" number="27">
-<h1><span class="header-section-number">Chapter 27</span> Writing Functions in Tidyverse</h1>
-<p>The goal here is to understand how to use tidy evaluation to write functions that incorporate <code>{tidyverse}</code> functions e.g. (mutate, select, filter) etc.</p>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="writing-functions-in-tidyverse" class="section level1" number="25">
+<h1>
+<span class="header-section-number">25</span> Writing Functions in Tidyverse<a class="anchor" aria-label="anchor" href="#writing-functions-in-tidyverse"><i class="fas fa-link"></i></a>
+</h1>
+<p>The goal here is to understand how to use tidy evaluation to write functions that incorporate <a href="https://tidyverse.tidyverse.org">tidyverse</a> functions e.g. (mutate, select, filter) etc.</p>
 <p>Below is an example of some code to select a variable:</p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="writing-functions-in-tidyverse.html#cb421-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb421-2"><a href="writing-functions-in-tidyverse.html#cb421-2" tabindex="-1"></a>  <span class="fu">select</span>(species)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span></span></code></pre></div>
 <p>Put that exact working code into a function</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="writing-functions-in-tidyverse.html#cb422-1" tabindex="-1"></a>test_function <span class="ot">&lt;-</span> <span class="cf">function</span>(select_var){</span>
-<span id="cb422-2"><a href="writing-functions-in-tidyverse.html#cb422-2" tabindex="-1"></a>  penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb422-3"><a href="writing-functions-in-tidyverse.html#cb422-3" tabindex="-1"></a>  <span class="fu">select</span>(select_var)</span>
-<span id="cb422-4"><a href="writing-functions-in-tidyverse.html#cb422-4" tabindex="-1"></a>}</span>
-<span id="cb422-5"><a href="writing-functions-in-tidyverse.html#cb422-5" tabindex="-1"></a></span>
-<span id="cb422-6"><a href="writing-functions-in-tidyverse.html#cb422-6" tabindex="-1"></a><span class="fu">test_function</span>(<span class="at">select_var =</span> species)</span></code></pre></div>
-<pre><code>Error: object &#39;species&#39; not found
+<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">select_var</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">select_var</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">test_function</span><span class="op">(</span>select_var <span class="op">=</span> <span class="va">species</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Error: object 'species' not found
 </code></pre>
 <p>This error occurs becaus of <em>tidy evaluation</em></p>
 <div class="info">
@@ -195,161 +221,170 @@ commands
 </li>
 </ul>
 </div>
-<div id="data-masking" class="section level2" number="27.1">
-<h2><span class="header-section-number">27.1</span> Data masking</h2>
+<div id="data-masking" class="section level2" number="25.1">
+<h2>
+<span class="header-section-number">25.1</span> Data masking<a class="anchor" aria-label="anchor" href="#data-masking"><i class="fas fa-link"></i></a>
+</h2>
 <p>Data masking is a handy feature of tidyverse that makes it easier to program with dataframes. It allows you to reference columns wihout using <code>$</code>, whereas almost all base R functions use unmasked programming.</p>
 <p>However, this makes it harder to create functions</p>
-<p>Data masking is used by <code>arrange()</code>, <code>count()</code>, <code>filter()</code>, <code>group_by()</code>, <code>mutate()</code>, and <code>summarise()</code>. To check which type of tidy evaluation a function uses, check the help file.</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="writing-functions-in-tidyverse.html#cb424-1" tabindex="-1"></a>test_filter_species <span class="ot">&lt;-</span> <span class="cf">function</span>(filter_var) {</span>
-<span id="cb424-2"><a href="writing-functions-in-tidyverse.html#cb424-2" tabindex="-1"></a>  penguins_clean_split <span class="sc">%&gt;%</span></span>
-<span id="cb424-3"><a href="writing-functions-in-tidyverse.html#cb424-3" tabindex="-1"></a>    <span class="fu">filter</span>(species <span class="sc">==</span> filter_var)</span>
-<span id="cb424-4"><a href="writing-functions-in-tidyverse.html#cb424-4" tabindex="-1"></a>}</span>
-<span id="cb424-5"><a href="writing-functions-in-tidyverse.html#cb424-5" tabindex="-1"></a></span>
-<span id="cb424-6"><a href="writing-functions-in-tidyverse.html#cb424-6" tabindex="-1"></a><span class="fu">test_filter_species</span>(<span class="st">&quot;Adelie&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb424-7"><a href="writing-functions-in-tidyverse.html#cb424-7" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<p>Data masking is used by <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>. To check which type of tidy evaluation a function uses, check the help file.</p>
+<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_filter_species</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">filter_var</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">penguins_clean_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="va">filter_var</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">test_filter_species</span><span class="op">(</span><span class="st">"Adelie"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 152
 ## Columns: 18
-## $ study_name        &lt;chr&gt; &quot;PAL0708&quot;, &quot;PAL0708&quot;, &quot;PAL0708&quot;, &quot;PAL0708&quot;, &quot;PAL0708…
+## $ study_name        &lt;chr&gt; "PAL0708", "PAL0708", "PAL0708", "PAL0708", "PAL0708…
 ## $ sample_number     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1…
-## $ species           &lt;chr&gt; &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;A…
-## $ full_latin_name   &lt;chr&gt; &quot;Pygoscelis adeliae&quot;, &quot;Pygoscelis adeliae&quot;, &quot;Pygosce…
-## $ region            &lt;chr&gt; &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;A…
-## $ island            &lt;chr&gt; &quot;Torgersen&quot;, &quot;Torgersen&quot;, &quot;Torgersen&quot;, &quot;Torgersen&quot;, …
-## $ stage             &lt;chr&gt; &quot;Adult, 1 Egg Stage&quot;, &quot;Adult, 1 Egg Stage&quot;, &quot;Adult, …
-## $ individual_id     &lt;chr&gt; &quot;N1A1&quot;, &quot;N1A2&quot;, &quot;N2A1&quot;, &quot;N2A2&quot;, &quot;N3A1&quot;, &quot;N3A2&quot;, &quot;N4A…
-## $ clutch_completion &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;…
+## $ species           &lt;chr&gt; "Adelie", "Adelie", "Adelie", "Adelie", "Adelie", "A…
+## $ full_latin_name   &lt;chr&gt; "Pygoscelis adeliae", "Pygoscelis adeliae", "Pygosce…
+## $ region            &lt;chr&gt; "Anvers", "Anvers", "Anvers", "Anvers", "Anvers", "A…
+## $ island            &lt;chr&gt; "Torgersen", "Torgersen", "Torgersen", "Torgersen", …
+## $ stage             &lt;chr&gt; "Adult, 1 Egg Stage", "Adult, 1 Egg Stage", "Adult, …
+## $ individual_id     &lt;chr&gt; "N1A1", "N1A2", "N2A1", "N2A2", "N3A1", "N3A2", "N4A…
+## $ clutch_completion &lt;chr&gt; "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "No", "No"…
 ## $ date_egg          &lt;date&gt; 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 200…
 ## $ culmen_length_mm  &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
 ## $ culmen_depth_mm   &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
 ## $ flipper_length_mm &lt;dbl&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
 ## $ body_mass_g       &lt;dbl&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
-## $ sex               &lt;chr&gt; &quot;MALE&quot;, &quot;FEMALE&quot;, &quot;FEMALE&quot;, NA, &quot;FEMALE&quot;, &quot;MALE&quot;, &quot;F…
+## $ sex               &lt;chr&gt; "MALE", "FEMALE", "FEMALE", NA, "FEMALE", "MALE", "F…
 ## $ delta_15_n_o_oo   &lt;dbl&gt; NA, 8.94956, 8.36821, NA, 8.76651, 8.66496, 9.18718,…
 ## $ delta_13_c_o_oo   &lt;dbl&gt; NA, -24.69454, -25.33302, NA, -25.32426, -25.29805, …
-## $ comments          &lt;chr&gt; &quot;Not enough blood for isotopes.&quot;, NA, NA, &quot;Adult not…</code></pre>
+## $ comments          &lt;chr&gt; "Not enough blood for isotopes.", NA, NA, "Adult not…</code></pre>
 <p>By passing quoted arguments to the function, you can use it directly in the expression, and the function will evaluate it as if it were part of the data frame.</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="writing-functions-in-tidyverse.html#cb426-1" tabindex="-1"></a>test_filter_general <span class="ot">&lt;-</span> <span class="cf">function</span>(filter_condition) {</span>
-<span id="cb426-2"><a href="writing-functions-in-tidyverse.html#cb426-2" tabindex="-1"></a>  penguins_clean_split <span class="sc">%&gt;%</span></span>
-<span id="cb426-3"><a href="writing-functions-in-tidyverse.html#cb426-3" tabindex="-1"></a>    <span class="fu">filter</span>(filter_condition)</span>
-<span id="cb426-4"><a href="writing-functions-in-tidyverse.html#cb426-4" tabindex="-1"></a>}</span>
-<span id="cb426-5"><a href="writing-functions-in-tidyverse.html#cb426-5" tabindex="-1"></a></span>
-<span id="cb426-6"><a href="writing-functions-in-tidyverse.html#cb426-6" tabindex="-1"></a><span class="fu">test_filter_general</span>(<span class="st">&quot;flipper_length_mm &gt; 180&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb426-7"><a href="writing-functions-in-tidyverse.html#cb426-7" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_filter_general</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">filter_condition</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">penguins_clean_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">filter_condition</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">test_filter_general</span><span class="op">(</span><span class="st">"flipper_length_mm &gt; 180"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Error in `filter()`:
 ℹ In argument: `filter_condition`.
 Caused by error:
-! `..1` must be a logical vector, not the string &quot;fliper_length_mm &gt; 180&quot;.
+! `..1` must be a logical vector, not the string "fliper_length_mm &gt; 180".
 Backtrace:
-  1. test_filter_general(&quot;flipper_length_mm &gt; 180&quot;) %&gt;% glimpse()
+  1. test_filter_general("flipper_length_mm &gt; 180") %&gt;% glimpse()
  12. dplyr:::dplyr_internal_error(...)
 </code></pre>
 <p>However, we can avoid this by embracing the curly operators <code>{{.}}</code> this allows the data-masked argument to have its evaluation delayed until after the data frame columns are defined. With the <code>{{</code> operator you can tunnel data-variables (i.e. columns from the data frames) through arg-variables (function arguments).</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="writing-functions-in-tidyverse.html#cb428-1" tabindex="-1"></a>test_filter_general <span class="ot">&lt;-</span> <span class="cf">function</span>(filter_condition) {</span>
-<span id="cb428-2"><a href="writing-functions-in-tidyverse.html#cb428-2" tabindex="-1"></a>  penguins_clean_split <span class="sc">%&gt;%</span></span>
-<span id="cb428-3"><a href="writing-functions-in-tidyverse.html#cb428-3" tabindex="-1"></a>    <span class="fu">filter</span>({{filter_condition}})</span>
-<span id="cb428-4"><a href="writing-functions-in-tidyverse.html#cb428-4" tabindex="-1"></a>}</span>
-<span id="cb428-5"><a href="writing-functions-in-tidyverse.html#cb428-5" tabindex="-1"></a></span>
-<span id="cb428-6"><a href="writing-functions-in-tidyverse.html#cb428-6" tabindex="-1"></a><span class="fu">test_filter_general</span>(flipper_length_mm <span class="sc">&gt;</span> <span class="dv">180</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb428-7"><a href="writing-functions-in-tidyverse.html#cb428-7" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_filter_general</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">filter_condition</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">penguins_clean_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">filter_condition</span><span class="op">}</span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">test_filter_general</span><span class="op">(</span><span class="va">flipper_length_mm</span> <span class="op">&gt;</span> <span class="fl">180</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 329
 ## Columns: 18
-## $ study_name        &lt;chr&gt; &quot;PAL0708&quot;, &quot;PAL0708&quot;, &quot;PAL0708&quot;, &quot;PAL0708&quot;, &quot;PAL0708…
+## $ study_name        &lt;chr&gt; "PAL0708", "PAL0708", "PAL0708", "PAL0708", "PAL0708…
 ## $ sample_number     &lt;dbl&gt; 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, …
-## $ species           &lt;chr&gt; &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;A…
-## $ full_latin_name   &lt;chr&gt; &quot;Pygoscelis adeliae&quot;, &quot;Pygoscelis adeliae&quot;, &quot;Pygosce…
-## $ region            &lt;chr&gt; &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;A…
-## $ island            &lt;chr&gt; &quot;Torgersen&quot;, &quot;Torgersen&quot;, &quot;Torgersen&quot;, &quot;Torgersen&quot;, …
-## $ stage             &lt;chr&gt; &quot;Adult, 1 Egg Stage&quot;, &quot;Adult, 1 Egg Stage&quot;, &quot;Adult, …
-## $ individual_id     &lt;chr&gt; &quot;N1A1&quot;, &quot;N1A2&quot;, &quot;N2A1&quot;, &quot;N3A1&quot;, &quot;N3A2&quot;, &quot;N4A1&quot;, &quot;N4A…
-## $ clutch_completion &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;Yes&quot;…
+## $ species           &lt;chr&gt; "Adelie", "Adelie", "Adelie", "Adelie", "Adelie", "A…
+## $ full_latin_name   &lt;chr&gt; "Pygoscelis adeliae", "Pygoscelis adeliae", "Pygosce…
+## $ region            &lt;chr&gt; "Anvers", "Anvers", "Anvers", "Anvers", "Anvers", "A…
+## $ island            &lt;chr&gt; "Torgersen", "Torgersen", "Torgersen", "Torgersen", …
+## $ stage             &lt;chr&gt; "Adult, 1 Egg Stage", "Adult, 1 Egg Stage", "Adult, …
+## $ individual_id     &lt;chr&gt; "N1A1", "N1A2", "N2A1", "N3A1", "N3A2", "N4A1", "N4A…
+## $ clutch_completion &lt;chr&gt; "Yes", "Yes", "Yes", "Yes", "Yes", "No", "No", "Yes"…
 ## $ date_egg          &lt;date&gt; 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 200…
 ## $ culmen_length_mm  &lt;dbl&gt; 39.1, 39.5, 40.3, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0…
 ## $ culmen_depth_mm   &lt;dbl&gt; 18.7, 17.4, 18.0, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2…
 ## $ flipper_length_mm &lt;dbl&gt; 181, 186, 195, 193, 190, 181, 195, 193, 190, 186, 18…
 ## $ body_mass_g       &lt;dbl&gt; 3750, 3800, 3250, 3450, 3650, 3625, 4675, 3475, 4250…
-## $ sex               &lt;chr&gt; &quot;MALE&quot;, &quot;FEMALE&quot;, &quot;FEMALE&quot;, &quot;FEMALE&quot;, &quot;MALE&quot;, &quot;FEMAL…
+## $ sex               &lt;chr&gt; "MALE", "FEMALE", "FEMALE", "FEMALE", "MALE", "FEMAL…
 ## $ delta_15_n_o_oo   &lt;dbl&gt; NA, 8.94956, 8.36821, 8.76651, 8.66496, 9.18718, 9.4…
 ## $ delta_13_c_o_oo   &lt;dbl&gt; NA, -24.69454, -25.33302, -25.32426, -25.29805, -25.…
-## $ comments          &lt;chr&gt; &quot;Not enough blood for isotopes.&quot;, NA, NA, NA, NA, &quot;N…</code></pre>
+## $ comments          &lt;chr&gt; "Not enough blood for isotopes.", NA, NA, NA, NA, "N…</code></pre>
 <p>Let's try another data-masked function</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="writing-functions-in-tidyverse.html#cb430-1" tabindex="-1"></a>summary_table <span class="ot">&lt;-</span> <span class="cf">function</span>(df, var){</span>
-<span id="cb430-2"><a href="writing-functions-in-tidyverse.html#cb430-2" tabindex="-1"></a>  df <span class="sc">|&gt;</span> </span>
-<span id="cb430-3"><a href="writing-functions-in-tidyverse.html#cb430-3" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>({{var}}, <span class="at">na.rm =</span> T),</span>
-<span id="cb430-4"><a href="writing-functions-in-tidyverse.html#cb430-4" tabindex="-1"></a>              <span class="at">sd =</span> <span class="fu">sd</span>({{var}}, <span class="at">na.rm =</span> T))</span>
-<span id="cb430-5"><a href="writing-functions-in-tidyverse.html#cb430-5" tabindex="-1"></a>}</span>
-<span id="cb430-6"><a href="writing-functions-in-tidyverse.html#cb430-6" tabindex="-1"></a></span>
-<span id="cb430-7"><a href="writing-functions-in-tidyverse.html#cb430-7" tabindex="-1"></a><span class="fu">summary_table</span>(penguins_clean_split, body_mass_g)</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">summary_table</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">var</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">df</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">var</span><span class="op">}</span><span class="op">}</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>              sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">var</span><span class="op">}</span><span class="op">}</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">summary_table</span><span class="op">(</span><span class="va">penguins_clean_split</span>, <span class="va">body_mass_g</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
-<table>
-<thead>
-<tr class="header">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
 <th align="right">mean</th>
 <th align="right">sd</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
+</tr></thead>
+<tbody><tr class="odd">
 <td align="right">4201.754</td>
 <td align="right">801.9545</td>
-</tr>
-</tbody>
-</table>
+</tr></tbody>
+</table></div>
 </div>
-<div id="alternative-to" class="section level3" number="27.1.1">
-<h3><span class="header-section-number">27.1.1</span> Alternative to <code>{{}}</code></h3>
-<p>The <code>{{.}}</code> is a shortcut for <code>!!enquo(.)</code> Where <code>rlang::enquo()</code> captures and quote an argument or an expression. The result of <code>enquo()</code> is a <strong>quosure</strong>, which is a combination of the quoted expression and its associated environment.</p>
+<div id="alternative-to" class="section level3" number="25.1.1">
+<h3>
+<span class="header-section-number">25.1.1</span> Alternative to <code>{{}}</code><a class="anchor" aria-label="anchor" href="#alternative-to"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>{{.}}</code> is a shortcut for <code>!!enquo(.)</code> Where <code><a href="https://rlang.r-lib.org/reference/enquo.html">rlang::enquo()</a></code> captures and quote an argument or an expression. The result of <code><a href="https://rlang.r-lib.org/reference/enquo.html">enquo()</a></code> is a <strong>quosure</strong>, which is a combination of the quoted expression and its associated environment.</p>
 <p><code>!!</code> This is the unquote operator. It's used to unquote or unsplice the contents of a quosure. In other words, it takes the quoted expression out of the quosure and evaluates it. We can see how this would work for one of our previous examples:</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="writing-functions-in-tidyverse.html#cb431-1" tabindex="-1"></a>test_filter_general <span class="ot">&lt;-</span> <span class="cf">function</span>(filter_condition) {</span>
-<span id="cb431-2"><a href="writing-functions-in-tidyverse.html#cb431-2" tabindex="-1"></a>  </span>
-<span id="cb431-3"><a href="writing-functions-in-tidyverse.html#cb431-3" tabindex="-1"></a>  filter_quo <span class="ot">&lt;-</span> <span class="fu">enquo</span>(filter_condition)</span>
-<span id="cb431-4"><a href="writing-functions-in-tidyverse.html#cb431-4" tabindex="-1"></a>  </span>
-<span id="cb431-5"><a href="writing-functions-in-tidyverse.html#cb431-5" tabindex="-1"></a>  penguins_clean_split <span class="sc">%&gt;%</span></span>
-<span id="cb431-6"><a href="writing-functions-in-tidyverse.html#cb431-6" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!!</span>filter_quo)</span>
-<span id="cb431-7"><a href="writing-functions-in-tidyverse.html#cb431-7" tabindex="-1"></a>}</span>
-<span id="cb431-8"><a href="writing-functions-in-tidyverse.html#cb431-8" tabindex="-1"></a></span>
-<span id="cb431-9"><a href="writing-functions-in-tidyverse.html#cb431-9" tabindex="-1"></a><span class="fu">test_filter_general</span>(flipper_length_mm <span class="sc">&gt;</span> <span class="dv">180</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb431-10"><a href="writing-functions-in-tidyverse.html#cb431-10" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_filter_general</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">filter_condition</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">filter_quo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html">enquo</a></span><span class="op">(</span><span class="va">filter_condition</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">penguins_clean_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="va">filter_quo</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">test_filter_general</span><span class="op">(</span><span class="va">flipper_length_mm</span> <span class="op">&gt;</span> <span class="fl">180</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 329
 ## Columns: 18
-## $ study_name        &lt;chr&gt; &quot;PAL0708&quot;, &quot;PAL0708&quot;, &quot;PAL0708&quot;, &quot;PAL0708&quot;, &quot;PAL0708…
+## $ study_name        &lt;chr&gt; "PAL0708", "PAL0708", "PAL0708", "PAL0708", "PAL0708…
 ## $ sample_number     &lt;dbl&gt; 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, …
-## $ species           &lt;chr&gt; &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;A…
-## $ full_latin_name   &lt;chr&gt; &quot;Pygoscelis adeliae&quot;, &quot;Pygoscelis adeliae&quot;, &quot;Pygosce…
-## $ region            &lt;chr&gt; &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;Anvers&quot;, &quot;A…
-## $ island            &lt;chr&gt; &quot;Torgersen&quot;, &quot;Torgersen&quot;, &quot;Torgersen&quot;, &quot;Torgersen&quot;, …
-## $ stage             &lt;chr&gt; &quot;Adult, 1 Egg Stage&quot;, &quot;Adult, 1 Egg Stage&quot;, &quot;Adult, …
-## $ individual_id     &lt;chr&gt; &quot;N1A1&quot;, &quot;N1A2&quot;, &quot;N2A1&quot;, &quot;N3A1&quot;, &quot;N3A2&quot;, &quot;N4A1&quot;, &quot;N4A…
-## $ clutch_completion &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;Yes&quot;…
+## $ species           &lt;chr&gt; "Adelie", "Adelie", "Adelie", "Adelie", "Adelie", "A…
+## $ full_latin_name   &lt;chr&gt; "Pygoscelis adeliae", "Pygoscelis adeliae", "Pygosce…
+## $ region            &lt;chr&gt; "Anvers", "Anvers", "Anvers", "Anvers", "Anvers", "A…
+## $ island            &lt;chr&gt; "Torgersen", "Torgersen", "Torgersen", "Torgersen", …
+## $ stage             &lt;chr&gt; "Adult, 1 Egg Stage", "Adult, 1 Egg Stage", "Adult, …
+## $ individual_id     &lt;chr&gt; "N1A1", "N1A2", "N2A1", "N3A1", "N3A2", "N4A1", "N4A…
+## $ clutch_completion &lt;chr&gt; "Yes", "Yes", "Yes", "Yes", "Yes", "No", "No", "Yes"…
 ## $ date_egg          &lt;date&gt; 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 200…
 ## $ culmen_length_mm  &lt;dbl&gt; 39.1, 39.5, 40.3, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0…
 ## $ culmen_depth_mm   &lt;dbl&gt; 18.7, 17.4, 18.0, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2…
 ## $ flipper_length_mm &lt;dbl&gt; 181, 186, 195, 193, 190, 181, 195, 193, 190, 186, 18…
 ## $ body_mass_g       &lt;dbl&gt; 3750, 3800, 3250, 3450, 3650, 3625, 4675, 3475, 4250…
-## $ sex               &lt;chr&gt; &quot;MALE&quot;, &quot;FEMALE&quot;, &quot;FEMALE&quot;, &quot;FEMALE&quot;, &quot;MALE&quot;, &quot;FEMAL…
+## $ sex               &lt;chr&gt; "MALE", "FEMALE", "FEMALE", "FEMALE", "MALE", "FEMAL…
 ## $ delta_15_n_o_oo   &lt;dbl&gt; NA, 8.94956, 8.36821, 8.76651, 8.66496, 9.18718, 9.4…
 ## $ delta_13_c_o_oo   &lt;dbl&gt; NA, -24.69454, -25.33302, -25.32426, -25.29805, -25.…
-## $ comments          &lt;chr&gt; &quot;Not enough blood for isotopes.&quot;, NA, NA, NA, NA, &quot;N…</code></pre>
+## $ comments          &lt;chr&gt; "Not enough blood for isotopes.", NA, NA, NA, NA, "N…</code></pre>
 </div>
 </div>
-<div id="tidy-select" class="section level2" number="27.2">
-<h2><span class="header-section-number">27.2</span> tidy-select</h2>
+<div id="tidy-select" class="section level2" number="25.2">
+<h2>
+<span class="header-section-number">25.2</span> tidy-select<a class="anchor" aria-label="anchor" href="#tidy-select"><i class="fas fa-link"></i></a>
+</h2>
 <p>When using functions that use tidy-select, we put variable names in quotes and use th <code>all_of</code> and <code>any_of</code> functions.</p>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="writing-functions-in-tidyverse.html#cb433-1" tabindex="-1"></a>my_select_function <span class="ot">&lt;-</span> <span class="cf">function</span>(select_variable){</span>
-<span id="cb433-2"><a href="writing-functions-in-tidyverse.html#cb433-2" tabindex="-1"></a>  penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb433-3"><a href="writing-functions-in-tidyverse.html#cb433-3" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(select_variable)</span>
-<span id="cb433-4"><a href="writing-functions-in-tidyverse.html#cb433-4" tabindex="-1"></a>  }</span>
-<span id="cb433-5"><a href="writing-functions-in-tidyverse.html#cb433-5" tabindex="-1"></a></span>
-<span id="cb433-6"><a href="writing-functions-in-tidyverse.html#cb433-6" tabindex="-1"></a><span class="fu">my_select_function</span>(species) <span class="sc">|&gt;</span> </span>
-<span id="cb433-7"><a href="writing-functions-in-tidyverse.html#cb433-7" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
-<pre><code>Error: object &#39;species&#39; not found
+<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">my_select_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span><span class="fu">my_select_function</span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Error: object 'species' not found
 </code></pre>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="writing-functions-in-tidyverse.html#cb435-1" tabindex="-1"></a>my_select_function <span class="ot">&lt;-</span> <span class="cf">function</span>(select_variable){</span>
-<span id="cb435-2"><a href="writing-functions-in-tidyverse.html#cb435-2" tabindex="-1"></a>  penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb435-3"><a href="writing-functions-in-tidyverse.html#cb435-3" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(select_variable)</span>
-<span id="cb435-4"><a href="writing-functions-in-tidyverse.html#cb435-4" tabindex="-1"></a>  }</span>
-<span id="cb435-5"><a href="writing-functions-in-tidyverse.html#cb435-5" tabindex="-1"></a></span>
-<span id="cb435-6"><a href="writing-functions-in-tidyverse.html#cb435-6" tabindex="-1"></a><span class="fu">my_select_function</span>(<span class="st">&quot;species&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb435-7"><a href="writing-functions-in-tidyverse.html#cb435-7" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">my_select_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span><span class="fu">my_select_function</span><span class="op">(</span><span class="st">"species"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning: Using an external vector in selections was deprecated in tidyselect 1.1.0.
 Please use `all_of()` or `any_of()` instead.
 # Was:
@@ -359,33 +394,36 @@ data %&gt;% select(select_variable)
 data %&gt;% select(all_of(select_variable))
 </code></pre>
 <ul>
-<li><p><code>any_of()</code>: selecting any of the listed variables</p></li>
-<li><p><code>all_of()</code>: for strict selection. If any of the variables in the character vector is missing, an error is thrown</p></li>
+<li><p><code><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of()</a></code>: selecting any of the listed variables</p></li>
+<li><p><code><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of()</a></code>: for strict selection. If any of the variables in the character vector is missing, an error is thrown</p></li>
 <li><p>Can also use <code>!all_of()</code> to select all variables not found in the character vector supplied to all_of()</p></li>
 </ul>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="writing-functions-in-tidyverse.html#cb437-1" tabindex="-1"></a>my_select_function <span class="ot">&lt;-</span> <span class="cf">function</span>(select_variable){</span>
-<span id="cb437-2"><a href="writing-functions-in-tidyverse.html#cb437-2" tabindex="-1"></a>  penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb437-3"><a href="writing-functions-in-tidyverse.html#cb437-3" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(dplyr<span class="sc">::</span><span class="fu">all_of</span>(select_variable))</span>
-<span id="cb437-4"><a href="writing-functions-in-tidyverse.html#cb437-4" tabindex="-1"></a>  }</span>
-<span id="cb437-5"><a href="writing-functions-in-tidyverse.html#cb437-5" tabindex="-1"></a></span>
-<span id="cb437-6"><a href="writing-functions-in-tidyverse.html#cb437-6" tabindex="-1"></a><span class="fu">my_select_function</span>(<span class="at">select_variable =</span> <span class="fu">c</span>(<span class="st">&quot;species&quot;</span>, <span class="st">&quot;sex&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb437-7"><a href="writing-functions-in-tidyverse.html#cb437-7" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">my_select_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span><span class="fu">my_select_function</span><span class="op">(</span>select_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"sex"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Rows: 344
 ## Columns: 2
-## $ species &lt;chr&gt; &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;Adelie&quot;, &quot;A…
-## $ sex     &lt;chr&gt; &quot;MALE&quot;, &quot;FEMALE&quot;, &quot;FEMALE&quot;, NA, &quot;FEMALE&quot;, &quot;MALE&quot;, &quot;FEMALE&quot;, &quot;M…</code></pre>
+## $ species &lt;chr&gt; "Adelie", "Adelie", "Adelie", "Adelie", "Adelie", "Adelie", "A…
+## $ sex     &lt;chr&gt; "MALE", "FEMALE", "FEMALE", NA, "FEMALE", "MALE", "FEMALE", "M…</code></pre>
 </div>
-<div id="practice" class="section level2" number="27.3">
-<h2><span class="header-section-number">27.3</span> Practice</h2>
+<div id="practice" class="section level2" number="25.3">
+<h2>
+<span class="header-section-number">25.3</span> Practice<a class="anchor" aria-label="anchor" href="#practice"><i class="fas fa-link"></i></a>
+</h2>
 <div class="panel panel-default">
 <div class="panel-heading">
 Task
 </div>
 <div class="panel-body">
-<p>Write a <code>function</code> that uses filter to take any two of the penguin species then selects one numeric variable e.g. body_mass_g and compares them with a violin plot (<code>geom_violin()</code>)</p>
+<p>Write a <code>function</code> that uses filter to take any two of the penguin species then selects one numeric variable e.g. body_mass_g and compares them with a violin plot geom_violin()</p>
 </div>
 </div>
-<button id="displayTextunnamed-chunk-68" onclick="javascript:toggle(&#39;unnamed-chunk-68&#39;);">
+<button id="displayTextunnamed-chunk-68" onclick="javascript:toggle('unnamed-chunk-68');">
 Show Solution
 </button>
 <div id="toggleTextunnamed-chunk-68" style="display: none">
@@ -394,25 +432,26 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="writing-functions-in-tidyverse.html#cb439-1" tabindex="-1"></a>compare_species_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(data, species_1, species_2, feature) {</span>
-<span id="cb439-2"><a href="writing-functions-in-tidyverse.html#cb439-2" tabindex="-1"></a>    </span>
-<span id="cb439-3"><a href="writing-functions-in-tidyverse.html#cb439-3" tabindex="-1"></a>  filtered_data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
-<span id="cb439-4"><a href="writing-functions-in-tidyverse.html#cb439-4" tabindex="-1"></a>        <span class="fu">filter</span>(species <span class="sc">%in%</span> <span class="fu">c</span>(species_1, species_2))</span>
-<span id="cb439-5"><a href="writing-functions-in-tidyverse.html#cb439-5" tabindex="-1"></a>    </span>
-<span id="cb439-6"><a href="writing-functions-in-tidyverse.html#cb439-6" tabindex="-1"></a>    <span class="co"># Create a conditional ggplot</span></span>
-<span id="cb439-7"><a href="writing-functions-in-tidyverse.html#cb439-7" tabindex="-1"></a>    <span class="fu">ggplot</span>(filtered_data, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> {{feature}}))<span class="sc">+</span> </span>
-<span id="cb439-8"><a href="writing-functions-in-tidyverse.html#cb439-8" tabindex="-1"></a>      <span class="fu">geom_violin</span>()</span>
-<span id="cb439-9"><a href="writing-functions-in-tidyverse.html#cb439-9" tabindex="-1"></a>        </span>
-<span id="cb439-10"><a href="writing-functions-in-tidyverse.html#cb439-10" tabindex="-1"></a></span>
-<span id="cb439-11"><a href="writing-functions-in-tidyverse.html#cb439-11" tabindex="-1"></a>}</span>
-<span id="cb439-12"><a href="writing-functions-in-tidyverse.html#cb439-12" tabindex="-1"></a></span>
-<span id="cb439-13"><a href="writing-functions-in-tidyverse.html#cb439-13" tabindex="-1"></a><span class="fu">compare_species_plot</span>(penguins_clean_split, <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>, culmen_length_mm)</span></code></pre></div>
-<p><img src="05-tidyverse_files/figure-html/unnamed-chunk-72-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">compare_species_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">species_1</span>, <span class="va">species_2</span>, <span class="va">feature</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    </span>
+<span>  <span class="va">filtered_data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span> </span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">species_1</span>, <span class="va">species_2</span><span class="op">)</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># Create a conditional ggplot</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">filtered_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, y <span class="op">=</span> <span class="op">{</span><span class="op">{</span><span class="va">feature</span><span class="op">}</span><span class="op">}</span><span class="op">)</span><span class="op">)</span><span class="op">+</span> </span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>        </span>
+<span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">compare_species_plot</span><span class="op">(</span><span class="va">penguins_clean_split</span>, <span class="st">"Adelie"</span>, <span class="st">"Chinstrap"</span>, <span class="va">culmen_length_mm</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-tidyverse_files/figure-html/unnamed-chunk-72-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 </div>
 </div>
 <p>In the example below I have used <code>enquo</code> to enable conversion to character strings, this means all of the function arguments can be provided without "quotes".</p>
-<button id="displayTextunnamed-chunk-69" onclick="javascript:toggle(&#39;unnamed-chunk-69&#39;);">
+<button id="displayTextunnamed-chunk-69" onclick="javascript:toggle('unnamed-chunk-69');">
 Show Solution
 </button>
 <div id="toggleTextunnamed-chunk-69" style="display: none">
@@ -421,34 +460,38 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="writing-functions-in-tidyverse.html#cb440-1" tabindex="-1"></a>compare_species_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(data, species_1, species_2, feature) {</span>
-<span id="cb440-2"><a href="writing-functions-in-tidyverse.html#cb440-2" tabindex="-1"></a>    </span>
-<span id="cb440-3"><a href="writing-functions-in-tidyverse.html#cb440-3" tabindex="-1"></a>   </span>
-<span id="cb440-4"><a href="writing-functions-in-tidyverse.html#cb440-4" tabindex="-1"></a>    </span>
-<span id="cb440-5"><a href="writing-functions-in-tidyverse.html#cb440-5" tabindex="-1"></a>    <span class="co"># Quote species_1 and species_2 using quosures</span></span>
-<span id="cb440-6"><a href="writing-functions-in-tidyverse.html#cb440-6" tabindex="-1"></a>    species_1_quo <span class="ot">&lt;-</span> <span class="fu">quo_name</span>(<span class="fu">enquo</span>(species_1))</span>
-<span id="cb440-7"><a href="writing-functions-in-tidyverse.html#cb440-7" tabindex="-1"></a>    species_2_quo <span class="ot">&lt;-</span> <span class="fu">quo_name</span>(<span class="fu">enquo</span>(species_2))</span>
-<span id="cb440-8"><a href="writing-functions-in-tidyverse.html#cb440-8" tabindex="-1"></a>    </span>
-<span id="cb440-9"><a href="writing-functions-in-tidyverse.html#cb440-9" tabindex="-1"></a></span>
-<span id="cb440-10"><a href="writing-functions-in-tidyverse.html#cb440-10" tabindex="-1"></a>    filtered_data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
-<span id="cb440-11"><a href="writing-functions-in-tidyverse.html#cb440-11" tabindex="-1"></a>        <span class="fu">filter</span>(species <span class="sc">%in%</span> <span class="fu">c</span>(species_1_quo, species_2_quo))</span>
-<span id="cb440-12"><a href="writing-functions-in-tidyverse.html#cb440-12" tabindex="-1"></a>    </span>
-<span id="cb440-13"><a href="writing-functions-in-tidyverse.html#cb440-13" tabindex="-1"></a>    <span class="co"># Create a conditional ggplot</span></span>
-<span id="cb440-14"><a href="writing-functions-in-tidyverse.html#cb440-14" tabindex="-1"></a>    <span class="fu">ggplot</span>(filtered_data, <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> {{feature}})) <span class="sc">+</span></span>
-<span id="cb440-15"><a href="writing-functions-in-tidyverse.html#cb440-15" tabindex="-1"></a>        <span class="fu">geom_violin</span>()</span>
-<span id="cb440-16"><a href="writing-functions-in-tidyverse.html#cb440-16" tabindex="-1"></a>}</span>
-<span id="cb440-17"><a href="writing-functions-in-tidyverse.html#cb440-17" tabindex="-1"></a></span>
-<span id="cb440-18"><a href="writing-functions-in-tidyverse.html#cb440-18" tabindex="-1"></a><span class="co"># Example usage without quotes for species names</span></span>
-<span id="cb440-19"><a href="writing-functions-in-tidyverse.html#cb440-19" tabindex="-1"></a></span>
-<span id="cb440-20"><a href="writing-functions-in-tidyverse.html#cb440-20" tabindex="-1"></a><span class="fu">compare_species_plot</span>(penguins_clean_split, Adelie, Chinstrap, culmen_length_mm)</span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">compare_species_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">species_1</span>, <span class="va">species_2</span>, <span class="va">feature</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    </span>
+<span>   </span>
+<span>    </span>
+<span>    <span class="co"># Quote species_1 and species_2 using quosures</span></span>
+<span>    <span class="va">species_1_quo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/quo_label.html">quo_name</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html">enquo</a></span><span class="op">(</span><span class="va">species_1</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">species_2_quo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/quo_label.html">quo_name</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html">enquo</a></span><span class="op">(</span><span class="va">species_2</span><span class="op">)</span><span class="op">)</span></span>
+<span>    </span>
+<span></span>
+<span>    <span class="va">filtered_data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span> </span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">species_1_quo</span>, <span class="va">species_2_quo</span><span class="op">)</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># Create a conditional ggplot</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">filtered_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, y <span class="op">=</span> <span class="op">{</span><span class="op">{</span><span class="va">feature</span><span class="op">}</span><span class="op">}</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Example usage without quotes for species names</span></span>
+<span></span>
+<span><span class="fu">compare_species_plot</span><span class="op">(</span><span class="va">penguins_clean_split</span>, <span class="va">Adelie</span>, <span class="va">Chinstrap</span>, <span class="va">culmen_length_mm</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
 </div>
-<div id="practice-1" class="section level2" number="27.4">
-<h2><span class="header-section-number">27.4</span> Practice</h2>
+<div id="practice-1" class="section level2" number="25.4">
+<h2>
+<span class="header-section-number">25.4</span> Practice<a class="anchor" aria-label="anchor" href="#practice-1"><i class="fas fa-link"></i></a>
+</h2>
 <p>Can you write your own custom function in tidyverse?</p>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="writing-functions-in-tidyverse.html#cb441-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## R version 4.3.1 (2023-06-16)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.6 LTS
@@ -470,7 +513,7 @@ Solution
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] palmerpenguins_0.1.1 janitor_2.2.0        knitr_1.43          
+##  [1] janitor_2.2.0        palmerpenguins_0.1.1 knitr_1.43          
 ##  [4] webexercises_1.1.0   glossary_1.0.0       lubridate_1.9.2     
 ##  [7] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.2         
 ## [10] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
@@ -665,8 +708,7 @@ window.onload = function() {
   update_total_correct();
 }
 
-</script>
-<script>
+</script><script>
 $( document ).ready(function() {
   var cite = ' ';
   var license = ' <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a>';
@@ -675,29 +717,34 @@ $( document ).ready(function() {
     license
   );
 });
-</script>
-
-  </main>
-
-  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page">
-      <h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+</script><div class="chapter-nav">
+<div class="prev"><a href="pivot.html"><span class="header-section-number">24</span> Pivot</a></div>
+<div class="next"><a href="data-visualisation-with-ggplot2.html"><span class="header-section-number">26</span> Data visualisation with ggplot2</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#writing-functions-in-tidyverse"><span class="header-section-number">25</span> Writing Functions in Tidyverse</a></li>
+<li>
+<a class="nav-link" href="#data-masking"><span class="header-section-number">25.1</span> Data masking</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#alternative-to"><span class="header-section-number">25.1.1</span> Alternative to {{}}</a></li></ul>
+</li>
+<li><a class="nav-link" href="#tidy-select"><span class="header-section-number">25.2</span> tidy-select</a></li>
+<li><a class="nav-link" href="#practice"><span class="header-section-number">25.3</span> Practice</a></li>
+<li><a class="nav-link" href="#practice-1"><span class="header-section-number">25.4</span> Practice</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/05-tidyverse.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/05-tidyverse.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
-      </div>
+</div>
     </nav>
-  </div>
+</div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5">
-  <div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
     <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-04.</p>
@@ -708,11 +755,7 @@ $( document ).ready(function() {
   </div>
 
 </div></div>
-</footer>
-
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -724,8 +767,7 @@ $( document ).ready(function() {
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script>
-<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
 for (let popover of popovers) {
   const div = document.createElement('div');
   div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
@@ -743,5 +785,4 @@ for (let popover of popovers) {
 }
 </script>
 </body>
-
 </html>
