@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 23 Purrr | Advancing in R</title>
+  <title>Chapter 17 Purrr | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 23 Purrr | Advancing in R" />
+  <meta property="og:title" content="Chapter 17 Purrr | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 23 Purrr | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 17 Purrr | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,8 +153,8 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="purrr" class="section level1" number="23">
-<h1><span class="header-section-number">Chapter 23</span> Purrr</h1>
+<div id="purrr" class="section level1" number="17">
+<h1><span class="header-section-number">Chapter 17</span> Purrr</h1>
 <p>The <code>purrr::map()</code> family of functions are the tidyverse equivalent of <code>apply</code></p>
 <p>The base equivalent to <code>map()</code> is <code>lapply()</code>. The only difference is that <code>lapply()</code> does not support the helpers that you’ll learn about below, so if you’re only using <code>map()</code> from purrr, you can skip the additional dependency and use <code>lapply()</code> directly.</p>
 <p>The basic syntax is map(<code>.x</code> = SEQUENCE, <code>.f</code> = FUNCTION, OTHER ARGUMENTS). In a bit more detail:</p>
@@ -167,8 +167,8 @@ A few more notes on syntax:</p></li>
 </ul>
 <p><strong>The output of using<code>map()</code> is a list</strong> - a list is an object class like a vector but whose elements can be of different classes. So, a list produced by <code>map()</code> could contain many data frames, or many vectors, many single values, or even many lists! There are alternative versions of <code>map()</code> explained below that produce other types of outputs (e.g. <code>map_dfr()</code> to produce a data frame, <code>map_chr()</code> to produce character vectors, and <code>map_dbl()</code> to produce numeric vectors).</p>
 <p>Basic <code>map()</code> will <em>always</em> return a <code>list</code>, other variants return different data types.Unlike <code>apply</code>, <code>map</code> will ONLY return one type of data, removing the potential for changing data types that occasionally happens when using <code>apply</code>.</p>
-<div id="example" class="section level2" number="23.1">
-<h2><span class="header-section-number">23.1</span> Example</h2>
+<div id="example" class="section level2" number="17.1">
+<h2><span class="header-section-number">17.1</span> Example</h2>
 <div class="tab">
 <button class="tablinksunnamed-chunk-99 active" onclick="javascript:openCode(event, &#39;option1unnamed-chunk-99&#39;, &#39;unnamed-chunk-99&#39;);">
 Base R
@@ -178,17 +178,17 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-99" class="tabcontentunnamed-chunk-99">
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="purrr.html#cb343-1" tabindex="-1"></a><span class="fu">lapply</span>(df_list, mean)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="purrr.html#cb335-1" tabindex="-1"></a><span class="fu">lapply</span>(df_list, mean)</span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-99" class="tabcontentunnamed-chunk-99">
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="purrr.html#cb344-1" tabindex="-1"></a><span class="fu">map</span>(<span class="at">.x =</span> df_list, <span class="at">.f =</span> mean)</span>
-<span id="cb344-2"><a href="purrr.html#cb344-2" tabindex="-1"></a></span>
-<span id="cb344-3"><a href="purrr.html#cb344-3" tabindex="-1"></a><span class="fu">map</span>(df_list, mean)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="purrr.html#cb336-1" tabindex="-1"></a><span class="fu">map</span>(<span class="at">.x =</span> df_list, <span class="at">.f =</span> mean)</span>
+<span id="cb336-2"><a href="purrr.html#cb336-2" tabindex="-1"></a></span>
+<span id="cb336-3"><a href="purrr.html#cb336-3" tabindex="-1"></a><span class="fu">map</span>(df_list, mean)</span></code></pre></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-99') </script>
 </div>
-<div id="more-maps" class="section level2" number="23.2">
-<h2><span class="header-section-number">23.2</span> more maps</h2>
+<div id="more-maps" class="section level2" number="17.2">
+<h2><span class="header-section-number">17.2</span> more maps</h2>
 <p><code>map()</code> always returns a list, which makes it the most general of the map family because you can put anything in a list. But it is inconvenient to return a list when a simpler data structure would do, so there are four more specific variants: <code>map_lgl()</code>, <code>map_int()</code>, <code>map_dbl()</code>, and <code>map_chr()</code>. Each returns an atomic vector of the specified type:</p>
 <table>
 <thead>
@@ -231,54 +231,54 @@ simplify results and could return a list, vector or matrix depending on
 input.
 </p>
 </div>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="purrr.html#cb345-1" tabindex="-1"></a><span class="co"># map lgl always returns a logical vector</span></span>
-<span id="cb345-2"><a href="purrr.html#cb345-2" tabindex="-1"></a><span class="fu">map_lgl</span>(df_list, is.double)</span>
-<span id="cb345-3"><a href="purrr.html#cb345-3" tabindex="-1"></a><span class="co">#   a    b    c    d    e    f    g    h </span></span>
-<span id="cb345-4"><a href="purrr.html#cb345-4" tabindex="-1"></a><span class="co"># TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span></span>
-<span id="cb345-5"><a href="purrr.html#cb345-5" tabindex="-1"></a></span>
-<span id="cb345-6"><a href="purrr.html#cb345-6" tabindex="-1"></a></span>
-<span id="cb345-7"><a href="purrr.html#cb345-7" tabindex="-1"></a><span class="co"># map_dbl always returns a double vector</span></span>
-<span id="cb345-8"><a href="purrr.html#cb345-8" tabindex="-1"></a><span class="fu">map_dbl</span>(df_list, mean)</span>
-<span id="cb345-9"><a href="purrr.html#cb345-9" tabindex="-1"></a><span class="co">#          a           b           c           d           e           f           g           h </span></span>
-<span id="cb345-10"><a href="purrr.html#cb345-10" tabindex="-1"></a><span class="co"># -0.38315741 -0.11817071 -0.38794682 -0.76619306 -0.60979706 -0.27886474  0.61659223 -0.04230209 </span></span>
-<span id="cb345-11"><a href="purrr.html#cb345-11" tabindex="-1"></a></span>
-<span id="cb345-12"><a href="purrr.html#cb345-12" tabindex="-1"></a><span class="co"># map_int always returns an integer vector</span></span>
-<span id="cb345-13"><a href="purrr.html#cb345-13" tabindex="-1"></a><span class="fu">map_int</span>(df_list, <span class="sc">~</span>.x <span class="sc">|&gt;</span>  <span class="fu">mean</span>() <span class="sc">|&gt;</span> <span class="fu">round</span>())</span>
-<span id="cb345-14"><a href="purrr.html#cb345-14" tabindex="-1"></a><span class="co"># a  b  c  d  e  f  g  h </span></span>
-<span id="cb345-15"><a href="purrr.html#cb345-15" tabindex="-1"></a><span class="co"># 0  0  0 -1 -1  0  1  0 </span></span>
-<span id="cb345-16"><a href="purrr.html#cb345-16" tabindex="-1"></a></span>
-<span id="cb345-17"><a href="purrr.html#cb345-17" tabindex="-1"></a><span class="co"># map_int always returns an integer vector - note this comes with a deprecated coercion warning - use as.character()</span></span>
-<span id="cb345-18"><a href="purrr.html#cb345-18" tabindex="-1"></a> <span class="fu">map_chr</span>(df_list, mean)</span>
-<span id="cb345-19"><a href="purrr.html#cb345-19" tabindex="-1"></a><span class="co">#          a           b           c           d           e           f           g           h </span></span>
-<span id="cb345-20"><a href="purrr.html#cb345-20" tabindex="-1"></a><span class="co">#&quot;-0.383157&quot; &quot;-0.118171&quot; &quot;-0.387947&quot; &quot;-0.766193&quot; &quot;-0.609797&quot; &quot;-0.278865&quot;  &quot;0.616592&quot; &quot;-0.042302&quot; </span></span>
-<span id="cb345-21"><a href="purrr.html#cb345-21" tabindex="-1"></a> </span>
-<span id="cb345-22"><a href="purrr.html#cb345-22" tabindex="-1"></a><span class="co"># map_df always returns a dataframe </span></span>
-<span id="cb345-23"><a href="purrr.html#cb345-23" tabindex="-1"></a> <span class="fu">map_df</span>(df_list, mean)</span>
-<span id="cb345-24"><a href="purrr.html#cb345-24" tabindex="-1"></a><span class="co">#       a      b      c      d      e      f     g       h</span></span>
-<span id="cb345-25"><a href="purrr.html#cb345-25" tabindex="-1"></a><span class="co">#   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb345-26"><a href="purrr.html#cb345-26" tabindex="-1"></a><span class="co">#   1 -0.383 -0.118 -0.388 -0.766 -0.610 -0.279 0.617 -0.0423</span></span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="purrr.html#cb337-1" tabindex="-1"></a><span class="co"># map lgl always returns a logical vector</span></span>
+<span id="cb337-2"><a href="purrr.html#cb337-2" tabindex="-1"></a><span class="fu">map_lgl</span>(df_list, is.double)</span>
+<span id="cb337-3"><a href="purrr.html#cb337-3" tabindex="-1"></a><span class="co">#   a    b    c    d    e    f    g    h </span></span>
+<span id="cb337-4"><a href="purrr.html#cb337-4" tabindex="-1"></a><span class="co"># TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span></span>
+<span id="cb337-5"><a href="purrr.html#cb337-5" tabindex="-1"></a></span>
+<span id="cb337-6"><a href="purrr.html#cb337-6" tabindex="-1"></a></span>
+<span id="cb337-7"><a href="purrr.html#cb337-7" tabindex="-1"></a><span class="co"># map_dbl always returns a double vector</span></span>
+<span id="cb337-8"><a href="purrr.html#cb337-8" tabindex="-1"></a><span class="fu">map_dbl</span>(df_list, mean)</span>
+<span id="cb337-9"><a href="purrr.html#cb337-9" tabindex="-1"></a><span class="co">#          a           b           c           d           e           f           g           h </span></span>
+<span id="cb337-10"><a href="purrr.html#cb337-10" tabindex="-1"></a><span class="co"># -0.38315741 -0.11817071 -0.38794682 -0.76619306 -0.60979706 -0.27886474  0.61659223 -0.04230209 </span></span>
+<span id="cb337-11"><a href="purrr.html#cb337-11" tabindex="-1"></a></span>
+<span id="cb337-12"><a href="purrr.html#cb337-12" tabindex="-1"></a><span class="co"># map_int always returns an integer vector</span></span>
+<span id="cb337-13"><a href="purrr.html#cb337-13" tabindex="-1"></a><span class="fu">map_int</span>(df_list, <span class="sc">~</span>.x <span class="sc">|&gt;</span>  <span class="fu">mean</span>() <span class="sc">|&gt;</span> <span class="fu">round</span>())</span>
+<span id="cb337-14"><a href="purrr.html#cb337-14" tabindex="-1"></a><span class="co"># a  b  c  d  e  f  g  h </span></span>
+<span id="cb337-15"><a href="purrr.html#cb337-15" tabindex="-1"></a><span class="co"># 0  0  0 -1 -1  0  1  0 </span></span>
+<span id="cb337-16"><a href="purrr.html#cb337-16" tabindex="-1"></a></span>
+<span id="cb337-17"><a href="purrr.html#cb337-17" tabindex="-1"></a><span class="co"># map_int always returns an integer vector - note this comes with a deprecated coercion warning - use as.character()</span></span>
+<span id="cb337-18"><a href="purrr.html#cb337-18" tabindex="-1"></a> <span class="fu">map_chr</span>(df_list, mean)</span>
+<span id="cb337-19"><a href="purrr.html#cb337-19" tabindex="-1"></a><span class="co">#          a           b           c           d           e           f           g           h </span></span>
+<span id="cb337-20"><a href="purrr.html#cb337-20" tabindex="-1"></a><span class="co">#&quot;-0.383157&quot; &quot;-0.118171&quot; &quot;-0.387947&quot; &quot;-0.766193&quot; &quot;-0.609797&quot; &quot;-0.278865&quot;  &quot;0.616592&quot; &quot;-0.042302&quot; </span></span>
+<span id="cb337-21"><a href="purrr.html#cb337-21" tabindex="-1"></a> </span>
+<span id="cb337-22"><a href="purrr.html#cb337-22" tabindex="-1"></a><span class="co"># map_df always returns a dataframe </span></span>
+<span id="cb337-23"><a href="purrr.html#cb337-23" tabindex="-1"></a> <span class="fu">map_df</span>(df_list, mean)</span>
+<span id="cb337-24"><a href="purrr.html#cb337-24" tabindex="-1"></a><span class="co">#       a      b      c      d      e      f     g       h</span></span>
+<span id="cb337-25"><a href="purrr.html#cb337-25" tabindex="-1"></a><span class="co">#   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb337-26"><a href="purrr.html#cb337-26" tabindex="-1"></a><span class="co">#   1 -0.383 -0.118 -0.388 -0.766 -0.610 -0.279 0.617 -0.0423</span></span></code></pre></div>
 <p>purrr uses the convention that suffixes, like <code>_dbl()</code>, refer to the output. All <code>map_*()</code> functions can take any type of vector as input.</p>
 </div>
-<div id="anonymous-functions" class="section level2" number="23.3">
-<h2><span class="header-section-number">23.3</span> Anonymous functions</h2>
+<div id="anonymous-functions" class="section level2" number="17.3">
+<h2><span class="header-section-number">17.3</span> Anonymous functions</h2>
 <p>There are multiple ways of structuring a <code>map()</code> call</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="purrr.html#cb346-1" tabindex="-1"></a><span class="fu">map</span>(df_list, mean)</span>
-<span id="cb346-2"><a href="purrr.html#cb346-2" tabindex="-1"></a></span>
-<span id="cb346-3"><a href="purrr.html#cb346-3" tabindex="-1"></a>df_list <span class="sc">|&gt;</span>  </span>
-<span id="cb346-4"><a href="purrr.html#cb346-4" tabindex="-1"></a>  <span class="fu">map</span>(mean)</span>
-<span id="cb346-5"><a href="purrr.html#cb346-5" tabindex="-1"></a></span>
-<span id="cb346-6"><a href="purrr.html#cb346-6" tabindex="-1"></a>df_list <span class="sc">|&gt;</span> </span>
-<span id="cb346-7"><a href="purrr.html#cb346-7" tabindex="-1"></a>    <span class="fu">map</span>(<span class="sc">~</span><span class="fu">mean</span>(.))</span></code></pre></div>
-<div id="whats-up-with" class="section level3" number="23.3.1">
-<h3><span class="header-section-number">23.3.1</span> What's up with <code>~</code>?</h3>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="purrr.html#cb338-1" tabindex="-1"></a><span class="fu">map</span>(df_list, mean)</span>
+<span id="cb338-2"><a href="purrr.html#cb338-2" tabindex="-1"></a></span>
+<span id="cb338-3"><a href="purrr.html#cb338-3" tabindex="-1"></a>df_list <span class="sc">|&gt;</span>  </span>
+<span id="cb338-4"><a href="purrr.html#cb338-4" tabindex="-1"></a>  <span class="fu">map</span>(mean)</span>
+<span id="cb338-5"><a href="purrr.html#cb338-5" tabindex="-1"></a></span>
+<span id="cb338-6"><a href="purrr.html#cb338-6" tabindex="-1"></a>df_list <span class="sc">|&gt;</span> </span>
+<span id="cb338-7"><a href="purrr.html#cb338-7" tabindex="-1"></a>    <span class="fu">map</span>(<span class="sc">~</span><span class="fu">mean</span>(.))</span></code></pre></div>
+<div id="whats-up-with" class="section level3" number="17.3.1">
+<h3><span class="header-section-number">17.3.1</span> What's up with <code>~</code>?</h3>
 <p>Instead of using <code>map()</code> with an exisiting function, we can use inline anonymous functions as demonstrated with <code>apply()</code></p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="purrr.html#cb347-1" tabindex="-1"></a><span class="fu">map_dbl</span>(df_list, <span class="cf">function</span>(x) <span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="purrr.html#cb339-1" tabindex="-1"></a><span class="fu">map_dbl</span>(df_list, <span class="cf">function</span>(x) <span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span></code></pre></div>
 <pre><code>##           a           b           c           d           e           f 
 ## -0.38315741 -0.11817071 -0.38794682 -0.76619306 -0.60979706 -0.27886474 
 ##           g           h 
 ##  0.61659223 -0.04230209</code></pre>
 <p>But this is quite <em>verbose</em> we can use <code>~</code> to support a shortcut</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="purrr.html#cb349-1" tabindex="-1"></a><span class="fu">map_dbl</span>(df_list, <span class="sc">~</span> <span class="fu">sum</span>(.x)<span class="sc">/</span><span class="fu">length</span>(.x))</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="purrr.html#cb341-1" tabindex="-1"></a><span class="fu">map_dbl</span>(df_list, <span class="sc">~</span> <span class="fu">sum</span>(.x)<span class="sc">/</span><span class="fu">length</span>(.x))</span></code></pre></div>
 <pre><code>##           a           b           c           d           e           f 
 ## -0.38315741 -0.11817071 -0.38794682 -0.76619306 -0.60979706 -0.27886474 
 ##           g           h 
@@ -292,35 +292,35 @@ it a name.
 </p>
 </div>
 </div>
-<div id="passing-arguments" class="section level3" number="23.3.2">
-<h3><span class="header-section-number">23.3.2</span> Passing arguments</h3>
+<div id="passing-arguments" class="section level3" number="17.3.2">
+<h3><span class="header-section-number">17.3.2</span> Passing arguments</h3>
 <p><code>map</code> functions all pass <code>...</code> along, so there are two ways we can pass additional arguments to functions</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="purrr.html#cb351-1" tabindex="-1"></a><span class="fu">map_dbl</span>(df_list, <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> T))</span>
-<span id="cb351-2"><a href="purrr.html#cb351-2" tabindex="-1"></a></span>
-<span id="cb351-3"><a href="purrr.html#cb351-3" tabindex="-1"></a></span>
-<span id="cb351-4"><a href="purrr.html#cb351-4" tabindex="-1"></a><span class="fu">map_dbl</span>(df_list, mean, <span class="at">na.rm =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="purrr.html#cb343-1" tabindex="-1"></a><span class="fu">map_dbl</span>(df_list, <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> T))</span>
+<span id="cb343-2"><a href="purrr.html#cb343-2" tabindex="-1"></a></span>
+<span id="cb343-3"><a href="purrr.html#cb343-3" tabindex="-1"></a></span>
+<span id="cb343-4"><a href="purrr.html#cb343-4" tabindex="-1"></a><span class="fu">map_dbl</span>(df_list, mean, <span class="at">na.rm =</span> T)</span></code></pre></div>
 </div>
 </div>
-<div id="map-with-nested-dataframes" class="section level2" number="23.4">
-<h2><span class="header-section-number">23.4</span> map with nested dataframes</h2>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="purrr.html#cb352-1" tabindex="-1"></a>nested_penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb352-2"><a href="purrr.html#cb352-2" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>species)</span>
-<span id="cb352-3"><a href="purrr.html#cb352-3" tabindex="-1"></a></span>
-<span id="cb352-4"><a href="purrr.html#cb352-4" tabindex="-1"></a>nested_heavy_penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb352-5"><a href="purrr.html#cb352-5" tabindex="-1"></a>    <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>species) <span class="sc">|&gt;</span> </span>
-<span id="cb352-6"><a href="purrr.html#cb352-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_data =</span> <span class="fu">map</span>(data, <span class="sc">~</span> .x </span>
-<span id="cb352-7"><a href="purrr.html#cb352-7" tabindex="-1"></a>                        <span class="sc">|&gt;</span> <span class="fu">filter</span>(body_mass_g <span class="sc">&gt;</span> <span class="dv">3000</span>))</span>
-<span id="cb352-8"><a href="purrr.html#cb352-8" tabindex="-1"></a>         )</span>
-<span id="cb352-9"><a href="purrr.html#cb352-9" tabindex="-1"></a></span>
-<span id="cb352-10"><a href="purrr.html#cb352-10" tabindex="-1"></a>plots <span class="ot">&lt;-</span> nested_heavy_penguins <span class="sc">|&gt;</span> </span>
-<span id="cb352-11"><a href="purrr.html#cb352-11" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">scatterplots =</span> <span class="fu">map</span>(new_data, <span class="sc">~</span> </span>
-<span id="cb352-12"><a href="purrr.html#cb352-12" tabindex="-1"></a>            <span class="fu">ggplot</span>(<span class="at">data =</span> .x, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> flipper_length_mm)) <span class="sc">+</span></span>
-<span id="cb352-13"><a href="purrr.html#cb352-13" tabindex="-1"></a>                <span class="fu">geom_point</span>()</span>
-<span id="cb352-14"><a href="purrr.html#cb352-14" tabindex="-1"></a>        ))</span></code></pre></div>
+<div id="map-with-nested-dataframes" class="section level2" number="17.4">
+<h2><span class="header-section-number">17.4</span> map with nested dataframes</h2>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="purrr.html#cb344-1" tabindex="-1"></a>nested_penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb344-2"><a href="purrr.html#cb344-2" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>species)</span>
+<span id="cb344-3"><a href="purrr.html#cb344-3" tabindex="-1"></a></span>
+<span id="cb344-4"><a href="purrr.html#cb344-4" tabindex="-1"></a>nested_heavy_penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb344-5"><a href="purrr.html#cb344-5" tabindex="-1"></a>    <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>species) <span class="sc">|&gt;</span> </span>
+<span id="cb344-6"><a href="purrr.html#cb344-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_data =</span> <span class="fu">map</span>(data, <span class="sc">~</span> .x </span>
+<span id="cb344-7"><a href="purrr.html#cb344-7" tabindex="-1"></a>                        <span class="sc">|&gt;</span> <span class="fu">filter</span>(body_mass_g <span class="sc">&gt;</span> <span class="dv">3000</span>))</span>
+<span id="cb344-8"><a href="purrr.html#cb344-8" tabindex="-1"></a>         )</span>
+<span id="cb344-9"><a href="purrr.html#cb344-9" tabindex="-1"></a></span>
+<span id="cb344-10"><a href="purrr.html#cb344-10" tabindex="-1"></a>plots <span class="ot">&lt;-</span> nested_heavy_penguins <span class="sc">|&gt;</span> </span>
+<span id="cb344-11"><a href="purrr.html#cb344-11" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">scatterplots =</span> <span class="fu">map</span>(new_data, <span class="sc">~</span> </span>
+<span id="cb344-12"><a href="purrr.html#cb344-12" tabindex="-1"></a>            <span class="fu">ggplot</span>(<span class="at">data =</span> .x, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb344-13"><a href="purrr.html#cb344-13" tabindex="-1"></a>                <span class="fu">geom_point</span>()</span>
+<span id="cb344-14"><a href="purrr.html#cb344-14" tabindex="-1"></a>        ))</span></code></pre></div>
 <p>Plots can now be called in a number of ways</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="purrr.html#cb353-1" tabindex="-1"></a>plots[[<span class="dv">1</span>,<span class="dv">4</span>]]</span>
-<span id="cb353-2"><a href="purrr.html#cb353-2" tabindex="-1"></a></span>
-<span id="cb353-3"><a href="purrr.html#cb353-3" tabindex="-1"></a>plots<span class="sc">$</span>scatterplots[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="purrr.html#cb345-1" tabindex="-1"></a>plots[[<span class="dv">1</span>,<span class="dv">4</span>]]</span>
+<span id="cb345-2"><a href="purrr.html#cb345-2" tabindex="-1"></a></span>
+<span id="cb345-3"><a href="purrr.html#cb345-3" tabindex="-1"></a>plots<span class="sc">$</span>scatterplots[[<span class="dv">1</span>]]</span></code></pre></div>
 <div class="info">
 <p>
 gg objects are not the only type of objects that can be created using
@@ -332,57 +332,57 @@ column
 </p>
 </div>
 <p>To view all the plots together, we can use the <code>patchwork::wrap_plots()</code> function</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="purrr.html#cb354-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb354-2"><a href="purrr.html#cb354-2" tabindex="-1"></a>plots<span class="sc">$</span>scatterplots <span class="sc">|&gt;</span> <span class="fu">wrap_plots</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="purrr.html#cb346-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb346-2"><a href="purrr.html#cb346-2" tabindex="-1"></a>plots<span class="sc">$</span>scatterplots <span class="sc">|&gt;</span> <span class="fu">wrap_plots</span>()</span></code></pre></div>
 <p><img src="04-functional-programming_files/figure-html/unnamed-chunk-110-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="map2" class="section level2" number="23.5">
-<h2><span class="header-section-number">23.5</span> map2</h2>
+<div id="map2" class="section level2" number="17.5">
+<h2><span class="header-section-number">17.5</span> map2</h2>
 <p><code>map2</code> is a versatile function in the <code>purrr</code> package for R that allows you to iterate over <strong>two</strong> input vectors or lists in parallel, applying a specified function to pairs of corresponding elements. It's particularly useful when you need to perform operations that depend on elements from two separate input sources simultaneously, offering a powerful way to combine and process data in a pairwise manner.</p>
 <p>Here is a quick example building on our plot making function - where we are able to alter the colour of the plots according to a</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="purrr.html#cb355-1" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb355-2"><a href="purrr.html#cb355-2" tabindex="-1"></a>  <span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;#FF8C00&quot;</span>, </span>
-<span id="cb355-3"><a href="purrr.html#cb355-3" tabindex="-1"></a>  <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;#A034F0&quot;</span>, </span>
-<span id="cb355-4"><a href="purrr.html#cb355-4" tabindex="-1"></a>  <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;#159090&quot;</span>)</span>
-<span id="cb355-5"><a href="purrr.html#cb355-5" tabindex="-1"></a></span>
-<span id="cb355-6"><a href="purrr.html#cb355-6" tabindex="-1"></a></span>
-<span id="cb355-7"><a href="purrr.html#cb355-7" tabindex="-1"></a>plots <span class="ot">&lt;-</span> nested_heavy_penguins <span class="sc">|&gt;</span> </span>
-<span id="cb355-8"><a href="purrr.html#cb355-8" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">scatterplots =</span> <span class="fu">map2</span>(<span class="at">.x =</span> new_data, <span class="at">.y =</span> pal, <span class="sc">~</span> </span>
-<span id="cb355-9"><a href="purrr.html#cb355-9" tabindex="-1"></a>            <span class="fu">ggplot</span>(<span class="at">data =</span> .x, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> flipper_length_mm, <span class="at">colour =</span> .y)) <span class="sc">+</span></span>
-<span id="cb355-10"><a href="purrr.html#cb355-10" tabindex="-1"></a>                <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb355-11"><a href="purrr.html#cb355-11" tabindex="-1"></a>              <span class="fu">scale_colour_identity</span>()</span>
-<span id="cb355-12"><a href="purrr.html#cb355-12" tabindex="-1"></a>        ))</span>
-<span id="cb355-13"><a href="purrr.html#cb355-13" tabindex="-1"></a></span>
-<span id="cb355-14"><a href="purrr.html#cb355-14" tabindex="-1"></a></span>
-<span id="cb355-15"><a href="purrr.html#cb355-15" tabindex="-1"></a>plots<span class="sc">$</span>scatterplots <span class="sc">|&gt;</span> </span>
-<span id="cb355-16"><a href="purrr.html#cb355-16" tabindex="-1"></a>    <span class="fu">wrap_plots</span>(<span class="at">... =</span> _, <span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="purrr.html#cb347-1" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb347-2"><a href="purrr.html#cb347-2" tabindex="-1"></a>  <span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;#FF8C00&quot;</span>, </span>
+<span id="cb347-3"><a href="purrr.html#cb347-3" tabindex="-1"></a>  <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;#A034F0&quot;</span>, </span>
+<span id="cb347-4"><a href="purrr.html#cb347-4" tabindex="-1"></a>  <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;#159090&quot;</span>)</span>
+<span id="cb347-5"><a href="purrr.html#cb347-5" tabindex="-1"></a></span>
+<span id="cb347-6"><a href="purrr.html#cb347-6" tabindex="-1"></a></span>
+<span id="cb347-7"><a href="purrr.html#cb347-7" tabindex="-1"></a>plots <span class="ot">&lt;-</span> nested_heavy_penguins <span class="sc">|&gt;</span> </span>
+<span id="cb347-8"><a href="purrr.html#cb347-8" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">scatterplots =</span> <span class="fu">map2</span>(<span class="at">.x =</span> new_data, <span class="at">.y =</span> pal, <span class="sc">~</span> </span>
+<span id="cb347-9"><a href="purrr.html#cb347-9" tabindex="-1"></a>            <span class="fu">ggplot</span>(<span class="at">data =</span> .x, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> flipper_length_mm, <span class="at">colour =</span> .y)) <span class="sc">+</span></span>
+<span id="cb347-10"><a href="purrr.html#cb347-10" tabindex="-1"></a>                <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb347-11"><a href="purrr.html#cb347-11" tabindex="-1"></a>              <span class="fu">scale_colour_identity</span>()</span>
+<span id="cb347-12"><a href="purrr.html#cb347-12" tabindex="-1"></a>        ))</span>
+<span id="cb347-13"><a href="purrr.html#cb347-13" tabindex="-1"></a></span>
+<span id="cb347-14"><a href="purrr.html#cb347-14" tabindex="-1"></a></span>
+<span id="cb347-15"><a href="purrr.html#cb347-15" tabindex="-1"></a>plots<span class="sc">$</span>scatterplots <span class="sc">|&gt;</span> </span>
+<span id="cb347-16"><a href="purrr.html#cb347-16" tabindex="-1"></a>    <span class="fu">wrap_plots</span>(<span class="at">... =</span> _, <span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>)</span></code></pre></div>
 <p><img src="04-functional-programming_files/figure-html/unnamed-chunk-111-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<div id="running-different-summary-functions-on-each-nested-dataframe" class="section level3" number="23.5.1">
-<h3><span class="header-section-number">23.5.1</span> Running different summary functions on each nested dataframe</h3>
+<div id="running-different-summary-functions-on-each-nested-dataframe" class="section level3" number="17.5.1">
+<h3><span class="header-section-number">17.5.1</span> Running different summary functions on each nested dataframe</h3>
 <p>When working with nested data frames, <code>map2</code> provides the capability to apply distinct functions to each nested data frame, making it a versatile tool for performing customized and specialized operations on grouped data. This flexibility is distinct from simple operations with <code>group_by()</code>, as it allows you to tailor your computations to the unique characteristics of each subgroup within your nested data structure.</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="purrr.html#cb356-1" tabindex="-1"></a>summary_functions <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb356-2"><a href="purrr.html#cb356-2" tabindex="-1"></a>    Adelie <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
-<span id="cb356-3"><a href="purrr.html#cb356-3" tabindex="-1"></a>        <span class="fu">summarise</span>(data, </span>
-<span id="cb356-4"><a href="purrr.html#cb356-4" tabindex="-1"></a>                  <span class="at">mean_bill_length =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> T),</span>
-<span id="cb356-5"><a href="purrr.html#cb356-5" tabindex="-1"></a>                  <span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm, <span class="at">na.rm =</span> T))</span>
-<span id="cb356-6"><a href="purrr.html#cb356-6" tabindex="-1"></a>    },</span>
-<span id="cb356-7"><a href="purrr.html#cb356-7" tabindex="-1"></a>    Chinstrap <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
-<span id="cb356-8"><a href="purrr.html#cb356-8" tabindex="-1"></a>        <span class="fu">summarise</span>(data,</span>
-<span id="cb356-9"><a href="purrr.html#cb356-9" tabindex="-1"></a>                  <span class="at">max_bill_length =</span> <span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> T),</span>
-<span id="cb356-10"><a href="purrr.html#cb356-10" tabindex="-1"></a>                  <span class="at">max_flipper_length =</span> <span class="fu">max</span>(flipper_length_mm, <span class="at">na.rm =</span> T))</span>
-<span id="cb356-11"><a href="purrr.html#cb356-11" tabindex="-1"></a>    },</span>
-<span id="cb356-12"><a href="purrr.html#cb356-12" tabindex="-1"></a>    Gentoo <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
-<span id="cb356-13"><a href="purrr.html#cb356-13" tabindex="-1"></a>        <span class="fu">summarise</span>(data,</span>
-<span id="cb356-14"><a href="purrr.html#cb356-14" tabindex="-1"></a>                  <span class="at">min_bill_length =</span> <span class="fu">min</span>(bill_length_mm, <span class="at">na.rm =</span> T),</span>
-<span id="cb356-15"><a href="purrr.html#cb356-15" tabindex="-1"></a>                  <span class="at">min_flipper_length =</span> <span class="fu">min</span>(flipper_length_mm, <span class="at">na.rm =</span> T))</span>
-<span id="cb356-16"><a href="purrr.html#cb356-16" tabindex="-1"></a>    }</span>
-<span id="cb356-17"><a href="purrr.html#cb356-17" tabindex="-1"></a>)</span>
-<span id="cb356-18"><a href="purrr.html#cb356-18" tabindex="-1"></a></span>
-<span id="cb356-19"><a href="purrr.html#cb356-19" tabindex="-1"></a><span class="co"># Apply the summary functions to each species using map2</span></span>
-<span id="cb356-20"><a href="purrr.html#cb356-20" tabindex="-1"></a>result <span class="ot">&lt;-</span> nested_penguins <span class="sc">%&gt;%</span></span>
-<span id="cb356-21"><a href="purrr.html#cb356-21" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">summaries =</span> <span class="fu">map2</span>(data, summary_functions, <span class="sc">~</span> <span class="fu">.y</span>(.x)))</span>
-<span id="cb356-22"><a href="purrr.html#cb356-22" tabindex="-1"></a></span>
-<span id="cb356-23"><a href="purrr.html#cb356-23" tabindex="-1"></a>result<span class="sc">$</span>summaries</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="purrr.html#cb348-1" tabindex="-1"></a>summary_functions <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb348-2"><a href="purrr.html#cb348-2" tabindex="-1"></a>    Adelie <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb348-3"><a href="purrr.html#cb348-3" tabindex="-1"></a>        <span class="fu">summarise</span>(data, </span>
+<span id="cb348-4"><a href="purrr.html#cb348-4" tabindex="-1"></a>                  <span class="at">mean_bill_length =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> T),</span>
+<span id="cb348-5"><a href="purrr.html#cb348-5" tabindex="-1"></a>                  <span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm, <span class="at">na.rm =</span> T))</span>
+<span id="cb348-6"><a href="purrr.html#cb348-6" tabindex="-1"></a>    },</span>
+<span id="cb348-7"><a href="purrr.html#cb348-7" tabindex="-1"></a>    Chinstrap <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb348-8"><a href="purrr.html#cb348-8" tabindex="-1"></a>        <span class="fu">summarise</span>(data,</span>
+<span id="cb348-9"><a href="purrr.html#cb348-9" tabindex="-1"></a>                  <span class="at">max_bill_length =</span> <span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> T),</span>
+<span id="cb348-10"><a href="purrr.html#cb348-10" tabindex="-1"></a>                  <span class="at">max_flipper_length =</span> <span class="fu">max</span>(flipper_length_mm, <span class="at">na.rm =</span> T))</span>
+<span id="cb348-11"><a href="purrr.html#cb348-11" tabindex="-1"></a>    },</span>
+<span id="cb348-12"><a href="purrr.html#cb348-12" tabindex="-1"></a>    Gentoo <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb348-13"><a href="purrr.html#cb348-13" tabindex="-1"></a>        <span class="fu">summarise</span>(data,</span>
+<span id="cb348-14"><a href="purrr.html#cb348-14" tabindex="-1"></a>                  <span class="at">min_bill_length =</span> <span class="fu">min</span>(bill_length_mm, <span class="at">na.rm =</span> T),</span>
+<span id="cb348-15"><a href="purrr.html#cb348-15" tabindex="-1"></a>                  <span class="at">min_flipper_length =</span> <span class="fu">min</span>(flipper_length_mm, <span class="at">na.rm =</span> T))</span>
+<span id="cb348-16"><a href="purrr.html#cb348-16" tabindex="-1"></a>    }</span>
+<span id="cb348-17"><a href="purrr.html#cb348-17" tabindex="-1"></a>)</span>
+<span id="cb348-18"><a href="purrr.html#cb348-18" tabindex="-1"></a></span>
+<span id="cb348-19"><a href="purrr.html#cb348-19" tabindex="-1"></a><span class="co"># Apply the summary functions to each species using map2</span></span>
+<span id="cb348-20"><a href="purrr.html#cb348-20" tabindex="-1"></a>result <span class="ot">&lt;-</span> nested_penguins <span class="sc">%&gt;%</span></span>
+<span id="cb348-21"><a href="purrr.html#cb348-21" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">summaries =</span> <span class="fu">map2</span>(data, summary_functions, <span class="sc">~</span> <span class="fu">.y</span>(.x)))</span>
+<span id="cb348-22"><a href="purrr.html#cb348-22" tabindex="-1"></a></span>
+<span id="cb348-23"><a href="purrr.html#cb348-23" tabindex="-1"></a>result<span class="sc">$</span>summaries</span></code></pre></div>
 <pre><code>## [[1]]
 ## # A tibble: 1 × 2
 ##   mean_bill_length mean_flipper_length
@@ -402,8 +402,8 @@ column
 ## 1            40.9                178</code></pre>
 </div>
 </div>
-<div id="exercises-1" class="section level2" number="23.6">
-<h2><span class="header-section-number">23.6</span> Exercises</h2>
+<div id="exercises-1" class="section level2" number="17.6">
+<h2><span class="header-section-number">17.6</span> Exercises</h2>
 <div class="panel panel-default">
 <div class="panel-heading">
 Task
@@ -421,14 +421,14 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="purrr.html#cb358-1" tabindex="-1"></a><span class="fu">map_df</span>(<span class="at">.x =</span> df, </span>
-<span id="cb358-2"><a href="purrr.html#cb358-2" tabindex="-1"></a>       <span class="at">.f =</span> z_score)</span>
-<span id="cb358-3"><a href="purrr.html#cb358-3" tabindex="-1"></a></span>
-<span id="cb358-4"><a href="purrr.html#cb358-4" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb358-5"><a href="purrr.html#cb358-5" tabindex="-1"></a>  <span class="fu">map_df</span>(z_score)</span>
-<span id="cb358-6"><a href="purrr.html#cb358-6" tabindex="-1"></a></span>
-<span id="cb358-7"><a href="purrr.html#cb358-7" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb358-8"><a href="purrr.html#cb358-8" tabindex="-1"></a>    <span class="fu">map_df</span>(<span class="sc">~</span><span class="fu">z_score</span>(.))</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="purrr.html#cb350-1" tabindex="-1"></a><span class="fu">map_df</span>(<span class="at">.x =</span> df, </span>
+<span id="cb350-2"><a href="purrr.html#cb350-2" tabindex="-1"></a>       <span class="at">.f =</span> z_score)</span>
+<span id="cb350-3"><a href="purrr.html#cb350-3" tabindex="-1"></a></span>
+<span id="cb350-4"><a href="purrr.html#cb350-4" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb350-5"><a href="purrr.html#cb350-5" tabindex="-1"></a>  <span class="fu">map_df</span>(z_score)</span>
+<span id="cb350-6"><a href="purrr.html#cb350-6" tabindex="-1"></a></span>
+<span id="cb350-7"><a href="purrr.html#cb350-7" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb350-8"><a href="purrr.html#cb350-8" tabindex="-1"></a>    <span class="fu">map_df</span>(<span class="sc">~</span><span class="fu">z_score</span>(.))</span></code></pre></div>
 </div>
 </div>
 </div>

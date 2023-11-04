@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 36 Custom ggplot themes | Advancing in R</title>
+  <title>Chapter 30 Custom ggplot themes | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 36 Custom ggplot themes | Advancing in R" />
+  <meta property="og:title" content="Chapter 30 Custom ggplot themes | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 36 Custom ggplot themes | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 30 Custom ggplot themes | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,21 +153,21 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="custom-ggplot-themes" class="section level1" number="36">
-<h1><span class="header-section-number">Chapter 36</span> Custom ggplot themes</h1>
+<div id="custom-ggplot-themes" class="section level1" number="30">
+<h1><span class="header-section-number">Chapter 30</span> Custom ggplot themes</h1>
 <p>Custom ggplot themes</p>
 <p>It is often the case that we start to default to a particular 'style' for our figures, or you may be making several similar figures within a research paper. Creating custom functions can extend to making our own custom ggplot themes. You have probably already used theme variants such as <code>theme_bw()</code>, <code>theme_void()</code>, <code>theme_minimal()</code> - these are incredibly useful, but you might find you still wish to make consistent changes.</p>
 <p>Here is a plot we can make with the <code>dros_weight</code> tibble:</p>
-<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="custom-ggplot-themes.html#cb495-1" tabindex="-1"></a>plot <span class="ot">&lt;-</span> dros_weight <span class="sc">%&gt;%</span> </span>
-<span id="cb495-2"><a href="custom-ggplot-themes.html#cb495-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>sex,</span>
-<span id="cb495-3"><a href="custom-ggplot-themes.html#cb495-3" tabindex="-1"></a>         <span class="at">y=</span>weight_mg))<span class="sc">+</span></span>
-<span id="cb495-4"><a href="custom-ggplot-themes.html#cb495-4" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>)</span>
-<span id="cb495-5"><a href="custom-ggplot-themes.html#cb495-5" tabindex="-1"></a></span>
-<span id="cb495-6"><a href="custom-ggplot-themes.html#cb495-6" tabindex="-1"></a>plot</span></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="custom-ggplot-themes.html#cb487-1" tabindex="-1"></a>plot <span class="ot">&lt;-</span> dros_weight <span class="sc">%&gt;%</span> </span>
+<span id="cb487-2"><a href="custom-ggplot-themes.html#cb487-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>sex,</span>
+<span id="cb487-3"><a href="custom-ggplot-themes.html#cb487-3" tabindex="-1"></a>         <span class="at">y=</span>weight_mg))<span class="sc">+</span></span>
+<span id="cb487-4"><a href="custom-ggplot-themes.html#cb487-4" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>)</span>
+<span id="cb487-5"><a href="custom-ggplot-themes.html#cb487-5" tabindex="-1"></a></span>
+<span id="cb487-6"><a href="custom-ggplot-themes.html#cb487-6" tabindex="-1"></a>plot</span></code></pre></div>
 <p>With the addition of a title and <code>theme_classic()</code> we can improve the style quickly</p>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="custom-ggplot-themes.html#cb496-1" tabindex="-1"></a>plot<span class="sc">+</span></span>
-<span id="cb496-2"><a href="custom-ggplot-themes.html#cb496-2" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Comparison of weights (mg) between </span><span class="sc">\n</span><span class="st">male and female Drosophila&quot;</span>)<span class="sc">+</span></span>
-<span id="cb496-3"><a href="custom-ggplot-themes.html#cb496-3" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="custom-ggplot-themes.html#cb488-1" tabindex="-1"></a>plot<span class="sc">+</span></span>
+<span id="cb488-2"><a href="custom-ggplot-themes.html#cb488-2" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Comparison of weights (mg) between </span><span class="sc">\n</span><span class="st">male and female Drosophila&quot;</span>)<span class="sc">+</span></span>
+<span id="cb488-3"><a href="custom-ggplot-themes.html#cb488-3" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <p>But I <strong>still</strong> want to make some more changes, rather than do this work for one figure, and potentially have to repeat this several times for subsequent figures, I can decide to make a new function instead. See <a href="https://ggplot2.tidyverse.org/reference/theme.html">here</a> for a full breakdown of the arguments for the <code>theme()</code> function.</p>
 <div class="info">
 <p>
@@ -181,44 +181,44 @@ theme_classic + theme() # is correct
 theme() + theme_classic() # will not work as intended
 </p>
 </div>
-<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="custom-ggplot-themes.html#cb497-1" tabindex="-1"></a><span class="co"># custom theme sets defaults for font and size, but these can be changed without changing the function</span></span>
-<span id="cb497-2"><a href="custom-ggplot-themes.html#cb497-2" tabindex="-1"></a>theme_custom <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">base_size=</span><span class="dv">12</span>, <span class="at">base_family=</span><span class="st">&quot;serif&quot;</span>){</span>
-<span id="cb497-3"><a href="custom-ggplot-themes.html#cb497-3" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> base_size, </span>
-<span id="cb497-4"><a href="custom-ggplot-themes.html#cb497-4" tabindex="-1"></a>                <span class="at">base_family =</span> base_family,</span>
-<span id="cb497-5"><a href="custom-ggplot-themes.html#cb497-5" tabindex="-1"></a>                )  <span class="sc">%+replace%</span></span>
-<span id="cb497-6"><a href="custom-ggplot-themes.html#cb497-6" tabindex="-1"></a><span class="co"># update theme minimal </span></span>
-<span id="cb497-7"><a href="custom-ggplot-themes.html#cb497-7" tabindex="-1"></a><span class="fu">theme</span>(</span>
-<span id="cb497-8"><a href="custom-ggplot-themes.html#cb497-8" tabindex="-1"></a>  <span class="co"># specify default settings for plot titles - use rel to set titles relative to base size</span></span>
-<span id="cb497-9"><a href="custom-ggplot-themes.html#cb497-9" tabindex="-1"></a>  <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="fu">rel</span>(<span class="fl">1.5</span>),</span>
-<span id="cb497-10"><a href="custom-ggplot-themes.html#cb497-10" tabindex="-1"></a>      <span class="at">face=</span><span class="st">&quot;bold&quot;</span>,</span>
-<span id="cb497-11"><a href="custom-ggplot-themes.html#cb497-11" tabindex="-1"></a>      <span class="at">family=</span>base_family),</span>
-<span id="cb497-12"><a href="custom-ggplot-themes.html#cb497-12" tabindex="-1"></a>  <span class="co">#specify defaults for axis titles</span></span>
-<span id="cb497-13"><a href="custom-ggplot-themes.html#cb497-13" tabindex="-1"></a>  <span class="at">axis.title=</span><span class="fu">element_text</span>(</span>
-<span id="cb497-14"><a href="custom-ggplot-themes.html#cb497-14" tabindex="-1"></a>    <span class="at">size=</span><span class="fu">rel</span>(<span class="dv">1</span>),</span>
-<span id="cb497-15"><a href="custom-ggplot-themes.html#cb497-15" tabindex="-1"></a>    <span class="at">family=</span>base_family),</span>
-<span id="cb497-16"><a href="custom-ggplot-themes.html#cb497-16" tabindex="-1"></a>  <span class="co"># specify position for y axis title</span></span>
-<span id="cb497-17"><a href="custom-ggplot-themes.html#cb497-17" tabindex="-1"></a>  <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="dv">10</span>, <span class="at">l=</span> <span class="dv">10</span>)),</span>
-<span id="cb497-18"><a href="custom-ggplot-themes.html#cb497-18" tabindex="-1"></a>  <span class="co"># specify position for x axis title</span></span>
-<span id="cb497-19"><a href="custom-ggplot-themes.html#cb497-19" tabindex="-1"></a>  <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>( <span class="at">t =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="dv">10</span>)),</span>
-<span id="cb497-20"><a href="custom-ggplot-themes.html#cb497-20" tabindex="-1"></a>  <span class="co"># set major y grid lines</span></span>
-<span id="cb497-21"><a href="custom-ggplot-themes.html#cb497-21" tabindex="-1"></a>  <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">colour=</span><span class="st">&quot;gray&quot;</span>, <span class="at">size=</span><span class="fl">0.5</span>),</span>
-<span id="cb497-22"><a href="custom-ggplot-themes.html#cb497-22" tabindex="-1"></a>  <span class="co"># add axis lines</span></span>
-<span id="cb497-23"><a href="custom-ggplot-themes.html#cb497-23" tabindex="-1"></a>  <span class="at">axis.line=</span><span class="fu">element_line</span>(),</span>
-<span id="cb497-24"><a href="custom-ggplot-themes.html#cb497-24" tabindex="-1"></a>   <span class="co"># Adding a 0.5cm margin around the plot</span></span>
-<span id="cb497-25"><a href="custom-ggplot-themes.html#cb497-25" tabindex="-1"></a>  <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">units =</span> , <span class="st">&quot;cm&quot;</span>),    </span>
-<span id="cb497-26"><a href="custom-ggplot-themes.html#cb497-26" tabindex="-1"></a>   <span class="co"># Setting the font for the legend text</span></span>
-<span id="cb497-27"><a href="custom-ggplot-themes.html#cb497-27" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;italic&quot;</span>),   </span>
-<span id="cb497-28"><a href="custom-ggplot-themes.html#cb497-28" tabindex="-1"></a>    <span class="co"># Removing the legend title</span></span>
-<span id="cb497-29"><a href="custom-ggplot-themes.html#cb497-29" tabindex="-1"></a>          <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),    </span>
-<span id="cb497-30"><a href="custom-ggplot-themes.html#cb497-30" tabindex="-1"></a>   <span class="co"># Setting the position for the legend - 0 is left/bottom, 1 is top/right</span></span>
-<span id="cb497-31"><a href="custom-ggplot-themes.html#cb497-31" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.8</span>)             </span>
-<span id="cb497-32"><a href="custom-ggplot-themes.html#cb497-32" tabindex="-1"></a>)</span>
-<span id="cb497-33"><a href="custom-ggplot-themes.html#cb497-33" tabindex="-1"></a>  </span>
-<span id="cb497-34"><a href="custom-ggplot-themes.html#cb497-34" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="custom-ggplot-themes.html#cb489-1" tabindex="-1"></a><span class="co"># custom theme sets defaults for font and size, but these can be changed without changing the function</span></span>
+<span id="cb489-2"><a href="custom-ggplot-themes.html#cb489-2" tabindex="-1"></a>theme_custom <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">base_size=</span><span class="dv">12</span>, <span class="at">base_family=</span><span class="st">&quot;serif&quot;</span>){</span>
+<span id="cb489-3"><a href="custom-ggplot-themes.html#cb489-3" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> base_size, </span>
+<span id="cb489-4"><a href="custom-ggplot-themes.html#cb489-4" tabindex="-1"></a>                <span class="at">base_family =</span> base_family,</span>
+<span id="cb489-5"><a href="custom-ggplot-themes.html#cb489-5" tabindex="-1"></a>                )  <span class="sc">%+replace%</span></span>
+<span id="cb489-6"><a href="custom-ggplot-themes.html#cb489-6" tabindex="-1"></a><span class="co"># update theme minimal </span></span>
+<span id="cb489-7"><a href="custom-ggplot-themes.html#cb489-7" tabindex="-1"></a><span class="fu">theme</span>(</span>
+<span id="cb489-8"><a href="custom-ggplot-themes.html#cb489-8" tabindex="-1"></a>  <span class="co"># specify default settings for plot titles - use rel to set titles relative to base size</span></span>
+<span id="cb489-9"><a href="custom-ggplot-themes.html#cb489-9" tabindex="-1"></a>  <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="fu">rel</span>(<span class="fl">1.5</span>),</span>
+<span id="cb489-10"><a href="custom-ggplot-themes.html#cb489-10" tabindex="-1"></a>      <span class="at">face=</span><span class="st">&quot;bold&quot;</span>,</span>
+<span id="cb489-11"><a href="custom-ggplot-themes.html#cb489-11" tabindex="-1"></a>      <span class="at">family=</span>base_family),</span>
+<span id="cb489-12"><a href="custom-ggplot-themes.html#cb489-12" tabindex="-1"></a>  <span class="co">#specify defaults for axis titles</span></span>
+<span id="cb489-13"><a href="custom-ggplot-themes.html#cb489-13" tabindex="-1"></a>  <span class="at">axis.title=</span><span class="fu">element_text</span>(</span>
+<span id="cb489-14"><a href="custom-ggplot-themes.html#cb489-14" tabindex="-1"></a>    <span class="at">size=</span><span class="fu">rel</span>(<span class="dv">1</span>),</span>
+<span id="cb489-15"><a href="custom-ggplot-themes.html#cb489-15" tabindex="-1"></a>    <span class="at">family=</span>base_family),</span>
+<span id="cb489-16"><a href="custom-ggplot-themes.html#cb489-16" tabindex="-1"></a>  <span class="co"># specify position for y axis title</span></span>
+<span id="cb489-17"><a href="custom-ggplot-themes.html#cb489-17" tabindex="-1"></a>  <span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="dv">10</span>, <span class="at">l=</span> <span class="dv">10</span>)),</span>
+<span id="cb489-18"><a href="custom-ggplot-themes.html#cb489-18" tabindex="-1"></a>  <span class="co"># specify position for x axis title</span></span>
+<span id="cb489-19"><a href="custom-ggplot-themes.html#cb489-19" tabindex="-1"></a>  <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>( <span class="at">t =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="dv">10</span>)),</span>
+<span id="cb489-20"><a href="custom-ggplot-themes.html#cb489-20" tabindex="-1"></a>  <span class="co"># set major y grid lines</span></span>
+<span id="cb489-21"><a href="custom-ggplot-themes.html#cb489-21" tabindex="-1"></a>  <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">colour=</span><span class="st">&quot;gray&quot;</span>, <span class="at">size=</span><span class="fl">0.5</span>),</span>
+<span id="cb489-22"><a href="custom-ggplot-themes.html#cb489-22" tabindex="-1"></a>  <span class="co"># add axis lines</span></span>
+<span id="cb489-23"><a href="custom-ggplot-themes.html#cb489-23" tabindex="-1"></a>  <span class="at">axis.line=</span><span class="fu">element_line</span>(),</span>
+<span id="cb489-24"><a href="custom-ggplot-themes.html#cb489-24" tabindex="-1"></a>   <span class="co"># Adding a 0.5cm margin around the plot</span></span>
+<span id="cb489-25"><a href="custom-ggplot-themes.html#cb489-25" tabindex="-1"></a>  <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">units =</span> , <span class="st">&quot;cm&quot;</span>),    </span>
+<span id="cb489-26"><a href="custom-ggplot-themes.html#cb489-26" tabindex="-1"></a>   <span class="co"># Setting the font for the legend text</span></span>
+<span id="cb489-27"><a href="custom-ggplot-themes.html#cb489-27" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;italic&quot;</span>),   </span>
+<span id="cb489-28"><a href="custom-ggplot-themes.html#cb489-28" tabindex="-1"></a>    <span class="co"># Removing the legend title</span></span>
+<span id="cb489-29"><a href="custom-ggplot-themes.html#cb489-29" tabindex="-1"></a>          <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),    </span>
+<span id="cb489-30"><a href="custom-ggplot-themes.html#cb489-30" tabindex="-1"></a>   <span class="co"># Setting the position for the legend - 0 is left/bottom, 1 is top/right</span></span>
+<span id="cb489-31"><a href="custom-ggplot-themes.html#cb489-31" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.8</span>)             </span>
+<span id="cb489-32"><a href="custom-ggplot-themes.html#cb489-32" tabindex="-1"></a>)</span>
+<span id="cb489-33"><a href="custom-ggplot-themes.html#cb489-33" tabindex="-1"></a>  </span>
+<span id="cb489-34"><a href="custom-ggplot-themes.html#cb489-34" tabindex="-1"></a>}</span></code></pre></div>
 <p>With this function set, I can now use it for as many figures as I wish. To use it in the future I should probably save it in a unique script, with a clear title and comments for future use.</p>
 <p>I could then easily use <code>source("custom_theme_function.R")</code> to make this available to any scripts I was using.</p>
-<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="custom-ggplot-themes.html#cb498-1" tabindex="-1"></a>plot<span class="sc">+</span></span>
-<span id="cb498-2"><a href="custom-ggplot-themes.html#cb498-2" tabindex="-1"></a><span class="fu">theme_custom</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="custom-ggplot-themes.html#cb490-1" tabindex="-1"></a>plot<span class="sc">+</span></span>
+<span id="cb490-2"><a href="custom-ggplot-themes.html#cb490-2" tabindex="-1"></a><span class="fu">theme_custom</span>()</span></code></pre></div>
 </div>
 <script>
 

@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 31 Group work | Advancing in R</title>
+  <title>Chapter 25 Group work | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 31 Group work | Advancing in R" />
+  <meta property="og:title" content="Chapter 25 Group work | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 31 Group work | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 25 Group work | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,16 +153,16 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="group-work" class="section level1" number="31">
-<h1><span class="header-section-number">Chapter 31</span> Group work</h1>
+<div id="group-work" class="section level1" number="25">
+<h1><span class="header-section-number">Chapter 25</span> Group work</h1>
 <p>The R4DS book demonstrates how functions can be used to run multiple models simultaneously. This technique is valuable for extracting meaningful insights from your data. A well-known example of this approach involves the Gapminder dataset. We will cover a brief version here:</p>
 <p>To find out how well culmen length can predict culmen depth we build a linear regression model.</p>
 <p>Once we have created the model, we can retrieve the results parameters and test statistics
 with the summary function:
 <code>summary(model)</code></p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="group-work.html#cb417-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(culmen_depth_mm <span class="sc">~</span> culmen_length_mm, <span class="at">data =</span> penguins_clean_split)</span>
-<span id="cb417-2"><a href="group-work.html#cb417-2" tabindex="-1"></a></span>
-<span id="cb417-3"><a href="group-work.html#cb417-3" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="group-work.html#cb409-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(culmen_depth_mm <span class="sc">~</span> culmen_length_mm, <span class="at">data =</span> penguins_clean_split)</span>
+<span id="cb409-2"><a href="group-work.html#cb409-2" tabindex="-1"></a></span>
+<span id="cb409-3"><a href="group-work.html#cb409-3" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = culmen_depth_mm ~ culmen_length_mm, data = penguins_clean_split)
@@ -183,9 +183,9 @@ with the summary function:
 ## Multiple R-squared:  0.05525,    Adjusted R-squared:  0.05247 
 ## F-statistic: 19.88 on 1 and 340 DF,  p-value: 1.12e-05</code></pre>
 <p>Now we know that there are important covariates to consider - and the most appropriate method from an analysis perspective would be to include these as covariates within a single model</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="group-work.html#cb419-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(culmen_depth_mm <span class="sc">~</span> culmen_length_mm <span class="sc">*</span> species, <span class="at">data =</span> penguins_clean_split)</span>
-<span id="cb419-2"><a href="group-work.html#cb419-2" tabindex="-1"></a></span>
-<span id="cb419-3"><a href="group-work.html#cb419-3" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="group-work.html#cb411-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(culmen_depth_mm <span class="sc">~</span> culmen_length_mm <span class="sc">*</span> species, <span class="at">data =</span> penguins_clean_split)</span>
+<span id="cb411-2"><a href="group-work.html#cb411-2" tabindex="-1"></a></span>
+<span id="cb411-3"><a href="group-work.html#cb411-3" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>Call:
 lm(formula = culmen_depth_mm ~ culmen_length_mm * species, data = penguins_clean_split)
 
@@ -210,12 +210,12 @@ Multiple R-squared:  0.7697,    Adjusted R-squared:  0.7662
 F-statistic: 224.5 on 5 and 336 DF,  p-value: &lt; 2.2e-16
 </code></pre>
 <p>However, there may be occasions where we wish to apply simple models to each subpopulation in turn:</p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="group-work.html#cb421-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb421-2"><a href="group-work.html#cb421-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
-<span id="cb421-3"><a href="group-work.html#cb421-3" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb421-4"><a href="group-work.html#cb421-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">lm</span>(culmen_depth_mm <span class="sc">~</span> culmen_length_mm, <span class="at">data =</span> .))) <span class="sc">|&gt;</span> </span>
-<span id="cb421-5"><a href="group-work.html#cb421-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tidy =</span> <span class="fu">map</span>(model, broom<span class="sc">::</span>tidy)) <span class="sc">|&gt;</span> </span>
-<span id="cb421-6"><a href="group-work.html#cb421-6" tabindex="-1"></a>  <span class="fu">unnest</span>(tidy)</span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="group-work.html#cb413-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb413-2"><a href="group-work.html#cb413-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
+<span id="cb413-3"><a href="group-work.html#cb413-3" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb413-4"><a href="group-work.html#cb413-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">lm</span>(culmen_depth_mm <span class="sc">~</span> culmen_length_mm, <span class="at">data =</span> .))) <span class="sc">|&gt;</span> </span>
+<span id="cb413-5"><a href="group-work.html#cb413-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tidy =</span> <span class="fu">map</span>(model, broom<span class="sc">::</span>tidy)) <span class="sc">|&gt;</span> </span>
+<span id="cb413-6"><a href="group-work.html#cb413-6" tabindex="-1"></a>  <span class="fu">unnest</span>(tidy)</span></code></pre></div>
 <pre><code>A tibble:6 × 8
 Groups:species [3]
 

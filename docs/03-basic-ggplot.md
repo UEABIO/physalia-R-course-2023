@@ -1,6 +1,5 @@
-# (PART\*) Data Presentation {.unnumbered}
 
-# Data visualisation with ggplot2
+# Basic ggplot
 
 
 
@@ -21,99 +20,6 @@ The philosophy of ggplot is much better explained by the package author, Hadley 
 <p class="caption">(\#fig:ambitious-figure)An example of what we can produce in ggplot</p>
 </div>
 
-#### Before we start
-
-You should have a workspace ready to work with the Palmer penguins data. Load this workspace now. 
-
-Think about some basic checks before you start your work today.
-
-#### Checklist
-
-
-<div class="try">
-<p>Today we are going to make a NEW R script in the same project space
-as we have previously been working. This is part of organising our
-workspace so that our analysis workflow is <a
-href="#activity-1-organising-our-workspace">well documented and easy to
-follow</a></p>
-</div>
-
-* Open a **new** R script - we are moving on from data wrangling to data visualisation
-
-* Save this file **in the scripts folder** and call it `02_visualisation_penguins.R`
-
-* Add the following to your script and run it:
-
-
-```r
-# LOAD R OBJECTS AND FUNCTIONS ----
-source("scripts/01_import_penguins_data.R")
-# import tidied penguins data and functions
-#__________________________----
-```
-
-* You should find your Environment fills up with objects from script 1
-
-
-<div class="info">
-<p>The <code>source()</code> function is a very handy way of allowing
-you to have different scripts for different parts of your R project, but
-allow access to objects built elsewhere. In this way we are building our
-analysis in stages.</p>
-</div>
-
-<div class="warning">
-<p>The above command will ONLY work if you remembered to save and name
-your script exactly as above AND put that script inside a subfolder
-called scripts.</p>
-<p>Does your project look like the one below?</p>
-</div>
-
-
-<div class="figure" style="text-align: center">
-<img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-7)My neat project layout</p>
-</div>
-
-<div class="figure" style="text-align: center">
-<img src="images/r_script.png" alt="If you have sucessfully saved 02_visualisation_penguins.R it should be visible here too " width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-8)If you have sucessfully saved 02_visualisation_penguins.R it should be visible here too </p>
-</div>
-
-#### What if source isn't working?
-
-If source isn't working, or you can't figure out your project set-up you can complete this worksheet if you put the following commands at the top of your script *instead* of `source("scripts/01_import_penguins_data.R")`
-
-
-<div class='webex-solution'><button>Script adjustment</button>
-
-
-
-```r
-#___________________________----
-# SET UP ----
-## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----
-
-### Data first published in  Gorman, KB, TD Williams, and WR Fraser. 2014. “Ecological Sexual Dimorphism and Environmental Variability Within a Community of Antarctic Penguins (Genus Pygoscelis).” PLos One 9 (3): e90081. https://doi.org/10.1371/journal.pone.0090081. ----
-#__________________________----
-
-# PACKAGES ----
-library(tidyverse) # tidy data packages
-library(janitor) # cleans variable names
-library(lubridate) # make sure dates are processed properly
-#__________________________----
-
-# IMPORT DATA ----
-penguins <- read_csv ("data/penguins_raw.csv")
-
-penguins <- janitor::clean_names(penguins) # clean variable names
-#__________________________----
-```
-
-
-</div>
-
-
 ## Building a plot
 
 To start building the plot We are going to use the penguin data we have been working with previously. First we must specify the data frame that contains the relevant data for our plot. We can do this in two ways: 
@@ -124,7 +30,7 @@ To start building the plot We are going to use the penguin data we have been wor
 ```r
 # Building a ggplot step by step ----
 ## Render a plot background ----
-penguins  |>  
+penguins %>% 
   ggplot()
 ```
 
@@ -137,7 +43,7 @@ The output is identical
 ggplot(data = penguins)
 ```
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>Running this command will produce an empty grey panel. This is
@@ -163,12 +69,12 @@ evaluation</a>.</p>
 
 ```r
 ## Set axes ----
-penguins |> 
+penguins %>% 
   ggplot(aes(x=flipper_length_mm, 
              y = body_mass_g))
 ```
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
 
 So far we have the grid lines for our x and y axis. `ggplot()` knows the variables required for the plot, and thus the scale, but has no information about how to display the data points.
 
@@ -194,7 +100,7 @@ For ggplot, each layer will be added over the plot according to its position in 
 
 ```r
 ## Add a geom ----
-penguins |> 
+penguins %>% 
   ggplot(aes(x=flipper_length_mm, 
              y = body_mass_g))+
   layer(                # layer inherits data and aesthetic arguments from previous
@@ -207,19 +113,19 @@ This is quite a complicate way to write new layers - and it is more usual to see
 
 
 ```r
-penguins |> 
+penguins %>% 
   ggplot(aes(x=flipper_length_mm, 
              y = body_mass_g))+
   geom_point() # geom_point function will always draw points, and unless specified otherwise the arguments for position and stat are both "identity".
 ```
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
 
 Now we have the scatter plot! Each row (except for two rows of missing data) in the penguins data set now has an x coordinate, a y coordinate, and a designated geometric representation (point).
 
 From this we can see that smaller penguins tend to have smaller flipper lengths.
 
-### |> and +
+### %>% and +
 
 ggplot2, an early component of the tidyverse package, was written before the pipe was introduced. The + sign in ggplot2 functions in a similar way to the pipe in other functions in the tidyverse: by allowing code to be written from left to right.
 
@@ -229,13 +135,13 @@ The colors of lines and points can be set directly using `colour="red"`, replaci
 
 
 ```r
-penguins |> 
+penguins %>% 
   ggplot(aes(x=flipper_length_mm, 
              y = body_mass_g))+
   geom_point(colour="red")
 ```
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
 
 However the current plot could be more informative if colour was used to convey information about the species of each penguin.
 
@@ -257,13 +163,13 @@ e.g. <code>aes(colour = species)</code></p>
 
 
 ```r
-penguins |> 
+penguins %>% 
   ggplot(aes(x=flipper_length_mm, 
              y = body_mass_g))+
   geom_point(aes(colour=species))
 ```
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>You may (or may not) have noticed that the grammar of ggplot (and
@@ -274,7 +180,7 @@ spelling!!!</p>
 With data visualisations we can start to gain insights into our data very quickly, we can see that the Gentoo penguins tend to be both larger and have longer flippers
 
 <div class="info">
-<p>Add carriage returns (new lines) after each |&gt; or + symbols.</p>
+<p>Add carriage returns (new lines) after each %&gt;% or + symbols.</p>
 <p>In most cases, R is blind to white space and new lines, so this is
 simply to make our code more readable, and allow us to add readable
 comments.</p>
@@ -291,7 +197,7 @@ This is our **first** encounter with linear models in this course, but we will l
 
 ```r
 ## Add a second geom ----
-penguins |> 
+penguins %>% 
   ggplot(aes(x=flipper_length_mm, 
              y = body_mass_g))+
   geom_point(aes(colour=species))+
@@ -300,13 +206,13 @@ penguins |>
               aes(colour=species)) # note layers inherit information from the top ggplot() function but not previous layers - if we want separate lines per species we need to either specify this again *or* move the color aesthetic to the top layer. 
 ```
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" />
 
 In the example above we may notice that we are assigning colour to the same variable (species) in both geometric layers. This means we have the option to simplify our code. Aesthetics set in the "top layer" of `ggplot()` are inherited by all subsequent layers.
 
 
 ```r
-penguins |> 
+penguins %>% 
   ggplot(aes(x=flipper_length_mm, 
              y = body_mass_g,
              colour=species))+ ### now colour is set here it will be inherited by ALL layers
@@ -315,7 +221,7 @@ penguins |>
               se=FALSE)
 ```
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 <div class="try">
@@ -328,134 +234,13 @@ geom_smooth() functions above? What do you notice about the trend
 line?</p>
 </div>
 
-
-### Co-ordinate space
-
-ggplot will automatically pick the scale for each axis, and the type of coordinate space. Most plots are in Cartesian (linear X vs linear Y) coordinate space.
-
-For this plot, let’s say we want the x and y origin to be set at 0. To do this we can add in `xlim()` and `ylim()` functions, which define the limits of the axes:
-
-
-```r
-## Set axis limits ----
-penguins |> 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g,
-             colour=species))+ 
-  geom_point()+
-  geom_smooth(method="lm",    
-              se=FALSE)+
-  xlim(0,240) + ylim(0,7000)
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
-
-Further, we can control the coordinate space using `coord()` functions. Say we want to flip the x and y axes, we add `coord_flip()`:
-
-
-```r
-penguins |> 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g,
-             colour=species))+ 
-  geom_point()+
-  geom_smooth(method="lm",    
-              se=FALSE)+
-  xlim(0,240) + ylim(0,7000)+
-  coord_flip()
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
-
-## Labels
-
-By default, the axis labels will be the column names we gave as aesthetics aes(). We can change the axis labels using the xlab() and ylab() functions. Given that column names are often short and can be cryptic, this functionality is particularly important for effectively communicating results.
-
-
-```r
-## Custom labels ----
-penguins |> 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g,
-             colour=species))+ 
-  geom_point()+
-  geom_smooth(method="lm",    
-              se=FALSE)+
-  labs(x = "Flipper length (mm)",
-       y = "Body mass (g)")
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
-
-#### Titles and subtitles
-
-
-```r
-## Add titles ----
-penguins |> 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g,
-             colour=species))+ 
-  geom_point()+
-  geom_smooth(method="lm",    
-              se=FALSE)+
-  labs(x = "Flipper length (mm)",
-       y = "Body mass (g)",
-       title= "Penguin Size, Palmer Station LTER",
-       subtitle= "Flipper length and body mass for three penguin species")
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
-
-## Themes
-
-Finally, the overall appearance of the plot can be modified using theme() functions. The default theme has a grey background.
-You may prefer `theme_classic()`, a `theme_minimal()` or even `theme_void()`. Try them out.
-
-
-```r
-## Custom themes ----
-penguins |> 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g,
-             colour=species))+ 
-  geom_point()+
-  geom_smooth(method="lm",    
-              se=FALSE)+
-  labs(x = "Flipper length (mm)",
-       y = "Body mass (g)",
-       title= "Penguin Size, Palmer Station LTER",
-       subtitle= "Flipper length and body mass for three penguin species")+
-  theme_void()
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
-
-<div class="info">
-<p>There is a lot more customisation available through the theme()
-function. We will look at making our own custom themes in later
-lessons</p>
-<p>You can also try installing and running an even wider range of
-pre-built themes if you install the R package <a
-href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">ggthemes</a>.</p>
-<p>First you will need to run the
-<code>install.packages("ggthemes")</code> command. Remember this is one
-of the few times a command should NOT be written in your script but
-typed directly into the console. That’s because it’s rude to send
-someone a script that will install packages on their computer - think of
-<code>library()</code> as a polite request instead!</p>
-<p>To access the range of themes available type
-<code>help(ggthemes)</code> then follow the documentation to find out
-what you can do.</p>
-</div>
-
-## More geom shapes
+## More plots
 
 ### Jitter
 
 The `geom_jitter()` command adds some random scatter to the points which can reduce over-plotting. Compare these two plots:
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -492,7 +277,7 @@ ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
               show.legend = FALSE)
 ```
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-34-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="try">
 <p>Note that when specifying colour variables using <code>aes()</code>
@@ -506,7 +291,6 @@ The points indicate outlier values [i.e., those greater than Q3 + (1.5 x IQR)].
 We can overlay a boxplot on the scatter plot for the entire dataset, to fully communicate both the raw and summary data. Here we reduce the width of the jitter points slightly.
 
 
-
 ```r
 ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
   geom_boxplot(aes(fill = species), # note fill is "inside" colour and colour is "edges" - try it for yourself
@@ -518,7 +302,7 @@ ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
   theme(legend.position = "none")
 ```
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 <div class="warning">
@@ -530,327 +314,97 @@ function applies to every layer. Save code, save time, reduce
 errors!</p>
 </div>
 
-
-### Density and histogram
-
-Compare the following two sets of code:
+#### Grouped boxplot
 
 
 ```r
 penguins |> 
-    ggplot(aes(x=culmen_length_mm, fill=species),
-           position = "identity")+
+  drop_na(sex) |> 
+ggplot(aes(x = species, y = culmen_length_mm)) +
+  geom_boxplot(aes(fill = sex), 
+              width = 0.5) # change width of boxplot
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
+
+### Violin plots
+
+Violin plots display the distribution of a dataset and can be created by calling geom_violin(). They are so-called because the shape they make sometimes looks something like a violin. They are essentially sideways, mirrored density plots. Note that the below code is identical to the code used to draw the boxplots above, except for the call to `geom_violin()` rather than `geom_boxplot()`.
+
+
+
+```r
+penguins |> 
+  drop_na(sex) |> 
+ggplot(aes(x = species, y = culmen_length_mm)) +
+  geom_violin(aes(fill = sex),
+              width = 0.5)
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+
+### Bar plots
+
+
+```r
+penguins |> 
+ggplot(aes(x = species)) +
+  geom_bar()
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+
+> If your dataset already has the counts that you want to plot, you can set stat="identity" inside of geom_bar() to use that number instead of counting rows.
+
+
+We could go for a stacked bar approach
+
+
+```r
+penguins |>  
+  ggplot(aes(x="",
+             fill=species))+ 
+  # specify fill = species to ensure colours are defined by species
+  geom_bar(position="fill")+ 
+  labs(x="",
+       y="")
+```
+
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+
+This graph is OK but not great, the height of each section of the bar represents the relative proportions of each species in the dataset, but this type of chart becomes increasingly difficult to read as more categories are included. Colours become increasingly samey,and it is difficult to read where on the y-axis a category starts and stops, you then have to do some subtraction to work out the values.
+
+
+
+### Density and histogram
+
+The base statistic for `geom_histogram()` is count, and by default `geom_histogram()` divides the x-axis into 30 "bins" and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message "stat_bin() using bins = 30. Pick better value with binwidth". You can change this by either setting the number of bins (e.g., bins = 20) or the width of each bin (e.g., binwidth = 5) as an argument.
+
+
+```r
+penguins %>% 
+    ggplot(aes(x=culmen_length_mm, fill=species))+
     geom_histogram(bins=50)
 ```
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
 
-At first you might struggle to see/understand the difference between these two charts. The shapes should be roughly the same. 
+The layer system makes it easy to create new types of plots by adapting existing recipes. For example, rather than creating a histogram, we can create a smoothed density plot by calling geom_density() rather than geom_histogram(). The rest of the code remains identical.
 
 
 ```r
 penguins |> 
     ggplot(aes(x=culmen_length_mm, fill=species))+
-    geom_histogram(bins=50, 
-                   aes(y=..density..),
-                   position = "identity")
+    geom_density(alpha = .775)
 ```
 
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-39-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-<div class='webex-solution'><button>Explain this</button>
-
-
-The first block of code produced a frequency histogram, each bar represents the actual number of observations made within each 'bin', the second block of code shows the 'relative density' within each bin. In a density histogram the area under the curve for each sub-group will sum to 1. This allows us to compare distributions and shapes between sub-groups of different sizes. For example there are far fewer Adelie penguins in our dataset, but in a density histogram they occupy the same area of the graph as the other two species.
-
-
-</div>
-
-
-<br>
-
-## More Colours
-
-There are two main differences when it comes to colors in `ggplot2`. Both arguments, color and fill, can be specified as single color or
-assigned to variables.
-
-As you have already seen in this tutorial, variables that are inside the aesthetics are encoded by variables and those that are outside are properties that are unrelated to the variables.
-
+<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
-penguins |> 
-    ggplot(aes(x=culmen_length_mm))+
-    geom_histogram(bins=50, 
-                   aes(y=..density..,
-                       fill=species), 
-                   position = "identity",
-                   colour="black")
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" />
-
-#### Choosing and using colour palettes
-
-You can specify what colours you want to assign to variables in a number of different ways. 
-
-In ggplot2, colors that are assigned to variables are modified via the scale_color_* and the scale_fill_* functions. In order to use color with your data, most importantly you need to know if you are dealing with a categorical or continuous variable. The color palette should be chosen depending on type of the variable:
-
-* **sequential or diverging** color palettes being used for continuous variables 
-
-* **qualitative** color palettes for (unordered) categorical variables:
-
-<img src="images/palette.png" width="80%" style="display: block; margin: auto;" />
-
-You can pick your own sets of colours and assign them to a categorical variable. The number of specified colours **has** to match the number of categories. You can use a wide number of preset colour [names](https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/) or you can use [hexadecimals](https://www.datanovia.com/en/blog/awesome-list-of-hexadecimal-colors-you-should-have/). 
-
-
-
-```r
-## Custom colours ----
-
-penguin_colours <- c("darkolivegreen4", "darkorchid3", "goldenrod1")
-
-penguins |> 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g))+
-  geom_point(aes(colour=species))+
-  scale_color_manual(values=penguin_colours)+
-  theme_minimal()
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" />
-
-You can also use a range of inbuilt colour palettes: 
-
-
-```r
-penguins |> 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g))+
-  geom_point(aes(colour=species))+
-  scale_color_brewer(palette="Set1")+
-  theme_minimal()
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-<div class="info">
-<p>You can explore all schemes available with the command
-<code>RColorBrewer::display.brewer.all()</code></p>
-</div>
-
-There are also many, many extensions that provide additional colour palettes. Some of my favourite packages include [ggsci](https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html) and [wesanderson](https://github.com/karthik/wesanderson)
-
-<img src="images/wesanderson.png" width="80%" style="display: block; margin: auto;" />
-
-## Accessibility
-
-#### Colour blindness
-
-It's very easy to get carried away with colour palettes, but you should remember at all times that your figures must be accessible. One way to check how accessible your figures are is to use a colour blindness checker [colorBlindness](https://cran.r-project.org/web/packages/colorBlindness/vignettes/colorBlindness.html)
-
-
-```r
-## Check accessibility ----
-
-library(colorBlindness)
-colorBlindness::cvdPlot() # will automatically run on the last plot you made
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-47-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-#### Guides to visual accessibility 
-
-Using colours to tell categories apart can be useful, but as we can see in the example above, you should choose carefully. Other aesthetics which you can access in your geoms include `shape`, and `size` - you can combine these in complimentary ways to enhance the accessibility of your plots. Here is a hierarchy of "interpretability" for different types of data 
-
-<img src="images/list.png" width="80%" style="display: block; margin: auto;" />
-
-
-<img src="images/shape_v_colour.png" width="80%" style="display: block; margin: auto;" />
-
-## Multiple plots
-
-#### Facets
-
-Adding combinations of different aesthetics allows you to layer more information onto a 2D plot, sometimes though things will just become *too* busy. At the point where it becomes difficult to see the trends or differences in your plot then we want to break up a single plot into sub-plots; this is called ‘faceting’. Facets are commonly used when there is too much data to display clearly in a single plot. We will revisit faceting below, however for now, let’s try to facet the plot according to sex.
-
-To do this we use the tilde symbol ‘~’ to indicate the column name that will form each facet.
-
-
-```r
-## Facetting ----
-penguins |> 
-  drop_na(sex) |> 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g,
-             colour=species))+ 
-  geom_point()+
-  geom_smooth(method="lm",    
-              se=FALSE)+
-  facet_wrap(~sex)
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-50-1.png" width="100%" style="display: block; margin: auto;" />
-
-#### Patchwork
-
-There are many times you might want to *combine* separate figures into multi-panel plots. Probably the easiest way to do this is with the `patchwork` package (@R-patchwork). 
-
-
-```r
-## Patchwork ----
-library(patchwork)
-
-p1 <- penguins |> 
-  ggplot(aes(x=flipper_length_mm, 
-             y = culmen_length_mm))+
-  geom_point(aes(colour=species))+
-  scale_color_manual(values=penguin_colours)+
-  theme_minimal()
-
-p2 <- penguins |> 
-  ggplot(aes(x=culmen_depth_mm, 
-             y = culmen_length_mm))+
-  geom_point(aes(colour=species))+
-  scale_color_manual(values=penguin_colours)+
-  theme_minimal()
-
-p3 <- penguins |>     
-  group_by(sex,species) |> 
-    summarise(n=n()) |> 
-     drop_na(sex) |> 
-     ggplot(aes(x=species, y=n)) + 
-  geom_col(aes(fill=sex), 
-               width=0.8,
-               position=position_dodge(width=0.9), 
-               alpha=0.6)+
-     scale_fill_manual(values=c("darkorange1", "azure4"))+
-     theme_classic()
-
- (p1+p2)/p3+
-  plot_layout(guides = "collect") 
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" />
-
-## Activity: Replicate this figure
-
-<div class="try">
-<p>How close can you get to replicating the figure below?</p>
-<p>Make a NEW script for this assignment - replicate_figure.R</p>
-<p>Make sure to use the tips and links at the end of this chapter, when
-you are done save the file</p>
-</div>
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-53-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-
-<div class='webex-solution'><button>Solution</button>
-
-
-
-```r
-pal <- c(
-  "Adelie" = "#FF8C00", 
-  "Chinstrap" = "#A034F0", 
-  "Gentoo" = "#159090")
-
-penguins |> 
-  ggplot(aes(x = species,
-             y = body_mass_g,
-             fill = species,
-             colour = species))+
-  geom_violin(alpha = 0.2)+
-  geom_boxplot(width = 0.2,
-               alpha = 0.6)+
-  scale_fill_manual(values = pal)+
-  scale_colour_manual(values = pal)+
-  theme_classic()+
-  theme(legend.position = "none")+
-    labs(
-    x = "",
-    y = "Body mass (g)",
-    title = "Body mass of brush-tailed penguins",
-    subtitle = "Box and violin plot of body mass by species")
+#Because the density plots are overlapping, we set alpha = 0.75 to make the geoms 75% transparent.
 ```
 
 
-</div>
-
-
-
-## Saving
-
-One of the easiest ways to save a figure you have made is with the `ggsave()` function. By default it will save the last plot you made on the screen. 
-
-You should specify the output path to your **figures** folder, then provide a file name. Here I have decided to call my plot *plot* (imaginative!) and I want to save it as a .PNG image file. I can also specify the resolution (dpi 300 is good enough for most computer screens).
-
-
-```r
-# OUTPUT FIGURE TO FILE
-
-ggsave("outputs/YYYYMMDD_ggplot_workshop_final_plot.png", dpi=300)
-```
-
-<div class="try">
-<p>If you got this far and still have time why not try one of the
-following:</p>
-<ol style="list-style-type: decimal">
-<li><p>Making another type of figure using the penguins dataset, use the
-further reading below to use for inspiration.</p></li>
-<li><p>Use any of your own data</p></li>
-</ol>
-</div>
-
-
-#### Quitting
-
-<div class="warning">
-<p>Make sure you have saved your script! Remember to Download your image
-file from RStudio Cloud onto YOUR computer.</p>
-</div>
-
-
-<div class="info">
-<p>run <code>SessionInfo()</code> at the end of your script to gather
-the packages and versions you have been using. This is very useful for
-when you <a href="#how-to-cite-r-and-rstudio">cite R versions and
-packages</a> when writing reports later.</p>
-</div>
-
-## Finished
-
-* Make sure you have **saved your scripts 💾** in the ["scripts" folder](#activity-1-organising-our-workspace).
-
-
-#### What we learned
-
-You have learned
-
-* The anatomy of ggplots
-
-* How to add geoms on different layers
-
-* How to use colour, colour palettes, facets, labels and themes
-
-* Putting together multiple figures
-
-* How to save and export images
-
-
-## Further Reading, Guides and tips on data visualisation
-
-* [R Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
-
-* [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/): this book tells you everything you need to know about presenting your figures for accessbility and clarity
-
-* [Beautiful Plotting in R](https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/): an incredibly handy ggplot guide for how to build and improve your figures
-
-* [The ggplot2 book](https://ggplot2-book.org/): the original Hadley Wickham book on ggplot2
 
 
 

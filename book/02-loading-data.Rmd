@@ -353,10 +353,10 @@ penguins_clean |>
 ```
 
 
-```{solution}
+`r hide("Check your script")`
 
-``{r, eval = F}
-# Packages ====
+```{r, eval = F, echo = T, fig.height=6, fig.width=6, out.width = "60%"}
+# Packages ----
 # Install and load necessary packages
 library(tidyverse)
 library(janitor)
@@ -364,10 +364,10 @@ library(janitor)
 library(palmerpenguins)
 
 
-# Clean the data ====
+# Clean the data ----
 penguins_raw <- janitor::clean_names(penguins_raw)
 
-# Analysis====
+# Analysis----
 # Data exploration and manipulation to make culmen ratio
 penguins_culmen_ratio <- penguins_raw |> 
   select(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm)  |> 
@@ -381,16 +381,16 @@ penguins_culmen_ratio <- penguins_raw |>
 # View summary table
 print(penguins_culmen_ratio)
 
-# Plots====
+# Plots----
 # Data visualization using ggplot2
 penguins_clean |>
   ggplot(aes(x = culmen_length_mm, y = culmen_depth_mm, color = species)) +
   geom_point() +
   labs(x = "Culmen Length (mm)", y = "Culmen Depth (mm)") +
   theme_minimal()
-``
-
 ```
+
+`r unhide()`
 
 # Naming things
 
@@ -1746,7 +1746,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 ```{solution}
 
 
-``{r, eval = T, warning = F, message = F}
+``{r, eval = F, warning = F, message = F}
 
 penguins <- penguins |>
   mutate(date_egg_proper = lubridate::dmy(date_egg))
@@ -1761,6 +1761,13 @@ Here we use the `mutate` function from `dplyr` to create a *new variable* called
 `r unhide()`
 
 Once we have established our date data, we are able to perform calculations. Such as the date range across which our data was collected.  
+
+```{r, include = F}
+
+penguins <- penguins |>
+  mutate(date_egg_proper = lubridate::dmy(date_egg))
+```
+
 
 ```{r, eval = F}
 penguins |> 
@@ -1794,6 +1801,16 @@ penguins |>
             study_duration_years = (last_observation-first_observation)/lubridate::dyears(1), 
             n=n()) |> 
     arrange(desc(study_duration_years))
+
+```
+
+
+Or extract the year from the date - let's do this now and update our dataframe
+
+```{r}
+
+penguins <- penguins |> 
+  mutate(year = as.integer(lubridate::year(date_egg_proper)))
 
 ```
 

@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 32 Pivot | Advancing in R</title>
+  <title>Chapter 26 Pivot | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 32 Pivot | Advancing in R" />
+  <meta property="og:title" content="Chapter 26 Pivot | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 32 Pivot | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 26 Pivot | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,10 +153,10 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="pivot" class="section level1" number="32">
-<h1><span class="header-section-number">Chapter 32</span> Pivot</h1>
-<div id="pivot-wider" class="section level2" number="32.1">
-<h2><span class="header-section-number">32.1</span> pivot wider</h2>
+<div id="pivot" class="section level1" number="26">
+<h1><span class="header-section-number">Chapter 26</span> Pivot</h1>
+<div id="pivot-wider" class="section level2" number="26.1">
+<h2><span class="header-section-number">26.1</span> pivot wider</h2>
 <div class="info">
 <p>
 Un-tidy data violates one of these three principles in one way or
@@ -167,20 +167,20 @@ another:
 type of observation unit is a table
 </p>
 </div>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="pivot.html#cb423-1" tabindex="-1"></a>wk1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
-<span id="cb423-2"><a href="pivot.html#cb423-2" tabindex="-1"></a>wk2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
-<span id="cb423-3"><a href="pivot.html#cb423-3" tabindex="-1"></a>wk3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">0</span>)</span>
-<span id="cb423-4"><a href="pivot.html#cb423-4" tabindex="-1"></a>penguin_id <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N15A1&quot;</span> , <span class="st">&quot;N15A2&quot;</span> , <span class="st">&quot;N18A1&quot;</span>, <span class="st">&quot;N71A2&quot;</span>)</span>
-<span id="cb423-5"><a href="pivot.html#cb423-5" tabindex="-1"></a></span>
-<span id="cb423-6"><a href="pivot.html#cb423-6" tabindex="-1"></a>peng_obs <span class="ot">&lt;-</span> <span class="fu">tibble</span>(penguin_id, wk1,wk2,wk3)</span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="pivot.html#cb415-1" tabindex="-1"></a>wk1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb415-2"><a href="pivot.html#cb415-2" tabindex="-1"></a>wk2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb415-3"><a href="pivot.html#cb415-3" tabindex="-1"></a>wk3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">0</span>)</span>
+<span id="cb415-4"><a href="pivot.html#cb415-4" tabindex="-1"></a>penguin_id <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N15A1&quot;</span> , <span class="st">&quot;N15A2&quot;</span> , <span class="st">&quot;N18A1&quot;</span>, <span class="st">&quot;N71A2&quot;</span>)</span>
+<span id="cb415-5"><a href="pivot.html#cb415-5" tabindex="-1"></a></span>
+<span id="cb415-6"><a href="pivot.html#cb415-6" tabindex="-1"></a>peng_obs <span class="ot">&lt;-</span> <span class="fu">tibble</span>(penguin_id, wk1,wk2,wk3)</span></code></pre></div>
 <p>This data is untidy because a value that measures the same underlying attribute (number of observations) is split across three columns. Here wk1,wk2 and wk3 represent the underlying variable of observations split across three weeks.</p>
 <p>We can use pivot to create a tidy representation of the data</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="pivot.html#cb424-1" tabindex="-1"></a>peng_obs <span class="sc">|&gt;</span> </span>
-<span id="cb424-2"><a href="pivot.html#cb424-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb424-3"><a href="pivot.html#cb424-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="st">&quot;wk1&quot;</span><span class="sc">:</span><span class="st">&quot;wk3&quot;</span>,</span>
-<span id="cb424-4"><a href="pivot.html#cb424-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>,</span>
-<span id="cb424-5"><a href="pivot.html#cb424-5" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;observations&quot;</span></span>
-<span id="cb424-6"><a href="pivot.html#cb424-6" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="pivot.html#cb416-1" tabindex="-1"></a>peng_obs <span class="sc">|&gt;</span> </span>
+<span id="cb416-2"><a href="pivot.html#cb416-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb416-3"><a href="pivot.html#cb416-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="st">&quot;wk1&quot;</span><span class="sc">:</span><span class="st">&quot;wk3&quot;</span>,</span>
+<span id="cb416-4"><a href="pivot.html#cb416-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>,</span>
+<span id="cb416-5"><a href="pivot.html#cb416-5" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;observations&quot;</span></span>
+<span id="cb416-6"><a href="pivot.html#cb416-6" tabindex="-1"></a>  )</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -255,13 +255,13 @@ type of observation unit is a table
 </table>
 </div>
 <p>We can tidy this dataframe further by removing the "wk" prefix:</p>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="pivot.html#cb425-1" tabindex="-1"></a>peng_obs <span class="sc">|&gt;</span> </span>
-<span id="cb425-2"><a href="pivot.html#cb425-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb425-3"><a href="pivot.html#cb425-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="st">&quot;wk1&quot;</span><span class="sc">:</span><span class="st">&quot;wk3&quot;</span>,</span>
-<span id="cb425-4"><a href="pivot.html#cb425-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>,</span>
-<span id="cb425-5"><a href="pivot.html#cb425-5" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">&quot;wk&quot;</span>,</span>
-<span id="cb425-6"><a href="pivot.html#cb425-6" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;observations&quot;</span></span>
-<span id="cb425-7"><a href="pivot.html#cb425-7" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="pivot.html#cb417-1" tabindex="-1"></a>peng_obs <span class="sc">|&gt;</span> </span>
+<span id="cb417-2"><a href="pivot.html#cb417-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb417-3"><a href="pivot.html#cb417-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="st">&quot;wk1&quot;</span><span class="sc">:</span><span class="st">&quot;wk3&quot;</span>,</span>
+<span id="cb417-4"><a href="pivot.html#cb417-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>,</span>
+<span id="cb417-5"><a href="pivot.html#cb417-5" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">&quot;wk&quot;</span>,</span>
+<span id="cb417-6"><a href="pivot.html#cb417-6" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;observations&quot;</span></span>
+<span id="cb417-7"><a href="pivot.html#cb417-7" tabindex="-1"></a>  )</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -341,14 +341,14 @@ Note that the week column is still being treated as a character
 string. using <code>names_transform</code> we can fix this
 </p>
 </div>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="pivot.html#cb426-1" tabindex="-1"></a>peng_obs <span class="sc">|&gt;</span> </span>
-<span id="cb426-2"><a href="pivot.html#cb426-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb426-3"><a href="pivot.html#cb426-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="st">&quot;wk1&quot;</span><span class="sc">:</span><span class="st">&quot;wk3&quot;</span>,</span>
-<span id="cb426-4"><a href="pivot.html#cb426-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>,</span>
-<span id="cb426-5"><a href="pivot.html#cb426-5" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">&quot;wk&quot;</span>,</span>
-<span id="cb426-6"><a href="pivot.html#cb426-6" tabindex="-1"></a>    <span class="at">names_transform =</span> as.integer,</span>
-<span id="cb426-7"><a href="pivot.html#cb426-7" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;observations&quot;</span></span>
-<span id="cb426-8"><a href="pivot.html#cb426-8" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="pivot.html#cb418-1" tabindex="-1"></a>peng_obs <span class="sc">|&gt;</span> </span>
+<span id="cb418-2"><a href="pivot.html#cb418-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb418-3"><a href="pivot.html#cb418-3" tabindex="-1"></a>    <span class="at">cols =</span> <span class="st">&quot;wk1&quot;</span><span class="sc">:</span><span class="st">&quot;wk3&quot;</span>,</span>
+<span id="cb418-4"><a href="pivot.html#cb418-4" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;week&quot;</span>,</span>
+<span id="cb418-5"><a href="pivot.html#cb418-5" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">&quot;wk&quot;</span>,</span>
+<span id="cb418-6"><a href="pivot.html#cb418-6" tabindex="-1"></a>    <span class="at">names_transform =</span> as.integer,</span>
+<span id="cb418-7"><a href="pivot.html#cb418-7" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;observations&quot;</span></span>
+<span id="cb418-8"><a href="pivot.html#cb418-8" tabindex="-1"></a>  )</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -423,8 +423,8 @@ string. using <code>names_transform</code> we can fix this
 </table>
 </div>
 </div>
-<div id="pivot-longer" class="section level2" number="32.2">
-<h2><span class="header-section-number">32.2</span> pivot longer</h2>
+<div id="pivot-longer" class="section level2" number="26.2">
+<h2><span class="header-section-number">26.2</span> pivot longer</h2>
 <p>Suppose you would like to make a data frame wider because you would like to present the results in a human-readable table. To do this, you can use pivot_wider and provide arguments for its main parameters:</p>
 <ul>
 <li><p>id_cols: These columns are the identifiers for the observations. These column names
@@ -438,11 +438,11 @@ newly created column names will be a combination of the column values.</p></li>
 names_from.</p></li>
 </ul>
 </div>
-<div id="pivot-wider-for-summary-tables" class="section level2" number="32.3">
-<h2><span class="header-section-number">32.3</span> pivot wider for summary tables</h2>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="pivot.html#cb427-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb427-2"><a href="pivot.html#cb427-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species, island) <span class="sc">|&gt;</span> </span>
-<span id="cb427-3"><a href="pivot.html#cb427-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T))</span></code></pre></div>
+<div id="pivot-wider-for-summary-tables" class="section level2" number="26.3">
+<h2><span class="header-section-number">26.3</span> pivot wider for summary tables</h2>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="pivot.html#cb419-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb419-2"><a href="pivot.html#cb419-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species, island) <span class="sc">|&gt;</span> </span>
+<span id="cb419-3"><a href="pivot.html#cb419-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T))</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -481,12 +481,12 @@ names_from.</p></li>
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="pivot.html#cb428-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb428-2"><a href="pivot.html#cb428-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species, island) <span class="sc">|&gt;</span> </span>
-<span id="cb428-3"><a href="pivot.html#cb428-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span> </span>
-<span id="cb428-4"><a href="pivot.html#cb428-4" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="fu">c</span>(species, island),</span>
-<span id="cb428-5"><a href="pivot.html#cb428-5" tabindex="-1"></a>              <span class="at">values_from =</span> mean,</span>
-<span id="cb428-6"><a href="pivot.html#cb428-6" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;mean_&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="pivot.html#cb420-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb420-2"><a href="pivot.html#cb420-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species, island) <span class="sc">|&gt;</span> </span>
+<span id="cb420-3"><a href="pivot.html#cb420-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span> </span>
+<span id="cb420-4"><a href="pivot.html#cb420-4" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="fu">c</span>(species, island),</span>
+<span id="cb420-5"><a href="pivot.html#cb420-5" tabindex="-1"></a>              <span class="at">values_from =</span> mean,</span>
+<span id="cb420-6"><a href="pivot.html#cb420-6" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;mean_&quot;</span>)</span></code></pre></div>
 <div class="kable-table">
 <table>
 <colgroup>

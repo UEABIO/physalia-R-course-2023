@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 30 Working with rows | Advancing in R</title>
+  <title>Chapter 24 Working with rows | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 30 Working with rows | Advancing in R" />
+  <meta property="og:title" content="Chapter 24 Working with rows | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 30 Working with rows | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 24 Working with rows | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,30 +153,30 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="working-with-rows" class="section level1" number="30">
-<h1><span class="header-section-number">Chapter 30</span> Working with rows</h1>
-<div id="filtering-rows-based-on-conditions-across-multiple-columns" class="section level2" number="30.1">
-<h2><span class="header-section-number">30.1</span> Filtering rows based on conditions across multiple columns</h2>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="working-with-rows.html#cb408-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb408-2"><a href="working-with-rows.html#cb408-2" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb408-3"><a href="working-with-rows.html#cb408-3" tabindex="-1"></a>    <span class="fu">if_any</span>(<span class="at">.cols =</span> <span class="fu">contains</span>(<span class="st">&quot;culmen&quot;</span>),</span>
-<span id="cb408-4"><a href="working-with-rows.html#cb408-4" tabindex="-1"></a>           <span class="at">.fns =</span> <span class="sc">~</span>. <span class="sc">&lt;</span> <span class="dv">40</span>)</span>
-<span id="cb408-5"><a href="working-with-rows.html#cb408-5" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb408-6"><a href="working-with-rows.html#cb408-6" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="working-with-rows.html#cb409-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb409-2"><a href="working-with-rows.html#cb409-2" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb409-3"><a href="working-with-rows.html#cb409-3" tabindex="-1"></a>    <span class="fu">if_all</span>(<span class="at">.cols =</span> <span class="fu">contains</span>(<span class="st">&quot;culmen&quot;</span>),</span>
-<span id="cb409-4"><a href="working-with-rows.html#cb409-4" tabindex="-1"></a>           <span class="at">.fns =</span> <span class="sc">~</span>. <span class="sc">&lt;</span> <span class="dv">40</span>)</span>
-<span id="cb409-5"><a href="working-with-rows.html#cb409-5" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb409-6"><a href="working-with-rows.html#cb409-6" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div id="working-with-rows" class="section level1" number="24">
+<h1><span class="header-section-number">Chapter 24</span> Working with rows</h1>
+<div id="filtering-rows-based-on-conditions-across-multiple-columns" class="section level2" number="24.1">
+<h2><span class="header-section-number">24.1</span> Filtering rows based on conditions across multiple columns</h2>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="working-with-rows.html#cb400-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb400-2"><a href="working-with-rows.html#cb400-2" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb400-3"><a href="working-with-rows.html#cb400-3" tabindex="-1"></a>    <span class="fu">if_any</span>(<span class="at">.cols =</span> <span class="fu">contains</span>(<span class="st">&quot;culmen&quot;</span>),</span>
+<span id="cb400-4"><a href="working-with-rows.html#cb400-4" tabindex="-1"></a>           <span class="at">.fns =</span> <span class="sc">~</span>. <span class="sc">&lt;</span> <span class="dv">40</span>)</span>
+<span id="cb400-5"><a href="working-with-rows.html#cb400-5" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb400-6"><a href="working-with-rows.html#cb400-6" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="working-with-rows.html#cb401-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb401-2"><a href="working-with-rows.html#cb401-2" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb401-3"><a href="working-with-rows.html#cb401-3" tabindex="-1"></a>    <span class="fu">if_all</span>(<span class="at">.cols =</span> <span class="fu">contains</span>(<span class="st">&quot;culmen&quot;</span>),</span>
+<span id="cb401-4"><a href="working-with-rows.html#cb401-4" tabindex="-1"></a>           <span class="at">.fns =</span> <span class="sc">~</span>. <span class="sc">&lt;</span> <span class="dv">40</span>)</span>
+<span id="cb401-5"><a href="working-with-rows.html#cb401-5" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb401-6"><a href="working-with-rows.html#cb401-6" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
 </div>
-<div id="filter-rows-based-on-missing-values" class="section level2" number="30.2">
-<h2><span class="header-section-number">30.2</span> filter rows based on missing values</h2>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="working-with-rows.html#cb410-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb410-2"><a href="working-with-rows.html#cb410-2" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb410-3"><a href="working-with-rows.html#cb410-3" tabindex="-1"></a>    <span class="fu">if_all</span>(<span class="at">.cols =</span> <span class="fu">where</span>(is.numeric),</span>
-<span id="cb410-4"><a href="working-with-rows.html#cb410-4" tabindex="-1"></a>           <span class="at">.fns =</span> <span class="sc">~!</span><span class="fu">is.na</span>(.))</span>
-<span id="cb410-5"><a href="working-with-rows.html#cb410-5" tabindex="-1"></a>  ) </span></code></pre></div>
+<div id="filter-rows-based-on-missing-values" class="section level2" number="24.2">
+<h2><span class="header-section-number">24.2</span> filter rows based on missing values</h2>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="working-with-rows.html#cb402-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb402-2"><a href="working-with-rows.html#cb402-2" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb402-3"><a href="working-with-rows.html#cb402-3" tabindex="-1"></a>    <span class="fu">if_all</span>(<span class="at">.cols =</span> <span class="fu">where</span>(is.numeric),</span>
+<span id="cb402-4"><a href="working-with-rows.html#cb402-4" tabindex="-1"></a>           <span class="at">.fns =</span> <span class="sc">~!</span><span class="fu">is.na</span>(.))</span>
+<span id="cb402-5"><a href="working-with-rows.html#cb402-5" tabindex="-1"></a>  ) </span></code></pre></div>
 <div class="try">
 <p>
 At first the outcome above can seem counter-intuitive, but can be
@@ -189,11 +189,11 @@ operator
 </p>
 </div>
 </div>
-<div id="slicing" class="section level2" number="30.3">
-<h2><span class="header-section-number">30.3</span> slicing</h2>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="working-with-rows.html#cb411-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb411-2"><a href="working-with-rows.html#cb411-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g)) <span class="sc">|&gt;</span> </span>
-<span id="cb411-3"><a href="working-with-rows.html#cb411-3" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div>
+<div id="slicing" class="section level2" number="24.3">
+<h2><span class="header-section-number">24.3</span> slicing</h2>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="working-with-rows.html#cb403-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb403-2"><a href="working-with-rows.html#cb403-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g)) <span class="sc">|&gt;</span> </span>
+<span id="cb403-3"><a href="working-with-rows.html#cb403-3" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div>
 <div class="kable-table">
 <table>
 <colgroup>
@@ -442,10 +442,10 @@ operator
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="working-with-rows.html#cb412-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb412-2"><a href="working-with-rows.html#cb412-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g)) <span class="sc">|&gt;</span> </span>
-<span id="cb412-3"><a href="working-with-rows.html#cb412-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;row_number&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb412-4"><a href="working-with-rows.html#cb412-4" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">123</span>,<span class="dv">307</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="working-with-rows.html#cb404-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb404-2"><a href="working-with-rows.html#cb404-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g)) <span class="sc">|&gt;</span> </span>
+<span id="cb404-3"><a href="working-with-rows.html#cb404-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;row_number&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb404-4"><a href="working-with-rows.html#cb404-4" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">123</span>,<span class="dv">307</span>))</span></code></pre></div>
 <div class="kable-table">
 <table>
 <colgroup>
@@ -559,10 +559,10 @@ operator
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="working-with-rows.html#cb413-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb413-2"><a href="working-with-rows.html#cb413-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g)) <span class="sc">|&gt;</span> </span>
-<span id="cb413-3"><a href="working-with-rows.html#cb413-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;row_number&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb413-4"><a href="working-with-rows.html#cb413-4" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">:-</span><span class="dv">340</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="working-with-rows.html#cb405-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb405-2"><a href="working-with-rows.html#cb405-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g)) <span class="sc">|&gt;</span> </span>
+<span id="cb405-3"><a href="working-with-rows.html#cb405-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;row_number&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb405-4"><a href="working-with-rows.html#cb405-4" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">:-</span><span class="dv">340</span>))</span></code></pre></div>
 <div class="kable-table">
 <table>
 <colgroup>
@@ -699,10 +699,10 @@ operator
 </div>
 <p>Helper functions include <code>slice_head()</code>, <code>slice_tail()</code>, <code>slice_max()</code>, <code>slice_min()</code> and <code>slice_sample()</code>
 We can use these functions to more quickly and easily filter our data under some situations</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="working-with-rows.html#cb414-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb414-2"><a href="working-with-rows.html#cb414-2" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> body_mass_g,</span>
-<span id="cb414-3"><a href="working-with-rows.html#cb414-3" tabindex="-1"></a>            <span class="at">n =</span> <span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># we can also use prop e.g. prop =.1 to slice the top 10%</span></span>
-<span id="cb414-4"><a href="working-with-rows.html#cb414-4" tabindex="-1"></a>  <span class="fu">select</span>(species, body_mass_g)</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="working-with-rows.html#cb406-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb406-2"><a href="working-with-rows.html#cb406-2" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> body_mass_g,</span>
+<span id="cb406-3"><a href="working-with-rows.html#cb406-3" tabindex="-1"></a>            <span class="at">n =</span> <span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># we can also use prop e.g. prop =.1 to slice the top 10%</span></span>
+<span id="cb406-4"><a href="working-with-rows.html#cb406-4" tabindex="-1"></a>  <span class="fu">select</span>(species, body_mass_g)</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -796,14 +796,14 @@ We can use these functions to more quickly and easily filter our data under some
 </table>
 </div>
 </div>
-<div id="groupwise-slicing" class="section level2" number="30.4">
-<h2><span class="header-section-number">30.4</span> groupwise slicing</h2>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="working-with-rows.html#cb415-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb415-2"><a href="working-with-rows.html#cb415-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
-<span id="cb415-3"><a href="working-with-rows.html#cb415-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> body_mass_g,</span>
-<span id="cb415-4"><a href="working-with-rows.html#cb415-4" tabindex="-1"></a>            <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb415-5"><a href="working-with-rows.html#cb415-5" tabindex="-1"></a>  <span class="fu">select</span>(species, body_mass_g) <span class="sc">|&gt;</span> </span>
-<span id="cb415-6"><a href="working-with-rows.html#cb415-6" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<div id="groupwise-slicing" class="section level2" number="24.4">
+<h2><span class="header-section-number">24.4</span> groupwise slicing</h2>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="working-with-rows.html#cb407-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb407-2"><a href="working-with-rows.html#cb407-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
+<span id="cb407-3"><a href="working-with-rows.html#cb407-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> body_mass_g,</span>
+<span id="cb407-4"><a href="working-with-rows.html#cb407-4" tabindex="-1"></a>            <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb407-5"><a href="working-with-rows.html#cb407-5" tabindex="-1"></a>  <span class="fu">select</span>(species, body_mass_g) <span class="sc">|&gt;</span> </span>
+<span id="cb407-6"><a href="working-with-rows.html#cb407-6" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -857,19 +857,19 @@ We can use these functions to more quickly and easily filter our data under some
 </table>
 </div>
 </div>
-<div id="bootstrapping-with-slice" class="section level2" number="30.5">
-<h2><span class="header-section-number">30.5</span> bootstrapping with slice</h2>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="working-with-rows.html#cb416-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">342</span>)</span>
-<span id="cb416-2"><a href="working-with-rows.html#cb416-2" tabindex="-1"></a>bootstraps <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="sc">~</span><span class="fu">slice_sample</span>(penguins_clean_split, <span class="at">prop =</span> .<span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb416-3"><a href="working-with-rows.html#cb416-3" tabindex="-1"></a></span>
-<span id="cb416-4"><a href="working-with-rows.html#cb416-4" tabindex="-1"></a>bootstraps <span class="sc">%&gt;%</span></span>
-<span id="cb416-5"><a href="working-with-rows.html#cb416-5" tabindex="-1"></a>    <span class="fu">map_dbl</span>(<span class="sc">~</span> <span class="fu">mean</span>(.<span class="sc">$</span>body_mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb416-6"><a href="working-with-rows.html#cb416-6" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">x =</span> _ ) <span class="sc">|&gt;</span> </span>
-<span id="cb416-7"><a href="working-with-rows.html#cb416-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
-<span id="cb416-8"><a href="working-with-rows.html#cb416-8" tabindex="-1"></a><span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;grey80&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb416-9"><a href="working-with-rows.html#cb416-9" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> penguins_clean_split,</span>
-<span id="cb416-10"><a href="working-with-rows.html#cb416-10" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T)),</span>
-<span id="cb416-11"><a href="working-with-rows.html#cb416-11" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype  =</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<div id="bootstrapping-with-slice" class="section level2" number="24.5">
+<h2><span class="header-section-number">24.5</span> bootstrapping with slice</h2>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="working-with-rows.html#cb408-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">342</span>)</span>
+<span id="cb408-2"><a href="working-with-rows.html#cb408-2" tabindex="-1"></a>bootstraps <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="sc">~</span><span class="fu">slice_sample</span>(penguins_clean_split, <span class="at">prop =</span> .<span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb408-3"><a href="working-with-rows.html#cb408-3" tabindex="-1"></a></span>
+<span id="cb408-4"><a href="working-with-rows.html#cb408-4" tabindex="-1"></a>bootstraps <span class="sc">%&gt;%</span></span>
+<span id="cb408-5"><a href="working-with-rows.html#cb408-5" tabindex="-1"></a>    <span class="fu">map_dbl</span>(<span class="sc">~</span> <span class="fu">mean</span>(.<span class="sc">$</span>body_mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb408-6"><a href="working-with-rows.html#cb408-6" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">x =</span> _ ) <span class="sc">|&gt;</span> </span>
+<span id="cb408-7"><a href="working-with-rows.html#cb408-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb408-8"><a href="working-with-rows.html#cb408-8" tabindex="-1"></a><span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;grey80&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb408-9"><a href="working-with-rows.html#cb408-9" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> penguins_clean_split,</span>
+<span id="cb408-10"><a href="working-with-rows.html#cb408-10" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T)),</span>
+<span id="cb408-11"><a href="working-with-rows.html#cb408-11" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype  =</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
 <p><img src="05-tidyverse_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>

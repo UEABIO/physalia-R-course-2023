@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 24 Bonus: Simulation | Advancing in R</title>
+  <title>Chapter 18 Bonus: Simulation | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 24 Bonus: Simulation | Advancing in R" />
+  <meta property="og:title" content="Chapter 18 Bonus: Simulation | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 24 Bonus: Simulation | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 18 Bonus: Simulation | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,117 +153,117 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="bonus-simulation" class="section level1" number="24">
-<h1><span class="header-section-number">Chapter 24</span> Bonus: Simulation</h1>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="bonus-simulation.html#cb359-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb359-2"><a href="bonus-simulation.html#cb359-2" tabindex="-1"></a></span>
-<span id="cb359-3"><a href="bonus-simulation.html#cb359-3" tabindex="-1"></a><span class="co"># Define a function to run the simulation for a given sample size and effect size</span></span>
-<span id="cb359-4"><a href="bonus-simulation.html#cb359-4" tabindex="-1"></a>simulate_difference <span class="ot">&lt;-</span> <span class="cf">function</span>(sample_size, effect_size) {</span>
-<span id="cb359-5"><a href="bonus-simulation.html#cb359-5" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb359-6"><a href="bonus-simulation.html#cb359-6" tabindex="-1"></a>    </span>
-<span id="cb359-7"><a href="bonus-simulation.html#cb359-7" tabindex="-1"></a>    <span class="co"># Initialize a data frame to store the estimated differences</span></span>
-<span id="cb359-8"><a href="bonus-simulation.html#cb359-8" tabindex="-1"></a>    results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Simulated_Difference =</span> <span class="fu">numeric</span>(<span class="dv">100</span>))</span>
-<span id="cb359-9"><a href="bonus-simulation.html#cb359-9" tabindex="-1"></a>    </span>
-<span id="cb359-10"><a href="bonus-simulation.html#cb359-10" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {  <span class="co"># Perform 100 simulations for the fixed sample size</span></span>
-<span id="cb359-11"><a href="bonus-simulation.html#cb359-11" tabindex="-1"></a>        <span class="co"># Generate data for two groups with a specified effect size</span></span>
-<span id="cb359-12"><a href="bonus-simulation.html#cb359-12" tabindex="-1"></a>        group1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(sample_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb359-13"><a href="bonus-simulation.html#cb359-13" tabindex="-1"></a>        group2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(sample_size, <span class="at">mean =</span> effect_size, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb359-14"><a href="bonus-simulation.html#cb359-14" tabindex="-1"></a>        </span>
-<span id="cb359-15"><a href="bonus-simulation.html#cb359-15" tabindex="-1"></a>        <span class="co"># Create a data frame for the two groups</span></span>
-<span id="cb359-16"><a href="bonus-simulation.html#cb359-16" tabindex="-1"></a>        data_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Group1&quot;</span>, <span class="st">&quot;Group2&quot;</span>), <span class="at">each =</span> sample_size),</span>
-<span id="cb359-17"><a href="bonus-simulation.html#cb359-17" tabindex="-1"></a>                              <span class="at">Value =</span> <span class="fu">c</span>(group1, group2))</span>
-<span id="cb359-18"><a href="bonus-simulation.html#cb359-18" tabindex="-1"></a>        </span>
-<span id="cb359-19"><a href="bonus-simulation.html#cb359-19" tabindex="-1"></a>        <span class="co"># Fit a linear model to estimate the difference in means</span></span>
-<span id="cb359-20"><a href="bonus-simulation.html#cb359-20" tabindex="-1"></a>        lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Value <span class="sc">~</span> Group, <span class="at">data =</span> data_df)</span>
-<span id="cb359-21"><a href="bonus-simulation.html#cb359-21" tabindex="-1"></a>        </span>
-<span id="cb359-22"><a href="bonus-simulation.html#cb359-22" tabindex="-1"></a>        <span class="co"># Extract the estimated difference from the model</span></span>
-<span id="cb359-23"><a href="bonus-simulation.html#cb359-23" tabindex="-1"></a>        estimated_difference <span class="ot">&lt;-</span> <span class="fu">coef</span>(lm_model)[<span class="dv">2</span>]</span>
-<span id="cb359-24"><a href="bonus-simulation.html#cb359-24" tabindex="-1"></a>        </span>
-<span id="cb359-25"><a href="bonus-simulation.html#cb359-25" tabindex="-1"></a>        results<span class="sc">$</span>Simulated_Difference[i] <span class="ot">&lt;-</span> estimated_difference</span>
-<span id="cb359-26"><a href="bonus-simulation.html#cb359-26" tabindex="-1"></a>    }</span>
-<span id="cb359-27"><a href="bonus-simulation.html#cb359-27" tabindex="-1"></a>    </span>
-<span id="cb359-28"><a href="bonus-simulation.html#cb359-28" tabindex="-1"></a>    <span class="co"># Return the data frame of estimated differences</span></span>
-<span id="cb359-29"><a href="bonus-simulation.html#cb359-29" tabindex="-1"></a>    <span class="fu">return</span>(results)</span>
-<span id="cb359-30"><a href="bonus-simulation.html#cb359-30" tabindex="-1"></a>}</span>
-<span id="cb359-31"><a href="bonus-simulation.html#cb359-31" tabindex="-1"></a></span>
-<span id="cb359-32"><a href="bonus-simulation.html#cb359-32" tabindex="-1"></a><span class="co"># Fixed sample size of 20</span></span>
-<span id="cb359-33"><a href="bonus-simulation.html#cb359-33" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb359-34"><a href="bonus-simulation.html#cb359-34" tabindex="-1"></a></span>
-<span id="cb359-35"><a href="bonus-simulation.html#cb359-35" tabindex="-1"></a><span class="co"># Set the effect size</span></span>
-<span id="cb359-36"><a href="bonus-simulation.html#cb359-36" tabindex="-1"></a>effect_size <span class="ot">&lt;-</span> .<span class="dv">8</span>  <span class="co"># Adjust as needed</span></span>
-<span id="cb359-37"><a href="bonus-simulation.html#cb359-37" tabindex="-1"></a></span>
-<span id="cb359-38"><a href="bonus-simulation.html#cb359-38" tabindex="-1"></a><span class="co"># Run the simulation for the fixed sample size</span></span>
-<span id="cb359-39"><a href="bonus-simulation.html#cb359-39" tabindex="-1"></a>simulation_results <span class="ot">&lt;-</span> <span class="fu">simulate_difference</span>(sample_size, effect_size)</span>
-<span id="cb359-40"><a href="bonus-simulation.html#cb359-40" tabindex="-1"></a></span>
-<span id="cb359-41"><a href="bonus-simulation.html#cb359-41" tabindex="-1"></a><span class="co"># Calculate the mean and 2.5th and 97.5th percentiles for the confidence interval</span></span>
-<span id="cb359-42"><a href="bonus-simulation.html#cb359-42" tabindex="-1"></a>mean_difference <span class="ot">&lt;-</span> <span class="fu">mean</span>(simulation_results<span class="sc">$</span>Simulated_Difference)</span>
-<span id="cb359-43"><a href="bonus-simulation.html#cb359-43" tabindex="-1"></a>lower_percentile <span class="ot">&lt;-</span> <span class="fu">quantile</span>(simulation_results<span class="sc">$</span>Simulated_Difference, <span class="fl">0.025</span>)</span>
-<span id="cb359-44"><a href="bonus-simulation.html#cb359-44" tabindex="-1"></a>upper_percentile <span class="ot">&lt;-</span> <span class="fu">quantile</span>(simulation_results<span class="sc">$</span>Simulated_Difference, <span class="fl">0.975</span>)</span>
-<span id="cb359-45"><a href="bonus-simulation.html#cb359-45" tabindex="-1"></a></span>
-<span id="cb359-46"><a href="bonus-simulation.html#cb359-46" tabindex="-1"></a><span class="co"># Create a density histogram of the estimated differences with lines for percentiles</span></span>
-<span id="cb359-47"><a href="bonus-simulation.html#cb359-47" tabindex="-1"></a><span class="fu">ggplot</span>(simulation_results, <span class="fu">aes</span>(<span class="at">x =</span> Simulated_Difference)) <span class="sc">+</span></span>
-<span id="cb359-48"><a href="bonus-simulation.html#cb359-48" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb359-49"><a href="bonus-simulation.html#cb359-49" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mean_difference), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb359-50"><a href="bonus-simulation.html#cb359-50" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> lower_percentile), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb359-51"><a href="bonus-simulation.html#cb359-51" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> upper_percentile), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb359-52"><a href="bonus-simulation.html#cb359-52" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Estimated Difference&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
-<span id="cb359-53"><a href="bonus-simulation.html#cb359-53" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Density Histogram of Estimated Differences (Sample Size = 20)&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb359-54"><a href="bonus-simulation.html#cb359-54" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div id="bonus-simulation" class="section level1" number="18">
+<h1><span class="header-section-number">Chapter 18</span> Bonus: Simulation</h1>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="bonus-simulation.html#cb351-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb351-2"><a href="bonus-simulation.html#cb351-2" tabindex="-1"></a></span>
+<span id="cb351-3"><a href="bonus-simulation.html#cb351-3" tabindex="-1"></a><span class="co"># Define a function to run the simulation for a given sample size and effect size</span></span>
+<span id="cb351-4"><a href="bonus-simulation.html#cb351-4" tabindex="-1"></a>simulate_difference <span class="ot">&lt;-</span> <span class="cf">function</span>(sample_size, effect_size) {</span>
+<span id="cb351-5"><a href="bonus-simulation.html#cb351-5" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb351-6"><a href="bonus-simulation.html#cb351-6" tabindex="-1"></a>    </span>
+<span id="cb351-7"><a href="bonus-simulation.html#cb351-7" tabindex="-1"></a>    <span class="co"># Initialize a data frame to store the estimated differences</span></span>
+<span id="cb351-8"><a href="bonus-simulation.html#cb351-8" tabindex="-1"></a>    results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Simulated_Difference =</span> <span class="fu">numeric</span>(<span class="dv">100</span>))</span>
+<span id="cb351-9"><a href="bonus-simulation.html#cb351-9" tabindex="-1"></a>    </span>
+<span id="cb351-10"><a href="bonus-simulation.html#cb351-10" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {  <span class="co"># Perform 100 simulations for the fixed sample size</span></span>
+<span id="cb351-11"><a href="bonus-simulation.html#cb351-11" tabindex="-1"></a>        <span class="co"># Generate data for two groups with a specified effect size</span></span>
+<span id="cb351-12"><a href="bonus-simulation.html#cb351-12" tabindex="-1"></a>        group1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(sample_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb351-13"><a href="bonus-simulation.html#cb351-13" tabindex="-1"></a>        group2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(sample_size, <span class="at">mean =</span> effect_size, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb351-14"><a href="bonus-simulation.html#cb351-14" tabindex="-1"></a>        </span>
+<span id="cb351-15"><a href="bonus-simulation.html#cb351-15" tabindex="-1"></a>        <span class="co"># Create a data frame for the two groups</span></span>
+<span id="cb351-16"><a href="bonus-simulation.html#cb351-16" tabindex="-1"></a>        data_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Group1&quot;</span>, <span class="st">&quot;Group2&quot;</span>), <span class="at">each =</span> sample_size),</span>
+<span id="cb351-17"><a href="bonus-simulation.html#cb351-17" tabindex="-1"></a>                              <span class="at">Value =</span> <span class="fu">c</span>(group1, group2))</span>
+<span id="cb351-18"><a href="bonus-simulation.html#cb351-18" tabindex="-1"></a>        </span>
+<span id="cb351-19"><a href="bonus-simulation.html#cb351-19" tabindex="-1"></a>        <span class="co"># Fit a linear model to estimate the difference in means</span></span>
+<span id="cb351-20"><a href="bonus-simulation.html#cb351-20" tabindex="-1"></a>        lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Value <span class="sc">~</span> Group, <span class="at">data =</span> data_df)</span>
+<span id="cb351-21"><a href="bonus-simulation.html#cb351-21" tabindex="-1"></a>        </span>
+<span id="cb351-22"><a href="bonus-simulation.html#cb351-22" tabindex="-1"></a>        <span class="co"># Extract the estimated difference from the model</span></span>
+<span id="cb351-23"><a href="bonus-simulation.html#cb351-23" tabindex="-1"></a>        estimated_difference <span class="ot">&lt;-</span> <span class="fu">coef</span>(lm_model)[<span class="dv">2</span>]</span>
+<span id="cb351-24"><a href="bonus-simulation.html#cb351-24" tabindex="-1"></a>        </span>
+<span id="cb351-25"><a href="bonus-simulation.html#cb351-25" tabindex="-1"></a>        results<span class="sc">$</span>Simulated_Difference[i] <span class="ot">&lt;-</span> estimated_difference</span>
+<span id="cb351-26"><a href="bonus-simulation.html#cb351-26" tabindex="-1"></a>    }</span>
+<span id="cb351-27"><a href="bonus-simulation.html#cb351-27" tabindex="-1"></a>    </span>
+<span id="cb351-28"><a href="bonus-simulation.html#cb351-28" tabindex="-1"></a>    <span class="co"># Return the data frame of estimated differences</span></span>
+<span id="cb351-29"><a href="bonus-simulation.html#cb351-29" tabindex="-1"></a>    <span class="fu">return</span>(results)</span>
+<span id="cb351-30"><a href="bonus-simulation.html#cb351-30" tabindex="-1"></a>}</span>
+<span id="cb351-31"><a href="bonus-simulation.html#cb351-31" tabindex="-1"></a></span>
+<span id="cb351-32"><a href="bonus-simulation.html#cb351-32" tabindex="-1"></a><span class="co"># Fixed sample size of 20</span></span>
+<span id="cb351-33"><a href="bonus-simulation.html#cb351-33" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb351-34"><a href="bonus-simulation.html#cb351-34" tabindex="-1"></a></span>
+<span id="cb351-35"><a href="bonus-simulation.html#cb351-35" tabindex="-1"></a><span class="co"># Set the effect size</span></span>
+<span id="cb351-36"><a href="bonus-simulation.html#cb351-36" tabindex="-1"></a>effect_size <span class="ot">&lt;-</span> .<span class="dv">8</span>  <span class="co"># Adjust as needed</span></span>
+<span id="cb351-37"><a href="bonus-simulation.html#cb351-37" tabindex="-1"></a></span>
+<span id="cb351-38"><a href="bonus-simulation.html#cb351-38" tabindex="-1"></a><span class="co"># Run the simulation for the fixed sample size</span></span>
+<span id="cb351-39"><a href="bonus-simulation.html#cb351-39" tabindex="-1"></a>simulation_results <span class="ot">&lt;-</span> <span class="fu">simulate_difference</span>(sample_size, effect_size)</span>
+<span id="cb351-40"><a href="bonus-simulation.html#cb351-40" tabindex="-1"></a></span>
+<span id="cb351-41"><a href="bonus-simulation.html#cb351-41" tabindex="-1"></a><span class="co"># Calculate the mean and 2.5th and 97.5th percentiles for the confidence interval</span></span>
+<span id="cb351-42"><a href="bonus-simulation.html#cb351-42" tabindex="-1"></a>mean_difference <span class="ot">&lt;-</span> <span class="fu">mean</span>(simulation_results<span class="sc">$</span>Simulated_Difference)</span>
+<span id="cb351-43"><a href="bonus-simulation.html#cb351-43" tabindex="-1"></a>lower_percentile <span class="ot">&lt;-</span> <span class="fu">quantile</span>(simulation_results<span class="sc">$</span>Simulated_Difference, <span class="fl">0.025</span>)</span>
+<span id="cb351-44"><a href="bonus-simulation.html#cb351-44" tabindex="-1"></a>upper_percentile <span class="ot">&lt;-</span> <span class="fu">quantile</span>(simulation_results<span class="sc">$</span>Simulated_Difference, <span class="fl">0.975</span>)</span>
+<span id="cb351-45"><a href="bonus-simulation.html#cb351-45" tabindex="-1"></a></span>
+<span id="cb351-46"><a href="bonus-simulation.html#cb351-46" tabindex="-1"></a><span class="co"># Create a density histogram of the estimated differences with lines for percentiles</span></span>
+<span id="cb351-47"><a href="bonus-simulation.html#cb351-47" tabindex="-1"></a><span class="fu">ggplot</span>(simulation_results, <span class="fu">aes</span>(<span class="at">x =</span> Simulated_Difference)) <span class="sc">+</span></span>
+<span id="cb351-48"><a href="bonus-simulation.html#cb351-48" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb351-49"><a href="bonus-simulation.html#cb351-49" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mean_difference), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb351-50"><a href="bonus-simulation.html#cb351-50" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> lower_percentile), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb351-51"><a href="bonus-simulation.html#cb351-51" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> upper_percentile), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb351-52"><a href="bonus-simulation.html#cb351-52" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Estimated Difference&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
+<span id="cb351-53"><a href="bonus-simulation.html#cb351-53" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Density Histogram of Estimated Differences (Sample Size = 20)&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb351-54"><a href="bonus-simulation.html#cb351-54" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="04-functional-programming_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="bonus-simulation.html#cb360-1" tabindex="-1"></a><span class="co"># Define a function to run the simulation for a given sample size and effect size</span></span>
-<span id="cb360-2"><a href="bonus-simulation.html#cb360-2" tabindex="-1"></a>simulate_power <span class="ot">&lt;-</span> <span class="cf">function</span>(sample_size, effect_size) {</span>
-<span id="cb360-3"><a href="bonus-simulation.html#cb360-3" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb360-4"><a href="bonus-simulation.html#cb360-4" tabindex="-1"></a>  </span>
-<span id="cb360-5"><a href="bonus-simulation.html#cb360-5" tabindex="-1"></a>  <span class="co"># Initialize a counter for the number of significant t-tests</span></span>
-<span id="cb360-6"><a href="bonus-simulation.html#cb360-6" tabindex="-1"></a>  num_significant <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb360-7"><a href="bonus-simulation.html#cb360-7" tabindex="-1"></a>  </span>
-<span id="cb360-8"><a href="bonus-simulation.html#cb360-8" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {  <span class="co"># Perform 100 simulations for each sample size</span></span>
-<span id="cb360-9"><a href="bonus-simulation.html#cb360-9" tabindex="-1"></a></span>
-<span id="cb360-10"><a href="bonus-simulation.html#cb360-10" tabindex="-1"></a>          <span class="co"># Generate data for two groups with a specified effect size</span></span>
-<span id="cb360-11"><a href="bonus-simulation.html#cb360-11" tabindex="-1"></a>    group1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(sample_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb360-12"><a href="bonus-simulation.html#cb360-12" tabindex="-1"></a>    group2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(sample_size, <span class="at">mean =</span> effect_size, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb360-13"><a href="bonus-simulation.html#cb360-13" tabindex="-1"></a></span>
-<span id="cb360-14"><a href="bonus-simulation.html#cb360-14" tabindex="-1"></a>     <span class="co"># Create a data frame for the two groups</span></span>
-<span id="cb360-15"><a href="bonus-simulation.html#cb360-15" tabindex="-1"></a>        data_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Group1&quot;</span>, <span class="st">&quot;Group2&quot;</span>), <span class="at">each =</span> sample_size),</span>
-<span id="cb360-16"><a href="bonus-simulation.html#cb360-16" tabindex="-1"></a>                              <span class="at">Value =</span> <span class="fu">c</span>(group1, group2))</span>
-<span id="cb360-17"><a href="bonus-simulation.html#cb360-17" tabindex="-1"></a>        </span>
-<span id="cb360-18"><a href="bonus-simulation.html#cb360-18" tabindex="-1"></a>        <span class="co"># Fit a linear model to estimate the difference in means</span></span>
-<span id="cb360-19"><a href="bonus-simulation.html#cb360-19" tabindex="-1"></a>        lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Value <span class="sc">~</span> Group, <span class="at">data =</span> data_df)</span>
-<span id="cb360-20"><a href="bonus-simulation.html#cb360-20" tabindex="-1"></a>        </span>
-<span id="cb360-21"><a href="bonus-simulation.html#cb360-21" tabindex="-1"></a>        <span class="co"># Extract the p value from the model</span></span>
-<span id="cb360-22"><a href="bonus-simulation.html#cb360-22" tabindex="-1"></a>       </span>
-<span id="cb360-23"><a href="bonus-simulation.html#cb360-23" tabindex="-1"></a>      </span>
-<span id="cb360-24"><a href="bonus-simulation.html#cb360-24" tabindex="-1"></a>        </span>
-<span id="cb360-25"><a href="bonus-simulation.html#cb360-25" tabindex="-1"></a>    <span class="co"># Check if the null hypothesis is rejected (p-value &lt; 0.05)</span></span>
-<span id="cb360-26"><a href="bonus-simulation.html#cb360-26" tabindex="-1"></a>    <span class="cf">if</span> ( broom<span class="sc">::</span><span class="fu">tidy</span>(lm_model)[[<span class="dv">2</span>,<span class="dv">5</span>]] <span class="sc">&lt;</span> <span class="fl">0.05</span>) {</span>
-<span id="cb360-27"><a href="bonus-simulation.html#cb360-27" tabindex="-1"></a>      num_significant <span class="ot">&lt;-</span> num_significant <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb360-28"><a href="bonus-simulation.html#cb360-28" tabindex="-1"></a>    }</span>
-<span id="cb360-29"><a href="bonus-simulation.html#cb360-29" tabindex="-1"></a>  }</span>
-<span id="cb360-30"><a href="bonus-simulation.html#cb360-30" tabindex="-1"></a>  </span>
-<span id="cb360-31"><a href="bonus-simulation.html#cb360-31" tabindex="-1"></a>  <span class="co"># Return the proportion of significant t-tests (power)</span></span>
-<span id="cb360-32"><a href="bonus-simulation.html#cb360-32" tabindex="-1"></a>  <span class="fu">return</span>(num_significant <span class="sc">/</span> <span class="dv">100</span>)</span>
-<span id="cb360-33"><a href="bonus-simulation.html#cb360-33" tabindex="-1"></a>}</span>
-<span id="cb360-34"><a href="bonus-simulation.html#cb360-34" tabindex="-1"></a></span>
-<span id="cb360-35"><a href="bonus-simulation.html#cb360-35" tabindex="-1"></a><span class="co"># Specify a range of sample sizes to test</span></span>
-<span id="cb360-36"><a href="bonus-simulation.html#cb360-36" tabindex="-1"></a>sample_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>)</span>
-<span id="cb360-37"><a href="bonus-simulation.html#cb360-37" tabindex="-1"></a></span>
-<span id="cb360-38"><a href="bonus-simulation.html#cb360-38" tabindex="-1"></a><span class="co"># Set the effect size</span></span>
-<span id="cb360-39"><a href="bonus-simulation.html#cb360-39" tabindex="-1"></a>effect_size <span class="ot">&lt;-</span> <span class="dv">1</span>  <span class="co"># Adjust as needed</span></span>
-<span id="cb360-40"><a href="bonus-simulation.html#cb360-40" tabindex="-1"></a></span>
-<span id="cb360-41"><a href="bonus-simulation.html#cb360-41" tabindex="-1"></a><span class="co"># Run the simulation for each sample size</span></span>
-<span id="cb360-42"><a href="bonus-simulation.html#cb360-42" tabindex="-1"></a>simulation_results <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(sample_sizes, simulate_power, effect_size)</span>
-<span id="cb360-43"><a href="bonus-simulation.html#cb360-43" tabindex="-1"></a></span>
-<span id="cb360-44"><a href="bonus-simulation.html#cb360-44" tabindex="-1"></a><span class="co"># Plot the power as a function of sample size</span></span>
-<span id="cb360-45"><a href="bonus-simulation.html#cb360-45" tabindex="-1"></a><span class="fu">plot</span>(sample_sizes, simulation_results, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Sample Size&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Power&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Power vs. Sample Size&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="bonus-simulation.html#cb352-1" tabindex="-1"></a><span class="co"># Define a function to run the simulation for a given sample size and effect size</span></span>
+<span id="cb352-2"><a href="bonus-simulation.html#cb352-2" tabindex="-1"></a>simulate_power <span class="ot">&lt;-</span> <span class="cf">function</span>(sample_size, effect_size) {</span>
+<span id="cb352-3"><a href="bonus-simulation.html#cb352-3" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb352-4"><a href="bonus-simulation.html#cb352-4" tabindex="-1"></a>  </span>
+<span id="cb352-5"><a href="bonus-simulation.html#cb352-5" tabindex="-1"></a>  <span class="co"># Initialize a counter for the number of significant t-tests</span></span>
+<span id="cb352-6"><a href="bonus-simulation.html#cb352-6" tabindex="-1"></a>  num_significant <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb352-7"><a href="bonus-simulation.html#cb352-7" tabindex="-1"></a>  </span>
+<span id="cb352-8"><a href="bonus-simulation.html#cb352-8" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {  <span class="co"># Perform 100 simulations for each sample size</span></span>
+<span id="cb352-9"><a href="bonus-simulation.html#cb352-9" tabindex="-1"></a></span>
+<span id="cb352-10"><a href="bonus-simulation.html#cb352-10" tabindex="-1"></a>          <span class="co"># Generate data for two groups with a specified effect size</span></span>
+<span id="cb352-11"><a href="bonus-simulation.html#cb352-11" tabindex="-1"></a>    group1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(sample_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb352-12"><a href="bonus-simulation.html#cb352-12" tabindex="-1"></a>    group2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(sample_size, <span class="at">mean =</span> effect_size, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb352-13"><a href="bonus-simulation.html#cb352-13" tabindex="-1"></a></span>
+<span id="cb352-14"><a href="bonus-simulation.html#cb352-14" tabindex="-1"></a>     <span class="co"># Create a data frame for the two groups</span></span>
+<span id="cb352-15"><a href="bonus-simulation.html#cb352-15" tabindex="-1"></a>        data_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Group1&quot;</span>, <span class="st">&quot;Group2&quot;</span>), <span class="at">each =</span> sample_size),</span>
+<span id="cb352-16"><a href="bonus-simulation.html#cb352-16" tabindex="-1"></a>                              <span class="at">Value =</span> <span class="fu">c</span>(group1, group2))</span>
+<span id="cb352-17"><a href="bonus-simulation.html#cb352-17" tabindex="-1"></a>        </span>
+<span id="cb352-18"><a href="bonus-simulation.html#cb352-18" tabindex="-1"></a>        <span class="co"># Fit a linear model to estimate the difference in means</span></span>
+<span id="cb352-19"><a href="bonus-simulation.html#cb352-19" tabindex="-1"></a>        lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Value <span class="sc">~</span> Group, <span class="at">data =</span> data_df)</span>
+<span id="cb352-20"><a href="bonus-simulation.html#cb352-20" tabindex="-1"></a>        </span>
+<span id="cb352-21"><a href="bonus-simulation.html#cb352-21" tabindex="-1"></a>        <span class="co"># Extract the p value from the model</span></span>
+<span id="cb352-22"><a href="bonus-simulation.html#cb352-22" tabindex="-1"></a>       </span>
+<span id="cb352-23"><a href="bonus-simulation.html#cb352-23" tabindex="-1"></a>      </span>
+<span id="cb352-24"><a href="bonus-simulation.html#cb352-24" tabindex="-1"></a>        </span>
+<span id="cb352-25"><a href="bonus-simulation.html#cb352-25" tabindex="-1"></a>    <span class="co"># Check if the null hypothesis is rejected (p-value &lt; 0.05)</span></span>
+<span id="cb352-26"><a href="bonus-simulation.html#cb352-26" tabindex="-1"></a>    <span class="cf">if</span> ( broom<span class="sc">::</span><span class="fu">tidy</span>(lm_model)[[<span class="dv">2</span>,<span class="dv">5</span>]] <span class="sc">&lt;</span> <span class="fl">0.05</span>) {</span>
+<span id="cb352-27"><a href="bonus-simulation.html#cb352-27" tabindex="-1"></a>      num_significant <span class="ot">&lt;-</span> num_significant <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb352-28"><a href="bonus-simulation.html#cb352-28" tabindex="-1"></a>    }</span>
+<span id="cb352-29"><a href="bonus-simulation.html#cb352-29" tabindex="-1"></a>  }</span>
+<span id="cb352-30"><a href="bonus-simulation.html#cb352-30" tabindex="-1"></a>  </span>
+<span id="cb352-31"><a href="bonus-simulation.html#cb352-31" tabindex="-1"></a>  <span class="co"># Return the proportion of significant t-tests (power)</span></span>
+<span id="cb352-32"><a href="bonus-simulation.html#cb352-32" tabindex="-1"></a>  <span class="fu">return</span>(num_significant <span class="sc">/</span> <span class="dv">100</span>)</span>
+<span id="cb352-33"><a href="bonus-simulation.html#cb352-33" tabindex="-1"></a>}</span>
+<span id="cb352-34"><a href="bonus-simulation.html#cb352-34" tabindex="-1"></a></span>
+<span id="cb352-35"><a href="bonus-simulation.html#cb352-35" tabindex="-1"></a><span class="co"># Specify a range of sample sizes to test</span></span>
+<span id="cb352-36"><a href="bonus-simulation.html#cb352-36" tabindex="-1"></a>sample_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>)</span>
+<span id="cb352-37"><a href="bonus-simulation.html#cb352-37" tabindex="-1"></a></span>
+<span id="cb352-38"><a href="bonus-simulation.html#cb352-38" tabindex="-1"></a><span class="co"># Set the effect size</span></span>
+<span id="cb352-39"><a href="bonus-simulation.html#cb352-39" tabindex="-1"></a>effect_size <span class="ot">&lt;-</span> <span class="dv">1</span>  <span class="co"># Adjust as needed</span></span>
+<span id="cb352-40"><a href="bonus-simulation.html#cb352-40" tabindex="-1"></a></span>
+<span id="cb352-41"><a href="bonus-simulation.html#cb352-41" tabindex="-1"></a><span class="co"># Run the simulation for each sample size</span></span>
+<span id="cb352-42"><a href="bonus-simulation.html#cb352-42" tabindex="-1"></a>simulation_results <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(sample_sizes, simulate_power, effect_size)</span>
+<span id="cb352-43"><a href="bonus-simulation.html#cb352-43" tabindex="-1"></a></span>
+<span id="cb352-44"><a href="bonus-simulation.html#cb352-44" tabindex="-1"></a><span class="co"># Plot the power as a function of sample size</span></span>
+<span id="cb352-45"><a href="bonus-simulation.html#cb352-45" tabindex="-1"></a><span class="fu">plot</span>(sample_sizes, simulation_results, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Sample Size&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Power&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Power vs. Sample Size&quot;</span>)</span></code></pre></div>
 <p><img src="04-functional-programming_files/figure-html/unnamed-chunk-117-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<div id="further-reading" class="section level2" number="24.1">
-<h2><span class="header-section-number">24.1</span> Further Reading:</h2>
+<div id="further-reading" class="section level2" number="18.1">
+<h2><span class="header-section-number">18.1</span> Further Reading:</h2>
 <p><a href="https://bookdown.org/ndphillips/YaRrr/generating-random-data.html" class="uri">https://bookdown.org/ndphillips/YaRrr/generating-random-data.html</a></p>
 <p>Simulations: <a href="https://rstudio-education.github.io/hopr/" class="uri">https://rstudio-education.github.io/hopr/</a></p>
 <p><a href="https://aosmith.rbind.io/2018/01/09/simulate-simulate-part1/#simulate-simulate-dance-to-the-music" class="uri">https://aosmith.rbind.io/2018/01/09/simulate-simulate-part1/#simulate-simulate-dance-to-the-music</a></p>
 <p><a href="https://aosmith.rbind.io/2019/07/22/automate-model-fitting-with-loops/" class="uri">https://aosmith.rbind.io/2019/07/22/automate-model-fitting-with-loops/</a></p>
 <p><a href="https://aosmith.rbind.io/2017/12/31/many-datasets/#list-all-files-to-read-in" class="uri">https://aosmith.rbind.io/2017/12/31/many-datasets/#list-all-files-to-read-in</a></p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="bonus-simulation.html#cb361-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="bonus-simulation.html#cb353-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.3.1 (2023-06-16)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.6 LTS

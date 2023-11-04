@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 28 Factors | Advancing in R</title>
+  <title>Chapter 22 Factors | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 28 Factors | Advancing in R" />
+  <meta property="og:title" content="Chapter 22 Factors | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 28 Factors | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 22 Factors | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,59 +153,59 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="factors-1" class="section level1" number="28">
-<h1><span class="header-section-number">Chapter 28</span> Factors</h1>
-<div id="anonymising-factors" class="section level2" number="28.1">
-<h2><span class="header-section-number">28.1</span> Anonymising factors</h2>
+<div id="factors-1" class="section level1" number="22">
+<h1><span class="header-section-number">Chapter 22</span> Factors</h1>
+<div id="anonymising-factors" class="section level2" number="22.1">
+<h2><span class="header-section-number">22.1</span> Anonymising factors</h2>
 <p>Sometimes you want to make your data completely anonymous so that other people can’t see sensitive information. Or because you wish to blind you own analyses.</p>
 <p><code>forcats::fct_anon</code></p>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="factors-1.html#cb395-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb395-2"><a href="factors-1.html#cb395-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">fct_anon</span>(species,</span>
-<span id="cb395-3"><a href="factors-1.html#cb395-3" tabindex="-1"></a>         <span class="at">prefix =</span> <span class="st">&quot;species_&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="factors-1.html#cb387-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb387-2"><a href="factors-1.html#cb387-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">fct_anon</span>(species,</span>
+<span id="cb387-3"><a href="factors-1.html#cb387-3" tabindex="-1"></a>         <span class="at">prefix =</span> <span class="st">&quot;species_&quot;</span>))</span></code></pre></div>
 </div>
-<div id="lump-factors" class="section level2" number="28.2">
-<h2><span class="header-section-number">28.2</span> Lump factors</h2>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="factors-1.html#cb396-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb396-2"><a href="factors-1.html#cb396-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">body_size =</span> <span class="fu">fct_lump_min</span>(<span class="fu">as_factor</span>(species), <span class="dv">50</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb396-3"><a href="factors-1.html#cb396-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> body_size,</span>
-<span id="cb396-4"><a href="factors-1.html#cb396-4" tabindex="-1"></a>         <span class="at">y =</span> flipper_length_mm))<span class="sc">+</span></span>
-<span id="cb396-5"><a href="factors-1.html#cb396-5" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div id="lump-factors" class="section level2" number="22.2">
+<h2><span class="header-section-number">22.2</span> Lump factors</h2>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="factors-1.html#cb388-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb388-2"><a href="factors-1.html#cb388-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">body_size =</span> <span class="fu">fct_lump_min</span>(<span class="fu">as_factor</span>(species), <span class="dv">50</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb388-3"><a href="factors-1.html#cb388-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> body_size,</span>
+<span id="cb388-4"><a href="factors-1.html#cb388-4" tabindex="-1"></a>         <span class="at">y =</span> flipper_length_mm))<span class="sc">+</span></span>
+<span id="cb388-5"><a href="factors-1.html#cb388-5" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 </div>
-<div id="ordering-factors" class="section level2" number="28.3">
-<h2><span class="header-section-number">28.3</span> ordering factors</h2>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="factors-1.html#cb397-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb397-2"><a href="factors-1.html#cb397-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">fct_relevel</span>(species, <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb397-3"><a href="factors-1.html#cb397-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species))<span class="sc">+</span></span>
-<span id="cb397-4"><a href="factors-1.html#cb397-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>()<span class="sc">+</span></span>
-<span id="cb397-5"><a href="factors-1.html#cb397-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<div id="ordering-factors" class="section level2" number="22.3">
+<h2><span class="header-section-number">22.3</span> ordering factors</h2>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="factors-1.html#cb389-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb389-2"><a href="factors-1.html#cb389-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">fct_relevel</span>(species, <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb389-3"><a href="factors-1.html#cb389-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species))<span class="sc">+</span></span>
+<span id="cb389-4"><a href="factors-1.html#cb389-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>()<span class="sc">+</span></span>
+<span id="cb389-5"><a href="factors-1.html#cb389-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
 <p><img src="05-tidyverse_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>With the function <code>fct_infreq</code> we can change the order according to how frequently each level occurs</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="factors-1.html#cb398-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb398-2"><a href="factors-1.html#cb398-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">fct_infreq</span>(species)) <span class="sc">|&gt;</span> </span>
-<span id="cb398-3"><a href="factors-1.html#cb398-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species))<span class="sc">+</span></span>
-<span id="cb398-4"><a href="factors-1.html#cb398-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>()<span class="sc">+</span></span>
-<span id="cb398-5"><a href="factors-1.html#cb398-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="factors-1.html#cb390-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb390-2"><a href="factors-1.html#cb390-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">fct_infreq</span>(species)) <span class="sc">|&gt;</span> </span>
+<span id="cb390-3"><a href="factors-1.html#cb390-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species))<span class="sc">+</span></span>
+<span id="cb390-4"><a href="factors-1.html#cb390-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>()<span class="sc">+</span></span>
+<span id="cb390-5"><a href="factors-1.html#cb390-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
 <p><img src="05-tidyverse_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="factors-1.html#cb399-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb399-2"><a href="factors-1.html#cb399-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">fct_rev</span>(<span class="fu">as_factor</span>(species))) <span class="sc">|&gt;</span> </span>
-<span id="cb399-3"><a href="factors-1.html#cb399-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species))<span class="sc">+</span></span>
-<span id="cb399-4"><a href="factors-1.html#cb399-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>()<span class="sc">+</span></span>
-<span id="cb399-5"><a href="factors-1.html#cb399-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="factors-1.html#cb391-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb391-2"><a href="factors-1.html#cb391-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">fct_rev</span>(<span class="fu">as_factor</span>(species))) <span class="sc">|&gt;</span> </span>
+<span id="cb391-3"><a href="factors-1.html#cb391-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species))<span class="sc">+</span></span>
+<span id="cb391-4"><a href="factors-1.html#cb391-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>()<span class="sc">+</span></span>
+<span id="cb391-5"><a href="factors-1.html#cb391-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
 <p><img src="05-tidyverse_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p><code>fct_reorder</code> allows us to order the levels based on another continuous variable</p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="factors-1.html#cb400-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb400-2"><a href="factors-1.html#cb400-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">as_factor</span>(species) <span class="sc">|&gt;</span> </span>
-<span id="cb400-3"><a href="factors-1.html#cb400-3" tabindex="-1"></a>           <span class="fu">fct_reorder</span>(body_mass_g,</span>
-<span id="cb400-4"><a href="factors-1.html#cb400-4" tabindex="-1"></a>                       <span class="at">.fun =</span> median)) <span class="sc">|&gt;</span> </span>
-<span id="cb400-5"><a href="factors-1.html#cb400-5" tabindex="-1"></a>  <span class="co"># by default the levels are ordered by the median values of the continuous variable</span></span>
-<span id="cb400-6"><a href="factors-1.html#cb400-6" tabindex="-1"></a>  <span class="co"># mean, min and max can all be included here</span></span>
-<span id="cb400-7"><a href="factors-1.html#cb400-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
-<span id="cb400-8"><a href="factors-1.html#cb400-8" tabindex="-1"></a>             <span class="at">y =</span> body_mass_g,</span>
-<span id="cb400-9"><a href="factors-1.html#cb400-9" tabindex="-1"></a>             <span class="at">colour =</span> species))<span class="sc">+</span></span>
-<span id="cb400-10"><a href="factors-1.html#cb400-10" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>,</span>
-<span id="cb400-11"><a href="factors-1.html#cb400-11" tabindex="-1"></a>               <span class="at">outlier.shape =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
-<span id="cb400-12"><a href="factors-1.html#cb400-12" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> .<span class="dv">2</span>,</span>
-<span id="cb400-13"><a href="factors-1.html#cb400-13" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="factors-1.html#cb392-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb392-2"><a href="factors-1.html#cb392-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">as_factor</span>(species) <span class="sc">|&gt;</span> </span>
+<span id="cb392-3"><a href="factors-1.html#cb392-3" tabindex="-1"></a>           <span class="fu">fct_reorder</span>(body_mass_g,</span>
+<span id="cb392-4"><a href="factors-1.html#cb392-4" tabindex="-1"></a>                       <span class="at">.fun =</span> median)) <span class="sc">|&gt;</span> </span>
+<span id="cb392-5"><a href="factors-1.html#cb392-5" tabindex="-1"></a>  <span class="co"># by default the levels are ordered by the median values of the continuous variable</span></span>
+<span id="cb392-6"><a href="factors-1.html#cb392-6" tabindex="-1"></a>  <span class="co"># mean, min and max can all be included here</span></span>
+<span id="cb392-7"><a href="factors-1.html#cb392-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
+<span id="cb392-8"><a href="factors-1.html#cb392-8" tabindex="-1"></a>             <span class="at">y =</span> body_mass_g,</span>
+<span id="cb392-9"><a href="factors-1.html#cb392-9" tabindex="-1"></a>             <span class="at">colour =</span> species))<span class="sc">+</span></span>
+<span id="cb392-10"><a href="factors-1.html#cb392-10" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">2</span>,</span>
+<span id="cb392-11"><a href="factors-1.html#cb392-11" tabindex="-1"></a>               <span class="at">outlier.shape =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb392-12"><a href="factors-1.html#cb392-12" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> .<span class="dv">2</span>,</span>
+<span id="cb392-13"><a href="factors-1.html#cb392-13" tabindex="-1"></a>              <span class="at">alpha =</span> .<span class="dv">4</span>)</span></code></pre></div>
 <p><img src="05-tidyverse_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>

@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 42 Outputs | Advancing in R</title>
+  <title>Chapter 36 Outputs | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 42 Outputs | Advancing in R" />
+  <meta property="og:title" content="Chapter 36 Outputs | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 42 Outputs | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 36 Outputs | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,91 +153,91 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="outputs" class="section level1" number="42">
-<h1><span class="header-section-number">Chapter 42</span> Outputs</h1>
-<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="outputs.html#cb534-1" tabindex="-1"></a><span class="co"># Packages ----</span></span>
-<span id="cb534-2"><a href="outputs.html#cb534-2" tabindex="-1"></a><span class="fu">library</span>(shiny)       <span class="co"># Essential for running any Shiny app</span></span>
-<span id="cb534-3"><a href="outputs.html#cb534-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb534-4"><a href="outputs.html#cb534-4" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)    <span class="co"># The source of your data</span></span>
-<span id="cb534-5"><a href="outputs.html#cb534-5" tabindex="-1"></a></span>
-<span id="cb534-6"><a href="outputs.html#cb534-6" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb534-7"><a href="outputs.html#cb534-7" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins)</span>
-<span id="cb534-8"><a href="outputs.html#cb534-8" tabindex="-1"></a></span>
-<span id="cb534-9"><a href="outputs.html#cb534-9" tabindex="-1"></a><span class="co"># ui.R ----</span></span>
-<span id="cb534-10"><a href="outputs.html#cb534-10" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb534-11"><a href="outputs.html#cb534-11" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
-<span id="cb534-12"><a href="outputs.html#cb534-12" tabindex="-1"></a>     <span class="fu">sidebarPanel</span>(</span>
-<span id="cb534-13"><a href="outputs.html#cb534-13" tabindex="-1"></a>      demo_sp <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;species&quot;</span>,  <span class="co"># Give the input a name &quot;genotype&quot;</span></span>
-<span id="cb534-14"><a href="outputs.html#cb534-14" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;1. Select species&quot;</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
-<span id="cb534-15"><a href="outputs.html#cb534-15" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Gentoo&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;Adelie&quot;</span>),  <span class="co"># Create the choices that can be selected. e.g. Display &quot;Adelie&quot; and link to value &quot;Adelie&quot;</span></span>
-<span id="cb534-16"><a href="outputs.html#cb534-16" tabindex="-1"></a>      demo_select <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;colour&quot;</span>, </span>
-<span id="cb534-17"><a href="outputs.html#cb534-17" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;2. Select histogram colour&quot;</span>, </span>
-<span id="cb534-18"><a href="outputs.html#cb534-18" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;grey&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;grey&quot;</span>),</span>
-<span id="cb534-19"><a href="outputs.html#cb534-19" tabindex="-1"></a>      demo_slide <span class="ot">&lt;-</span> <span class="fu">sliderInput</span>(<span class="at">inputId =</span> <span class="st">&quot;bin&quot;</span>, </span>
-<span id="cb534-20"><a href="outputs.html#cb534-20" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;3. Select number of histogram bins&quot;</span>, </span>
-<span id="cb534-21"><a href="outputs.html#cb534-21" tabindex="-1"></a>                  <span class="at">min=</span><span class="dv">1</span>, <span class="at">max=</span><span class="dv">25</span>, <span class="at">value=</span> <span class="fu">c</span>(<span class="dv">10</span>)),</span>
-<span id="cb534-22"><a href="outputs.html#cb534-22" tabindex="-1"></a>      demo_text <span class="ot">&lt;-</span> <span class="fu">textAreaInput</span>(<span class="at">inputId =</span> <span class="st">&quot;text&quot;</span>, </span>
-<span id="cb534-23"><a href="outputs.html#cb534-23" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;4. Enter some text to be displayed&quot;</span>,</span>
-<span id="cb534-24"><a href="outputs.html#cb534-24" tabindex="-1"></a>                <span class="at">rows =</span> <span class="dv">5</span>,</span>
-<span id="cb534-25"><a href="outputs.html#cb534-25" tabindex="-1"></a>                <span class="at">placeholder =</span> <span class="st">&quot;Enter some information here&quot;</span>)</span>
-<span id="cb534-26"><a href="outputs.html#cb534-26" tabindex="-1"></a>    ),</span>
-<span id="cb534-27"><a href="outputs.html#cb534-27" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
-<span id="cb534-28"><a href="outputs.html#cb534-28" tabindex="-1"></a>      <span class="co"># Output elements go here</span></span>
-<span id="cb534-29"><a href="outputs.html#cb534-29" tabindex="-1"></a>        <span class="fu">textOutput</span>(<span class="st">&quot;demo_text&quot;</span>),</span>
-<span id="cb534-30"><a href="outputs.html#cb534-30" tabindex="-1"></a>        </span>
-<span id="cb534-31"><a href="outputs.html#cb534-31" tabindex="-1"></a>        <span class="fu">plotOutput</span>(<span class="st">&quot;demo_plot&quot;</span>, <span class="at">width =</span> <span class="st">&quot;500px&quot;</span>, <span class="at">height=</span><span class="st">&quot;300px&quot;</span>),</span>
-<span id="cb534-32"><a href="outputs.html#cb534-32" tabindex="-1"></a>        </span>
-<span id="cb534-33"><a href="outputs.html#cb534-33" tabindex="-1"></a>        DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;demo_table&quot;</span>,</span>
-<span id="cb534-34"><a href="outputs.html#cb534-34" tabindex="-1"></a>                    <span class="at">width =</span> <span class="st">&quot;50%&quot;</span>,</span>
-<span id="cb534-35"><a href="outputs.html#cb534-35" tabindex="-1"></a>                    <span class="at">height =</span> <span class="st">&quot;auto&quot;</span>)</span>
-<span id="cb534-36"><a href="outputs.html#cb534-36" tabindex="-1"></a>    )</span>
-<span id="cb534-37"><a href="outputs.html#cb534-37" tabindex="-1"></a>  )</span>
-<span id="cb534-38"><a href="outputs.html#cb534-38" tabindex="-1"></a>)</span>
-<span id="cb534-39"><a href="outputs.html#cb534-39" tabindex="-1"></a><span class="co"># server.R ----</span></span>
-<span id="cb534-40"><a href="outputs.html#cb534-40" tabindex="-1"></a></span>
-<span id="cb534-41"><a href="outputs.html#cb534-41" tabindex="-1"></a> </span>
-<span id="cb534-42"><a href="outputs.html#cb534-42" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb534-43"><a href="outputs.html#cb534-43" tabindex="-1"></a>   <span class="co"># Your server logic will be defined here</span></span>
-<span id="cb534-44"><a href="outputs.html#cb534-44" tabindex="-1"></a>  output<span class="sc">$</span>demo_text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb534-45"><a href="outputs.html#cb534-45" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;Figure 1.&quot;</span>, input<span class="sc">$</span>species, input<span class="sc">$</span>text)</span>
-<span id="cb534-46"><a href="outputs.html#cb534-46" tabindex="-1"></a>  })</span>
-<span id="cb534-47"><a href="outputs.html#cb534-47" tabindex="-1"></a>  </span>
-<span id="cb534-48"><a href="outputs.html#cb534-48" tabindex="-1"></a>  output<span class="sc">$</span>demo_plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb534-49"><a href="outputs.html#cb534-49" tabindex="-1"></a>    penguins_filtered <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb534-50"><a href="outputs.html#cb534-50" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species)</span>
-<span id="cb534-51"><a href="outputs.html#cb534-51" tabindex="-1"></a>    </span>
-<span id="cb534-52"><a href="outputs.html#cb534-52" tabindex="-1"></a>    <span class="fu">ggplot</span>(penguins_filtered, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
-<span id="cb534-53"><a href="outputs.html#cb534-53" tabindex="-1"></a>      <span class="fu">geom_histogram</span>(<span class="at">fill =</span> input<span class="sc">$</span>colour, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">bins =</span> input<span class="sc">$</span>bin) <span class="sc">+</span></span>
-<span id="cb534-54"><a href="outputs.html#cb534-54" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Color&quot;</span>) <span class="sc">+</span></span>
-<span id="cb534-55"><a href="outputs.html#cb534-55" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()</span>
-<span id="cb534-56"><a href="outputs.html#cb534-56" tabindex="-1"></a>  })</span>
-<span id="cb534-57"><a href="outputs.html#cb534-57" tabindex="-1"></a>  </span>
-<span id="cb534-58"><a href="outputs.html#cb534-58" tabindex="-1"></a>  output<span class="sc">$</span>demo_table <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
-<span id="cb534-59"><a href="outputs.html#cb534-59" tabindex="-1"></a>   penguins  <span class="sc">|&gt;</span> </span>
-<span id="cb534-60"><a href="outputs.html#cb534-60" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species) <span class="sc">|&gt;</span> </span>
-<span id="cb534-61"><a href="outputs.html#cb534-61" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">flipper_length_mm =</span> <span class="fu">quantile</span>(flipper_length_mm, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> T), <span class="at">quantile =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span>
-<span id="cb534-62"><a href="outputs.html#cb534-62" tabindex="-1"></a>})</span>
-<span id="cb534-63"><a href="outputs.html#cb534-63" tabindex="-1"></a>  </span>
-<span id="cb534-64"><a href="outputs.html#cb534-64" tabindex="-1"></a>}</span>
-<span id="cb534-65"><a href="outputs.html#cb534-65" tabindex="-1"></a></span>
-<span id="cb534-66"><a href="outputs.html#cb534-66" tabindex="-1"></a></span>
-<span id="cb534-67"><a href="outputs.html#cb534-67" tabindex="-1"></a></span>
-<span id="cb534-68"><a href="outputs.html#cb534-68" tabindex="-1"></a><span class="co"># Run the app ----</span></span>
-<span id="cb534-69"><a href="outputs.html#cb534-69" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
-<div id="text-1" class="section level2" number="42.1">
-<h2><span class="header-section-number">42.1</span> Text</h2>
+<div id="outputs" class="section level1" number="36">
+<h1><span class="header-section-number">Chapter 36</span> Outputs</h1>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="outputs.html#cb526-1" tabindex="-1"></a><span class="co"># Packages ----</span></span>
+<span id="cb526-2"><a href="outputs.html#cb526-2" tabindex="-1"></a><span class="fu">library</span>(shiny)       <span class="co"># Essential for running any Shiny app</span></span>
+<span id="cb526-3"><a href="outputs.html#cb526-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb526-4"><a href="outputs.html#cb526-4" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)    <span class="co"># The source of your data</span></span>
+<span id="cb526-5"><a href="outputs.html#cb526-5" tabindex="-1"></a></span>
+<span id="cb526-6"><a href="outputs.html#cb526-6" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb526-7"><a href="outputs.html#cb526-7" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins)</span>
+<span id="cb526-8"><a href="outputs.html#cb526-8" tabindex="-1"></a></span>
+<span id="cb526-9"><a href="outputs.html#cb526-9" tabindex="-1"></a><span class="co"># ui.R ----</span></span>
+<span id="cb526-10"><a href="outputs.html#cb526-10" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb526-11"><a href="outputs.html#cb526-11" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb526-12"><a href="outputs.html#cb526-12" tabindex="-1"></a>     <span class="fu">sidebarPanel</span>(</span>
+<span id="cb526-13"><a href="outputs.html#cb526-13" tabindex="-1"></a>      demo_sp <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;species&quot;</span>,  <span class="co"># Give the input a name &quot;genotype&quot;</span></span>
+<span id="cb526-14"><a href="outputs.html#cb526-14" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;1. Select species&quot;</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
+<span id="cb526-15"><a href="outputs.html#cb526-15" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Gentoo&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;Adelie&quot;</span>),  <span class="co"># Create the choices that can be selected. e.g. Display &quot;Adelie&quot; and link to value &quot;Adelie&quot;</span></span>
+<span id="cb526-16"><a href="outputs.html#cb526-16" tabindex="-1"></a>      demo_select <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;colour&quot;</span>, </span>
+<span id="cb526-17"><a href="outputs.html#cb526-17" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;2. Select histogram colour&quot;</span>, </span>
+<span id="cb526-18"><a href="outputs.html#cb526-18" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;grey&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;grey&quot;</span>),</span>
+<span id="cb526-19"><a href="outputs.html#cb526-19" tabindex="-1"></a>      demo_slide <span class="ot">&lt;-</span> <span class="fu">sliderInput</span>(<span class="at">inputId =</span> <span class="st">&quot;bin&quot;</span>, </span>
+<span id="cb526-20"><a href="outputs.html#cb526-20" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;3. Select number of histogram bins&quot;</span>, </span>
+<span id="cb526-21"><a href="outputs.html#cb526-21" tabindex="-1"></a>                  <span class="at">min=</span><span class="dv">1</span>, <span class="at">max=</span><span class="dv">25</span>, <span class="at">value=</span> <span class="fu">c</span>(<span class="dv">10</span>)),</span>
+<span id="cb526-22"><a href="outputs.html#cb526-22" tabindex="-1"></a>      demo_text <span class="ot">&lt;-</span> <span class="fu">textAreaInput</span>(<span class="at">inputId =</span> <span class="st">&quot;text&quot;</span>, </span>
+<span id="cb526-23"><a href="outputs.html#cb526-23" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;4. Enter some text to be displayed&quot;</span>,</span>
+<span id="cb526-24"><a href="outputs.html#cb526-24" tabindex="-1"></a>                <span class="at">rows =</span> <span class="dv">5</span>,</span>
+<span id="cb526-25"><a href="outputs.html#cb526-25" tabindex="-1"></a>                <span class="at">placeholder =</span> <span class="st">&quot;Enter some information here&quot;</span>)</span>
+<span id="cb526-26"><a href="outputs.html#cb526-26" tabindex="-1"></a>    ),</span>
+<span id="cb526-27"><a href="outputs.html#cb526-27" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb526-28"><a href="outputs.html#cb526-28" tabindex="-1"></a>      <span class="co"># Output elements go here</span></span>
+<span id="cb526-29"><a href="outputs.html#cb526-29" tabindex="-1"></a>        <span class="fu">textOutput</span>(<span class="st">&quot;demo_text&quot;</span>),</span>
+<span id="cb526-30"><a href="outputs.html#cb526-30" tabindex="-1"></a>        </span>
+<span id="cb526-31"><a href="outputs.html#cb526-31" tabindex="-1"></a>        <span class="fu">plotOutput</span>(<span class="st">&quot;demo_plot&quot;</span>, <span class="at">width =</span> <span class="st">&quot;500px&quot;</span>, <span class="at">height=</span><span class="st">&quot;300px&quot;</span>),</span>
+<span id="cb526-32"><a href="outputs.html#cb526-32" tabindex="-1"></a>        </span>
+<span id="cb526-33"><a href="outputs.html#cb526-33" tabindex="-1"></a>        DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;demo_table&quot;</span>,</span>
+<span id="cb526-34"><a href="outputs.html#cb526-34" tabindex="-1"></a>                    <span class="at">width =</span> <span class="st">&quot;50%&quot;</span>,</span>
+<span id="cb526-35"><a href="outputs.html#cb526-35" tabindex="-1"></a>                    <span class="at">height =</span> <span class="st">&quot;auto&quot;</span>)</span>
+<span id="cb526-36"><a href="outputs.html#cb526-36" tabindex="-1"></a>    )</span>
+<span id="cb526-37"><a href="outputs.html#cb526-37" tabindex="-1"></a>  )</span>
+<span id="cb526-38"><a href="outputs.html#cb526-38" tabindex="-1"></a>)</span>
+<span id="cb526-39"><a href="outputs.html#cb526-39" tabindex="-1"></a><span class="co"># server.R ----</span></span>
+<span id="cb526-40"><a href="outputs.html#cb526-40" tabindex="-1"></a></span>
+<span id="cb526-41"><a href="outputs.html#cb526-41" tabindex="-1"></a> </span>
+<span id="cb526-42"><a href="outputs.html#cb526-42" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb526-43"><a href="outputs.html#cb526-43" tabindex="-1"></a>   <span class="co"># Your server logic will be defined here</span></span>
+<span id="cb526-44"><a href="outputs.html#cb526-44" tabindex="-1"></a>  output<span class="sc">$</span>demo_text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb526-45"><a href="outputs.html#cb526-45" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;Figure 1.&quot;</span>, input<span class="sc">$</span>species, input<span class="sc">$</span>text)</span>
+<span id="cb526-46"><a href="outputs.html#cb526-46" tabindex="-1"></a>  })</span>
+<span id="cb526-47"><a href="outputs.html#cb526-47" tabindex="-1"></a>  </span>
+<span id="cb526-48"><a href="outputs.html#cb526-48" tabindex="-1"></a>  output<span class="sc">$</span>demo_plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb526-49"><a href="outputs.html#cb526-49" tabindex="-1"></a>    penguins_filtered <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb526-50"><a href="outputs.html#cb526-50" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species)</span>
+<span id="cb526-51"><a href="outputs.html#cb526-51" tabindex="-1"></a>    </span>
+<span id="cb526-52"><a href="outputs.html#cb526-52" tabindex="-1"></a>    <span class="fu">ggplot</span>(penguins_filtered, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb526-53"><a href="outputs.html#cb526-53" tabindex="-1"></a>      <span class="fu">geom_histogram</span>(<span class="at">fill =</span> input<span class="sc">$</span>colour, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">bins =</span> input<span class="sc">$</span>bin) <span class="sc">+</span></span>
+<span id="cb526-54"><a href="outputs.html#cb526-54" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Color&quot;</span>) <span class="sc">+</span></span>
+<span id="cb526-55"><a href="outputs.html#cb526-55" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()</span>
+<span id="cb526-56"><a href="outputs.html#cb526-56" tabindex="-1"></a>  })</span>
+<span id="cb526-57"><a href="outputs.html#cb526-57" tabindex="-1"></a>  </span>
+<span id="cb526-58"><a href="outputs.html#cb526-58" tabindex="-1"></a>  output<span class="sc">$</span>demo_table <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
+<span id="cb526-59"><a href="outputs.html#cb526-59" tabindex="-1"></a>   penguins  <span class="sc">|&gt;</span> </span>
+<span id="cb526-60"><a href="outputs.html#cb526-60" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species) <span class="sc">|&gt;</span> </span>
+<span id="cb526-61"><a href="outputs.html#cb526-61" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">flipper_length_mm =</span> <span class="fu">quantile</span>(flipper_length_mm, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> T), <span class="at">quantile =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span>
+<span id="cb526-62"><a href="outputs.html#cb526-62" tabindex="-1"></a>})</span>
+<span id="cb526-63"><a href="outputs.html#cb526-63" tabindex="-1"></a>  </span>
+<span id="cb526-64"><a href="outputs.html#cb526-64" tabindex="-1"></a>}</span>
+<span id="cb526-65"><a href="outputs.html#cb526-65" tabindex="-1"></a></span>
+<span id="cb526-66"><a href="outputs.html#cb526-66" tabindex="-1"></a></span>
+<span id="cb526-67"><a href="outputs.html#cb526-67" tabindex="-1"></a></span>
+<span id="cb526-68"><a href="outputs.html#cb526-68" tabindex="-1"></a><span class="co"># Run the app ----</span></span>
+<span id="cb526-69"><a href="outputs.html#cb526-69" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
+<div id="text-1" class="section level2" number="36.1">
+<h2><span class="header-section-number">36.1</span> Text</h2>
 </div>
-<div id="plots-1" class="section level2" number="42.2">
-<h2><span class="header-section-number">42.2</span> Plots</h2>
+<div id="plots" class="section level2" number="36.2">
+<h2><span class="header-section-number">36.2</span> Plots</h2>
 </div>
-<div id="images" class="section level2" number="42.3">
-<h2><span class="header-section-number">42.3</span> Images</h2>
+<div id="images" class="section level2" number="36.3">
+<h2><span class="header-section-number">36.3</span> Images</h2>
 </div>
-<div id="tables" class="section level2" number="42.4">
-<h2><span class="header-section-number">42.4</span> Tables</h2>
+<div id="tables" class="section level2" number="36.4">
+<h2><span class="header-section-number">36.4</span> Tables</h2>
 </div>
-<div id="layouts-themes-html" class="section level2" number="42.5">
-<h2><span class="header-section-number">42.5</span> Layouts, themes, HTML</h2>
+<div id="layouts-themes-html" class="section level2" number="36.5">
+<h2><span class="header-section-number">36.5</span> Layouts, themes, HTML</h2>
 <p>Exercise: Customize the app's appearance by adding a custom color scheme, a title with a different font, and adjusting the size of the plot.</p>
 <pre><code>  
 p(&quot;p creates a paragraph of text.&quot;),
@@ -261,85 +261,85 @@ p(&quot;p creates a paragraph of text.&quot;),
         span(&quot;groups of words&quot;, style = &quot;color:blue&quot;),
         &quot;that appear inside a paragraph.&quot;),
 </code></pre>
-<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="outputs.html#cb536-1" tabindex="-1"></a><span class="co"># Packages ----</span></span>
-<span id="cb536-2"><a href="outputs.html#cb536-2" tabindex="-1"></a><span class="fu">library</span>(shiny)       <span class="co"># Essential for running any Shiny app</span></span>
-<span id="cb536-3"><a href="outputs.html#cb536-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb536-4"><a href="outputs.html#cb536-4" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)    <span class="co"># The source of your data</span></span>
-<span id="cb536-5"><a href="outputs.html#cb536-5" tabindex="-1"></a></span>
-<span id="cb536-6"><a href="outputs.html#cb536-6" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb536-7"><a href="outputs.html#cb536-7" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins)</span>
-<span id="cb536-8"><a href="outputs.html#cb536-8" tabindex="-1"></a></span>
-<span id="cb536-9"><a href="outputs.html#cb536-9" tabindex="-1"></a><span class="co"># ui.R ----</span></span>
-<span id="cb536-10"><a href="outputs.html#cb536-10" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb536-11"><a href="outputs.html#cb536-11" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
-<span id="cb536-12"><a href="outputs.html#cb536-12" tabindex="-1"></a>     <span class="fu">sidebarPanel</span>(</span>
-<span id="cb536-13"><a href="outputs.html#cb536-13" tabindex="-1"></a>      demo_sp <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;species&quot;</span>,  <span class="co"># Give the input a name &quot;genotype&quot;</span></span>
-<span id="cb536-14"><a href="outputs.html#cb536-14" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;1. Select species&quot;</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
-<span id="cb536-15"><a href="outputs.html#cb536-15" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Gentoo&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;Adelie&quot;</span>),  <span class="co"># Create the choices that can be selected. e.g. Display &quot;Adelie&quot; and link to value &quot;Adelie&quot;</span></span>
-<span id="cb536-16"><a href="outputs.html#cb536-16" tabindex="-1"></a>      demo_select <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;colour&quot;</span>, </span>
-<span id="cb536-17"><a href="outputs.html#cb536-17" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;2. Select histogram colour&quot;</span>, </span>
-<span id="cb536-18"><a href="outputs.html#cb536-18" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;grey&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;grey&quot;</span>),</span>
-<span id="cb536-19"><a href="outputs.html#cb536-19" tabindex="-1"></a>      demo_slide <span class="ot">&lt;-</span> <span class="fu">sliderInput</span>(<span class="at">inputId =</span> <span class="st">&quot;bin&quot;</span>, </span>
-<span id="cb536-20"><a href="outputs.html#cb536-20" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;3. Select number of histogram bins&quot;</span>, </span>
-<span id="cb536-21"><a href="outputs.html#cb536-21" tabindex="-1"></a>                  <span class="at">min=</span><span class="dv">1</span>, <span class="at">max=</span><span class="dv">25</span>, <span class="at">value=</span> <span class="fu">c</span>(<span class="dv">10</span>)),</span>
-<span id="cb536-22"><a href="outputs.html#cb536-22" tabindex="-1"></a>      demo_text <span class="ot">&lt;-</span> <span class="fu">textAreaInput</span>(<span class="at">inputId =</span> <span class="st">&quot;text&quot;</span>, </span>
-<span id="cb536-23"><a href="outputs.html#cb536-23" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;4. Enter some text to be displayed&quot;</span>,</span>
-<span id="cb536-24"><a href="outputs.html#cb536-24" tabindex="-1"></a>                <span class="at">rows =</span> <span class="dv">5</span>,</span>
-<span id="cb536-25"><a href="outputs.html#cb536-25" tabindex="-1"></a>                <span class="at">placeholder =</span> <span class="st">&quot;Enter some information here&quot;</span>)</span>
-<span id="cb536-26"><a href="outputs.html#cb536-26" tabindex="-1"></a>    ),</span>
-<span id="cb536-27"><a href="outputs.html#cb536-27" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
-<span id="cb536-28"><a href="outputs.html#cb536-28" tabindex="-1"></a>      <span class="co"># Output elements go here</span></span>
-<span id="cb536-29"><a href="outputs.html#cb536-29" tabindex="-1"></a>        </span>
-<span id="cb536-30"><a href="outputs.html#cb536-30" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">ul</span>(</span>
-<span id="cb536-31"><a href="outputs.html#cb536-31" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">strong</span>(<span class="fu">textOutput</span>(<span class="st">&quot;demo_sp&quot;</span>)),</span>
-<span id="cb536-32"><a href="outputs.html#cb536-32" tabindex="-1"></a>    <span class="fu">textOutput</span>(<span class="st">&quot;demo_text&quot;</span>)),</span>
-<span id="cb536-33"><a href="outputs.html#cb536-33" tabindex="-1"></a>  </span>
-<span id="cb536-34"><a href="outputs.html#cb536-34" tabindex="-1"></a>        <span class="fu">plotOutput</span>(<span class="st">&quot;demo_plot&quot;</span>, <span class="at">width =</span> <span class="st">&quot;500px&quot;</span>, <span class="at">height=</span><span class="st">&quot;300px&quot;</span>),</span>
-<span id="cb536-35"><a href="outputs.html#cb536-35" tabindex="-1"></a>        </span>
-<span id="cb536-36"><a href="outputs.html#cb536-36" tabindex="-1"></a>        DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;demo_table&quot;</span>,</span>
-<span id="cb536-37"><a href="outputs.html#cb536-37" tabindex="-1"></a>                    <span class="at">width =</span> <span class="st">&quot;50%&quot;</span>,</span>
-<span id="cb536-38"><a href="outputs.html#cb536-38" tabindex="-1"></a>                    <span class="at">height =</span> <span class="st">&quot;auto&quot;</span>)</span>
-<span id="cb536-39"><a href="outputs.html#cb536-39" tabindex="-1"></a>    )</span>
-<span id="cb536-40"><a href="outputs.html#cb536-40" tabindex="-1"></a>  )</span>
-<span id="cb536-41"><a href="outputs.html#cb536-41" tabindex="-1"></a>)</span>
-<span id="cb536-42"><a href="outputs.html#cb536-42" tabindex="-1"></a><span class="co"># server.R ----</span></span>
-<span id="cb536-43"><a href="outputs.html#cb536-43" tabindex="-1"></a></span>
-<span id="cb536-44"><a href="outputs.html#cb536-44" tabindex="-1"></a> </span>
-<span id="cb536-45"><a href="outputs.html#cb536-45" tabindex="-1"></a></span>
-<span id="cb536-46"><a href="outputs.html#cb536-46" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb536-47"><a href="outputs.html#cb536-47" tabindex="-1"></a>  </span>
-<span id="cb536-48"><a href="outputs.html#cb536-48" tabindex="-1"></a></span>
-<span id="cb536-49"><a href="outputs.html#cb536-49" tabindex="-1"></a>  output<span class="sc">$</span>demo_sp <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb536-50"><a href="outputs.html#cb536-50" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;Figure 1.&quot;</span>, input<span class="sc">$</span>species)</span>
-<span id="cb536-51"><a href="outputs.html#cb536-51" tabindex="-1"></a>  })</span>
-<span id="cb536-52"><a href="outputs.html#cb536-52" tabindex="-1"></a>  </span>
-<span id="cb536-53"><a href="outputs.html#cb536-53" tabindex="-1"></a>output<span class="sc">$</span>demo_text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb536-54"><a href="outputs.html#cb536-54" tabindex="-1"></a>  (input<span class="sc">$</span>text)</span>
-<span id="cb536-55"><a href="outputs.html#cb536-55" tabindex="-1"></a>})</span>
-<span id="cb536-56"><a href="outputs.html#cb536-56" tabindex="-1"></a>   </span>
-<span id="cb536-57"><a href="outputs.html#cb536-57" tabindex="-1"></a>    </span>
-<span id="cb536-58"><a href="outputs.html#cb536-58" tabindex="-1"></a>  output<span class="sc">$</span>demo_plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb536-59"><a href="outputs.html#cb536-59" tabindex="-1"></a>    penguins_filtered <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb536-60"><a href="outputs.html#cb536-60" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species)</span>
-<span id="cb536-61"><a href="outputs.html#cb536-61" tabindex="-1"></a>    </span>
-<span id="cb536-62"><a href="outputs.html#cb536-62" tabindex="-1"></a>    <span class="fu">ggplot</span>(penguins_filtered, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
-<span id="cb536-63"><a href="outputs.html#cb536-63" tabindex="-1"></a>      <span class="fu">geom_histogram</span>(<span class="at">fill =</span> input<span class="sc">$</span>colour, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">bins =</span> input<span class="sc">$</span>bin) <span class="sc">+</span></span>
-<span id="cb536-64"><a href="outputs.html#cb536-64" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Color&quot;</span>) <span class="sc">+</span></span>
-<span id="cb536-65"><a href="outputs.html#cb536-65" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()</span>
-<span id="cb536-66"><a href="outputs.html#cb536-66" tabindex="-1"></a>  })</span>
-<span id="cb536-67"><a href="outputs.html#cb536-67" tabindex="-1"></a>  </span>
-<span id="cb536-68"><a href="outputs.html#cb536-68" tabindex="-1"></a>  output<span class="sc">$</span>demo_table <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
-<span id="cb536-69"><a href="outputs.html#cb536-69" tabindex="-1"></a>   penguins <span class="sc">|&gt;</span></span>
-<span id="cb536-70"><a href="outputs.html#cb536-70" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species) <span class="sc">|&gt;</span> </span>
-<span id="cb536-71"><a href="outputs.html#cb536-71" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">flipper_length_mm =</span> <span class="fu">quantile</span>(flipper_length_mm, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> T), <span class="at">quantile =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span>
-<span id="cb536-72"><a href="outputs.html#cb536-72" tabindex="-1"></a>})</span>
-<span id="cb536-73"><a href="outputs.html#cb536-73" tabindex="-1"></a>  </span>
-<span id="cb536-74"><a href="outputs.html#cb536-74" tabindex="-1"></a>}</span>
-<span id="cb536-75"><a href="outputs.html#cb536-75" tabindex="-1"></a></span>
-<span id="cb536-76"><a href="outputs.html#cb536-76" tabindex="-1"></a></span>
-<span id="cb536-77"><a href="outputs.html#cb536-77" tabindex="-1"></a></span>
-<span id="cb536-78"><a href="outputs.html#cb536-78" tabindex="-1"></a><span class="co"># Run the app ----</span></span>
-<span id="cb536-79"><a href="outputs.html#cb536-79" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="outputs.html#cb528-1" tabindex="-1"></a><span class="co"># Packages ----</span></span>
+<span id="cb528-2"><a href="outputs.html#cb528-2" tabindex="-1"></a><span class="fu">library</span>(shiny)       <span class="co"># Essential for running any Shiny app</span></span>
+<span id="cb528-3"><a href="outputs.html#cb528-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb528-4"><a href="outputs.html#cb528-4" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)    <span class="co"># The source of your data</span></span>
+<span id="cb528-5"><a href="outputs.html#cb528-5" tabindex="-1"></a></span>
+<span id="cb528-6"><a href="outputs.html#cb528-6" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb528-7"><a href="outputs.html#cb528-7" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins)</span>
+<span id="cb528-8"><a href="outputs.html#cb528-8" tabindex="-1"></a></span>
+<span id="cb528-9"><a href="outputs.html#cb528-9" tabindex="-1"></a><span class="co"># ui.R ----</span></span>
+<span id="cb528-10"><a href="outputs.html#cb528-10" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb528-11"><a href="outputs.html#cb528-11" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb528-12"><a href="outputs.html#cb528-12" tabindex="-1"></a>     <span class="fu">sidebarPanel</span>(</span>
+<span id="cb528-13"><a href="outputs.html#cb528-13" tabindex="-1"></a>      demo_sp <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;species&quot;</span>,  <span class="co"># Give the input a name &quot;genotype&quot;</span></span>
+<span id="cb528-14"><a href="outputs.html#cb528-14" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;1. Select species&quot;</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
+<span id="cb528-15"><a href="outputs.html#cb528-15" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Gentoo&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;Adelie&quot;</span>),  <span class="co"># Create the choices that can be selected. e.g. Display &quot;Adelie&quot; and link to value &quot;Adelie&quot;</span></span>
+<span id="cb528-16"><a href="outputs.html#cb528-16" tabindex="-1"></a>      demo_select <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;colour&quot;</span>, </span>
+<span id="cb528-17"><a href="outputs.html#cb528-17" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;2. Select histogram colour&quot;</span>, </span>
+<span id="cb528-18"><a href="outputs.html#cb528-18" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;grey&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;grey&quot;</span>),</span>
+<span id="cb528-19"><a href="outputs.html#cb528-19" tabindex="-1"></a>      demo_slide <span class="ot">&lt;-</span> <span class="fu">sliderInput</span>(<span class="at">inputId =</span> <span class="st">&quot;bin&quot;</span>, </span>
+<span id="cb528-20"><a href="outputs.html#cb528-20" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;3. Select number of histogram bins&quot;</span>, </span>
+<span id="cb528-21"><a href="outputs.html#cb528-21" tabindex="-1"></a>                  <span class="at">min=</span><span class="dv">1</span>, <span class="at">max=</span><span class="dv">25</span>, <span class="at">value=</span> <span class="fu">c</span>(<span class="dv">10</span>)),</span>
+<span id="cb528-22"><a href="outputs.html#cb528-22" tabindex="-1"></a>      demo_text <span class="ot">&lt;-</span> <span class="fu">textAreaInput</span>(<span class="at">inputId =</span> <span class="st">&quot;text&quot;</span>, </span>
+<span id="cb528-23"><a href="outputs.html#cb528-23" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;4. Enter some text to be displayed&quot;</span>,</span>
+<span id="cb528-24"><a href="outputs.html#cb528-24" tabindex="-1"></a>                <span class="at">rows =</span> <span class="dv">5</span>,</span>
+<span id="cb528-25"><a href="outputs.html#cb528-25" tabindex="-1"></a>                <span class="at">placeholder =</span> <span class="st">&quot;Enter some information here&quot;</span>)</span>
+<span id="cb528-26"><a href="outputs.html#cb528-26" tabindex="-1"></a>    ),</span>
+<span id="cb528-27"><a href="outputs.html#cb528-27" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb528-28"><a href="outputs.html#cb528-28" tabindex="-1"></a>      <span class="co"># Output elements go here</span></span>
+<span id="cb528-29"><a href="outputs.html#cb528-29" tabindex="-1"></a>        </span>
+<span id="cb528-30"><a href="outputs.html#cb528-30" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">ul</span>(</span>
+<span id="cb528-31"><a href="outputs.html#cb528-31" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">strong</span>(<span class="fu">textOutput</span>(<span class="st">&quot;demo_sp&quot;</span>)),</span>
+<span id="cb528-32"><a href="outputs.html#cb528-32" tabindex="-1"></a>    <span class="fu">textOutput</span>(<span class="st">&quot;demo_text&quot;</span>)),</span>
+<span id="cb528-33"><a href="outputs.html#cb528-33" tabindex="-1"></a>  </span>
+<span id="cb528-34"><a href="outputs.html#cb528-34" tabindex="-1"></a>        <span class="fu">plotOutput</span>(<span class="st">&quot;demo_plot&quot;</span>, <span class="at">width =</span> <span class="st">&quot;500px&quot;</span>, <span class="at">height=</span><span class="st">&quot;300px&quot;</span>),</span>
+<span id="cb528-35"><a href="outputs.html#cb528-35" tabindex="-1"></a>        </span>
+<span id="cb528-36"><a href="outputs.html#cb528-36" tabindex="-1"></a>        DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;demo_table&quot;</span>,</span>
+<span id="cb528-37"><a href="outputs.html#cb528-37" tabindex="-1"></a>                    <span class="at">width =</span> <span class="st">&quot;50%&quot;</span>,</span>
+<span id="cb528-38"><a href="outputs.html#cb528-38" tabindex="-1"></a>                    <span class="at">height =</span> <span class="st">&quot;auto&quot;</span>)</span>
+<span id="cb528-39"><a href="outputs.html#cb528-39" tabindex="-1"></a>    )</span>
+<span id="cb528-40"><a href="outputs.html#cb528-40" tabindex="-1"></a>  )</span>
+<span id="cb528-41"><a href="outputs.html#cb528-41" tabindex="-1"></a>)</span>
+<span id="cb528-42"><a href="outputs.html#cb528-42" tabindex="-1"></a><span class="co"># server.R ----</span></span>
+<span id="cb528-43"><a href="outputs.html#cb528-43" tabindex="-1"></a></span>
+<span id="cb528-44"><a href="outputs.html#cb528-44" tabindex="-1"></a> </span>
+<span id="cb528-45"><a href="outputs.html#cb528-45" tabindex="-1"></a></span>
+<span id="cb528-46"><a href="outputs.html#cb528-46" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb528-47"><a href="outputs.html#cb528-47" tabindex="-1"></a>  </span>
+<span id="cb528-48"><a href="outputs.html#cb528-48" tabindex="-1"></a></span>
+<span id="cb528-49"><a href="outputs.html#cb528-49" tabindex="-1"></a>  output<span class="sc">$</span>demo_sp <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb528-50"><a href="outputs.html#cb528-50" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;Figure 1.&quot;</span>, input<span class="sc">$</span>species)</span>
+<span id="cb528-51"><a href="outputs.html#cb528-51" tabindex="-1"></a>  })</span>
+<span id="cb528-52"><a href="outputs.html#cb528-52" tabindex="-1"></a>  </span>
+<span id="cb528-53"><a href="outputs.html#cb528-53" tabindex="-1"></a>output<span class="sc">$</span>demo_text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb528-54"><a href="outputs.html#cb528-54" tabindex="-1"></a>  (input<span class="sc">$</span>text)</span>
+<span id="cb528-55"><a href="outputs.html#cb528-55" tabindex="-1"></a>})</span>
+<span id="cb528-56"><a href="outputs.html#cb528-56" tabindex="-1"></a>   </span>
+<span id="cb528-57"><a href="outputs.html#cb528-57" tabindex="-1"></a>    </span>
+<span id="cb528-58"><a href="outputs.html#cb528-58" tabindex="-1"></a>  output<span class="sc">$</span>demo_plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb528-59"><a href="outputs.html#cb528-59" tabindex="-1"></a>    penguins_filtered <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb528-60"><a href="outputs.html#cb528-60" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species)</span>
+<span id="cb528-61"><a href="outputs.html#cb528-61" tabindex="-1"></a>    </span>
+<span id="cb528-62"><a href="outputs.html#cb528-62" tabindex="-1"></a>    <span class="fu">ggplot</span>(penguins_filtered, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb528-63"><a href="outputs.html#cb528-63" tabindex="-1"></a>      <span class="fu">geom_histogram</span>(<span class="at">fill =</span> input<span class="sc">$</span>colour, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">bins =</span> input<span class="sc">$</span>bin) <span class="sc">+</span></span>
+<span id="cb528-64"><a href="outputs.html#cb528-64" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Color&quot;</span>) <span class="sc">+</span></span>
+<span id="cb528-65"><a href="outputs.html#cb528-65" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()</span>
+<span id="cb528-66"><a href="outputs.html#cb528-66" tabindex="-1"></a>  })</span>
+<span id="cb528-67"><a href="outputs.html#cb528-67" tabindex="-1"></a>  </span>
+<span id="cb528-68"><a href="outputs.html#cb528-68" tabindex="-1"></a>  output<span class="sc">$</span>demo_table <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
+<span id="cb528-69"><a href="outputs.html#cb528-69" tabindex="-1"></a>   penguins <span class="sc">|&gt;</span></span>
+<span id="cb528-70"><a href="outputs.html#cb528-70" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species) <span class="sc">|&gt;</span> </span>
+<span id="cb528-71"><a href="outputs.html#cb528-71" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">flipper_length_mm =</span> <span class="fu">quantile</span>(flipper_length_mm, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> T), <span class="at">quantile =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span>
+<span id="cb528-72"><a href="outputs.html#cb528-72" tabindex="-1"></a>})</span>
+<span id="cb528-73"><a href="outputs.html#cb528-73" tabindex="-1"></a>  </span>
+<span id="cb528-74"><a href="outputs.html#cb528-74" tabindex="-1"></a>}</span>
+<span id="cb528-75"><a href="outputs.html#cb528-75" tabindex="-1"></a></span>
+<span id="cb528-76"><a href="outputs.html#cb528-76" tabindex="-1"></a></span>
+<span id="cb528-77"><a href="outputs.html#cb528-77" tabindex="-1"></a></span>
+<span id="cb528-78"><a href="outputs.html#cb528-78" tabindex="-1"></a><span class="co"># Run the app ----</span></span>
+<span id="cb528-79"><a href="outputs.html#cb528-79" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
 </div>
 </div>
 <script>

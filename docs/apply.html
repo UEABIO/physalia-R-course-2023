@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 22 Apply | Advancing in R</title>
+  <title>Chapter 16 Apply | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 22 Apply | Advancing in R" />
+  <meta property="og:title" content="Chapter 16 Apply | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 22 Apply | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 16 Apply | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,8 +153,8 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="apply" class="section level1" number="22">
-<h1><span class="header-section-number">Chapter 22</span> Apply</h1>
+<div id="apply" class="section level1" number="16">
+<h1><span class="header-section-number">Chapter 16</span> Apply</h1>
 <p>We can recreate the output from our loops in the previous chapter with the <code>apply</code> function in R.</p>
 <p>The apply functions can be an alternative to writing for loops. The general idea is to apply (or map) a function to each element of an object. For example, you can apply a function to each row or column of a matrix.</p>
 <p>Each function takes at least two arguments: an object and another function. The function is passed as an argument.</p>
@@ -166,8 +166,8 @@
 <li><p><code>apply()</code>: Apply a function over the margins of an array</p></li>
 </ul>
 <p>It is (I think) important to not that the apply family is still looping - but the actual looping is done internally in C code for efficiency reasons. Apply functions are loops under the hood and they are meant for convenience not for speed.</p>
-<div id="lapply" class="section level2" number="22.1">
-<h2><span class="header-section-number">22.1</span> lapply</h2>
+<div id="lapply" class="section level2" number="16.1">
+<h2><span class="header-section-number">16.1</span> lapply</h2>
 <p>The <code>lapply()</code> function does the following simple series of operations:</p>
 <p>it loops over a list, vector or dataframe, iterating over each element in turn</p>
 <p>it applies a function to each element of the list (a function that you specify)</p>
@@ -184,43 +184,43 @@ function (X, FUN, ...)
 &lt;environment: namespace:base&gt;
 </code></pre>
 <p>We can see the operation of an <code>lapply()</code> function here:</p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="apply.html#cb331-1" tabindex="-1"></a><span class="fu">lapply</span>(df_list, mean)</span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="apply.html#cb323-1" tabindex="-1"></a><span class="fu">lapply</span>(df_list, mean)</span></code></pre></div>
 <p>Notice that here we are passing the <code>mean()</code> function as an argument to the <code>lapply()</code> function. Functions in R can be used this way and can be passed back and forth as arguments just like any other object. When you pass a function to another function, you do not need to include the open and closed parentheses.</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="apply.html#cb332-1" tabindex="-1"></a>empty_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="at">length =</span> <span class="fu">length</span>(df_list))</span>
-<span id="cb332-2"><a href="apply.html#cb332-2" tabindex="-1"></a></span>
-<span id="cb332-3"><a href="apply.html#cb332-3" tabindex="-1"></a></span>
-<span id="cb332-4"><a href="apply.html#cb332-4" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
-<span id="cb332-5"><a href="apply.html#cb332-5" tabindex="-1"></a> </span>
-<span id="cb332-6"><a href="apply.html#cb332-6" tabindex="-1"></a>  <span class="at">forloop =</span> <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">length</span>(df_list)) {           </span>
-<span id="cb332-7"><a href="apply.html#cb332-7" tabindex="-1"></a>  </span>
-<span id="cb332-8"><a href="apply.html#cb332-8" tabindex="-1"></a>  empty_list[[i]] <span class="ot">&lt;-</span> <span class="fu">mean</span>(df_list[[i]])      </span>
-<span id="cb332-9"><a href="apply.html#cb332-9" tabindex="-1"></a>  },</span>
-<span id="cb332-10"><a href="apply.html#cb332-10" tabindex="-1"></a> <span class="at">apply =</span> <span class="fu">lapply</span>(df_list, mean)</span>
-<span id="cb332-11"><a href="apply.html#cb332-11" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="apply.html#cb324-1" tabindex="-1"></a>empty_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="at">length =</span> <span class="fu">length</span>(df_list))</span>
+<span id="cb324-2"><a href="apply.html#cb324-2" tabindex="-1"></a></span>
+<span id="cb324-3"><a href="apply.html#cb324-3" tabindex="-1"></a></span>
+<span id="cb324-4"><a href="apply.html#cb324-4" tabindex="-1"></a>microbenchmark<span class="sc">::</span><span class="fu">microbenchmark</span>(</span>
+<span id="cb324-5"><a href="apply.html#cb324-5" tabindex="-1"></a> </span>
+<span id="cb324-6"><a href="apply.html#cb324-6" tabindex="-1"></a>  <span class="at">forloop =</span> <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">length</span>(df_list)) {           </span>
+<span id="cb324-7"><a href="apply.html#cb324-7" tabindex="-1"></a>  </span>
+<span id="cb324-8"><a href="apply.html#cb324-8" tabindex="-1"></a>  empty_list[[i]] <span class="ot">&lt;-</span> <span class="fu">mean</span>(df_list[[i]])      </span>
+<span id="cb324-9"><a href="apply.html#cb324-9" tabindex="-1"></a>  },</span>
+<span id="cb324-10"><a href="apply.html#cb324-10" tabindex="-1"></a> <span class="at">apply =</span> <span class="fu">lapply</span>(df_list, mean)</span>
+<span id="cb324-11"><a href="apply.html#cb324-11" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>Unit: microseconds
     expr      min        lq       mean    median       uq      max neval
  forloop 1908.053 1981.7625 2341.55928 2038.9475 2119.488 11949.11   100
    apply   23.531   24.8655   29.73571   27.9205   30.050   119.41   100
 </code></pre>
 <p>As well as being slightly faster than the <code>for()</code> loop, arguably, <code>lapply</code> is also easier to read.</p>
-<div id="run-lapply-with-additional-arguments" class="section level3" number="22.1.1">
-<h3><span class="header-section-number">22.1.1</span> Run lapply with additional arguments</h3>
+<div id="run-lapply-with-additional-arguments" class="section level3" number="16.1.1">
+<h3><span class="header-section-number">16.1.1</span> Run lapply with additional arguments</h3>
 <p>The first argument of <code>lapply()</code> gives the list object to be iterated over.
 The second argument defines an anonymous function.</p>
-<div id="functions-with-lapply" class="section level4" number="22.1.1.1">
-<h4><span class="header-section-number">22.1.1.1</span> Functions with <code>lapply</code></h4>
+<div id="functions-with-lapply" class="section level4" number="16.1.1.1">
+<h4><span class="header-section-number">16.1.1.1</span> Functions with <code>lapply</code></h4>
 <p>In this example we define the list to run a function over <code>numbers</code>, then write our function as normal. Defined like this it is what we call an <strong>anonymous function</strong>, it has no name and cannot be used outside of this <code>lapply</code> function.</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="apply.html#cb334-1" tabindex="-1"></a><span class="co"># Create a list of numbers</span></span>
-<span id="cb334-2"><a href="apply.html#cb334-2" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb334-3"><a href="apply.html#cb334-3" tabindex="-1"></a></span>
-<span id="cb334-4"><a href="apply.html#cb334-4" tabindex="-1"></a></span>
-<span id="cb334-5"><a href="apply.html#cb334-5" tabindex="-1"></a><span class="co"># Use lapply to add 10 to each number in the list</span></span>
-<span id="cb334-6"><a href="apply.html#cb334-6" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">lapply</span>(numbers, <span class="cf">function</span>(x){</span>
-<span id="cb334-7"><a href="apply.html#cb334-7" tabindex="-1"></a>  <span class="fu">return</span>(x <span class="sc">+</span> <span class="dv">10</span>)</span>
-<span id="cb334-8"><a href="apply.html#cb334-8" tabindex="-1"></a>})</span>
-<span id="cb334-9"><a href="apply.html#cb334-9" tabindex="-1"></a></span>
-<span id="cb334-10"><a href="apply.html#cb334-10" tabindex="-1"></a><span class="co"># Print the result</span></span>
-<span id="cb334-11"><a href="apply.html#cb334-11" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="apply.html#cb326-1" tabindex="-1"></a><span class="co"># Create a list of numbers</span></span>
+<span id="cb326-2"><a href="apply.html#cb326-2" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb326-3"><a href="apply.html#cb326-3" tabindex="-1"></a></span>
+<span id="cb326-4"><a href="apply.html#cb326-4" tabindex="-1"></a></span>
+<span id="cb326-5"><a href="apply.html#cb326-5" tabindex="-1"></a><span class="co"># Use lapply to add 10 to each number in the list</span></span>
+<span id="cb326-6"><a href="apply.html#cb326-6" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">lapply</span>(numbers, <span class="cf">function</span>(x){</span>
+<span id="cb326-7"><a href="apply.html#cb326-7" tabindex="-1"></a>  <span class="fu">return</span>(x <span class="sc">+</span> <span class="dv">10</span>)</span>
+<span id="cb326-8"><a href="apply.html#cb326-8" tabindex="-1"></a>})</span>
+<span id="cb326-9"><a href="apply.html#cb326-9" tabindex="-1"></a></span>
+<span id="cb326-10"><a href="apply.html#cb326-10" tabindex="-1"></a><span class="co"># Print the result</span></span>
+<span id="cb326-11"><a href="apply.html#cb326-11" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 11
 ## 
@@ -236,22 +236,22 @@ The second argument defines an anonymous function.</p>
 ## [[5]]
 ## [1] 15</code></pre>
 </div>
-<div id="using-existing-functions-in-lapply" class="section level4" number="22.1.1.2">
-<h4><span class="header-section-number">22.1.1.2</span> Using existing functions in <code>lapply</code></h4>
+<div id="using-existing-functions-in-lapply" class="section level4" number="16.1.1.2">
+<h4><span class="header-section-number">16.1.1.2</span> Using existing functions in <code>lapply</code></h4>
 <p>In this example we write a named function. Notice how we don't have to use curly brackets or an anonymous function, instead, we just passed <code>mean</code>add_value<code>as the second argument of</code>lapply()`. I also supply any necessary arguments required by the function by specifying it afterwards.</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="apply.html#cb336-1" tabindex="-1"></a><span class="co"># Create a list of numbers</span></span>
-<span id="cb336-2"><a href="apply.html#cb336-2" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb336-3"><a href="apply.html#cb336-3" tabindex="-1"></a></span>
-<span id="cb336-4"><a href="apply.html#cb336-4" tabindex="-1"></a><span class="co"># Define a custom function that adds a given value to each number</span></span>
-<span id="cb336-5"><a href="apply.html#cb336-5" tabindex="-1"></a>add_value <span class="ot">&lt;-</span> <span class="cf">function</span>(x, value) {</span>
-<span id="cb336-6"><a href="apply.html#cb336-6" tabindex="-1"></a>  <span class="fu">return</span>(x <span class="sc">+</span> value)</span>
-<span id="cb336-7"><a href="apply.html#cb336-7" tabindex="-1"></a>}</span>
-<span id="cb336-8"><a href="apply.html#cb336-8" tabindex="-1"></a></span>
-<span id="cb336-9"><a href="apply.html#cb336-9" tabindex="-1"></a><span class="co"># Use lapply to add 10 to each number in the list</span></span>
-<span id="cb336-10"><a href="apply.html#cb336-10" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">lapply</span>(numbers, add_value, <span class="at">value =</span> <span class="dv">10</span>)</span>
-<span id="cb336-11"><a href="apply.html#cb336-11" tabindex="-1"></a></span>
-<span id="cb336-12"><a href="apply.html#cb336-12" tabindex="-1"></a><span class="co"># Print the result</span></span>
-<span id="cb336-13"><a href="apply.html#cb336-13" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="apply.html#cb328-1" tabindex="-1"></a><span class="co"># Create a list of numbers</span></span>
+<span id="cb328-2"><a href="apply.html#cb328-2" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb328-3"><a href="apply.html#cb328-3" tabindex="-1"></a></span>
+<span id="cb328-4"><a href="apply.html#cb328-4" tabindex="-1"></a><span class="co"># Define a custom function that adds a given value to each number</span></span>
+<span id="cb328-5"><a href="apply.html#cb328-5" tabindex="-1"></a>add_value <span class="ot">&lt;-</span> <span class="cf">function</span>(x, value) {</span>
+<span id="cb328-6"><a href="apply.html#cb328-6" tabindex="-1"></a>  <span class="fu">return</span>(x <span class="sc">+</span> value)</span>
+<span id="cb328-7"><a href="apply.html#cb328-7" tabindex="-1"></a>}</span>
+<span id="cb328-8"><a href="apply.html#cb328-8" tabindex="-1"></a></span>
+<span id="cb328-9"><a href="apply.html#cb328-9" tabindex="-1"></a><span class="co"># Use lapply to add 10 to each number in the list</span></span>
+<span id="cb328-10"><a href="apply.html#cb328-10" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">lapply</span>(numbers, add_value, <span class="at">value =</span> <span class="dv">10</span>)</span>
+<span id="cb328-11"><a href="apply.html#cb328-11" tabindex="-1"></a></span>
+<span id="cb328-12"><a href="apply.html#cb328-12" tabindex="-1"></a><span class="co"># Print the result</span></span>
+<span id="cb328-13"><a href="apply.html#cb328-13" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 11
 ## 
@@ -269,35 +269,35 @@ The second argument defines an anonymous function.</p>
 </div>
 </div>
 </div>
-<div id="sapply" class="section level2" number="22.2">
-<h2><span class="header-section-number">22.2</span> sapply</h2>
+<div id="sapply" class="section level2" number="16.2">
+<h2><span class="header-section-number">16.2</span> sapply</h2>
 <p>The <code>sapply()</code> function behaves similarly to <code>lapply()</code>; the only real difference is in the return value. <code>sapply()</code> will try to simplify the result of <code>lapply()</code> if possible. Essentially, <code>sapply()</code> calls <code>lapply()</code> on its input and then applies the following algorithm:</p>
 <ul>
 <li><p>If the result is a list where every element is length 1, then a vector is returned</p></li>
 <li><p>If the result is a list where every element is a vector of the same length (&gt; 1), a matrix is returned.</p></li>
 <li><p>If it can’t figure things out, a list is returned.</p></li>
 </ul>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="apply.html#cb338-1" tabindex="-1"></a><span class="fu">sapply</span>(df_list, mean)</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="apply.html#cb330-1" tabindex="-1"></a><span class="fu">sapply</span>(df_list, mean)</span></code></pre></div>
 <pre><code>##           a           b           c           d           e           f 
 ## -0.38315741 -0.11817071 -0.38794682 -0.76619306 -0.60979706 -0.27886474 
 ##           g           h 
 ##  0.61659223 -0.04230209</code></pre>
 <p>Notice that here <code>sapply()</code> returns a vector as each element had length of 1.</p>
 </div>
-<div id="apply-1" class="section level2" number="22.3">
-<h2><span class="header-section-number">22.3</span> apply</h2>
+<div id="apply-1" class="section level2" number="16.3">
+<h2><span class="header-section-number">16.3</span> apply</h2>
 <p>The <code>apply()</code> function is used to a evaluate a function (often an anonymous one) over an array. It is most often used to apply a function to the rows or columns of a matrix or dataframe, in fact this function <em>cannot</em> be used on a list. Using <code>apply()</code> is often not really faster than writing a loop, but it works in one line and is highly compact.</p>
 <p>MARGIN = 1 means apply function over rows</p>
 <p>MARGIN = 2 means apply function over columns</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="apply.html#cb340-1" tabindex="-1"></a><span class="fu">apply</span>(df, <span class="at">MARGIN =</span> <span class="dv">1</span>, mean)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="apply.html#cb332-1" tabindex="-1"></a><span class="fu">apply</span>(df, <span class="at">MARGIN =</span> <span class="dv">1</span>, mean)</span></code></pre></div>
 <pre><code>##  [1] -0.017615796 -0.155554062 -0.400917401 -0.454979941 -0.003522308
 ##  [6] -0.125228280 -0.584980350 -0.650446262  0.119856528 -0.188911702</code></pre>
 <ul>
 <li><p>If the result is a list where every element is length 1, then a vector is returned</p></li>
 <li><p>If the result is a list where every element is a vector of the same length (&gt; 1), a matrix is returned.</p></li>
 </ul>
-<div id="summary-of-apply-functions" class="section level3" number="22.3.1">
-<h3><span class="header-section-number">22.3.1</span> summary of apply functions</h3>
+<div id="summary-of-apply-functions" class="section level3" number="16.3.1">
+<h3><span class="header-section-number">16.3.1</span> summary of apply functions</h3>
 <table>
 <colgroup>
 <col width="20%" />
@@ -341,8 +341,8 @@ The second argument defines an anonymous function.</p>
 </table>
 </div>
 </div>
-<div id="exercise-1" class="section level2" number="22.4">
-<h2><span class="header-section-number">22.4</span> Exercise</h2>
+<div id="exercise-1" class="section level2" number="16.4">
+<h2><span class="header-section-number">16.4</span> Exercise</h2>
 <div class="panel panel-default">
 <div class="panel-heading">
 Task
@@ -360,10 +360,10 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="apply.html#cb342-1" tabindex="-1"></a>z_score <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb342-2"><a href="apply.html#cb342-2" tabindex="-1"></a>    (x <span class="sc">-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span>  </span>
-<span id="cb342-3"><a href="apply.html#cb342-3" tabindex="-1"></a>        <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb342-4"><a href="apply.html#cb342-4" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="apply.html#cb334-1" tabindex="-1"></a>z_score <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb334-2"><a href="apply.html#cb334-2" tabindex="-1"></a>    (x <span class="sc">-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span>  </span>
+<span id="cb334-3"><a href="apply.html#cb334-3" tabindex="-1"></a>        <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb334-4"><a href="apply.html#cb334-4" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div>
 </div>

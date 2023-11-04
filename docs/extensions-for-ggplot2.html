@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 35 Extensions for ggplot2 | Advancing in R</title>
+  <title>Chapter 29 Extensions for ggplot2 | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 35 Extensions for ggplot2 | Advancing in R" />
+  <meta property="og:title" content="Chapter 29 Extensions for ggplot2 | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 35 Extensions for ggplot2 | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 29 Extensions for ggplot2 | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,329 +153,329 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="extensions-for-ggplot2" class="section level1" number="35">
-<h1><span class="header-section-number">Chapter 35</span> Extensions for ggplot2</h1>
+<div id="extensions-for-ggplot2" class="section level1" number="29">
+<h1><span class="header-section-number">Chapter 29</span> Extensions for ggplot2</h1>
 <p><a href="https://exts.ggplot2.tidyverse.org/" class="uri">https://exts.ggplot2.tidyverse.org/</a></p>
 <ul>
 <li>gghighlight</li>
 <li>ggforce</li>
 </ul>
-<div id="ggdist" class="section level2" number="35.1">
-<h2><span class="header-section-number">35.1</span> ggdist</h2>
-<div id="rainclouds" class="section level3" number="35.1.1">
-<h3><span class="header-section-number">35.1.1</span> Rainclouds</h3>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="extensions-for-ggplot2.html#cb480-1" tabindex="-1"></a><span class="fu">library</span>(ggdist)</span>
-<span id="cb480-2"><a href="extensions-for-ggplot2.html#cb480-2" tabindex="-1"></a></span>
-<span id="cb480-3"><a href="extensions-for-ggplot2.html#cb480-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb480-4"><a href="extensions-for-ggplot2.html#cb480-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
-<span id="cb480-5"><a href="extensions-for-ggplot2.html#cb480-5" tabindex="-1"></a>               <span class="at">y =</span> culmen_length_mm,</span>
-<span id="cb480-6"><a href="extensions-for-ggplot2.html#cb480-6" tabindex="-1"></a>              <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb480-7"><a href="extensions-for-ggplot2.html#cb480-7" tabindex="-1"></a>  ggdist<span class="sc">::</span><span class="fu">stat_halfeye</span>(</span>
-<span id="cb480-8"><a href="extensions-for-ggplot2.html#cb480-8" tabindex="-1"></a>    <span class="at">point_colour =</span> <span class="cn">NA</span>,</span>
-<span id="cb480-9"><a href="extensions-for-ggplot2.html#cb480-9" tabindex="-1"></a>    <span class="at">.width =</span> <span class="dv">0</span>,</span>
-<span id="cb480-10"><a href="extensions-for-ggplot2.html#cb480-10" tabindex="-1"></a>    <span class="co"># shift raincloud up</span></span>
-<span id="cb480-11"><a href="extensions-for-ggplot2.html#cb480-11" tabindex="-1"></a>    <span class="at">justification =</span> <span class="sc">-</span>.<span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb480-12"><a href="extensions-for-ggplot2.html#cb480-12" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="co"># remove outlier dots</span></span>
-<span id="cb480-13"><a href="extensions-for-ggplot2.html#cb480-13" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,</span>
-<span id="cb480-14"><a href="extensions-for-ggplot2.html#cb480-14" tabindex="-1"></a>    <span class="co"># shrink width of box</span></span>
-<span id="cb480-15"><a href="extensions-for-ggplot2.html#cb480-15" tabindex="-1"></a>    <span class="at">alpha =</span> .<span class="dv">4</span>,</span>
-<span id="cb480-16"><a href="extensions-for-ggplot2.html#cb480-16" tabindex="-1"></a>    <span class="co"># fade box</span></span>
-<span id="cb480-17"><a href="extensions-for-ggplot2.html#cb480-17" tabindex="-1"></a>               <span class="at">width =</span> .<span class="dv">1</span>)<span class="sc">+</span></span>
-<span id="cb480-18"><a href="extensions-for-ggplot2.html#cb480-18" tabindex="-1"></a>  ggdist<span class="sc">::</span><span class="fu">stat_dots</span>(<span class="fu">aes</span>(<span class="at">colour =</span> species),</span>
-<span id="cb480-19"><a href="extensions-for-ggplot2.html#cb480-19" tabindex="-1"></a>                  <span class="co"># put dots underneath</span></span>
-<span id="cb480-20"><a href="extensions-for-ggplot2.html#cb480-20" tabindex="-1"></a>                    <span class="at">side =</span> <span class="st">&quot;left&quot;</span>,</span>
-<span id="cb480-21"><a href="extensions-for-ggplot2.html#cb480-21" tabindex="-1"></a>                  <span class="co"># move position down</span></span>
-<span id="cb480-22"><a href="extensions-for-ggplot2.html#cb480-22" tabindex="-1"></a>                    <span class="at">justification =</span> <span class="fl">1.1</span>,</span>
-<span id="cb480-23"><a href="extensions-for-ggplot2.html#cb480-23" tabindex="-1"></a>                  <span class="co"># size of dots </span></span>
-<span id="cb480-24"><a href="extensions-for-ggplot2.html#cb480-24" tabindex="-1"></a>                    <span class="at">dotsize =</span> .<span class="dv">2</span>,</span>
-<span id="cb480-25"><a href="extensions-for-ggplot2.html#cb480-25" tabindex="-1"></a>                    </span>
-<span id="cb480-26"><a href="extensions-for-ggplot2.html#cb480-26" tabindex="-1"></a>                  <span class="co"># adjust bins (grouping) of dots</span></span>
-<span id="cb480-27"><a href="extensions-for-ggplot2.html#cb480-27" tabindex="-1"></a>                    <span class="at">binwidth =</span> .<span class="dv">4</span>)<span class="sc">+</span></span>
-<span id="cb480-28"><a href="extensions-for-ggplot2.html#cb480-28" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
-<span id="cb480-29"><a href="extensions-for-ggplot2.html#cb480-29" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
-<span id="cb480-30"><a href="extensions-for-ggplot2.html#cb480-30" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
-<span id="cb480-31"><a href="extensions-for-ggplot2.html#cb480-31" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="co"># rotate figure</span></span></code></pre></div>
+<div id="ggdist" class="section level2" number="29.1">
+<h2><span class="header-section-number">29.1</span> ggdist</h2>
+<div id="rainclouds" class="section level3" number="29.1.1">
+<h3><span class="header-section-number">29.1.1</span> Rainclouds</h3>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="extensions-for-ggplot2.html#cb472-1" tabindex="-1"></a><span class="fu">library</span>(ggdist)</span>
+<span id="cb472-2"><a href="extensions-for-ggplot2.html#cb472-2" tabindex="-1"></a></span>
+<span id="cb472-3"><a href="extensions-for-ggplot2.html#cb472-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb472-4"><a href="extensions-for-ggplot2.html#cb472-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
+<span id="cb472-5"><a href="extensions-for-ggplot2.html#cb472-5" tabindex="-1"></a>               <span class="at">y =</span> culmen_length_mm,</span>
+<span id="cb472-6"><a href="extensions-for-ggplot2.html#cb472-6" tabindex="-1"></a>              <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb472-7"><a href="extensions-for-ggplot2.html#cb472-7" tabindex="-1"></a>  ggdist<span class="sc">::</span><span class="fu">stat_halfeye</span>(</span>
+<span id="cb472-8"><a href="extensions-for-ggplot2.html#cb472-8" tabindex="-1"></a>    <span class="at">point_colour =</span> <span class="cn">NA</span>,</span>
+<span id="cb472-9"><a href="extensions-for-ggplot2.html#cb472-9" tabindex="-1"></a>    <span class="at">.width =</span> <span class="dv">0</span>,</span>
+<span id="cb472-10"><a href="extensions-for-ggplot2.html#cb472-10" tabindex="-1"></a>    <span class="co"># shift raincloud up</span></span>
+<span id="cb472-11"><a href="extensions-for-ggplot2.html#cb472-11" tabindex="-1"></a>    <span class="at">justification =</span> <span class="sc">-</span>.<span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb472-12"><a href="extensions-for-ggplot2.html#cb472-12" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="co"># remove outlier dots</span></span>
+<span id="cb472-13"><a href="extensions-for-ggplot2.html#cb472-13" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,</span>
+<span id="cb472-14"><a href="extensions-for-ggplot2.html#cb472-14" tabindex="-1"></a>    <span class="co"># shrink width of box</span></span>
+<span id="cb472-15"><a href="extensions-for-ggplot2.html#cb472-15" tabindex="-1"></a>    <span class="at">alpha =</span> .<span class="dv">4</span>,</span>
+<span id="cb472-16"><a href="extensions-for-ggplot2.html#cb472-16" tabindex="-1"></a>    <span class="co"># fade box</span></span>
+<span id="cb472-17"><a href="extensions-for-ggplot2.html#cb472-17" tabindex="-1"></a>               <span class="at">width =</span> .<span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb472-18"><a href="extensions-for-ggplot2.html#cb472-18" tabindex="-1"></a>  ggdist<span class="sc">::</span><span class="fu">stat_dots</span>(<span class="fu">aes</span>(<span class="at">colour =</span> species),</span>
+<span id="cb472-19"><a href="extensions-for-ggplot2.html#cb472-19" tabindex="-1"></a>                  <span class="co"># put dots underneath</span></span>
+<span id="cb472-20"><a href="extensions-for-ggplot2.html#cb472-20" tabindex="-1"></a>                    <span class="at">side =</span> <span class="st">&quot;left&quot;</span>,</span>
+<span id="cb472-21"><a href="extensions-for-ggplot2.html#cb472-21" tabindex="-1"></a>                  <span class="co"># move position down</span></span>
+<span id="cb472-22"><a href="extensions-for-ggplot2.html#cb472-22" tabindex="-1"></a>                    <span class="at">justification =</span> <span class="fl">1.1</span>,</span>
+<span id="cb472-23"><a href="extensions-for-ggplot2.html#cb472-23" tabindex="-1"></a>                  <span class="co"># size of dots </span></span>
+<span id="cb472-24"><a href="extensions-for-ggplot2.html#cb472-24" tabindex="-1"></a>                    <span class="at">dotsize =</span> .<span class="dv">2</span>,</span>
+<span id="cb472-25"><a href="extensions-for-ggplot2.html#cb472-25" tabindex="-1"></a>                    </span>
+<span id="cb472-26"><a href="extensions-for-ggplot2.html#cb472-26" tabindex="-1"></a>                  <span class="co"># adjust bins (grouping) of dots</span></span>
+<span id="cb472-27"><a href="extensions-for-ggplot2.html#cb472-27" tabindex="-1"></a>                    <span class="at">binwidth =</span> .<span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb472-28"><a href="extensions-for-ggplot2.html#cb472-28" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb472-29"><a href="extensions-for-ggplot2.html#cb472-29" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
+<span id="cb472-30"><a href="extensions-for-ggplot2.html#cb472-30" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb472-31"><a href="extensions-for-ggplot2.html#cb472-31" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="co"># rotate figure</span></span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-59-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="interval-stats" class="section level3" number="35.1.2">
-<h3><span class="header-section-number">35.1.2</span> Interval stats</h3>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="extensions-for-ggplot2.html#cb481-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb481-2"><a href="extensions-for-ggplot2.html#cb481-2" tabindex="-1"></a>  <span class="fu">drop_na</span>(sex) <span class="sc">|&gt;</span> </span>
-<span id="cb481-3"><a href="extensions-for-ggplot2.html#cb481-3" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
-<span id="cb481-4"><a href="extensions-for-ggplot2.html#cb481-4" tabindex="-1"></a>               <span class="at">y =</span> culmen_length_mm))<span class="sc">+</span></span>
-<span id="cb481-5"><a href="extensions-for-ggplot2.html#cb481-5" tabindex="-1"></a>  ggdist<span class="sc">::</span><span class="fu">stat_interval</span>(<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">5</span>, .<span class="dv">66</span>, .<span class="dv">95</span>))<span class="sc">+</span></span>
-<span id="cb481-6"><a href="extensions-for-ggplot2.html#cb481-6" tabindex="-1"></a>  ggdist<span class="sc">::</span><span class="fu">stat_halfeye</span>(<span class="fu">aes</span>(<span class="at">fill =</span> sex),</span>
-<span id="cb481-7"><a href="extensions-for-ggplot2.html#cb481-7" tabindex="-1"></a>                       <span class="at">.width =</span> <span class="dv">0</span>,</span>
-<span id="cb481-8"><a href="extensions-for-ggplot2.html#cb481-8" tabindex="-1"></a>                       <span class="at">shape =</span> <span class="dv">21</span>,</span>
-<span id="cb481-9"><a href="extensions-for-ggplot2.html#cb481-9" tabindex="-1"></a>                       <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>,</span>
-<span id="cb481-10"><a href="extensions-for-ggplot2.html#cb481-10" tabindex="-1"></a>                       <span class="at">slab_alpha =</span> .<span class="dv">4</span>,</span>
-<span id="cb481-11"><a href="extensions-for-ggplot2.html#cb481-11" tabindex="-1"></a>                       <span class="at">size =</span> .<span class="dv">5</span>,</span>
-<span id="cb481-12"><a href="extensions-for-ggplot2.html#cb481-12" tabindex="-1"></a>                       <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> .<span class="dv">05</span>))<span class="sc">+</span></span>
-<span id="cb481-13"><a href="extensions-for-ggplot2.html#cb481-13" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;mako&quot;</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">end =</span> .<span class="dv">9</span>)</span></code></pre></div>
+<div id="interval-stats" class="section level3" number="29.1.2">
+<h3><span class="header-section-number">29.1.2</span> Interval stats</h3>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="extensions-for-ggplot2.html#cb473-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb473-2"><a href="extensions-for-ggplot2.html#cb473-2" tabindex="-1"></a>  <span class="fu">drop_na</span>(sex) <span class="sc">|&gt;</span> </span>
+<span id="cb473-3"><a href="extensions-for-ggplot2.html#cb473-3" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
+<span id="cb473-4"><a href="extensions-for-ggplot2.html#cb473-4" tabindex="-1"></a>               <span class="at">y =</span> culmen_length_mm))<span class="sc">+</span></span>
+<span id="cb473-5"><a href="extensions-for-ggplot2.html#cb473-5" tabindex="-1"></a>  ggdist<span class="sc">::</span><span class="fu">stat_interval</span>(<span class="at">.width =</span> <span class="fu">c</span>(.<span class="dv">5</span>, .<span class="dv">66</span>, .<span class="dv">95</span>))<span class="sc">+</span></span>
+<span id="cb473-6"><a href="extensions-for-ggplot2.html#cb473-6" tabindex="-1"></a>  ggdist<span class="sc">::</span><span class="fu">stat_halfeye</span>(<span class="fu">aes</span>(<span class="at">fill =</span> sex),</span>
+<span id="cb473-7"><a href="extensions-for-ggplot2.html#cb473-7" tabindex="-1"></a>                       <span class="at">.width =</span> <span class="dv">0</span>,</span>
+<span id="cb473-8"><a href="extensions-for-ggplot2.html#cb473-8" tabindex="-1"></a>                       <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb473-9"><a href="extensions-for-ggplot2.html#cb473-9" tabindex="-1"></a>                       <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb473-10"><a href="extensions-for-ggplot2.html#cb473-10" tabindex="-1"></a>                       <span class="at">slab_alpha =</span> .<span class="dv">4</span>,</span>
+<span id="cb473-11"><a href="extensions-for-ggplot2.html#cb473-11" tabindex="-1"></a>                       <span class="at">size =</span> .<span class="dv">5</span>,</span>
+<span id="cb473-12"><a href="extensions-for-ggplot2.html#cb473-12" tabindex="-1"></a>                       <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> .<span class="dv">05</span>))<span class="sc">+</span></span>
+<span id="cb473-13"><a href="extensions-for-ggplot2.html#cb473-13" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">&quot;mako&quot;</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">end =</span> .<span class="dv">9</span>)</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="density" class="section level2" number="35.2">
-<h2><span class="header-section-number">35.2</span> Density</h2>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="extensions-for-ggplot2.html#cb482-1" tabindex="-1"></a><span class="fu">library</span>(ggdensity)</span>
-<span id="cb482-2"><a href="extensions-for-ggplot2.html#cb482-2" tabindex="-1"></a></span>
-<span id="cb482-3"><a href="extensions-for-ggplot2.html#cb482-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span>  </span>
-<span id="cb482-4"><a href="extensions-for-ggplot2.html#cb482-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> culmen_length_mm, </span>
-<span id="cb482-5"><a href="extensions-for-ggplot2.html#cb482-5" tabindex="-1"></a>               <span class="at">y =</span> culmen_depth_mm,</span>
-<span id="cb482-6"><a href="extensions-for-ggplot2.html#cb482-6" tabindex="-1"></a>               <span class="at">colour =</span> species)) <span class="sc">+</span></span>
-<span id="cb482-7"><a href="extensions-for-ggplot2.html#cb482-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb482-8"><a href="extensions-for-ggplot2.html#cb482-8" tabindex="-1"></a>  ggdensity<span class="sc">::</span><span class="fu">geom_hdr_lines</span>()<span class="sc">+</span></span>
-<span id="cb482-9"><a href="extensions-for-ggplot2.html#cb482-9" tabindex="-1"></a>   <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)</span></code></pre></div>
+<div id="density" class="section level2" number="29.2">
+<h2><span class="header-section-number">29.2</span> Density</h2>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="extensions-for-ggplot2.html#cb474-1" tabindex="-1"></a><span class="fu">library</span>(ggdensity)</span>
+<span id="cb474-2"><a href="extensions-for-ggplot2.html#cb474-2" tabindex="-1"></a></span>
+<span id="cb474-3"><a href="extensions-for-ggplot2.html#cb474-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span>  </span>
+<span id="cb474-4"><a href="extensions-for-ggplot2.html#cb474-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> culmen_length_mm, </span>
+<span id="cb474-5"><a href="extensions-for-ggplot2.html#cb474-5" tabindex="-1"></a>               <span class="at">y =</span> culmen_depth_mm,</span>
+<span id="cb474-6"><a href="extensions-for-ggplot2.html#cb474-6" tabindex="-1"></a>               <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb474-7"><a href="extensions-for-ggplot2.html#cb474-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb474-8"><a href="extensions-for-ggplot2.html#cb474-8" tabindex="-1"></a>  ggdensity<span class="sc">::</span><span class="fu">geom_hdr_lines</span>()<span class="sc">+</span></span>
+<span id="cb474-9"><a href="extensions-for-ggplot2.html#cb474-9" tabindex="-1"></a>   <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="ggridges" class="section level2" number="35.3">
-<h2><span class="header-section-number">35.3</span> ggridges</h2>
-<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="extensions-for-ggplot2.html#cb483-1" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
-<span id="cb483-2"><a href="extensions-for-ggplot2.html#cb483-2" tabindex="-1"></a></span>
-<span id="cb483-3"><a href="extensions-for-ggplot2.html#cb483-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span>  </span>
-<span id="cb483-4"><a href="extensions-for-ggplot2.html#cb483-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> culmen_length_mm, </span>
-<span id="cb483-5"><a href="extensions-for-ggplot2.html#cb483-5" tabindex="-1"></a>               <span class="at">y =</span> species,</span>
-<span id="cb483-6"><a href="extensions-for-ggplot2.html#cb483-6" tabindex="-1"></a>               <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb483-7"><a href="extensions-for-ggplot2.html#cb483-7" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>() <span class="sc">+</span> <span class="co"># use hjust and vjust to position text</span></span>
-<span id="cb483-8"><a href="extensions-for-ggplot2.html#cb483-8" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
-<span id="cb483-9"><a href="extensions-for-ggplot2.html#cb483-9" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
-<span id="cb483-10"><a href="extensions-for-ggplot2.html#cb483-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div id="ggridges" class="section level2" number="29.3">
+<h2><span class="header-section-number">29.3</span> ggridges</h2>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="extensions-for-ggplot2.html#cb475-1" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb475-2"><a href="extensions-for-ggplot2.html#cb475-2" tabindex="-1"></a></span>
+<span id="cb475-3"><a href="extensions-for-ggplot2.html#cb475-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span>  </span>
+<span id="cb475-4"><a href="extensions-for-ggplot2.html#cb475-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> culmen_length_mm, </span>
+<span id="cb475-5"><a href="extensions-for-ggplot2.html#cb475-5" tabindex="-1"></a>               <span class="at">y =</span> species,</span>
+<span id="cb475-6"><a href="extensions-for-ggplot2.html#cb475-6" tabindex="-1"></a>               <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb475-7"><a href="extensions-for-ggplot2.html#cb475-7" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>() <span class="sc">+</span> <span class="co"># use hjust and vjust to position text</span></span>
+<span id="cb475-8"><a href="extensions-for-ggplot2.html#cb475-8" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb475-9"><a href="extensions-for-ggplot2.html#cb475-9" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
+<span id="cb475-10"><a href="extensions-for-ggplot2.html#cb475-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-62-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="bump-charts" class="section level2" number="35.4">
-<h2><span class="header-section-number">35.4</span> Bump charts</h2>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="extensions-for-ggplot2.html#cb484-1" tabindex="-1"></a><span class="fu">library</span>(ggbump)</span>
-<span id="cb484-2"><a href="extensions-for-ggplot2.html#cb484-2" tabindex="-1"></a></span>
-<span id="cb484-3"><a href="extensions-for-ggplot2.html#cb484-3" tabindex="-1"></a>penguin_summary <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb484-4"><a href="extensions-for-ggplot2.html#cb484-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date_egg =</span> <span class="fu">dmy</span>(date_egg)) <span class="sc">|&gt;</span> </span>
-<span id="cb484-5"><a href="extensions-for-ggplot2.html#cb484-5" tabindex="-1"></a>  <span class="fu">filter</span>(clutch_completion <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb484-6"><a href="extensions-for-ggplot2.html#cb484-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date_egg)) <span class="sc">|&gt;</span> </span>
-<span id="cb484-7"><a href="extensions-for-ggplot2.html#cb484-7" tabindex="-1"></a>  <span class="fu">group_by</span>(species, year) <span class="sc">|&gt;</span> </span>
-<span id="cb484-8"><a href="extensions-for-ggplot2.html#cb484-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb484-9"><a href="extensions-for-ggplot2.html#cb484-9" tabindex="-1"></a></span>
-<span id="cb484-10"><a href="extensions-for-ggplot2.html#cb484-10" tabindex="-1"></a>penguin_summary <span class="sc">|&gt;</span></span>
-<span id="cb484-11"><a href="extensions-for-ggplot2.html#cb484-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, </span>
-<span id="cb484-12"><a href="extensions-for-ggplot2.html#cb484-12" tabindex="-1"></a>             <span class="at">y =</span> n,</span>
-<span id="cb484-13"><a href="extensions-for-ggplot2.html#cb484-13" tabindex="-1"></a>             <span class="at">colour =</span> species))<span class="sc">+</span></span>
-<span id="cb484-14"><a href="extensions-for-ggplot2.html#cb484-14" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">7</span>)<span class="sc">+</span></span>
-<span id="cb484-15"><a href="extensions-for-ggplot2.html#cb484-15" tabindex="-1"></a>  <span class="fu">geom_bump</span>()<span class="sc">+</span></span>
-<span id="cb484-16"><a href="extensions-for-ggplot2.html#cb484-16" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> penguin_summary <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year)),</span>
-<span id="cb484-17"><a href="extensions-for-ggplot2.html#cb484-17" tabindex="-1"></a>                                             <span class="fu">aes</span>(<span class="at">x =</span> year <span class="sc">+</span> <span class="fl">0.1</span>,</span>
-<span id="cb484-18"><a href="extensions-for-ggplot2.html#cb484-18" tabindex="-1"></a>                                                 <span class="at">label =</span> species,</span>
-<span id="cb484-19"><a href="extensions-for-ggplot2.html#cb484-19" tabindex="-1"></a>                                                  <span class="at">hjust =</span> <span class="dv">0</span>),</span>
-<span id="cb484-20"><a href="extensions-for-ggplot2.html#cb484-20" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">5</span>)<span class="sc">+</span></span>
-<span id="cb484-21"><a href="extensions-for-ggplot2.html#cb484-21" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">2007</span>, <span class="fl">2009.5</span>),</span>
-<span id="cb484-22"><a href="extensions-for-ggplot2.html#cb484-22" tabindex="-1"></a>                     <span class="at">breaks =</span> (<span class="dv">2007</span><span class="sc">:</span><span class="dv">2009</span>))<span class="sc">+</span></span>
-<span id="cb484-23"><a href="extensions-for-ggplot2.html#cb484-23" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Total number of complete clutches&quot;</span>)<span class="sc">+</span></span>
-<span id="cb484-24"><a href="extensions-for-ggplot2.html#cb484-24" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
-<span id="cb484-25"><a href="extensions-for-ggplot2.html#cb484-25" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
-<span id="cb484-26"><a href="extensions-for-ggplot2.html#cb484-26" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div id="bump-charts" class="section level2" number="29.4">
+<h2><span class="header-section-number">29.4</span> Bump charts</h2>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="extensions-for-ggplot2.html#cb476-1" tabindex="-1"></a><span class="fu">library</span>(ggbump)</span>
+<span id="cb476-2"><a href="extensions-for-ggplot2.html#cb476-2" tabindex="-1"></a></span>
+<span id="cb476-3"><a href="extensions-for-ggplot2.html#cb476-3" tabindex="-1"></a>penguin_summary <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb476-4"><a href="extensions-for-ggplot2.html#cb476-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date_egg =</span> <span class="fu">dmy</span>(date_egg)) <span class="sc">|&gt;</span> </span>
+<span id="cb476-5"><a href="extensions-for-ggplot2.html#cb476-5" tabindex="-1"></a>  <span class="fu">filter</span>(clutch_completion <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb476-6"><a href="extensions-for-ggplot2.html#cb476-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date_egg)) <span class="sc">|&gt;</span> </span>
+<span id="cb476-7"><a href="extensions-for-ggplot2.html#cb476-7" tabindex="-1"></a>  <span class="fu">group_by</span>(species, year) <span class="sc">|&gt;</span> </span>
+<span id="cb476-8"><a href="extensions-for-ggplot2.html#cb476-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb476-9"><a href="extensions-for-ggplot2.html#cb476-9" tabindex="-1"></a></span>
+<span id="cb476-10"><a href="extensions-for-ggplot2.html#cb476-10" tabindex="-1"></a>penguin_summary <span class="sc">|&gt;</span></span>
+<span id="cb476-11"><a href="extensions-for-ggplot2.html#cb476-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<span id="cb476-12"><a href="extensions-for-ggplot2.html#cb476-12" tabindex="-1"></a>             <span class="at">y =</span> n,</span>
+<span id="cb476-13"><a href="extensions-for-ggplot2.html#cb476-13" tabindex="-1"></a>             <span class="at">colour =</span> species))<span class="sc">+</span></span>
+<span id="cb476-14"><a href="extensions-for-ggplot2.html#cb476-14" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">7</span>)<span class="sc">+</span></span>
+<span id="cb476-15"><a href="extensions-for-ggplot2.html#cb476-15" tabindex="-1"></a>  <span class="fu">geom_bump</span>()<span class="sc">+</span></span>
+<span id="cb476-16"><a href="extensions-for-ggplot2.html#cb476-16" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> penguin_summary <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year)),</span>
+<span id="cb476-17"><a href="extensions-for-ggplot2.html#cb476-17" tabindex="-1"></a>                                             <span class="fu">aes</span>(<span class="at">x =</span> year <span class="sc">+</span> <span class="fl">0.1</span>,</span>
+<span id="cb476-18"><a href="extensions-for-ggplot2.html#cb476-18" tabindex="-1"></a>                                                 <span class="at">label =</span> species,</span>
+<span id="cb476-19"><a href="extensions-for-ggplot2.html#cb476-19" tabindex="-1"></a>                                                  <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb476-20"><a href="extensions-for-ggplot2.html#cb476-20" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb476-21"><a href="extensions-for-ggplot2.html#cb476-21" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">2007</span>, <span class="fl">2009.5</span>),</span>
+<span id="cb476-22"><a href="extensions-for-ggplot2.html#cb476-22" tabindex="-1"></a>                     <span class="at">breaks =</span> (<span class="dv">2007</span><span class="sc">:</span><span class="dv">2009</span>))<span class="sc">+</span></span>
+<span id="cb476-23"><a href="extensions-for-ggplot2.html#cb476-23" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Total number of complete clutches&quot;</span>)<span class="sc">+</span></span>
+<span id="cb476-24"><a href="extensions-for-ggplot2.html#cb476-24" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb476-25"><a href="extensions-for-ggplot2.html#cb476-25" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
+<span id="cb476-26"><a href="extensions-for-ggplot2.html#cb476-26" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-63-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="dumbell-charts" class="section level2" number="35.5">
-<h2><span class="header-section-number">35.5</span> Dumbell charts</h2>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="extensions-for-ggplot2.html#cb485-1" tabindex="-1"></a><span class="fu">library</span>(ggalt)</span>
-<span id="cb485-2"><a href="extensions-for-ggplot2.html#cb485-2" tabindex="-1"></a></span>
-<span id="cb485-3"><a href="extensions-for-ggplot2.html#cb485-3" tabindex="-1"></a>summary_counts <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb485-4"><a href="extensions-for-ggplot2.html#cb485-4" tabindex="-1"></a>  <span class="fu">group_by</span>(sex, species) <span class="sc">|&gt;</span> </span>
-<span id="cb485-5"><a href="extensions-for-ggplot2.html#cb485-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span> </span>
-<span id="cb485-6"><a href="extensions-for-ggplot2.html#cb485-6" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> sex, <span class="at">values_from =</span> mean)</span>
-<span id="cb485-7"><a href="extensions-for-ggplot2.html#cb485-7" tabindex="-1"></a></span>
-<span id="cb485-8"><a href="extensions-for-ggplot2.html#cb485-8" tabindex="-1"></a><span class="fu">ggplot</span>(summary_counts, </span>
-<span id="cb485-9"><a href="extensions-for-ggplot2.html#cb485-9" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>species, <span class="at">x=</span>FEMALE, <span class="at">xend=</span>MALE)) <span class="sc">+</span></span>
-<span id="cb485-10"><a href="extensions-for-ggplot2.html#cb485-10" tabindex="-1"></a>  <span class="fu">geom_dumbbell</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="at">color=</span><span class="st">&quot;#e3e2e1&quot;</span>,</span>
-<span id="cb485-11"><a href="extensions-for-ggplot2.html#cb485-11" tabindex="-1"></a>                <span class="at">colour_x =</span> <span class="st">&quot;#5b8124&quot;</span>, <span class="at">colour_xend =</span> <span class="st">&quot;#bad744&quot;</span>) <span class="sc">+</span></span>
-<span id="cb485-12"><a href="extensions-for-ggplot2.html#cb485-12" tabindex="-1"></a>  <span class="fu">geom_text</span>( <span class="at">x=</span>summary_counts[[<span class="dv">3</span>,<span class="dv">2</span>]], <span class="at">y=</span><span class="dv">3</span>, <span class="fu">aes</span>(<span class="at">label=</span><span class="st">&quot;Female&quot;</span>),</span>
-<span id="cb485-13"><a href="extensions-for-ggplot2.html#cb485-13" tabindex="-1"></a>             <span class="at">color=</span><span class="st">&quot;#9fb059&quot;</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">vjust=</span><span class="sc">-</span><span class="dv">2</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>)<span class="sc">+</span></span>
-<span id="cb485-14"><a href="extensions-for-ggplot2.html#cb485-14" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">x=</span>summary_counts[[<span class="dv">3</span>,<span class="dv">3</span>]], <span class="at">y=</span><span class="dv">3</span>, <span class="fu">aes</span>(<span class="at">label=</span><span class="st">&quot;Male&quot;</span>),</span>
-<span id="cb485-15"><a href="extensions-for-ggplot2.html#cb485-15" tabindex="-1"></a>             <span class="at">color=</span><span class="st">&quot;#bad744&quot;</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">vjust=</span><span class="sc">-</span><span class="dv">2</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>)<span class="sc">+</span></span>
-<span id="cb485-16"><a href="extensions-for-ggplot2.html#cb485-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Body mass (g)&quot;</span>,</span>
-<span id="cb485-17"><a href="extensions-for-ggplot2.html#cb485-17" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div id="dumbell-charts" class="section level2" number="29.5">
+<h2><span class="header-section-number">29.5</span> Dumbell charts</h2>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="extensions-for-ggplot2.html#cb477-1" tabindex="-1"></a><span class="fu">library</span>(ggalt)</span>
+<span id="cb477-2"><a href="extensions-for-ggplot2.html#cb477-2" tabindex="-1"></a></span>
+<span id="cb477-3"><a href="extensions-for-ggplot2.html#cb477-3" tabindex="-1"></a>summary_counts <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb477-4"><a href="extensions-for-ggplot2.html#cb477-4" tabindex="-1"></a>  <span class="fu">group_by</span>(sex, species) <span class="sc">|&gt;</span> </span>
+<span id="cb477-5"><a href="extensions-for-ggplot2.html#cb477-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span> </span>
+<span id="cb477-6"><a href="extensions-for-ggplot2.html#cb477-6" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> sex, <span class="at">values_from =</span> mean)</span>
+<span id="cb477-7"><a href="extensions-for-ggplot2.html#cb477-7" tabindex="-1"></a></span>
+<span id="cb477-8"><a href="extensions-for-ggplot2.html#cb477-8" tabindex="-1"></a><span class="fu">ggplot</span>(summary_counts, </span>
+<span id="cb477-9"><a href="extensions-for-ggplot2.html#cb477-9" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>species, <span class="at">x=</span>FEMALE, <span class="at">xend=</span>MALE)) <span class="sc">+</span></span>
+<span id="cb477-10"><a href="extensions-for-ggplot2.html#cb477-10" tabindex="-1"></a>  <span class="fu">geom_dumbbell</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="at">color=</span><span class="st">&quot;#e3e2e1&quot;</span>,</span>
+<span id="cb477-11"><a href="extensions-for-ggplot2.html#cb477-11" tabindex="-1"></a>                <span class="at">colour_x =</span> <span class="st">&quot;#5b8124&quot;</span>, <span class="at">colour_xend =</span> <span class="st">&quot;#bad744&quot;</span>) <span class="sc">+</span></span>
+<span id="cb477-12"><a href="extensions-for-ggplot2.html#cb477-12" tabindex="-1"></a>  <span class="fu">geom_text</span>( <span class="at">x=</span>summary_counts[[<span class="dv">3</span>,<span class="dv">2</span>]], <span class="at">y=</span><span class="dv">3</span>, <span class="fu">aes</span>(<span class="at">label=</span><span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb477-13"><a href="extensions-for-ggplot2.html#cb477-13" tabindex="-1"></a>             <span class="at">color=</span><span class="st">&quot;#9fb059&quot;</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">vjust=</span><span class="sc">-</span><span class="dv">2</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>)<span class="sc">+</span></span>
+<span id="cb477-14"><a href="extensions-for-ggplot2.html#cb477-14" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">x=</span>summary_counts[[<span class="dv">3</span>,<span class="dv">3</span>]], <span class="at">y=</span><span class="dv">3</span>, <span class="fu">aes</span>(<span class="at">label=</span><span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb477-15"><a href="extensions-for-ggplot2.html#cb477-15" tabindex="-1"></a>             <span class="at">color=</span><span class="st">&quot;#bad744&quot;</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">vjust=</span><span class="sc">-</span><span class="dv">2</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>)<span class="sc">+</span></span>
+<span id="cb477-16"><a href="extensions-for-ggplot2.html#cb477-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Body mass (g)&quot;</span>,</span>
+<span id="cb477-17"><a href="extensions-for-ggplot2.html#cb477-17" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-64-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="facets-2" class="section level2" number="35.6">
-<h2><span class="header-section-number">35.6</span> Facets</h2>
+<div id="facets-1" class="section level2" number="29.6">
+<h2><span class="header-section-number">29.6</span> Facets</h2>
 <p>The <code>ggh4x</code> package adds some awesome features for easy facet work including <code>facet_nested()</code>:</p>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="extensions-for-ggplot2.html#cb486-1" tabindex="-1"></a><span class="fu">library</span>(ggh4x)</span>
-<span id="cb486-2"><a href="extensions-for-ggplot2.html#cb486-2" tabindex="-1"></a></span>
-<span id="cb486-3"><a href="extensions-for-ggplot2.html#cb486-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb486-4"><a href="extensions-for-ggplot2.html#cb486-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Nester =</span> <span class="fu">ifelse</span>(species<span class="sc">==</span><span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Crustaceans&quot;</span>, <span class="st">&quot;Fish &amp; Krill&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb486-5"><a href="extensions-for-ggplot2.html#cb486-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> culmen_length_mm,</span>
-<span id="cb486-6"><a href="extensions-for-ggplot2.html#cb486-6" tabindex="-1"></a>             <span class="at">y =</span> culmen_depth_mm,</span>
-<span id="cb486-7"><a href="extensions-for-ggplot2.html#cb486-7" tabindex="-1"></a>             <span class="at">colour =</span> species))<span class="sc">+</span></span>
-<span id="cb486-8"><a href="extensions-for-ggplot2.html#cb486-8" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb486-9"><a href="extensions-for-ggplot2.html#cb486-9" tabindex="-1"></a>  <span class="fu">facet_nested</span>(<span class="sc">~</span> Nester <span class="sc">+</span> species)<span class="sc">+</span></span>
-<span id="cb486-10"><a href="extensions-for-ggplot2.html#cb486-10" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
-<span id="cb486-11"><a href="extensions-for-ggplot2.html#cb486-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="extensions-for-ggplot2.html#cb478-1" tabindex="-1"></a><span class="fu">library</span>(ggh4x)</span>
+<span id="cb478-2"><a href="extensions-for-ggplot2.html#cb478-2" tabindex="-1"></a></span>
+<span id="cb478-3"><a href="extensions-for-ggplot2.html#cb478-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb478-4"><a href="extensions-for-ggplot2.html#cb478-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Nester =</span> <span class="fu">ifelse</span>(species<span class="sc">==</span><span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Crustaceans&quot;</span>, <span class="st">&quot;Fish &amp; Krill&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb478-5"><a href="extensions-for-ggplot2.html#cb478-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> culmen_length_mm,</span>
+<span id="cb478-6"><a href="extensions-for-ggplot2.html#cb478-6" tabindex="-1"></a>             <span class="at">y =</span> culmen_depth_mm,</span>
+<span id="cb478-7"><a href="extensions-for-ggplot2.html#cb478-7" tabindex="-1"></a>             <span class="at">colour =</span> species))<span class="sc">+</span></span>
+<span id="cb478-8"><a href="extensions-for-ggplot2.html#cb478-8" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb478-9"><a href="extensions-for-ggplot2.html#cb478-9" tabindex="-1"></a>  <span class="fu">facet_nested</span>(<span class="sc">~</span> Nester <span class="sc">+</span> species)<span class="sc">+</span></span>
+<span id="cb478-10"><a href="extensions-for-ggplot2.html#cb478-10" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
+<span id="cb478-11"><a href="extensions-for-ggplot2.html#cb478-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-65-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="highlighting" class="section level2" number="35.7">
-<h2><span class="header-section-number">35.7</span> Highlighting</h2>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="extensions-for-ggplot2.html#cb487-1" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
-<span id="cb487-2"><a href="extensions-for-ggplot2.html#cb487-2" tabindex="-1"></a></span>
-<span id="cb487-3"><a href="extensions-for-ggplot2.html#cb487-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb487-4"><a href="extensions-for-ggplot2.html#cb487-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(body_mass_g,</span>
-<span id="cb487-5"><a href="extensions-for-ggplot2.html#cb487-5" tabindex="-1"></a>             <span class="at">fill =</span> species),</span>
-<span id="cb487-6"><a href="extensions-for-ggplot2.html#cb487-6" tabindex="-1"></a>         <span class="at">position =</span> <span class="st">&quot;identity&quot;</span>)<span class="sc">+</span></span>
-<span id="cb487-7"><a href="extensions-for-ggplot2.html#cb487-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()<span class="sc">+</span></span>
-<span id="cb487-8"><a href="extensions-for-ggplot2.html#cb487-8" tabindex="-1"></a>  <span class="fu">gghighlight</span>()<span class="sc">+</span></span>
-<span id="cb487-9"><a href="extensions-for-ggplot2.html#cb487-9" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
-<span id="cb487-10"><a href="extensions-for-ggplot2.html#cb487-10" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> species)</span></code></pre></div>
+<div id="highlighting" class="section level2" number="29.7">
+<h2><span class="header-section-number">29.7</span> Highlighting</h2>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="extensions-for-ggplot2.html#cb479-1" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
+<span id="cb479-2"><a href="extensions-for-ggplot2.html#cb479-2" tabindex="-1"></a></span>
+<span id="cb479-3"><a href="extensions-for-ggplot2.html#cb479-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb479-4"><a href="extensions-for-ggplot2.html#cb479-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(body_mass_g,</span>
+<span id="cb479-5"><a href="extensions-for-ggplot2.html#cb479-5" tabindex="-1"></a>             <span class="at">fill =</span> species),</span>
+<span id="cb479-6"><a href="extensions-for-ggplot2.html#cb479-6" tabindex="-1"></a>         <span class="at">position =</span> <span class="st">&quot;identity&quot;</span>)<span class="sc">+</span></span>
+<span id="cb479-7"><a href="extensions-for-ggplot2.html#cb479-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()<span class="sc">+</span></span>
+<span id="cb479-8"><a href="extensions-for-ggplot2.html#cb479-8" tabindex="-1"></a>  <span class="fu">gghighlight</span>()<span class="sc">+</span></span>
+<span id="cb479-9"><a href="extensions-for-ggplot2.html#cb479-9" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
+<span id="cb479-10"><a href="extensions-for-ggplot2.html#cb479-10" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> species)</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-66-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="extensions-for-ggplot2.html#cb488-1" tabindex="-1"></a><span class="fu">library</span>(ggbeeswarm)</span>
-<span id="cb488-2"><a href="extensions-for-ggplot2.html#cb488-2" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
-<span id="cb488-3"><a href="extensions-for-ggplot2.html#cb488-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb488-4"><a href="extensions-for-ggplot2.html#cb488-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
-<span id="cb488-5"><a href="extensions-for-ggplot2.html#cb488-5" tabindex="-1"></a>               <span class="at">y =</span> body_mass_g,</span>
-<span id="cb488-6"><a href="extensions-for-ggplot2.html#cb488-6" tabindex="-1"></a>               <span class="at">fill =</span> species))<span class="sc">+</span></span>
-<span id="cb488-7"><a href="extensions-for-ggplot2.html#cb488-7" tabindex="-1"></a>    <span class="fu">geom_beeswarm</span>(<span class="at">shape =</span> <span class="dv">21</span>, </span>
-<span id="cb488-8"><a href="extensions-for-ggplot2.html#cb488-8" tabindex="-1"></a>                  <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
-<span id="cb488-9"><a href="extensions-for-ggplot2.html#cb488-9" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
-<span id="cb488-10"><a href="extensions-for-ggplot2.html#cb488-10" tabindex="-1"></a>    <span class="fu">gghighlight</span>(body_mass_g <span class="sc">&gt;</span> <span class="dv">4000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="extensions-for-ggplot2.html#cb480-1" tabindex="-1"></a><span class="fu">library</span>(ggbeeswarm)</span>
+<span id="cb480-2"><a href="extensions-for-ggplot2.html#cb480-2" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
+<span id="cb480-3"><a href="extensions-for-ggplot2.html#cb480-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb480-4"><a href="extensions-for-ggplot2.html#cb480-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
+<span id="cb480-5"><a href="extensions-for-ggplot2.html#cb480-5" tabindex="-1"></a>               <span class="at">y =</span> body_mass_g,</span>
+<span id="cb480-6"><a href="extensions-for-ggplot2.html#cb480-6" tabindex="-1"></a>               <span class="at">fill =</span> species))<span class="sc">+</span></span>
+<span id="cb480-7"><a href="extensions-for-ggplot2.html#cb480-7" tabindex="-1"></a>    <span class="fu">geom_beeswarm</span>(<span class="at">shape =</span> <span class="dv">21</span>, </span>
+<span id="cb480-8"><a href="extensions-for-ggplot2.html#cb480-8" tabindex="-1"></a>                  <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
+<span id="cb480-9"><a href="extensions-for-ggplot2.html#cb480-9" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
+<span id="cb480-10"><a href="extensions-for-ggplot2.html#cb480-10" tabindex="-1"></a>    <span class="fu">gghighlight</span>(body_mass_g <span class="sc">&gt;</span> <span class="dv">4000</span>)</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-67-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="text" class="section level2" number="35.8">
-<h2><span class="header-section-number">35.8</span> Text</h2>
-<div id="ggforce" class="section level3" number="35.8.1">
-<h3><span class="header-section-number">35.8.1</span> ggforce</h3>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="extensions-for-ggplot2.html#cb489-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb489-2"><a href="extensions-for-ggplot2.html#cb489-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(</span>
-<span id="cb489-3"><a href="extensions-for-ggplot2.html#cb489-3" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> culmen_length_mm,</span>
-<span id="cb489-4"><a href="extensions-for-ggplot2.html#cb489-4" tabindex="-1"></a>            <span class="at">y=</span> body_mass_g,</span>
-<span id="cb489-5"><a href="extensions-for-ggplot2.html#cb489-5" tabindex="-1"></a>            <span class="at">colour =</span> species)) <span class="sc">+</span></span>
-<span id="cb489-6"><a href="extensions-for-ggplot2.html#cb489-6" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">fill =</span> species), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
-<span id="cb489-7"><a href="extensions-for-ggplot2.html#cb489-7" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,<span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">alpha =</span> .<span class="dv">4</span>)<span class="sc">+</span></span>
-<span id="cb489-8"><a href="extensions-for-ggplot2.html#cb489-8" tabindex="-1"></a>ggforce<span class="sc">::</span><span class="fu">geom_mark_ellipse</span>(<span class="fu">aes</span>(</span>
-<span id="cb489-9"><a href="extensions-for-ggplot2.html#cb489-9" tabindex="-1"></a>    <span class="at">label =</span> species,</span>
-<span id="cb489-10"><a href="extensions-for-ggplot2.html#cb489-10" tabindex="-1"></a>    <span class="at">filter =</span> species <span class="sc">==</span> <span class="st">&#39;Adelie&#39;</span>),</span>
-<span id="cb489-11"><a href="extensions-for-ggplot2.html#cb489-11" tabindex="-1"></a>    <span class="at">con.colour  =</span> <span class="st">&quot;#526A83&quot;</span>,</span>
-<span id="cb489-12"><a href="extensions-for-ggplot2.html#cb489-12" tabindex="-1"></a>    <span class="at">con.cap =</span> <span class="dv">0</span>,</span>
-<span id="cb489-13"><a href="extensions-for-ggplot2.html#cb489-13" tabindex="-1"></a>    <span class="at">con.arrow =</span> <span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">&quot;last&quot;</span>,</span>
-<span id="cb489-14"><a href="extensions-for-ggplot2.html#cb489-14" tabindex="-1"></a>                      <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;cm&quot;</span>)),</span>
-<span id="cb489-15"><a href="extensions-for-ggplot2.html#cb489-15" tabindex="-1"></a>    <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb489-16"><a href="extensions-for-ggplot2.html#cb489-16" tabindex="-1"></a>    <span class="fu">gghighlight</span>(species <span class="sc">==</span> <span class="st">&quot;Adelie&quot;</span>)<span class="sc">+</span></span>
-<span id="cb489-17"><a href="extensions-for-ggplot2.html#cb489-17" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
-<span id="cb489-18"><a href="extensions-for-ggplot2.html#cb489-18" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal)</span></code></pre></div>
+<div id="text" class="section level2" number="29.8">
+<h2><span class="header-section-number">29.8</span> Text</h2>
+<div id="ggforce" class="section level3" number="29.8.1">
+<h3><span class="header-section-number">29.8.1</span> ggforce</h3>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="extensions-for-ggplot2.html#cb481-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb481-2"><a href="extensions-for-ggplot2.html#cb481-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(</span>
+<span id="cb481-3"><a href="extensions-for-ggplot2.html#cb481-3" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> culmen_length_mm,</span>
+<span id="cb481-4"><a href="extensions-for-ggplot2.html#cb481-4" tabindex="-1"></a>            <span class="at">y=</span> body_mass_g,</span>
+<span id="cb481-5"><a href="extensions-for-ggplot2.html#cb481-5" tabindex="-1"></a>            <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb481-6"><a href="extensions-for-ggplot2.html#cb481-6" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">fill =</span> species), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb481-7"><a href="extensions-for-ggplot2.html#cb481-7" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,<span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">alpha =</span> .<span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb481-8"><a href="extensions-for-ggplot2.html#cb481-8" tabindex="-1"></a>ggforce<span class="sc">::</span><span class="fu">geom_mark_ellipse</span>(<span class="fu">aes</span>(</span>
+<span id="cb481-9"><a href="extensions-for-ggplot2.html#cb481-9" tabindex="-1"></a>    <span class="at">label =</span> species,</span>
+<span id="cb481-10"><a href="extensions-for-ggplot2.html#cb481-10" tabindex="-1"></a>    <span class="at">filter =</span> species <span class="sc">==</span> <span class="st">&#39;Adelie&#39;</span>),</span>
+<span id="cb481-11"><a href="extensions-for-ggplot2.html#cb481-11" tabindex="-1"></a>    <span class="at">con.colour  =</span> <span class="st">&quot;#526A83&quot;</span>,</span>
+<span id="cb481-12"><a href="extensions-for-ggplot2.html#cb481-12" tabindex="-1"></a>    <span class="at">con.cap =</span> <span class="dv">0</span>,</span>
+<span id="cb481-13"><a href="extensions-for-ggplot2.html#cb481-13" tabindex="-1"></a>    <span class="at">con.arrow =</span> <span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">&quot;last&quot;</span>,</span>
+<span id="cb481-14"><a href="extensions-for-ggplot2.html#cb481-14" tabindex="-1"></a>                      <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;cm&quot;</span>)),</span>
+<span id="cb481-15"><a href="extensions-for-ggplot2.html#cb481-15" tabindex="-1"></a>    <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb481-16"><a href="extensions-for-ggplot2.html#cb481-16" tabindex="-1"></a>    <span class="fu">gghighlight</span>(species <span class="sc">==</span> <span class="st">&quot;Adelie&quot;</span>)<span class="sc">+</span></span>
+<span id="cb481-17"><a href="extensions-for-ggplot2.html#cb481-17" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
+<span id="cb481-18"><a href="extensions-for-ggplot2.html#cb481-18" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal)</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-68-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="textpaths" class="section level3" number="35.8.2">
-<h3><span class="header-section-number">35.8.2</span> textpaths</h3>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="extensions-for-ggplot2.html#cb490-1" tabindex="-1"></a><span class="fu">library</span>(geomtextpath)</span>
-<span id="cb490-2"><a href="extensions-for-ggplot2.html#cb490-2" tabindex="-1"></a></span>
-<span id="cb490-3"><a href="extensions-for-ggplot2.html#cb490-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb490-4"><a href="extensions-for-ggplot2.html#cb490-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> culmen_length_mm, </span>
-<span id="cb490-5"><a href="extensions-for-ggplot2.html#cb490-5" tabindex="-1"></a>               <span class="at">colour =</span> species,</span>
-<span id="cb490-6"><a href="extensions-for-ggplot2.html#cb490-6" tabindex="-1"></a>               <span class="at">label =</span> species))<span class="sc">+</span></span>
-<span id="cb490-7"><a href="extensions-for-ggplot2.html#cb490-7" tabindex="-1"></a>  <span class="fu">geom_textdensity</span>( <span class="at">hjust =</span> <span class="fl">0.35</span>, <span class="at">vjust =</span> .<span class="dv">1</span>)<span class="sc">+</span> <span class="co"># use hjust and vjust to position text</span></span>
-<span id="cb490-8"><a href="extensions-for-ggplot2.html#cb490-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div id="textpaths" class="section level3" number="29.8.2">
+<h3><span class="header-section-number">29.8.2</span> textpaths</h3>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="extensions-for-ggplot2.html#cb482-1" tabindex="-1"></a><span class="fu">library</span>(geomtextpath)</span>
+<span id="cb482-2"><a href="extensions-for-ggplot2.html#cb482-2" tabindex="-1"></a></span>
+<span id="cb482-3"><a href="extensions-for-ggplot2.html#cb482-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb482-4"><a href="extensions-for-ggplot2.html#cb482-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> culmen_length_mm, </span>
+<span id="cb482-5"><a href="extensions-for-ggplot2.html#cb482-5" tabindex="-1"></a>               <span class="at">colour =</span> species,</span>
+<span id="cb482-6"><a href="extensions-for-ggplot2.html#cb482-6" tabindex="-1"></a>               <span class="at">label =</span> species))<span class="sc">+</span></span>
+<span id="cb482-7"><a href="extensions-for-ggplot2.html#cb482-7" tabindex="-1"></a>  <span class="fu">geom_textdensity</span>( <span class="at">hjust =</span> <span class="fl">0.35</span>, <span class="at">vjust =</span> .<span class="dv">1</span>)<span class="sc">+</span> <span class="co"># use hjust and vjust to position text</span></span>
+<span id="cb482-8"><a href="extensions-for-ggplot2.html#cb482-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-69-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="ggtext" class="section level3" number="35.8.3">
-<h3><span class="header-section-number">35.8.3</span> ggtext</h3>
+<div id="ggtext" class="section level3" number="29.8.3">
+<h3><span class="header-section-number">29.8.3</span> ggtext</h3>
 <p><a href="https://rfortherestofus.com/2020/05/color-titles-ggtext#" class="uri">https://rfortherestofus.com/2020/05/color-titles-ggtext#</a>:~:text=Adding%20color%20to%20titles%20using,HTML%2C%20not%20as%20raw%20text.</p>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="extensions-for-ggplot2.html#cb491-1" tabindex="-1"></a><span class="fu">library</span>(ggtext)</span>
-<span id="cb491-2"><a href="extensions-for-ggplot2.html#cb491-2" tabindex="-1"></a></span>
-<span id="cb491-3"><a href="extensions-for-ggplot2.html#cb491-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb491-4"><a href="extensions-for-ggplot2.html#cb491-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">fct_relevel</span>(species, <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Adelie&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb491-5"><a href="extensions-for-ggplot2.html#cb491-5" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
-<span id="cb491-6"><a href="extensions-for-ggplot2.html#cb491-6" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb491-7"><a href="extensions-for-ggplot2.html#cb491-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
-<span id="cb491-8"><a href="extensions-for-ggplot2.html#cb491-8" tabindex="-1"></a>           <span class="at">y =</span> n,</span>
-<span id="cb491-9"><a href="extensions-for-ggplot2.html#cb491-9" tabindex="-1"></a>           <span class="at">fill =</span> species))<span class="sc">+</span></span>
-<span id="cb491-10"><a href="extensions-for-ggplot2.html#cb491-10" tabindex="-1"></a>        <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb491-11"><a href="extensions-for-ggplot2.html#cb491-11" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> n),</span>
-<span id="cb491-12"><a href="extensions-for-ggplot2.html#cb491-12" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>,</span>
-<span id="cb491-13"><a href="extensions-for-ggplot2.html#cb491-13" tabindex="-1"></a>            <span class="at">nudge_y =</span> <span class="dv">1</span>,</span>
-<span id="cb491-14"><a href="extensions-for-ggplot2.html#cb491-14" tabindex="-1"></a>            <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb491-15"><a href="extensions-for-ggplot2.html#cb491-15" tabindex="-1"></a>            <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>)<span class="sc">+</span></span>
-<span id="cb491-16"><a href="extensions-for-ggplot2.html#cb491-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb491-17"><a href="extensions-for-ggplot2.html#cb491-17" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
-<span id="cb491-18"><a href="extensions-for-ggplot2.html#cb491-18" tabindex="-1"></a>       <span class="at">title =</span> <span class="fu">paste</span>(</span>
-<span id="cb491-19"><a href="extensions-for-ggplot2.html#cb491-19" tabindex="-1"></a>         <span class="st">&#39;There are almost half the observations on &lt;br&gt; &lt;span style = &quot;color:#A034F0&quot;&gt;Chinstrap&lt;/span&gt; penguins,  as there are &lt;br&gt; on &lt;span style = &quot;color:#FF8C00&quot;&gt;Adelie&lt;/span&gt; and &lt;span style =&quot;color:#159090&quot;&gt;Gentoo&lt;/span&gt;penguins&#39;</span></span>
-<span id="cb491-20"><a href="extensions-for-ggplot2.html#cb491-20" tabindex="-1"></a>       ))<span class="sc">+</span></span>
-<span id="cb491-21"><a href="extensions-for-ggplot2.html#cb491-21" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb491-22"><a href="extensions-for-ggplot2.html#cb491-22" tabindex="-1"></a>    <span class="co"># when reordering levels - be careful about keeping colours consistent</span></span>
-<span id="cb491-23"><a href="extensions-for-ggplot2.html#cb491-23" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#FF8C00&quot;</span>, <span class="st">&quot;#159090&quot;</span>, <span class="st">&quot;#A034F0&quot;</span>))<span class="sc">+</span></span>
-<span id="cb491-24"><a href="extensions-for-ggplot2.html#cb491-24" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
-<span id="cb491-25"><a href="extensions-for-ggplot2.html#cb491-25" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">200</span>))<span class="sc">+</span></span>
-<span id="cb491-26"><a href="extensions-for-ggplot2.html#cb491-26" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb491-27"><a href="extensions-for-ggplot2.html#cb491-27" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(</span>
-<span id="cb491-28"><a href="extensions-for-ggplot2.html#cb491-28" tabindex="-1"></a>      <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;#FF8C00&quot;</span>, <span class="st">&quot;#159090&quot;</span>, <span class="st">&quot;#A034F0&quot;</span>)),</span>
-<span id="cb491-29"><a href="extensions-for-ggplot2.html#cb491-29" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_markdown</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="extensions-for-ggplot2.html#cb483-1" tabindex="-1"></a><span class="fu">library</span>(ggtext)</span>
+<span id="cb483-2"><a href="extensions-for-ggplot2.html#cb483-2" tabindex="-1"></a></span>
+<span id="cb483-3"><a href="extensions-for-ggplot2.html#cb483-3" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb483-4"><a href="extensions-for-ggplot2.html#cb483-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">fct_relevel</span>(species, <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Adelie&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb483-5"><a href="extensions-for-ggplot2.html#cb483-5" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
+<span id="cb483-6"><a href="extensions-for-ggplot2.html#cb483-6" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb483-7"><a href="extensions-for-ggplot2.html#cb483-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
+<span id="cb483-8"><a href="extensions-for-ggplot2.html#cb483-8" tabindex="-1"></a>           <span class="at">y =</span> n,</span>
+<span id="cb483-9"><a href="extensions-for-ggplot2.html#cb483-9" tabindex="-1"></a>           <span class="at">fill =</span> species))<span class="sc">+</span></span>
+<span id="cb483-10"><a href="extensions-for-ggplot2.html#cb483-10" tabindex="-1"></a>        <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb483-11"><a href="extensions-for-ggplot2.html#cb483-11" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> n),</span>
+<span id="cb483-12"><a href="extensions-for-ggplot2.html#cb483-12" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb483-13"><a href="extensions-for-ggplot2.html#cb483-13" tabindex="-1"></a>            <span class="at">nudge_y =</span> <span class="dv">1</span>,</span>
+<span id="cb483-14"><a href="extensions-for-ggplot2.html#cb483-14" tabindex="-1"></a>            <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb483-15"><a href="extensions-for-ggplot2.html#cb483-15" tabindex="-1"></a>            <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>)<span class="sc">+</span></span>
+<span id="cb483-16"><a href="extensions-for-ggplot2.html#cb483-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb483-17"><a href="extensions-for-ggplot2.html#cb483-17" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb483-18"><a href="extensions-for-ggplot2.html#cb483-18" tabindex="-1"></a>       <span class="at">title =</span> <span class="fu">paste</span>(</span>
+<span id="cb483-19"><a href="extensions-for-ggplot2.html#cb483-19" tabindex="-1"></a>         <span class="st">&#39;There are almost half the observations on &lt;br&gt; &lt;span style = &quot;color:#A034F0&quot;&gt;Chinstrap&lt;/span&gt; penguins,  as there are &lt;br&gt; on &lt;span style = &quot;color:#FF8C00&quot;&gt;Adelie&lt;/span&gt; and &lt;span style =&quot;color:#159090&quot;&gt;Gentoo&lt;/span&gt;penguins&#39;</span></span>
+<span id="cb483-20"><a href="extensions-for-ggplot2.html#cb483-20" tabindex="-1"></a>       ))<span class="sc">+</span></span>
+<span id="cb483-21"><a href="extensions-for-ggplot2.html#cb483-21" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb483-22"><a href="extensions-for-ggplot2.html#cb483-22" tabindex="-1"></a>    <span class="co"># when reordering levels - be careful about keeping colours consistent</span></span>
+<span id="cb483-23"><a href="extensions-for-ggplot2.html#cb483-23" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#FF8C00&quot;</span>, <span class="st">&quot;#159090&quot;</span>, <span class="st">&quot;#A034F0&quot;</span>))<span class="sc">+</span></span>
+<span id="cb483-24"><a href="extensions-for-ggplot2.html#cb483-24" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb483-25"><a href="extensions-for-ggplot2.html#cb483-25" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">200</span>))<span class="sc">+</span></span>
+<span id="cb483-26"><a href="extensions-for-ggplot2.html#cb483-26" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb483-27"><a href="extensions-for-ggplot2.html#cb483-27" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(</span>
+<span id="cb483-28"><a href="extensions-for-ggplot2.html#cb483-28" tabindex="-1"></a>      <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;#FF8C00&quot;</span>, <span class="st">&quot;#159090&quot;</span>, <span class="st">&quot;#A034F0&quot;</span>)),</span>
+<span id="cb483-29"><a href="extensions-for-ggplot2.html#cb483-29" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_markdown</span>())</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-70-1.png" width="80%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="layouts-and-compositions" class="section level2" number="35.9">
-<h2><span class="header-section-number">35.9</span> Layouts and compositions</h2>
+<div id="layouts-and-compositions" class="section level2" number="29.9">
+<h2><span class="header-section-number">29.9</span> Layouts and compositions</h2>
 <p>Patchwork, text and images!!!!</p>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="extensions-for-ggplot2.html#cb492-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb492-2"><a href="extensions-for-ggplot2.html#cb492-2" tabindex="-1"></a><span class="fu">library</span>(png)</span>
-<span id="cb492-3"><a href="extensions-for-ggplot2.html#cb492-3" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
-<span id="cb492-4"><a href="extensions-for-ggplot2.html#cb492-4" tabindex="-1"></a></span>
-<span id="cb492-5"><a href="extensions-for-ggplot2.html#cb492-5" tabindex="-1"></a>penguin_pic <span class="ot">&lt;-</span> png<span class="sc">::</span><span class="fu">readPNG</span>(<span class="st">&quot;images/lter_penguins.png&quot;</span>)</span>
-<span id="cb492-6"><a href="extensions-for-ggplot2.html#cb492-6" tabindex="-1"></a></span>
-<span id="cb492-7"><a href="extensions-for-ggplot2.html#cb492-7" tabindex="-1"></a>penguin_fig <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb492-8"><a href="extensions-for-ggplot2.html#cb492-8" tabindex="-1"></a>  <span class="fu">background_image</span>(penguin_pic)</span></code></pre></div>
-<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="extensions-for-ggplot2.html#cb493-1" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb493-2"><a href="extensions-for-ggplot2.html#cb493-2" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> <span class="st">&#39;Simpsons Paradox is a statistical phenomenon where an association between two variables in a population emerges, disappears or reverses when the population is divided into subpopulations such as &lt;span style = &quot;color:#FF8C00&quot;&gt;Adelie&lt;/span&gt;, &lt;span style =&quot;color:#159090&quot;&gt;Gentoo&lt;/span&gt;, and &lt;span style = &quot;color:#A034F0&quot;&gt;Chinstrap&lt;/span&gt; penguin species&#39;</span></span>
-<span id="cb493-3"><a href="extensions-for-ggplot2.html#cb493-3" tabindex="-1"></a>)</span>
-<span id="cb493-4"><a href="extensions-for-ggplot2.html#cb493-4" tabindex="-1"></a></span>
-<span id="cb493-5"><a href="extensions-for-ggplot2.html#cb493-5" tabindex="-1"></a></span>
-<span id="cb493-6"><a href="extensions-for-ggplot2.html#cb493-6" tabindex="-1"></a></span>
-<span id="cb493-7"><a href="extensions-for-ggplot2.html#cb493-7" tabindex="-1"></a>pt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(text, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb493-8"><a href="extensions-for-ggplot2.html#cb493-8" tabindex="-1"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(</span>
-<span id="cb493-9"><a href="extensions-for-ggplot2.html#cb493-9" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> label),    <span class="co"># Map the &#39;label&#39; column from the &#39;text&#39; data to the text labels</span></span>
-<span id="cb493-10"><a href="extensions-for-ggplot2.html#cb493-10" tabindex="-1"></a>    <span class="at">box.color =</span> <span class="cn">NA</span>,         <span class="co"># Make the text box border color transparent</span></span>
-<span id="cb493-11"><a href="extensions-for-ggplot2.html#cb493-11" tabindex="-1"></a>    <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">10</span>, <span class="st">&quot;lines&quot;</span>),  <span class="co"># Set the width of the text boxes to 15 lines</span></span>
-<span id="cb493-12"><a href="extensions-for-ggplot2.html#cb493-12" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;grey40&quot;</span>,       <span class="co"># Set the text color to a light gray</span></span>
-<span id="cb493-13"><a href="extensions-for-ggplot2.html#cb493-13" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,             <span class="co"># Set the text size to 4 (adjust as needed)</span></span>
-<span id="cb493-14"><a href="extensions-for-ggplot2.html#cb493-14" tabindex="-1"></a>    <span class="at">lineheight =</span> <span class="fl">1.4</span>        <span class="co"># Set the line height for text within the boxes</span></span>
-<span id="cb493-15"><a href="extensions-for-ggplot2.html#cb493-15" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb493-16"><a href="extensions-for-ggplot2.html#cb493-16" tabindex="-1"></a>  <span class="co"># Customize the plot coordinate system</span></span>
-<span id="cb493-17"><a href="extensions-for-ggplot2.html#cb493-17" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">expand =</span> <span class="cn">FALSE</span>, <span class="at">clip =</span> <span class="st">&quot;off&quot;</span>) <span class="sc">+</span></span>
-<span id="cb493-18"><a href="extensions-for-ggplot2.html#cb493-18" tabindex="-1"></a></span>
-<span id="cb493-19"><a href="extensions-for-ggplot2.html#cb493-19" tabindex="-1"></a>  <span class="co"># Apply a theme with a blank (void) background</span></span>
-<span id="cb493-20"><a href="extensions-for-ggplot2.html#cb493-20" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
-<span id="cb493-21"><a href="extensions-for-ggplot2.html#cb493-21" tabindex="-1"></a></span>
-<span id="cb493-22"><a href="extensions-for-ggplot2.html#cb493-22" tabindex="-1"></a>pt</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="extensions-for-ggplot2.html#cb484-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb484-2"><a href="extensions-for-ggplot2.html#cb484-2" tabindex="-1"></a><span class="fu">library</span>(png)</span>
+<span id="cb484-3"><a href="extensions-for-ggplot2.html#cb484-3" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb484-4"><a href="extensions-for-ggplot2.html#cb484-4" tabindex="-1"></a></span>
+<span id="cb484-5"><a href="extensions-for-ggplot2.html#cb484-5" tabindex="-1"></a>penguin_pic <span class="ot">&lt;-</span> png<span class="sc">::</span><span class="fu">readPNG</span>(<span class="st">&quot;images/lter_penguins.png&quot;</span>)</span>
+<span id="cb484-6"><a href="extensions-for-ggplot2.html#cb484-6" tabindex="-1"></a></span>
+<span id="cb484-7"><a href="extensions-for-ggplot2.html#cb484-7" tabindex="-1"></a>penguin_fig <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb484-8"><a href="extensions-for-ggplot2.html#cb484-8" tabindex="-1"></a>  <span class="fu">background_image</span>(penguin_pic)</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="extensions-for-ggplot2.html#cb485-1" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb485-2"><a href="extensions-for-ggplot2.html#cb485-2" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> <span class="st">&#39;Simpsons Paradox is a statistical phenomenon where an association between two variables in a population emerges, disappears or reverses when the population is divided into subpopulations such as &lt;span style = &quot;color:#FF8C00&quot;&gt;Adelie&lt;/span&gt;, &lt;span style =&quot;color:#159090&quot;&gt;Gentoo&lt;/span&gt;, and &lt;span style = &quot;color:#A034F0&quot;&gt;Chinstrap&lt;/span&gt; penguin species&#39;</span></span>
+<span id="cb485-3"><a href="extensions-for-ggplot2.html#cb485-3" tabindex="-1"></a>)</span>
+<span id="cb485-4"><a href="extensions-for-ggplot2.html#cb485-4" tabindex="-1"></a></span>
+<span id="cb485-5"><a href="extensions-for-ggplot2.html#cb485-5" tabindex="-1"></a></span>
+<span id="cb485-6"><a href="extensions-for-ggplot2.html#cb485-6" tabindex="-1"></a></span>
+<span id="cb485-7"><a href="extensions-for-ggplot2.html#cb485-7" tabindex="-1"></a>pt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(text, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb485-8"><a href="extensions-for-ggplot2.html#cb485-8" tabindex="-1"></a>  ggtext<span class="sc">::</span><span class="fu">geom_textbox</span>(</span>
+<span id="cb485-9"><a href="extensions-for-ggplot2.html#cb485-9" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> label),    <span class="co"># Map the &#39;label&#39; column from the &#39;text&#39; data to the text labels</span></span>
+<span id="cb485-10"><a href="extensions-for-ggplot2.html#cb485-10" tabindex="-1"></a>    <span class="at">box.color =</span> <span class="cn">NA</span>,         <span class="co"># Make the text box border color transparent</span></span>
+<span id="cb485-11"><a href="extensions-for-ggplot2.html#cb485-11" tabindex="-1"></a>    <span class="at">width =</span> <span class="fu">unit</span>(<span class="dv">10</span>, <span class="st">&quot;lines&quot;</span>),  <span class="co"># Set the width of the text boxes to 15 lines</span></span>
+<span id="cb485-12"><a href="extensions-for-ggplot2.html#cb485-12" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;grey40&quot;</span>,       <span class="co"># Set the text color to a light gray</span></span>
+<span id="cb485-13"><a href="extensions-for-ggplot2.html#cb485-13" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,             <span class="co"># Set the text size to 4 (adjust as needed)</span></span>
+<span id="cb485-14"><a href="extensions-for-ggplot2.html#cb485-14" tabindex="-1"></a>    <span class="at">lineheight =</span> <span class="fl">1.4</span>        <span class="co"># Set the line height for text within the boxes</span></span>
+<span id="cb485-15"><a href="extensions-for-ggplot2.html#cb485-15" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb485-16"><a href="extensions-for-ggplot2.html#cb485-16" tabindex="-1"></a>  <span class="co"># Customize the plot coordinate system</span></span>
+<span id="cb485-17"><a href="extensions-for-ggplot2.html#cb485-17" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">expand =</span> <span class="cn">FALSE</span>, <span class="at">clip =</span> <span class="st">&quot;off&quot;</span>) <span class="sc">+</span></span>
+<span id="cb485-18"><a href="extensions-for-ggplot2.html#cb485-18" tabindex="-1"></a></span>
+<span id="cb485-19"><a href="extensions-for-ggplot2.html#cb485-19" tabindex="-1"></a>  <span class="co"># Apply a theme with a blank (void) background</span></span>
+<span id="cb485-20"><a href="extensions-for-ggplot2.html#cb485-20" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb485-21"><a href="extensions-for-ggplot2.html#cb485-21" tabindex="-1"></a></span>
+<span id="cb485-22"><a href="extensions-for-ggplot2.html#cb485-22" tabindex="-1"></a>pt</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-73-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="extensions-for-ggplot2.html#cb494-1" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
-<span id="cb494-2"><a href="extensions-for-ggplot2.html#cb494-2" tabindex="-1"></a><span class="st">AACCC</span></span>
-<span id="cb494-3"><a href="extensions-for-ggplot2.html#cb494-3" tabindex="-1"></a><span class="st">AACCC</span></span>
-<span id="cb494-4"><a href="extensions-for-ggplot2.html#cb494-4" tabindex="-1"></a><span class="st">BBDDD</span></span>
-<span id="cb494-5"><a href="extensions-for-ggplot2.html#cb494-5" tabindex="-1"></a><span class="st">BBDDD</span></span>
-<span id="cb494-6"><a href="extensions-for-ggplot2.html#cb494-6" tabindex="-1"></a><span class="st">&quot;</span></span>
-<span id="cb494-7"><a href="extensions-for-ggplot2.html#cb494-7" tabindex="-1"></a></span>
-<span id="cb494-8"><a href="extensions-for-ggplot2.html#cb494-8" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x=</span> culmen_length_mm, </span>
-<span id="cb494-9"><a href="extensions-for-ggplot2.html#cb494-9" tabindex="-1"></a>                     <span class="at">y=</span> culmen_depth_mm)) <span class="sc">+</span></span>
-<span id="cb494-10"><a href="extensions-for-ggplot2.html#cb494-10" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb494-11"><a href="extensions-for-ggplot2.html#cb494-11" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>,</span>
-<span id="cb494-12"><a href="extensions-for-ggplot2.html#cb494-12" tabindex="-1"></a>              <span class="at">se=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb494-13"><a href="extensions-for-ggplot2.html#cb494-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
-<span id="cb494-14"><a href="extensions-for-ggplot2.html#cb494-14" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Bill length (mm)&quot;</span>,</span>
-<span id="cb494-15"><a href="extensions-for-ggplot2.html#cb494-15" tabindex="-1"></a>         <span class="at">y=</span><span class="st">&quot;Bill depth (mm)&quot;</span>)</span>
-<span id="cb494-16"><a href="extensions-for-ggplot2.html#cb494-16" tabindex="-1"></a></span>
-<span id="cb494-17"><a href="extensions-for-ggplot2.html#cb494-17" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x=</span> culmen_length_mm, </span>
-<span id="cb494-18"><a href="extensions-for-ggplot2.html#cb494-18" tabindex="-1"></a>                     <span class="at">y=</span> culmen_depth_mm,</span>
-<span id="cb494-19"><a href="extensions-for-ggplot2.html#cb494-19" tabindex="-1"></a>                     <span class="at">colour=</span>species)) <span class="sc">+</span></span>
-<span id="cb494-20"><a href="extensions-for-ggplot2.html#cb494-20" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb494-21"><a href="extensions-for-ggplot2.html#cb494-21" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>,</span>
-<span id="cb494-22"><a href="extensions-for-ggplot2.html#cb494-22" tabindex="-1"></a>              <span class="at">se=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb494-23"><a href="extensions-for-ggplot2.html#cb494-23" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values=</span>pal)<span class="sc">+</span></span>
-<span id="cb494-24"><a href="extensions-for-ggplot2.html#cb494-24" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
-<span id="cb494-25"><a href="extensions-for-ggplot2.html#cb494-25" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Bill length (mm)&quot;</span>,</span>
-<span id="cb494-26"><a href="extensions-for-ggplot2.html#cb494-26" tabindex="-1"></a>         <span class="at">y=</span><span class="st">&quot;Bill depth (mm)&quot;</span>)</span>
-<span id="cb494-27"><a href="extensions-for-ggplot2.html#cb494-27" tabindex="-1"></a></span>
-<span id="cb494-28"><a href="extensions-for-ggplot2.html#cb494-28" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> </span>
-<span id="cb494-29"><a href="extensions-for-ggplot2.html#cb494-29" tabindex="-1"></a>  pt <span class="sc">+</span>  penguin_fig <span class="sc">+</span> </span>
-<span id="cb494-30"><a href="extensions-for-ggplot2.html#cb494-30" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">design =</span> layout)</span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="extensions-for-ggplot2.html#cb486-1" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb486-2"><a href="extensions-for-ggplot2.html#cb486-2" tabindex="-1"></a><span class="st">AACCC</span></span>
+<span id="cb486-3"><a href="extensions-for-ggplot2.html#cb486-3" tabindex="-1"></a><span class="st">AACCC</span></span>
+<span id="cb486-4"><a href="extensions-for-ggplot2.html#cb486-4" tabindex="-1"></a><span class="st">BBDDD</span></span>
+<span id="cb486-5"><a href="extensions-for-ggplot2.html#cb486-5" tabindex="-1"></a><span class="st">BBDDD</span></span>
+<span id="cb486-6"><a href="extensions-for-ggplot2.html#cb486-6" tabindex="-1"></a><span class="st">&quot;</span></span>
+<span id="cb486-7"><a href="extensions-for-ggplot2.html#cb486-7" tabindex="-1"></a></span>
+<span id="cb486-8"><a href="extensions-for-ggplot2.html#cb486-8" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x=</span> culmen_length_mm, </span>
+<span id="cb486-9"><a href="extensions-for-ggplot2.html#cb486-9" tabindex="-1"></a>                     <span class="at">y=</span> culmen_depth_mm)) <span class="sc">+</span></span>
+<span id="cb486-10"><a href="extensions-for-ggplot2.html#cb486-10" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb486-11"><a href="extensions-for-ggplot2.html#cb486-11" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb486-12"><a href="extensions-for-ggplot2.html#cb486-12" tabindex="-1"></a>              <span class="at">se=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb486-13"><a href="extensions-for-ggplot2.html#cb486-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb486-14"><a href="extensions-for-ggplot2.html#cb486-14" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Bill length (mm)&quot;</span>,</span>
+<span id="cb486-15"><a href="extensions-for-ggplot2.html#cb486-15" tabindex="-1"></a>         <span class="at">y=</span><span class="st">&quot;Bill depth (mm)&quot;</span>)</span>
+<span id="cb486-16"><a href="extensions-for-ggplot2.html#cb486-16" tabindex="-1"></a></span>
+<span id="cb486-17"><a href="extensions-for-ggplot2.html#cb486-17" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x=</span> culmen_length_mm, </span>
+<span id="cb486-18"><a href="extensions-for-ggplot2.html#cb486-18" tabindex="-1"></a>                     <span class="at">y=</span> culmen_depth_mm,</span>
+<span id="cb486-19"><a href="extensions-for-ggplot2.html#cb486-19" tabindex="-1"></a>                     <span class="at">colour=</span>species)) <span class="sc">+</span></span>
+<span id="cb486-20"><a href="extensions-for-ggplot2.html#cb486-20" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb486-21"><a href="extensions-for-ggplot2.html#cb486-21" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb486-22"><a href="extensions-for-ggplot2.html#cb486-22" tabindex="-1"></a>              <span class="at">se=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb486-23"><a href="extensions-for-ggplot2.html#cb486-23" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values=</span>pal)<span class="sc">+</span></span>
+<span id="cb486-24"><a href="extensions-for-ggplot2.html#cb486-24" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb486-25"><a href="extensions-for-ggplot2.html#cb486-25" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Bill length (mm)&quot;</span>,</span>
+<span id="cb486-26"><a href="extensions-for-ggplot2.html#cb486-26" tabindex="-1"></a>         <span class="at">y=</span><span class="st">&quot;Bill depth (mm)&quot;</span>)</span>
+<span id="cb486-27"><a href="extensions-for-ggplot2.html#cb486-27" tabindex="-1"></a></span>
+<span id="cb486-28"><a href="extensions-for-ggplot2.html#cb486-28" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> </span>
+<span id="cb486-29"><a href="extensions-for-ggplot2.html#cb486-29" tabindex="-1"></a>  pt <span class="sc">+</span>  penguin_fig <span class="sc">+</span> </span>
+<span id="cb486-30"><a href="extensions-for-ggplot2.html#cb486-30" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">design =</span> layout)</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-74-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="scales" class="section level2" number="35.10">
-<h2><span class="header-section-number">35.10</span> Scales</h2>
+<div id="scales" class="section level2" number="29.10">
+<h2><span class="header-section-number">29.10</span> Scales</h2>
 </div>
-<div id="activity-create-a-publication-style-multi-panel-figure" class="section level2" number="35.11">
-<h2><span class="header-section-number">35.11</span> Activity: Create a Publication-Style Multi-Panel Figure</h2>
+<div id="activity-create-a-publication-style-multi-panel-figure" class="section level2" number="29.11">
+<h2><span class="header-section-number">29.11</span> Activity: Create a Publication-Style Multi-Panel Figure</h2>
 <p>Objective: Design and create a multi-panel data visualization figure in the style of a research publication. This exercise will challenge your skills in data visualization, data manipulation, and creating complex figures.</p>
 <p>Steps:</p>
 <ul>

@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 48 Github | Advancing in R</title>
+  <title>Chapter 42 Github | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 48 Github | Advancing in R" />
+  <meta property="og:title" content="Chapter 42 Github | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 48 Github | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 42 Github | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,10 +153,10 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="github" class="section level1" number="48">
-<h1><span class="header-section-number">Chapter 48</span> Github</h1>
-<div id="lets-git-it-started" class="section level2" number="48.1">
-<h2><span class="header-section-number">48.1</span> Let's Git it started</h2>
+<div id="github" class="section level1" number="42">
+<h1><span class="header-section-number">Chapter 42</span> Github</h1>
+<div id="lets-git-it-started" class="section level2" number="42.1">
+<h2><span class="header-section-number">42.1</span> Let's Git it started</h2>
 <p>Git is a <strong>version control system</strong>. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects - with tracked changes.</p>
 <p>Git and GitHub are a big part of the data science community. We can use GitHub in a number of ways</p>
 <ol style="list-style-type: decimal">
@@ -176,8 +176,8 @@
 <p>If you work alone, git is great to track changes and recover previous version of your files. You can also use a remote repository to have a back up and share your work.</p>
 <p>If you work as a team you can take advantage of all the above and also use version control as a tool to collaborate and organize the various versions of the same file present in the multiple computers you and they use.</p>
 </div>
-<div id="what-is-version-control" class="section level2" number="48.2">
-<h2><span class="header-section-number">48.2</span> What is version control?</h2>
+<div id="what-is-version-control" class="section level2" number="42.2">
+<h2><span class="header-section-number">42.2</span> What is version control?</h2>
 <p>Let’s imagine that we have a git repository. When you create a new file as part of the repository (or repo), that file is untracked. This means that git will ignore the file and any change you make to it <em>until you add it to the repo</em>. At that point the file is <strong>staged</strong> and ready to get into the repository. To do that you do a <strong>commit</strong> and save that version of the file to the repo. This workflow <code>modify --&gt; add --&gt; commit</code> will repeat every time you want to save a version of the file. It's a good idea to commit every time you end a task or objective in your project.</p>
 <p><img src="images/git_stage.png" width="100%" style="display: block; margin: auto;" /></p>
 <p><code>add</code> and <code>commit</code> are also git commands.RStudio provides a basic GUI for git, which we are going to use in this workshop. But you can also use the Terminal to talk to git on the command line</p>
@@ -194,8 +194,8 @@ staging area.”
 </p>
 </div>
 </div>
-<div id="remote-repositories" class="section level2" number="48.3">
-<h2><span class="header-section-number">48.3</span> Remote repositories</h2>
+<div id="remote-repositories" class="section level2" number="42.3">
+<h2><span class="header-section-number">42.3</span> Remote repositories</h2>
 <p>What we explained before is the local workflow. This is when the repo lives in your computer and that’s it. But you can also connect the local repository with a remote repository. For this workshop we are going to use GitHub to host remote repositories, but there are other options you can explore, such as GitLab.</p>
 <p>Let’s imagine we have a local repository, we made some commits and we want to send those changes to the remote repository (we’ll how to create the remote repository later). For that we push the commits to the remote repository and the two repos are “up to date”.</p>
 <p>If a team-mate changes a file and pushes the changes it to the remote repository, your local repo will be “outdated”. To download those new commits from the remote repository you pull the commits.</p>
@@ -218,8 +218,8 @@ git pull
 </p>
 </div>
 </div>
-<div id="git-introductions" class="section level2" number="48.4">
-<h2><span class="header-section-number">48.4</span> Git introductions</h2>
+<div id="git-introductions" class="section level2" number="42.4">
+<h2><span class="header-section-number">42.4</span> Git introductions</h2>
 <p>Before you create your first repository you need to make sure that git and RStudio are friends and that git knows you. That means you have:</p>
 <ul>
 <li><p>Installed Git on your machine (not needed if using Posit Cloud)</p></li>
@@ -233,9 +233,9 @@ to the git installation.
 </p>
 </div>
 <p>You can now introduce yourself to Github with the <code>usethis</code> package</p>
-<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="github.html#cb573-1" tabindex="-1"></a><span class="fu">library</span>(usethis) </span>
-<span id="cb573-2"><a href="github.html#cb573-2" tabindex="-1"></a><span class="fu">use_git_config</span>(<span class="at">user.name  =</span> <span class="st">&quot;Jane Doe&quot;</span>,</span>
-<span id="cb573-3"><a href="github.html#cb573-3" tabindex="-1"></a>               <span class="at">user.email =</span> <span class="st">&quot;jane@example.org&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="github.html#cb565-1" tabindex="-1"></a><span class="fu">library</span>(usethis) </span>
+<span id="cb565-2"><a href="github.html#cb565-2" tabindex="-1"></a><span class="fu">use_git_config</span>(<span class="at">user.name  =</span> <span class="st">&quot;Jane Doe&quot;</span>,</span>
+<span id="cb565-3"><a href="github.html#cb565-3" tabindex="-1"></a>               <span class="at">user.email =</span> <span class="st">&quot;jane@example.org&quot;</span>)</span></code></pre></div>
 <p>Substituting with your name and the email associated with your GitHub account, or you can also do this on the command line:</p>
 <div class="info">
 <p>
@@ -247,12 +247,12 @@ git config –global user.email ’<a href="mailto:jane@example.com" class="emai
 </div>
 <p>You will also need a Personal Access Token (PAT), Github has started using these <em>in lieu</em> of passwords.</p>
 <p>Create a PAT with</p>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="github.html#cb574-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="github.html#cb566-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>()</span></code></pre></div>
 <p>This will likely open a new window allowing you to create a token. Do now close this window, as you will need to copy the token to your clipboard. Then run this other command:</p>
-<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="github.html#cb575-1" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="github.html#cb567-1" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()</span></code></pre></div>
 <p>This will ask you for your access token. Go to the previous window, copy the token, paste it on your console and press enter.</p>
 <p>Finally, to check that everything’s ok with this command.</p>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="github.html#cb576-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">gh_token_help</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="github.html#cb568-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">gh_token_help</span>()</span></code></pre></div>
 <p>Irritatingly the PAT seems to be forgotten on linux systems very quickly, which is what Posit Cloud is hosted on:</p>
 <p>A simple solution to this problem is to ask git to store information in the cache for just a teeny tiny little bit longer. Instead of having the cache expire after the default 900 seconds, maybe set it to expire after 10 million seconds. That way, you’ll only have to refresh the cache using gitcreds::gitcreds_set() once every four months instead of four times an hour. Implementing this solution requires only one line of code at the terminal:</p>
 <pre><code>
@@ -260,11 +260,11 @@ git config --global credential.helper &#39;cache --timeout=10000000&#39;
 </code></pre>
 <p>Thanks to <a href="https://blog.djnavarro.net/posts/2021-08-08_git-credential-helpers/" class="uri">https://blog.djnavarro.net/posts/2021-08-08_git-credential-helpers/</a> for this bit of information!</p>
 </div>
-<div id="create-a-new-repository" class="section level2" number="48.5">
-<h2><span class="header-section-number">48.5</span> Create a new repository</h2>
+<div id="create-a-new-repository" class="section level2" number="42.5">
+<h2><span class="header-section-number">42.5</span> Create a new repository</h2>
 <p>There are many ways to start a new repository, the easiest is <em>Github first</em></p>
-<div id="create-an-online-repository." class="section level3" number="48.5.1">
-<h3><span class="header-section-number">48.5.1</span> 1. Create an online repository.</h3>
+<div id="create-an-online-repository." class="section level3" number="42.5.1">
+<h3><span class="header-section-number">42.5.1</span> 1. Create an online repository.</h3>
 <ul>
 <li><p>Go to github.com and log in.</p></li>
 <li><p>On the top right corner, click on the “+” bottom and then “New repository”</p></li>
@@ -279,8 +279,8 @@ git config --global credential.helper &#39;cache --timeout=10000000&#39;
 </ul>
 <p>Before going back to RStudio, copy the url for the repository.</p>
 </div>
-<div id="section" class="section level3" number="48.5.2">
-<h3><span class="header-section-number">48.5.2</span> 2.</h3>
+<div id="section" class="section level3" number="42.5.2">
+<h3><span class="header-section-number">42.5.2</span> 2.</h3>
 <ul>
 <li><p>File &gt; New Project &gt; Version Control &gt; Git. In the “repository URL” paste the URL of your new GitHub repository</p></li>
 <li><p>Choose the folder where you want to create the project.</p></li>
@@ -299,8 +299,8 @@ in Rstudio to check it is not being tracked.
 </p>
 </div>
 </div>
-<div id="local-changes" class="section level3" number="48.5.3">
-<h3><span class="header-section-number">48.5.3</span> Local changes</h3>
+<div id="local-changes" class="section level3" number="42.5.3">
+<h3><span class="header-section-number">42.5.3</span> Local changes</h3>
 <ul>
 <li><p>Create a new .Rmd file</p></li>
 <li><p>Save the file</p></li>
@@ -312,12 +312,12 @@ in Rstudio to check it is not being tracked.
 <p><strong>Now Push</strong> - push your commits to the remote repository. You won't see any changes on Github until you push those commits.</p>
 </div>
 </div>
-<div id="remote-changes" class="section level2" number="48.6">
-<h2><span class="header-section-number">48.6</span> Remote changes</h2>
+<div id="remote-changes" class="section level2" number="42.6">
+<h2><span class="header-section-number">42.6</span> Remote changes</h2>
 <p>Let's head back to GitHub now. If you refresh the page, now you’ll see the files you committed just now. Let’s click on “Commits” to see the history of the repository. From this view, you can explore the repository at the “state” of each commit and look at the file differences.</p>
 <p>Now, we can try to make changes here at github.com</p>
-<div id="create-a-readme" class="section level3" number="48.6.1">
-<h3><span class="header-section-number">48.6.1</span> Create a README</h3>
+<div id="create-a-readme" class="section level3" number="42.6.1">
+<h3><span class="header-section-number">42.6.1</span> Create a README</h3>
 <ul>
 <li><p>On the main page, click on the green bottom that says “Add a README”.</p></li>
 <li><p>Add something to the file. READMEs usually are written in Markdown and contain information about the repo.</p></li>
@@ -329,8 +329,8 @@ in Rstudio to check it is not being tracked.
 <p>Now we should head to the GitPane in RStudio and select the blue "Pull" button. The README should appear in your files.</p>
 </div>
 </div>
-<div id="collaborating-on-a-repo" class="section level2" number="48.7">
-<h2><span class="header-section-number">48.7</span> Collaborating on a repo</h2>
+<div id="collaborating-on-a-repo" class="section level2" number="42.7">
+<h2><span class="header-section-number">42.7</span> Collaborating on a repo</h2>
 <p>When collaborating on a project you can find yourself in one of two scenarios</p>
 <ul>
 <li><p>You have write permission of the repo you are working on.</p></li>
@@ -338,15 +338,15 @@ in Rstudio to check it is not being tracked.
 </ul>
 <p>The first situation is the most common when working together with an team on a long term project. You can clone the repo following the these same instructions and use the same workflow as before. When you try to push your changes to the remote repository, GitHub will check if you have the rights to modify the repo. The only difference between this and working on your own is that you need to <strong>communicate well so that two people are not working on the same thing</strong>. Otherwise this will lead to <strong>merge conflicts</strong>.</p>
 <p>The second situation is common when contributing to strangers' projects, such as fixing bugs in open source packages. In this case, you need to first fork the repository, which creates a remote repository linked to your GitHub account to which you will have complete access. Now you work in this fork using the normal workflow: modify, add, commit and push. But for your changes to integrate into the original repository, you need to create a pull request (or PR). This will let the owner of the original repo that you made some changes that you think should be merged. The owner can then accept, reject or ask for modifications. Once they accept your Pull Request, your modifications will be safe in the original repository.</p>
-<div id="working-with-an-external-collaborator" class="section level3" number="48.7.1">
-<h3><span class="header-section-number">48.7.1</span> Working with an external collaborator</h3>
+<div id="working-with-an-external-collaborator" class="section level3" number="42.7.1">
+<h3><span class="header-section-number">42.7.1</span> Working with an external collaborator</h3>
 <p><strong>1.</strong> Go to <a href="https://github.com/">github.com</a> and log in (you need your own account - for sign up with your uea.ac.uk e-mail)</p>
 <p><strong>2.</strong> In the Search bar, look for repo <strong>Philip-Leftwich/5023Y-Happy-Git</strong></p>
 <p><strong>3.</strong> Click on the repo name, and look at the existing repo structure</p>
 <p><strong>4.</strong> <strong>FORK</strong> the repo</p>
 </div>
-<div id="what-the-hell-is-a-fork" class="section level3" number="48.7.2">
-<h3><span class="header-section-number">48.7.2</span> What the hell is a fork?</h3>
+<div id="what-the-hell-is-a-fork" class="section level3" number="42.7.2">
+<h3><span class="header-section-number">42.7.2</span> What the hell is a fork?</h3>
 <p><img src="images/fork.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>A fork is when you generate a <em>personal</em> copy of another user's <a href="github.html#glossary-github">repository</a>.</p>
 <p><strong>5.</strong> Press Clone/download and copy the URL, then create a <strong>new</strong> project in RStudio Cloud selecting the <strong>New project from Git repository</strong> option - make sure you are in the 5023Y Workspace</p>
@@ -361,8 +361,8 @@ in Rstudio to check it is not being tracked.
 <p>Push - "Pushes" your changes from the local repo to the remote repo on GitHub, <a href="#push">(push)</a></p>
 <p><strong>11.</strong> On GitHub, refresh and see that files are updated. Cool! Now you’ve used something someone else has created, customized it, and saved your updated version.</p>
 </div>
-<div id="make-a-pull-request" class="section level3" number="48.7.3">
-<h3><span class="header-section-number">48.7.3</span> Make a pull request</h3>
+<div id="make-a-pull-request" class="section level3" number="42.7.3">
+<h3><span class="header-section-number">42.7.3</span> Make a pull request</h3>
 <p><strong>1.</strong> Go to your repo in GitHub, you will see that you made the last commit and a message about being ahead of my project:</p>
 <p><strong>2.</strong> Click on “Open pull request”.</p>
 <p><strong>3.</strong> And click on “Create pull request”.</p>
@@ -370,8 +370,8 @@ in Rstudio to check it is not being tracked.
 <p>The owner/s of the repo will receive an email. They can review the pull request, comment on it and eventually accept the contribution. When that happen the changes you made will appear in their repo.</p>
 </div>
 </div>
-<div id="see-changes" class="section level2" number="48.8">
-<h2><span class="header-section-number">48.8</span> See changes</h2>
+<div id="see-changes" class="section level2" number="42.8">
+<h2><span class="header-section-number">42.8</span> See changes</h2>
 <p>The first and most immediate benefit of using GitHub with your RStudio Project is seeing the changes you have made since your last commit.</p>
 <p>The RStudio Git pane lists every file that’s been added, modified or deleted. The icon describes the change:</p>
 <ul>
@@ -388,8 +388,8 @@ in Rstudio to check it is not being tracked.
 <p><img src="images/git-diff-window.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>The background colours tells you whether the text has been added (green) or removed (red). (If you’re colourblind you can use the line numbers in the two columns at the far left as a guide).</p>
 </div>
-<div id="a-couple-of-general-tips" class="section level2" number="48.9">
-<h2><span class="header-section-number">48.9</span> A couple of general tips:</h2>
+<div id="a-couple-of-general-tips" class="section level2" number="42.9">
+<h2><span class="header-section-number">42.9</span> A couple of general tips:</h2>
 <div class="note">
 <ul>
 <li>
@@ -416,12 +416,12 @@ copy</strong> of your project.
 </ul>
 </div>
 </div>
-<div id="beautify-your-profile" class="section level2" number="48.10">
-<h2><span class="header-section-number">48.10</span> Beautify your profile</h2>
+<div id="beautify-your-profile" class="section level2" number="42.10">
+<h2><span class="header-section-number">42.10</span> Beautify your profile</h2>
 <p><a href="https://dev.to/ruppysuppy/beautify-your-github-profile-like-a-pro-5093" class="uri">https://dev.to/ruppysuppy/beautify-your-github-profile-like-a-pro-5093</a></p>
 </div>
-<div id="glossary-github" class="section level2" number="48.11">
-<h2><span class="header-section-number">48.11</span> Glossary-GitHub</h2>
+<div id="glossary-github" class="section level2" number="42.11">
+<h2><span class="header-section-number">42.11</span> Glossary-GitHub</h2>
 <table>
 <thead>
 <tr>

@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 20 Simple iteration | Advancing in R</title>
+  <title>Chapter 14 Simple iteration | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 20 Simple iteration | Advancing in R" />
+  <meta property="og:title" content="Chapter 14 Simple iteration | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 20 Simple iteration | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 14 Simple iteration | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,29 +153,29 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="simple-iteration" class="section level1" number="20">
-<h1><span class="header-section-number">Chapter 20</span> Simple iteration</h1>
+<div id="simple-iteration" class="section level1" number="14">
+<h1><span class="header-section-number">Chapter 14</span> Simple iteration</h1>
 <p>We’ve seen how to write a function and how they can be used to create concise re-usable operations that can be applied multiple times in a script without having to copy and paste, but where functions really come into their own is when combined with iteration. Iteration is the process of running the same operation on a group of objects, further minimising code replication.</p>
 <p>Functional programming in R requires a good understanding of the types of data structure available in R. So make sure you remember the distinctions between vectors, lists, matrices and dataframes.</p>
 <p>In the section below we will start with simple functions that allow you to replicate arguments</p>
-<div id="rep" class="section level2" number="20.1">
-<h2><span class="header-section-number">20.1</span> <code>rep()</code></h2>
+<div id="rep" class="section level2" number="14.1">
+<h2><span class="header-section-number">14.1</span> <code>rep()</code></h2>
 <p>The function <code>rep()</code> lets you repeat the first argument a set number of times.</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="simple-iteration.html#cb292-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
-<span id="cb292-2"><a href="simple-iteration.html#cb292-2" tabindex="-1"></a></span>
-<span id="cb292-3"><a href="simple-iteration.html#cb292-3" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>), <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="simple-iteration.html#cb284-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
+<span id="cb284-2"><a href="simple-iteration.html#cb284-2" tabindex="-1"></a></span>
+<span id="cb284-3"><a href="simple-iteration.html#cb284-3" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>), <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##  [1] 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5
 ## [1] &quot;Adelie&quot;    &quot;Gentoo&quot;    &quot;Chinstrap&quot; &quot;Adelie&quot;    &quot;Gentoo&quot;    &quot;Chinstrap&quot;</code></pre>
 <p>The default for the amount of repetition is <code>times =</code> it will print the entire vector start to finish THEN repeat.</p>
 <p>If the second argument is a vector with the same number of elements as the <em>first</em> vector, then it will repeat to the specified values for each</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="simple-iteration.html#cb294-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="simple-iteration.html#cb286-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;Adelie&quot;    &quot;Adelie&quot;    &quot;Gentoo&quot;    &quot;Chinstrap&quot; &quot;Chinstrap&quot; &quot;Chinstrap&quot;</code></pre>
 <p>Or if you use the argument <code>each</code> then it will rep all of the first element <em>first</em> followed by the second etc.</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="simple-iteration.html#cb296-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>), <span class="at">each =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="simple-iteration.html#cb288-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>), <span class="at">each =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Adelie&quot;    &quot;Adelie&quot;    &quot;Adelie&quot;    &quot;Gentoo&quot;    &quot;Gentoo&quot;    &quot;Gentoo&quot;   
 ## [7] &quot;Chinstrap&quot; &quot;Chinstrap&quot; &quot;Chinstrap&quot;</code></pre>
 <p>What do you think will happen if you set both times to 3 and each to 2?</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="simple-iteration.html#cb298-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>), <span class="at">times =</span> <span class="dv">2</span>, <span class="at">each =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="simple-iteration.html#cb290-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Gentoo&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>), <span class="at">times =</span> <span class="dv">2</span>, <span class="at">each =</span> <span class="dv">3</span>)</span></code></pre></div>
 <button id="displayTextunnamed-chunk-68" onclick="javascript:toggle(&#39;unnamed-chunk-68&#39;);">
 Show Solution
 </button>
@@ -192,32 +192,32 @@ Solution
 </div>
 </div>
 </div>
-<div id="seq" class="section level2" number="20.2">
-<h2><span class="header-section-number">20.2</span> <code>seq()</code></h2>
+<div id="seq" class="section level2" number="14.2">
+<h2><span class="header-section-number">14.2</span> <code>seq()</code></h2>
 <p>The function <code>seq()</code> is useful for generating a sequence of numbers with some pattern.</p>
 <p>Use <code>seq()</code> to create a vector of the integers 0 to 10.</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="simple-iteration.html#cb300-1" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="simple-iteration.html#cb292-1" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
 <p>This is initially very similar to just making a vector with</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="simple-iteration.html#cb302-1" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="simple-iteration.html#cb294-1" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
 <p>But with <code>seq</code> we have extra functions. You can set the by argument to count by numbers other than 1 (the default). Use <code>seq()</code> to create a vector of the numbers 0 to 100 by 10s.</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="simple-iteration.html#cb304-1" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="simple-iteration.html#cb296-1" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1]   0  10  20  30  40  50  60  70  80  90 100</code></pre>
 <p>We also have the argument <code>length.out</code>, which is useful when you want to know how to many steps to divide something into</p>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="simple-iteration.html#cb306-1" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">length.out =</span> <span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="simple-iteration.html#cb298-1" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">length.out =</span> <span class="dv">12</span>)</span></code></pre></div>
 <pre><code>##  [1]   0.000000   9.090909  18.181818  27.272727  36.363636  45.454545
 ##  [7]  54.545455  63.636364  72.727273  81.818182  90.909091 100.000000</code></pre>
 </div>
-<div id="replicate" class="section level2" number="20.3">
-<h2><span class="header-section-number">20.3</span> <code>replicate()</code></h2>
+<div id="replicate" class="section level2" number="14.3">
+<h2><span class="header-section-number">14.3</span> <code>replicate()</code></h2>
 <p>Replicate is our first example of a function whose purpose is to iterate <em>other</em> functions</p>
 <p>For example the <code>rnorm</code> function generates numbers from a normal distribution.</p>
 <p>Nesting this inside the <code>replicate()</code> function will repeat this command a specified number of times</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="simple-iteration.html#cb308-1" tabindex="-1"></a><span class="fu">replicate</span>(<span class="dv">3</span>, <span class="co"># times to replicate function</span></span>
-<span id="cb308-2"><a href="simple-iteration.html#cb308-2" tabindex="-1"></a>          <span class="at">expr =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5</span>, </span>
-<span id="cb308-3"><a href="simple-iteration.html#cb308-3" tabindex="-1"></a>                       <span class="at">mean =</span> <span class="dv">1</span>,</span>
-<span id="cb308-4"><a href="simple-iteration.html#cb308-4" tabindex="-1"></a>                       <span class="at">sd =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="simple-iteration.html#cb300-1" tabindex="-1"></a><span class="fu">replicate</span>(<span class="dv">3</span>, <span class="co"># times to replicate function</span></span>
+<span id="cb300-2"><a href="simple-iteration.html#cb300-2" tabindex="-1"></a>          <span class="at">expr =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5</span>, </span>
+<span id="cb300-3"><a href="simple-iteration.html#cb300-3" tabindex="-1"></a>                       <span class="at">mean =</span> <span class="dv">1</span>,</span>
+<span id="cb300-4"><a href="simple-iteration.html#cb300-4" tabindex="-1"></a>                       <span class="at">sd =</span> <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>##           [,1]       [,2]        [,3]
 ## [1,] 1.4362270  1.6341668 -0.04408416
 ## [2,] 1.2631485  2.4478597  0.13857424

@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 29 Applying functions across columns | Advancing in R</title>
+  <title>Chapter 23 Applying functions across columns | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 29 Applying functions across columns | Advancing in R" />
+  <meta property="og:title" content="Chapter 23 Applying functions across columns | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 29 Applying functions across columns | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 23 Applying functions across columns | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,24 +153,24 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="applying-functions-across-columns" class="section level1" number="29">
-<h1><span class="header-section-number">Chapter 29</span> Applying functions across columns</h1>
-<div id="calculate-summary-statistics-across-columns" class="section level2" number="29.1">
-<h2><span class="header-section-number">29.1</span> calculate summary statistics across columns</h2>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="applying-functions-across-columns.html#cb401-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb401-2"><a href="applying-functions-across-columns.html#cb401-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
-<span id="cb401-3"><a href="applying-functions-across-columns.html#cb401-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb401-4"><a href="applying-functions-across-columns.html#cb401-4" tabindex="-1"></a>    <span class="at">mean_body_mass =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T),</span>
-<span id="cb401-5"><a href="applying-functions-across-columns.html#cb401-5" tabindex="-1"></a>    <span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm, <span class="at">na.rm =</span> T)</span>
-<span id="cb401-6"><a href="applying-functions-across-columns.html#cb401-6" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="applying-functions-across-columns.html#cb402-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb402-2"><a href="applying-functions-across-columns.html#cb402-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
-<span id="cb402-3"><a href="applying-functions-across-columns.html#cb402-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb402-4"><a href="applying-functions-across-columns.html#cb402-4" tabindex="-1"></a>    <span class="fu">across</span>(</span>
-<span id="cb402-5"><a href="applying-functions-across-columns.html#cb402-5" tabindex="-1"></a>      <span class="at">.cols =</span> <span class="fu">where</span>(is.numeric),</span>
-<span id="cb402-6"><a href="applying-functions-across-columns.html#cb402-6" tabindex="-1"></a>      <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> T),</span>
-<span id="cb402-7"><a href="applying-functions-across-columns.html#cb402-7" tabindex="-1"></a>      <span class="at">.names =</span> <span class="st">&quot;mean_{.col}&quot;</span>)</span>
-<span id="cb402-8"><a href="applying-functions-across-columns.html#cb402-8" tabindex="-1"></a>    )</span></code></pre></div>
+<div id="applying-functions-across-columns" class="section level1" number="23">
+<h1><span class="header-section-number">Chapter 23</span> Applying functions across columns</h1>
+<div id="calculate-summary-statistics-across-columns" class="section level2" number="23.1">
+<h2><span class="header-section-number">23.1</span> calculate summary statistics across columns</h2>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="applying-functions-across-columns.html#cb393-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb393-2"><a href="applying-functions-across-columns.html#cb393-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
+<span id="cb393-3"><a href="applying-functions-across-columns.html#cb393-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb393-4"><a href="applying-functions-across-columns.html#cb393-4" tabindex="-1"></a>    <span class="at">mean_body_mass =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> T),</span>
+<span id="cb393-5"><a href="applying-functions-across-columns.html#cb393-5" tabindex="-1"></a>    <span class="at">mean_flipper_length =</span> <span class="fu">mean</span>(flipper_length_mm, <span class="at">na.rm =</span> T)</span>
+<span id="cb393-6"><a href="applying-functions-across-columns.html#cb393-6" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="applying-functions-across-columns.html#cb394-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb394-2"><a href="applying-functions-across-columns.html#cb394-2" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
+<span id="cb394-3"><a href="applying-functions-across-columns.html#cb394-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb394-4"><a href="applying-functions-across-columns.html#cb394-4" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb394-5"><a href="applying-functions-across-columns.html#cb394-5" tabindex="-1"></a>      <span class="at">.cols =</span> <span class="fu">where</span>(is.numeric),</span>
+<span id="cb394-6"><a href="applying-functions-across-columns.html#cb394-6" tabindex="-1"></a>      <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> T),</span>
+<span id="cb394-7"><a href="applying-functions-across-columns.html#cb394-7" tabindex="-1"></a>      <span class="at">.names =</span> <span class="st">&quot;mean_{.col}&quot;</span>)</span>
+<span id="cb394-8"><a href="applying-functions-across-columns.html#cb394-8" tabindex="-1"></a>    )</span></code></pre></div>
 <div class="kable-table">
 <table style="width:100%;">
 <colgroup>
@@ -230,15 +230,15 @@
 </table>
 </div>
 </div>
-<div id="change-variable-types-across-columns" class="section level2" number="29.2">
-<h2><span class="header-section-number">29.2</span> Change variable types across columns</h2>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="applying-functions-across-columns.html#cb403-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
-<span id="cb403-2"><a href="applying-functions-across-columns.html#cb403-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb403-3"><a href="applying-functions-across-columns.html#cb403-3" tabindex="-1"></a>    <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">&quot;species&quot;</span>, <span class="st">&quot;island&quot;</span>, <span class="st">&quot;region&quot;</span>),</span>
-<span id="cb403-4"><a href="applying-functions-across-columns.html#cb403-4" tabindex="-1"></a>           <span class="at">.fns =</span> as_factor)</span>
-<span id="cb403-5"><a href="applying-functions-across-columns.html#cb403-5" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb403-6"><a href="applying-functions-across-columns.html#cb403-6" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.factor)) <span class="sc">|&gt;</span> </span>
-<span id="cb403-7"><a href="applying-functions-across-columns.html#cb403-7" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div id="change-variable-types-across-columns" class="section level2" number="23.2">
+<h2><span class="header-section-number">23.2</span> Change variable types across columns</h2>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="applying-functions-across-columns.html#cb395-1" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> </span>
+<span id="cb395-2"><a href="applying-functions-across-columns.html#cb395-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb395-3"><a href="applying-functions-across-columns.html#cb395-3" tabindex="-1"></a>    <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">&quot;species&quot;</span>, <span class="st">&quot;island&quot;</span>, <span class="st">&quot;region&quot;</span>),</span>
+<span id="cb395-4"><a href="applying-functions-across-columns.html#cb395-4" tabindex="-1"></a>           <span class="at">.fns =</span> as_factor)</span>
+<span id="cb395-5"><a href="applying-functions-across-columns.html#cb395-5" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb395-6"><a href="applying-functions-across-columns.html#cb395-6" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.factor)) <span class="sc">|&gt;</span> </span>
+<span id="cb395-7"><a href="applying-functions-across-columns.html#cb395-7" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 344
 ## Columns: 3
 ## $ species &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie…
@@ -250,21 +250,21 @@ $ species &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Ad
 $ region  &lt;fct&gt; Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anvers, Anve…
 $ island  &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen,…</code></pre>
 </div>
-<div id="correct-typos" class="section level2" number="29.3">
-<h2><span class="header-section-number">29.3</span> Correct typos</h2>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="applying-functions-across-columns.html#cb406-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;adelie&quot;</span>, <span class="st">&quot;pinstrap&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>)</span>
-<span id="cb406-2"><a href="applying-functions-across-columns.html#cb406-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;adelie&quot;</span>, <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>,<span class="st">&quot;Chinstrap&quot;</span>)</span>
-<span id="cb406-3"><a href="applying-functions-across-columns.html#cb406-3" tabindex="-1"></a></span>
-<span id="cb406-4"><a href="applying-functions-across-columns.html#cb406-4" tabindex="-1"></a>typo_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(x,y)</span></code></pre></div>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="applying-functions-across-columns.html#cb407-1" tabindex="-1"></a>typo_df <span class="sc">|&gt;</span> </span>
-<span id="cb407-2"><a href="applying-functions-across-columns.html#cb407-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
-<span id="cb407-3"><a href="applying-functions-across-columns.html#cb407-3" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">everything</span>(),</span>
-<span id="cb407-4"><a href="applying-functions-across-columns.html#cb407-4" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">case_when</span>(</span>
-<span id="cb407-5"><a href="applying-functions-across-columns.html#cb407-5" tabindex="-1"></a>      <span class="fu">str_detect</span>(., <span class="st">&quot;adelie&quot;</span>) <span class="sc">~</span> <span class="fu">str_replace</span>(., <span class="st">&quot;adelie&quot;</span>, <span class="st">&quot;Adelie&quot;</span>),</span>
-<span id="cb407-6"><a href="applying-functions-across-columns.html#cb407-6" tabindex="-1"></a>      <span class="fu">str_detect</span>(., <span class="st">&quot;pinstrap&quot;</span>) <span class="sc">~</span> <span class="fu">str_replace</span>(., <span class="st">&quot;pinstrap&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>),</span>
-<span id="cb407-7"><a href="applying-functions-across-columns.html#cb407-7" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> .</span>
-<span id="cb407-8"><a href="applying-functions-across-columns.html#cb407-8" tabindex="-1"></a>    )</span>
-<span id="cb407-9"><a href="applying-functions-across-columns.html#cb407-9" tabindex="-1"></a>  ))</span></code></pre></div>
+<div id="correct-typos" class="section level2" number="23.3">
+<h2><span class="header-section-number">23.3</span> Correct typos</h2>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="applying-functions-across-columns.html#cb398-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;adelie&quot;</span>, <span class="st">&quot;pinstrap&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>)</span>
+<span id="cb398-2"><a href="applying-functions-across-columns.html#cb398-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;adelie&quot;</span>, <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>,<span class="st">&quot;Chinstrap&quot;</span>)</span>
+<span id="cb398-3"><a href="applying-functions-across-columns.html#cb398-3" tabindex="-1"></a></span>
+<span id="cb398-4"><a href="applying-functions-across-columns.html#cb398-4" tabindex="-1"></a>typo_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(x,y)</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="applying-functions-across-columns.html#cb399-1" tabindex="-1"></a>typo_df <span class="sc">|&gt;</span> </span>
+<span id="cb399-2"><a href="applying-functions-across-columns.html#cb399-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb399-3"><a href="applying-functions-across-columns.html#cb399-3" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb399-4"><a href="applying-functions-across-columns.html#cb399-4" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">case_when</span>(</span>
+<span id="cb399-5"><a href="applying-functions-across-columns.html#cb399-5" tabindex="-1"></a>      <span class="fu">str_detect</span>(., <span class="st">&quot;adelie&quot;</span>) <span class="sc">~</span> <span class="fu">str_replace</span>(., <span class="st">&quot;adelie&quot;</span>, <span class="st">&quot;Adelie&quot;</span>),</span>
+<span id="cb399-6"><a href="applying-functions-across-columns.html#cb399-6" tabindex="-1"></a>      <span class="fu">str_detect</span>(., <span class="st">&quot;pinstrap&quot;</span>) <span class="sc">~</span> <span class="fu">str_replace</span>(., <span class="st">&quot;pinstrap&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span>),</span>
+<span id="cb399-7"><a href="applying-functions-across-columns.html#cb399-7" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> .</span>
+<span id="cb399-8"><a href="applying-functions-across-columns.html#cb399-8" tabindex="-1"></a>    )</span>
+<span id="cb399-9"><a href="applying-functions-across-columns.html#cb399-9" tabindex="-1"></a>  ))</span></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>

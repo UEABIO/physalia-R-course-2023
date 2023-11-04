@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 27 Modifying variables | Advancing in R</title>
+  <title>Chapter 21 Modifying variables | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 27 Modifying variables | Advancing in R" />
+  <meta property="og:title" content="Chapter 21 Modifying variables | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 27 Modifying variables | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 21 Modifying variables | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,26 +153,26 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="modifying-variables" class="section level1" number="27">
-<h1><span class="header-section-number">Chapter 27</span> Modifying variables</h1>
-<div id="count" class="section level2" number="27.1">
-<h2><span class="header-section-number">27.1</span> count</h2>
+<div id="modifying-variables" class="section level1" number="21">
+<h1><span class="header-section-number">Chapter 21</span> Modifying variables</h1>
+<div id="count" class="section level2" number="21.1">
+<h2><span class="header-section-number">21.1</span> count</h2>
 </div>
-<div id="extract" class="section level2" number="27.2">
-<h2><span class="header-section-number">27.2</span> extract</h2>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="modifying-variables.html#cb392-1" tabindex="-1"></a>penguins_clean <span class="sc">|&gt;</span> </span>
-<span id="cb392-2"><a href="modifying-variables.html#cb392-2" tabindex="-1"></a>  <span class="fu">separate</span>(species,</span>
-<span id="cb392-3"><a href="modifying-variables.html#cb392-3" tabindex="-1"></a>          <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;species&quot;</span>, <span class="st">&quot;full_latin_name&quot;</span>),</span>
-<span id="cb392-4"><a href="modifying-variables.html#cb392-4" tabindex="-1"></a>          <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">(&quot;</span></span>
-<span id="cb392-5"><a href="modifying-variables.html#cb392-5" tabindex="-1"></a>          )</span></code></pre></div>
+<div id="extract" class="section level2" number="21.2">
+<h2><span class="header-section-number">21.2</span> extract</h2>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="modifying-variables.html#cb384-1" tabindex="-1"></a>penguins_clean <span class="sc">|&gt;</span> </span>
+<span id="cb384-2"><a href="modifying-variables.html#cb384-2" tabindex="-1"></a>  <span class="fu">separate</span>(species,</span>
+<span id="cb384-3"><a href="modifying-variables.html#cb384-3" tabindex="-1"></a>          <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;species&quot;</span>, <span class="st">&quot;full_latin_name&quot;</span>),</span>
+<span id="cb384-4"><a href="modifying-variables.html#cb384-4" tabindex="-1"></a>          <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">(&quot;</span></span>
+<span id="cb384-5"><a href="modifying-variables.html#cb384-5" tabindex="-1"></a>          )</span></code></pre></div>
 <p>This approach reaches its limits quite quickly - note here it has left an ugly <code>)</code> on the end of the second column. There are also issues when we lack a clear separator to distinguish the columns we want to create. For these use cases we have extract.</p>
 <p>Now suppose you want to separate the common names and latin names of the species variable by regex:</p>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="modifying-variables.html#cb393-1" tabindex="-1"></a>penguins_clean_split <span class="ot">&lt;-</span> penguins_clean <span class="sc">|&gt;</span> </span>
-<span id="cb393-2"><a href="modifying-variables.html#cb393-2" tabindex="-1"></a>  <span class="fu">extract</span>(species,</span>
-<span id="cb393-3"><a href="modifying-variables.html#cb393-3" tabindex="-1"></a>          <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;species&quot;</span>, <span class="st">&quot;full_latin_name&quot;</span>),</span>
-<span id="cb393-4"><a href="modifying-variables.html#cb393-4" tabindex="-1"></a>          <span class="at">regex =</span> <span class="st">&quot;(</span><span class="sc">\\</span><span class="st">w+) .* </span><span class="sc">\\</span><span class="st">(([^)]+)</span><span class="sc">\\</span><span class="st">)&quot;</span></span>
-<span id="cb393-5"><a href="modifying-variables.html#cb393-5" tabindex="-1"></a>          )</span>
-<span id="cb393-6"><a href="modifying-variables.html#cb393-6" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> <span class="fu">colnames</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="modifying-variables.html#cb385-1" tabindex="-1"></a>penguins_clean_split <span class="ot">&lt;-</span> penguins_clean <span class="sc">|&gt;</span> </span>
+<span id="cb385-2"><a href="modifying-variables.html#cb385-2" tabindex="-1"></a>  <span class="fu">extract</span>(species,</span>
+<span id="cb385-3"><a href="modifying-variables.html#cb385-3" tabindex="-1"></a>          <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;species&quot;</span>, <span class="st">&quot;full_latin_name&quot;</span>),</span>
+<span id="cb385-4"><a href="modifying-variables.html#cb385-4" tabindex="-1"></a>          <span class="at">regex =</span> <span class="st">&quot;(</span><span class="sc">\\</span><span class="st">w+) .* </span><span class="sc">\\</span><span class="st">(([^)]+)</span><span class="sc">\\</span><span class="st">)&quot;</span></span>
+<span id="cb385-5"><a href="modifying-variables.html#cb385-5" tabindex="-1"></a>          )</span>
+<span id="cb385-6"><a href="modifying-variables.html#cb385-6" tabindex="-1"></a>penguins_clean_split <span class="sc">|&gt;</span> <span class="fu">colnames</span>()</span></code></pre></div>
 <pre><code>##  [1] &quot;study_name&quot;        &quot;sample_number&quot;     &quot;species&quot;          
 ##  [4] &quot;full_latin_name&quot;   &quot;region&quot;            &quot;island&quot;           
 ##  [7] &quot;stage&quot;             &quot;individual_id&quot;     &quot;clutch_completion&quot;

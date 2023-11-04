@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 44 Customising | Advancing in R</title>
+  <title>Chapter 38 Customising | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 44 Customising | Advancing in R" />
+  <meta property="og:title" content="Chapter 38 Customising | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 44 Customising | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 38 Customising | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,143 +153,143 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="customising" class="section level1" number="44">
-<h1><span class="header-section-number">Chapter 44</span> Customising</h1>
-<div id="shiny-dashboard" class="section level2" number="44.1">
-<h2><span class="header-section-number">44.1</span> Shiny Dashboard</h2>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="customising.html#cb541-1" tabindex="-1"></a><span class="co"># Packages ----</span></span>
-<span id="cb541-2"><a href="customising.html#cb541-2" tabindex="-1"></a><span class="fu">library</span>(shiny)       <span class="co"># Essential for running any Shiny app</span></span>
-<span id="cb541-3"><a href="customising.html#cb541-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb541-4"><a href="customising.html#cb541-4" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)    <span class="co"># The source of your data</span></span>
-<span id="cb541-5"><a href="customising.html#cb541-5" tabindex="-1"></a><span class="fu">library</span>(bslib)</span>
-<span id="cb541-6"><a href="customising.html#cb541-6" tabindex="-1"></a></span>
-<span id="cb541-7"><a href="customising.html#cb541-7" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb541-8"><a href="customising.html#cb541-8" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins)</span>
-<span id="cb541-9"><a href="customising.html#cb541-9" tabindex="-1"></a></span>
-<span id="cb541-10"><a href="customising.html#cb541-10" tabindex="-1"></a><span class="co"># Calculate column means for the value boxes</span></span>
-<span id="cb541-11"><a href="customising.html#cb541-11" tabindex="-1"></a>means <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb541-12"><a href="customising.html#cb541-12" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
-<span id="cb541-13"><a href="customising.html#cb541-13" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">round</span>(<span class="fu">mean</span>(flipper_length_mm, <span class="at">na.rm =</span> T), <span class="dv">2</span>))</span>
-<span id="cb541-14"><a href="customising.html#cb541-14" tabindex="-1"></a></span>
-<span id="cb541-15"><a href="customising.html#cb541-15" tabindex="-1"></a><span class="co"># Turn on thematic for theme-matched plots</span></span>
-<span id="cb541-16"><a href="customising.html#cb541-16" tabindex="-1"></a>thematic<span class="sc">::</span><span class="fu">thematic_shiny</span>(<span class="at">font =</span> <span class="st">&quot;auto&quot;</span>)</span>
-<span id="cb541-17"><a href="customising.html#cb541-17" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">16</span>))</span>
-<span id="cb541-18"><a href="customising.html#cb541-18" tabindex="-1"></a></span>
-<span id="cb541-19"><a href="customising.html#cb541-19" tabindex="-1"></a><span class="co"># ui.R ----</span></span>
-<span id="cb541-20"><a href="customising.html#cb541-20" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">page_sidebar</span>(</span>
-<span id="cb541-21"><a href="customising.html#cb541-21" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Penguins flipper dashboard&quot;</span>,</span>
-<span id="cb541-22"><a href="customising.html#cb541-22" tabindex="-1"></a>  <span class="at">sidebar =</span> <span class="fu">sidebar</span>(</span>
-<span id="cb541-23"><a href="customising.html#cb541-23" tabindex="-1"></a>      demo_sp <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;species&quot;</span>,  <span class="co"># Give the input a name &quot;genotype&quot;</span></span>
-<span id="cb541-24"><a href="customising.html#cb541-24" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;1. Select species&quot;</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
-<span id="cb541-25"><a href="customising.html#cb541-25" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Gentoo&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;Adelie&quot;</span>),  <span class="co"># Create the choices that can be selected. e.g. Display &quot;Adelie&quot; and link to value &quot;Adelie&quot;</span></span>
-<span id="cb541-26"><a href="customising.html#cb541-26" tabindex="-1"></a>      demo_select <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;colour&quot;</span>, </span>
-<span id="cb541-27"><a href="customising.html#cb541-27" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;2. Select histogram colour&quot;</span>, </span>
-<span id="cb541-28"><a href="customising.html#cb541-28" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;grey&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;grey&quot;</span>),</span>
-<span id="cb541-29"><a href="customising.html#cb541-29" tabindex="-1"></a>      demo_slide <span class="ot">&lt;-</span> <span class="fu">sliderInput</span>(<span class="at">inputId =</span> <span class="st">&quot;bin&quot;</span>, </span>
-<span id="cb541-30"><a href="customising.html#cb541-30" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;3. Select number of histogram bins&quot;</span>, </span>
-<span id="cb541-31"><a href="customising.html#cb541-31" tabindex="-1"></a>                  <span class="at">min=</span><span class="dv">1</span>, <span class="at">max=</span><span class="dv">25</span>, <span class="at">value=</span> <span class="fu">c</span>(<span class="dv">10</span>)),</span>
-<span id="cb541-32"><a href="customising.html#cb541-32" tabindex="-1"></a>      demo_text <span class="ot">&lt;-</span> <span class="fu">textAreaInput</span>(<span class="at">inputId =</span> <span class="st">&quot;text&quot;</span>, </span>
-<span id="cb541-33"><a href="customising.html#cb541-33" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;4. Enter some text to be displayed&quot;</span>,</span>
-<span id="cb541-34"><a href="customising.html#cb541-34" tabindex="-1"></a>                <span class="at">rows =</span> <span class="dv">5</span>,</span>
-<span id="cb541-35"><a href="customising.html#cb541-35" tabindex="-1"></a>                <span class="at">placeholder =</span> <span class="st">&quot;Enter some information here&quot;</span>),</span>
-<span id="cb541-36"><a href="customising.html#cb541-36" tabindex="-1"></a>      demo_button <span class="ot">&lt;-</span> <span class="fu">actionButton</span>(<span class="st">&quot;update&quot;</span>, <span class="st">&quot;Plot&quot;</span>)</span>
-<span id="cb541-37"><a href="customising.html#cb541-37" tabindex="-1"></a>    )</span>
-<span id="cb541-38"><a href="customising.html#cb541-38" tabindex="-1"></a>  ,</span>
-<span id="cb541-39"><a href="customising.html#cb541-39" tabindex="-1"></a>   <span class="fu">layout_columns</span>(</span>
-<span id="cb541-40"><a href="customising.html#cb541-40" tabindex="-1"></a>    <span class="at">fill =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb541-41"><a href="customising.html#cb541-41" tabindex="-1"></a>    <span class="fu">value_box</span>(</span>
-<span id="cb541-42"><a href="customising.html#cb541-42" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">&quot;Adelie Flipper Length&quot;</span>,</span>
-<span id="cb541-43"><a href="customising.html#cb541-43" tabindex="-1"></a>      <span class="at">value =</span> scales<span class="sc">::</span><span class="fu">unit_format</span>(<span class="at">unit =</span> <span class="st">&quot;mm&quot;</span>)(means[[<span class="dv">1</span>,<span class="dv">2</span>]]),</span>
-<span id="cb541-44"><a href="customising.html#cb541-44" tabindex="-1"></a>      <span class="at">showcase =</span> bsicons<span class="sc">::</span><span class="fu">bs_icon</span>(<span class="st">&quot;align-bottom&quot;</span>),</span>
-<span id="cb541-45"><a href="customising.html#cb541-45" tabindex="-1"></a>      <span class="at">theme_color =</span> <span class="st">&quot;grey&quot;</span></span>
-<span id="cb541-46"><a href="customising.html#cb541-46" tabindex="-1"></a>    ),</span>
-<span id="cb541-47"><a href="customising.html#cb541-47" tabindex="-1"></a>    <span class="fu">value_box</span>(</span>
-<span id="cb541-48"><a href="customising.html#cb541-48" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">&quot;Chinstrap Flipper&quot;</span>,</span>
-<span id="cb541-49"><a href="customising.html#cb541-49" tabindex="-1"></a>      <span class="at">value =</span> scales<span class="sc">::</span><span class="fu">unit_format</span>(<span class="at">unit =</span> <span class="st">&quot;mm&quot;</span>)(means[[<span class="dv">2</span>,<span class="dv">2</span>]]),</span>
-<span id="cb541-50"><a href="customising.html#cb541-50" tabindex="-1"></a>      <span class="at">showcase =</span> bsicons<span class="sc">::</span><span class="fu">bs_icon</span>(<span class="st">&quot;align-center&quot;</span>),</span>
-<span id="cb541-51"><a href="customising.html#cb541-51" tabindex="-1"></a>      <span class="at">theme_color =</span> <span class="st">&quot;grey&quot;</span></span>
-<span id="cb541-52"><a href="customising.html#cb541-52" tabindex="-1"></a>    ),</span>
-<span id="cb541-53"><a href="customising.html#cb541-53" tabindex="-1"></a> <span class="fu">value_box</span>(</span>
-<span id="cb541-54"><a href="customising.html#cb541-54" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">&quot;Gentoo Flipper Length&quot;</span>,</span>
-<span id="cb541-55"><a href="customising.html#cb541-55" tabindex="-1"></a>      <span class="at">value =</span> scales<span class="sc">::</span><span class="fu">unit_format</span>(<span class="at">unit =</span> <span class="st">&quot;mm&quot;</span>)(means[[<span class="dv">3</span>,<span class="dv">2</span>]]),</span>
-<span id="cb541-56"><a href="customising.html#cb541-56" tabindex="-1"></a>      <span class="at">showcase =</span> bsicons<span class="sc">::</span><span class="fu">bs_icon</span>(<span class="st">&quot;align-top&quot;</span>),</span>
-<span id="cb541-57"><a href="customising.html#cb541-57" tabindex="-1"></a>      <span class="at">theme_color =</span> <span class="st">&quot;grey&quot;</span></span>
-<span id="cb541-58"><a href="customising.html#cb541-58" tabindex="-1"></a>    )</span>
-<span id="cb541-59"><a href="customising.html#cb541-59" tabindex="-1"></a>  ),</span>
-<span id="cb541-60"><a href="customising.html#cb541-60" tabindex="-1"></a>    </span>
-<span id="cb541-61"><a href="customising.html#cb541-61" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">ul</span>(</span>
-<span id="cb541-62"><a href="customising.html#cb541-62" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">strong</span>(<span class="fu">textOutput</span>(<span class="st">&quot;demo_sp&quot;</span>)),</span>
-<span id="cb541-63"><a href="customising.html#cb541-63" tabindex="-1"></a>    <span class="fu">textOutput</span>(<span class="st">&quot;demo_text&quot;</span>)),</span>
-<span id="cb541-64"><a href="customising.html#cb541-64" tabindex="-1"></a> </span>
-<span id="cb541-65"><a href="customising.html#cb541-65" tabindex="-1"></a>      <span class="co"># Output elements go here</span></span>
-<span id="cb541-66"><a href="customising.html#cb541-66" tabindex="-1"></a>      <span class="fu">layout_columns</span>(</span>
-<span id="cb541-67"><a href="customising.html#cb541-67" tabindex="-1"></a>    <span class="fu">card</span>(</span>
-<span id="cb541-68"><a href="customising.html#cb541-68" tabindex="-1"></a>      <span class="at">full_screen =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb541-69"><a href="customising.html#cb541-69" tabindex="-1"></a>      <span class="fu">card_header</span>(<span class="st">&quot;Plot&quot;</span>),</span>
-<span id="cb541-70"><a href="customising.html#cb541-70" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="st">&quot;demo_plot&quot;</span>)</span>
-<span id="cb541-71"><a href="customising.html#cb541-71" tabindex="-1"></a>    ),</span>
-<span id="cb541-72"><a href="customising.html#cb541-72" tabindex="-1"></a>    <span class="fu">card</span>(</span>
-<span id="cb541-73"><a href="customising.html#cb541-73" tabindex="-1"></a>      <span class="at">full_screen =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb541-74"><a href="customising.html#cb541-74" tabindex="-1"></a>      <span class="fu">card_header</span>(<span class="st">&quot;Table&quot;</span>),</span>
-<span id="cb541-75"><a href="customising.html#cb541-75" tabindex="-1"></a>      DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;demo_table&quot;</span>,</span>
-<span id="cb541-76"><a href="customising.html#cb541-76" tabindex="-1"></a>                    <span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,</span>
-<span id="cb541-77"><a href="customising.html#cb541-77" tabindex="-1"></a>                    <span class="at">height =</span> <span class="st">&quot;auto&quot;</span>)</span>
-<span id="cb541-78"><a href="customising.html#cb541-78" tabindex="-1"></a>    )  </span>
-<span id="cb541-79"><a href="customising.html#cb541-79" tabindex="-1"></a>)</span>
-<span id="cb541-80"><a href="customising.html#cb541-80" tabindex="-1"></a>)</span>
-<span id="cb541-81"><a href="customising.html#cb541-81" tabindex="-1"></a>  </span>
-<span id="cb541-82"><a href="customising.html#cb541-82" tabindex="-1"></a></span>
-<span id="cb541-83"><a href="customising.html#cb541-83" tabindex="-1"></a><span class="co"># server.R ----</span></span>
-<span id="cb541-84"><a href="customising.html#cb541-84" tabindex="-1"></a></span>
-<span id="cb541-85"><a href="customising.html#cb541-85" tabindex="-1"></a> </span>
-<span id="cb541-86"><a href="customising.html#cb541-86" tabindex="-1"></a></span>
-<span id="cb541-87"><a href="customising.html#cb541-87" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb541-88"><a href="customising.html#cb541-88" tabindex="-1"></a>  </span>
-<span id="cb541-89"><a href="customising.html#cb541-89" tabindex="-1"></a></span>
-<span id="cb541-90"><a href="customising.html#cb541-90" tabindex="-1"></a></span>
-<span id="cb541-91"><a href="customising.html#cb541-91" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>update, {</span>
-<span id="cb541-92"><a href="customising.html#cb541-92" tabindex="-1"></a>    </span>
-<span id="cb541-93"><a href="customising.html#cb541-93" tabindex="-1"></a>    penguins_filtered <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb541-94"><a href="customising.html#cb541-94" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species)</span>
-<span id="cb541-95"><a href="customising.html#cb541-95" tabindex="-1"></a>    </span>
-<span id="cb541-96"><a href="customising.html#cb541-96" tabindex="-1"></a>     bins <span class="ot">&lt;-</span> input<span class="sc">$</span>bin</span>
-<span id="cb541-97"><a href="customising.html#cb541-97" tabindex="-1"></a>     </span>
-<span id="cb541-98"><a href="customising.html#cb541-98" tabindex="-1"></a>     colour <span class="ot">&lt;-</span> input<span class="sc">$</span>colour</span>
-<span id="cb541-99"><a href="customising.html#cb541-99" tabindex="-1"></a> </span>
-<span id="cb541-100"><a href="customising.html#cb541-100" tabindex="-1"></a></span>
-<span id="cb541-101"><a href="customising.html#cb541-101" tabindex="-1"></a>    output<span class="sc">$</span>demo_sp <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb541-102"><a href="customising.html#cb541-102" tabindex="-1"></a>      <span class="fu">paste</span>(<span class="st">&quot;Figure 1.&quot;</span>, input<span class="sc">$</span>species)</span>
-<span id="cb541-103"><a href="customising.html#cb541-103" tabindex="-1"></a>    })</span>
-<span id="cb541-104"><a href="customising.html#cb541-104" tabindex="-1"></a></span>
-<span id="cb541-105"><a href="customising.html#cb541-105" tabindex="-1"></a>    output<span class="sc">$</span>demo_text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb541-106"><a href="customising.html#cb541-106" tabindex="-1"></a>      (input<span class="sc">$</span>text)</span>
-<span id="cb541-107"><a href="customising.html#cb541-107" tabindex="-1"></a>    })</span>
-<span id="cb541-108"><a href="customising.html#cb541-108" tabindex="-1"></a></span>
-<span id="cb541-109"><a href="customising.html#cb541-109" tabindex="-1"></a>    output<span class="sc">$</span>demo_plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb541-110"><a href="customising.html#cb541-110" tabindex="-1"></a>        <span class="fu">ggplot</span>(penguins_filtered, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
-<span id="cb541-111"><a href="customising.html#cb541-111" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="at">fill =</span> colour, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">bins =</span> bins) <span class="sc">+</span></span>
-<span id="cb541-112"><a href="customising.html#cb541-112" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Color&quot;</span>) <span class="sc">+</span></span>
-<span id="cb541-113"><a href="customising.html#cb541-113" tabindex="-1"></a>        <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span>
-<span id="cb541-114"><a href="customising.html#cb541-114" tabindex="-1"></a>    })</span>
-<span id="cb541-115"><a href="customising.html#cb541-115" tabindex="-1"></a></span>
-<span id="cb541-116"><a href="customising.html#cb541-116" tabindex="-1"></a>    output<span class="sc">$</span>demo_table <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
-<span id="cb541-117"><a href="customising.html#cb541-117" tabindex="-1"></a>      penguins_filtered <span class="sc">|&gt;</span> </span>
-<span id="cb541-118"><a href="customising.html#cb541-118" tabindex="-1"></a>        <span class="fu">summarise</span>(<span class="at">flipper_length_mm =</span> <span class="fu">quantile</span>(flipper_length_mm, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> T), <span class="at">quantile =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span>
-<span id="cb541-119"><a href="customising.html#cb541-119" tabindex="-1"></a>    })</span>
-<span id="cb541-120"><a href="customising.html#cb541-120" tabindex="-1"></a>  })</span>
-<span id="cb541-121"><a href="customising.html#cb541-121" tabindex="-1"></a>  </span>
-<span id="cb541-122"><a href="customising.html#cb541-122" tabindex="-1"></a>}</span>
-<span id="cb541-123"><a href="customising.html#cb541-123" tabindex="-1"></a></span>
-<span id="cb541-124"><a href="customising.html#cb541-124" tabindex="-1"></a></span>
-<span id="cb541-125"><a href="customising.html#cb541-125" tabindex="-1"></a></span>
-<span id="cb541-126"><a href="customising.html#cb541-126" tabindex="-1"></a></span>
-<span id="cb541-127"><a href="customising.html#cb541-127" tabindex="-1"></a><span class="co"># Run the app ----</span></span>
-<span id="cb541-128"><a href="customising.html#cb541-128" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
-<div id="width" class="section level3" number="44.1.1">
-<h3><span class="header-section-number">44.1.1</span> Width</h3>
+<div id="customising" class="section level1" number="38">
+<h1><span class="header-section-number">Chapter 38</span> Customising</h1>
+<div id="shiny-dashboard" class="section level2" number="38.1">
+<h2><span class="header-section-number">38.1</span> Shiny Dashboard</h2>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="customising.html#cb533-1" tabindex="-1"></a><span class="co"># Packages ----</span></span>
+<span id="cb533-2"><a href="customising.html#cb533-2" tabindex="-1"></a><span class="fu">library</span>(shiny)       <span class="co"># Essential for running any Shiny app</span></span>
+<span id="cb533-3"><a href="customising.html#cb533-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb533-4"><a href="customising.html#cb533-4" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)    <span class="co"># The source of your data</span></span>
+<span id="cb533-5"><a href="customising.html#cb533-5" tabindex="-1"></a><span class="fu">library</span>(bslib)</span>
+<span id="cb533-6"><a href="customising.html#cb533-6" tabindex="-1"></a></span>
+<span id="cb533-7"><a href="customising.html#cb533-7" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb533-8"><a href="customising.html#cb533-8" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins)</span>
+<span id="cb533-9"><a href="customising.html#cb533-9" tabindex="-1"></a></span>
+<span id="cb533-10"><a href="customising.html#cb533-10" tabindex="-1"></a><span class="co"># Calculate column means for the value boxes</span></span>
+<span id="cb533-11"><a href="customising.html#cb533-11" tabindex="-1"></a>means <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb533-12"><a href="customising.html#cb533-12" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
+<span id="cb533-13"><a href="customising.html#cb533-13" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">round</span>(<span class="fu">mean</span>(flipper_length_mm, <span class="at">na.rm =</span> T), <span class="dv">2</span>))</span>
+<span id="cb533-14"><a href="customising.html#cb533-14" tabindex="-1"></a></span>
+<span id="cb533-15"><a href="customising.html#cb533-15" tabindex="-1"></a><span class="co"># Turn on thematic for theme-matched plots</span></span>
+<span id="cb533-16"><a href="customising.html#cb533-16" tabindex="-1"></a>thematic<span class="sc">::</span><span class="fu">thematic_shiny</span>(<span class="at">font =</span> <span class="st">&quot;auto&quot;</span>)</span>
+<span id="cb533-17"><a href="customising.html#cb533-17" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">16</span>))</span>
+<span id="cb533-18"><a href="customising.html#cb533-18" tabindex="-1"></a></span>
+<span id="cb533-19"><a href="customising.html#cb533-19" tabindex="-1"></a><span class="co"># ui.R ----</span></span>
+<span id="cb533-20"><a href="customising.html#cb533-20" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">page_sidebar</span>(</span>
+<span id="cb533-21"><a href="customising.html#cb533-21" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Penguins flipper dashboard&quot;</span>,</span>
+<span id="cb533-22"><a href="customising.html#cb533-22" tabindex="-1"></a>  <span class="at">sidebar =</span> <span class="fu">sidebar</span>(</span>
+<span id="cb533-23"><a href="customising.html#cb533-23" tabindex="-1"></a>      demo_sp <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;species&quot;</span>,  <span class="co"># Give the input a name &quot;genotype&quot;</span></span>
+<span id="cb533-24"><a href="customising.html#cb533-24" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;1. Select species&quot;</span>,  <span class="co"># Give the input a label to be displayed in the app</span></span>
+<span id="cb533-25"><a href="customising.html#cb533-25" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;Adelie&quot;</span>, <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chinstrap&quot;</span>, <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;Gentoo&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;Adelie&quot;</span>),  <span class="co"># Create the choices that can be selected. e.g. Display &quot;Adelie&quot; and link to value &quot;Adelie&quot;</span></span>
+<span id="cb533-26"><a href="customising.html#cb533-26" tabindex="-1"></a>      demo_select <span class="ot">&lt;-</span> <span class="fu">selectInput</span>(<span class="at">inputId =</span> <span class="st">&quot;colour&quot;</span>, </span>
+<span id="cb533-27"><a href="customising.html#cb533-27" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;2. Select histogram colour&quot;</span>, </span>
+<span id="cb533-28"><a href="customising.html#cb533-28" tabindex="-1"></a>                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;purple&quot;</span>,<span class="st">&quot;grey&quot;</span>), <span class="at">selected =</span> <span class="st">&quot;grey&quot;</span>),</span>
+<span id="cb533-29"><a href="customising.html#cb533-29" tabindex="-1"></a>      demo_slide <span class="ot">&lt;-</span> <span class="fu">sliderInput</span>(<span class="at">inputId =</span> <span class="st">&quot;bin&quot;</span>, </span>
+<span id="cb533-30"><a href="customising.html#cb533-30" tabindex="-1"></a>                  <span class="at">label =</span> <span class="st">&quot;3. Select number of histogram bins&quot;</span>, </span>
+<span id="cb533-31"><a href="customising.html#cb533-31" tabindex="-1"></a>                  <span class="at">min=</span><span class="dv">1</span>, <span class="at">max=</span><span class="dv">25</span>, <span class="at">value=</span> <span class="fu">c</span>(<span class="dv">10</span>)),</span>
+<span id="cb533-32"><a href="customising.html#cb533-32" tabindex="-1"></a>      demo_text <span class="ot">&lt;-</span> <span class="fu">textAreaInput</span>(<span class="at">inputId =</span> <span class="st">&quot;text&quot;</span>, </span>
+<span id="cb533-33"><a href="customising.html#cb533-33" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">&quot;4. Enter some text to be displayed&quot;</span>,</span>
+<span id="cb533-34"><a href="customising.html#cb533-34" tabindex="-1"></a>                <span class="at">rows =</span> <span class="dv">5</span>,</span>
+<span id="cb533-35"><a href="customising.html#cb533-35" tabindex="-1"></a>                <span class="at">placeholder =</span> <span class="st">&quot;Enter some information here&quot;</span>),</span>
+<span id="cb533-36"><a href="customising.html#cb533-36" tabindex="-1"></a>      demo_button <span class="ot">&lt;-</span> <span class="fu">actionButton</span>(<span class="st">&quot;update&quot;</span>, <span class="st">&quot;Plot&quot;</span>)</span>
+<span id="cb533-37"><a href="customising.html#cb533-37" tabindex="-1"></a>    )</span>
+<span id="cb533-38"><a href="customising.html#cb533-38" tabindex="-1"></a>  ,</span>
+<span id="cb533-39"><a href="customising.html#cb533-39" tabindex="-1"></a>   <span class="fu">layout_columns</span>(</span>
+<span id="cb533-40"><a href="customising.html#cb533-40" tabindex="-1"></a>    <span class="at">fill =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb533-41"><a href="customising.html#cb533-41" tabindex="-1"></a>    <span class="fu">value_box</span>(</span>
+<span id="cb533-42"><a href="customising.html#cb533-42" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">&quot;Adelie Flipper Length&quot;</span>,</span>
+<span id="cb533-43"><a href="customising.html#cb533-43" tabindex="-1"></a>      <span class="at">value =</span> scales<span class="sc">::</span><span class="fu">unit_format</span>(<span class="at">unit =</span> <span class="st">&quot;mm&quot;</span>)(means[[<span class="dv">1</span>,<span class="dv">2</span>]]),</span>
+<span id="cb533-44"><a href="customising.html#cb533-44" tabindex="-1"></a>      <span class="at">showcase =</span> bsicons<span class="sc">::</span><span class="fu">bs_icon</span>(<span class="st">&quot;align-bottom&quot;</span>),</span>
+<span id="cb533-45"><a href="customising.html#cb533-45" tabindex="-1"></a>      <span class="at">theme_color =</span> <span class="st">&quot;grey&quot;</span></span>
+<span id="cb533-46"><a href="customising.html#cb533-46" tabindex="-1"></a>    ),</span>
+<span id="cb533-47"><a href="customising.html#cb533-47" tabindex="-1"></a>    <span class="fu">value_box</span>(</span>
+<span id="cb533-48"><a href="customising.html#cb533-48" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">&quot;Chinstrap Flipper&quot;</span>,</span>
+<span id="cb533-49"><a href="customising.html#cb533-49" tabindex="-1"></a>      <span class="at">value =</span> scales<span class="sc">::</span><span class="fu">unit_format</span>(<span class="at">unit =</span> <span class="st">&quot;mm&quot;</span>)(means[[<span class="dv">2</span>,<span class="dv">2</span>]]),</span>
+<span id="cb533-50"><a href="customising.html#cb533-50" tabindex="-1"></a>      <span class="at">showcase =</span> bsicons<span class="sc">::</span><span class="fu">bs_icon</span>(<span class="st">&quot;align-center&quot;</span>),</span>
+<span id="cb533-51"><a href="customising.html#cb533-51" tabindex="-1"></a>      <span class="at">theme_color =</span> <span class="st">&quot;grey&quot;</span></span>
+<span id="cb533-52"><a href="customising.html#cb533-52" tabindex="-1"></a>    ),</span>
+<span id="cb533-53"><a href="customising.html#cb533-53" tabindex="-1"></a> <span class="fu">value_box</span>(</span>
+<span id="cb533-54"><a href="customising.html#cb533-54" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">&quot;Gentoo Flipper Length&quot;</span>,</span>
+<span id="cb533-55"><a href="customising.html#cb533-55" tabindex="-1"></a>      <span class="at">value =</span> scales<span class="sc">::</span><span class="fu">unit_format</span>(<span class="at">unit =</span> <span class="st">&quot;mm&quot;</span>)(means[[<span class="dv">3</span>,<span class="dv">2</span>]]),</span>
+<span id="cb533-56"><a href="customising.html#cb533-56" tabindex="-1"></a>      <span class="at">showcase =</span> bsicons<span class="sc">::</span><span class="fu">bs_icon</span>(<span class="st">&quot;align-top&quot;</span>),</span>
+<span id="cb533-57"><a href="customising.html#cb533-57" tabindex="-1"></a>      <span class="at">theme_color =</span> <span class="st">&quot;grey&quot;</span></span>
+<span id="cb533-58"><a href="customising.html#cb533-58" tabindex="-1"></a>    )</span>
+<span id="cb533-59"><a href="customising.html#cb533-59" tabindex="-1"></a>  ),</span>
+<span id="cb533-60"><a href="customising.html#cb533-60" tabindex="-1"></a>    </span>
+<span id="cb533-61"><a href="customising.html#cb533-61" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">ul</span>(</span>
+<span id="cb533-62"><a href="customising.html#cb533-62" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">strong</span>(<span class="fu">textOutput</span>(<span class="st">&quot;demo_sp&quot;</span>)),</span>
+<span id="cb533-63"><a href="customising.html#cb533-63" tabindex="-1"></a>    <span class="fu">textOutput</span>(<span class="st">&quot;demo_text&quot;</span>)),</span>
+<span id="cb533-64"><a href="customising.html#cb533-64" tabindex="-1"></a> </span>
+<span id="cb533-65"><a href="customising.html#cb533-65" tabindex="-1"></a>      <span class="co"># Output elements go here</span></span>
+<span id="cb533-66"><a href="customising.html#cb533-66" tabindex="-1"></a>      <span class="fu">layout_columns</span>(</span>
+<span id="cb533-67"><a href="customising.html#cb533-67" tabindex="-1"></a>    <span class="fu">card</span>(</span>
+<span id="cb533-68"><a href="customising.html#cb533-68" tabindex="-1"></a>      <span class="at">full_screen =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb533-69"><a href="customising.html#cb533-69" tabindex="-1"></a>      <span class="fu">card_header</span>(<span class="st">&quot;Plot&quot;</span>),</span>
+<span id="cb533-70"><a href="customising.html#cb533-70" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="st">&quot;demo_plot&quot;</span>)</span>
+<span id="cb533-71"><a href="customising.html#cb533-71" tabindex="-1"></a>    ),</span>
+<span id="cb533-72"><a href="customising.html#cb533-72" tabindex="-1"></a>    <span class="fu">card</span>(</span>
+<span id="cb533-73"><a href="customising.html#cb533-73" tabindex="-1"></a>      <span class="at">full_screen =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb533-74"><a href="customising.html#cb533-74" tabindex="-1"></a>      <span class="fu">card_header</span>(<span class="st">&quot;Table&quot;</span>),</span>
+<span id="cb533-75"><a href="customising.html#cb533-75" tabindex="-1"></a>      DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;demo_table&quot;</span>,</span>
+<span id="cb533-76"><a href="customising.html#cb533-76" tabindex="-1"></a>                    <span class="at">width =</span> <span class="st">&quot;100%&quot;</span>,</span>
+<span id="cb533-77"><a href="customising.html#cb533-77" tabindex="-1"></a>                    <span class="at">height =</span> <span class="st">&quot;auto&quot;</span>)</span>
+<span id="cb533-78"><a href="customising.html#cb533-78" tabindex="-1"></a>    )  </span>
+<span id="cb533-79"><a href="customising.html#cb533-79" tabindex="-1"></a>)</span>
+<span id="cb533-80"><a href="customising.html#cb533-80" tabindex="-1"></a>)</span>
+<span id="cb533-81"><a href="customising.html#cb533-81" tabindex="-1"></a>  </span>
+<span id="cb533-82"><a href="customising.html#cb533-82" tabindex="-1"></a></span>
+<span id="cb533-83"><a href="customising.html#cb533-83" tabindex="-1"></a><span class="co"># server.R ----</span></span>
+<span id="cb533-84"><a href="customising.html#cb533-84" tabindex="-1"></a></span>
+<span id="cb533-85"><a href="customising.html#cb533-85" tabindex="-1"></a> </span>
+<span id="cb533-86"><a href="customising.html#cb533-86" tabindex="-1"></a></span>
+<span id="cb533-87"><a href="customising.html#cb533-87" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb533-88"><a href="customising.html#cb533-88" tabindex="-1"></a>  </span>
+<span id="cb533-89"><a href="customising.html#cb533-89" tabindex="-1"></a></span>
+<span id="cb533-90"><a href="customising.html#cb533-90" tabindex="-1"></a></span>
+<span id="cb533-91"><a href="customising.html#cb533-91" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>update, {</span>
+<span id="cb533-92"><a href="customising.html#cb533-92" tabindex="-1"></a>    </span>
+<span id="cb533-93"><a href="customising.html#cb533-93" tabindex="-1"></a>    penguins_filtered <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb533-94"><a href="customising.html#cb533-94" tabindex="-1"></a>      <span class="fu">filter</span>(species <span class="sc">==</span> input<span class="sc">$</span>species)</span>
+<span id="cb533-95"><a href="customising.html#cb533-95" tabindex="-1"></a>    </span>
+<span id="cb533-96"><a href="customising.html#cb533-96" tabindex="-1"></a>     bins <span class="ot">&lt;-</span> input<span class="sc">$</span>bin</span>
+<span id="cb533-97"><a href="customising.html#cb533-97" tabindex="-1"></a>     </span>
+<span id="cb533-98"><a href="customising.html#cb533-98" tabindex="-1"></a>     colour <span class="ot">&lt;-</span> input<span class="sc">$</span>colour</span>
+<span id="cb533-99"><a href="customising.html#cb533-99" tabindex="-1"></a> </span>
+<span id="cb533-100"><a href="customising.html#cb533-100" tabindex="-1"></a></span>
+<span id="cb533-101"><a href="customising.html#cb533-101" tabindex="-1"></a>    output<span class="sc">$</span>demo_sp <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb533-102"><a href="customising.html#cb533-102" tabindex="-1"></a>      <span class="fu">paste</span>(<span class="st">&quot;Figure 1.&quot;</span>, input<span class="sc">$</span>species)</span>
+<span id="cb533-103"><a href="customising.html#cb533-103" tabindex="-1"></a>    })</span>
+<span id="cb533-104"><a href="customising.html#cb533-104" tabindex="-1"></a></span>
+<span id="cb533-105"><a href="customising.html#cb533-105" tabindex="-1"></a>    output<span class="sc">$</span>demo_text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb533-106"><a href="customising.html#cb533-106" tabindex="-1"></a>      (input<span class="sc">$</span>text)</span>
+<span id="cb533-107"><a href="customising.html#cb533-107" tabindex="-1"></a>    })</span>
+<span id="cb533-108"><a href="customising.html#cb533-108" tabindex="-1"></a></span>
+<span id="cb533-109"><a href="customising.html#cb533-109" tabindex="-1"></a>    output<span class="sc">$</span>demo_plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb533-110"><a href="customising.html#cb533-110" tabindex="-1"></a>        <span class="fu">ggplot</span>(penguins_filtered, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb533-111"><a href="customising.html#cb533-111" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="at">fill =</span> colour, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">bins =</span> bins) <span class="sc">+</span></span>
+<span id="cb533-112"><a href="customising.html#cb533-112" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Color&quot;</span>) <span class="sc">+</span></span>
+<span id="cb533-113"><a href="customising.html#cb533-113" tabindex="-1"></a>        <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span>
+<span id="cb533-114"><a href="customising.html#cb533-114" tabindex="-1"></a>    })</span>
+<span id="cb533-115"><a href="customising.html#cb533-115" tabindex="-1"></a></span>
+<span id="cb533-116"><a href="customising.html#cb533-116" tabindex="-1"></a>    output<span class="sc">$</span>demo_table <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
+<span id="cb533-117"><a href="customising.html#cb533-117" tabindex="-1"></a>      penguins_filtered <span class="sc">|&gt;</span> </span>
+<span id="cb533-118"><a href="customising.html#cb533-118" tabindex="-1"></a>        <span class="fu">summarise</span>(<span class="at">flipper_length_mm =</span> <span class="fu">quantile</span>(flipper_length_mm, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>), <span class="at">na.rm =</span> T), <span class="at">quantile =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span>
+<span id="cb533-119"><a href="customising.html#cb533-119" tabindex="-1"></a>    })</span>
+<span id="cb533-120"><a href="customising.html#cb533-120" tabindex="-1"></a>  })</span>
+<span id="cb533-121"><a href="customising.html#cb533-121" tabindex="-1"></a>  </span>
+<span id="cb533-122"><a href="customising.html#cb533-122" tabindex="-1"></a>}</span>
+<span id="cb533-123"><a href="customising.html#cb533-123" tabindex="-1"></a></span>
+<span id="cb533-124"><a href="customising.html#cb533-124" tabindex="-1"></a></span>
+<span id="cb533-125"><a href="customising.html#cb533-125" tabindex="-1"></a></span>
+<span id="cb533-126"><a href="customising.html#cb533-126" tabindex="-1"></a></span>
+<span id="cb533-127"><a href="customising.html#cb533-127" tabindex="-1"></a><span class="co"># Run the app ----</span></span>
+<span id="cb533-128"><a href="customising.html#cb533-128" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
+<div id="width" class="section level3" number="38.1.1">
+<h3><span class="header-section-number">38.1.1</span> Width</h3>
 <p>Try changing width to see how it changes</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="customising.html#cb542-1" tabindex="-1"></a> <span class="fu">bs_themer</span>()</span>
-<span id="cb542-2"><a href="customising.html#cb542-2" tabindex="-1"></a><span class="co"># add to server function</span></span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="customising.html#cb534-1" tabindex="-1"></a> <span class="fu">bs_themer</span>()</span>
+<span id="cb534-2"><a href="customising.html#cb534-2" tabindex="-1"></a><span class="co"># add to server function</span></span></code></pre></div>
 <p><a href="https://shiny.posit.co/blog/posts/bslib-dashboards/#layout-tooling" class="uri">https://shiny.posit.co/blog/posts/bslib-dashboards/#layout-tooling</a></p>
 <p><a href="https://mastering-shiny.org/action-dynamic.html" class="uri">https://mastering-shiny.org/action-dynamic.html</a></p>
 <p><a href="https://www.jumpingrivers.com/blog/r-shiny-customising-shinydashboard/#" class="uri">https://www.jumpingrivers.com/blog/r-shiny-customising-shinydashboard/#</a>:~:text=The%20main%20way%20of%20including,css%20by%20convention.</p>

@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 19 Flow control | Advancing in R</title>
+  <title>Chapter 13 Flow control | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 19 Flow control | Advancing in R" />
+  <meta property="og:title" content="Chapter 13 Flow control | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 19 Flow control | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 13 Flow control | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,90 +153,90 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="flow-control" class="section level1" number="19">
-<h1><span class="header-section-number">Chapter 19</span> Flow control</h1>
+<div id="flow-control" class="section level1" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Flow control</h1>
 <p><a href="https://modern-rstats.eu/defining-your-own-functions.html#control-flow" class="uri">https://modern-rstats.eu/defining-your-own-functions.html#control-flow</a></p>
 <p><a href="https://bookdown.org/rdpeng/rprogdatascience/control-structures.html" class="uri">https://bookdown.org/rdpeng/rprogdatascience/control-structures.html</a></p>
 <p>Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical problem that requires the <code>if</code> and <code>else</code> construct. For instance:</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="flow-control.html#cb263-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb263-2"><a href="flow-control.html#cb263-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">5</span></span></code></pre></div>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="flow-control.html#cb264-1" tabindex="-1"></a><span class="cf">if</span> (a <span class="sc">&gt;</span> b) {</span>
-<span id="cb264-2"><a href="flow-control.html#cb264-2" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb264-3"><a href="flow-control.html#cb264-3" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb264-4"><a href="flow-control.html#cb264-4" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb264-5"><a href="flow-control.html#cb264-5" tabindex="-1"></a>}</span>
-<span id="cb264-6"><a href="flow-control.html#cb264-6" tabindex="-1"></a></span>
-<span id="cb264-7"><a href="flow-control.html#cb264-7" tabindex="-1"></a>f</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="flow-control.html#cb255-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb255-2"><a href="flow-control.html#cb255-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="flow-control.html#cb256-1" tabindex="-1"></a><span class="cf">if</span> (a <span class="sc">&gt;</span> b) {</span>
+<span id="cb256-2"><a href="flow-control.html#cb256-2" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb256-3"><a href="flow-control.html#cb256-3" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb256-4"><a href="flow-control.html#cb256-4" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb256-5"><a href="flow-control.html#cb256-5" tabindex="-1"></a>}</span>
+<span id="cb256-6"><a href="flow-control.html#cb256-6" tabindex="-1"></a></span>
+<span id="cb256-7"><a href="flow-control.html#cb256-7" tabindex="-1"></a>f</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p>Another way to achieve this is by using the <code>ifelse()</code> function:</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="flow-control.html#cb266-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(a <span class="sc">&gt;</span> b, <span class="dv">20</span>, <span class="dv">10</span>)</span>
-<span id="cb266-2"><a href="flow-control.html#cb266-2" tabindex="-1"></a>f</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="flow-control.html#cb258-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(a <span class="sc">&gt;</span> b, <span class="dv">20</span>, <span class="dv">10</span>)</span>
+<span id="cb258-2"><a href="flow-control.html#cb258-2" tabindex="-1"></a>f</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p><code>if</code> and <code>else</code> might seem interchangeable with <code>ifelse()</code>, but they’re not. <code>ifelse()</code> is vectorized. Let’s try the following:</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="flow-control.html#cb268-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>) <span class="sc">&gt;</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="flow-control.html#cb260-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>) <span class="sc">&gt;</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;no&quot;  &quot;yes&quot; &quot;yes&quot;</code></pre>
 <p>Trying to attempt the same with <code>if</code> and <code>else</code> will result in an error as only the first element can be evaluated</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="flow-control.html#cb270-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>) <span class="sc">&gt;</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="fu">print</span>(<span class="st">&quot;yes&quot;</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">&quot;no&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="flow-control.html#cb262-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>) <span class="sc">&gt;</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="fu">print</span>(<span class="st">&quot;yes&quot;</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">&quot;no&quot;</span>)</span></code></pre></div>
 <pre><code>Error in if (c(1, 2, 4) &gt; c(3, 1, 0)) print(&quot;yes&quot;) else print(&quot;no&quot;) : 
   the condition has length &gt; 1
 </code></pre>
 <p>The work around for this would to be use a loop, so that each element along the vector can be evaluated in turn. We will revisit loops shortly.</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="flow-control.html#cb272-1" tabindex="-1"></a>vector1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
-<span id="cb272-2"><a href="flow-control.html#cb272-2" tabindex="-1"></a>vector2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb272-3"><a href="flow-control.html#cb272-3" tabindex="-1"></a></span>
-<span id="cb272-4"><a href="flow-control.html#cb272-4" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">character</span>(<span class="fu">length</span>(vector1))  <span class="co"># Create an empty character vector to store the results</span></span>
-<span id="cb272-5"><a href="flow-control.html#cb272-5" tabindex="-1"></a></span>
-<span id="cb272-6"><a href="flow-control.html#cb272-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vector1)) {</span>
-<span id="cb272-7"><a href="flow-control.html#cb272-7" tabindex="-1"></a>  <span class="cf">if</span> (vector1[i] <span class="sc">&gt;</span> vector2[i]) {</span>
-<span id="cb272-8"><a href="flow-control.html#cb272-8" tabindex="-1"></a>    result[i] <span class="ot">&lt;-</span> <span class="st">&quot;yes&quot;</span></span>
-<span id="cb272-9"><a href="flow-control.html#cb272-9" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb272-10"><a href="flow-control.html#cb272-10" tabindex="-1"></a>    result[i] <span class="ot">&lt;-</span> <span class="st">&quot;no&quot;</span></span>
-<span id="cb272-11"><a href="flow-control.html#cb272-11" tabindex="-1"></a>  }</span>
-<span id="cb272-12"><a href="flow-control.html#cb272-12" tabindex="-1"></a>}</span>
-<span id="cb272-13"><a href="flow-control.html#cb272-13" tabindex="-1"></a></span>
-<span id="cb272-14"><a href="flow-control.html#cb272-14" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="flow-control.html#cb264-1" tabindex="-1"></a>vector1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb264-2"><a href="flow-control.html#cb264-2" tabindex="-1"></a>vector2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb264-3"><a href="flow-control.html#cb264-3" tabindex="-1"></a></span>
+<span id="cb264-4"><a href="flow-control.html#cb264-4" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">character</span>(<span class="fu">length</span>(vector1))  <span class="co"># Create an empty character vector to store the results</span></span>
+<span id="cb264-5"><a href="flow-control.html#cb264-5" tabindex="-1"></a></span>
+<span id="cb264-6"><a href="flow-control.html#cb264-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vector1)) {</span>
+<span id="cb264-7"><a href="flow-control.html#cb264-7" tabindex="-1"></a>  <span class="cf">if</span> (vector1[i] <span class="sc">&gt;</span> vector2[i]) {</span>
+<span id="cb264-8"><a href="flow-control.html#cb264-8" tabindex="-1"></a>    result[i] <span class="ot">&lt;-</span> <span class="st">&quot;yes&quot;</span></span>
+<span id="cb264-9"><a href="flow-control.html#cb264-9" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb264-10"><a href="flow-control.html#cb264-10" tabindex="-1"></a>    result[i] <span class="ot">&lt;-</span> <span class="st">&quot;no&quot;</span></span>
+<span id="cb264-11"><a href="flow-control.html#cb264-11" tabindex="-1"></a>  }</span>
+<span id="cb264-12"><a href="flow-control.html#cb264-12" tabindex="-1"></a>}</span>
+<span id="cb264-13"><a href="flow-control.html#cb264-13" tabindex="-1"></a></span>
+<span id="cb264-14"><a href="flow-control.html#cb264-14" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
 <pre><code>## [1] &quot;no&quot;  &quot;yes&quot; &quot;yes&quot;</code></pre>
-<div id="case_when" class="section level3" number="19.0.1">
-<h3><span class="header-section-number">19.0.1</span> <code>case_when</code></h3>
+<div id="case_when" class="section level3" number="13.0.1">
+<h3><span class="header-section-number">13.0.1</span> <code>case_when</code></h3>
 <p><code>case_when</code> is a powerful <code>tidyverse</code> function in R that serves as an extension of <code>if_else</code>, providing a flexible way to create conditional transformations on multiple values within a dataset. While <code>if_else</code> is primarily used for a single condition, <code>case_when</code> is designed to handle multiple conditions and allows you to assign specific values or perform operations based on these conditions.</p>
 <p>Here's a simple introduction to case_when as an extension of <code>if_else</code>:</p>
 <p>Imagine you have a dataset with a column called "temperature," and you want to create a new column called "weather" based on different temperature ranges. With if_else, you might write something like this:</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="flow-control.html#cb274-1" tabindex="-1"></a>temperature <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">15</span>)</span>
-<span id="cb274-2"><a href="flow-control.html#cb274-2" tabindex="-1"></a></span>
-<span id="cb274-3"><a href="flow-control.html#cb274-3" tabindex="-1"></a><span class="fu">ifelse</span>(temperature <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="st">&quot;Cold&quot;</span>,</span>
-<span id="cb274-4"><a href="flow-control.html#cb274-4" tabindex="-1"></a>        <span class="fu">ifelse</span>(temperature <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> temperature <span class="sc">&lt;</span> <span class="dv">25</span>, <span class="st">&quot;Moderate&quot;</span>, <span class="st">&quot;Hot&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="flow-control.html#cb266-1" tabindex="-1"></a>temperature <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">15</span>)</span>
+<span id="cb266-2"><a href="flow-control.html#cb266-2" tabindex="-1"></a></span>
+<span id="cb266-3"><a href="flow-control.html#cb266-3" tabindex="-1"></a><span class="fu">ifelse</span>(temperature <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="st">&quot;Cold&quot;</span>,</span>
+<span id="cb266-4"><a href="flow-control.html#cb266-4" tabindex="-1"></a>        <span class="fu">ifelse</span>(temperature <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> temperature <span class="sc">&lt;</span> <span class="dv">25</span>, <span class="st">&quot;Moderate&quot;</span>, <span class="st">&quot;Hot&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;Moderate&quot; &quot;Hot&quot;      &quot;Cold&quot;     &quot;Hot&quot;      &quot;Moderate&quot;</code></pre>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="flow-control.html#cb276-1" tabindex="-1"></a><span class="fu">case_when</span>(</span>
-<span id="cb276-2"><a href="flow-control.html#cb276-2" tabindex="-1"></a>    temperature <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">&quot;Cold&quot;</span>,</span>
-<span id="cb276-3"><a href="flow-control.html#cb276-3" tabindex="-1"></a>    temperature <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> temperature <span class="sc">&lt;</span> <span class="dv">25</span> <span class="sc">~</span> <span class="st">&quot;Moderate&quot;</span>,</span>
-<span id="cb276-4"><a href="flow-control.html#cb276-4" tabindex="-1"></a>    temperature <span class="sc">&gt;=</span> <span class="dv">25</span> <span class="sc">~</span> <span class="st">&quot;Hot&quot;</span></span>
-<span id="cb276-5"><a href="flow-control.html#cb276-5" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="flow-control.html#cb268-1" tabindex="-1"></a><span class="fu">case_when</span>(</span>
+<span id="cb268-2"><a href="flow-control.html#cb268-2" tabindex="-1"></a>    temperature <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">&quot;Cold&quot;</span>,</span>
+<span id="cb268-3"><a href="flow-control.html#cb268-3" tabindex="-1"></a>    temperature <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> temperature <span class="sc">&lt;</span> <span class="dv">25</span> <span class="sc">~</span> <span class="st">&quot;Moderate&quot;</span>,</span>
+<span id="cb268-4"><a href="flow-control.html#cb268-4" tabindex="-1"></a>    temperature <span class="sc">&gt;=</span> <span class="dv">25</span> <span class="sc">~</span> <span class="st">&quot;Hot&quot;</span></span>
+<span id="cb268-5"><a href="flow-control.html#cb268-5" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## [1] &quot;Moderate&quot; &quot;Hot&quot;      &quot;Cold&quot;     &quot;Hot&quot;      &quot;Moderate&quot;</code></pre>
 </div>
-<div id="conditional-functions" class="section level2" number="19.1">
-<h2><span class="header-section-number">19.1</span> Conditional functions</h2>
+<div id="conditional-functions" class="section level2" number="13.1">
+<h2><span class="header-section-number">13.1</span> Conditional functions</h2>
 <p>Let's make a function that reports p-values in APA format (with "p = [rounded value]" when p &gt;= .001 and "p &lt; .001" when p &lt; .001).</p>
 <p>You can add a default value to any argument. If that argument is skipped, then the function uses the default argument.</p>
 <p>First we could make a function that rounds any value to three digits.</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="flow-control.html#cb278-1" tabindex="-1"></a>report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
-<span id="cb278-2"><a href="flow-control.html#cb278-2" tabindex="-1"></a>      roundp <span class="ot">&lt;-</span> <span class="fu">round</span>(p, digits)</span>
-<span id="cb278-3"><a href="flow-control.html#cb278-3" tabindex="-1"></a>    reported <span class="ot">&lt;-</span>  <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, roundp)</span>
-<span id="cb278-4"><a href="flow-control.html#cb278-4" tabindex="-1"></a>    </span>
-<span id="cb278-5"><a href="flow-control.html#cb278-5" tabindex="-1"></a>    <span class="fu">return</span>(reported)</span>
-<span id="cb278-6"><a href="flow-control.html#cb278-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="flow-control.html#cb270-1" tabindex="-1"></a>report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb270-2"><a href="flow-control.html#cb270-2" tabindex="-1"></a>      roundp <span class="ot">&lt;-</span> <span class="fu">round</span>(p, digits)</span>
+<span id="cb270-3"><a href="flow-control.html#cb270-3" tabindex="-1"></a>    reported <span class="ot">&lt;-</span>  <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, roundp)</span>
+<span id="cb270-4"><a href="flow-control.html#cb270-4" tabindex="-1"></a>    </span>
+<span id="cb270-5"><a href="flow-control.html#cb270-5" tabindex="-1"></a>    <span class="fu">return</span>(reported)</span>
+<span id="cb270-6"><a href="flow-control.html#cb270-6" tabindex="-1"></a>}</span></code></pre></div>
 <p>But we would like this to have a conditional response as well: so we need an <code>if</code> <code>else</code> statement.</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="flow-control.html#cb279-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
-<span id="cb279-2"><a href="flow-control.html#cb279-2" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="cf">if</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>){</span>
-<span id="cb279-3"><a href="flow-control.html#cb279-3" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>} <span class="cf">else</span>{</span>
-<span id="cb279-4"><a href="flow-control.html#cb279-4" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits))}</span>
-<span id="cb279-5"><a href="flow-control.html#cb279-5" tabindex="-1"></a>             </span>
-<span id="cb279-6"><a href="flow-control.html#cb279-6" tabindex="-1"></a>     </span>
-<span id="cb279-7"><a href="flow-control.html#cb279-7" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
-<span id="cb279-8"><a href="flow-control.html#cb279-8" tabindex="-1"></a> }</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="flow-control.html#cb271-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb271-2"><a href="flow-control.html#cb271-2" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="cf">if</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>){</span>
+<span id="cb271-3"><a href="flow-control.html#cb271-3" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>} <span class="cf">else</span>{</span>
+<span id="cb271-4"><a href="flow-control.html#cb271-4" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits))}</span>
+<span id="cb271-5"><a href="flow-control.html#cb271-5" tabindex="-1"></a>             </span>
+<span id="cb271-6"><a href="flow-control.html#cb271-6" tabindex="-1"></a>     </span>
+<span id="cb271-7"><a href="flow-control.html#cb271-7" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
+<span id="cb271-8"><a href="flow-control.html#cb271-8" tabindex="-1"></a> }</span></code></pre></div>
 <p>However we soon hit our first problem, this function works well when provided a single numeric value, but when applied to a vector or a dataframe we encounter an error:</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="flow-control.html#cb280-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.05</span>,<span class="fl">0.3</span>,<span class="fl">0.4</span>)</span>
-<span id="cb280-2"><a href="flow-control.html#cb280-2" tabindex="-1"></a></span>
-<span id="cb280-3"><a href="flow-control.html#cb280-3" tabindex="-1"></a><span class="fu">report_p</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="flow-control.html#cb272-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.05</span>,<span class="fl">0.3</span>,<span class="fl">0.4</span>)</span>
+<span id="cb272-2"><a href="flow-control.html#cb272-2" tabindex="-1"></a></span>
+<span id="cb272-3"><a href="flow-control.html#cb272-3" tabindex="-1"></a><span class="fu">report_p</span>(x)</span></code></pre></div>
 <pre><code>Error in if (p &lt; 0.001) { : the condition has length &gt; 1</code></pre>
 <p>In R, conditional statements are not vector operations. They deal only with a single value. If you pass in, for example, a vector, the <code>if</code> statement will only check the very first element and issue a warning. The solution to this is the <code>ifelse()</code> or the tidyverse equivalent <code>if_else()</code> function</p>
 <div class="tab">
@@ -248,28 +248,28 @@ Base R
 </button>
 </div>
 <div id="option1= T" class="tabcontent= T">
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="flow-control.html#cb282-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
-<span id="cb282-2"><a href="flow-control.html#cb282-2" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>,</span>
-<span id="cb282-3"><a href="flow-control.html#cb282-3" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
-<span id="cb282-4"><a href="flow-control.html#cb282-4" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits)))</span>
-<span id="cb282-5"><a href="flow-control.html#cb282-5" tabindex="-1"></a>     </span>
-<span id="cb282-6"><a href="flow-control.html#cb282-6" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
-<span id="cb282-7"><a href="flow-control.html#cb282-7" tabindex="-1"></a> }</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="flow-control.html#cb274-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb274-2"><a href="flow-control.html#cb274-2" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>,</span>
+<span id="cb274-3"><a href="flow-control.html#cb274-3" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
+<span id="cb274-4"><a href="flow-control.html#cb274-4" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits)))</span>
+<span id="cb274-5"><a href="flow-control.html#cb274-5" tabindex="-1"></a>     </span>
+<span id="cb274-6"><a href="flow-control.html#cb274-6" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
+<span id="cb274-7"><a href="flow-control.html#cb274-7" tabindex="-1"></a> }</span></code></pre></div>
 </div>
 <div id="option2= T" class="tabcontent= T">
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="flow-control.html#cb283-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
-<span id="cb283-2"><a href="flow-control.html#cb283-2" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="fu">if_else</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>,</span>
-<span id="cb283-3"><a href="flow-control.html#cb283-3" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
-<span id="cb283-4"><a href="flow-control.html#cb283-4" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits)))</span>
-<span id="cb283-5"><a href="flow-control.html#cb283-5" tabindex="-1"></a>     </span>
-<span id="cb283-6"><a href="flow-control.html#cb283-6" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
-<span id="cb283-7"><a href="flow-control.html#cb283-7" tabindex="-1"></a> }</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="flow-control.html#cb275-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb275-2"><a href="flow-control.html#cb275-2" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="fu">if_else</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>,</span>
+<span id="cb275-3"><a href="flow-control.html#cb275-3" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
+<span id="cb275-4"><a href="flow-control.html#cb275-4" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits)))</span>
+<span id="cb275-5"><a href="flow-control.html#cb275-5" tabindex="-1"></a>     </span>
+<span id="cb275-6"><a href="flow-control.html#cb275-6" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
+<span id="cb275-7"><a href="flow-control.html#cb275-7" tabindex="-1"></a> }</span></code></pre></div>
 </div>
 <script> javascript:hide('option2= T') </script>
 <p><a href="https://stackoverflow.com/questions/50646133/dplyr-if-else-vs-base-r-ifelse" class="uri">https://stackoverflow.com/questions/50646133/dplyr-if-else-vs-base-r-ifelse</a></p>
 </div>
-<div id="warnings-and-errors" class="section level2" number="19.2">
-<h2><span class="header-section-number">19.2</span> Warnings and errors</h2>
+<div id="warnings-and-errors" class="section level2" number="13.2">
+<h2><span class="header-section-number">13.2</span> Warnings and errors</h2>
 <div class="try">
 <p>
 What happens when omit an argument for p, set the value to 1.5 or a
@@ -298,40 +298,40 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="flow-control.html#cb284-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
-<span id="cb284-2"><a href="flow-control.html#cb284-2" tabindex="-1"></a>   </span>
-<span id="cb284-3"><a href="flow-control.html#cb284-3" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(p)) <span class="fu">stop</span>(<span class="st">&quot;p must be a number&quot;</span>)</span>
-<span id="cb284-4"><a href="flow-control.html#cb284-4" tabindex="-1"></a>  <span class="cf">if</span> (p <span class="sc">&lt;=</span> <span class="dv">0</span>) <span class="fu">warning</span>(<span class="st">&quot;p-values cannot less 0&quot;</span>)</span>
-<span id="cb284-5"><a href="flow-control.html#cb284-5" tabindex="-1"></a>  <span class="cf">if</span> (p <span class="sc">&gt;=</span> <span class="dv">1</span>) <span class="fu">warning</span>(<span class="st">&quot;p-values cannot be greater than 1&quot;</span>)</span>
-<span id="cb284-6"><a href="flow-control.html#cb284-6" tabindex="-1"></a>   </span>
-<span id="cb284-7"><a href="flow-control.html#cb284-7" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>,</span>
-<span id="cb284-8"><a href="flow-control.html#cb284-8" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
-<span id="cb284-9"><a href="flow-control.html#cb284-9" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits)))</span>
-<span id="cb284-10"><a href="flow-control.html#cb284-10" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
-<span id="cb284-11"><a href="flow-control.html#cb284-11" tabindex="-1"></a> }</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="flow-control.html#cb276-1" tabindex="-1"></a> report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb276-2"><a href="flow-control.html#cb276-2" tabindex="-1"></a>   </span>
+<span id="cb276-3"><a href="flow-control.html#cb276-3" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(p)) <span class="fu">stop</span>(<span class="st">&quot;p must be a number&quot;</span>)</span>
+<span id="cb276-4"><a href="flow-control.html#cb276-4" tabindex="-1"></a>  <span class="cf">if</span> (p <span class="sc">&lt;=</span> <span class="dv">0</span>) <span class="fu">warning</span>(<span class="st">&quot;p-values cannot less 0&quot;</span>)</span>
+<span id="cb276-5"><a href="flow-control.html#cb276-5" tabindex="-1"></a>  <span class="cf">if</span> (p <span class="sc">&gt;=</span> <span class="dv">1</span>) <span class="fu">warning</span>(<span class="st">&quot;p-values cannot be greater than 1&quot;</span>)</span>
+<span id="cb276-6"><a href="flow-control.html#cb276-6" tabindex="-1"></a>   </span>
+<span id="cb276-7"><a href="flow-control.html#cb276-7" tabindex="-1"></a>     reported <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>,</span>
+<span id="cb276-8"><a href="flow-control.html#cb276-8" tabindex="-1"></a>             <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
+<span id="cb276-9"><a href="flow-control.html#cb276-9" tabindex="-1"></a>             <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits)))</span>
+<span id="cb276-10"><a href="flow-control.html#cb276-10" tabindex="-1"></a>     <span class="fu">return</span>(reported)</span>
+<span id="cb276-11"><a href="flow-control.html#cb276-11" tabindex="-1"></a> }</span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="flow-control.html#cb285-1" tabindex="-1"></a>report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
-<span id="cb285-2"><a href="flow-control.html#cb285-2" tabindex="-1"></a> </span>
-<span id="cb285-3"><a href="flow-control.html#cb285-3" tabindex="-1"></a> <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(p)) <span class="fu">stop</span>(<span class="st">&quot;p must be a number&quot;</span>)</span>
-<span id="cb285-4"><a href="flow-control.html#cb285-4" tabindex="-1"></a> </span>
-<span id="cb285-5"><a href="flow-control.html#cb285-5" tabindex="-1"></a>   result <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
-<span id="cb285-6"><a href="flow-control.html#cb285-6" tabindex="-1"></a>       p <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">~</span> <span class="fu">warning</span>(<span class="st">&quot;p-values cannot be less than or equal to 0&quot;</span>),</span>
-<span id="cb285-7"><a href="flow-control.html#cb285-7" tabindex="-1"></a>       p <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="fu">warning</span>(<span class="st">&quot;p-values cannot be greater than or equal to 1&quot;</span>),</span>
-<span id="cb285-8"><a href="flow-control.html#cb285-8" tabindex="-1"></a>       p <span class="sc">&lt;</span> <span class="fl">0.001</span> <span class="sc">~</span> <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
-<span id="cb285-9"><a href="flow-control.html#cb285-9" tabindex="-1"></a>       <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits))</span>
-<span id="cb285-10"><a href="flow-control.html#cb285-10" tabindex="-1"></a>   )</span>
-<span id="cb285-11"><a href="flow-control.html#cb285-11" tabindex="-1"></a>   </span>
-<span id="cb285-12"><a href="flow-control.html#cb285-12" tabindex="-1"></a>   <span class="fu">return</span>(result)</span>
-<span id="cb285-13"><a href="flow-control.html#cb285-13" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="flow-control.html#cb277-1" tabindex="-1"></a>report_p <span class="ot">&lt;-</span> <span class="cf">function</span>(p, <span class="at">digits =</span> <span class="dv">3</span>) {</span>
+<span id="cb277-2"><a href="flow-control.html#cb277-2" tabindex="-1"></a> </span>
+<span id="cb277-3"><a href="flow-control.html#cb277-3" tabindex="-1"></a> <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(p)) <span class="fu">stop</span>(<span class="st">&quot;p must be a number&quot;</span>)</span>
+<span id="cb277-4"><a href="flow-control.html#cb277-4" tabindex="-1"></a> </span>
+<span id="cb277-5"><a href="flow-control.html#cb277-5" tabindex="-1"></a>   result <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
+<span id="cb277-6"><a href="flow-control.html#cb277-6" tabindex="-1"></a>       p <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">~</span> <span class="fu">warning</span>(<span class="st">&quot;p-values cannot be less than or equal to 0&quot;</span>),</span>
+<span id="cb277-7"><a href="flow-control.html#cb277-7" tabindex="-1"></a>       p <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="fu">warning</span>(<span class="st">&quot;p-values cannot be greater than or equal to 1&quot;</span>),</span>
+<span id="cb277-8"><a href="flow-control.html#cb277-8" tabindex="-1"></a>       p <span class="sc">&lt;</span> <span class="fl">0.001</span> <span class="sc">~</span> <span class="st">&quot;p &lt; 0.001&quot;</span>,</span>
+<span id="cb277-9"><a href="flow-control.html#cb277-9" tabindex="-1"></a>       <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p, digits))</span>
+<span id="cb277-10"><a href="flow-control.html#cb277-10" tabindex="-1"></a>   )</span>
+<span id="cb277-11"><a href="flow-control.html#cb277-11" tabindex="-1"></a>   </span>
+<span id="cb277-12"><a href="flow-control.html#cb277-12" tabindex="-1"></a>   <span class="fu">return</span>(result)</span>
+<span id="cb277-13"><a href="flow-control.html#cb277-13" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-59') </script>
 </div>
 </div>
 </div>
 </div>
-<div id="activities" class="section level2" number="19.3">
-<h2><span class="header-section-number">19.3</span> Activities</h2>
+<div id="activities" class="section level2" number="13.3">
+<h2><span class="header-section-number">13.3</span> Activities</h2>
 <p>Exercise 1: Write a Simple Function
 We'll create a function that calculates the GC content of a DNA sequence, and the result melting temperature of the sequence and returns both in a list. GC content is the percentage of the DNA molecule's nitrogenous bases that are either guanine (G) or cytosine (C). This is a common metric used in molecular biology and genetics to analyze DNA sequences. Each GC base addes 4 degrees to melting temp while each AT base adds 2 degrees.</p>
 <blockquote>
@@ -355,69 +355,69 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="flow-control.html#cb286-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
-<span id="cb286-2"><a href="flow-control.html#cb286-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
-<span id="cb286-3"><a href="flow-control.html#cb286-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">toupper</span>(dna_sequence)</span>
-<span id="cb286-4"><a href="flow-control.html#cb286-4" tabindex="-1"></a>  </span>
-<span id="cb286-5"><a href="flow-control.html#cb286-5" tabindex="-1"></a> </span>
-<span id="cb286-6"><a href="flow-control.html#cb286-6" tabindex="-1"></a>  </span>
-<span id="cb286-7"><a href="flow-control.html#cb286-7" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
-<span id="cb286-8"><a href="flow-control.html#cb286-8" tabindex="-1"></a> gc_positions <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">gregexpr</span>(<span class="st">&quot;[GC]&quot;</span>, dna_sequence))</span>
-<span id="cb286-9"><a href="flow-control.html#cb286-9" tabindex="-1"></a> gc_count <span class="ot">&lt;-</span> <span class="fu">length</span>(gc_positions)</span>
-<span id="cb286-10"><a href="flow-control.html#cb286-10" tabindex="-1"></a></span>
-<span id="cb286-11"><a href="flow-control.html#cb286-11" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
-<span id="cb286-12"><a href="flow-control.html#cb286-12" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">nchar</span>(dna_sequence)</span>
-<span id="cb286-13"><a href="flow-control.html#cb286-13" tabindex="-1"></a>  </span>
-<span id="cb286-14"><a href="flow-control.html#cb286-14" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
-<span id="cb286-15"><a href="flow-control.html#cb286-15" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb286-16"><a href="flow-control.html#cb286-16" tabindex="-1"></a>  </span>
-<span id="cb286-17"><a href="flow-control.html#cb286-17" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
-<span id="cb286-18"><a href="flow-control.html#cb286-18" tabindex="-1"></a>  </span>
-<span id="cb286-19"><a href="flow-control.html#cb286-19" tabindex="-1"></a>  <span class="co"># Calculate AT numbers</span></span>
-<span id="cb286-20"><a href="flow-control.html#cb286-20" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
-<span id="cb286-21"><a href="flow-control.html#cb286-21" tabindex="-1"></a>  </span>
-<span id="cb286-22"><a href="flow-control.html#cb286-22" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
-<span id="cb286-23"><a href="flow-control.html#cb286-23" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
-<span id="cb286-24"><a href="flow-control.html#cb286-24" tabindex="-1"></a>  </span>
-<span id="cb286-25"><a href="flow-control.html#cb286-25" tabindex="-1"></a>  </span>
-<span id="cb286-26"><a href="flow-control.html#cb286-26" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
-<span id="cb286-27"><a href="flow-control.html#cb286-27" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
-<span id="cb286-28"><a href="flow-control.html#cb286-28" tabindex="-1"></a>  </span>
-<span id="cb286-29"><a href="flow-control.html#cb286-29" tabindex="-1"></a>  </span>
-<span id="cb286-30"><a href="flow-control.html#cb286-30" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
-<span id="cb286-31"><a href="flow-control.html#cb286-31" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="flow-control.html#cb278-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
+<span id="cb278-2"><a href="flow-control.html#cb278-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span id="cb278-3"><a href="flow-control.html#cb278-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">toupper</span>(dna_sequence)</span>
+<span id="cb278-4"><a href="flow-control.html#cb278-4" tabindex="-1"></a>  </span>
+<span id="cb278-5"><a href="flow-control.html#cb278-5" tabindex="-1"></a> </span>
+<span id="cb278-6"><a href="flow-control.html#cb278-6" tabindex="-1"></a>  </span>
+<span id="cb278-7"><a href="flow-control.html#cb278-7" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span id="cb278-8"><a href="flow-control.html#cb278-8" tabindex="-1"></a> gc_positions <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">gregexpr</span>(<span class="st">&quot;[GC]&quot;</span>, dna_sequence))</span>
+<span id="cb278-9"><a href="flow-control.html#cb278-9" tabindex="-1"></a> gc_count <span class="ot">&lt;-</span> <span class="fu">length</span>(gc_positions)</span>
+<span id="cb278-10"><a href="flow-control.html#cb278-10" tabindex="-1"></a></span>
+<span id="cb278-11"><a href="flow-control.html#cb278-11" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span id="cb278-12"><a href="flow-control.html#cb278-12" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">nchar</span>(dna_sequence)</span>
+<span id="cb278-13"><a href="flow-control.html#cb278-13" tabindex="-1"></a>  </span>
+<span id="cb278-14"><a href="flow-control.html#cb278-14" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span id="cb278-15"><a href="flow-control.html#cb278-15" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb278-16"><a href="flow-control.html#cb278-16" tabindex="-1"></a>  </span>
+<span id="cb278-17"><a href="flow-control.html#cb278-17" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
+<span id="cb278-18"><a href="flow-control.html#cb278-18" tabindex="-1"></a>  </span>
+<span id="cb278-19"><a href="flow-control.html#cb278-19" tabindex="-1"></a>  <span class="co"># Calculate AT numbers</span></span>
+<span id="cb278-20"><a href="flow-control.html#cb278-20" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
+<span id="cb278-21"><a href="flow-control.html#cb278-21" tabindex="-1"></a>  </span>
+<span id="cb278-22"><a href="flow-control.html#cb278-22" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span id="cb278-23"><a href="flow-control.html#cb278-23" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb278-24"><a href="flow-control.html#cb278-24" tabindex="-1"></a>  </span>
+<span id="cb278-25"><a href="flow-control.html#cb278-25" tabindex="-1"></a>  </span>
+<span id="cb278-26"><a href="flow-control.html#cb278-26" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
+<span id="cb278-27"><a href="flow-control.html#cb278-27" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
+<span id="cb278-28"><a href="flow-control.html#cb278-28" tabindex="-1"></a>  </span>
+<span id="cb278-29"><a href="flow-control.html#cb278-29" tabindex="-1"></a>  </span>
+<span id="cb278-30"><a href="flow-control.html#cb278-30" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
+<span id="cb278-31"><a href="flow-control.html#cb278-31" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="flow-control.html#cb287-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
-<span id="cb287-2"><a href="flow-control.html#cb287-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
-<span id="cb287-3"><a href="flow-control.html#cb287-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">str_to_upper</span>(dna_sequence)</span>
-<span id="cb287-4"><a href="flow-control.html#cb287-4" tabindex="-1"></a>  </span>
-<span id="cb287-5"><a href="flow-control.html#cb287-5" tabindex="-1"></a></span>
-<span id="cb287-6"><a href="flow-control.html#cb287-6" tabindex="-1"></a>  </span>
-<span id="cb287-7"><a href="flow-control.html#cb287-7" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
-<span id="cb287-8"><a href="flow-control.html#cb287-8" tabindex="-1"></a>  gc_count <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">str_count</span>(dna_sequence <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;G&quot;</span>, <span class="st">&quot;C&quot;</span>)))</span>
-<span id="cb287-9"><a href="flow-control.html#cb287-9" tabindex="-1"></a>  </span>
-<span id="cb287-10"><a href="flow-control.html#cb287-10" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
-<span id="cb287-11"><a href="flow-control.html#cb287-11" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">str_length</span>(dna_sequence)</span>
-<span id="cb287-12"><a href="flow-control.html#cb287-12" tabindex="-1"></a>  </span>
-<span id="cb287-13"><a href="flow-control.html#cb287-13" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
-<span id="cb287-14"><a href="flow-control.html#cb287-14" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb287-15"><a href="flow-control.html#cb287-15" tabindex="-1"></a>  </span>
-<span id="cb287-16"><a href="flow-control.html#cb287-16" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
-<span id="cb287-17"><a href="flow-control.html#cb287-17" tabindex="-1"></a>  </span>
-<span id="cb287-18"><a href="flow-control.html#cb287-18" tabindex="-1"></a>   <span class="co"># Calculate AT numbers</span></span>
-<span id="cb287-19"><a href="flow-control.html#cb287-19" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
-<span id="cb287-20"><a href="flow-control.html#cb287-20" tabindex="-1"></a>  </span>
-<span id="cb287-21"><a href="flow-control.html#cb287-21" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
-<span id="cb287-22"><a href="flow-control.html#cb287-22" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
-<span id="cb287-23"><a href="flow-control.html#cb287-23" tabindex="-1"></a>  </span>
-<span id="cb287-24"><a href="flow-control.html#cb287-24" tabindex="-1"></a>  </span>
-<span id="cb287-25"><a href="flow-control.html#cb287-25" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
-<span id="cb287-26"><a href="flow-control.html#cb287-26" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
-<span id="cb287-27"><a href="flow-control.html#cb287-27" tabindex="-1"></a>  </span>
-<span id="cb287-28"><a href="flow-control.html#cb287-28" tabindex="-1"></a>  </span>
-<span id="cb287-29"><a href="flow-control.html#cb287-29" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
-<span id="cb287-30"><a href="flow-control.html#cb287-30" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="flow-control.html#cb279-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
+<span id="cb279-2"><a href="flow-control.html#cb279-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span id="cb279-3"><a href="flow-control.html#cb279-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">str_to_upper</span>(dna_sequence)</span>
+<span id="cb279-4"><a href="flow-control.html#cb279-4" tabindex="-1"></a>  </span>
+<span id="cb279-5"><a href="flow-control.html#cb279-5" tabindex="-1"></a></span>
+<span id="cb279-6"><a href="flow-control.html#cb279-6" tabindex="-1"></a>  </span>
+<span id="cb279-7"><a href="flow-control.html#cb279-7" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span id="cb279-8"><a href="flow-control.html#cb279-8" tabindex="-1"></a>  gc_count <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">str_count</span>(dna_sequence <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;G&quot;</span>, <span class="st">&quot;C&quot;</span>)))</span>
+<span id="cb279-9"><a href="flow-control.html#cb279-9" tabindex="-1"></a>  </span>
+<span id="cb279-10"><a href="flow-control.html#cb279-10" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span id="cb279-11"><a href="flow-control.html#cb279-11" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">str_length</span>(dna_sequence)</span>
+<span id="cb279-12"><a href="flow-control.html#cb279-12" tabindex="-1"></a>  </span>
+<span id="cb279-13"><a href="flow-control.html#cb279-13" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span id="cb279-14"><a href="flow-control.html#cb279-14" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb279-15"><a href="flow-control.html#cb279-15" tabindex="-1"></a>  </span>
+<span id="cb279-16"><a href="flow-control.html#cb279-16" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
+<span id="cb279-17"><a href="flow-control.html#cb279-17" tabindex="-1"></a>  </span>
+<span id="cb279-18"><a href="flow-control.html#cb279-18" tabindex="-1"></a>   <span class="co"># Calculate AT numbers</span></span>
+<span id="cb279-19"><a href="flow-control.html#cb279-19" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
+<span id="cb279-20"><a href="flow-control.html#cb279-20" tabindex="-1"></a>  </span>
+<span id="cb279-21"><a href="flow-control.html#cb279-21" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span id="cb279-22"><a href="flow-control.html#cb279-22" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb279-23"><a href="flow-control.html#cb279-23" tabindex="-1"></a>  </span>
+<span id="cb279-24"><a href="flow-control.html#cb279-24" tabindex="-1"></a>  </span>
+<span id="cb279-25"><a href="flow-control.html#cb279-25" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
+<span id="cb279-26"><a href="flow-control.html#cb279-26" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
+<span id="cb279-27"><a href="flow-control.html#cb279-27" tabindex="-1"></a>  </span>
+<span id="cb279-28"><a href="flow-control.html#cb279-28" tabindex="-1"></a>  </span>
+<span id="cb279-29"><a href="flow-control.html#cb279-29" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
+<span id="cb279-30"><a href="flow-control.html#cb279-30" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-60') </script>
 </div>
@@ -449,12 +449,12 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="flow-control.html#cb288-1" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;gc_content function tests&quot;</span>, {</span>
-<span id="cb288-2"><a href="flow-control.html#cb288-2" tabindex="-1"></a>    <span class="co"># Test valid input and GC content calculation</span></span>
-<span id="cb288-3"><a href="flow-control.html#cb288-3" tabindex="-1"></a>    dna_seq1 <span class="ot">&lt;-</span> <span class="st">&quot;ATGCGTAGCT&quot;</span></span>
-<span id="cb288-4"><a href="flow-control.html#cb288-4" tabindex="-1"></a>    result1 <span class="ot">&lt;-</span> <span class="fu">gc_content</span>(dna_seq1)</span>
-<span id="cb288-5"><a href="flow-control.html#cb288-5" tabindex="-1"></a>    <span class="fu">expect_equal</span>(result1<span class="sc">$</span><span class="st">`</span><span class="at">GC Percentage</span><span class="st">`</span>, <span class="dv">50</span>)</span>
-<span id="cb288-6"><a href="flow-control.html#cb288-6" tabindex="-1"></a>    <span class="fu">expect_equal</span>(result1<span class="sc">$</span><span class="st">`</span><span class="at">Melting temp (celsius)</span><span class="st">`</span>, <span class="dv">30</span>)})</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="flow-control.html#cb280-1" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;gc_content function tests&quot;</span>, {</span>
+<span id="cb280-2"><a href="flow-control.html#cb280-2" tabindex="-1"></a>    <span class="co"># Test valid input and GC content calculation</span></span>
+<span id="cb280-3"><a href="flow-control.html#cb280-3" tabindex="-1"></a>    dna_seq1 <span class="ot">&lt;-</span> <span class="st">&quot;ATGCGTAGCT&quot;</span></span>
+<span id="cb280-4"><a href="flow-control.html#cb280-4" tabindex="-1"></a>    result1 <span class="ot">&lt;-</span> <span class="fu">gc_content</span>(dna_seq1)</span>
+<span id="cb280-5"><a href="flow-control.html#cb280-5" tabindex="-1"></a>    <span class="fu">expect_equal</span>(result1<span class="sc">$</span><span class="st">`</span><span class="at">GC Percentage</span><span class="st">`</span>, <span class="dv">50</span>)</span>
+<span id="cb280-6"><a href="flow-control.html#cb280-6" tabindex="-1"></a>    <span class="fu">expect_equal</span>(result1<span class="sc">$</span><span class="st">`</span><span class="at">Melting temp (celsius)</span><span class="st">`</span>, <span class="dv">30</span>)})</span></code></pre></div>
 <pre><code>## Test passed 🌈</code></pre>
 </div>
 </div>
@@ -479,77 +479,77 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="flow-control.html#cb290-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
-<span id="cb290-2"><a href="flow-control.html#cb290-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
-<span id="cb290-3"><a href="flow-control.html#cb290-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">toupper</span>(dna_sequence)</span>
-<span id="cb290-4"><a href="flow-control.html#cb290-4" tabindex="-1"></a>  </span>
-<span id="cb290-5"><a href="flow-control.html#cb290-5" tabindex="-1"></a>  <span class="co"># Check if the input sequence contains only valid DNA characters (A, T, C, G)</span></span>
-<span id="cb290-6"><a href="flow-control.html#cb290-6" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;^[ATCG]+$&quot;</span>, dna_sequence)) <span class="fu">stop</span>(<span class="st">&quot;Invalid DNA sequence. Only A, T, C, and G are allowed.&quot;</span>)</span>
-<span id="cb290-7"><a href="flow-control.html#cb290-7" tabindex="-1"></a>  </span>
-<span id="cb290-8"><a href="flow-control.html#cb290-8" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nchar</span>(dna_sequence) <span class="sc">&gt;</span> <span class="dv">30</span> ) <span class="fu">warning</span>(<span class="st">&quot;Sequence is &gt; 30 nt temperature predictions may be inaccurate&quot;</span>)</span>
-<span id="cb290-9"><a href="flow-control.html#cb290-9" tabindex="-1"></a>  </span>
-<span id="cb290-10"><a href="flow-control.html#cb290-10" tabindex="-1"></a>  </span>
-<span id="cb290-11"><a href="flow-control.html#cb290-11" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
-<span id="cb290-12"><a href="flow-control.html#cb290-12" tabindex="-1"></a> gc_positions <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">gregexpr</span>(<span class="st">&quot;[GC]&quot;</span>, dna_sequence))</span>
-<span id="cb290-13"><a href="flow-control.html#cb290-13" tabindex="-1"></a> gc_count <span class="ot">&lt;-</span> <span class="fu">length</span>(gc_positions)</span>
-<span id="cb290-14"><a href="flow-control.html#cb290-14" tabindex="-1"></a></span>
-<span id="cb290-15"><a href="flow-control.html#cb290-15" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
-<span id="cb290-16"><a href="flow-control.html#cb290-16" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">nchar</span>(dna_sequence)</span>
-<span id="cb290-17"><a href="flow-control.html#cb290-17" tabindex="-1"></a>  </span>
-<span id="cb290-18"><a href="flow-control.html#cb290-18" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
-<span id="cb290-19"><a href="flow-control.html#cb290-19" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb290-20"><a href="flow-control.html#cb290-20" tabindex="-1"></a>  </span>
-<span id="cb290-21"><a href="flow-control.html#cb290-21" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
-<span id="cb290-22"><a href="flow-control.html#cb290-22" tabindex="-1"></a>  </span>
-<span id="cb290-23"><a href="flow-control.html#cb290-23" tabindex="-1"></a>  <span class="co"># Calculate AT numbers</span></span>
-<span id="cb290-24"><a href="flow-control.html#cb290-24" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
-<span id="cb290-25"><a href="flow-control.html#cb290-25" tabindex="-1"></a>  </span>
-<span id="cb290-26"><a href="flow-control.html#cb290-26" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
-<span id="cb290-27"><a href="flow-control.html#cb290-27" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
-<span id="cb290-28"><a href="flow-control.html#cb290-28" tabindex="-1"></a>  </span>
-<span id="cb290-29"><a href="flow-control.html#cb290-29" tabindex="-1"></a>  </span>
-<span id="cb290-30"><a href="flow-control.html#cb290-30" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
-<span id="cb290-31"><a href="flow-control.html#cb290-31" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
-<span id="cb290-32"><a href="flow-control.html#cb290-32" tabindex="-1"></a>  </span>
-<span id="cb290-33"><a href="flow-control.html#cb290-33" tabindex="-1"></a>  </span>
-<span id="cb290-34"><a href="flow-control.html#cb290-34" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
-<span id="cb290-35"><a href="flow-control.html#cb290-35" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="flow-control.html#cb282-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
+<span id="cb282-2"><a href="flow-control.html#cb282-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span id="cb282-3"><a href="flow-control.html#cb282-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">toupper</span>(dna_sequence)</span>
+<span id="cb282-4"><a href="flow-control.html#cb282-4" tabindex="-1"></a>  </span>
+<span id="cb282-5"><a href="flow-control.html#cb282-5" tabindex="-1"></a>  <span class="co"># Check if the input sequence contains only valid DNA characters (A, T, C, G)</span></span>
+<span id="cb282-6"><a href="flow-control.html#cb282-6" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;^[ATCG]+$&quot;</span>, dna_sequence)) <span class="fu">stop</span>(<span class="st">&quot;Invalid DNA sequence. Only A, T, C, and G are allowed.&quot;</span>)</span>
+<span id="cb282-7"><a href="flow-control.html#cb282-7" tabindex="-1"></a>  </span>
+<span id="cb282-8"><a href="flow-control.html#cb282-8" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nchar</span>(dna_sequence) <span class="sc">&gt;</span> <span class="dv">30</span> ) <span class="fu">warning</span>(<span class="st">&quot;Sequence is &gt; 30 nt temperature predictions may be inaccurate&quot;</span>)</span>
+<span id="cb282-9"><a href="flow-control.html#cb282-9" tabindex="-1"></a>  </span>
+<span id="cb282-10"><a href="flow-control.html#cb282-10" tabindex="-1"></a>  </span>
+<span id="cb282-11"><a href="flow-control.html#cb282-11" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span id="cb282-12"><a href="flow-control.html#cb282-12" tabindex="-1"></a> gc_positions <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">gregexpr</span>(<span class="st">&quot;[GC]&quot;</span>, dna_sequence))</span>
+<span id="cb282-13"><a href="flow-control.html#cb282-13" tabindex="-1"></a> gc_count <span class="ot">&lt;-</span> <span class="fu">length</span>(gc_positions)</span>
+<span id="cb282-14"><a href="flow-control.html#cb282-14" tabindex="-1"></a></span>
+<span id="cb282-15"><a href="flow-control.html#cb282-15" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span id="cb282-16"><a href="flow-control.html#cb282-16" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">nchar</span>(dna_sequence)</span>
+<span id="cb282-17"><a href="flow-control.html#cb282-17" tabindex="-1"></a>  </span>
+<span id="cb282-18"><a href="flow-control.html#cb282-18" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span id="cb282-19"><a href="flow-control.html#cb282-19" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb282-20"><a href="flow-control.html#cb282-20" tabindex="-1"></a>  </span>
+<span id="cb282-21"><a href="flow-control.html#cb282-21" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
+<span id="cb282-22"><a href="flow-control.html#cb282-22" tabindex="-1"></a>  </span>
+<span id="cb282-23"><a href="flow-control.html#cb282-23" tabindex="-1"></a>  <span class="co"># Calculate AT numbers</span></span>
+<span id="cb282-24"><a href="flow-control.html#cb282-24" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
+<span id="cb282-25"><a href="flow-control.html#cb282-25" tabindex="-1"></a>  </span>
+<span id="cb282-26"><a href="flow-control.html#cb282-26" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span id="cb282-27"><a href="flow-control.html#cb282-27" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb282-28"><a href="flow-control.html#cb282-28" tabindex="-1"></a>  </span>
+<span id="cb282-29"><a href="flow-control.html#cb282-29" tabindex="-1"></a>  </span>
+<span id="cb282-30"><a href="flow-control.html#cb282-30" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
+<span id="cb282-31"><a href="flow-control.html#cb282-31" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
+<span id="cb282-32"><a href="flow-control.html#cb282-32" tabindex="-1"></a>  </span>
+<span id="cb282-33"><a href="flow-control.html#cb282-33" tabindex="-1"></a>  </span>
+<span id="cb282-34"><a href="flow-control.html#cb282-34" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
+<span id="cb282-35"><a href="flow-control.html#cb282-35" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="flow-control.html#cb291-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
-<span id="cb291-2"><a href="flow-control.html#cb291-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
-<span id="cb291-3"><a href="flow-control.html#cb291-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">str_to_upper</span>(dna_sequence)</span>
-<span id="cb291-4"><a href="flow-control.html#cb291-4" tabindex="-1"></a>  </span>
-<span id="cb291-5"><a href="flow-control.html#cb291-5" tabindex="-1"></a>  <span class="co"># Check if the input sequence contains only valid DNA characters (A, T, C, G)</span></span>
-<span id="cb291-6"><a href="flow-control.html#cb291-6" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">str_detect</span>(dna_sequence, <span class="st">&quot;^[ATCG]+$&quot;</span>)) <span class="fu">stop</span>(<span class="st">&quot;Invalid DNA sequence. Only A, T, C, and G are allowed.&quot;</span>)</span>
-<span id="cb291-7"><a href="flow-control.html#cb291-7" tabindex="-1"></a></span>
-<span id="cb291-8"><a href="flow-control.html#cb291-8" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">str_length</span>(dna_sequence) <span class="sc">&gt;</span> <span class="dv">30</span> ) <span class="fu">warning</span>(<span class="st">&quot;Sequence is &gt; 30 nt temperature predictions may be inaccurate&quot;</span>)</span>
-<span id="cb291-9"><a href="flow-control.html#cb291-9" tabindex="-1"></a></span>
-<span id="cb291-10"><a href="flow-control.html#cb291-10" tabindex="-1"></a>  </span>
-<span id="cb291-11"><a href="flow-control.html#cb291-11" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
-<span id="cb291-12"><a href="flow-control.html#cb291-12" tabindex="-1"></a>  gc_count <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">str_count</span>(dna_sequence <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;G&quot;</span>, <span class="st">&quot;C&quot;</span>)))</span>
-<span id="cb291-13"><a href="flow-control.html#cb291-13" tabindex="-1"></a>  </span>
-<span id="cb291-14"><a href="flow-control.html#cb291-14" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
-<span id="cb291-15"><a href="flow-control.html#cb291-15" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">str_length</span>(dna_sequence)</span>
-<span id="cb291-16"><a href="flow-control.html#cb291-16" tabindex="-1"></a>  </span>
-<span id="cb291-17"><a href="flow-control.html#cb291-17" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
-<span id="cb291-18"><a href="flow-control.html#cb291-18" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb291-19"><a href="flow-control.html#cb291-19" tabindex="-1"></a>  </span>
-<span id="cb291-20"><a href="flow-control.html#cb291-20" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
-<span id="cb291-21"><a href="flow-control.html#cb291-21" tabindex="-1"></a>  </span>
-<span id="cb291-22"><a href="flow-control.html#cb291-22" tabindex="-1"></a>   <span class="co"># Calculate AT numbers</span></span>
-<span id="cb291-23"><a href="flow-control.html#cb291-23" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
-<span id="cb291-24"><a href="flow-control.html#cb291-24" tabindex="-1"></a>  </span>
-<span id="cb291-25"><a href="flow-control.html#cb291-25" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
-<span id="cb291-26"><a href="flow-control.html#cb291-26" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
-<span id="cb291-27"><a href="flow-control.html#cb291-27" tabindex="-1"></a>  </span>
-<span id="cb291-28"><a href="flow-control.html#cb291-28" tabindex="-1"></a>  </span>
-<span id="cb291-29"><a href="flow-control.html#cb291-29" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
-<span id="cb291-30"><a href="flow-control.html#cb291-30" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
-<span id="cb291-31"><a href="flow-control.html#cb291-31" tabindex="-1"></a>  </span>
-<span id="cb291-32"><a href="flow-control.html#cb291-32" tabindex="-1"></a>  </span>
-<span id="cb291-33"><a href="flow-control.html#cb291-33" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
-<span id="cb291-34"><a href="flow-control.html#cb291-34" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="flow-control.html#cb283-1" tabindex="-1"></a>gc_content <span class="ot">&lt;-</span> <span class="cf">function</span>(dna_sequence) {</span>
+<span id="cb283-2"><a href="flow-control.html#cb283-2" tabindex="-1"></a>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span id="cb283-3"><a href="flow-control.html#cb283-3" tabindex="-1"></a>  dna_sequence <span class="ot">&lt;-</span> <span class="fu">str_to_upper</span>(dna_sequence)</span>
+<span id="cb283-4"><a href="flow-control.html#cb283-4" tabindex="-1"></a>  </span>
+<span id="cb283-5"><a href="flow-control.html#cb283-5" tabindex="-1"></a>  <span class="co"># Check if the input sequence contains only valid DNA characters (A, T, C, G)</span></span>
+<span id="cb283-6"><a href="flow-control.html#cb283-6" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">str_detect</span>(dna_sequence, <span class="st">&quot;^[ATCG]+$&quot;</span>)) <span class="fu">stop</span>(<span class="st">&quot;Invalid DNA sequence. Only A, T, C, and G are allowed.&quot;</span>)</span>
+<span id="cb283-7"><a href="flow-control.html#cb283-7" tabindex="-1"></a></span>
+<span id="cb283-8"><a href="flow-control.html#cb283-8" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">str_length</span>(dna_sequence) <span class="sc">&gt;</span> <span class="dv">30</span> ) <span class="fu">warning</span>(<span class="st">&quot;Sequence is &gt; 30 nt temperature predictions may be inaccurate&quot;</span>)</span>
+<span id="cb283-9"><a href="flow-control.html#cb283-9" tabindex="-1"></a></span>
+<span id="cb283-10"><a href="flow-control.html#cb283-10" tabindex="-1"></a>  </span>
+<span id="cb283-11"><a href="flow-control.html#cb283-11" tabindex="-1"></a>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span id="cb283-12"><a href="flow-control.html#cb283-12" tabindex="-1"></a>  gc_count <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">str_count</span>(dna_sequence <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;G&quot;</span>, <span class="st">&quot;C&quot;</span>)))</span>
+<span id="cb283-13"><a href="flow-control.html#cb283-13" tabindex="-1"></a>  </span>
+<span id="cb283-14"><a href="flow-control.html#cb283-14" tabindex="-1"></a>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span id="cb283-15"><a href="flow-control.html#cb283-15" tabindex="-1"></a>  total_bases <span class="ot">&lt;-</span> <span class="fu">str_length</span>(dna_sequence)</span>
+<span id="cb283-16"><a href="flow-control.html#cb283-16" tabindex="-1"></a>  </span>
+<span id="cb283-17"><a href="flow-control.html#cb283-17" tabindex="-1"></a>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span id="cb283-18"><a href="flow-control.html#cb283-18" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> (gc_count <span class="sc">/</span> total_bases) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb283-19"><a href="flow-control.html#cb283-19" tabindex="-1"></a>  </span>
+<span id="cb283-20"><a href="flow-control.html#cb283-20" tabindex="-1"></a>  gc_percentage <span class="ot">&lt;-</span> <span class="fu">round</span>(gc_percentage, <span class="dv">2</span>)</span>
+<span id="cb283-21"><a href="flow-control.html#cb283-21" tabindex="-1"></a>  </span>
+<span id="cb283-22"><a href="flow-control.html#cb283-22" tabindex="-1"></a>   <span class="co"># Calculate AT numbers</span></span>
+<span id="cb283-23"><a href="flow-control.html#cb283-23" tabindex="-1"></a>  at_count <span class="ot">&lt;-</span> total_bases <span class="sc">-</span> gc_count</span>
+<span id="cb283-24"><a href="flow-control.html#cb283-24" tabindex="-1"></a>  </span>
+<span id="cb283-25"><a href="flow-control.html#cb283-25" tabindex="-1"></a>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span id="cb283-26"><a href="flow-control.html#cb283-26" tabindex="-1"></a>  melt_temp <span class="ot">&lt;-</span> (gc_count<span class="sc">*</span><span class="dv">4</span>) <span class="sc">+</span> (at_count<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb283-27"><a href="flow-control.html#cb283-27" tabindex="-1"></a>  </span>
+<span id="cb283-28"><a href="flow-control.html#cb283-28" tabindex="-1"></a>  </span>
+<span id="cb283-29"><a href="flow-control.html#cb283-29" tabindex="-1"></a>  dna_content <span class="ot">&lt;-</span> <span class="fu">list</span>(gc_percentage, melt_temp)</span>
+<span id="cb283-30"><a href="flow-control.html#cb283-30" tabindex="-1"></a>  <span class="fu">names</span>(dna_content) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;GC Percentage&quot;</span>, <span class="st">&quot;Melting temp (celsius)&quot;</span>)</span>
+<span id="cb283-31"><a href="flow-control.html#cb283-31" tabindex="-1"></a>  </span>
+<span id="cb283-32"><a href="flow-control.html#cb283-32" tabindex="-1"></a>  </span>
+<span id="cb283-33"><a href="flow-control.html#cb283-33" tabindex="-1"></a>  <span class="fu">return</span>(dna_content)</span>
+<span id="cb283-34"><a href="flow-control.html#cb283-34" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-63') </script>
 </div>

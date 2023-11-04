@@ -341,10 +341,13 @@ penguins_clean |>
 ```
 
 
-::: {.solution}
 
-``{r, eval = F}
-# Packages ====
+<div class='webex-solution'><button>Check your script</button>
+
+
+
+```r
+# Packages ----
 # Install and load necessary packages
 library(tidyverse)
 library(janitor)
@@ -352,10 +355,10 @@ library(janitor)
 library(palmerpenguins)
 
 
-# Clean the data ====
+# Clean the data ----
 penguins_raw <- janitor::clean_names(penguins_raw)
 
-# Analysis====
+# Analysis----
 # Data exploration and manipulation to make culmen ratio
 penguins_culmen_ratio <- penguins_raw |> 
   select(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm)  |> 
@@ -369,16 +372,18 @@ penguins_culmen_ratio <- penguins_raw |>
 # View summary table
 print(penguins_culmen_ratio)
 
-# Plots====
+# Plots----
 # Data visualization using ggplot2
 penguins_clean |>
   ggplot(aes(x = culmen_length_mm, y = culmen_depth_mm, color = species)) +
   geom_point() +
   labs(x = "Culmen Length (mm)", y = "Culmen Depth (mm)") +
   theme_minimal()
-``
+```
 
-:::
+
+</div>
+
 
 # Naming things
 
@@ -1825,6 +1830,9 @@ Here we use the `mutate` function from `dplyr` to create a *new variable* called
 Once we have established our date data, we are able to perform calculations. Such as the date range across which our data was collected.  
 
 
+
+
+
 ```r
 penguins |> 
   summarise(min_date=min(date_egg_proper),
@@ -1862,6 +1870,15 @@ penguins |>
 ```
 
 
+Or extract the year from the date - let's do this now and update our dataframe
+
+
+```r
+penguins <- penguins |> 
+  mutate(year = as.integer(lubridate::year(date_egg_proper)))
+```
+
+
 ## Factors
 
 In R, factors are a class of data that allow for **ordered categories** with a fixed set of acceptable values. 
@@ -1889,7 +1906,7 @@ penguins |>
   geom_bar()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-102-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-104-1.png" width="100%" style="display: block; margin: auto;" />
 
 To convert a character or numeric column to class factor, you can use any function from the `forcats` package. They will convert to class factor and then also perform or allow certain ordering of the levels - for example using `forcats::fct_relevel()` lets you manually specify the level order. 
 
@@ -1899,18 +1916,18 @@ The `base R` function `factor()` converts a column to factor and allows you to m
 
 Below we use `mutate()` and `fct_relevel()` to convert the column flipper_range from class character to class factor. 
 
-<div class="tab"><button class="tablinksunnamed-chunk-103 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-103', 'unnamed-chunk-103');">Base R</button><button class="tablinksunnamed-chunk-103" onclick="javascript:openCode(event, 'option2unnamed-chunk-103', 'unnamed-chunk-103');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-103" class="tabcontentunnamed-chunk-103">
+<div class="tab"><button class="tablinksunnamed-chunk-105 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-105', 'unnamed-chunk-105');">Base R</button><button class="tablinksunnamed-chunk-105" onclick="javascript:openCode(event, 'option2unnamed-chunk-105', 'unnamed-chunk-105');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
 
 ```r
 penguins$flipper_range <- factor(penguins$flipper_range)
 ```
-</div><div id="option2unnamed-chunk-103" class="tabcontentunnamed-chunk-103">
+</div><div id="option2unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
 
 ```r
 penguins <- penguins |> 
   mutate(flipper_range = fct_relevel(flipper_range))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-103') </script>
+</div><script> javascript:hide('option2unnamed-chunk-105') </script>
 
 
 
@@ -1923,20 +1940,20 @@ levels(penguins$flipper_range)
 ```
 
 
-<div class="tab"><button class="tablinksunnamed-chunk-105 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-105', 'unnamed-chunk-105');">Base R</button><button class="tablinksunnamed-chunk-105" onclick="javascript:openCode(event, 'option2unnamed-chunk-105', 'unnamed-chunk-105');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
+<div class="tab"><button class="tablinksunnamed-chunk-107 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-107', 'unnamed-chunk-107');">Base R</button><button class="tablinksunnamed-chunk-107" onclick="javascript:openCode(event, 'option2unnamed-chunk-107', 'unnamed-chunk-107');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-107" class="tabcontentunnamed-chunk-107">
 
 ```r
 penguins$flipper_range <- factor(penguins$flipper_range,
                                   levels = c("small", "medium", "large"))
 ```
-</div><div id="option2unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
+</div><div id="option2unnamed-chunk-107" class="tabcontentunnamed-chunk-107">
 
 ```r
 # Correct the code in your script with this version
 penguins <- penguins |> 
   mutate(flipper_range = fct_relevel(flipper_range, "small", "medium", "large"))
 ```
-</div><script> javascript:hide('option2unnamed-chunk-105') </script>
+</div><script> javascript:hide('option2unnamed-chunk-107') </script>
 
 Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels. 
 
@@ -1947,7 +1964,7 @@ penguins |>
   geom_bar()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-106-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-108-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>Factors will also be important when we build linear models a bit
@@ -1967,12 +1984,12 @@ appropriate choice, and by changing this to an ordered
 
 <div class="figure" style="text-align: center">
 <img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-108)My neat project layout</p>
+<p class="caption">(\#fig:unnamed-chunk-110)My neat project layout</p>
 </div>
 
 <div class="figure" style="text-align: center">
 <img src="images/r_script.png" alt="My scripts and file subdirectory" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-109)My scripts and file subdirectory</p>
+<p class="caption">(\#fig:unnamed-chunk-111)My scripts and file subdirectory</p>
 </div>
 
 ## Activity: Test yourself
@@ -2072,7 +2089,7 @@ skimr::skim(penguins)
 
 <table style='width: auto;'
       class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-114)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-116)Data summary</caption>
 <tbody>
   <tr>
    <td style="text-align:left;"> Name </td>
@@ -2084,7 +2101,7 @@ skimr::skim(penguins)
   </tr>
   <tr>
    <td style="text-align:left;"> Number of columns </td>
-   <td style="text-align:left;"> 19 </td>
+   <td style="text-align:left;"> 20 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> _______________________ </td>
@@ -2108,7 +2125,7 @@ skimr::skim(penguins)
   </tr>
   <tr>
    <td style="text-align:left;"> numeric </td>
-   <td style="text-align:left;"> 7 </td>
+   <td style="text-align:left;"> 8 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> ________________________ </td>
@@ -2152,8 +2169,8 @@ skimr::skim(penguins)
    <td style="text-align:left;"> species </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 41 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 3 </td>
    <td style="text-align:right;"> 0 </td>
@@ -2381,7 +2398,7 @@ skimr::skim(penguins)
    <td style="text-align:left;"> ▃▇▆▃▂ </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> delta_15n </td>
+   <td style="text-align:left;"> delta_15_n_o_oo </td>
    <td style="text-align:right;"> 14 </td>
    <td style="text-align:right;"> 0.96 </td>
    <td style="text-align:right;"> 8.73 </td>
@@ -2394,7 +2411,7 @@ skimr::skim(penguins)
    <td style="text-align:left;"> ▃▇▆▅▂ </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> delta_13c </td>
+   <td style="text-align:left;"> delta_13_c_o_oo </td>
    <td style="text-align:right;"> 13 </td>
    <td style="text-align:right;"> 0.96 </td>
    <td style="text-align:right;"> -25.69 </td>
@@ -2405,6 +2422,19 @@ skimr::skim(penguins)
    <td style="text-align:right;"> -25.06 </td>
    <td style="text-align:right;"> -23.79 </td>
    <td style="text-align:left;"> ▆▇▅▅▂ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> year </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 2008.03 </td>
+   <td style="text-align:right;"> 0.82 </td>
+   <td style="text-align:right;"> 2007.00 </td>
+   <td style="text-align:right;"> 2007.00 </td>
+   <td style="text-align:right;"> 2008.00 </td>
+   <td style="text-align:right;"> 2009.00 </td>
+   <td style="text-align:right;"> 2009.00 </td>
+   <td style="text-align:left;"> ▇▁▇▁▇ </td>
   </tr>
 </tbody>
 </table>
@@ -2465,7 +2495,7 @@ penguins |>
   pairs()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-118-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### GGally
 
@@ -2483,7 +2513,7 @@ penguins |>
   ggpairs()
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-118-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-120-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -2492,14 +2522,14 @@ penguins |>
   ggpairs(columns = 10:12, ggplot2::aes(colour = species))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-119-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-121-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 penguins |> 
   ggpairs(columns = 10:12, upper = "blank")
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-120-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-122-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2507,7 +2537,7 @@ penguins |>
   ggpairs(columns = 10:14, columnLabels = c("Bill length", "Bill depth", "Flipper length", "Body mass", "Sex"))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-121-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-123-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2516,7 +2546,7 @@ penguins |>
           lower = list(continuous = "points", combo = "dot_no_facet"))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-122-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-124-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2526,7 +2556,7 @@ penguins |>
           ggplot2::aes(colour = species))
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-123-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-125-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -2534,7 +2564,7 @@ penguins |>
   ggpairs(columns = 10:14, axisLabels = "internal")
 ```
 
-<img src="02-loading-data_files/figure-html/unnamed-chunk-124-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02-loading-data_files/figure-html/unnamed-chunk-126-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## dataxray
 
@@ -2611,36 +2641,33 @@ sessionInfo()
 ## [17] ggplot2_3.4.2      tidyverse_2.0.0   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] gridExtra_2.3       rlang_1.1.1         magrittr_2.0.3     
-##  [4] snakecase_0.11.0    compiler_4.3.1      systemfonts_1.0.4  
-##  [7] vctrs_0.6.3         rvest_1.0.3         pkgconfig_2.0.3    
-## [10] crayon_1.5.2        fastmap_1.1.1       backports_1.4.1    
-## [13] ellipsis_0.3.2      labeling_0.4.2      utf8_1.2.3         
-## [16] promises_1.2.0.1    rmarkdown_2.23      tzdb_0.4.0         
-## [19] bit_4.0.5           xfun_0.39           cachem_1.0.8       
-## [22] jsonlite_1.8.7      highr_0.10          later_1.3.1        
-## [25] reshape_0.8.9       parallel_4.3.1      cluster_2.1.4      
-## [28] R6_2.5.1            bslib_0.5.0         stringi_1.7.12     
-## [31] RColorBrewer_1.1-3  rpart_4.1.19        bsplus_0.1.4       
-## [34] jquerylib_0.1.4     Rcpp_1.0.11         bookdown_0.34      
-## [37] base64enc_0.1-3     httpuv_1.6.11       nnet_7.3-19        
-## [40] timechange_0.2.0    tidyselect_1.2.0    rstudioapi_0.15.0  
-## [43] yaml_2.3.7          codetools_0.2-19    plyr_1.8.8         
-## [46] shiny_1.7.4.1       withr_2.5.0         evaluate_0.21      
-## [49] foreign_0.8-84      isoband_0.2.7       xml2_1.3.5         
-## [52] pillar_1.9.0        checkmate_2.2.0     plotly_4.10.2      
-## [55] generics_0.1.3      vroom_1.6.3         rprojroot_2.0.3    
-## [58] hms_1.1.3           munsell_0.5.0       scales_1.2.1       
-## [61] xtable_1.8-4        glue_1.6.2          Hmisc_5.1-1        
-## [64] lazyeval_0.2.2      tools_4.3.1         data.table_1.14.8  
-## [67] webshot_0.5.5       reactable_0.4.4     fs_1.6.2           
-## [70] grid_4.3.1          colorspace_2.1-0    repr_1.1.6         
-## [73] htmlTable_2.4.1     Formula_1.2-5       cli_3.6.1          
-## [76] fansi_1.0.4         viridisLite_0.4.2   svglite_2.1.1      
-## [79] downlit_0.4.3       gtable_0.3.3        sass_0.4.6         
-## [82] digest_0.6.33       reactablefmtr_2.0.0 skimr_2.1.5        
-## [85] farver_2.1.1        htmlwidgets_1.6.2   memoise_2.0.1      
-## [88] htmltools_0.5.5     downloadthis_0.3.2  lifecycle_1.0.3    
-## [91] httr_1.4.6          mime_0.12           MASS_7.3-60        
-## [94] bit64_4.0.5
+##  [1] tidyselect_1.2.0    viridisLite_0.4.2   farver_2.1.1       
+##  [4] fastmap_1.1.1       lazyeval_0.2.2      reshape_0.8.9      
+##  [7] promises_1.2.0.1    digest_0.6.33       rpart_4.1.19       
+## [10] mime_0.12           timechange_0.2.0    lifecycle_1.0.3    
+## [13] cluster_2.1.4       ellipsis_0.3.2      magrittr_2.0.3     
+## [16] compiler_4.3.1      rlang_1.1.1         Hmisc_5.1-1        
+## [19] sass_0.4.6          tools_4.3.1         utf8_1.2.3         
+## [22] yaml_2.3.7          data.table_1.14.8   skimr_2.1.5        
+## [25] labeling_0.4.2      htmlwidgets_1.6.2   repr_1.1.6         
+## [28] plyr_1.8.8          xml2_1.3.5          RColorBrewer_1.1-3 
+## [31] withr_2.5.0         foreign_0.8-84      nnet_7.3-19        
+## [34] grid_4.3.1          fansi_1.0.4         xtable_1.8-4       
+## [37] colorspace_2.1-0    MASS_7.3-60         scales_1.2.1       
+## [40] isoband_0.2.7       cli_3.6.1           rmarkdown_2.23     
+## [43] generics_0.1.3      rstudioapi_0.15.0   httr_1.4.6         
+## [46] tzdb_0.4.0          cachem_1.0.8        rvest_1.0.3        
+## [49] base64enc_0.1-3     vctrs_0.6.3         webshot_0.5.5      
+## [52] jsonlite_1.8.7      bookdown_0.34       hms_1.1.3          
+## [55] Formula_1.2-5       htmlTable_2.4.1     systemfonts_1.0.4  
+## [58] plotly_4.10.2       jquerylib_0.1.4     glue_1.6.2         
+## [61] codetools_0.2-19    stringi_1.7.12      gtable_0.3.3       
+## [64] later_1.3.1         downlit_0.4.3       munsell_0.5.0      
+## [67] pillar_1.9.0        htmltools_0.5.5     reactable_0.4.4    
+## [70] R6_2.5.1            reactablefmtr_2.0.0 rprojroot_2.0.3    
+## [73] shiny_1.7.4.1       evaluate_0.21       highr_0.10         
+## [76] backports_1.4.1     memoise_2.0.1       snakecase_0.11.0   
+## [79] httpuv_1.6.11       bslib_0.5.0         Rcpp_1.0.11        
+## [82] svglite_2.1.1       gridExtra_2.3       checkmate_2.2.0    
+## [85] xfun_0.39           fs_1.6.2            pkgconfig_2.0.3
 ```

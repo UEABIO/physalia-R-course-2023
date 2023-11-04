@@ -4,20 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Chapter 25 Reading files with readr | Advancing in R</title>
+  <title>Chapter 19 Reading files with readr | Advancing in R</title>
 
     <meta name="author" content="Philip T. Leftwich" />
   
    <meta name="description" content="This book ..." />
    <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 25 Reading files with readr | Advancing in R" />
+  <meta property="og:title" content="Chapter 19 Reading files with readr | Advancing in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/" />
   <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
   <meta property="og:description" content="This book ..." />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 25 Reading files with readr | Advancing in R" />
+  <meta name="twitter:title" content="Chapter 19 Reading files with readr | Advancing in R" />
   
   <meta name="twitter:description" content="This book ..." />
   <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png" />
@@ -153,42 +153,42 @@
   </header>
 
   <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="reading-files-with-readr" class="section level1" number="25">
-<h1><span class="header-section-number">Chapter 25</span> Reading files with <code>readr</code></h1>
-<div id="cleaning-column-names" class="section level2" number="25.1">
-<h2><span class="header-section-number">25.1</span> Cleaning column names</h2>
+<div id="reading-files-with-readr" class="section level1" number="19">
+<h1><span class="header-section-number">Chapter 19</span> Reading files with <code>readr</code></h1>
+<div id="cleaning-column-names" class="section level2" number="19.1">
+<h2><span class="header-section-number">19.1</span> Cleaning column names</h2>
 <p>Reading a CSV file often requires some data cleaning. For example, let's say I want to import data and convert all column names to <code>snake_case</code>.</p>
 <p>Most of us would probably read the .CSV file first, then start data cleaning - for example with the <code>janitor::clean_names()</code> function.</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="reading-files-with-readr.html#cb363-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb363-2"><a href="reading-files-with-readr.html#cb363-2" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb363-3"><a href="reading-files-with-readr.html#cb363-3" tabindex="-1"></a><span class="co">#load data</span></span>
-<span id="cb363-4"><a href="reading-files-with-readr.html#cb363-4" tabindex="-1"></a>penguins_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">&quot;data/penguins_raw.csv&quot;</span>)</span>
-<span id="cb363-5"><a href="reading-files-with-readr.html#cb363-5" tabindex="-1"></a></span>
-<span id="cb363-6"><a href="reading-files-with-readr.html#cb363-6" tabindex="-1"></a>penguins_raw <span class="sc">|&gt;</span> </span>
-<span id="cb363-7"><a href="reading-files-with-readr.html#cb363-7" tabindex="-1"></a>janitor<span class="sc">::</span><span class="fu">clean_names</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="reading-files-with-readr.html#cb355-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb355-2"><a href="reading-files-with-readr.html#cb355-2" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb355-3"><a href="reading-files-with-readr.html#cb355-3" tabindex="-1"></a><span class="co">#load data</span></span>
+<span id="cb355-4"><a href="reading-files-with-readr.html#cb355-4" tabindex="-1"></a>penguins_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">&quot;data/penguins_raw.csv&quot;</span>)</span>
+<span id="cb355-5"><a href="reading-files-with-readr.html#cb355-5" tabindex="-1"></a></span>
+<span id="cb355-6"><a href="reading-files-with-readr.html#cb355-6" tabindex="-1"></a>penguins_raw <span class="sc">|&gt;</span> </span>
+<span id="cb355-7"><a href="reading-files-with-readr.html#cb355-7" tabindex="-1"></a>janitor<span class="sc">::</span><span class="fu">clean_names</span>() </span></code></pre></div>
 <p>In my previous example, I used the <code>clean_names()</code> function from the "janitor" package to convert the column names to lowercase. You can achieve the same result by using the <code>make_clean_names()</code> function within the <code>read_csv</code> function, specifying it in the <code>name_repair</code> argument.</p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="reading-files-with-readr.html#cb364-1" tabindex="-1"></a>penguins_clean <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">&quot;data/penguins_raw.csv&quot;</span>,</span>
-<span id="cb364-2"><a href="reading-files-with-readr.html#cb364-2" tabindex="-1"></a>                      <span class="at">name_repair =</span> janitor<span class="sc">::</span>make_clean_names)</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="reading-files-with-readr.html#cb356-1" tabindex="-1"></a>penguins_clean <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">&quot;data/penguins_raw.csv&quot;</span>,</span>
+<span id="cb356-2"><a href="reading-files-with-readr.html#cb356-2" tabindex="-1"></a>                      <span class="at">name_repair =</span> janitor<span class="sc">::</span>make_clean_names)</span></code></pre></div>
 <p>By default the <code>janitor::make_clean_names</code> function has a default argument of <code>snake_case</code> but within the function there is also a <code>case</code> argument where other common naming conventions can be used.</p>
 </div>
-<div id="selecting-columns" class="section level2" number="25.2">
-<h2><span class="header-section-number">25.2</span> Selecting columns</h2>
+<div id="selecting-columns" class="section level2" number="19.2">
+<h2><span class="header-section-number">19.2</span> Selecting columns</h2>
 <p>In addition to cleaning your column names, you can also directly select columns while using the "read_csv" function by utilizing the "col_select" argument. This can be extremely useful when working with large files, selecting only the columns you need can be memory-efficient.</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="reading-files-with-readr.html#cb365-1" tabindex="-1"></a>penguins_clean <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">&quot;data/penguins_raw.csv&quot;</span>,</span>
-<span id="cb365-2"><a href="reading-files-with-readr.html#cb365-2" tabindex="-1"></a>                      <span class="at">name_repair =</span> janitor<span class="sc">::</span>make_clean_names,</span>
-<span id="cb365-3"><a href="reading-files-with-readr.html#cb365-3" tabindex="-1"></a>                      <span class="at">col_select =</span> <span class="fu">c</span>(species, body_mass_g, flipper_length_mm)) <span class="sc">|&gt;</span> </span>
-<span id="cb365-4"><a href="reading-files-with-readr.html#cb365-4" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="reading-files-with-readr.html#cb357-1" tabindex="-1"></a>penguins_clean <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">&quot;data/penguins_raw.csv&quot;</span>,</span>
+<span id="cb357-2"><a href="reading-files-with-readr.html#cb357-2" tabindex="-1"></a>                      <span class="at">name_repair =</span> janitor<span class="sc">::</span>make_clean_names,</span>
+<span id="cb357-3"><a href="reading-files-with-readr.html#cb357-3" tabindex="-1"></a>                      <span class="at">col_select =</span> <span class="fu">c</span>(species, body_mass_g, flipper_length_mm)) <span class="sc">|&gt;</span> </span>
+<span id="cb357-4"><a href="reading-files-with-readr.html#cb357-4" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
 </div>
-<div id="reading-multiple-files" class="section level2" number="25.3">
-<h2><span class="header-section-number">25.3</span> Reading multiple files</h2>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="reading-files-with-readr.html#cb366-1" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="fu">c</span>(<span class="st">&quot;data/many_files&quot;</span>))</span>
-<span id="cb366-2"><a href="reading-files-with-readr.html#cb366-2" tabindex="-1"></a>peng_samples <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>, <span class="sc">~</span> <span class="fu">slice_sample</span>(penguins_clean, <span class="at">n =</span> <span class="dv">20</span>))</span>
-<span id="cb366-3"><a href="reading-files-with-readr.html#cb366-3" tabindex="-1"></a></span>
-<span id="cb366-4"><a href="reading-files-with-readr.html#cb366-4" tabindex="-1"></a><span class="fu">iwalk</span>(peng_samples, <span class="sc">~</span> <span class="fu">write_csv</span>(., <span class="fu">paste0</span>(<span class="st">&quot;data/many_files/&quot;</span>, .y, <span class="st">&quot;.csv&quot;</span>)))</span></code></pre></div>
-<div id="create-a-vector-of-file-paths" class="section level3" number="25.3.1">
-<h3><span class="header-section-number">25.3.1</span> Create a vector of file paths</h3>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="reading-files-with-readr.html#cb367-1" tabindex="-1"></a>csv_files_list_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">&quot;data/many_files&quot;</span>,</span>
-<span id="cb367-2"><a href="reading-files-with-readr.html#cb367-2" tabindex="-1"></a>                                    <span class="at">pattern =</span> <span class="st">&quot;csv&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div id="reading-multiple-files" class="section level2" number="19.3">
+<h2><span class="header-section-number">19.3</span> Reading multiple files</h2>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="reading-files-with-readr.html#cb358-1" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="fu">c</span>(<span class="st">&quot;data/many_files&quot;</span>))</span>
+<span id="cb358-2"><a href="reading-files-with-readr.html#cb358-2" tabindex="-1"></a>peng_samples <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>, <span class="sc">~</span> <span class="fu">slice_sample</span>(penguins_clean, <span class="at">n =</span> <span class="dv">20</span>))</span>
+<span id="cb358-3"><a href="reading-files-with-readr.html#cb358-3" tabindex="-1"></a></span>
+<span id="cb358-4"><a href="reading-files-with-readr.html#cb358-4" tabindex="-1"></a><span class="fu">iwalk</span>(peng_samples, <span class="sc">~</span> <span class="fu">write_csv</span>(., <span class="fu">paste0</span>(<span class="st">&quot;data/many_files/&quot;</span>, .y, <span class="st">&quot;.csv&quot;</span>)))</span></code></pre></div>
+<div id="create-a-vector-of-file-paths" class="section level3" number="19.3.1">
+<h3><span class="header-section-number">19.3.1</span> Create a vector of file paths</h3>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="reading-files-with-readr.html#cb359-1" tabindex="-1"></a>csv_files_list_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">&quot;data/many_files&quot;</span>,</span>
+<span id="cb359-2"><a href="reading-files-with-readr.html#cb359-2" tabindex="-1"></a>                                    <span class="at">pattern =</span> <span class="st">&quot;csv&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code> [1] &quot;data/many_files/1.csv&quot;  &quot;data/many_files/10.csv&quot; &quot;data/many_files/11.csv&quot; &quot;data/many_files/12.csv&quot;
  [5] &quot;data/many_files/13.csv&quot; &quot;data/many_files/14.csv&quot; &quot;data/many_files/15.csv&quot; &quot;data/many_files/16.csv&quot;
  [9] &quot;data/many_files/17.csv&quot; &quot;data/many_files/18.csv&quot; &quot;data/many_files/19.csv&quot; &quot;data/many_files/2.csv&quot; 
@@ -203,24 +203,24 @@
 <li><p>"full.names": Setting this argument to <code>TRUE</code> indicates that you want to store the full paths of the files, not just their names. This is important for ensuring you can correctly access and read these files later. If "full.names" is not set to <code>TRUE</code>, you may encounter difficulties when attempting to read the files because the file paths would be incomplete.</p></li>
 </ul>
 </div>
-<div id="read-multiple-files" class="section level3" number="25.3.2">
-<h3><span class="header-section-number">25.3.2</span> Read multiple files</h3>
+<div id="read-multiple-files" class="section level3" number="19.3.2">
+<h3><span class="header-section-number">19.3.2</span> Read multiple files</h3>
 <p>Now that we have obtained the file paths, we can proceed to load the files into R. The preferred method in the tidyverse is to use the <code>map_dfr</code> function from the <code>purrr</code> package. This function iterates through all the file paths and combines the data frames into a single, unified data frame. In the following code, <code>.x</code> represents the file name or path. To read and output the actual content of the CSV files (not just the filenames), you should include <code>.x</code> (the path) within a <code>readr</code> function. While this example deals with CSV files, this approach works similarly for other rectangular file formats.</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="reading-files-with-readr.html#cb369-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(csv_files_list_files,</span>
-<span id="cb369-2"><a href="reading-files-with-readr.html#cb369-2" tabindex="-1"></a>              <span class="sc">~</span> <span class="fu">read_csv</span>(.x))</span>
-<span id="cb369-3"><a href="reading-files-with-readr.html#cb369-3" tabindex="-1"></a></span>
-<span id="cb369-4"><a href="reading-files-with-readr.html#cb369-4" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="reading-files-with-readr.html#cb361-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(csv_files_list_files,</span>
+<span id="cb361-2"><a href="reading-files-with-readr.html#cb361-2" tabindex="-1"></a>              <span class="sc">~</span> <span class="fu">read_csv</span>(.x))</span>
+<span id="cb361-3"><a href="reading-files-with-readr.html#cb361-3" tabindex="-1"></a></span>
+<span id="cb361-4"><a href="reading-files-with-readr.html#cb361-4" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span></code></pre></div>
 </div>
-<div id="selecting-files" class="section level3" number="25.3.3">
-<h3><span class="header-section-number">25.3.3</span> Selecting files</h3>
+<div id="selecting-files" class="section level3" number="19.3.3">
+<h3><span class="header-section-number">19.3.3</span> Selecting files</h3>
 <p><code>stringr::str_detect()</code></p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="reading-files-with-readr.html#cb370-1" tabindex="-1"></a>csv_files_list_files[<span class="fu">str_detect</span>(csv_files_list_files, <span class="at">pattern =</span> <span class="st">&quot;[2-4]&quot;</span>,</span>
-<span id="cb370-2"><a href="reading-files-with-readr.html#cb370-2" tabindex="-1"></a><span class="at">negate =</span> <span class="cn">FALSE</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="reading-files-with-readr.html#cb362-1" tabindex="-1"></a>csv_files_list_files[<span class="fu">str_detect</span>(csv_files_list_files, <span class="at">pattern =</span> <span class="st">&quot;[2-4]&quot;</span>,</span>
+<span id="cb362-2"><a href="reading-files-with-readr.html#cb362-2" tabindex="-1"></a><span class="at">negate =</span> <span class="cn">FALSE</span>)]</span></code></pre></div>
 <pre><code> [1] &quot;data/many_files/12.csv&quot; &quot;data/many_files/13.csv&quot; &quot;data/many_files/14.csv&quot;
  [4] &quot;data/many_files/2.csv&quot;  &quot;data/many_files/20.csv&quot; &quot;data/many_files/21.csv&quot;
  [7] &quot;data/many_files/22.csv&quot; &quot;data/many_files/23.csv&quot; &quot;data/many_files/24.csv&quot;
 [10] &quot;data/many_files/25.csv&quot; &quot;data/many_files/3.csv&quot;  &quot;data/many_files/4.csv&quot;</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="reading-files-with-readr.html#cb372-1" tabindex="-1"></a>csv_files_list_files[<span class="fu">str_detect</span>(csv_files_list_files, <span class="at">pattern =</span> <span class="st">&quot;[24]</span><span class="sc">\\</span><span class="st">.csv$&quot;</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="reading-files-with-readr.html#cb364-1" tabindex="-1"></a>csv_files_list_files[<span class="fu">str_detect</span>(csv_files_list_files, <span class="at">pattern =</span> <span class="st">&quot;[24]</span><span class="sc">\\</span><span class="st">.csv$&quot;</span>)]</span></code></pre></div>
 <pre><code>[1] &quot;data/many_files/12.csv&quot; &quot;data/many_files/14.csv&quot; &quot;data/many_files/2.csv&quot; 
 [4] &quot;data/many_files/22.csv&quot; &quot;data/many_files/24.csv&quot; &quot;data/many_files/4.csv&quot;
 </code></pre>
