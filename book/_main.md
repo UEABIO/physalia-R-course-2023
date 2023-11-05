@@ -1,7 +1,7 @@
 --- 
 title: "Advancing in R"
 author: "Philip T. Leftwich"
-date: "2023-11-04"
+date: "2023-11-05"
 subtitle: A guide for Biologists and Ecologists
 site: bookdown::bookdown_site
 documentclass: book
@@ -2071,21 +2071,21 @@ Now we can read in the data. To do this we will use the function `readr::read_cs
 <div class="tab"><button class="tablinksunnamed-chunk-16 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-16', 'unnamed-chunk-16');">Base R</button><button class="tablinksunnamed-chunk-16" onclick="javascript:openCode(event, 'option2unnamed-chunk-16', 'unnamed-chunk-16');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
 
 ```r
-penguins <- read.csv ("data/penguins_raw.csv")
+penguins_raw <- read.csv ("data/penguins_raw.csv")
 
-attributes(penguins) # reads as data.frame
+attributes(penguins_raw) # reads as data.frame
 
-head(penguins) # check the data has loaded, prints first 10 rows of dataframe
+head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
 ```
 </div><div id="option2unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
 
 ```r
 # IMPORT DATA ----
-penguins <- read_csv ("data/penguins_raw.csv")
+penguins_raw <- read_csv ("data/penguins_raw.csv")
 
-attributes(penguins) # reads as tibble
+attributes(penguins_raw) # reads as tibble
 
-head(penguins) # check the data has loaded, prints first 10 rows of dataframe
+head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
 #__________________________----
 ```
 </div><script> javascript:hide('option2unnamed-chunk-16') </script>
@@ -2121,9 +2121,9 @@ library(lubridate) # make sure dates are processed properly
 #__________________________----
 
 # IMPORT DATA ----
-penguins <- read_csv ("data/penguins_raw.csv")
+penguins_raw <- read_csv ("data/penguins_raw.csv")
 
-head(penguins) # check the data has loaded, prints first 10 rows of dataframe
+head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
 #__________________________----
 ```
 
@@ -2149,7 +2149,7 @@ head(penguins) # check the data has loaded, prints first 10 rows of dataframe
 
 <select class='webex-select'><option value='blank'></option><option value='answer'>read_csv()</option><option value=''>read.csv()</option></select>
 
-**Question 5.** What format is the `penguins` data in?
+**Question 5.** What format is the `penguins_raw` data in?
 
 <select class='webex-select'><option value='blank'></option><option value=''>wide data</option><option value='answer'>long data</option></select>
 
@@ -2199,7 +2199,7 @@ So we know our data is in R, and we know the columns and names have been importe
 ```r
 # CHECK DATA----
 # check the data
-colnames(penguins)
+colnames(penguins_raw)
 #__________________________----
 ```
 
@@ -2254,9 +2254,9 @@ This dataframe  does not like these so let's correct these quickly. R is case-se
 # note we are using assign <- to overwrite the old version of penguins with a version that has updated names
 # this changes the data in our R workspace but NOT the original csv file
 
-penguins <- janitor::clean_names(penguins) # clean the column names
+penguins_clean <- janitor::clean_names(penguins_raw) # clean the column names
 
-colnames(penguins) # quickly check the new variable names
+colnames(penguins_clean) # quickly check the new variable names
 ```
 
 ```
@@ -2275,16 +2275,16 @@ The `clean_names` function quickly converts all variable names into snake case. 
 <div class="tab"><button class="tablinksunnamed-chunk-25 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-25', 'unnamed-chunk-25');">Base R</button><button class="tablinksunnamed-chunk-25" onclick="javascript:openCode(event, 'option2unnamed-chunk-25', 'unnamed-chunk-25');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-25" class="tabcontentunnamed-chunk-25">
 
 ```r
-names(penguins)[names(penguins) == "delta_15_n_o_oo"] <- "delta_15n"
+names(penguins)[names(penguins_clean) == "delta_15_n_o_oo"] <- "delta_15n"
 
-names(penguins)[names(penguins) == "delta_13_c_o_oo"] <- "delta_13c"
+names(penguins)[names(penguins_clean) == "delta_13_c_o_oo"] <- "delta_13c"
 ```
 </div><div id="option2unnamed-chunk-25" class="tabcontentunnamed-chunk-25">
 
 ```r
 # shorten the variable names for N and C isotope blood samples
 
-penguins <- rename(penguins,
+penguins <- rename(penguins_clean,
          "delta_15n"="delta_15_n_o_oo",  # use rename from the dplyr package
          "delta_13c"="delta_13_c_o_oo")
 ```
@@ -3096,14 +3096,14 @@ str_replace_all(names(penguins), c("e"= "E"))
 
 
 ```r
-penguins %>% 
+penguins  |>  
   mutate(species=str_to_upper(species))
 # Capitalise all letters
 ```
 
 
 ```r
-penguins %>% 
+penguins |> 
   mutate(species=str_remove_all(species, "e"))
 # remove every character "e" from selected variables
 ```
@@ -3120,7 +3120,7 @@ We can easily imagine a scenario where data is manually input, and trailing or l
 
 
 ```r
-df2 %>% 
+df2 |> 
   distinct()
 ```
 
@@ -3128,8 +3128,8 @@ If we pipe the data throught the `str_trim` function to remove any gaps, then pi
 
 
 ```r
-df2 %>% 
-  mutate(label=str_trim(label, side="both")) %>% 
+df2 |> 
+  mutate(label=str_trim(label, side="both")) |> 
   distinct()
 ```
 
@@ -3137,7 +3137,7 @@ A quick example of how to extract partial strings according to a pattern is to u
 
 
 ```r
-penguins %>% 
+penguins |> 
   filter(str_detect(individual_id, "N1"))
 ```
 
@@ -3179,7 +3179,7 @@ df
 
 
 ```r
-df %>% 
+df |> 
   separate(label, # name of variable
            c("treatment", "replicate"), # new column names
            sep="-") # the character to mark where the separation occurs
@@ -3246,7 +3246,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_RSKEWFGNZY'><label><input type="radio" autocomplete="off" name="radio_RSKEWFGNZY" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_RSKEWFGNZY" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_RSKEWFGNZY" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_RSKEWFGNZY" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_YFLOJBXKRT'><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -3417,16 +3417,28 @@ appropriate choice, and by changing this to an ordered
 
 * Make sure you have **saved your script 💾**  and given it the filename "01_import_penguins_data.R" in the ["scripts" folder](#activity-1-organising-our-workspace).
 
+
+* Some parts of our script are *redundant* for the purposes of generating a clean dataframe, we need the `penguins` data in a tidy/rectangular format, checked for missing values, duplicated data and with clean column names. 
+
+* If we have that we can generate a .RDS file to save this dataframe for use in data insights scripts
+
+
+```r
+saveRDS(penguins, file = "outputs/2024_11_01_penguin_clean.RDS")
+```
+
+
+
 * Does your workspace look like the below? 
 
 <div class="figure" style="text-align: center">
 <img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-99)My neat project layout</p>
+<p class="caption">(\#fig:unnamed-chunk-100)My neat project layout</p>
 </div>
 
 <div class="figure" style="text-align: center">
 <img src="images/r_script.png" alt="My scripts and file subdirectory" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-100)My scripts and file subdirectory</p>
+<p class="caption">(\#fig:unnamed-chunk-101)My scripts and file subdirectory</p>
 </div>
 
 ## Activity: Test yourself
@@ -3497,6 +3509,1258 @@ penguins_filtered <- penguins |>
 
 
 <!--chapter:end:02a-penguin.Rmd-->
+
+# (PART\*) Data Insights {.unnumbered}
+
+# Data Insights part one
+
+
+
+
+
+
+
+In these last chapters we are concentrating on generating insights into our data using visualisations and descriptive statistics. The easiest way to do this is to use questions as tools to guide your investigation. When you ask a question, the question focuses your attention on a specific part of your dataset and helps you decide which graphs, models, or transformations to make.
+
+For this exercise we will propose that our task is to generate insights into the body mass of our penguins, in order to answer the question
+
+* How is body mass associated with bill length and depth in penguins?
+
+In order to answer this question properly we should first understand our different variables and how they might relate to each other. 
+
+* Distribution of data types
+* Central tendency
+* Relationship between variables 
+* Confounding variables
+
+This inevitably leads to more and a variety of questions. Each new question that you ask will expose you to a *new aspect* of your data.
+
+### Data wrangling
+
+Importantly you should have already generated an understanding of the variables contained within your dataset during the [data wrangling](#data-wrangling-part-one) steps. Including: 
+
+* The number of variables
+
+* The data format of each variable
+
+* Checked for missing data
+
+* Checked for typos, duplications or other data errors
+
+* Cleaned column or factor names
+
+<div class="warning">
+<p>It is very important to not lose site of the questions you are
+asking</p>
+<p>You should also play close attention to the data, and remind yourself
+<strong>frequently</strong> how many variables do you have and what are
+their names?</p>
+<p>How many rows/observations do you have?</p>
+<p>Pay close attention to the outputs, errors and warnings from the R
+console.</p>
+</div>
+
+
+## Load data
+
+Make a script
+
+Let's now create a new R script file in which we will write instructions and store comments for manipulating data, developing tables and figures. Use the `File > New Script` menu item and select an R Script. 
+
+Add the following:
+
+
+```r
+#___________________________----
+# EDA ----
+## Exploratory data analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----
+
+#__________________________----
+
+penguins <- readRDS("outputs/2024_11_01_penguin_clean.RDS")
+```
+
+Save this file inside the scripts folder and call it `02_eda_penguins.R`
+
+
+
+## Quick view of variables
+
+Let's take a look at some of our variables, these functions will give a quick snapshot overview.
+
+
+```r
+glimpse(penguins)
+summary(penguins)
+```
+
+We can see that bill length contains numbers, and that many of these are fractions, but only down to 0.1mm. By comparison body mass all appear to be discrete number variables. Does this make body mass an integer? The underlying quantity (bodyweight) is clearly continuous, it is clearly possible for a penguin to weigh 3330.7g but it might *look* like an integer because of the way it was measured. This illustrates the importance of understanding the the type of variable you are working with - just looking at the values isn't enough. 
+
+On the other hand, how we choose to measure and record data *can* change the way it is presented in a dataset. If the researchers had decided to simply record small, medium and large classes of bodyweight, then we would be dealing with ordinal categorical variables (factors). These distinctions can become less clear if we start to deal with multiple classes of ordinal categories - for example if the researchers were measuring body mass to the nearest 10g. It might be reasonable to treat these as integers...
+
+## Categorical variables
+
+### Frequency
+
+
+```r
+penguins |> 
+  group_by(species) |> 
+  summarise(n = n())
+```
+
+<div class="kable-table">
+
+|species   |   n|
+|:---------|---:|
+|Adelie    | 152|
+|Chinstrap |  68|
+|Gentoo    | 124|
+
+</div>
+
+
+It might be useful for us to make some quick data summaries here, like relative frequency
+
+
+```r
+prob_obs_species <- penguins |> 
+  group_by(species) |> 
+  summarise(n = n()) |> 
+  mutate(prob_obs = n/sum(n))
+
+prob_obs_species
+```
+
+<div class="kable-table">
+
+|species   |   n|  prob_obs|
+|:---------|---:|---------:|
+|Adelie    | 152| 0.4418605|
+|Chinstrap |  68| 0.1976744|
+|Gentoo    | 124| 0.3604651|
+
+</div>
+
+So about 44% of our sample is made up of observations from Adelie penguins. When it comes to making summaries about categorical data, that's about the best we can do, we can make observations about the most common categorical observations, and the relative proportions. 
+
+
+```r
+penguins |> 
+  ggplot()+
+  geom_bar(aes(x=species))
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+
+This chart is ok - but can we make anything better?
+
+We could go for a stacked bar approach
+
+
+```r
+penguins |> 
+  ggplot(aes(x="",
+             fill=species))+ 
+  # specify fill = species to ensure colours are defined by species
+  geom_bar(position="fill")+ 
+  # specify fill forces geom_bar to calculate percentages
+  scale_y_continuous(labels=scales::percent)+ 
+  #use scales package to turn y axis into percentages easily
+  labs(x="",
+       y="")+
+  theme_minimal()
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
+
+This graph is OK *but not great*, the height of each section of the bar represents the relative proportions of each species in the dataset, but this type of chart becomes increasingly difficult to read as more categories are included. Colours become increasingly samey,and it is difficult to read where on the y-axis a category starts and stops, you then have to do some subtraction to work out the values. 
+
+The best graph is then probably the first one we made - with a few minor tweak we can rapidly improve this. 
+
+
+```r
+penguins |> 
+  mutate(species=factor(species, levels=c("Adelie",
+                                          "Gentoo",
+                                          "Chinstrap"))) |> 
+  # set as factor and provide levels
+  ggplot()+
+  geom_bar(aes(x=species),
+           fill="steelblue",
+           width=0.8)+
+  labs(x="Species",
+       y = "Number of observations")+
+  geom_text(data=prob_obs_species,
+            aes(y=(n+10),
+                x=species,
+                label=scales::percent(prob_obs)))+
+  coord_flip()+
+  theme_minimal()
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
+
+This is an example of a figure we might use in a report or paper. Having cleaned up the theme, added some simple colour, made sure our labels are clear and descriptive, ordered our categories in ascending frequency order, and included some simple text of percentages to aid readability. 
+
+### Two categorical variables
+
+<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
+Think about what might be a suitable confounding variable to investigate and graph here? </div></div>
+
+
+Understanding how frequency is broken down by species and sex might be useful information to have. 
+
+
+```r
+penguins |> 
+  group_by(species, sex) |> 
+  summarise(n = n()) |> 
+  mutate(prob_obs = n/sum(n))
+```
+
+<div class="kable-table">
+
+|species   |sex    |  n|  prob_obs|
+|:---------|:------|--:|---------:|
+|Adelie    |FEMALE | 73| 0.4802632|
+|Adelie    |MALE   | 73| 0.4802632|
+|Adelie    |NA     |  6| 0.0394737|
+|Chinstrap |FEMALE | 34| 0.5000000|
+|Chinstrap |MALE   | 34| 0.5000000|
+|Gentoo    |FEMALE | 58| 0.4677419|
+|Gentoo    |MALE   | 61| 0.4919355|
+|Gentoo    |NA     |  5| 0.0403226|
+
+</div>
+
+## Continuous variables
+
+### Visualising distributions
+
+**Variation** is the tendency of the values of a variable to change from measurement to measurement. You can see variation easily in real life; if you measure any continuous variable twice, you will get two different results. This is true even if you measure quantities that are constant, like the speed of light. Each of your measurements will include a small amount of error that varies from measurement to measurement. Every variable has its own pattern of variation, which can reveal interesting information. The best way to understand that pattern is to visualise the distribution of the variable’s values.
+
+This is the script to plot a frequency distribution, we only specify an x variable, because we intend to plot a histogram, and the y variable is always the count of observations. Here we ask the data to be presented in 10 equally sized bins of data. In this case chopping the x axis range into 10 equal parts and counting the number of observations that fall within each one. 
+
+
+```r
+penguins |> 
+  ggplot()+
+  geom_histogram(aes(x=body_mass_g),
+                 fill = "grey",
+                 colour = "black",
+                 bins=10)
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
+
+<div class="try">
+<p>Change the value specified to the bins argument and observe how the
+figure changes. It is usually a very good idea to try more than one set
+of bins in order to have better insights into the data</p>
+</div>
+
+To get the most out of your data, combine data you collected from the `summary()` function and the histogram here 
+
+* Which values are the most common? <select class='webex-select'><option value='blank'></option><option value=''>< 3500g</option><option value='answer'>3500-4000g</option><option value=''>4000-4500g</option><option value=''>4500-5000g</option><option value=''>5000-5500g</option><option value=''>5500-6000g</option><option value=''>>6500g</option></select>
+
+* Which values are rare? Why? Does that match your expectations?
+<select class='webex-select'><option value='blank'></option><option value=''>< 3500g</option><option value=''>3500-4000g</option><option value=''>4000-4500g</option><option value=''>4500-5000g</option><option value=''>5000-5500g</option><option value=''>5500-6000g</option><option value='answer'>>6500g</option></select>
+
+* Can you see any unusual patterns? <select class='webex-select'><option value='blank'></option><option value=''>Yes</option><option value='answer'>No</option></select>
+
+* How many observations are missing body mass information? <input class='webex-solveme nospaces' size='1' data-answer='["2"]'/>
+
+
+<button id="displayTextunnamed-chunk-15" onclick="javascript:toggle('unnamed-chunk-15');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-15" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+Penguins weighing less than 3kg and more than 6kg are rare. 
+The most common weight appears to be just under 4kg. 
+
+There appear to be more data points to the right of the peak of the histogram than there are too the left. E.g. the histogram is not symmetrical. But there is no evidence for any extreme outliers. </div></div></div>
+
+#### Atypical values
+
+If you found atypical values at this point, you could decide to exclude them from the dataset (using `filter()`). BUT you should only do this at this stage if you have a very strong reason for believing this is a mistake in the data entry, rather than a true outlier. 
+
+### Central tendency
+
+Central tendency is a descriptive summary of a dataset through a single value that reflects the center of the data distribution. The three most widely used measures of central tendency are **mean**, **median** and **mode**.
+
+The **mean** is defined as the sum of all values of the variable divided by the total number of values. The **median** is the middle value. If N is odd and if N is even, it is the average of the two middle values. The **mode** is the most frequently occurring observation in a data set, but is arguable least useful for understanding biological datasets.
+
+We can find both the mean and median easily with the summarise function. The **mean** is usually the best measure of central tendency when the distribution is symmetrical, and the **mode** is the best measure when the distribution is asymmetrical/skewed. 
+
+
+```r
+penguin_body_mass_summary <- penguins |> 
+    summarise(mean_body_mass=mean(body_mass_g, na.rm=T), 
+              sd = sd(body_mass_g, na.rm = T),
+              min = min(body_mass_g, na.rm = T),
+              max=max(body_mass_g, na.rm = T),
+              median_body_mass=median(body_mass_g, na.rm=T), 
+              iqr = IQR(body_mass_g, na.rm = T))
+
+penguin_body_mass_summary
+```
+
+<div class="kable-table">
+
+| mean_body_mass|       sd|  min|  max| median_body_mass|  iqr|
+|--------------:|--------:|----:|----:|----------------:|----:|
+|       4201.754| 801.9545| 2700| 6300|             4050| 1200|
+
+</div>
+
+
+```r
+penguins |> 
+ggplot()+
+  geom_histogram(aes(x=body_mass_g),
+               alpha=0.8,
+               bins = 10,
+               fill="steelblue",
+               colour="darkgrey")+
+   geom_vline(data=penguin_body_mass_summary,
+             aes(xintercept=mean_body_mass),
+             colour="red",
+             linetype="dashed")+
+  geom_vline(data=penguin_body_mass_summary,
+             aes(xintercept=median_body_mass),
+             colour="black",
+             linetype="dashed")+
+  geom_text(data=penguin_body_mass_summary,
+            aes(x = mean_body_mass), 
+            y = 90, label = "mean", hjust = 2)+
+  geom_text(data=penguin_body_mass_summary,
+            aes(x = median_body_mass), 
+            y = 90, label = "median", hjust = -1, colour = "red")+
+  labs(x = "Body mass (g)",
+       y = "Count")+
+  coord_cartesian( ylim = c(0,90), expand = TRUE)
+```
+
+<div class="figure" style="text-align: center">
+<img src="02b-penguin_files/figure-html/unnamed-chunk-17-1.png" alt="Red dashed line represents the mean, Black dashed line is the median value" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-17)Red dashed line represents the mean, Black dashed line is the median value</p>
+</div>
+
+
+
+
+### Normal distribution
+
+From our histogram we can likely already tell whether we have normally distributed data. 
+
+
+<div class="info">
+<p>Normal distribution, also known as the “Gaussian distribution”, is a
+probability distribution that is symmetric about the mean, showing that
+data near the mean are more frequent in occurrence than data far from
+the mean. In graphical form, the normal distribution appears as a “bell
+curve”.</p>
+</div>
+
+
+But we can simulate and add a normal distribution with the same mean and sd:
+
+If our data follows a normal distribution, then we can predict the spread of our data, and the likelihood of observing a datapoint of any given value with only the mean and standard deviation. 
+
+Here we can simulate what a normally distributed dataset would look like with our sample size, mean and standard deviation.
+
+
+```r
+x_values <- seq(2700,6300, 100)
+
+norm_mass <- dnorm(x_values,
+      mean = 4201.754,
+      sd = 801.9545) |> 
+  as_tibble()
+
+density <- tibble(x_values, norm_mass)
+
+penguins |> 
+ggplot()+
+  geom_histogram(aes(x=body_mass_g, y = ..density..),
+               alpha=0.8,
+               bins = 10,
+               fill="steelblue",
+               colour="darkgrey")+
+  geom_line(data = norm_mass, aes(x =x_values, y = value))+
+  labs(x = "Body mass (g)",
+       y = "Count")
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
+
+We can also use the `stat_function` to add any distribution curve to a plot
+
+
+```r
+penguins |> 
+ggplot()+
+  geom_histogram(aes(x=body_mass_g, y = ..density..),
+               alpha=0.8,
+               bins = 10,
+               fill="steelblue",
+               colour="darkgrey")+
+  stat_function(fun = function(x){
+    dnorm(x,
+          mean = 4201.754,
+      sd = 801.9545)
+  })
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+  labs(x = "Body mass (g)",
+       y = "Count")
+```
+
+```
+## $x
+## [1] "Body mass (g)"
+## 
+## $y
+## [1] "Count"
+## 
+## attr(,"class")
+## [1] "labels"
+```
+
+#### QQ-plot
+
+A QQ plot is a classic way of checking whether a sample distribution is the same as another (or theoretical distribution). They look a bit odd at first, but they are actually fairly easy to understand, and very useful! The qqplot distributes your data on the y-axis, and a theoretical normal distribution on the x-axis. If the residuals follow a normal distribution, they should meet to produce a perfect diagonal line across the plot.
+
+Watch this video to see [QQ plots explained](https://www.youtube.com/watch?v=okjYjClSjOg)
+
+<div class="figure" style="text-align: center">
+<img src="images/qq_example.png" alt="Examples of qqplots with different deviations from a normal distribution" width="80%" />
+<p class="caption">(\#fig:unnamed-chunk-21)Examples of qqplots with different deviations from a normal distribution</p>
+</div>
+
+In our example we can see that *most* of our residuals can be explained by a normal distribution, except at the low end of our data. 
+
+So the fit is not perfect, but it is also not terrible!
+
+
+```r
+ggplot(penguins, aes(sample = body_mass_g))+
+  stat_qq() + 
+  stat_qq_line()
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
+
+**How do we know how much deviation from an idealised distribution is ok?**
+
+
+```r
+penguins |> 
+  pull(body_mass_g) |> 
+  car::qqPlot()
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+
+```
+## [1] 170 186
+```
+
+The qqPlot() function from the R package car provides 95% confidence interval margins to help you determine how severely your quantiles deviate from your idealised distribution.
+
+
+With the information from the qqPlot which section of the distribution deviates most clearly from a normal distribution <select class='webex-select'><option value='blank'></option><option value='answer'><3500g</option><option value=''>3500-4000g</option><option value=''>4000-4500g</option><option value=''>5000-5500g</option><option value=''>>5500g</option></select>
+
+<button id="displayTextunnamed-chunk-24" onclick="javascript:toggle('unnamed-chunk-24');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-24" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+There are is a 'truncated' left tail of our normal distribution. We would predict more penguins with body masses lower than 3000g under the normal distribution.</div></div></div>
+
+
+### Variation
+
+Dispersion (how spread out the data is) is an important component towards understanding any numeric variable. While measures of central tendency are used to estimate the central value of a dataset, measures of dispersion are important for describing the spread of data. 
+
+Two data sets can have an equal mean (that is, measure of central tendency) but vastly different variability. 
+
+Important measures for dispersion are **range**, **interquartile range**, **variance** and **standard deviation**. 
+
+* The **range** is defined as the difference between the highest and lowest values in a dataset. The disadvantage of defining range as a measure of dispersion is that it does not take into account all values for calculation.
+
+* The **interquartile range** is defined as the difference between the third quartile denoted by 𝑸_𝟑   and the lower quartile denoted by  𝑸_𝟏 . 75% of observations lie below the third quartile and 25% of observations lie below the first quartile.
+
+* **Variance** is defined as the sum of squares of deviations from the mean, divided by the total number of observations. The standard deviation is the positive square root of the variance.  The **standard deviation** is preferred instead of variance as it has the same units as the original values.
+
+
+#### Interquartile range
+
+We used the IQR function in `summarise()` to find the interquartile range of the body mass variable.
+
+The IQR is also useful when applied to the summary plots 'box and whisker plots'. We can also calculate the values of the IQR margins, and add labels with `scales` @R-scales. 
+
+
+```r
+penguins |>
+  summarise(q_body_mass = quantile(body_mass_g, c(0.25, 0.5, 0.75), na.rm=TRUE),
+            quantile = scales::percent(c(0.25, 0.5, 0.75))) # scales package allows easy converting from data values to perceptual properties
+```
+
+<div class="kable-table">
+
+| q_body_mass|quantile |
+|-----------:|:--------|
+|        3550|25%      |
+|        4050|50%      |
+|        4750|75%      |
+
+</div>
+
+We can see for ourselves the IQR is obtained by subtracting the body mass at tht 75% quantile from the 25% quantile (4750-3550 = 1200).
+
+
+### Visualising dispersion
+
+<div class="figure" style="text-align: center">
+<img src="images/distribution_gif.gif" alt="Visualising dispersion with different figures" width="80%" />
+<p class="caption">(\#fig:unnamed-chunk-26)Visualising dispersion with different figures</p>
+</div>
+
+
+```r
+colour_fill <- "darkorange"
+colour_line <- "steelblue"
+lims <- c(0,7000)
+
+body_weight_plot <- function(){
+  
+  penguins |> 
+  ggplot(aes(x="",
+             y= body_mass_g))+
+  labs(x= " ",
+       y = "Mass (g)")+
+  scale_y_continuous(limits = lims)+
+    theme_minimal()
+}
+
+plot_1 <- body_weight_plot()+
+  geom_jitter(fill = colour_fill,
+               colour = colour_line,
+               width = 0.2,
+              shape = 21)
+
+plot_2 <- body_weight_plot()+
+  geom_boxplot(fill = colour_fill,
+               colour = colour_line,
+               width = 0.4)
+
+plot_3 <- penguin_body_mass_summary |> 
+  ggplot(aes(x = " ",
+             y = mean_body_mass))+
+  geom_bar(stat = "identity",
+           fill = colour_fill,
+           colour = colour_line,
+               width = 0.2)+
+  geom_errorbar(data = penguin_body_mass_summary,
+                aes(ymin = mean_body_mass - sd,
+                    ymax = mean_body_mass + sd),
+                colour = colour_line,
+                width = 0.1)+
+  labs(x = " ",
+       y = "Body mass (g)")+
+  scale_y_continuous(limits = lims)+
+  theme_minimal()
+
+
+plot_1 + plot_2 + plot_3 
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-27-1.png" width="80%" style="display: block; margin: auto;" />
+
+We now have several compact representations of the body_mass_g including a histogram, boxplot and summary calculations. You can *and should* generate the same summaries for your other numeric variables. These tables and graphs provide the detail you need to understand the central tendency and dispersion of numeric variables. 
+
+### drop_na
+
+Missing values `NA` can really mess up our calculations. There are a few different ways we can deal with missing data:
+
+* `drop_na()` on everything before we start. This runs the risk that we lose **a lot** of data as *every* row, with an NA in *any column* will be removed
+
+* `drop_na()` on a particular variable. This is fine, but we should approach this cautiously - if we do this in a way where we write this data into a new object e.g. `penguins <- penguins |> drop_na(body_mass_g)` then we have removed this data forever - perhaps we only want to drop those rows for a specific calculation - again they might contain useful information in other variables. 
+
+* `drop_na()` for a specific task - this is a more cautious approach **but** we need to be aware of another phenomena. Is the data **missing at random**? You might need to investigate *where* your missing values are in a dataset. Data that is truly **missing at random** can be removed from a dataset without introducing bias. However, if bad weather conditions meant that researchers could not get to a particular island to measure one set of penguins that data is **missing not at random** this should be treated with caution. If that island contained one particular species of penguin, it might mean we have complete data for only two out of three penguin species. There is nothing you can do about incomplete data other than be aware that data not missing at random could influence your distributions. 
+
+
+## Categorical and continuous variables
+
+It’s common to want to explore the distribution of a continuous variable broken down by a categorical variable. 
+
+
+
+<div class='webex-solution'><button>Think about which other variables might affect body mass?</button>
+
+
+<div class="figure" style="text-align: center">
+<img src="images/body-mass-interaction.png" alt="Species and sex are both likely to affect body mass" width="80%" />
+<p class="caption">(\#fig:unnamed-chunk-28)Species and sex are both likely to affect body mass</p>
+</div>
+
+
+
+So it is reasonable to think that perhaps either species or sex might affect the morphology of beaks directly - or that these might affect body mass (so that if there is a direct relationship between mass and beak length, there will also be an indirect relationship with sex or species).
+
+
+</div>
+
+
+The best and simplest place to start exploring these possible relationships is by producing simple figures. 
+
+Let's start by looking at the distribution of body mass by species. 
+
+
+## Activity 1: Produce a plot which allows you to look at the distribution of penguin body mass observations by species
+
+
+<button id="displayTextunnamed-chunk-29" onclick="javascript:toggle('unnamed-chunk-29');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-29" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+jitter_plot <- penguins |> 
+    ggplot(aes(x = species,
+               y = body_mass_g))+
+    geom_jitter(shape = 21,
+                fill = colour_fill,
+                colour = colour_line,
+                width = 0.2)+
+  coord_flip()
+
+box_plot <- penguins |> 
+    ggplot(aes(x = species,
+               y = body_mass_g))+
+    geom_boxplot(fill = colour_fill,
+                colour = colour_line,
+                width = 0.2)+
+  coord_flip()
+
+histogram_plot <- penguins |> 
+    ggplot(aes(fill = species))+
+    geom_histogram(aes(x = body_mass_g,
+                       y = ..density..),
+                   position = "identity",
+                   alpha = 0.6,
+                colour = colour_line)
+
+jitter_plot/box_plot/histogram_plot
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-52-1.png" width="100%" style="display: block; margin: auto;" />
+
+So it is reasonable to think that perhaps either species or sex might affect body mass, and we can visualise this in a number of different ways. The last method, a density histogram, looks a little crowded now, so I will use the excellent `ggridges` package to help out
+</div></div></div>
+
+
+
+## GGridges
+
+The package `ggridges` (@R-ggridges) provides some excellent extra geoms to supplement `ggplot`. One if its most useful features is to to allow different groups to be mapped to the y axis, so that histograms are more easily viewed. 
+
+<button id="displayTextunnamed-chunk-30" onclick="javascript:toggle('unnamed-chunk-30');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-30" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+library(ggridges)
+ggplot(penguins, aes(x = body_mass_g, y = species)) + 
+  ggridges::geom_density_ridges(fill = colour_fill,
+                colour = colour_line,
+                alpha = 0.8)
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-53-1.png" width="100%" style="display: block; margin: auto;" />
+
+</div></div></div>
+
+**Q. Does each species have a data distribution that appears to be normally distributed?**
+
+* Gentoo <select class='webex-select'><option value='blank'></option><option value='answer'>Yes</option><option value=''>No</option></select>
+
+* Chinstrap <select class='webex-select'><option value='blank'></option><option value='answer'>Yes</option><option value=''>No</option></select>
+
+* Adelie <select class='webex-select'><option value='blank'></option><option value='answer'>Yes</option><option value=''>No</option></select>
+
+
+<button id="displayTextunnamed-chunk-31" onclick="javascript:toggle('unnamed-chunk-31');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-31" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+penguins |> 
+  group_split(species) |> 
+  map(~ pull(.x, body_mass_g) 
+      |> car::qqPlot())
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-54-1.png" width="100%" style="display: block; margin: auto;" /><img src="02b-penguin_files/figure-html/unnamed-chunk-54-2.png" width="100%" style="display: block; margin: auto;" /><img src="02b-penguin_files/figure-html/unnamed-chunk-54-3.png" width="100%" style="display: block; margin: auto;" />
+
+```
+## [[1]]
+## [1] 110 102
+## 
+## [[2]]
+## [1] 38 39
+## 
+## [[3]]
+## [1] 18 41
+```
+
+While the Gentoo density plot appears to show two peaks, our qqplot indicates this does not deviate from what me might expect from a normal distribution. But we could still investigate whether there are "two populations" here. 
+</div></div></div>
+
+
+
+```r
+penguins |> 
+  drop_na() |> 
+  ggplot(aes(x = body_mass_g, y = species)) + 
+    geom_density_ridges(aes(fill = sex),
+                        colour = colour_line,
+                        alpha = 0.8,
+                        bandwidth = 175)
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+# try playing with the bandwidth argument - this behaves similar to binning which you should be familiar with from using geom_histogram
+```
+
+
+## Activity 2: Test yourself
+
+**Question 1.** Write down some insights you have made about the data and relationships you have observed. Compare these to the ones below. Do you agree with these? Did you miss any? What observations did you make that are **not** in the list below.
+
+
+<div class='webex-solution'><button>What data insights have you made?</button>
+
+
+This is revealing some really interesting insights into the shape and distribution of body sizes in our penguin populations now. 
+
+For example:
+
+* Gentoo penguins appear to show strong sexual dimorphism with almost all males being larger than females (little overlap on density curves).
+
+* Gentoo males and females are on average larger than the other two penguin species
+
+* Gentoo females have two distinct peaks of body mass. 
+
+* Chinstrap penguins also show evidence of sexual dimorphism, though with greater overlap.
+
+* Adelie penguins have larger males than females on average, but a wide spread of male body mass, (possibly two groups?)
+
+Note how we are able to understand our data better, by spending time making data visuals. While descriptive data statistics (mean, median) and measures of variance (range, IQR, sd) are important. They are not substitutes for spending time thinking about data and making exploratory analyses. 
+
+
+</div>
+
+
+
+**Question 2.** Using `summarise` we can quickly calculate $s$ but can you replicate this by hand with `dplyr` functions?  -  do this for total $s$ (not by category). 
+
+* Residuals
+
+* Squared residuals
+
+* Sum of squares
+
+* Variance = SS/df
+
+* $s=\sqrt{Variance}$
+
+<button id="displayTextunnamed-chunk-33" onclick="javascript:toggle('unnamed-chunk-33');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-33" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+mean <- penguins |> 
+    summarise(mean = mean(body_mass_g, na.rm = T))
+
+penguins |> 
+    mutate(residuals = (body_mass_g - pull(mean)),
+           sqrd_resid = residuals^2) |> 
+    drop_na(sqrd_resid) |> 
+    summarise(sum_squares = sum(sqrd_resid),
+              variance = sum_squares/(n=n())-1,
+              sd = sqrt(variance))
+```
+
+<div class="kable-table">
+
+| sum_squares| variance|       sd|
+|-----------:|--------:|--------:|
+|   219307697| 641249.6| 800.7806|
+
+</div>
+</div></div></div>
+
+
+# Data insights part two
+
+
+
+
+
+In the previous chapter we looked at individual variables, and understanding the different types of data. We made numeric and graphical summaries of the distributions of features within each variable. This week we will continue to work in the same space, and extend our understanding to include relationships between variables. 
+
+Understanding the relationship between two or more variables is often the basis of most of our scientific questions. These might include comparing variables of the same type (numeric against numeric) or different types (numeric against categorical). In this chapter we will see how we can use descriptive statistics and visuals to explore associations
+
+## Associations between numerical variables
+
+### Correlations
+
+A common measure of association between two numerical variables is the **correlation coefficient**. The correlation metric is a numerical measure of the *strength of an association*
+
+There are several measures of correlation including:
+
+* **Pearson's correlation coefficient** : good for describing linear associations
+
+* **Spearman's rank correlation coefficient**: a rank ordered correlation - good for when the assumptions for Pearson's correlation is not met. 
+
+Pearson's correlation coefficient *r* is designed to measure the strength of a linear (straight line) association. Pearson's takes a value between -1 and 1. 
+
+* A value of 0 means there is no linear association between the variables
+
+* A value of 1 means there is a perfect *positive* association between the variables
+
+* A value of -1 means there is a perfect *negative* association between the variables
+
+A *perfect* association is one where we can predict the value of one variable with complete accuracy, just by knowing the value of the other variable. 
+
+
+We can use the `cor` function in R to calculate Pearson's correlation coefficient. 
+
+
+<div class="tab"><button class="tablinksunnamed-chunk-35 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-35', 'unnamed-chunk-35');">Base R</button><button class="tablinksunnamed-chunk-35" onclick="javascript:openCode(event, 'option2unnamed-chunk-35', 'unnamed-chunk-35');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
+
+```r
+cor.test(penguins$culmen_length_mm, penguins$culmen_depth_mm)
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  penguins$culmen_length_mm and penguins$culmen_depth_mm
+## t = -4.4591, df = 340, p-value = 1.12e-05
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.3328072 -0.1323004
+## sample estimates:
+##        cor 
+## -0.2350529
+```
+</div><div id="option2unnamed-chunk-35" class="tabcontentunnamed-chunk-35">
+
+```
+{r}
+library(rstatix)
+
+penguins |> 
+  cor_test(culmen_length_mm, culmen_depth_mm)
+```
+</div><script> javascript:hide('option2unnamed-chunk-35') </script>
+
+This tells us two features of the association. It's *sign* and *magnitude*. The coefficient is negative, so as bill length increases, bill depth decreases. The value -0.22 indicates that only about 22% of the variation in bill length can be explained by changes in bill depth (and *vice-versa*), suggesting that the variables are not closely related. 
+
+
+<div class="figure" style="text-align: center">
+<img src="images/correlation_examples.png" alt="Different relationships between two numeric variables. Each number represents the Pearson's correlation coefficient of each association" width="80%" />
+<p class="caption">(\#fig:unnamed-chunk-36)Different relationships between two numeric variables. Each number represents the Pearson's correlation coefficient of each association</p>
+</div>
+
+* Because Pearson's coefficient is designed to summarise the strength of a linear relationship, this can be misleading if the relationship is *not linear* e.g. curved or humped. This is why it's always a good idea to plot the relationship *first* (see above).
+
+* Even when the relationship is linear, it doesn't tell us anything about the steepness of the association (see above). It *only* tells us how often a change in one variable can predict the change in the other *not* the value of that change. 
+
+This can be difficult to understand at first, so carefully consider the figure above. 
+
+* The first row above shows differing levels of the strength of association. If we drew a perfect straight line between two variables, how closely do the data points fit around this line. 
+
+* The second row shows a series of *perfect* linear relationships. We can accurately predict the value of one variable just by knowing the value of the other variable, but the steepness of the relationship in each example is very different. This is **important** because it means a perfect association can still have a small effect.
+
+* The third row shows a series of associations where there is *clearly* a relationship between the two variables, but it is also not linear so would be inappropriate for a Pearson's correlation. 
+
+### Non-linear correlations
+
+So what should we do if the relationship between our variables is non-linear? Instead of using Pearson's correlation coefficient we can calculate something called a **rank correlation**. 
+
+Instead of working with the raw values of our two variables we can use rank ordering instead. The idea is pretty simple if we start with the lowest vaule in a variable and order it as '1', then assign labels '2', '3' etc. as we ascend in rank order. We can see a way that this could be applied manually with the function `dense_rank` from dplyr below:
+
+
+
+```r
+penguins |> select(culmen_length_mm, 
+                    culmen_depth_mm) |> 
+  drop_na() |> 
+  mutate(rank_length=dense_rank((culmen_length_mm)), 
+         rank_depth=dense_rank((culmen_depth_mm))) |> 
+  head()
+```
+
+<div class="kable-table">
+
+| culmen_length_mm| culmen_depth_mm| rank_length| rank_depth|
+|----------------:|---------------:|-----------:|----------:|
+|             39.1|            18.7|          43|         57|
+|             39.5|            17.4|          46|         44|
+|             40.3|            18.0|          52|         50|
+|             36.7|            19.3|          23|         63|
+|             39.3|            20.6|          45|         75|
+|             38.9|            17.8|          41|         48|
+
+</div>
+
+Measures of rank correlation then are just a comparison of the rank orders between two variables, with a value between -1 and 1 just like Pearsons's. We already know from our Pearson's correlation coefficient, that we expect this relationship to be negative. So it should come as no surprise that the highest rank order values for bill_length_mm appear to be associated with lower rank order values for bill_depth_mm. 
+
+
+To calculate Spearman's $\rho$ 'rho' is pretty easy, you can use the cor functions again, but this time specify a hidden argument to `method="spearman"`. 
+
+
+```r
+penguins |> 
+  cor_test(culmen_length_mm, culmen_depth_mm, method="spearman")
+```
+
+<div class="kable-table">
+
+|var1             |var2            |   cor| statistic|        p|method   |
+|:----------------|:---------------|-----:|---------:|--------:|:--------|
+|culmen_length_mm |culmen_depth_mm | -0.22|   8145268| 3.51e-05|Spearman |
+
+</div>
+What we can see in this example is that Pearson's *r* and Spearman's $\rho$ are basically identical. 
+
+### Graphical summaries between numeric variables
+
+Correlation coefficients are a quick and simple way to attach a metric to the level of association between two variables. They are limited however in that a single number can never capture the every aspect of their relationship. This is why we visualise our data. 
+
+We have already covered scatter plots and `ggplot2()` extensively in previous chapters, so here we will just cover some of the different ways in which you could present the nature of a relationship
+
+
+```r
+length_depth_scatterplot <- ggplot(penguins, aes(x= culmen_length_mm, 
+                                                 y= culmen_depth_mm)) +
+                            geom_point()
+
+length_depth_scatterplot
+```
+
+<div class="figure" style="text-align: center">
+<img src="02b-penguin_files/figure-html/unnamed-chunk-39-1.png" alt="A scatter plot of bill depth against bill length in mm" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-39)A scatter plot of bill depth against bill length in mm</p>
+</div>
+
+> Note - Remember there are a number of different options available when constructing a plot including changing alpha to produce transparency if plots are lying on top of each other, colours (and shapes) to separate subgroups and ways to present third numerical variables such as setting aes(size=body_mass_g). 
+
+
+
+```r
+library(patchwork) # package calls should be placed at the TOP of your script
+
+bill_depth_marginal <- penguins |> 
+  ggplot()+
+  geom_density(aes(x=culmen_depth_mm), fill="darkgrey")+
+  theme_void()+
+  coord_flip() # this graph needs to be rotated
+
+bill_length_marginal <- penguins |> 
+  ggplot()+
+  geom_density(aes(x=culmen_length_mm), fill="darkgrey")+
+  theme_void()
+
+layout <- "
+AA#
+BBC
+BBC"
+# layout is easiest to organise using a text distribution, where ABC equal the three plots in order, and the grid is how much space they take up. We could easily make the main plot bigger and marginals smaller with
+
+# layout <- "
+# AAA#
+# BBBC
+# BBBC"
+# BBBC
+
+bill_length_marginal+length_depth_scatterplot+bill_depth_marginal+ # order of plots is important
+  plot_layout(design=layout) # uses the layout argument defined above to arrange the size and position of plots
+```
+
+<div class="figure" style="text-align: center">
+<img src="02b-penguin_files/figure-html/unnamed-chunk-40-1.png" alt="Using patchwork we can easily arrange extra plots to fit as marginals - these could be boxplots, histograms or density plots" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-40)Using patchwork we can easily arrange extra plots to fit as marginals - these could be boxplots, histograms or density plots</p>
+</div>
+
+These efforts allow us to capture details about the spread and distribution of both variables **and** how they relate to each other. This figure provides us with insights into
+
+* The central tendency of each variable
+
+* The spread of data in each variable
+
+* The correlation between the two variables
+
+
+## Associations between categorical variables
+
+Exploring associations between different categorical variables is not quite as simple as the previous numeric-numeric examples. Generally speaking we are interested in whether different combinations of categories are uniformally distributed or show evidence of clustering leading to *over- or under-represented* combinations. 
+The simplest way to investigate this is to use `group_by` and `summarise` as we have used previously.
+
+
+```r
+island_species_summary <- penguins |> 
+  group_by(island, species) |> 
+  summarise(n=n(),
+            n_distinct=n_distinct(individual_id)) |> 
+  ungroup() |> # needed to remove group calculations
+  mutate(freq=n/sum(n)) # then calculates percentage of each group across WHOLE dataset
+
+island_species_summary
+```
+
+<div class="kable-table">
+
+|island    |species   |   n| n_distinct|      freq|
+|:---------|:---------|---:|----------:|---------:|
+|Biscoe    |Adelie    |  44|         44| 0.1279070|
+|Biscoe    |Gentoo    | 124|         94| 0.3604651|
+|Dream     |Adelie    |  56|         56| 0.1627907|
+|Dream     |Chinstrap |  68|         58| 0.1976744|
+|Torgersen |Adelie    |  52|         52| 0.1511628|
+
+</div>
+> Note - remember that group_by() applies functions which comes after it in a group-specific pattern.
+
+What does the above tell us, that 168 observations were made on the Island of Biscoe, with three times as many Gentoo penguin observations made as Adelie penguins (remeber this is observations made, not individual penguins). When we account for penguin ID we see there are around twice as many Gentoo penguins recorded. We can see there are no Chinstrap penguins recorded on Biscoe. Conversely we can see that Gentoo penguins are **only** observed on Biscoe. 
+The island of Dream has two populations of Adelie and Chinstrap penguins of roughly equal size, while the island of Torgensen appears to have a population comprised only of Adelie penguins. 
+
+We could also use a bar chart in ggplot to represent this count data. 
+
+
+```r
+penguins|> 
+  ggplot(aes(x=island, fill=species))+
+  geom_bar(position=position_dodge())+
+  coord_flip()
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" />
+
+This is fine, but it looks a bit odd, because the bars expand to fill the available space on the category axis. Luckily there is an advanced version of the postion_dodge argument. 
+
+
+
+```r
+penguins|> 
+  ggplot(aes(x=island, fill=species))+
+  geom_bar(position=position_dodge2(preserve="single"))+ 
+  #keeps bars to appropriate widths
+  coord_flip()
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" />
+>Note the default for bar charts would have been a stacked option, but we have already seen how that can produce graphs that are difficult to read. 
+
+An alternative approach would be to look at the 'relative proportions' of each population in our overall dataset. Using the same methods as we used previously when looking at single variables. Let's add in a few aesthetic tweaks to improve the look. 
+
+
+```r
+penguins |> 
+  ggplot(aes(x=island, fill=species))+
+  geom_bar(position=position_dodge2(preserve="single"))+ 
+  #keeps bars to appropriate widths
+    labs(x="Island",
+       y = "Number of observations")+
+  geom_text(data=island_species_summary, # use the data from the summarise object
+            aes(x=island,
+                y= n+10, # offset text to be slightly to the right of bar
+                group=species, # need species group to separate text
+                label=scales::percent(freq) # automatically add %
+                ),
+            position=position_dodge2(width=0.8))+ # set width of dodge
+  scale_fill_manual(values=c("cyan",
+                            "darkorange",
+                            "purple"
+                            ))+
+  coord_flip()+
+  theme_minimal()+
+  theme(legend.position="bottom") # put legend at the bottom of the graph
+```
+
+<div class="figure" style="text-align: center">
+<img src="02b-penguin_files/figure-html/unnamed-chunk-44-1.png" alt="A dodged barplot showing the numbers and relative proportions of data observations recorded by penguin species and location" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-44)A dodged barplot showing the numbers and relative proportions of data observations recorded by penguin species and location</p>
+</div>
+
+## Associations between Categorical-numerical variables
+
+Associations between categorical and numerical variables can be explored through various statistical methods and data visualization techniques.  One common approach is to use summary statistics or box plots to examine how numerical values (e.g., body mass) differ across different categories (e.g., sex or species). This allows us to identify trends or disparities in the data. 
+
+
+```r
+penguins |> 
+  ggplot(aes(x=species,
+             y=body_mass_g))+
+  geom_boxplot()+
+  labs(y="Body mass (g)",
+         x= "Species")
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" />
+
+Histograms can also be used to explore associations between categorical and numerical variables, with overlapping histograms comparing distributions within categories and faceted histograms providing a structured view of how different categories impact numerical data distributions. These visualizations reveal patterns and variations, aiding in data analysis and hypothesis testing.
+
+
+```r
+penguins |> 
+  ggplot(aes(x=body_mass_g,
+             fill=species))+
+  geom_histogram(alpha=0.6,
+         bins=30,
+         position="identity")+
+  facet_wrap(~species,
+             ncol=1)
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-46-1.png" width="100%" style="display: block; margin: auto;" />
+
+## Activity
+
+Start thinking about more complex interactions. We wish to investigate the relationship between body mass and beak length. What other variables should we consider?
+
+
+
+<div class='webex-solution'><button>Confounding variables</button>
+
+
+<img src="images/complexity.png" alt="Variables such as species or sex may directly or indirectly affect the relationship between body mass and beak length" width="80%" style="display: block; margin: auto;" />
+
+It is reasonable to think that perhaps either species or sex might affect the morphology of beaks directly - or that these might affect body mass (so that if there is a direct relationship between mass and beak length, there will also be an indirect relationship with sex or species).
+
+Failure to account for complex interactions can lead to misleading insights about your data. 
+
+` r unhide()` 
+
+Once you have some parameters for investigation - investigate them visually and then check against some worked answers below: 
+
+
+<div class='webex-solution'><button>Solution</button>
+
+
+### Simpson's Paradox
+
+Remember when we first correlated bill length and bill depth against each other we found an overall negative correlation of -0.22. However, this is because of a confounding variable we had not accounted for - species. 
+
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" />
+
+This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour. 
+
+
+```r
+colours <- c("cyan",
+             "darkorange",
+             "purple")
+
+length_depth_scatterplot_2 <- ggplot(penguins, aes(x= culmen_length_mm, 
+                     y= culmen_depth_mm,
+                     colour=species)) +
+    geom_point()+
+  geom_smooth(method="lm",
+              se=FALSE)+
+  scale_colour_manual(values=colours)+
+  theme_classic()+
+  theme(legend.position="none")+
+    labs(x="Bill length (mm)",
+         y="Bill depth (mm)")
+
+length_depth_scatterplot
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-49-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+bill_depth_marginal_2 <- penguins |> 
+  ggplot()+
+  geom_density(aes(x=culmen_depth_mm,
+                   fill=species),
+               alpha=0.5)+
+  scale_fill_manual(values=colours)+
+  theme_void()+
+  coord_flip() # this graph needs to be rotated
+
+bill_length_marginal_2 <- penguins |> 
+  ggplot()+
+  geom_density(aes(x=culmen_length_mm,
+                   fill=species),
+               alpha=0.5)+
+  scale_fill_manual(values=colours)+
+  theme_void()+
+  theme(legend.position="none")
+
+layout2 <- "
+AAA#
+BBBC
+BBBC
+BBBC"
+
+bill_length_marginal_2+length_depth_scatterplot_2+bill_depth_marginal_2+ # order of plots is important
+  plot_layout(design=layout2) # uses the layout argument defined above to arrange the size and position of plots
+```
+
+<img src="02b-penguin_files/figure-html/unnamed-chunk-49-2.png" width="100%" style="display: block; margin: auto;" />
+
+We now clearly see a striking reversal of our previous trend, that in fact *within* each species of penguin there is an overall positive association between bill length and depth. 
+
+This should prompt us to re-evaluate our correlation metrics:
+
+
+```r
+penguins |> 
+  group_by(species) |> 
+  cor_test(culmen_length_mm, culmen_depth_mm)
+```
+
+<div class="kable-table">
+
+|species   |var1             |var2            |  cor| statistic|     p|  conf.low| conf.high|method  |
+|:---------|:----------------|:---------------|----:|---------:|-----:|---------:|---------:|:-------|
+|Adelie    |culmen_length_mm |culmen_depth_mm | 0.39|  5.193285| 7e-07| 0.2472226| 0.5187796|Pearson |
+|Chinstrap |culmen_length_mm |culmen_depth_mm | 0.65|  7.014647| 0e+00| 0.4917326| 0.7717134|Pearson |
+|Gentoo    |culmen_length_mm |culmen_depth_mm | 0.64|  9.244703| 0e+00| 0.5262952| 0.7365271|Pearson |
+
+</div>
+
+We now see that the correlation values for all three species is >0.22 - indicating these associations are much closer than previously estimated. 
+
+
+
+</div>
+
+
+
+## Summing up
+
+This is our last data handling workshop. We have built up towards being able to discover and examine relationships and differences among variables in our data. You now have the skills to handle many different types of data, tidy it, and produce visuals to generate insight and communicate this to others. 
+
+A note of caution is required - it is very easy to spot and identify patterns.
+
+When you do spot a trend, difference or relationship, it is important to recognise that you may not have enough evidence to assign a reason behind this observation. As scientists it is important to develope hypotheses based on knowledge and understanding, this can help (sometimes) with avoiding spurious associations. 
+
+Sometimes we may see a pattern in our data, but it has likely occurred due to random chance, rather than as a result of an underlying process. This is where formal statistical analysis, to quantitatively assess the evidence, assess probability and study effect sizes can be incredibly powerful. We will delve into these exciting topics next term. 
+
+That's it! Thank you for taking the time to get this far. Be kind to yourself if you found it difficult. You have done incredibly well.
+
+
+<!--chapter:end:02b-penguin.Rmd-->
 
 # Basic ggplot
 
@@ -3959,6 +5223,18 @@ add_one <- function(x) {
 }
 ```
 
+<div class="info">
+<p>There is now a shortcut to writing functions in R <code>\(x)</code>
+that removes the need to call <code>function()</code> or use curly
+braces<code>{}</code>.</p>
+<p>In this tutorial I will use the older method for now, but briefly
+demonstrate the simpler syntax</p>
+</div>
+
+
+```r
+add_one <- \(x) x + 1
+```
 
 
 ```r
@@ -4019,9 +5295,9 @@ create a function called `fahr_to_kelvin` that converts temperature values from 
 The conversion is `temp_in_kelvin <- (temp_fahr - 32) * (5 / 9)) + 273.15`
  </div></div>
 
-<button id="displayTextunnamed-chunk-9" onclick="javascript:toggle('unnamed-chunk-9');">Show Solution</button>
+<button id="displayTextunnamed-chunk-11" onclick="javascript:toggle('unnamed-chunk-11');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-9" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-11" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 fahr_to_kelvin <- function(fahr) {
@@ -4041,9 +5317,9 @@ Write a function that performs this conversion and returns "both" kelvin and cel
  </div></div>
 
 
-<button id="displayTextunnamed-chunk-11" onclick="javascript:toggle('unnamed-chunk-11');">Show Solution</button>
+<button id="displayTextunnamed-chunk-13" onclick="javascript:toggle('unnamed-chunk-13');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-11" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-13" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 fahr_to_kelvin_celsius <- function(fahr) {
@@ -4098,9 +5374,9 @@ What happens when you try to put something in the brackets when **using** this f
 e.g. say_hello("Phil")
  </div></div>
 
-<button id="displayTextunnamed-chunk-15" onclick="javascript:toggle('unnamed-chunk-15');">Show Solution</button>
+<button id="displayTextunnamed-chunk-17" onclick="javascript:toggle('unnamed-chunk-17');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-15" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-17" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 Error in say_hello( or something similar, this function has not been set with any arguments, therefore it doesn't know what to do with any values provided to it. </div></div></div>
 
 Now lets try a similar function, but we include an argument:
@@ -4122,9 +5398,9 @@ say_morning("Phil")
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 What happens when you DO NOT put something in the brackets when using this function? </div></div>
 
-<button id="displayTextunnamed-chunk-18" onclick="javascript:toggle('unnamed-chunk-18');">Show Solution</button>
+<button id="displayTextunnamed-chunk-20" onclick="javascript:toggle('unnamed-chunk-20');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-18" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-20" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 Error in paste("Good morning", x) : 
@@ -4175,9 +5451,9 @@ Now, you can use `my_mean(x)` to calculate the mean while always ignoring `NA` v
 
 What happens when you try to use your new function `my_mean` and set na.rm  = F?
 
-<button id="displayTextunnamed-chunk-22" onclick="javascript:toggle('unnamed-chunk-22');">Show Solution</button>
+<button id="displayTextunnamed-chunk-24" onclick="javascript:toggle('unnamed-chunk-24');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-22" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-24" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```
 Error in my_mean(c(5, 6, 7, 8), na.rm = F) : unused argument (na.rm = F)
@@ -4363,9 +5639,9 @@ my_lm <- function(formula, data) {
 }
 ```
 
-<button id="displayTextunnamed-chunk-33" onclick="javascript:toggle('unnamed-chunk-33');">Show Solution</button>
+<button id="displayTextunnamed-chunk-35" onclick="javascript:toggle('unnamed-chunk-35');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-33" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-35" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # Function: my_lm
@@ -4520,9 +5796,9 @@ triangle_number <- function(x) {
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Run `testthat()` to make sure this function works for multiple inputs </div></div>
 
-<button id="displayTextunnamed-chunk-43" onclick="javascript:toggle('unnamed-chunk-43');">Show Solution</button>
+<button id="displayTextunnamed-chunk-45" onclick="javascript:toggle('unnamed-chunk-45');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-43" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-45" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 test_that("it works as expected", {
@@ -4550,9 +5826,9 @@ test_that("it works as expected", {
 ```
 
 
-<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">Show Solution</button>
+<button id="displayTextunnamed-chunk-48" onclick="javascript:toggle('unnamed-chunk-48');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-46" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-48" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # the output is a named list
@@ -4784,9 +6060,9 @@ For `p = "a"` there is a warning but perhaps not a very intuitive one.
 We can make our own custom/specific warnings, try this and run it with the arguments above again! 
 
 
-<button id="displayTextunnamed-chunk-59" onclick="javascript:toggle('unnamed-chunk-59');">Show Solution</button>
+<button id="displayTextunnamed-chunk-61" onclick="javascript:toggle('unnamed-chunk-61');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-59" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-59 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-59', 'unnamed-chunk-59');">Base R</button><button class="tablinksunnamed-chunk-59" onclick="javascript:openCode(event, 'option2unnamed-chunk-59', 'unnamed-chunk-59');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
+<div id="toggleTextunnamed-chunk-61" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-61 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-61', 'unnamed-chunk-61');">Base R</button><button class="tablinksunnamed-chunk-61" onclick="javascript:openCode(event, 'option2unnamed-chunk-61', 'unnamed-chunk-61');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
 
 ```r
  report_p <- function(p, digits = 3) {
@@ -4801,7 +6077,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
      return(reported)
  }
 ```
- </div><div id="option2unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
+ </div><div id="option2unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
  
  
  ```r
@@ -4819,7 +6095,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
     return(result)
  }
  ```
- </div><script> javascript:hide('option2unnamed-chunk-59') </script></div></div></div>
+ </div><script> javascript:hide('option2unnamed-chunk-61') </script></div></div></div>
 
 
 ## Activities
@@ -4829,9 +6105,9 @@ We'll create a function that calculates the GC content of a DNA sequence, and th
 
 > Hint`stringr` and associated functions will be very helpful here
 
-<button id="displayTextunnamed-chunk-60" onclick="javascript:toggle('unnamed-chunk-60');">Show Solution</button>
+<button id="displayTextunnamed-chunk-62" onclick="javascript:toggle('unnamed-chunk-62');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-60" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-60 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-60', 'unnamed-chunk-60');">Base R</button><button class="tablinksunnamed-chunk-60" onclick="javascript:openCode(event, 'option2unnamed-chunk-60', 'unnamed-chunk-60');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
+<div id="toggleTextunnamed-chunk-62" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-62 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-62', 'unnamed-chunk-62');">Base R</button><button class="tablinksunnamed-chunk-62" onclick="javascript:openCode(event, 'option2unnamed-chunk-62', 'unnamed-chunk-62');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -4866,7 +6142,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
+</div><div id="option2unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -4900,14 +6176,14 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-60') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-62') </script></div></div></div>
 
 Exercise 2: Document the Function
 Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.
 
-<button id="displayTextunnamed-chunk-61" onclick="javascript:toggle('unnamed-chunk-61');">Show Solution</button>
+<button id="displayTextunnamed-chunk-63" onclick="javascript:toggle('unnamed-chunk-63');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-61" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-63" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 
 </div></div></div>
@@ -4915,9 +6191,9 @@ Add documentation to the factorial function using roxygen2-style comments. Inclu
 Exercise 3: Test the Function
 Create a test script that uses test_that to check if the function returns the correct GC percentage and melting temps
 
-<button id="displayTextunnamed-chunk-62" onclick="javascript:toggle('unnamed-chunk-62');">Show Solution</button>
+<button id="displayTextunnamed-chunk-64" onclick="javascript:toggle('unnamed-chunk-64');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-62" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-64" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 test_that("gc_content function tests", {
@@ -4936,9 +6212,9 @@ test_that("gc_content function tests", {
 Exercise 4: Handle Errors
 You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?
 
-<button id="displayTextunnamed-chunk-63" onclick="javascript:toggle('unnamed-chunk-63');">Show Solution</button>
+<button id="displayTextunnamed-chunk-65" onclick="javascript:toggle('unnamed-chunk-65');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-63" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-63 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-63', 'unnamed-chunk-63');">Base R</button><button class="tablinksunnamed-chunk-63" onclick="javascript:openCode(event, 'option2unnamed-chunk-63', 'unnamed-chunk-63');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
+<div id="toggleTextunnamed-chunk-65" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-65 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-65', 'unnamed-chunk-65');">Base R</button><button class="tablinksunnamed-chunk-65" onclick="javascript:openCode(event, 'option2unnamed-chunk-65', 'unnamed-chunk-65');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-65" class="tabcontentunnamed-chunk-65">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -4977,7 +6253,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
+</div><div id="option2unnamed-chunk-65" class="tabcontentunnamed-chunk-65">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -5015,7 +6291,7 @@ if (!str_detect(dna_sequence, "^[ATCG]+$")) stop("Invalid DNA sequence. Only A, 
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-63') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-65') </script></div></div></div>
 
 
 
@@ -5076,9 +6352,9 @@ What do you think will happen if you set both times to 3 and each to 2?
 rep(c("Adelie", "Gentoo", "Chinstrap"), times = 2, each = 3)
 ```
 
-<button id="displayTextunnamed-chunk-68" onclick="javascript:toggle('unnamed-chunk-68');">Show Solution</button>
+<button id="displayTextunnamed-chunk-70" onclick="javascript:toggle('unnamed-chunk-70');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-68" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-70" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```
 ##  [1] "Adelie"    "Adelie"    "Adelie"    "Gentoo"    "Gentoo"    "Gentoo"   
@@ -5156,12 +6432,12 @@ replicate(3, # times to replicate function
 ```
 
 ```
-##           [,1]        [,2]     [,3]
-## [1,] 1.1495117 -0.08302482 1.370805
-## [2,] 2.8380004  3.11184962 1.577995
-## [3,] 2.0835705  1.66323322 1.446622
-## [4,] 0.5121356 -0.66297033 3.823666
-## [5,] 2.1702664  1.24233243 2.038443
+##            [,1]       [,2]      [,3]
+## [1,]  3.2064000  0.3634067 1.0614246
+## [2,]  1.8743519  1.2374685 1.0781874
+## [3,]  3.2270798  0.1645341 1.1358529
+## [4,] -0.3266705 -1.3798490 0.7526762
+## [5,]  1.7417151  2.1590005 1.9911489
 ```
 
 https://www.r-bloggers.com/2023/07/the-replicate-function-in-r/
@@ -5352,6 +6628,24 @@ Each time the mean is calculate for one column in df this is then stored as an e
 
 ## Speed
 
+We can wrap our function calls and iterations inside a few different functions to capture runspeed. 
+
+1. Use `system.time`
+
+
+```r
+system.time(function)
+```
+
+2. Use `microbenchmark` - this add on package runs a default of 100 evaluations, and comes with a handy ggplot1 integration for autoplotting. 
+
+
+```r
+mm <- microbenchmark(function)
+
+autplot(mm)
+```
+
 ### Initialise objects
 
 Pre-allocating the output with the appropriate length before the loop avoids reallocation of memory inside the loop, which can be inefficient for large data. For example:
@@ -5462,7 +6756,7 @@ Unit: milliseconds
 autoplot(mbm)
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-87-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-91-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -5712,9 +7006,9 @@ apply(df, MARGIN = 1, mean)
 Make a function that converts values with a normal distribution into their z scores </div></div>
 
 
-<button id="displayTextunnamed-chunk-96" onclick="javascript:toggle('unnamed-chunk-96');">Show Solution</button>
+<button id="displayTextunnamed-chunk-100" onclick="javascript:toggle('unnamed-chunk-100');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-96" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-100" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 z_score <- function(x) {
@@ -5727,9 +7021,9 @@ z_score <- function(x) {
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Choose the appropriate apply function to calculate a matrix of z-scores for the dataframe `df` </div></div>
 
-<button id="displayTextunnamed-chunk-98" onclick="javascript:toggle('unnamed-chunk-98');">Show Solution</button>
+<button id="displayTextunnamed-chunk-102" onclick="javascript:toggle('unnamed-chunk-102');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-98" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-102" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 apply(df, MARGIN = 2,  z_score)
 </div></div></div>
@@ -5753,6 +7047,7 @@ A few more notes on syntax:
 
 * You can use `.x` (or simply `.`) within the `.f = function` as a placeholder for the `.x` value of that iteration
 
+<img src="images/map-step-1.png" width="100%" style="display: block; margin: auto;" />
 
 **The output of using` map()` is a list** - a list is an object class like a vector but whose elements can be of different classes. So, a list produced by `map()` could contain many data frames, or many vectors, many single values, or even many lists! There are alternative versions of `map()` explained below that produce other types of outputs (e.g. `map_dfr()` to produce a data frame, `map_chr()` to produce character vectors, and `map_dbl()` to produce numeric vectors).
 
@@ -5760,19 +7055,22 @@ Basic `map()` will *always* return a `list`, other variants return different dat
 
 ## Example
 
-<div class="tab"><button class="tablinksunnamed-chunk-99 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-99', 'unnamed-chunk-99');">Base R</button><button class="tablinksunnamed-chunk-99" onclick="javascript:openCode(event, 'option2unnamed-chunk-99', 'unnamed-chunk-99');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-99" class="tabcontentunnamed-chunk-99">
+<div class="tab"><button class="tablinksunnamed-chunk-104 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-104', 'unnamed-chunk-104');">Base R</button><button class="tablinksunnamed-chunk-104" onclick="javascript:openCode(event, 'option2unnamed-chunk-104', 'unnamed-chunk-104');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-104" class="tabcontentunnamed-chunk-104">
 
 ```r
 lapply(df_list, mean)
 ```
-</div><div id="option2unnamed-chunk-99" class="tabcontentunnamed-chunk-99">
+</div><div id="option2unnamed-chunk-104" class="tabcontentunnamed-chunk-104">
 
 ```r
 map(.x = df_list, .f = mean)
 
 map(df_list, mean)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-99') </script>
+</div><script> javascript:hide('option2unnamed-chunk-104') </script>
+
+
+
 
 ## more maps
 
@@ -5786,6 +7084,8 @@ map(df_list, mean)
 |`map_chr()`| returns a character vector|
 |`map_df()`| returns a data frame/tibble|
 
+
+<img src="images/map_df.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>These specialized map functions are “type-safe” and will fail with
@@ -5925,6 +7225,14 @@ plots[[1,4]]
 plots$scatterplots[[1]]
 ```
 
+If we wish to see all of the plots at once we can use `purrr::walk` - this is another iteration function, where the primary output is "silent" - we do not wish to see outputs printed in the console. This is useful for functions like plot making or writing outputs to file. 
+
+
+```r
+walk(plots$scatterplot)
+```
+
+
 <div class="info">
 <p>gg objects are not the only type of objects that can be created using
 map() and mutate(). Another application of these two functions is
@@ -5942,11 +7250,13 @@ library(patchwork)
 plots$scatterplots |> wrap_plots()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-110-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-117-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## map2
 
 `map2` is a versatile function in the `purrr` package for R that allows you to iterate over **two** input vectors or lists in parallel, applying a specified function to pairs of corresponding elements. It's particularly useful when you need to perform operations that depend on elements from two separate input sources simultaneously, offering a powerful way to combine and process data in a pairwise manner.
+
+<img src="images/map2.png" width="100%" style="display: block; margin: auto;" />
 
 Here is a quick example building on our plot making function - where we are able to alter the colour of the plots according to a 
 
@@ -5970,7 +7280,7 @@ plots$scatterplots |>
     wrap_plots(... = _, guides = "collect")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-111-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-119-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### Running different summary functions on each nested dataframe
 
@@ -6031,9 +7341,9 @@ result$summaries
 In the previous chapter with apply we wrote the `z_score()` function, can you apply this using map to our `df` tibble? </div></div>
 
 
-<button id="displayTextunnamed-chunk-114" onclick="javascript:toggle('unnamed-chunk-114');">Show Solution</button>
+<button id="displayTextunnamed-chunk-122" onclick="javascript:toggle('unnamed-chunk-122');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-114" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-122" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 map_df(.x = df, 
@@ -6058,7 +7368,255 @@ LPI data loops
 
 # Bonus: Simulation
 
+A computer simulation (or “sim”) is an attempt to model a real-life or hypothetical situation on a computer so that it can be studied to see how the system works. By changing variables in the simulation, predictions may be made about the behavior of the system. It is a tool to virtually investigate the behavior of the system under study - *Wikipedia*
 
+
+You can use computer simulations to: 
+
+* **Test your statistical intuition or demonstrate mathematical properties you cannot easily anticipate**  
+  * *e.g. test whether when supposedly random data are generated, there is no more than 5% of significant effects for a variable in a model*  
+
+
+* **Understand sampling theory, probability distributions or test whether you understand the underlying processes of your system**  
+  * *e.g. see whether simulated data drawn from specific distribution are comparable to real data*  
+
+
+* **Perform power analyses**
+  * *e.g. assess whether the sample size (within a replicate) is high enough to detect an effect simulated, in more than 80% of the cases*  
+
+
+* **Perform bootstrapping to get a confidence interval around a parameter estimate** 
+  * *i.e. bootstrapping means to sample with replacement (i.e. all the original options to draw from are available at each draw) in an observed dataset. Doing this generates new 'simulated' datasets. With each of them, one can run the statistical analysis made on the observed dataset, saving each time the parameter estimate of interest. After doing this multiple time, you will obtain a confidence interval for the parameter of interest*   
+  
+## Random number generators
+
+R contains several functions to generate random numbers.  
+Type *`?function`* in your console to get information on the function's arguments (i.e. the values that must be provided to obtain the function's result).  
+
+The function  
+* `sample(x, n, replace=FALSE)` draws `n` values from a given vector `x` without replacement (by default) . 
+
+Sampling without replacement means that when you repeatedly draw e.g. 1 item from a pool of items, any item selected during the first draw is not available for selection during the second draw, and the first and second selected items are not in the pool to select from during the third draw, etc. Sampling with replacement means that all the original options are available at each draw.  
+
+
+**YOUR TURN:**  
+Sample 100 values between 3 and 103 with replacement.    
+
+<button id="displayTextunnamed-chunk-124" onclick="javascript:toggle('unnamed-chunk-124');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-124" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+x <- 3:103
+sample(x, 100, replace = TRUE)
+```
+</div></div></div>
+
+
+The following functions draw `n` values from distributions with the specified parameters:
+
+* `runif(n, min, max)` draws `n` values from a *uniform* distribution with the specified `min` and `max`  
+* `rpois(n, lambda)` draws `n` values from a *poisson* distribution with the specified `lambda`  
+* `rnorm(n, mean, sd)` draws `n` values from a *normal* distribution with the specified `mean` and `standard deviation`  
+* `rbinom(n, prob)`	draws `n` values from a	*binomial* distribution with the specified `probability`  
+
+
+**YOUR TURN:**   
+
+Draw 100 values from a normal distribution with a mean of 0 and a sd of 1.  
+Draw 50 values from a normal distribution with a mean of 10 and sd of 5.  
+Draw 1000 values from a poisson distribution with a lambda of 50.  
+Draw 30 values from a uniform distribution between 0 and 10.  
+
+<button id="displayTextunnamed-chunk-125" onclick="javascript:toggle('unnamed-chunk-125');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-125" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+rnorm(n = 100, mean = 0, sd = 1)
+rnorm(100) # if you sample from a normal distribution with a mean of 0 and a sd of 1, you do not need to provide them, they are the defaults
+
+rnorm(sd = 5, mean = 10, n = 50)
+
+rpois(n = 1000, lambda = 50)
+
+runif(n = 30, min = 0, max = 10)
+```
+</div></div></div>
+
+## Replication
+
+`replicate(10, mean(rnorm(100)))`
+
+reads: 'draw 100 values from a normal distribution with a mean 0 and sd 1 (the default values), caclulate the mean of these 100 values, and do all that 10 times.
+
+**YOUR TURN:**   
+
+Replicate 1000 times the mean of 10 values drawn from a unifrom distribution between 0 and 10.
+
+Make a histogram of your results. 
+
+<button id="displayTextunnamed-chunk-126" onclick="javascript:toggle('unnamed-chunk-126');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-126" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+replicate(1000, mean(runif(10, max = 10)))
+hist(replicate(1000, mean(runif(10, max = 10))))
+```
+
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-152-1.png" width="100%" style="display: block; margin: auto;" />
+
+```
+##    [1] 5.022564 6.486282 3.253483 5.283917 4.755306 4.764930 3.866803 5.239018
+##    [9] 4.753826 7.075335 3.680023 6.798563 3.957019 4.247940 6.775591 2.837982
+##   [17] 5.295009 3.686621 5.870210 5.437420 4.576551 4.563031 6.677120 4.485507
+##   [25] 4.789988 5.611675 5.183978 5.248748 5.848835 4.404809 5.406209 4.176004
+##   [33] 5.035896 2.922242 3.597870 4.394419 5.262358 4.839507 5.059226 2.804688
+##   [41] 3.274374 4.346020 5.455425 5.577012 3.414462 6.477011 5.717628 5.234262
+##   [49] 4.322808 4.945608 6.128692 4.798452 5.175659 3.420668 4.913093 5.566140
+##   [57] 5.526872 2.446137 5.714276 5.404742 4.269650 4.260459 6.685526 4.659467
+##   [65] 6.298490 3.771470 5.780282 4.165069 4.991805 4.695841 6.020834 4.972164
+##   [73] 5.655646 4.530329 6.492752 5.283539 3.233246 5.381650 4.816278 4.458618
+##   [81] 3.128824 3.316130 4.637443 4.933391 4.382108 3.994161 5.817086 5.172091
+##   [89] 4.122685 6.291550 4.900774 5.422067 3.278317 3.818427 3.516729 4.561131
+##   [97] 3.833623 5.345944 4.443836 6.331242 4.291593 6.137984 6.587903 4.577814
+##  [105] 3.968605 5.459617 5.117036 4.831082 3.678388 4.432208 5.408473 5.457825
+##  [113] 5.437065 3.392945 4.997982 5.385590 5.513795 4.482369 4.214285 4.898272
+##  [121] 6.337674 6.338884 5.655799 4.547818 4.848959 4.970893 5.166720 4.107493
+##  [129] 4.637972 5.511366 4.357717 3.588210 4.200698 5.483000 5.109306 5.212175
+##  [137] 5.000928 4.578330 4.543773 5.246863 4.334527 5.299436 4.380459 6.972335
+##  [145] 4.000025 4.328242 4.853380 6.611760 6.475513 3.599333 6.053279 5.184472
+##  [153] 6.755185 6.378926 4.407124 5.454748 5.656110 5.696439 4.852164 5.543577
+##  [161] 3.488294 4.347918 4.259363 4.239077 4.957006 6.874090 4.987367 6.021677
+##  [169] 6.439023 5.814456 5.168444 5.818203 6.251701 4.219189 4.696464 4.032730
+##  [177] 5.135669 4.700474 3.792755 5.154508 3.834076 5.510359 5.849556 4.960622
+##  [185] 7.643393 4.820671 4.486355 2.990379 3.832970 5.602645 4.890752 5.114310
+##  [193] 5.644748 4.746721 5.975542 4.457620 5.994648 5.457588 5.299128 5.335360
+##  [201] 6.253442 5.118188 6.347584 5.316206 4.356976 6.689561 6.158226 5.779996
+##  [209] 5.424961 3.888036 5.737416 4.972889 4.962940 5.037110 5.341259 5.677255
+##  [217] 5.524683 4.146624 4.796850 3.698592 5.884621 3.424715 5.180526 5.263211
+##  [225] 5.502682 4.996885 5.476823 5.515598 5.941130 4.657621 4.964112 4.600001
+##  [233] 5.312405 6.008348 3.925046 5.801917 4.887718 4.223887 4.918600 5.948642
+##  [241] 3.922495 4.846953 3.668805 5.448806 4.084024 4.092089 4.808482 5.821109
+##  [249] 4.645973 5.069394 3.124911 4.703016 4.912898 6.987999 5.474039 3.593206
+##  [257] 4.344517 4.784843 4.373300 4.877382 5.936433 4.121378 4.061315 5.307346
+##  [265] 4.290063 4.538581 5.196947 4.559459 4.919740 2.719258 3.360902 4.805378
+##  [273] 4.972203 6.129040 6.658414 4.379531 5.303017 6.558267 6.264228 6.330103
+##  [281] 5.889397 5.230562 4.912186 5.597881 4.335710 5.307087 2.771738 5.740053
+##  [289] 4.848271 4.583272 5.566355 6.274025 3.460113 3.989879 6.119412 5.507823
+##  [297] 4.170569 5.374978 4.832085 4.114509 6.904667 3.985031 4.564849 6.444838
+##  [305] 6.056518 4.764531 5.773518 5.610679 4.217949 4.423678 4.829778 5.053409
+##  [313] 3.538710 6.155165 5.219623 4.886845 5.091171 6.377816 5.361774 4.389324
+##  [321] 3.596758 4.056727 5.845501 6.043310 3.720966 4.992234 4.957711 5.777479
+##  [329] 5.222643 5.180983 4.825537 5.085617 5.333757 5.160768 5.613991 4.394451
+##  [337] 5.838129 4.858183 4.987331 4.228844 4.333418 6.024601 4.512163 7.121851
+##  [345] 4.040513 5.164738 4.684059 3.889018 6.436094 3.268003 6.238798 3.793290
+##  [353] 4.879440 4.925379 4.074747 7.293254 5.737862 6.573076 4.584073 5.391185
+##  [361] 4.513591 4.047224 6.529335 5.596854 5.911643 4.568881 4.789190 7.195398
+##  [369] 4.529265 5.260140 5.381012 3.776233 4.549277 3.923326 6.776042 6.410171
+##  [377] 5.817574 5.408104 3.454660 5.264210 6.142004 4.629579 5.848155 3.888124
+##  [385] 4.505167 4.762038 4.384839 6.687296 5.593423 3.371339 4.754222 4.475158
+##  [393] 4.058205 6.132182 3.762091 6.605192 5.058662 5.661752 4.260943 4.732634
+##  [401] 5.899245 2.418522 4.254824 5.794894 3.741285 3.954037 6.249746 4.065045
+##  [409] 6.239619 3.637826 4.851550 6.525624 4.663901 4.776547 5.949761 3.745710
+##  [417] 6.150586 4.329604 5.591971 4.325579 5.577559 4.831306 6.055880 4.632553
+##  [425] 4.409652 3.823465 5.396624 3.680689 3.894154 3.792094 6.207166 4.460473
+##  [433] 7.160660 4.953849 4.904341 6.051715 5.252297 5.155106 5.641283 4.840786
+##  [441] 5.856489 6.593380 3.999349 2.925233 4.976722 3.768126 5.405148 5.079269
+##  [449] 5.377654 5.183229 3.723001 7.522386 4.964582 4.681127 5.340233 6.213151
+##  [457] 4.335144 5.877440 6.304233 3.080169 4.196628 5.975024 6.076374 4.235550
+##  [465] 6.330351 5.269729 4.991324 3.494424 5.723659 3.863884 3.212754 4.886209
+##  [473] 5.076296 5.383685 4.020143 4.592111 5.747259 4.548136 5.047915 5.307762
+##  [481] 6.599579 5.200656 4.825474 4.313290 4.292569 5.814679 3.946238 6.089921
+##  [489] 5.816124 3.481063 4.124254 5.346080 4.657365 5.523479 3.740368 7.069931
+##  [497] 4.967588 3.477052 5.511224 4.943011 4.426105 4.669458 6.265252 3.725954
+##  [505] 5.144351 3.529225 4.726432 6.506925 4.224144 5.503032 5.802876 5.141766
+##  [513] 5.521000 5.347507 6.105181 4.120922 6.264361 4.603006 6.002986 4.267543
+##  [521] 3.494900 3.544516 4.514592 6.231351 5.091581 6.184747 5.058624 5.649067
+##  [529] 4.940839 5.430507 4.351146 6.750090 5.286820 3.846517 3.763481 5.805950
+##  [537] 6.479060 4.024770 4.810078 4.211945 5.908625 5.497130 4.785418 4.733634
+##  [545] 5.137353 5.137816 5.880050 5.639440 4.192313 5.100459 4.728568 3.157026
+##  [553] 7.114751 4.512679 6.013958 6.385092 2.769444 4.743656 4.203741 5.226889
+##  [561] 6.461973 5.912153 4.055229 3.771768 4.289329 4.707812 3.945387 6.166968
+##  [569] 5.171750 5.813106 3.393515 6.109910 4.583241 5.930594 4.218841 5.671123
+##  [577] 4.290922 5.714578 7.118112 6.650301 3.796101 4.553531 6.215018 5.661105
+##  [585] 5.495100 3.934162 4.892751 6.123624 4.505417 6.275858 3.425009 4.561485
+##  [593] 5.761921 5.002847 5.393943 5.758310 4.774768 2.878534 4.641835 5.671205
+##  [601] 6.065482 4.993765 5.202205 4.251069 5.752798 5.883912 4.978239 4.101216
+##  [609] 4.511276 5.789929 4.903575 4.885166 4.658623 5.516490 4.217965 4.355942
+##  [617] 4.985850 4.892947 5.850160 5.101741 5.258397 6.300844 4.382642 6.278133
+##  [625] 4.766710 4.763215 4.524970 5.060690 5.774283 3.682195 4.476021 4.449653
+##  [633] 4.406408 4.781796 5.264789 3.918565 4.823158 6.096700 4.080437 5.604444
+##  [641] 5.871325 4.011982 3.863019 2.924214 3.991509 2.853309 5.877184 3.929878
+##  [649] 5.163435 5.444099 6.367992 6.085062 5.618144 3.224080 4.758070 5.339940
+##  [657] 4.456895 5.614288 5.854394 6.015450 4.135173 5.166367 5.630513 4.017036
+##  [665] 4.506145 5.460817 5.140559 4.398100 4.726626 5.025259 4.793040 4.641496
+##  [673] 3.966768 4.271524 6.666937 5.701276 4.895784 4.417153 4.639484 3.732593
+##  [681] 6.798951 4.574856 4.479827 5.950770 4.063456 4.478808 5.192471 5.319516
+##  [689] 5.626374 5.436825 5.255614 5.336237 4.037924 5.805885 5.804251 2.777425
+##  [697] 4.692924 5.017625 4.904147 6.397664 5.074379 5.659205 5.197332 5.435390
+##  [705] 4.624594 6.120386 3.489217 4.785979 4.727884 5.871547 5.126601 5.291194
+##  [713] 5.269524 3.946627 4.788225 5.506121 5.104596 6.565479 3.848890 5.103925
+##  [721] 4.752267 5.224469 5.581277 5.406318 3.706684 5.837180 5.622541 3.065276
+##  [729] 2.752097 5.085500 4.388959 5.134163 5.985925 5.181973 5.936636 4.548416
+##  [737] 5.441322 4.647104 3.400332 5.617748 4.686364 6.114206 5.139537 4.473448
+##  [745] 5.253781 4.764039 5.975940 4.979730 5.598236 4.089780 4.359458 6.327619
+##  [753] 4.411183 5.256521 4.257731 4.487774 7.674157 5.082399 4.964086 4.620147
+##  [761] 6.981050 6.424662 4.423953 4.289838 4.149385 3.088167 3.839786 5.227148
+##  [769] 5.763999 4.935213 4.581951 4.626750 3.887332 3.588523 6.325464 5.296067
+##  [777] 3.089422 3.984396 5.260440 4.598770 4.830150 5.504993 5.272927 5.987281
+##  [785] 4.693982 5.162060 4.859042 4.764043 4.534831 5.850742 5.801094 4.963417
+##  [793] 4.052917 4.225261 4.175322 5.645488 5.174898 4.788914 4.573721 4.669259
+##  [801] 4.664292 5.917050 3.476753 5.868096 5.841412 5.508459 6.668313 5.877152
+##  [809] 5.512025 5.131615 5.145278 5.656402 5.007087 5.549316 4.369487 5.868928
+##  [817] 5.017408 6.351545 5.312804 6.048306 4.169279 3.934370 6.568975 4.256577
+##  [825] 3.678279 4.579586 6.681249 6.188609 5.176793 5.013702 4.235730 3.683964
+##  [833] 4.746324 5.238172 3.784551 5.289517 6.611561 6.177203 4.789028 4.421146
+##  [841] 4.229517 5.391776 4.693361 4.447140 5.941802 5.728762 3.913620 5.465753
+##  [849] 4.194589 5.773093 3.199920 6.036005 3.533122 4.161584 5.531247 4.268215
+##  [857] 6.132411 4.788292 4.654465 6.538839 3.924608 3.786910 4.441194 5.049618
+##  [865] 4.597614 5.523004 5.813452 4.811984 4.775297 3.523574 3.955356 3.579214
+##  [873] 4.309058 3.995424 4.706003 4.967713 5.310656 4.664916 6.602173 5.522549
+##  [881] 6.095434 4.100433 4.854216 6.854413 4.634543 5.821203 3.503136 5.579035
+##  [889] 6.093620 3.771406 5.651880 6.666601 5.918735 4.101409 4.929475 6.337194
+##  [897] 3.570386 4.569126 5.676536 4.462853 5.258050 4.337117 4.397111 7.080117
+##  [905] 5.486487 4.484210 6.395883 4.978454 3.575002 3.162496 6.463063 4.091877
+##  [913] 4.105762 4.273952 5.898072 5.660837 3.964643 4.627937 3.923019 5.169271
+##  [921] 6.159418 4.580243 6.320550 3.813068 5.152797 4.165234 6.724633 4.968945
+##  [929] 4.282690 4.548454 5.505616 3.334154 5.511689 4.416479 5.184462 5.851148
+##  [937] 5.152119 4.554992 4.860648 4.129359 5.834361 6.670298 6.397051 6.213793
+##  [945] 5.420808 4.030101 5.587434 4.782679 5.947798 5.439945 5.217701 4.439850
+##  [953] 5.040995 4.823152 5.009779 5.186755 5.059656 5.036404 3.174421 4.430825
+##  [961] 4.858046 4.941247 4.831080 3.953859 4.922107 5.864988 5.584510 4.135329
+##  [969] 5.829048 5.005010 5.928172 4.910473 5.504933 4.385466 5.287280 5.906283
+##  [977] 6.189572 4.615550 5.581284 6.542178 5.226069 4.613878 5.553299 6.014870
+##  [985] 6.197166 6.464980 3.111910 6.844987 4.103421 6.054986 5.919438 5.164148
+##  [993] 4.936537 6.093834 5.361409 4.853877 5.910566 5.842736 4.934678 3.522957
+```
+</div></div></div>
+
+## Set seed
+
+`set.seed()`
+
+Computers in general, and R specifically, can, in fact, only provide pseudo random number generators.
+A pseudorandom number generator's number sequence is completely determined by its seed, i.e. a number used to initialize that sequence.
+
+Thus, if a pseudorandom number generator is reinitialized with the same seed, it will produce the same sequence of numbers. You can set the seed (with any arbitrary number) at the beginning of a script, and, if commands drawing random numbers are ran in the exact same order, they will provide the same output in subsequent runs.
+
+This is useful for sharing code and reproduce simulations, as well as for debugging code.
+
+
+## Sample size
+
+In this example we are going to simulate some data for two groups - group 1 has a mean of 0 and an sd of 1, group 2 has a mean of whatever value we supply to `effect_size` and a sd of 1. 
+
+By default this simulation is set to repeat an experiment where 30 samples are taken from each population and compared for a true difference. The experiment is repeated 100 times. 
+
+The purpose of this simulation is to understand how the estimated difference in means varies across different random samples of data when the true effect size is known. It helps to assess the sampling variability and provides insights into the precision of the estimated difference. Additionally, it can be used to create a confidence interval to assess the uncertainty around the estimated effect.
+
+With this example we **know** the true difference, see what happens to our confidence intervals as we change the sample size, effect size and iterations:
 
 
 ```r
@@ -6118,9 +7676,11 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
     theme_minimal()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-127-1.png" width="100%" style="display: block; margin: auto;" />
 
+## Power
 
+A useful application of simulations is to work out the power of a statistical test. Here we can calculate our statistical power of detection on a simulated dataset with a known effect-size: 
 
 
 ```r
@@ -6171,7 +7731,7 @@ simulation_results <- map_dbl(sample_sizes, simulate_power, effect_size)
 plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = "Power", main = "Power vs. Sample Size")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-117-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-128-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -6257,6 +7817,8 @@ sessionInfo()
 
 # Reading files with `readr`
 
+Make sure for these exercises you are starting with a **clean session**
+
 ## Cleaning column names
 
 Reading a CSV file often requires some data cleaning. For example, let's say I want to import data and convert all column names to `snake_case`. 
@@ -6286,7 +7848,6 @@ By default the `janitor::make_clean_names` function has a default argument of `s
 
 ## Selecting columns
 
-
 In addition to cleaning your column names, you can also directly select columns while using the "read_csv" function by utilizing the "col_select" argument. This can be extremely useful when working with large files, selecting only the columns you need can be memory-efficient. 
 
 
@@ -6299,15 +7860,20 @@ penguins_clean <- read_csv ("data/penguins_raw.csv",
 
 ## Reading multiple files
 
+Here we actually start with a complete dataframe - and first iterate to split into 25 equally sized dataframes.
+`walk2` operates in the same way as `map2` - but is the preferred option here as it is "silent" 
+
 
 ```r
 dir.create(c("data/many_files"))
 peng_samples <- map(1:25, ~ slice_sample(penguins_clean, n = 20))
 
-iwalk(peng_samples, ~ write_csv(., paste0("data/many_files/", .y, ".csv")))
+walk2(peng_samples, 1:25, ~ write_csv(.x, paste0("data/many_files/", .y, ".csv")))
 ```
 
 ### Create a vector of file paths
+
+Now, to create a vector of file paths, we'll use the list.files function in R. This function allows us to identify and list all the files with a specific extension in a directory. In this example, we're looking for CSV files in the "data/many_files" directory.
 
 
 ```r
@@ -6333,6 +7899,8 @@ The function "list.files" has several arguments. Here's an explanation of some k
 
 - "full.names": Setting this argument to `TRUE` indicates that you want to store the full paths of the files, not just their names. This is important for ensuring you can correctly access and read these files later. If "full.names" is not set to `TRUE`, you may encounter difficulties when attempting to read the files because the file paths would be incomplete.
 
+This vector, `csv_files_list_files`, will now hold the file paths to all the CSV files in our specified directory, making it easy to access and manipulate these files in our R environment
+
 ### Read multiple files
 
 Now that we have obtained the file paths, we can proceed to load the files into R. The preferred method in the tidyverse is to use the `map_dfr` function from the `purrr` package. This function iterates through all the file paths and combines the data frames into a single, unified data frame. In the following code, `.x` represents the file name or path. To read and output the actual content of the CSV files (not just the filenames), you should include `.x` (the path) within a `readr` function. While this example deals with CSV files, this approach works similarly for other rectangular file formats.
@@ -6348,7 +7916,8 @@ glimpse(df)
 
 ### Selecting files
 
-`stringr::str_detect()`
+Now, to filter and choose specific files for reading, we'll use the `str_detect()` function from the `stringr` package in R. This function allows us to search for specific patterns within our vector of file paths and select files that match our criteria. he pattern argument specifies the pattern we want to detect, which, in this case, is "[2-4]". The `negate = FALSE` argument ensures that we only select files that match the pattern. This work is made easier when we have good naming conventions.
+
 
 
 ```r
@@ -6362,8 +7931,9 @@ negate = FALSE)]
 [10] "data/many_files/25.csv" "data/many_files/3.csv"  "data/many_files/4.csv"
 ```
 
+If we want to narrow our criteria further to include only the files that meet the specific pattern of file names ending with "2.csv" or "4.csv." We can work with a subset of files that specifically fit our analysis needs.
 
-
+`str_detect(csv_files_list_files, pattern = "[24]\\.csv$` is the core of this code. Here, we are applying the `str_detect()` function to search for a particular pattern within the csv_files_list_files. The pattern we are looking for is "[24]\.csv$," which essentially means we're seeking files with a file name that ends with "2.csv" or "4.csv."
 
 
 ```r
@@ -6395,6 +7965,8 @@ In this section we will go through the following functions:
 - `num_range()`
 
 - `where()`
+
+This set of handy functions helps streamline column selection and manipulation in data frames. These functions serve various purposes, from selecting specific columns based on their names to targeting numeric ranges or custom patterns, ultimately making data wrangling more efficient and precise.
 
 ## Select the last column
 
@@ -6433,6 +8005,8 @@ penguins_clean |>
 
 ## Selecting columns based on string
 
+This code selects all columns that "start with s"
+
 
 ```r
 penguins_clean |> 
@@ -6450,7 +8024,7 @@ $ sex           <chr> "MALE", "FEMALE", "FEMALE", NA, "FEMALE", "MALE", "FEMALE"
 
 ```
 
-`starts_with` and `ends_with` works with any character, but also with a vector of characters
+`starts_with` and `ends_with` works with any character, but also with a vector of characters, here it allows us to select all columns that begin with either "s or c".
 
 
 ```r
@@ -6492,8 +8066,30 @@ $ flipper_length_mm <dbl> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 
 
 ### Regular expressions
 
-https://help.relativity.com/RelativityOne/Content/Relativity/Regular_expressions/Searching_with_regular_expressions.htm#:~:text=For%20example%2C%20%E2%80%9C%5Cd%E2%80%9D,that%20follow%20a%20specific%20pattern.
+Regular expressions, often abbreviated as regex, are powerful tools for pattern matching and text manipulation. They provide a concise and flexible way to search, extract, and manipulate text based on specific patterns, allowing data analysts and programmers to efficiently handle complex text-processing tasks. 
 
+We have been working with regex each time we use  `stringr` but we have been looking for literal characters
+But we can use regex types to look for specific patterns
+
+| Regex Type                                  | Description                                                                                               |
+|--------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| Literal Characters                         | Matches the exact sequence of characters you specify.                                                   |
+| Character Classes (square brackets `[]`)   | Matches any character within the specified set.                                                           |
+| Wildcards (dot `.`)                        | Matches any single character (except for a newline).                                                      |
+| Quantifiers (e.g., `*`, `+`, `?`)          | Specify the number of times a character or group can occur.                                               |
+| Anchors (e.g., `^`, `$`)                   | Specify the start (`^`) or end (`$`) of a line or string.                                                  |
+| Character Escapes (e.g., `\d`, `\s`, `\w`) | Shorthand for common character classes.                                                                    |
+| Groups (parentheses `()`)                  | Create subpatterns for more complex matches.                                                               |
+| Alternation (pipe `|`)                     | Allows multiple alternative matches.                                                                       |
+| Ranges (dash `-`)                          | Matches any character within a specified range.                                                            |
+| Quantifiers (e.g., `{m}`, `{m,}`, `{m,n}`) | Specify exact, minimum, or minimum to maximum occurrences of a character or group.                        |
+| Word Boundaries (`\b`)                     | Matches the position between a word character and a non-word character.                                    |
+| Capture Groups (parentheses `()`)          | Create groups for capturing matched content for later use.                                                 |
+| Lookahead and Lookbehind                   | Perform assertions without including them in the match.                                                    |
+| Modifiers (e.g., `i`, `g`, `m`)            | Modify the behavior of the regex, such as making it case-insensitive (`i`) or matching across multiple lines (`m`). |
+
+
+This example will look for any columns that match contains numbers. 
 
 
 ```r
@@ -6509,24 +8105,28 @@ $ delta_13_c_o_oo <dbl> NA, -24.69454, -25.33302, NA, -25.32426, -25.29805, -25.
 
 ```
 
+This *modifier* means columns are only returned if they have at least two numbers in the column header
+
 
 ```r
 penguins_clean |> 
-  select(matches("[0-9]")) |> 
+  select(matches("[0-9]{2}")) |> 
   glimpse()
 ```
 
+This pattern looks for an exact string match to "length_" but it must also be followed by any two letters...
+
 
 ```r
 penguins_clean |> 
-    select(matches("length_[a-z][a-z]")) |> 
+    select(matches("length_[a-z]{2}")) |> 
     glimpse()
 ```
 
 
 ## Selecting by column type
 
-The where function is used when you want to select variables of a specific data type in a dataset. For example, you can use it to select character variables.
+The `where()` function is used when you want to select variables of a specific data type in a dataset. For example, you can use it to select character variables.
 
 
 
@@ -6565,7 +8165,9 @@ Other "predicate functions" include
 
 ## Combos
 
-Using standard logical operators such as `|` and `&` we can string toether different combinations of selection criteria
+Using standard logical operators such as `|` and `&` we can string together different combinations of selection criteria:
+
+Here the column must be of type numeric *or* the title contains "species"
 
 
 ```r
@@ -6592,7 +8194,75 @@ $ species           <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Penguin
 
 ## count
 
+Counting is one of the most common tasks you do when working with data. Counting may
+sound simple, but it can get complicated quickly. Consider these examples:
+
+- Sometimes we want to count with continuous variables. Suppose you have a year variable
+in your data frame that is of data type integer (e.g. 1982, 1945, 1990). You want to
+know the number of people for each decade. To do this, you must first convert your year
+variable to decades before you start counting.
+
+-  Often you want to count things per group (for example, the number of players on a
+particular sports team) and add the counts per group as a new variable to your data
+frame. You could use joins to do this, but could you do it with less code and more
+efficiently?
+
+In this example, we have created a new variable body_mass_intervals that is calculated from the variable body_mass_g. We also used the name argument to give the count column a more descriptive name.
+
+
+```r
+penguins_clean |> 
+  count(body_mass_intervals = cut_width(body_mass_g, 100))
+```
+
+<div class="kable-table">
+
+|body_mass_intervals |  n|
+|:-------------------|--:|
+|[2.65e+03,2.75e+03] |  1|
+|(2.75e+03,2.85e+03] |  2|
+|(2.85e+03,2.95e+03] |  5|
+|(2.95e+03,3.05e+03] |  7|
+|(3.05e+03,3.15e+03] |  6|
+|(3.15e+03,3.25e+03] | 12|
+|(3.25e+03,3.35e+03] | 17|
+|(3.35e+03,3.45e+03] | 18|
+|(3.45e+03,3.55e+03] | 21|
+|(3.55e+03,3.65e+03] | 15|
+|(3.65e+03,3.75e+03] | 21|
+|(3.75e+03,3.85e+03] | 18|
+|(3.85e+03,3.95e+03] | 21|
+|(3.95e+03,4.05e+03] | 12|
+|(4.05e+03,4.15e+03] | 12|
+|(4.15e+03,4.25e+03] | 10|
+|(4.25e+03,4.35e+03] | 11|
+|(4.35e+03,4.45e+03] | 14|
+|(4.45e+03,4.55e+03] |  6|
+|(4.55e+03,4.65e+03] | 13|
+|(4.65e+03,4.75e+03] | 15|
+|(4.75e+03,4.85e+03] |  8|
+|(4.85e+03,4.95e+03] |  9|
+|(4.95e+03,5.05e+03] | 10|
+|(5.05e+03,5.15e+03] |  5|
+|(5.15e+03,5.25e+03] |  7|
+|(5.25e+03,5.35e+03] |  7|
+|(5.35e+03,5.45e+03] |  6|
+|(5.45e+03,5.55e+03] | 11|
+|(5.55e+03,5.65e+03] |  5|
+|(5.65e+03,5.75e+03] |  6|
+|(5.75e+03,5.85e+03] |  5|
+|(5.85e+03,5.95e+03] |  2|
+|(5.95e+03,6.05e+03] |  3|
+|(6.25e+03,6.35e+03] |  1|
+|NA                  |  2|
+
+</div>
+You can see that the bins each have a range of 10. Also, the bins are surrounded by square brackets and parentheses. A parenthesis means that the number is included in the bin, a square bracket means that a number is **not** included in the bin,  In our second example, this would mean that 2.75e+03 is included, but not 2.85e+03.
+
+
 ## extract
+
+This code is using the `separate` function from the `tidyr` package to split the "species" column in the penguins_clean data frame into two separate columns: "species" and "full_latin_name." The separation is based on a specific delimiter, which is an opening parenthesis `(`.
 
 
 ```r
@@ -6626,20 +8296,20 @@ penguins_clean_split |> colnames()
 ## [16] "delta_15_n_o_oo"   "delta_13_c_o_oo"   "comments"
 ```
 
-- The first group captures at least 1 letter (\\w+).
+- The first group captures one or more word characters (\\w+).
 
-- The column is then followed by a space, and all characters in between are followed by
-another space: .*
+-  `.*` this captures any characters in the string but doesn't capture them
 
 - The last group contains anything found inside brackets `()`
 
+  - `\\(` finds an open bracket but does not capture it    
+  - `([^)]+)` captures anything except a closing parenthesis
+  
 # Factors
 
 ## Anonymising factors
 
-Sometimes you want to make your data completely anonymous so that other people can’t see sensitive information. Or because you wish to blind you own analyses.
-
-`forcats::fct_anon` 
+Sometimes you want to make your data completely anonymous so that other people can’t see sensitive information. Or because you wish to blind you own analyses we can do this with `forcats::fct_anon` 
 
 
 ```r
@@ -6650,16 +8320,22 @@ penguins_clean_split |>
 
 ## Lump factors
 
+`fct_lump_min()` is a function from the `forcats` package in R, which is used to lump or group together levels of a categorical variable in a way that keeps the most common levels intact while grouping the less common levels into an "Other" or "Miscellaneous" category.
+
+In this example, any species not represented by at least 150 observations, will be lumped into an "Other" category:
+
 
 ```r
 penguins_clean_split |> 
-  mutate(body_size = fct_lump_min(as_factor(species), 50)) |> 
+  mutate(body_size = fct_lump_min(as_factor(species), 150)) |> 
   ggplot(aes(x = body_size,
          y = flipper_length_mm))+
   geom_boxplot()
 ```
 
-## ordering factors
+## Ordering factors
+
+With the `fct_relevel` function we can set factors and apply a specified level at the same time:
 
 
 ```r
@@ -6670,7 +8346,7 @@ penguins_clean_split |>
   coord_flip()
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
 
 With the function `fct_infreq` we can change the order according to how frequently each level occurs
 
@@ -6683,8 +8359,10 @@ penguins_clean_split |>
   coord_flip()
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
 
+
+The `fct_rev()` function in R is used to reverse the order of levels in a factor variable. It is particularly useful for changing the order of factor levels when you want to display data in a reversed or descending order.
 
 
 ```r
@@ -6695,9 +8373,9 @@ penguins_clean_split |>
   coord_flip()
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
 
-`fct_reorder` allows us to order the levels based on another continuous variable
+The `fct_reorder` function allows us to order the levels based on another continuous variable
 
 
 ```r
@@ -6716,12 +8394,16 @@ penguins_clean_split |>
               alpha = .4)
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Applying functions across columns
 
+One of the credos of programming is “Don’t repeat yourself”. We have seen in previous tutorials that many of us fall victim to this principle quite often. Fortunately, the tidyverse team has developed a set of functions that make it easier not to repeat ourselves: 
+
 ## calculate summary statistics across columns
+
+In this example I am generating summary statistics for two columns, but I can make this process more efficient: 
 
 
 ```r
@@ -6732,6 +8414,31 @@ penguins_clean_split |>
     mean_flipper_length = mean(flipper_length_mm, na.rm = T)
   )
 ```
+
+
+A couple of things are important here:
+
+• The function across only works inside dplyr verbs (e.g. mutate)
+
+• The function has three important arguments: .cols stands for the column to apply a
+function to. You can use the tidyselect functions here; .fns stands for the function(s)
+that will be applied to these columns; .names is used whenever you want to change the
+names of the selected columns.
+
+Each use case will work with this general structure:
+
+```
+<DFRAME> |> 
+<DPLYR VERB>(
+across(
+.cols = <SELECTION OF COLUMNS>,
+.fns = <FUNCTION TO BE APPLIED TO EACH COLUMN>,
+.names = <NAME OF THE GENERATED COLUMNS>
+)
+)
+```
+
+Instead you can use the across function to get the same result, here I could supply column names `.cols = c("body_mass_g", "flipper_length_mm")` or can I use `where` to get whole column types  :
 
 
 ```r
@@ -6787,6 +8494,8 @@ $ island  <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen
 
 ## Correct typos
 
+We can use the `across` functions to quickly change typos across multiple columns at once, here is an example:
+
 
 ```r
 x <- c("Adelie", "adelie", "pinstrap", "Chinstrap")
@@ -6825,6 +8534,7 @@ typo_df |>
 
 ## Filtering rows based on conditions across multiple columns
 
+Suppose you want to filter multiple rows from your data frame that fail to meet a criteria.
 
 
 ```r
@@ -6838,16 +8548,9 @@ penguins_clean_split |>
 
 
 
-```r
-penguins_clean_split |> 
-  filter(
-    if_all(.cols = contains("culmen"),
-           .fns = ~. < 40)
-  ) |> 
-  glimpse()
-```
-
 ## filter rows based on missing values
+
+Another very useful use case is filtering rows based on missing values across multiple columns.
 
 
 ```r
@@ -6858,6 +8561,7 @@ penguins_clean_split |>
   ) 
 ```
 
+
 <div class="try">
 <p>At first the outcome above can seem counter-intuitive, but can be
 explained by the <code>!</code> operator. The if_all is evaluating
@@ -6867,6 +8571,9 @@ operator</p>
 </div>
 
 ## slicing
+
+Suppose we want to remove the 10 highest values of body mass from our dataframe - we could do this with `slice`
+
 
 
 ```r
@@ -6893,6 +8600,9 @@ penguins_clean_split |>
 </div>
 
 
+`slice` keeps all rows for which you specify positive indices. Note that in R indexing starts with 1 and not with 0 as in most other programming languages. To make it more clear what rows slice keeps, let’s add row numbers to our data frame and slice some arbitrary rows:
+
+
 ```r
 penguins_clean_split |> 
   arrange(desc(body_mass_g)) |> 
@@ -6909,6 +8619,8 @@ penguins_clean_split |>
 |307        |PAL0708    |            17|Chinstrap |Pygoscelis antarctica |Anvers |Dream  |Adult, 1 Egg Stage |N71A1         |No                |2007-11-30 |             50.3|            20.0|               197|        3300|MALE   |        10.02019|       -24.54704|Nest never observed with full clutch. |
 
 </div>
+
+To remove specific rows, we can use negative indices. Suppose, we want to remove the first 340 rows from our data frame.
 
 
 ```r
@@ -6969,6 +8681,8 @@ penguins_clean_split |>
 
 ## groupwise slicing
 
+To apply these functions within different sub-categories, we have to use `group_by()`
+
 
 ```r
 penguins_clean_split |> 
@@ -6998,10 +8712,34 @@ penguins_clean_split |>
 
 ## bootstrapping with slice
 
+If we set the replace argument to TRUE in `slice()`, we will perform sampling with replacement. This means the same row of data can appear twice in our dataframe. 
+
+
+```r
+slice_sample(penguins_clean_split, 
+             prop = .5, 
+             replace = TRUE) |> 
+  duplicated() |> 
+  sum()
+```
+
+```
+## [1] 34
+```
+
+
+Why would we do this? This functionality allows us to create bootstraps from our data frame. Bootstrapping is a
+technique where a set of samples of the same size are drawn from a single original sample.
+
+Some values appear more than once because bootstrapping allows each value to be pulled multiple times from the original data set. Once you have your bootstraps, you can calculate metrics from them. For example, the mean value of each bootstrap. The underlying logic of this technique is that since the sample itself is from a population, the bootstraps act as proxies for other samples from that population. Now that we have created one bootstrap from our sample, we can create many. In the following code I have used map to create 100 bootstraps from my original sample:
+
 
 ```r
 set.seed(342)
-bootstraps <- map(1:100, ~slice_sample(penguins_clean_split, prop = .1, replace = TRUE))
+bootstraps <- map(1:100, 
+                  ~slice_sample(penguins_clean_split, 
+                                prop = .1, # 10% of dataframe
+                                replace = TRUE))
 
 bootstraps %>%
     map_dbl(~ mean(.$body_mass_g, na.rm = TRUE)) |> 
@@ -7013,8 +8751,7 @@ geom_histogram(fill = "grey80", color = "black")+
              linewidth = 2, colour = "red", linetype  ="dashed")
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" />
-
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Group work
@@ -7093,26 +8830,30 @@ F-statistic: 224.5 on 5 and 336 DF,  p-value: < 2.2e-16
 
 However, there may be occasions where we wish to apply simple models to each subpopulation in turn:
 
+First we need to `nest()` our data - tibbles with nested dataframes can be manipulated using various functions and operations to perform tasks like filtering, summarizing, and visualization. Nested dataframes also facilitate operations on a per-group basis, which can be useful for group-wise analysis. 
+
+Next we create a new 
+
 
 ```r
-penguins_clean_split |> 
-  group_by(species) |> 
-  nest() |> 
-  mutate(model = map(data, ~ lm(culmen_depth_mm ~ culmen_length_mm, data = .))) |> 
-  mutate(tidy = map(model, broom::tidy)) |> 
-  unnest(tidy)
+penguins |> 
+    group_by(species) |> 
+    nest() |> 
+    mutate(model = map(data, ~ lm(culmen_depth_mm ~ culmen_length_mm, data = .) |> broom::tidy())) |> 
+    unnest(model)
 ```
-```
-A tibble:6 × 8
-Groups:species [3]
 
-Adelie	<tibble>	<S3: lm>	(Intercept)	11.4091245	1.33893250	
-Adelie	<tibble>	<S3: lm>	culmen_length_mm	0.1788343	0.03443569	
-Gentoo	<tibble>	<S3: lm>	(Intercept)	5.2510084	1.05480901	
-Gentoo	<tibble>	<S3: lm>	culmen_length_mm	0.2048443	0.02215802	
-Chinstrap	<tibble>	<S3: lm>	(Intercept)	7.5691401	1.55052928	
-Chinstrap	<tibble>	<S3: lm>	culmen_length_mm	0.2222117	0.03167825	
-6 rows | 1-6 of 8 columns
+```
+# A tibble: 6 × 7
+# Groups:   species [3]
+  species   data                term             estimate std.error statistic  p.value
+  <chr>     <list>              <chr>               <dbl>     <dbl>     <dbl>    <dbl>
+1 Adelie    <tibble [152 × 16]> (Intercept)        11.4      1.34        8.52 1.61e-14
+2 Adelie    <tibble [152 × 16]> culmen_length_mm    0.179    0.0344      5.19 6.67e- 7
+3 Gentoo    <tibble [124 × 16]> (Intercept)         5.25     1.05        4.98 2.15e- 6
+4 Gentoo    <tibble [124 × 16]> culmen_length_mm    0.205    0.0222      9.24 1.02e-15
+5 Chinstrap <tibble [68 × 16]>  (Intercept)         7.57     1.55        4.88 6.99e- 6
+6 Chinstrap <tibble [68 × 16]>  culmen_length_mm    0.222    0.0317      7.01 1.53e- 9
 
 ```
 
@@ -7319,6 +9060,7 @@ test_function <- function(select_var){
 
 test_function(select_var = species)
 ```
+
 ```
 Error: object 'species' not found
 
@@ -7586,9 +9328,9 @@ Write a `function` that uses filter to take any two of the penguin species then 
 
 
 
-<button id="displayTextunnamed-chunk-68" onclick="javascript:toggle('unnamed-chunk-68');">Show Solution</button>
+<button id="displayTextunnamed-chunk-69" onclick="javascript:toggle('unnamed-chunk-69');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-68" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-69" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 compare_species_plot <- function(data, species_1, species_2, feature) {
@@ -7606,14 +9348,14 @@ compare_species_plot <- function(data, species_1, species_2, feature) {
 compare_species_plot(penguins_clean_split, "Adelie", "Chinstrap", culmen_length_mm)
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-72-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-73-1.png" width="100%" style="display: block; margin: auto;" />
 </div></div></div>
 
 In the example below I have used `enquo` to enable conversion to character strings, this means all of the function arguments can be provided without "quotes". 
 
-<button id="displayTextunnamed-chunk-69" onclick="javascript:toggle('unnamed-chunk-69');">Show Solution</button>
+<button id="displayTextunnamed-chunk-70" onclick="javascript:toggle('unnamed-chunk-70');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-69" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-70" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 compare_species_plot <- function(data, species_1, species_2, feature) {
@@ -21325,23 +23067,6 @@ sessionInfo()
 
 
 
-https://ourcodingclub.github.io/tutorials/shiny/
-
-https://psyteachr.github.io/shiny-tutorials/
-
-https://debruine.github.io/shinyintro/first-app.html
-
-Add change layouts: https://shiny.posit.co/r/articles/build/layout-guide/
-
-https://albert-rapp.de/posts/15_use_js_with_shiny/15_use_js_with_shiny.html
-
-https://albert-rapp.de/posts/06_shiny_app_learnings/06_shiny_app_learnings
-
-Shinyjs: https://deanattali.com/shinyjs/example
-
-Shiny modules - 
-https://rviews.rstudio.com/2021/10/20/a-beginner-s-guide-to-shiny-modules/
-
 
 At its core, Shiny is essentially an R package, similar to dplyr or ggplot2. However, Shiny is unique in that it allows you to build web applications using the R language, instead of relying on traditional web development technologies like JavaScript or HTML5. This R-based approach makes Shiny an efficient choice for creating web applications tailored for data presentation and analysis.
 
@@ -21365,9 +23090,15 @@ Shiny apps are useful for several purposes:
 New project…
 Under the File menu, choose New Project.... You will see a popup window like the one below. Choose New Directory.
 
+Then choose `Shiny Web App`
+
+<img src="images/demo-app.png" width="100%" style="display: block; margin: auto;" />
+
 ### Run the app
 
 Click on Run App in the top right corner of the source pane. The app will open up in a new window. Play with the slider and watch the histogram change.
+
+<img src="images/first-app.png" width="100%" style="display: block; margin: auto;" />
 
 ### Modify the Demo App
 
@@ -21375,7 +23106,167 @@ Now we’re going to make a series of changes to the demo app until it’s all y
 
 You can close the app by closing the window or browser tab it’s running in, or leave it running while you edit the code. If you have multiple screens, it’s useful to have the app open on one screen and the code on another.
 
-# Layout
+**1. Change the title**
+
+Change the title to "My First App". Make sure the title is inside quotes and the whole quoted string is inside the parentheses. Save the file.
+
+
+Then click **Run App**
+
+<img src="images/title-app.png" width="100%" style="display: block; margin: auto;" />
+
+**2. Change the input**
+
+Now let's change the input. Find the function sliderInput() (line 21). The first argument is the name you can use in the code to find the value of this input, so don't change it just yet. The second argument is the text that displays before the slider. Change this to something else and re-run the app.
+
+
+```r
+sliderInput("bins",
+            "Number of bins:",
+            min = 0,
+            max = 50,
+            value = 30)
+```
+
+<div class="try">
+<p>See if you can figure out what the next three arguments to
+sliderInput() do. Change them to different integers, then re-run the app
+to see what’s changed.</p>
+</div>
+
+The arguments to the function `sidebarPanel()` are just a list of things you want to display in the sidebar. To add some explanatory text in a paragraph before `sliderInput()`, just use the paragraph function `p()`.
+
+
+```r
+sidebarPanel(
+   p("I am explaining this perfectly"),
+   sliderInput("bins",
+               "Choose the best bin number:",
+               min = 10,
+               max = 40,
+               value = 25)
+)
+```
+
+<img src="images/sidebar-app.png" width="100%" style="display: block; margin: auto;" />
+
+**3. Change the layout**
+
+I don't like the position of this explanatory text, so we can move this text out of the sidebar and to the top of the page, just under the title. Try this and re-run the app.
+
+
+```r
+# Application title
+titlePanel("My First App"),
+
+p("I am explaining this perfectly"),
+
+# Sidebar with a slider input for number of bins
+sidebarLayout(...)
+```
+
+**4. Change some colours**
+
+I'm also not keen on the grey plot. We can change the plot colour inside `hist()`
+
+
+```r
+# draw the histogram with the specified number of bins
+hist(x, breaks = bins, col = 'skyblue', border = 'grey30')
+```
+
+**5. Change the plot**
+
+I prefer ggplots, so let's make the plot with `geom_histogram()` instead of `hist()` (which is a great function for really quick plots, but not very visually appealing). Since we need several functions from the `ggplot2` package, we'll need to load that package at the top of the script, just under where the shiny package is loaded:
+
+
+```r
+library(shiny)
+library(ggplot2)
+```
+
+You can replace all of the code in `renderPlot()` with the code below.
+
+
+```r
+output$distPlot <- renderPlot({
+  # create plot
+  ggplot(faithful, aes(waiting)) +
+    geom_histogram(bins = input$bins,
+                   fill = "steelblue3",
+                   colour = "grey30") +
+    xlab("What are we even plotting here?") +
+    theme_minimal()
+})
+```
+
+**6.Plot new things**
+
+The `faithful` dataset includes two columns: eruptions and waiting. We've been plotting the waiting variable, but what if you wanted to plot the eruptions variable instead?
+
+<div class="try">
+<p>Try plotting the eruption time (eruptions) instead of the waiting
+time. You just have to change one word in ggplot() and update the x-axis
+label.</p>
+</div>
+
+We can add another input widget to let the user switch between plotting eruption time and wait time. We'll learn more about the different input options in Section 3. We need to toggle between two options, so we can use either radio buttons or a select box. Radio buttons are probably best if you have only a few options and the user will want to see them all at the same time to decide.
+
+Add the following code as the first argument to sidebarPanel(), which just takes a list of different widgets. radioButtons() is the widget we're using. We'll set four arguments:
+
+- inputId: a unique identifier that we will use later in the code to find the value of this widget
+
+- label: the text to display to the user
+
+- choices: a list of choices in the format c("label1" = "value1", "label2" = "value2", ...)
+
+- selected: the value of the default choice
+
+For choices, the label is what gets shown to the user and the value is what gets used by the code (these can be the same, but you often want the user label to be more descriptive).
+
+
+```r
+ radioButtons(inputId = "display_var",
+              label = "Which variable to display",
+              choices = c("Waiting time to next eruption" = "waiting",
+                          "Eruption time" = "eruptions"),
+              selected = "waiting"
+ ),
+```
+
+Save this and re-run the app.
+
+
+<img src="images/widget-app.png" width="100%" style="display: block; margin: auto;" />
+
+You should have a radio button interface now. You can click on the options to switch the button, but it won't do anything to your plot yet. We need to edit the plot-generating code to make that happen.
+
+First, we need to change the x-axis label depending on what we're graphing. We use an if/else statement to set the variable xlabel to one thing if `input$display_var` is equivalent to "eruptions", and to something else if it's equivalent to "waiting". Put this code at the very beginning of the code block for `renderPlot()` (after the line `output$distPlot <- renderPlot({`).
+
+
+```r
+# set x-axis label depending on the value of display_var
+if (input$display_var == "eruptions") {
+  xlabel <- "Eruption Time (in minutes)"
+} else if (input$display_var == "waiting") {
+  xlabel <- "Waiting Time to Next Eruption (in minutes)"
+}
+```
+
+Then we have to edit ggplot() to use the new label and to plot the correct column. The variable `input$display_var` gives you the user-input value of the widget called "display_var".
+
+
+```r
+# create plot
+ggplot(faithful, aes(.data[[input$display_var]])) +
+  geom_histogram(bins = input$bins,
+                 fill = "steelblue3",
+                 colour = "grey30") +
+  xlab(xlabel) +
+  theme_minimal()
+```
+
+Re-run your app and see if you can change the data and x-axis label with your new widget.
 
 # Make our own App
 
@@ -21429,10 +23320,9 @@ shinyApp(ui = ui, server = server)
 
 To create your own Shiny app, you should remove any example code generated automatically when you created app.R and replace it with the structure provided above. Check that your final app.R script resembles the following:
 
+<button id="displayTextunnamed-chunk-23" onclick="javascript:toggle('unnamed-chunk-23');">Show Solution</button>
 
-<button id="displayTextunnamed-chunk-7" onclick="javascript:toggle('unnamed-chunk-7');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-7" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-23" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # Packages ----
@@ -21509,6 +23399,7 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 ```
 
+
 In the code above, we've added the input widgets in the `sidebarPanel` section of your `ui` object. These widgets allow users to select a genotype, choose a histogram color, set the number of bins for the histogram, and add arbitrary text.
 
 Let's take a moment to understand the `selectInput()` function and how it's configured:
@@ -21525,23 +23416,189 @@ Now that you've grasped how `selectInput()` works, let's use it to customize you
 
 The above explanation clarifies the purpose and settings of the `selectInput()` function, and you can use this understanding to configure other input elements in your Shiny app. Below is a summary of the different Input functions available for Shiny
 
-## textInput
+### textInput
 
-## textAreaInput
+`textInput` creates a one-line box for short text input. The first `argument`, `inputId` (the argument name is usually omitted), needs to be a unique string that you cannot use for another input or output in this app.
 
-##selectInput
 
-##checkboxGroupInput
+```r
+demo_text <- 
+  textInput("demo_text", 
+            label = "Name", 
+            value = "", 
+            width = "100%",
+            placeholder = "Your Name")
+```
 
-##checkboxInput
+<div class="try">
+<p>Experiment with the values of <code>arg("label")</code>,
+<code>arg("value")</code>, <code>arg("width")</code>, and
+<code>arg("placeholder")</code> to see what they do.</p>
+</div>
 
-##radioButtons
 
-##dateInput
+### textAreaInput
 
-##dateRangeInput
+`func("textAreaInput")` creates a multi-line box for longer text input.
 
-##fileInput
+
+```r
+demo_textarea <- 
+  textAreaInput("demo_textarea", 
+                label = "Biography", 
+                value = "",
+                width = "100%",
+                rows = 5, 
+                placeholder = "Tell us something interesting about you.")
+```
+
+What is the `arg("inputId")` of the widget above?
+
+<select class='webex-select'><option value='blank'></option><option value=''>textAreaInput</option><option value='answer'>demo_textarea</option><option value=''>Biography</option></select>
+
+### selectInput
+
+`func("selectInput")` creates a drop-down menu. Set the first ` arg("choice")` to `""` to default to `NA`. If your choices are a named `"list"` or `"vector"`, the names are what is shown and the values are what is recorded. If the choices aren't named, the displayed and recorded values are the same.
+
+
+```r
+demo_select <- 
+  selectInput("demo_select", 
+              label = "Do you like Shiny?", 
+              choices = list("", 
+                             "Yes, I do" = "y", 
+                             "No, I don't" = "n"),
+              selected = NULL,
+              width = "100%")
+```
+
+If you set ` arg("multiple")` to ` dt(TRUE)`, you can also make a select where users can choose multiple options.
+
+
+```r
+genders <- list( # no blank needed
+  "Non-binary" = "nb",
+  "Male" = "m",
+  "Female" = "f",
+  "Prefer not to say" = "p"
+)
+
+demo_select_multi <- 
+  selectInput("demo_select2", 
+              label = "Gender", 
+              choices = genders,
+              selected = NULL,
+              multiple = TRUE, 
+              selectize = FALSE,
+              size = 5)
+```
+
+### checkboxGroupInput
+
+However, this interface almost always looks better with ` func("checkboxGroupInput")`. 
+
+
+```r
+demo_cbgi <-
+  checkboxGroupInput("demo_cbgi",
+                     label = "Gender)",
+                     choices = genders)
+```
+
+How can you get the checkboxes to display horizontally instead of vertically?  
+
+<select class='webex-select'><option value='blank'></option><option value=''>display = 'horizontal'</option><option value=''>class = 'horiz'</option><option value='answer'>inline = TRUE</option><option value=''>class = 'shiny-input-container-inline'</option></select>
+
+
+### checkboxInput
+
+You can also make a single checkbox with ` func("checkboxInput")`. The ` arg("value")` is ` dt(TRUE)` when checked and ` dt(FALSE)` when not.
+
+
+```r
+demo_cb <- checkboxInput("demo_cb",
+                         label = "I love R",
+                         value = TRUE)
+```
+
+` func("sliderInput")` allows you to choose numbers between a ` arg("min")` and ` arg("max")` value.
+
+
+```r
+demo_slider <- sliderInput("demo_slider",
+                           label = "Age",
+                           min = 0,
+                           max = 100,
+                           value = 0,
+                           step = 1,
+                           width = "100%")
+```
+
+
+<div class="try">
+<p>What happens if you change <code>arg("value")</code> or
+<code>arg("step")</code>? Try changing <code>arg("value")</code> to
+<code>c(10, 20)</code>.</p>
+</div>
+
+### radioButtons
+
+If you want users to only be able to choose one option and there are a small number of short options, ` func("radioButton")` is a good interface. 
+
+
+```r
+demo_radio <- radioButtons("demo_radio",
+                           label = "Choose one",
+                           choices = c("Cats", "Dogs"),
+                           selected = character(0),
+                           inline = TRUE)
+```
+
+<div class="info">
+<p>Radio buttons default to selecting the first item unless you set
+<code>arg("selected")</code> to a choice value or
+<code>character(0)</code> to start with no selection.</p>
+</div>
+
+### dateInput
+
+I find the date interface a little clunky, but...
+
+
+```r
+demo_date <- dateInput("demo_date",
+                       label = "What is your birth date?",
+                       min = "1900-01-01",
+                       max = Sys.Date(),
+                       format = "yyyy-mm-dd",
+                       startview = "year")
+```
+
+<div class="info">
+<p>IMHO, the default of <code>dt("yyyy-mm-dd")</code> is the best
+because it sorts into chronological order.</p>
+</div>
+
+What would you set ` arg("format")` to in order to display dates like "Sunday July 4, 2021"?  
+<select class='webex-select'><option value='blank'></option><option value=''>D M d, Y</option><option value='answer'>DD MM d, yyyy</option><option value=''>DAY MONTH day, YEAR</option><option value=''>D MM dd, yyyy</option></select>
+
+
+### fileInput
+
+Users can upload one or more files with ` func("fileInput")`. The argument ` arg("accept")` lets you limit this to certain file types, but some browsers can bypass this requirement, so it's not fool-proof.
+
+
+```r
+demo_file <- fileInput("demo_file",
+                       label = "Upload a data table",
+                       multiple = FALSE,
+                       accept = c(".csv", ".tsv"),
+                       buttonLabel = "Upload")
+```
+
+
+What would you set ` arg("accept")` to to accept any image file?  
+<select class='webex-select'><option value='blank'></option><option value='answer'>image/*</option><option value=''>.jpg</option><option value=''>jpg</option><option value=''>images</option><option value=''>.img</option></select>
 
 
 Next, you'll need to implement the server logic and output elements in the `server.R` section. The server logic will define how these inputs affect the display of your histogram and table, but that would require additional code specific to your application's requirements.
@@ -21553,7 +23610,7 @@ As you proceed, you can add more details to your `server.R` to handle these inpu
 
 ## Exercise 
 
-Create an interface that gets people to enter their name, date of birth and select what type of cake they want from a selection OF - 
+**1. Create an interface that gets people to enter their name, date of birth and select what type of cake they want from a selection OF -** 
 
 - Chocolate
 
@@ -21563,9 +23620,9 @@ Create an interface that gets people to enter their name, date of birth and sele
 
 - Cheesecake
 
+**2. Save a separate file with the progress on our penguins app**
 
 # Outputs
-
 
 
 ```r
@@ -21581,12 +23638,15 @@ penguins <- as_tibble(penguins)
 ui <- fluidPage(
   sidebarLayout(
      sidebarPanel(
+       
       demo_sp <- selectInput(inputId = "species",  # Give the input a name "genotype"
                   label = "1. Select species",  # Give the input a label to be displayed in the app
                   choices = c("Adelie" = "Adelie", "Chinstrap" = "Chinstrap", "Gentoo" = "Gentoo"), selected = "Adelie"),  # Create the choices that can be selected. e.g. Display "Adelie" and link to value "Adelie"
+      
       demo_select <- selectInput(inputId = "colour", 
                   label = "2. Select histogram colour", 
                   choices = c("blue","green","red","purple","grey"), selected = "grey"),
+      
       demo_slide <- sliderInput(inputId = "bin", 
                   label = "3. Select number of histogram bins", 
                   min=1, max=25, value= c(10)),
@@ -21595,15 +23655,16 @@ ui <- fluidPage(
                 rows = 5,
                 placeholder = "Enter some information here")
     ),
+    
     mainPanel(
       # Output elements go here
         textOutput("demo_text"),
-        
         plotOutput("demo_plot", width = "500px", height="300px"),
         
         DT::dataTableOutput("demo_table",
                     width = "50%",
-                    height = "auto")
+                    height = "auto"),
+        verbatimTextOutput("demo_verbatim")
     )
   )
 )
@@ -21632,6 +23693,18 @@ server <- function(input, output) {
     summarise(flipper_length_mm = quantile(flipper_length_mm, c(0.25, 0.5, 0.75), na.rm = T), quantile = c(0.25, 0.5, 0.75))
 })
   
+  output$demo_verbatim <- renderText({
+  code <-
+    paste0("penguins_filtered <- penguins %>%
+      filter(species == '", input$species,"')
+    
+    ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
+      geom_histogram(fill = '", input$colour, "', show.legend = FALSE, bins = ", input$bin, ") +
+      theme_minimal()")
+  
+  code
+})
+  
 }
 
 
@@ -21642,15 +23715,157 @@ shinyApp(ui = ui, server = server)
 
 ## Text
 
+` func("textOutput")` defaults to text inside a generic `<span>` or `<div>`.
+
+
+```r
+# in the UI function
+textOutput("demo_text", container = tags$h3)
+```
+
+`func("renderText")` replaces the text of the linked element with its returned string.
+
+
+```r
+# in the server function
+  output$demo_text <- renderText({
+    paste("Figure 1.", input$species, input$text)
+  })
+```
+
+If you use ` func("verbatimTextOutput")` in the UI (no change to the render function), it will show the output in a fixed-width font. This can be good for code or text you want the user to copy.
+
+
+```r
+# in the UI function
+verbatimTextOutput("demo_verbatim")
+
+# in the server function
+  output$demo_verbatim <- renderText({
+  code <-
+    paste0("penguins_filtered <- penguins %>%
+      filter(species == '", input$species,"')
+    
+    ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
+      geom_histogram(fill = '", input$colour, "', show.legend = FALSE, bins = ", input$bin, ") +
+      theme_minimal()")
+  
+  code
+})
+```
+
+
 ## Plots
+
+`func("plotOutput")` displays plots made with the `base R` plotting functions (e.g., `"plot"`, `hist`) or `ggplot2` functions.
+
+
+```r
+# in the UI function
+plotOutput("demo_plot", width = "500px", height="300px")
+```
+
+What is the default value for `width`?  
+<select class='webex-select'><option value='blank'></option><option value='answer'>100%</option><option value=''>400px</option><option value=''>400</option><option value=''>5in</option><option value=''>7in</option></select>  
+
+What is the default value for `height`?  
+<select class='webex-select'><option value='blank'></option><option value=''>100%</option><option value='answer'>400px</option><option value=''>400</option><option value=''>5in</option><option value=''>7in</option></select>
+
+
+
+```r
+# in the server function
+  output$demo_plot <- renderPlot({
+    penguins_filtered <- penguins |>
+      filter(species == input$species)
+    
+    ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
+      geom_histogram(fill = input$colour, show.legend = FALSE, bins = input$bin) +
+      labs(fill = "Color") +
+      theme_minimal()
+  })
+```
+
+
+<div class="warning">
+<p>If you want to create dynamic plots that change with input, note how
+you need to use <code>y = .data[[input$y]]</code> inside
+<code>aes</code>, instead of just <code>y = input$y</code>.</p>
+</div>
 
 ## Images
 
-## Tables
+`imageOutput` takes the same arguments as `plotOutput`. You can leave `width` and `height` as their defaults if you are going to set those values in the render function.
 
-## Layouts, themes, HTML
 
-Exercise: Customize the app's appearance by adding a custom color scheme, a title with a different font, and adjusting the size of the plot.
+```r
+# in the UI function
+imageOutput("demo_image")
+```
+
+`renderImage` needs to return a named list with at least an `src` with the image path. You can also set the `width` and `height` (numeric values are in pixels), `class` and `alt` (the alt-text for screen readers).
+
+
+```r
+# in the server function
+output$demo_image <- renderImage({
+    list(src = "images/penguin.jpg",
+         width = 100,
+         height = 100,
+         alt = "A flower")
+}, deleteFile = FALSE)
+```
+
+
+<div class="warning">
+<p>The <code>deleteFile</code> argument is currently optional, but
+triggers periodic warnings that it won’t be optional in the future. You
+should set it to <code>TRUE</code> if you’re making a temporary file
+(this stops unneeded plots using memory) and <code>FALSE</code> if
+you’re referencing a file you previously saved.</p>
+</div>
+
+## Data Tables
+
+Display a table using `tableOutput`.
+
+
+```r
+# in the UI function
+tableOutput("demo_table")
+```
+
+This is paired with `DT::renderDataTable`, which makes a table out of any data frame it returns.
+
+
+```r
+# in the server function
+  output$demo_table <- DT::renderDataTable({
+   penguins  |> 
+      filter(species == input$species) |> 
+    summarise(flipper_length_mm = quantile(flipper_length_mm, c(0.25, 0.5, 0.75), na.rm = T), quantile = c(0.25, 0.5, 0.75))
+})
+```
+
+<div class="warning">
+<p>Note how you need to use <code>.data[[input$y]]</code> inside
+<code>dplyr::summarise</code>, instead of just <code>input$y</code> to
+dynamically choose which variable to summarise.</p>
+</div>
+
+
+I much prefer `DT::dataTableOutput` over the basic `shiny` package `dataTableOutput` and `renderDataTable` functions, but they can be buggy. The versions in the `DT` package are better and have [many additional functions](https://rstudio.github.io/DT/), so I use those. 
+
+<div class="info">
+<p>You can use the <code>DT</code> synonyms to make sure you’re not
+accidentally using the <code>shiny</code> versions, which don’t have the
+same options.</p>
+</div>
+
+
+## Emphasis
+
+We can use basic HTML to start customising appearance and emphasis - later we will use the `bslib` package to give us lots of easy customisation:
 
 ```
   
@@ -21676,7 +23891,6 @@ p("p creates a paragraph of text."),
         "that appear inside a paragraph."),
 
 ```
-
 
 
 ```r
@@ -21710,7 +23924,7 @@ ui <- fluidPage(
       # Output elements go here
         
     tags$ul(
-    tags$strong(textOutput("demo_sp")),
+    tags$strong(textOutput("demo_sp")), # emphasise text
     textOutput("demo_text")),
   
         plotOutput("demo_plot", width = "500px", height="300px"),
@@ -21764,14 +23978,11 @@ shinyApp(ui = ui, server = server)
 
 # Reactive
 
-```
-Error in filter(., species == input$species) : 
-  ℹ In argument: `species == input$species`.
-Caused by error in `input$species`:
-! Can't access reactive value 'species' outside of reactive consumer.
-ℹ Do you need to wrap inside reactive() or observe()?
 
-```
+Reactivity is how Shiny determines which code in server() gets to run when. Some types of objects, such as the input object or objects made by `reactiveValues()`, can trigger some types of functions to run whenever they change.
+
+In the example below if you move the data filtering outside of `renderPlot()`, you'll get an error message like "Can't access reactive value outside of reactive consumer." This means that the input values can only be read inside certain functions, like `reactive()`, `observeEvent()`, or a render function like `renderPlot()`.
+
 
 
 ```r
@@ -21830,7 +24041,7 @@ penguins_filtered <- penguins |>
   })
   
 output$demo_text <- renderText({
-  (input$text)
+  (input$text) # here to trigger the function
 })
    
 
@@ -21856,6 +24067,16 @@ output$demo_text <- renderText({
 shinyApp(ui = ui, server = server)
 ```
 
+```
+Error in filter(., species == input$species) : 
+  ℹ In argument: `species == input$species`.
+Caused by error in `input$species`:
+! Can't access reactive value 'species' outside of reactive consumer.
+ℹ Do you need to wrap inside reactive() or observe()?
+
+```
+
+However, we can put the data filtering inside `reactive()`. This means that whenever an input inside that function changes, the code will run and update the value of `data()`. This can be useful if you need to recalculate the data table each time the inputs change, and then use it in more than one function.
 
 
 ```r
@@ -21945,7 +24166,7 @@ output$demo_text <- renderText({
 shinyApp(ui = ui, server = server)
 ```
 
-My most common error is trying to use data or title as an object instead of as a function. Notice how the first argument to ggplot is no longer data, but data() and you set the value of data with data(newdata), not data <- newdata. For now, just remember this as a quirk of shiny.
+My most common error is trying to use data or title as an object instead of as a function. Notice how the first argument to ggplot is no longer data, but `data()` and you set the value of data with `data(newdata)`, not data <- newdata. For now, just remember this as a quirk of shiny.
 
 ## Observable
 
@@ -22047,12 +24268,16 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 ```
 
-Which things are now updated by the plot button?
+Q. Which things are now updated by the plot button?
 
 
-# Customising
+# Shiny Dashboards
 
-## Shiny Dashboard
+`bslib` is an R package that extends Bootstrap 4 and allows you to customize the appearance and style of your Shiny applications or R Markdown documents. With `bslib`, you can easily modify the look and feel of your Shiny apps by defining custom themes, colors, fonts, and other visual aspects.
+
+It provides a flexible way to create a consistent and visually appealing design for your Shiny applications without having to write extensive CSS code.
+
+You can use `bslib` functions like `bs_theme()`, to define and apply custom styles to your Shiny app.
 
 
 ```r
@@ -22187,28 +24412,172 @@ shinyApp(ui = ui, server = server)
 ```
 
 
-### Width
+### Themable Dashboards
 
-Try changing width to see how it changes
+Adding the `bstheme()` function to the server adds real time theme changes to dashboards. 
+
 
 
 ```r
- bs_themer()
-# add to server function
+# Packages ----
+library(shiny)       # Essential for running any Shiny app
+library(tidyverse)
+library(palmerpenguins)    # The source of your data
+library(bslib)
+
+# Load the data
+penguins <- as_tibble(penguins)
+
+# Turn on thematic for theme-matched plots
+thematic::thematic_shiny(font = "auto")
+theme_set(theme_bw(base_size = 16))
+
+# Calculate column means for the value boxes
+means <- penguins |> 
+  group_by(species) |> 
+  summarise(mean = round(mean(flipper_length_mm, na.rm = T), 2))
+
+# Turn on thematic for theme-matched plots
+thematic::thematic_shiny(font = "auto")
+theme_set(theme_bw(base_size = 16))
+
+# ui.R ----
+ui <- page_sidebar(
+  title = "Penguins flipper dashboard",
+  sidebar = sidebar(
+      demo_sp <- selectInput(inputId = "species",  # Give the input a name "genotype"
+                  label = "1. Select species",  # Give the input a label to be displayed in the app
+                  choices = c("Adelie" = "Adelie", "Chinstrap" = "Chinstrap", "Gentoo" = "Gentoo"), selected = "Adelie"),  # Create the choices that can be selected. e.g. Display "Adelie" and link to value "Adelie"
+      demo_select <- selectInput(inputId = "colour", 
+                  label = "2. Select histogram colour", 
+                  choices = c("blue","green","red","purple","grey"), selected = "grey"),
+      demo_slide <- sliderInput(inputId = "bin", 
+                  label = "3. Select number of histogram bins", 
+                  min=1, max=25, value= c(10)),
+      demo_text <- textAreaInput(inputId = "text", 
+                label = "4. Enter some text to be displayed",
+                rows = 5,
+                placeholder = "Enter some information here"),
+      demo_button <- actionButton("update", "Plot")
+    )
+  ,
+   layout_columns(
+    fill = FALSE,
+    value_box(
+      title = "Adelie Flipper Length",
+      value = scales::unit_format(unit = "mm")(means[[1,2]]),
+      showcase = bsicons::bs_icon("align-bottom"),
+      theme_color = "grey"
+    ),
+    value_box(
+      title = "Chinstrap Flipper",
+      value = scales::unit_format(unit = "mm")(means[[2,2]]),
+      showcase = bsicons::bs_icon("align-center"),
+      theme_color = "grey"
+    ),
+ value_box(
+      title = "Gentoo Flipper Length",
+      value = scales::unit_format(unit = "mm")(means[[3,2]]),
+      showcase = bsicons::bs_icon("align-top"),
+      theme_color = "grey"
+    )
+  ),
+    
+    tags$ul(
+    tags$strong(textOutput("demo_sp")),
+    textOutput("demo_text")),
+ 
+      # Output elements go here
+      layout_columns(
+    card(
+      full_screen = TRUE,
+      card_header("Plot"),
+      plotOutput("demo_plot")
+    ),
+    card(
+      full_screen = TRUE,
+      card_header("Table"),
+      DT::dataTableOutput("demo_table",
+                    width = "100%",
+                    height = "auto")
+    )  
+)
+)
+  
+
+# server.R ----
+
+ 
+
+server <- function(input, output) {
+    bs_themer()
+
+
+  observeEvent(input$update, {
+    
+    penguins_filtered <- penguins |>
+      filter(species == input$species)
+    
+     bins <- input$bin
+     
+     colour <- input$colour
+ 
+
+    output$demo_sp <- renderText({
+      paste("Figure 1.", input$species)
+    })
+
+    output$demo_text <- renderText({
+      (input$text)
+    })
+
+    output$demo_plot <- renderPlot({
+        ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
+        geom_histogram(fill = colour, colour = "black", show.legend = FALSE, bins = bins) +
+        labs(fill = "Color") +
+        theme_minimal(base_size = 16)
+    })
+
+    output$demo_table <- DT::renderDataTable({
+      penguins_filtered |> 
+        summarise(flipper_length_mm = quantile(flipper_length_mm, c(0.25, 0.5, 0.75), na.rm = T), quantile = c(0.25, 0.5, 0.75))
+    })
+  })
+  
+}
+
+
+
+
+# Run the app ----
+shinyApp(ui = ui, server = server)
 ```
 
-https://shiny.posit.co/blog/posts/bslib-dashboards/#layout-tooling
 
-https://mastering-shiny.org/action-dynamic.html
+### Reading
 
+Check out the bslib information (https://rstudio.github.io/bslib/index.html)
 
-https://www.jumpingrivers.com/blog/r-shiny-customising-shinydashboard/#:~:text=The%20main%20way%20of%20including,css%20by%20convention.
+As well as this short article on updates and changes with follow-along examples https://shiny.posit.co/blog/posts/bslib-dashboards/
 
-
-# Download? 
 
 # Sharing
 
+## Shiny Apps
+
+The easiest way to share your apps is with (https://shinyapps.io)
+
+1. Open **`Tools > Global Options ...`**
+2. Go to the **`Publishing`** tab 
+3. Click the **`Connect`** button and choose ShinyApps.io
+4. Click on the link to [go to your account](https://www.shinyapps.io/){target="_blank"}
+5. Click the **`Sign Up`** button and **`Sign up with GitHub`** 
+6. You should now be in your shinyapps.io dashboard; click on your name in the upper right and choose **`Tokens`**
+7. Add a token
+8. Click **`Show`** next to the token and copy the text to the clipboard
+    ![](images/saio_secret.png){width="100%"}
+9. Go back to RStudio and paste the text in the box and click **`Connect Account`**
+10. Make sure the box next to "Enable publishing..." is ticked, click **`Apply`**, and close the options window
 
 
 ```r
@@ -22255,6 +24624,23 @@ sessionInfo()
 ## [37] xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0 htmltools_0.5.5  
 ## [41] rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
 ```
+
+## Github
+
+GitHub is a great place to organise and share your code using version control. You can also use it to host Shiny app code for others to download and run on their own computer. You can share your ShinyApp in the same way you would share any R project. 
+
+## In an R package
+
+You can put your app in a custom R package to make it even easier for people to run the app. The usethis package is incredibly helpful for setting up packages. But this is beyond the scope of this class. 
+
+## Further Reading
+
+- https://shiny.posit.co/blog/posts/bslib-dashboards/
+
+- https://mastering-shiny.org/action-dynamic.html
+
+
+- https://www.jumpingrivers.com/blog/r-shiny-customising-shinydashboard/#:~:text=The%20main%20way%20of%20including,css%20by%20convention.
 
 <!--chapter:end:07-shiny.rmd-->
 
@@ -22575,7 +24961,7 @@ This book was printed on `` `r Sys.Date()` ``
 
 When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead: 
 
-This book was printed on 2023-11-04
+This book was printed on 2023-11-05
 
 ### Running code {-}
 
@@ -22616,7 +25002,7 @@ more later</p></li>
 ## Exercises: Setting code chunks {-}
 
 
-**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select>
+**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select>
 
 
 <div class='webex-solution'><button>Explain This Answer</button>
@@ -23978,22 +26364,30 @@ Reading
 
 <!--chapter:end:09-github.Rmd-->
 
-# (PART\*) BONUS: Working with big data {.unnumbered}
+# (PART\*) Working with big data {.unnumbered}
 
 
-# Reading in data
-
-
+# Reading
 
 
 
 
-# write to sql
-
-# querying sql
+We did not cover the different approaches to working with really big data in R. Instead I have provided a list of extra reading and exercises that cover this in more depth, as well as introductions to using SQL with dplyr functions:
 
 
+https://www.r-bloggers.com/2020/09/the-fastest-way-to-read-and-writes-file-in-r/
 
+https://www.r-bloggers.com/2019/05/how-to-save-and-load-datasets-in-r-an-overview/
+
+http://www.sthda.com/english/wiki/saving-data-into-r-data-format-rds-and-rdata
+
+https://waterdata.usgs.gov/blog/formats/
+
+https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/
+
+https://bookdown.org/csgillespie/efficientR/preface.html
+
+https://github.com/sbreitbart/DataSci_for_Ecologists/blob/main/SQL_intro/SQL_intro.rmd
 
 
 <!--chapter:end:10-sql.Rmd-->

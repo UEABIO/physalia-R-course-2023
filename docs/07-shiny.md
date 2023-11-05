@@ -6,23 +6,6 @@
 
 
 
-https://ourcodingclub.github.io/tutorials/shiny/
-
-https://psyteachr.github.io/shiny-tutorials/
-
-https://debruine.github.io/shinyintro/first-app.html
-
-Add change layouts: https://shiny.posit.co/r/articles/build/layout-guide/
-
-https://albert-rapp.de/posts/15_use_js_with_shiny/15_use_js_with_shiny.html
-
-https://albert-rapp.de/posts/06_shiny_app_learnings/06_shiny_app_learnings
-
-Shinyjs: https://deanattali.com/shinyjs/example
-
-Shiny modules - 
-https://rviews.rstudio.com/2021/10/20/a-beginner-s-guide-to-shiny-modules/
-
 
 At its core, Shiny is essentially an R package, similar to dplyr or ggplot2. However, Shiny is unique in that it allows you to build web applications using the R language, instead of relying on traditional web development technologies like JavaScript or HTML5. This R-based approach makes Shiny an efficient choice for creating web applications tailored for data presentation and analysis.
 
@@ -46,9 +29,15 @@ Shiny apps are useful for several purposes:
 New project…
 Under the File menu, choose New Project.... You will see a popup window like the one below. Choose New Directory.
 
+Then choose `Shiny Web App`
+
+<img src="images/demo-app.png" width="100%" style="display: block; margin: auto;" />
+
 ### Run the app
 
 Click on Run App in the top right corner of the source pane. The app will open up in a new window. Play with the slider and watch the histogram change.
+
+<img src="images/first-app.png" width="100%" style="display: block; margin: auto;" />
 
 ### Modify the Demo App
 
@@ -56,7 +45,167 @@ Now we’re going to make a series of changes to the demo app until it’s all y
 
 You can close the app by closing the window or browser tab it’s running in, or leave it running while you edit the code. If you have multiple screens, it’s useful to have the app open on one screen and the code on another.
 
-# Layout
+**1. Change the title**
+
+Change the title to "My First App". Make sure the title is inside quotes and the whole quoted string is inside the parentheses. Save the file.
+
+
+Then click **Run App**
+
+<img src="images/title-app.png" width="100%" style="display: block; margin: auto;" />
+
+**2. Change the input**
+
+Now let's change the input. Find the function sliderInput() (line 21). The first argument is the name you can use in the code to find the value of this input, so don't change it just yet. The second argument is the text that displays before the slider. Change this to something else and re-run the app.
+
+
+```r
+sliderInput("bins",
+            "Number of bins:",
+            min = 0,
+            max = 50,
+            value = 30)
+```
+
+<div class="try">
+<p>See if you can figure out what the next three arguments to
+sliderInput() do. Change them to different integers, then re-run the app
+to see what’s changed.</p>
+</div>
+
+The arguments to the function `sidebarPanel()` are just a list of things you want to display in the sidebar. To add some explanatory text in a paragraph before `sliderInput()`, just use the paragraph function `p()`.
+
+
+```r
+sidebarPanel(
+   p("I am explaining this perfectly"),
+   sliderInput("bins",
+               "Choose the best bin number:",
+               min = 10,
+               max = 40,
+               value = 25)
+)
+```
+
+<img src="images/sidebar-app.png" width="100%" style="display: block; margin: auto;" />
+
+**3. Change the layout**
+
+I don't like the position of this explanatory text, so we can move this text out of the sidebar and to the top of the page, just under the title. Try this and re-run the app.
+
+
+```r
+# Application title
+titlePanel("My First App"),
+
+p("I am explaining this perfectly"),
+
+# Sidebar with a slider input for number of bins
+sidebarLayout(...)
+```
+
+**4. Change some colours**
+
+I'm also not keen on the grey plot. We can change the plot colour inside `hist()`
+
+
+```r
+# draw the histogram with the specified number of bins
+hist(x, breaks = bins, col = 'skyblue', border = 'grey30')
+```
+
+**5. Change the plot**
+
+I prefer ggplots, so let's make the plot with `geom_histogram()` instead of `hist()` (which is a great function for really quick plots, but not very visually appealing). Since we need several functions from the `ggplot2` package, we'll need to load that package at the top of the script, just under where the shiny package is loaded:
+
+
+```r
+library(shiny)
+library(ggplot2)
+```
+
+You can replace all of the code in `renderPlot()` with the code below.
+
+
+```r
+output$distPlot <- renderPlot({
+  # create plot
+  ggplot(faithful, aes(waiting)) +
+    geom_histogram(bins = input$bins,
+                   fill = "steelblue3",
+                   colour = "grey30") +
+    xlab("What are we even plotting here?") +
+    theme_minimal()
+})
+```
+
+**6.Plot new things**
+
+The `faithful` dataset includes two columns: eruptions and waiting. We've been plotting the waiting variable, but what if you wanted to plot the eruptions variable instead?
+
+<div class="try">
+<p>Try plotting the eruption time (eruptions) instead of the waiting
+time. You just have to change one word in ggplot() and update the x-axis
+label.</p>
+</div>
+
+We can add another input widget to let the user switch between plotting eruption time and wait time. We'll learn more about the different input options in Section 3. We need to toggle between two options, so we can use either radio buttons or a select box. Radio buttons are probably best if you have only a few options and the user will want to see them all at the same time to decide.
+
+Add the following code as the first argument to sidebarPanel(), which just takes a list of different widgets. radioButtons() is the widget we're using. We'll set four arguments:
+
+- inputId: a unique identifier that we will use later in the code to find the value of this widget
+
+- label: the text to display to the user
+
+- choices: a list of choices in the format c("label1" = "value1", "label2" = "value2", ...)
+
+- selected: the value of the default choice
+
+For choices, the label is what gets shown to the user and the value is what gets used by the code (these can be the same, but you often want the user label to be more descriptive).
+
+
+```r
+ radioButtons(inputId = "display_var",
+              label = "Which variable to display",
+              choices = c("Waiting time to next eruption" = "waiting",
+                          "Eruption time" = "eruptions"),
+              selected = "waiting"
+ ),
+```
+
+Save this and re-run the app.
+
+
+<img src="images/widget-app.png" width="100%" style="display: block; margin: auto;" />
+
+You should have a radio button interface now. You can click on the options to switch the button, but it won't do anything to your plot yet. We need to edit the plot-generating code to make that happen.
+
+First, we need to change the x-axis label depending on what we're graphing. We use an if/else statement to set the variable xlabel to one thing if `input$display_var` is equivalent to "eruptions", and to something else if it's equivalent to "waiting". Put this code at the very beginning of the code block for `renderPlot()` (after the line `output$distPlot <- renderPlot({`).
+
+
+```r
+# set x-axis label depending on the value of display_var
+if (input$display_var == "eruptions") {
+  xlabel <- "Eruption Time (in minutes)"
+} else if (input$display_var == "waiting") {
+  xlabel <- "Waiting Time to Next Eruption (in minutes)"
+}
+```
+
+Then we have to edit ggplot() to use the new label and to plot the correct column. The variable `input$display_var` gives you the user-input value of the widget called "display_var".
+
+
+```r
+# create plot
+ggplot(faithful, aes(.data[[input$display_var]])) +
+  geom_histogram(bins = input$bins,
+                 fill = "steelblue3",
+                 colour = "grey30") +
+  xlab(xlabel) +
+  theme_minimal()
+```
+
+Re-run your app and see if you can change the data and x-axis label with your new widget.
 
 # Make our own App
 
@@ -110,10 +259,9 @@ shinyApp(ui = ui, server = server)
 
 To create your own Shiny app, you should remove any example code generated automatically when you created app.R and replace it with the structure provided above. Check that your final app.R script resembles the following:
 
+<button id="displayTextunnamed-chunk-23" onclick="javascript:toggle('unnamed-chunk-23');">Show Solution</button>
 
-<button id="displayTextunnamed-chunk-7" onclick="javascript:toggle('unnamed-chunk-7');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-7" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-23" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # Packages ----
@@ -190,6 +338,7 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 ```
 
+
 In the code above, we've added the input widgets in the `sidebarPanel` section of your `ui` object. These widgets allow users to select a genotype, choose a histogram color, set the number of bins for the histogram, and add arbitrary text.
 
 Let's take a moment to understand the `selectInput()` function and how it's configured:
@@ -206,23 +355,189 @@ Now that you've grasped how `selectInput()` works, let's use it to customize you
 
 The above explanation clarifies the purpose and settings of the `selectInput()` function, and you can use this understanding to configure other input elements in your Shiny app. Below is a summary of the different Input functions available for Shiny
 
-## textInput
+### textInput
 
-## textAreaInput
+`textInput` creates a one-line box for short text input. The first `argument`, `inputId` (the argument name is usually omitted), needs to be a unique string that you cannot use for another input or output in this app.
 
-##selectInput
 
-##checkboxGroupInput
+```r
+demo_text <- 
+  textInput("demo_text", 
+            label = "Name", 
+            value = "", 
+            width = "100%",
+            placeholder = "Your Name")
+```
 
-##checkboxInput
+<div class="try">
+<p>Experiment with the values of <code>arg("label")</code>,
+<code>arg("value")</code>, <code>arg("width")</code>, and
+<code>arg("placeholder")</code> to see what they do.</p>
+</div>
 
-##radioButtons
 
-##dateInput
+### textAreaInput
 
-##dateRangeInput
+`func("textAreaInput")` creates a multi-line box for longer text input.
 
-##fileInput
+
+```r
+demo_textarea <- 
+  textAreaInput("demo_textarea", 
+                label = "Biography", 
+                value = "",
+                width = "100%",
+                rows = 5, 
+                placeholder = "Tell us something interesting about you.")
+```
+
+What is the `arg("inputId")` of the widget above?
+
+<select class='webex-select'><option value='blank'></option><option value=''>textAreaInput</option><option value='answer'>demo_textarea</option><option value=''>Biography</option></select>
+
+### selectInput
+
+`func("selectInput")` creates a drop-down menu. Set the first ` arg("choice")` to `""` to default to `NA`. If your choices are a named `"list"` or `"vector"`, the names are what is shown and the values are what is recorded. If the choices aren't named, the displayed and recorded values are the same.
+
+
+```r
+demo_select <- 
+  selectInput("demo_select", 
+              label = "Do you like Shiny?", 
+              choices = list("", 
+                             "Yes, I do" = "y", 
+                             "No, I don't" = "n"),
+              selected = NULL,
+              width = "100%")
+```
+
+If you set ` arg("multiple")` to ` dt(TRUE)`, you can also make a select where users can choose multiple options.
+
+
+```r
+genders <- list( # no blank needed
+  "Non-binary" = "nb",
+  "Male" = "m",
+  "Female" = "f",
+  "Prefer not to say" = "p"
+)
+
+demo_select_multi <- 
+  selectInput("demo_select2", 
+              label = "Gender", 
+              choices = genders,
+              selected = NULL,
+              multiple = TRUE, 
+              selectize = FALSE,
+              size = 5)
+```
+
+### checkboxGroupInput
+
+However, this interface almost always looks better with ` func("checkboxGroupInput")`. 
+
+
+```r
+demo_cbgi <-
+  checkboxGroupInput("demo_cbgi",
+                     label = "Gender)",
+                     choices = genders)
+```
+
+How can you get the checkboxes to display horizontally instead of vertically?  
+
+<select class='webex-select'><option value='blank'></option><option value=''>display = 'horizontal'</option><option value=''>class = 'horiz'</option><option value='answer'>inline = TRUE</option><option value=''>class = 'shiny-input-container-inline'</option></select>
+
+
+### checkboxInput
+
+You can also make a single checkbox with ` func("checkboxInput")`. The ` arg("value")` is ` dt(TRUE)` when checked and ` dt(FALSE)` when not.
+
+
+```r
+demo_cb <- checkboxInput("demo_cb",
+                         label = "I love R",
+                         value = TRUE)
+```
+
+` func("sliderInput")` allows you to choose numbers between a ` arg("min")` and ` arg("max")` value.
+
+
+```r
+demo_slider <- sliderInput("demo_slider",
+                           label = "Age",
+                           min = 0,
+                           max = 100,
+                           value = 0,
+                           step = 1,
+                           width = "100%")
+```
+
+
+<div class="try">
+<p>What happens if you change <code>arg("value")</code> or
+<code>arg("step")</code>? Try changing <code>arg("value")</code> to
+<code>c(10, 20)</code>.</p>
+</div>
+
+### radioButtons
+
+If you want users to only be able to choose one option and there are a small number of short options, ` func("radioButton")` is a good interface. 
+
+
+```r
+demo_radio <- radioButtons("demo_radio",
+                           label = "Choose one",
+                           choices = c("Cats", "Dogs"),
+                           selected = character(0),
+                           inline = TRUE)
+```
+
+<div class="info">
+<p>Radio buttons default to selecting the first item unless you set
+<code>arg("selected")</code> to a choice value or
+<code>character(0)</code> to start with no selection.</p>
+</div>
+
+### dateInput
+
+I find the date interface a little clunky, but...
+
+
+```r
+demo_date <- dateInput("demo_date",
+                       label = "What is your birth date?",
+                       min = "1900-01-01",
+                       max = Sys.Date(),
+                       format = "yyyy-mm-dd",
+                       startview = "year")
+```
+
+<div class="info">
+<p>IMHO, the default of <code>dt("yyyy-mm-dd")</code> is the best
+because it sorts into chronological order.</p>
+</div>
+
+What would you set ` arg("format")` to in order to display dates like "Sunday July 4, 2021"?  
+<select class='webex-select'><option value='blank'></option><option value=''>D M d, Y</option><option value='answer'>DD MM d, yyyy</option><option value=''>DAY MONTH day, YEAR</option><option value=''>D MM dd, yyyy</option></select>
+
+
+### fileInput
+
+Users can upload one or more files with ` func("fileInput")`. The argument ` arg("accept")` lets you limit this to certain file types, but some browsers can bypass this requirement, so it's not fool-proof.
+
+
+```r
+demo_file <- fileInput("demo_file",
+                       label = "Upload a data table",
+                       multiple = FALSE,
+                       accept = c(".csv", ".tsv"),
+                       buttonLabel = "Upload")
+```
+
+
+What would you set ` arg("accept")` to to accept any image file?  
+<select class='webex-select'><option value='blank'></option><option value='answer'>image/*</option><option value=''>.jpg</option><option value=''>jpg</option><option value=''>images</option><option value=''>.img</option></select>
 
 
 Next, you'll need to implement the server logic and output elements in the `server.R` section. The server logic will define how these inputs affect the display of your histogram and table, but that would require additional code specific to your application's requirements.
@@ -234,7 +549,7 @@ As you proceed, you can add more details to your `server.R` to handle these inpu
 
 ## Exercise 
 
-Create an interface that gets people to enter their name, date of birth and select what type of cake they want from a selection OF - 
+**1. Create an interface that gets people to enter their name, date of birth and select what type of cake they want from a selection OF -** 
 
 - Chocolate
 
@@ -244,9 +559,9 @@ Create an interface that gets people to enter their name, date of birth and sele
 
 - Cheesecake
 
+**2. Save a separate file with the progress on our penguins app**
 
 # Outputs
-
 
 
 ```r
@@ -262,12 +577,15 @@ penguins <- as_tibble(penguins)
 ui <- fluidPage(
   sidebarLayout(
      sidebarPanel(
+       
       demo_sp <- selectInput(inputId = "species",  # Give the input a name "genotype"
                   label = "1. Select species",  # Give the input a label to be displayed in the app
                   choices = c("Adelie" = "Adelie", "Chinstrap" = "Chinstrap", "Gentoo" = "Gentoo"), selected = "Adelie"),  # Create the choices that can be selected. e.g. Display "Adelie" and link to value "Adelie"
+      
       demo_select <- selectInput(inputId = "colour", 
                   label = "2. Select histogram colour", 
                   choices = c("blue","green","red","purple","grey"), selected = "grey"),
+      
       demo_slide <- sliderInput(inputId = "bin", 
                   label = "3. Select number of histogram bins", 
                   min=1, max=25, value= c(10)),
@@ -276,15 +594,16 @@ ui <- fluidPage(
                 rows = 5,
                 placeholder = "Enter some information here")
     ),
+    
     mainPanel(
       # Output elements go here
         textOutput("demo_text"),
-        
         plotOutput("demo_plot", width = "500px", height="300px"),
         
         DT::dataTableOutput("demo_table",
                     width = "50%",
-                    height = "auto")
+                    height = "auto"),
+        verbatimTextOutput("demo_verbatim")
     )
   )
 )
@@ -313,6 +632,18 @@ server <- function(input, output) {
     summarise(flipper_length_mm = quantile(flipper_length_mm, c(0.25, 0.5, 0.75), na.rm = T), quantile = c(0.25, 0.5, 0.75))
 })
   
+  output$demo_verbatim <- renderText({
+  code <-
+    paste0("penguins_filtered <- penguins %>%
+      filter(species == '", input$species,"')
+    
+    ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
+      geom_histogram(fill = '", input$colour, "', show.legend = FALSE, bins = ", input$bin, ") +
+      theme_minimal()")
+  
+  code
+})
+  
 }
 
 
@@ -323,15 +654,157 @@ shinyApp(ui = ui, server = server)
 
 ## Text
 
+` func("textOutput")` defaults to text inside a generic `<span>` or `<div>`.
+
+
+```r
+# in the UI function
+textOutput("demo_text", container = tags$h3)
+```
+
+`func("renderText")` replaces the text of the linked element with its returned string.
+
+
+```r
+# in the server function
+  output$demo_text <- renderText({
+    paste("Figure 1.", input$species, input$text)
+  })
+```
+
+If you use ` func("verbatimTextOutput")` in the UI (no change to the render function), it will show the output in a fixed-width font. This can be good for code or text you want the user to copy.
+
+
+```r
+# in the UI function
+verbatimTextOutput("demo_verbatim")
+
+# in the server function
+  output$demo_verbatim <- renderText({
+  code <-
+    paste0("penguins_filtered <- penguins %>%
+      filter(species == '", input$species,"')
+    
+    ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
+      geom_histogram(fill = '", input$colour, "', show.legend = FALSE, bins = ", input$bin, ") +
+      theme_minimal()")
+  
+  code
+})
+```
+
+
 ## Plots
+
+`func("plotOutput")` displays plots made with the `base R` plotting functions (e.g., `"plot"`, `hist`) or `ggplot2` functions.
+
+
+```r
+# in the UI function
+plotOutput("demo_plot", width = "500px", height="300px")
+```
+
+What is the default value for `width`?  
+<select class='webex-select'><option value='blank'></option><option value='answer'>100%</option><option value=''>400px</option><option value=''>400</option><option value=''>5in</option><option value=''>7in</option></select>  
+
+What is the default value for `height`?  
+<select class='webex-select'><option value='blank'></option><option value=''>100%</option><option value='answer'>400px</option><option value=''>400</option><option value=''>5in</option><option value=''>7in</option></select>
+
+
+
+```r
+# in the server function
+  output$demo_plot <- renderPlot({
+    penguins_filtered <- penguins |>
+      filter(species == input$species)
+    
+    ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
+      geom_histogram(fill = input$colour, show.legend = FALSE, bins = input$bin) +
+      labs(fill = "Color") +
+      theme_minimal()
+  })
+```
+
+
+<div class="warning">
+<p>If you want to create dynamic plots that change with input, note how
+you need to use <code>y = .data[[input$y]]</code> inside
+<code>aes</code>, instead of just <code>y = input$y</code>.</p>
+</div>
 
 ## Images
 
-## Tables
+`imageOutput` takes the same arguments as `plotOutput`. You can leave `width` and `height` as their defaults if you are going to set those values in the render function.
 
-## Layouts, themes, HTML
 
-Exercise: Customize the app's appearance by adding a custom color scheme, a title with a different font, and adjusting the size of the plot.
+```r
+# in the UI function
+imageOutput("demo_image")
+```
+
+`renderImage` needs to return a named list with at least an `src` with the image path. You can also set the `width` and `height` (numeric values are in pixels), `class` and `alt` (the alt-text for screen readers).
+
+
+```r
+# in the server function
+output$demo_image <- renderImage({
+    list(src = "images/penguin.jpg",
+         width = 100,
+         height = 100,
+         alt = "A flower")
+}, deleteFile = FALSE)
+```
+
+
+<div class="warning">
+<p>The <code>deleteFile</code> argument is currently optional, but
+triggers periodic warnings that it won’t be optional in the future. You
+should set it to <code>TRUE</code> if you’re making a temporary file
+(this stops unneeded plots using memory) and <code>FALSE</code> if
+you’re referencing a file you previously saved.</p>
+</div>
+
+## Data Tables
+
+Display a table using `tableOutput`.
+
+
+```r
+# in the UI function
+tableOutput("demo_table")
+```
+
+This is paired with `DT::renderDataTable`, which makes a table out of any data frame it returns.
+
+
+```r
+# in the server function
+  output$demo_table <- DT::renderDataTable({
+   penguins  |> 
+      filter(species == input$species) |> 
+    summarise(flipper_length_mm = quantile(flipper_length_mm, c(0.25, 0.5, 0.75), na.rm = T), quantile = c(0.25, 0.5, 0.75))
+})
+```
+
+<div class="warning">
+<p>Note how you need to use <code>.data[[input$y]]</code> inside
+<code>dplyr::summarise</code>, instead of just <code>input$y</code> to
+dynamically choose which variable to summarise.</p>
+</div>
+
+
+I much prefer `DT::dataTableOutput` over the basic `shiny` package `dataTableOutput` and `renderDataTable` functions, but they can be buggy. The versions in the `DT` package are better and have [many additional functions](https://rstudio.github.io/DT/), so I use those. 
+
+<div class="info">
+<p>You can use the <code>DT</code> synonyms to make sure you’re not
+accidentally using the <code>shiny</code> versions, which don’t have the
+same options.</p>
+</div>
+
+
+## Emphasis
+
+We can use basic HTML to start customising appearance and emphasis - later we will use the `bslib` package to give us lots of easy customisation:
 
 ```
   
@@ -357,7 +830,6 @@ p("p creates a paragraph of text."),
         "that appear inside a paragraph."),
 
 ```
-
 
 
 ```r
@@ -391,7 +863,7 @@ ui <- fluidPage(
       # Output elements go here
         
     tags$ul(
-    tags$strong(textOutput("demo_sp")),
+    tags$strong(textOutput("demo_sp")), # emphasise text
     textOutput("demo_text")),
   
         plotOutput("demo_plot", width = "500px", height="300px"),
@@ -445,14 +917,11 @@ shinyApp(ui = ui, server = server)
 
 # Reactive
 
-```
-Error in filter(., species == input$species) : 
-  ℹ In argument: `species == input$species`.
-Caused by error in `input$species`:
-! Can't access reactive value 'species' outside of reactive consumer.
-ℹ Do you need to wrap inside reactive() or observe()?
 
-```
+Reactivity is how Shiny determines which code in server() gets to run when. Some types of objects, such as the input object or objects made by `reactiveValues()`, can trigger some types of functions to run whenever they change.
+
+In the example below if you move the data filtering outside of `renderPlot()`, you'll get an error message like "Can't access reactive value outside of reactive consumer." This means that the input values can only be read inside certain functions, like `reactive()`, `observeEvent()`, or a render function like `renderPlot()`.
+
 
 
 ```r
@@ -511,7 +980,7 @@ penguins_filtered <- penguins |>
   })
   
 output$demo_text <- renderText({
-  (input$text)
+  (input$text) # here to trigger the function
 })
    
 
@@ -537,6 +1006,16 @@ output$demo_text <- renderText({
 shinyApp(ui = ui, server = server)
 ```
 
+```
+Error in filter(., species == input$species) : 
+  ℹ In argument: `species == input$species`.
+Caused by error in `input$species`:
+! Can't access reactive value 'species' outside of reactive consumer.
+ℹ Do you need to wrap inside reactive() or observe()?
+
+```
+
+However, we can put the data filtering inside `reactive()`. This means that whenever an input inside that function changes, the code will run and update the value of `data()`. This can be useful if you need to recalculate the data table each time the inputs change, and then use it in more than one function.
 
 
 ```r
@@ -626,7 +1105,7 @@ output$demo_text <- renderText({
 shinyApp(ui = ui, server = server)
 ```
 
-My most common error is trying to use data or title as an object instead of as a function. Notice how the first argument to ggplot is no longer data, but data() and you set the value of data with data(newdata), not data <- newdata. For now, just remember this as a quirk of shiny.
+My most common error is trying to use data or title as an object instead of as a function. Notice how the first argument to ggplot is no longer data, but `data()` and you set the value of data with `data(newdata)`, not data <- newdata. For now, just remember this as a quirk of shiny.
 
 ## Observable
 
@@ -728,12 +1207,16 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 ```
 
-Which things are now updated by the plot button?
+Q. Which things are now updated by the plot button?
 
 
-# Customising
+# Shiny Dashboards
 
-## Shiny Dashboard
+`bslib` is an R package that extends Bootstrap 4 and allows you to customize the appearance and style of your Shiny applications or R Markdown documents. With `bslib`, you can easily modify the look and feel of your Shiny apps by defining custom themes, colors, fonts, and other visual aspects.
+
+It provides a flexible way to create a consistent and visually appealing design for your Shiny applications without having to write extensive CSS code.
+
+You can use `bslib` functions like `bs_theme()`, to define and apply custom styles to your Shiny app.
 
 
 ```r
@@ -868,28 +1351,172 @@ shinyApp(ui = ui, server = server)
 ```
 
 
-### Width
+### Themable Dashboards
 
-Try changing width to see how it changes
+Adding the `bstheme()` function to the server adds real time theme changes to dashboards. 
+
 
 
 ```r
- bs_themer()
-# add to server function
+# Packages ----
+library(shiny)       # Essential for running any Shiny app
+library(tidyverse)
+library(palmerpenguins)    # The source of your data
+library(bslib)
+
+# Load the data
+penguins <- as_tibble(penguins)
+
+# Turn on thematic for theme-matched plots
+thematic::thematic_shiny(font = "auto")
+theme_set(theme_bw(base_size = 16))
+
+# Calculate column means for the value boxes
+means <- penguins |> 
+  group_by(species) |> 
+  summarise(mean = round(mean(flipper_length_mm, na.rm = T), 2))
+
+# Turn on thematic for theme-matched plots
+thematic::thematic_shiny(font = "auto")
+theme_set(theme_bw(base_size = 16))
+
+# ui.R ----
+ui <- page_sidebar(
+  title = "Penguins flipper dashboard",
+  sidebar = sidebar(
+      demo_sp <- selectInput(inputId = "species",  # Give the input a name "genotype"
+                  label = "1. Select species",  # Give the input a label to be displayed in the app
+                  choices = c("Adelie" = "Adelie", "Chinstrap" = "Chinstrap", "Gentoo" = "Gentoo"), selected = "Adelie"),  # Create the choices that can be selected. e.g. Display "Adelie" and link to value "Adelie"
+      demo_select <- selectInput(inputId = "colour", 
+                  label = "2. Select histogram colour", 
+                  choices = c("blue","green","red","purple","grey"), selected = "grey"),
+      demo_slide <- sliderInput(inputId = "bin", 
+                  label = "3. Select number of histogram bins", 
+                  min=1, max=25, value= c(10)),
+      demo_text <- textAreaInput(inputId = "text", 
+                label = "4. Enter some text to be displayed",
+                rows = 5,
+                placeholder = "Enter some information here"),
+      demo_button <- actionButton("update", "Plot")
+    )
+  ,
+   layout_columns(
+    fill = FALSE,
+    value_box(
+      title = "Adelie Flipper Length",
+      value = scales::unit_format(unit = "mm")(means[[1,2]]),
+      showcase = bsicons::bs_icon("align-bottom"),
+      theme_color = "grey"
+    ),
+    value_box(
+      title = "Chinstrap Flipper",
+      value = scales::unit_format(unit = "mm")(means[[2,2]]),
+      showcase = bsicons::bs_icon("align-center"),
+      theme_color = "grey"
+    ),
+ value_box(
+      title = "Gentoo Flipper Length",
+      value = scales::unit_format(unit = "mm")(means[[3,2]]),
+      showcase = bsicons::bs_icon("align-top"),
+      theme_color = "grey"
+    )
+  ),
+    
+    tags$ul(
+    tags$strong(textOutput("demo_sp")),
+    textOutput("demo_text")),
+ 
+      # Output elements go here
+      layout_columns(
+    card(
+      full_screen = TRUE,
+      card_header("Plot"),
+      plotOutput("demo_plot")
+    ),
+    card(
+      full_screen = TRUE,
+      card_header("Table"),
+      DT::dataTableOutput("demo_table",
+                    width = "100%",
+                    height = "auto")
+    )  
+)
+)
+  
+
+# server.R ----
+
+ 
+
+server <- function(input, output) {
+    bs_themer()
+
+
+  observeEvent(input$update, {
+    
+    penguins_filtered <- penguins |>
+      filter(species == input$species)
+    
+     bins <- input$bin
+     
+     colour <- input$colour
+ 
+
+    output$demo_sp <- renderText({
+      paste("Figure 1.", input$species)
+    })
+
+    output$demo_text <- renderText({
+      (input$text)
+    })
+
+    output$demo_plot <- renderPlot({
+        ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
+        geom_histogram(fill = colour, colour = "black", show.legend = FALSE, bins = bins) +
+        labs(fill = "Color") +
+        theme_minimal(base_size = 16)
+    })
+
+    output$demo_table <- DT::renderDataTable({
+      penguins_filtered |> 
+        summarise(flipper_length_mm = quantile(flipper_length_mm, c(0.25, 0.5, 0.75), na.rm = T), quantile = c(0.25, 0.5, 0.75))
+    })
+  })
+  
+}
+
+
+
+
+# Run the app ----
+shinyApp(ui = ui, server = server)
 ```
 
-https://shiny.posit.co/blog/posts/bslib-dashboards/#layout-tooling
 
-https://mastering-shiny.org/action-dynamic.html
+### Reading
 
+Check out the bslib information (https://rstudio.github.io/bslib/index.html)
 
-https://www.jumpingrivers.com/blog/r-shiny-customising-shinydashboard/#:~:text=The%20main%20way%20of%20including,css%20by%20convention.
+As well as this short article on updates and changes with follow-along examples https://shiny.posit.co/blog/posts/bslib-dashboards/
 
-
-# Download? 
 
 # Sharing
 
+## Shiny Apps
+
+The easiest way to share your apps is with (https://shinyapps.io)
+
+1. Open **`Tools > Global Options ...`**
+2. Go to the **`Publishing`** tab 
+3. Click the **`Connect`** button and choose ShinyApps.io
+4. Click on the link to [go to your account](https://www.shinyapps.io/){target="_blank"}
+5. Click the **`Sign Up`** button and **`Sign up with GitHub`** 
+6. You should now be in your shinyapps.io dashboard; click on your name in the upper right and choose **`Tokens`**
+7. Add a token
+8. Click **`Show`** next to the token and copy the text to the clipboard
+    ![](images/saio_secret.png){width="100%"}
+9. Go back to RStudio and paste the text in the box and click **`Connect Account`**
+10. Make sure the box next to "Enable publishing..." is ticked, click **`Apply`**, and close the options window
 
 
 ```r
@@ -936,3 +1563,20 @@ sessionInfo()
 ## [37] xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0 htmltools_0.5.5  
 ## [41] rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
 ```
+
+## Github
+
+GitHub is a great place to organise and share your code using version control. You can also use it to host Shiny app code for others to download and run on their own computer. You can share your ShinyApp in the same way you would share any R project. 
+
+## In an R package
+
+You can put your app in a custom R package to make it even easier for people to run the app. The usethis package is incredibly helpful for setting up packages. But this is beyond the scope of this class. 
+
+## Further Reading
+
+- https://shiny.posit.co/blog/posts/bslib-dashboards/
+
+- https://mastering-shiny.org/action-dynamic.html
+
+
+- https://www.jumpingrivers.com/blog/r-shiny-customising-shinydashboard/#:~:text=The%20main%20way%20of%20including,css%20by%20convention.

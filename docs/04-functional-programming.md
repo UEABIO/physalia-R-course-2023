@@ -50,6 +50,18 @@ add_one <- function(x) {
 }
 ```
 
+<div class="info">
+<p>There is now a shortcut to writing functions in R <code>\(x)</code>
+that removes the need to call <code>function()</code> or use curly
+braces<code>{}</code>.</p>
+<p>In this tutorial I will use the older method for now, but briefly
+demonstrate the simpler syntax</p>
+</div>
+
+
+```r
+add_one <- \(x) x + 1
+```
 
 
 ```r
@@ -110,9 +122,9 @@ create a function called `fahr_to_kelvin` that converts temperature values from 
 The conversion is `temp_in_kelvin <- (temp_fahr - 32) * (5 / 9)) + 273.15`
  </div></div>
 
-<button id="displayTextunnamed-chunk-9" onclick="javascript:toggle('unnamed-chunk-9');">Show Solution</button>
+<button id="displayTextunnamed-chunk-11" onclick="javascript:toggle('unnamed-chunk-11');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-9" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-11" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 fahr_to_kelvin <- function(fahr) {
@@ -132,9 +144,9 @@ Write a function that performs this conversion and returns "both" kelvin and cel
  </div></div>
 
 
-<button id="displayTextunnamed-chunk-11" onclick="javascript:toggle('unnamed-chunk-11');">Show Solution</button>
+<button id="displayTextunnamed-chunk-13" onclick="javascript:toggle('unnamed-chunk-13');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-11" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-13" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 fahr_to_kelvin_celsius <- function(fahr) {
@@ -189,9 +201,9 @@ What happens when you try to put something in the brackets when **using** this f
 e.g. say_hello("Phil")
  </div></div>
 
-<button id="displayTextunnamed-chunk-15" onclick="javascript:toggle('unnamed-chunk-15');">Show Solution</button>
+<button id="displayTextunnamed-chunk-17" onclick="javascript:toggle('unnamed-chunk-17');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-15" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-17" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 Error in say_hello( or something similar, this function has not been set with any arguments, therefore it doesn't know what to do with any values provided to it. </div></div></div>
 
 Now lets try a similar function, but we include an argument:
@@ -213,9 +225,9 @@ say_morning("Phil")
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 What happens when you DO NOT put something in the brackets when using this function? </div></div>
 
-<button id="displayTextunnamed-chunk-18" onclick="javascript:toggle('unnamed-chunk-18');">Show Solution</button>
+<button id="displayTextunnamed-chunk-20" onclick="javascript:toggle('unnamed-chunk-20');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-18" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-20" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 Error in paste("Good morning", x) : 
@@ -266,9 +278,9 @@ Now, you can use `my_mean(x)` to calculate the mean while always ignoring `NA` v
 
 What happens when you try to use your new function `my_mean` and set na.rm  = F?
 
-<button id="displayTextunnamed-chunk-22" onclick="javascript:toggle('unnamed-chunk-22');">Show Solution</button>
+<button id="displayTextunnamed-chunk-24" onclick="javascript:toggle('unnamed-chunk-24');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-22" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-24" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```
 Error in my_mean(c(5, 6, 7, 8), na.rm = F) : unused argument (na.rm = F)
@@ -454,9 +466,9 @@ my_lm <- function(formula, data) {
 }
 ```
 
-<button id="displayTextunnamed-chunk-33" onclick="javascript:toggle('unnamed-chunk-33');">Show Solution</button>
+<button id="displayTextunnamed-chunk-35" onclick="javascript:toggle('unnamed-chunk-35');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-33" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-35" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # Function: my_lm
@@ -611,9 +623,9 @@ triangle_number <- function(x) {
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Run `testthat()` to make sure this function works for multiple inputs </div></div>
 
-<button id="displayTextunnamed-chunk-43" onclick="javascript:toggle('unnamed-chunk-43');">Show Solution</button>
+<button id="displayTextunnamed-chunk-45" onclick="javascript:toggle('unnamed-chunk-45');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-43" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-45" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 test_that("it works as expected", {
@@ -641,9 +653,9 @@ test_that("it works as expected", {
 ```
 
 
-<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">Show Solution</button>
+<button id="displayTextunnamed-chunk-48" onclick="javascript:toggle('unnamed-chunk-48');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-46" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-48" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # the output is a named list
@@ -875,9 +887,9 @@ For `p = "a"` there is a warning but perhaps not a very intuitive one.
 We can make our own custom/specific warnings, try this and run it with the arguments above again! 
 
 
-<button id="displayTextunnamed-chunk-59" onclick="javascript:toggle('unnamed-chunk-59');">Show Solution</button>
+<button id="displayTextunnamed-chunk-61" onclick="javascript:toggle('unnamed-chunk-61');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-59" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-59 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-59', 'unnamed-chunk-59');">Base R</button><button class="tablinksunnamed-chunk-59" onclick="javascript:openCode(event, 'option2unnamed-chunk-59', 'unnamed-chunk-59');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
+<div id="toggleTextunnamed-chunk-61" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-61 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-61', 'unnamed-chunk-61');">Base R</button><button class="tablinksunnamed-chunk-61" onclick="javascript:openCode(event, 'option2unnamed-chunk-61', 'unnamed-chunk-61');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
 
 ```r
  report_p <- function(p, digits = 3) {
@@ -892,7 +904,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
      return(reported)
  }
 ```
- </div><div id="option2unnamed-chunk-59" class="tabcontentunnamed-chunk-59">
+ </div><div id="option2unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
  
  
  ```r
@@ -910,7 +922,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
     return(result)
  }
  ```
- </div><script> javascript:hide('option2unnamed-chunk-59') </script></div></div></div>
+ </div><script> javascript:hide('option2unnamed-chunk-61') </script></div></div></div>
 
 
 ## Activities
@@ -920,9 +932,9 @@ We'll create a function that calculates the GC content of a DNA sequence, and th
 
 > Hint`stringr` and associated functions will be very helpful here
 
-<button id="displayTextunnamed-chunk-60" onclick="javascript:toggle('unnamed-chunk-60');">Show Solution</button>
+<button id="displayTextunnamed-chunk-62" onclick="javascript:toggle('unnamed-chunk-62');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-60" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-60 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-60', 'unnamed-chunk-60');">Base R</button><button class="tablinksunnamed-chunk-60" onclick="javascript:openCode(event, 'option2unnamed-chunk-60', 'unnamed-chunk-60');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
+<div id="toggleTextunnamed-chunk-62" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-62 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-62', 'unnamed-chunk-62');">Base R</button><button class="tablinksunnamed-chunk-62" onclick="javascript:openCode(event, 'option2unnamed-chunk-62', 'unnamed-chunk-62');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -957,7 +969,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
+</div><div id="option2unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -991,14 +1003,14 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-60') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-62') </script></div></div></div>
 
 Exercise 2: Document the Function
 Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.
 
-<button id="displayTextunnamed-chunk-61" onclick="javascript:toggle('unnamed-chunk-61');">Show Solution</button>
+<button id="displayTextunnamed-chunk-63" onclick="javascript:toggle('unnamed-chunk-63');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-61" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-63" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 
 </div></div></div>
@@ -1006,9 +1018,9 @@ Add documentation to the factorial function using roxygen2-style comments. Inclu
 Exercise 3: Test the Function
 Create a test script that uses test_that to check if the function returns the correct GC percentage and melting temps
 
-<button id="displayTextunnamed-chunk-62" onclick="javascript:toggle('unnamed-chunk-62');">Show Solution</button>
+<button id="displayTextunnamed-chunk-64" onclick="javascript:toggle('unnamed-chunk-64');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-62" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-64" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 test_that("gc_content function tests", {
@@ -1027,9 +1039,9 @@ test_that("gc_content function tests", {
 Exercise 4: Handle Errors
 You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?
 
-<button id="displayTextunnamed-chunk-63" onclick="javascript:toggle('unnamed-chunk-63');">Show Solution</button>
+<button id="displayTextunnamed-chunk-65" onclick="javascript:toggle('unnamed-chunk-65');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-63" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-63 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-63', 'unnamed-chunk-63');">Base R</button><button class="tablinksunnamed-chunk-63" onclick="javascript:openCode(event, 'option2unnamed-chunk-63', 'unnamed-chunk-63');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
+<div id="toggleTextunnamed-chunk-65" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-65 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-65', 'unnamed-chunk-65');">Base R</button><button class="tablinksunnamed-chunk-65" onclick="javascript:openCode(event, 'option2unnamed-chunk-65', 'unnamed-chunk-65');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-65" class="tabcontentunnamed-chunk-65">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -1068,7 +1080,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
+</div><div id="option2unnamed-chunk-65" class="tabcontentunnamed-chunk-65">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -1106,7 +1118,7 @@ if (!str_detect(dna_sequence, "^[ATCG]+$")) stop("Invalid DNA sequence. Only A, 
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-63') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-65') </script></div></div></div>
 
 
 
@@ -1167,9 +1179,9 @@ What do you think will happen if you set both times to 3 and each to 2?
 rep(c("Adelie", "Gentoo", "Chinstrap"), times = 2, each = 3)
 ```
 
-<button id="displayTextunnamed-chunk-68" onclick="javascript:toggle('unnamed-chunk-68');">Show Solution</button>
+<button id="displayTextunnamed-chunk-70" onclick="javascript:toggle('unnamed-chunk-70');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-68" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-70" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```
 ##  [1] "Adelie"    "Adelie"    "Adelie"    "Gentoo"    "Gentoo"    "Gentoo"   
@@ -1247,12 +1259,12 @@ replicate(3, # times to replicate function
 ```
 
 ```
-##           [,1]        [,2]     [,3]
-## [1,] 1.1495117 -0.08302482 1.370805
-## [2,] 2.8380004  3.11184962 1.577995
-## [3,] 2.0835705  1.66323322 1.446622
-## [4,] 0.5121356 -0.66297033 3.823666
-## [5,] 2.1702664  1.24233243 2.038443
+##            [,1]       [,2]      [,3]
+## [1,]  3.2064000  0.3634067 1.0614246
+## [2,]  1.8743519  1.2374685 1.0781874
+## [3,]  3.2270798  0.1645341 1.1358529
+## [4,] -0.3266705 -1.3798490 0.7526762
+## [5,]  1.7417151  2.1590005 1.9911489
 ```
 
 https://www.r-bloggers.com/2023/07/the-replicate-function-in-r/
@@ -1443,6 +1455,24 @@ Each time the mean is calculate for one column in df this is then stored as an e
 
 ## Speed
 
+We can wrap our function calls and iterations inside a few different functions to capture runspeed. 
+
+1. Use `system.time`
+
+
+```r
+system.time(function)
+```
+
+2. Use `microbenchmark` - this add on package runs a default of 100 evaluations, and comes with a handy ggplot1 integration for autoplotting. 
+
+
+```r
+mm <- microbenchmark(function)
+
+autplot(mm)
+```
+
 ### Initialise objects
 
 Pre-allocating the output with the appropriate length before the loop avoids reallocation of memory inside the loop, which can be inefficient for large data. For example:
@@ -1553,7 +1583,7 @@ Unit: milliseconds
 autoplot(mbm)
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-87-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-91-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -1803,9 +1833,9 @@ apply(df, MARGIN = 1, mean)
 Make a function that converts values with a normal distribution into their z scores </div></div>
 
 
-<button id="displayTextunnamed-chunk-96" onclick="javascript:toggle('unnamed-chunk-96');">Show Solution</button>
+<button id="displayTextunnamed-chunk-100" onclick="javascript:toggle('unnamed-chunk-100');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-96" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-100" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 z_score <- function(x) {
@@ -1818,9 +1848,9 @@ z_score <- function(x) {
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Choose the appropriate apply function to calculate a matrix of z-scores for the dataframe `df` </div></div>
 
-<button id="displayTextunnamed-chunk-98" onclick="javascript:toggle('unnamed-chunk-98');">Show Solution</button>
+<button id="displayTextunnamed-chunk-102" onclick="javascript:toggle('unnamed-chunk-102');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-98" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-102" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 apply(df, MARGIN = 2,  z_score)
 </div></div></div>
@@ -1844,6 +1874,7 @@ A few more notes on syntax:
 
 * You can use `.x` (or simply `.`) within the `.f = function` as a placeholder for the `.x` value of that iteration
 
+<img src="images/map-step-1.png" width="100%" style="display: block; margin: auto;" />
 
 **The output of using` map()` is a list** - a list is an object class like a vector but whose elements can be of different classes. So, a list produced by `map()` could contain many data frames, or many vectors, many single values, or even many lists! There are alternative versions of `map()` explained below that produce other types of outputs (e.g. `map_dfr()` to produce a data frame, `map_chr()` to produce character vectors, and `map_dbl()` to produce numeric vectors).
 
@@ -1851,19 +1882,22 @@ Basic `map()` will *always* return a `list`, other variants return different dat
 
 ## Example
 
-<div class="tab"><button class="tablinksunnamed-chunk-99 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-99', 'unnamed-chunk-99');">Base R</button><button class="tablinksunnamed-chunk-99" onclick="javascript:openCode(event, 'option2unnamed-chunk-99', 'unnamed-chunk-99');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-99" class="tabcontentunnamed-chunk-99">
+<div class="tab"><button class="tablinksunnamed-chunk-104 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-104', 'unnamed-chunk-104');">Base R</button><button class="tablinksunnamed-chunk-104" onclick="javascript:openCode(event, 'option2unnamed-chunk-104', 'unnamed-chunk-104');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-104" class="tabcontentunnamed-chunk-104">
 
 ```r
 lapply(df_list, mean)
 ```
-</div><div id="option2unnamed-chunk-99" class="tabcontentunnamed-chunk-99">
+</div><div id="option2unnamed-chunk-104" class="tabcontentunnamed-chunk-104">
 
 ```r
 map(.x = df_list, .f = mean)
 
 map(df_list, mean)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-99') </script>
+</div><script> javascript:hide('option2unnamed-chunk-104') </script>
+
+
+
 
 ## more maps
 
@@ -1877,6 +1911,8 @@ map(df_list, mean)
 |`map_chr()`| returns a character vector|
 |`map_df()`| returns a data frame/tibble|
 
+
+<img src="images/map_df.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="info">
 <p>These specialized map functions are “type-safe” and will fail with
@@ -2016,6 +2052,14 @@ plots[[1,4]]
 plots$scatterplots[[1]]
 ```
 
+If we wish to see all of the plots at once we can use `purrr::walk` - this is another iteration function, where the primary output is "silent" - we do not wish to see outputs printed in the console. This is useful for functions like plot making or writing outputs to file. 
+
+
+```r
+walk(plots$scatterplot)
+```
+
+
 <div class="info">
 <p>gg objects are not the only type of objects that can be created using
 map() and mutate(). Another application of these two functions is
@@ -2033,11 +2077,13 @@ library(patchwork)
 plots$scatterplots |> wrap_plots()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-110-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-117-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## map2
 
 `map2` is a versatile function in the `purrr` package for R that allows you to iterate over **two** input vectors or lists in parallel, applying a specified function to pairs of corresponding elements. It's particularly useful when you need to perform operations that depend on elements from two separate input sources simultaneously, offering a powerful way to combine and process data in a pairwise manner.
+
+<img src="images/map2.png" width="100%" style="display: block; margin: auto;" />
 
 Here is a quick example building on our plot making function - where we are able to alter the colour of the plots according to a 
 
@@ -2061,7 +2107,7 @@ plots$scatterplots |>
     wrap_plots(... = _, guides = "collect")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-111-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-119-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### Running different summary functions on each nested dataframe
 
@@ -2122,9 +2168,9 @@ result$summaries
 In the previous chapter with apply we wrote the `z_score()` function, can you apply this using map to our `df` tibble? </div></div>
 
 
-<button id="displayTextunnamed-chunk-114" onclick="javascript:toggle('unnamed-chunk-114');">Show Solution</button>
+<button id="displayTextunnamed-chunk-122" onclick="javascript:toggle('unnamed-chunk-122');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-114" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-122" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 map_df(.x = df, 
@@ -2149,7 +2195,255 @@ LPI data loops
 
 # Bonus: Simulation
 
+A computer simulation (or “sim”) is an attempt to model a real-life or hypothetical situation on a computer so that it can be studied to see how the system works. By changing variables in the simulation, predictions may be made about the behavior of the system. It is a tool to virtually investigate the behavior of the system under study - *Wikipedia*
 
+
+You can use computer simulations to: 
+
+* **Test your statistical intuition or demonstrate mathematical properties you cannot easily anticipate**  
+  * *e.g. test whether when supposedly random data are generated, there is no more than 5% of significant effects for a variable in a model*  
+
+
+* **Understand sampling theory, probability distributions or test whether you understand the underlying processes of your system**  
+  * *e.g. see whether simulated data drawn from specific distribution are comparable to real data*  
+
+
+* **Perform power analyses**
+  * *e.g. assess whether the sample size (within a replicate) is high enough to detect an effect simulated, in more than 80% of the cases*  
+
+
+* **Perform bootstrapping to get a confidence interval around a parameter estimate** 
+  * *i.e. bootstrapping means to sample with replacement (i.e. all the original options to draw from are available at each draw) in an observed dataset. Doing this generates new 'simulated' datasets. With each of them, one can run the statistical analysis made on the observed dataset, saving each time the parameter estimate of interest. After doing this multiple time, you will obtain a confidence interval for the parameter of interest*   
+  
+## Random number generators
+
+R contains several functions to generate random numbers.  
+Type *`?function`* in your console to get information on the function's arguments (i.e. the values that must be provided to obtain the function's result).  
+
+The function  
+* `sample(x, n, replace=FALSE)` draws `n` values from a given vector `x` without replacement (by default) . 
+
+Sampling without replacement means that when you repeatedly draw e.g. 1 item from a pool of items, any item selected during the first draw is not available for selection during the second draw, and the first and second selected items are not in the pool to select from during the third draw, etc. Sampling with replacement means that all the original options are available at each draw.  
+
+
+**YOUR TURN:**  
+Sample 100 values between 3 and 103 with replacement.    
+
+<button id="displayTextunnamed-chunk-124" onclick="javascript:toggle('unnamed-chunk-124');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-124" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+x <- 3:103
+sample(x, 100, replace = TRUE)
+```
+</div></div></div>
+
+
+The following functions draw `n` values from distributions with the specified parameters:
+
+* `runif(n, min, max)` draws `n` values from a *uniform* distribution with the specified `min` and `max`  
+* `rpois(n, lambda)` draws `n` values from a *poisson* distribution with the specified `lambda`  
+* `rnorm(n, mean, sd)` draws `n` values from a *normal* distribution with the specified `mean` and `standard deviation`  
+* `rbinom(n, prob)`	draws `n` values from a	*binomial* distribution with the specified `probability`  
+
+
+**YOUR TURN:**   
+
+Draw 100 values from a normal distribution with a mean of 0 and a sd of 1.  
+Draw 50 values from a normal distribution with a mean of 10 and sd of 5.  
+Draw 1000 values from a poisson distribution with a lambda of 50.  
+Draw 30 values from a uniform distribution between 0 and 10.  
+
+<button id="displayTextunnamed-chunk-125" onclick="javascript:toggle('unnamed-chunk-125');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-125" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+rnorm(n = 100, mean = 0, sd = 1)
+rnorm(100) # if you sample from a normal distribution with a mean of 0 and a sd of 1, you do not need to provide them, they are the defaults
+
+rnorm(sd = 5, mean = 10, n = 50)
+
+rpois(n = 1000, lambda = 50)
+
+runif(n = 30, min = 0, max = 10)
+```
+</div></div></div>
+
+## Replication
+
+`replicate(10, mean(rnorm(100)))`
+
+reads: 'draw 100 values from a normal distribution with a mean 0 and sd 1 (the default values), caclulate the mean of these 100 values, and do all that 10 times.
+
+**YOUR TURN:**   
+
+Replicate 1000 times the mean of 10 values drawn from a unifrom distribution between 0 and 10.
+
+Make a histogram of your results. 
+
+<button id="displayTextunnamed-chunk-126" onclick="javascript:toggle('unnamed-chunk-126');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-126" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+replicate(1000, mean(runif(10, max = 10)))
+hist(replicate(1000, mean(runif(10, max = 10))))
+```
+
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-152-1.png" width="100%" style="display: block; margin: auto;" />
+
+```
+##    [1] 5.022564 6.486282 3.253483 5.283917 4.755306 4.764930 3.866803 5.239018
+##    [9] 4.753826 7.075335 3.680023 6.798563 3.957019 4.247940 6.775591 2.837982
+##   [17] 5.295009 3.686621 5.870210 5.437420 4.576551 4.563031 6.677120 4.485507
+##   [25] 4.789988 5.611675 5.183978 5.248748 5.848835 4.404809 5.406209 4.176004
+##   [33] 5.035896 2.922242 3.597870 4.394419 5.262358 4.839507 5.059226 2.804688
+##   [41] 3.274374 4.346020 5.455425 5.577012 3.414462 6.477011 5.717628 5.234262
+##   [49] 4.322808 4.945608 6.128692 4.798452 5.175659 3.420668 4.913093 5.566140
+##   [57] 5.526872 2.446137 5.714276 5.404742 4.269650 4.260459 6.685526 4.659467
+##   [65] 6.298490 3.771470 5.780282 4.165069 4.991805 4.695841 6.020834 4.972164
+##   [73] 5.655646 4.530329 6.492752 5.283539 3.233246 5.381650 4.816278 4.458618
+##   [81] 3.128824 3.316130 4.637443 4.933391 4.382108 3.994161 5.817086 5.172091
+##   [89] 4.122685 6.291550 4.900774 5.422067 3.278317 3.818427 3.516729 4.561131
+##   [97] 3.833623 5.345944 4.443836 6.331242 4.291593 6.137984 6.587903 4.577814
+##  [105] 3.968605 5.459617 5.117036 4.831082 3.678388 4.432208 5.408473 5.457825
+##  [113] 5.437065 3.392945 4.997982 5.385590 5.513795 4.482369 4.214285 4.898272
+##  [121] 6.337674 6.338884 5.655799 4.547818 4.848959 4.970893 5.166720 4.107493
+##  [129] 4.637972 5.511366 4.357717 3.588210 4.200698 5.483000 5.109306 5.212175
+##  [137] 5.000928 4.578330 4.543773 5.246863 4.334527 5.299436 4.380459 6.972335
+##  [145] 4.000025 4.328242 4.853380 6.611760 6.475513 3.599333 6.053279 5.184472
+##  [153] 6.755185 6.378926 4.407124 5.454748 5.656110 5.696439 4.852164 5.543577
+##  [161] 3.488294 4.347918 4.259363 4.239077 4.957006 6.874090 4.987367 6.021677
+##  [169] 6.439023 5.814456 5.168444 5.818203 6.251701 4.219189 4.696464 4.032730
+##  [177] 5.135669 4.700474 3.792755 5.154508 3.834076 5.510359 5.849556 4.960622
+##  [185] 7.643393 4.820671 4.486355 2.990379 3.832970 5.602645 4.890752 5.114310
+##  [193] 5.644748 4.746721 5.975542 4.457620 5.994648 5.457588 5.299128 5.335360
+##  [201] 6.253442 5.118188 6.347584 5.316206 4.356976 6.689561 6.158226 5.779996
+##  [209] 5.424961 3.888036 5.737416 4.972889 4.962940 5.037110 5.341259 5.677255
+##  [217] 5.524683 4.146624 4.796850 3.698592 5.884621 3.424715 5.180526 5.263211
+##  [225] 5.502682 4.996885 5.476823 5.515598 5.941130 4.657621 4.964112 4.600001
+##  [233] 5.312405 6.008348 3.925046 5.801917 4.887718 4.223887 4.918600 5.948642
+##  [241] 3.922495 4.846953 3.668805 5.448806 4.084024 4.092089 4.808482 5.821109
+##  [249] 4.645973 5.069394 3.124911 4.703016 4.912898 6.987999 5.474039 3.593206
+##  [257] 4.344517 4.784843 4.373300 4.877382 5.936433 4.121378 4.061315 5.307346
+##  [265] 4.290063 4.538581 5.196947 4.559459 4.919740 2.719258 3.360902 4.805378
+##  [273] 4.972203 6.129040 6.658414 4.379531 5.303017 6.558267 6.264228 6.330103
+##  [281] 5.889397 5.230562 4.912186 5.597881 4.335710 5.307087 2.771738 5.740053
+##  [289] 4.848271 4.583272 5.566355 6.274025 3.460113 3.989879 6.119412 5.507823
+##  [297] 4.170569 5.374978 4.832085 4.114509 6.904667 3.985031 4.564849 6.444838
+##  [305] 6.056518 4.764531 5.773518 5.610679 4.217949 4.423678 4.829778 5.053409
+##  [313] 3.538710 6.155165 5.219623 4.886845 5.091171 6.377816 5.361774 4.389324
+##  [321] 3.596758 4.056727 5.845501 6.043310 3.720966 4.992234 4.957711 5.777479
+##  [329] 5.222643 5.180983 4.825537 5.085617 5.333757 5.160768 5.613991 4.394451
+##  [337] 5.838129 4.858183 4.987331 4.228844 4.333418 6.024601 4.512163 7.121851
+##  [345] 4.040513 5.164738 4.684059 3.889018 6.436094 3.268003 6.238798 3.793290
+##  [353] 4.879440 4.925379 4.074747 7.293254 5.737862 6.573076 4.584073 5.391185
+##  [361] 4.513591 4.047224 6.529335 5.596854 5.911643 4.568881 4.789190 7.195398
+##  [369] 4.529265 5.260140 5.381012 3.776233 4.549277 3.923326 6.776042 6.410171
+##  [377] 5.817574 5.408104 3.454660 5.264210 6.142004 4.629579 5.848155 3.888124
+##  [385] 4.505167 4.762038 4.384839 6.687296 5.593423 3.371339 4.754222 4.475158
+##  [393] 4.058205 6.132182 3.762091 6.605192 5.058662 5.661752 4.260943 4.732634
+##  [401] 5.899245 2.418522 4.254824 5.794894 3.741285 3.954037 6.249746 4.065045
+##  [409] 6.239619 3.637826 4.851550 6.525624 4.663901 4.776547 5.949761 3.745710
+##  [417] 6.150586 4.329604 5.591971 4.325579 5.577559 4.831306 6.055880 4.632553
+##  [425] 4.409652 3.823465 5.396624 3.680689 3.894154 3.792094 6.207166 4.460473
+##  [433] 7.160660 4.953849 4.904341 6.051715 5.252297 5.155106 5.641283 4.840786
+##  [441] 5.856489 6.593380 3.999349 2.925233 4.976722 3.768126 5.405148 5.079269
+##  [449] 5.377654 5.183229 3.723001 7.522386 4.964582 4.681127 5.340233 6.213151
+##  [457] 4.335144 5.877440 6.304233 3.080169 4.196628 5.975024 6.076374 4.235550
+##  [465] 6.330351 5.269729 4.991324 3.494424 5.723659 3.863884 3.212754 4.886209
+##  [473] 5.076296 5.383685 4.020143 4.592111 5.747259 4.548136 5.047915 5.307762
+##  [481] 6.599579 5.200656 4.825474 4.313290 4.292569 5.814679 3.946238 6.089921
+##  [489] 5.816124 3.481063 4.124254 5.346080 4.657365 5.523479 3.740368 7.069931
+##  [497] 4.967588 3.477052 5.511224 4.943011 4.426105 4.669458 6.265252 3.725954
+##  [505] 5.144351 3.529225 4.726432 6.506925 4.224144 5.503032 5.802876 5.141766
+##  [513] 5.521000 5.347507 6.105181 4.120922 6.264361 4.603006 6.002986 4.267543
+##  [521] 3.494900 3.544516 4.514592 6.231351 5.091581 6.184747 5.058624 5.649067
+##  [529] 4.940839 5.430507 4.351146 6.750090 5.286820 3.846517 3.763481 5.805950
+##  [537] 6.479060 4.024770 4.810078 4.211945 5.908625 5.497130 4.785418 4.733634
+##  [545] 5.137353 5.137816 5.880050 5.639440 4.192313 5.100459 4.728568 3.157026
+##  [553] 7.114751 4.512679 6.013958 6.385092 2.769444 4.743656 4.203741 5.226889
+##  [561] 6.461973 5.912153 4.055229 3.771768 4.289329 4.707812 3.945387 6.166968
+##  [569] 5.171750 5.813106 3.393515 6.109910 4.583241 5.930594 4.218841 5.671123
+##  [577] 4.290922 5.714578 7.118112 6.650301 3.796101 4.553531 6.215018 5.661105
+##  [585] 5.495100 3.934162 4.892751 6.123624 4.505417 6.275858 3.425009 4.561485
+##  [593] 5.761921 5.002847 5.393943 5.758310 4.774768 2.878534 4.641835 5.671205
+##  [601] 6.065482 4.993765 5.202205 4.251069 5.752798 5.883912 4.978239 4.101216
+##  [609] 4.511276 5.789929 4.903575 4.885166 4.658623 5.516490 4.217965 4.355942
+##  [617] 4.985850 4.892947 5.850160 5.101741 5.258397 6.300844 4.382642 6.278133
+##  [625] 4.766710 4.763215 4.524970 5.060690 5.774283 3.682195 4.476021 4.449653
+##  [633] 4.406408 4.781796 5.264789 3.918565 4.823158 6.096700 4.080437 5.604444
+##  [641] 5.871325 4.011982 3.863019 2.924214 3.991509 2.853309 5.877184 3.929878
+##  [649] 5.163435 5.444099 6.367992 6.085062 5.618144 3.224080 4.758070 5.339940
+##  [657] 4.456895 5.614288 5.854394 6.015450 4.135173 5.166367 5.630513 4.017036
+##  [665] 4.506145 5.460817 5.140559 4.398100 4.726626 5.025259 4.793040 4.641496
+##  [673] 3.966768 4.271524 6.666937 5.701276 4.895784 4.417153 4.639484 3.732593
+##  [681] 6.798951 4.574856 4.479827 5.950770 4.063456 4.478808 5.192471 5.319516
+##  [689] 5.626374 5.436825 5.255614 5.336237 4.037924 5.805885 5.804251 2.777425
+##  [697] 4.692924 5.017625 4.904147 6.397664 5.074379 5.659205 5.197332 5.435390
+##  [705] 4.624594 6.120386 3.489217 4.785979 4.727884 5.871547 5.126601 5.291194
+##  [713] 5.269524 3.946627 4.788225 5.506121 5.104596 6.565479 3.848890 5.103925
+##  [721] 4.752267 5.224469 5.581277 5.406318 3.706684 5.837180 5.622541 3.065276
+##  [729] 2.752097 5.085500 4.388959 5.134163 5.985925 5.181973 5.936636 4.548416
+##  [737] 5.441322 4.647104 3.400332 5.617748 4.686364 6.114206 5.139537 4.473448
+##  [745] 5.253781 4.764039 5.975940 4.979730 5.598236 4.089780 4.359458 6.327619
+##  [753] 4.411183 5.256521 4.257731 4.487774 7.674157 5.082399 4.964086 4.620147
+##  [761] 6.981050 6.424662 4.423953 4.289838 4.149385 3.088167 3.839786 5.227148
+##  [769] 5.763999 4.935213 4.581951 4.626750 3.887332 3.588523 6.325464 5.296067
+##  [777] 3.089422 3.984396 5.260440 4.598770 4.830150 5.504993 5.272927 5.987281
+##  [785] 4.693982 5.162060 4.859042 4.764043 4.534831 5.850742 5.801094 4.963417
+##  [793] 4.052917 4.225261 4.175322 5.645488 5.174898 4.788914 4.573721 4.669259
+##  [801] 4.664292 5.917050 3.476753 5.868096 5.841412 5.508459 6.668313 5.877152
+##  [809] 5.512025 5.131615 5.145278 5.656402 5.007087 5.549316 4.369487 5.868928
+##  [817] 5.017408 6.351545 5.312804 6.048306 4.169279 3.934370 6.568975 4.256577
+##  [825] 3.678279 4.579586 6.681249 6.188609 5.176793 5.013702 4.235730 3.683964
+##  [833] 4.746324 5.238172 3.784551 5.289517 6.611561 6.177203 4.789028 4.421146
+##  [841] 4.229517 5.391776 4.693361 4.447140 5.941802 5.728762 3.913620 5.465753
+##  [849] 4.194589 5.773093 3.199920 6.036005 3.533122 4.161584 5.531247 4.268215
+##  [857] 6.132411 4.788292 4.654465 6.538839 3.924608 3.786910 4.441194 5.049618
+##  [865] 4.597614 5.523004 5.813452 4.811984 4.775297 3.523574 3.955356 3.579214
+##  [873] 4.309058 3.995424 4.706003 4.967713 5.310656 4.664916 6.602173 5.522549
+##  [881] 6.095434 4.100433 4.854216 6.854413 4.634543 5.821203 3.503136 5.579035
+##  [889] 6.093620 3.771406 5.651880 6.666601 5.918735 4.101409 4.929475 6.337194
+##  [897] 3.570386 4.569126 5.676536 4.462853 5.258050 4.337117 4.397111 7.080117
+##  [905] 5.486487 4.484210 6.395883 4.978454 3.575002 3.162496 6.463063 4.091877
+##  [913] 4.105762 4.273952 5.898072 5.660837 3.964643 4.627937 3.923019 5.169271
+##  [921] 6.159418 4.580243 6.320550 3.813068 5.152797 4.165234 6.724633 4.968945
+##  [929] 4.282690 4.548454 5.505616 3.334154 5.511689 4.416479 5.184462 5.851148
+##  [937] 5.152119 4.554992 4.860648 4.129359 5.834361 6.670298 6.397051 6.213793
+##  [945] 5.420808 4.030101 5.587434 4.782679 5.947798 5.439945 5.217701 4.439850
+##  [953] 5.040995 4.823152 5.009779 5.186755 5.059656 5.036404 3.174421 4.430825
+##  [961] 4.858046 4.941247 4.831080 3.953859 4.922107 5.864988 5.584510 4.135329
+##  [969] 5.829048 5.005010 5.928172 4.910473 5.504933 4.385466 5.287280 5.906283
+##  [977] 6.189572 4.615550 5.581284 6.542178 5.226069 4.613878 5.553299 6.014870
+##  [985] 6.197166 6.464980 3.111910 6.844987 4.103421 6.054986 5.919438 5.164148
+##  [993] 4.936537 6.093834 5.361409 4.853877 5.910566 5.842736 4.934678 3.522957
+```
+</div></div></div>
+
+## Set seed
+
+`set.seed()`
+
+Computers in general, and R specifically, can, in fact, only provide pseudo random number generators.
+A pseudorandom number generator's number sequence is completely determined by its seed, i.e. a number used to initialize that sequence.
+
+Thus, if a pseudorandom number generator is reinitialized with the same seed, it will produce the same sequence of numbers. You can set the seed (with any arbitrary number) at the beginning of a script, and, if commands drawing random numbers are ran in the exact same order, they will provide the same output in subsequent runs.
+
+This is useful for sharing code and reproduce simulations, as well as for debugging code.
+
+
+## Sample size
+
+In this example we are going to simulate some data for two groups - group 1 has a mean of 0 and an sd of 1, group 2 has a mean of whatever value we supply to `effect_size` and a sd of 1. 
+
+By default this simulation is set to repeat an experiment where 30 samples are taken from each population and compared for a true difference. The experiment is repeated 100 times. 
+
+The purpose of this simulation is to understand how the estimated difference in means varies across different random samples of data when the true effect size is known. It helps to assess the sampling variability and provides insights into the precision of the estimated difference. Additionally, it can be used to create a confidence interval to assess the uncertainty around the estimated effect.
+
+With this example we **know** the true difference, see what happens to our confidence intervals as we change the sample size, effect size and iterations:
 
 
 ```r
@@ -2209,9 +2503,11 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
     theme_minimal()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-127-1.png" width="100%" style="display: block; margin: auto;" />
 
+## Power
 
+A useful application of simulations is to work out the power of a statistical test. Here we can calculate our statistical power of detection on a simulated dataset with a known effect-size: 
 
 
 ```r
@@ -2262,7 +2558,7 @@ simulation_results <- map_dbl(sample_sizes, simulate_power, effect_size)
 plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = "Power", main = "Power vs. Sample Size")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-117-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-128-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 

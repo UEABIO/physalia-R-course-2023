@@ -11,6 +11,8 @@
 
 # Reading files with `readr`
 
+Make sure for these exercises you are starting with a **clean session**
+
 ## Cleaning column names
 
 Reading a CSV file often requires some data cleaning. For example, let's say I want to import data and convert all column names to `snake_case`. 
@@ -40,7 +42,6 @@ By default the `janitor::make_clean_names` function has a default argument of `s
 
 ## Selecting columns
 
-
 In addition to cleaning your column names, you can also directly select columns while using the "read_csv" function by utilizing the "col_select" argument. This can be extremely useful when working with large files, selecting only the columns you need can be memory-efficient. 
 
 
@@ -53,15 +54,20 @@ penguins_clean <- read_csv ("data/penguins_raw.csv",
 
 ## Reading multiple files
 
+Here we actually start with a complete dataframe - and first iterate to split into 25 equally sized dataframes.
+`walk2` operates in the same way as `map2` - but is the preferred option here as it is "silent" 
+
 
 ```r
 dir.create(c("data/many_files"))
 peng_samples <- map(1:25, ~ slice_sample(penguins_clean, n = 20))
 
-iwalk(peng_samples, ~ write_csv(., paste0("data/many_files/", .y, ".csv")))
+walk2(peng_samples, 1:25, ~ write_csv(.x, paste0("data/many_files/", .y, ".csv")))
 ```
 
 ### Create a vector of file paths
+
+Now, to create a vector of file paths, we'll use the list.files function in R. This function allows us to identify and list all the files with a specific extension in a directory. In this example, we're looking for CSV files in the "data/many_files" directory.
 
 
 ```r
@@ -87,6 +93,8 @@ The function "list.files" has several arguments. Here's an explanation of some k
 
 - "full.names": Setting this argument to `TRUE` indicates that you want to store the full paths of the files, not just their names. This is important for ensuring you can correctly access and read these files later. If "full.names" is not set to `TRUE`, you may encounter difficulties when attempting to read the files because the file paths would be incomplete.
 
+This vector, `csv_files_list_files`, will now hold the file paths to all the CSV files in our specified directory, making it easy to access and manipulate these files in our R environment
+
 ### Read multiple files
 
 Now that we have obtained the file paths, we can proceed to load the files into R. The preferred method in the tidyverse is to use the `map_dfr` function from the `purrr` package. This function iterates through all the file paths and combines the data frames into a single, unified data frame. In the following code, `.x` represents the file name or path. To read and output the actual content of the CSV files (not just the filenames), you should include `.x` (the path) within a `readr` function. While this example deals with CSV files, this approach works similarly for other rectangular file formats.
@@ -102,7 +110,8 @@ glimpse(df)
 
 ### Selecting files
 
-`stringr::str_detect()`
+Now, to filter and choose specific files for reading, we'll use the `str_detect()` function from the `stringr` package in R. This function allows us to search for specific patterns within our vector of file paths and select files that match our criteria. he pattern argument specifies the pattern we want to detect, which, in this case, is "[2-4]". The `negate = FALSE` argument ensures that we only select files that match the pattern. This work is made easier when we have good naming conventions.
+
 
 
 ```r
@@ -116,8 +125,9 @@ negate = FALSE)]
 [10] "data/many_files/25.csv" "data/many_files/3.csv"  "data/many_files/4.csv"
 ```
 
+If we want to narrow our criteria further to include only the files that meet the specific pattern of file names ending with "2.csv" or "4.csv." We can work with a subset of files that specifically fit our analysis needs.
 
-
+`str_detect(csv_files_list_files, pattern = "[24]\\.csv$` is the core of this code. Here, we are applying the `str_detect()` function to search for a particular pattern within the csv_files_list_files. The pattern we are looking for is "[24]\.csv$," which essentially means we're seeking files with a file name that ends with "2.csv" or "4.csv."
 
 
 ```r
@@ -149,6 +159,8 @@ In this section we will go through the following functions:
 - `num_range()`
 
 - `where()`
+
+This set of handy functions helps streamline column selection and manipulation in data frames. These functions serve various purposes, from selecting specific columns based on their names to targeting numeric ranges or custom patterns, ultimately making data wrangling more efficient and precise.
 
 ## Select the last column
 
@@ -187,6 +199,8 @@ penguins_clean |>
 
 ## Selecting columns based on string
 
+This code selects all columns that "start with s"
+
 
 ```r
 penguins_clean |> 
@@ -204,7 +218,7 @@ $ sex           <chr> "MALE", "FEMALE", "FEMALE", NA, "FEMALE", "MALE", "FEMALE"
 
 ```
 
-`starts_with` and `ends_with` works with any character, but also with a vector of characters
+`starts_with` and `ends_with` works with any character, but also with a vector of characters, here it allows us to select all columns that begin with either "s or c".
 
 
 ```r
@@ -246,8 +260,30 @@ $ flipper_length_mm <dbl> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 
 
 ### Regular expressions
 
-https://help.relativity.com/RelativityOne/Content/Relativity/Regular_expressions/Searching_with_regular_expressions.htm#:~:text=For%20example%2C%20%E2%80%9C%5Cd%E2%80%9D,that%20follow%20a%20specific%20pattern.
+Regular expressions, often abbreviated as regex, are powerful tools for pattern matching and text manipulation. They provide a concise and flexible way to search, extract, and manipulate text based on specific patterns, allowing data analysts and programmers to efficiently handle complex text-processing tasks. 
 
+We have been working with regex each time we use  `stringr` but we have been looking for literal characters
+But we can use regex types to look for specific patterns
+
+| Regex Type                                  | Description                                                                                               |
+|--------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| Literal Characters                         | Matches the exact sequence of characters you specify.                                                   |
+| Character Classes (square brackets `[]`)   | Matches any character within the specified set.                                                           |
+| Wildcards (dot `.`)                        | Matches any single character (except for a newline).                                                      |
+| Quantifiers (e.g., `*`, `+`, `?`)          | Specify the number of times a character or group can occur.                                               |
+| Anchors (e.g., `^`, `$`)                   | Specify the start (`^`) or end (`$`) of a line or string.                                                  |
+| Character Escapes (e.g., `\d`, `\s`, `\w`) | Shorthand for common character classes.                                                                    |
+| Groups (parentheses `()`)                  | Create subpatterns for more complex matches.                                                               |
+| Alternation (pipe `|`)                     | Allows multiple alternative matches.                                                                       |
+| Ranges (dash `-`)                          | Matches any character within a specified range.                                                            |
+| Quantifiers (e.g., `{m}`, `{m,}`, `{m,n}`) | Specify exact, minimum, or minimum to maximum occurrences of a character or group.                        |
+| Word Boundaries (`\b`)                     | Matches the position between a word character and a non-word character.                                    |
+| Capture Groups (parentheses `()`)          | Create groups for capturing matched content for later use.                                                 |
+| Lookahead and Lookbehind                   | Perform assertions without including them in the match.                                                    |
+| Modifiers (e.g., `i`, `g`, `m`)            | Modify the behavior of the regex, such as making it case-insensitive (`i`) or matching across multiple lines (`m`). |
+
+
+This example will look for any columns that match contains numbers. 
 
 
 ```r
@@ -263,24 +299,28 @@ $ delta_13_c_o_oo <dbl> NA, -24.69454, -25.33302, NA, -25.32426, -25.29805, -25.
 
 ```
 
+This *modifier* means columns are only returned if they have at least two numbers in the column header
+
 
 ```r
 penguins_clean |> 
-  select(matches("[0-9]")) |> 
+  select(matches("[0-9]{2}")) |> 
   glimpse()
 ```
 
+This pattern looks for an exact string match to "length_" but it must also be followed by any two letters...
+
 
 ```r
 penguins_clean |> 
-    select(matches("length_[a-z][a-z]")) |> 
+    select(matches("length_[a-z]{2}")) |> 
     glimpse()
 ```
 
 
 ## Selecting by column type
 
-The where function is used when you want to select variables of a specific data type in a dataset. For example, you can use it to select character variables.
+The `where()` function is used when you want to select variables of a specific data type in a dataset. For example, you can use it to select character variables.
 
 
 
@@ -319,7 +359,9 @@ Other "predicate functions" include
 
 ## Combos
 
-Using standard logical operators such as `|` and `&` we can string toether different combinations of selection criteria
+Using standard logical operators such as `|` and `&` we can string together different combinations of selection criteria:
+
+Here the column must be of type numeric *or* the title contains "species"
 
 
 ```r
@@ -346,7 +388,75 @@ $ species           <chr> "Adelie Penguin (Pygoscelis adeliae)", "Adelie Penguin
 
 ## count
 
+Counting is one of the most common tasks you do when working with data. Counting may
+sound simple, but it can get complicated quickly. Consider these examples:
+
+- Sometimes we want to count with continuous variables. Suppose you have a year variable
+in your data frame that is of data type integer (e.g. 1982, 1945, 1990). You want to
+know the number of people for each decade. To do this, you must first convert your year
+variable to decades before you start counting.
+
+-  Often you want to count things per group (for example, the number of players on a
+particular sports team) and add the counts per group as a new variable to your data
+frame. You could use joins to do this, but could you do it with less code and more
+efficiently?
+
+In this example, we have created a new variable body_mass_intervals that is calculated from the variable body_mass_g. We also used the name argument to give the count column a more descriptive name.
+
+
+```r
+penguins_clean |> 
+  count(body_mass_intervals = cut_width(body_mass_g, 100))
+```
+
+<div class="kable-table">
+
+|body_mass_intervals |  n|
+|:-------------------|--:|
+|[2.65e+03,2.75e+03] |  1|
+|(2.75e+03,2.85e+03] |  2|
+|(2.85e+03,2.95e+03] |  5|
+|(2.95e+03,3.05e+03] |  7|
+|(3.05e+03,3.15e+03] |  6|
+|(3.15e+03,3.25e+03] | 12|
+|(3.25e+03,3.35e+03] | 17|
+|(3.35e+03,3.45e+03] | 18|
+|(3.45e+03,3.55e+03] | 21|
+|(3.55e+03,3.65e+03] | 15|
+|(3.65e+03,3.75e+03] | 21|
+|(3.75e+03,3.85e+03] | 18|
+|(3.85e+03,3.95e+03] | 21|
+|(3.95e+03,4.05e+03] | 12|
+|(4.05e+03,4.15e+03] | 12|
+|(4.15e+03,4.25e+03] | 10|
+|(4.25e+03,4.35e+03] | 11|
+|(4.35e+03,4.45e+03] | 14|
+|(4.45e+03,4.55e+03] |  6|
+|(4.55e+03,4.65e+03] | 13|
+|(4.65e+03,4.75e+03] | 15|
+|(4.75e+03,4.85e+03] |  8|
+|(4.85e+03,4.95e+03] |  9|
+|(4.95e+03,5.05e+03] | 10|
+|(5.05e+03,5.15e+03] |  5|
+|(5.15e+03,5.25e+03] |  7|
+|(5.25e+03,5.35e+03] |  7|
+|(5.35e+03,5.45e+03] |  6|
+|(5.45e+03,5.55e+03] | 11|
+|(5.55e+03,5.65e+03] |  5|
+|(5.65e+03,5.75e+03] |  6|
+|(5.75e+03,5.85e+03] |  5|
+|(5.85e+03,5.95e+03] |  2|
+|(5.95e+03,6.05e+03] |  3|
+|(6.25e+03,6.35e+03] |  1|
+|NA                  |  2|
+
+</div>
+You can see that the bins each have a range of 10. Also, the bins are surrounded by square brackets and parentheses. A parenthesis means that the number is included in the bin, a square bracket means that a number is **not** included in the bin,  In our second example, this would mean that 2.75e+03 is included, but not 2.85e+03.
+
+
 ## extract
+
+This code is using the `separate` function from the `tidyr` package to split the "species" column in the penguins_clean data frame into two separate columns: "species" and "full_latin_name." The separation is based on a specific delimiter, which is an opening parenthesis `(`.
 
 
 ```r
@@ -380,20 +490,20 @@ penguins_clean_split |> colnames()
 ## [16] "delta_15_n_o_oo"   "delta_13_c_o_oo"   "comments"
 ```
 
-- The first group captures at least 1 letter (\\w+).
+- The first group captures one or more word characters (\\w+).
 
-- The column is then followed by a space, and all characters in between are followed by
-another space: .*
+-  `.*` this captures any characters in the string but doesn't capture them
 
 - The last group contains anything found inside brackets `()`
 
+  - `\\(` finds an open bracket but does not capture it    
+  - `([^)]+)` captures anything except a closing parenthesis
+  
 # Factors
 
 ## Anonymising factors
 
-Sometimes you want to make your data completely anonymous so that other people can’t see sensitive information. Or because you wish to blind you own analyses.
-
-`forcats::fct_anon` 
+Sometimes you want to make your data completely anonymous so that other people can’t see sensitive information. Or because you wish to blind you own analyses we can do this with `forcats::fct_anon` 
 
 
 ```r
@@ -404,16 +514,22 @@ penguins_clean_split |>
 
 ## Lump factors
 
+`fct_lump_min()` is a function from the `forcats` package in R, which is used to lump or group together levels of a categorical variable in a way that keeps the most common levels intact while grouping the less common levels into an "Other" or "Miscellaneous" category.
+
+In this example, any species not represented by at least 150 observations, will be lumped into an "Other" category:
+
 
 ```r
 penguins_clean_split |> 
-  mutate(body_size = fct_lump_min(as_factor(species), 50)) |> 
+  mutate(body_size = fct_lump_min(as_factor(species), 150)) |> 
   ggplot(aes(x = body_size,
          y = flipper_length_mm))+
   geom_boxplot()
 ```
 
-## ordering factors
+## Ordering factors
+
+With the `fct_relevel` function we can set factors and apply a specified level at the same time:
 
 
 ```r
@@ -424,7 +540,7 @@ penguins_clean_split |>
   coord_flip()
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
 
 With the function `fct_infreq` we can change the order according to how frequently each level occurs
 
@@ -437,8 +553,10 @@ penguins_clean_split |>
   coord_flip()
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
 
+
+The `fct_rev()` function in R is used to reverse the order of levels in a factor variable. It is particularly useful for changing the order of factor levels when you want to display data in a reversed or descending order.
 
 
 ```r
@@ -449,9 +567,9 @@ penguins_clean_split |>
   coord_flip()
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
 
-`fct_reorder` allows us to order the levels based on another continuous variable
+The `fct_reorder` function allows us to order the levels based on another continuous variable
 
 
 ```r
@@ -470,12 +588,16 @@ penguins_clean_split |>
               alpha = .4)
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Applying functions across columns
 
+One of the credos of programming is “Don’t repeat yourself”. We have seen in previous tutorials that many of us fall victim to this principle quite often. Fortunately, the tidyverse team has developed a set of functions that make it easier not to repeat ourselves: 
+
 ## calculate summary statistics across columns
+
+In this example I am generating summary statistics for two columns, but I can make this process more efficient: 
 
 
 ```r
@@ -486,6 +608,31 @@ penguins_clean_split |>
     mean_flipper_length = mean(flipper_length_mm, na.rm = T)
   )
 ```
+
+
+A couple of things are important here:
+
+• The function across only works inside dplyr verbs (e.g. mutate)
+
+• The function has three important arguments: .cols stands for the column to apply a
+function to. You can use the tidyselect functions here; .fns stands for the function(s)
+that will be applied to these columns; .names is used whenever you want to change the
+names of the selected columns.
+
+Each use case will work with this general structure:
+
+```
+<DFRAME> |> 
+<DPLYR VERB>(
+across(
+.cols = <SELECTION OF COLUMNS>,
+.fns = <FUNCTION TO BE APPLIED TO EACH COLUMN>,
+.names = <NAME OF THE GENERATED COLUMNS>
+)
+)
+```
+
+Instead you can use the across function to get the same result, here I could supply column names `.cols = c("body_mass_g", "flipper_length_mm")` or can I use `where` to get whole column types  :
 
 
 ```r
@@ -541,6 +688,8 @@ $ island  <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torgersen
 
 ## Correct typos
 
+We can use the `across` functions to quickly change typos across multiple columns at once, here is an example:
+
 
 ```r
 x <- c("Adelie", "adelie", "pinstrap", "Chinstrap")
@@ -579,6 +728,7 @@ typo_df |>
 
 ## Filtering rows based on conditions across multiple columns
 
+Suppose you want to filter multiple rows from your data frame that fail to meet a criteria.
 
 
 ```r
@@ -592,16 +742,9 @@ penguins_clean_split |>
 
 
 
-```r
-penguins_clean_split |> 
-  filter(
-    if_all(.cols = contains("culmen"),
-           .fns = ~. < 40)
-  ) |> 
-  glimpse()
-```
-
 ## filter rows based on missing values
+
+Another very useful use case is filtering rows based on missing values across multiple columns.
 
 
 ```r
@@ -612,6 +755,7 @@ penguins_clean_split |>
   ) 
 ```
 
+
 <div class="try">
 <p>At first the outcome above can seem counter-intuitive, but can be
 explained by the <code>!</code> operator. The if_all is evaluating
@@ -621,6 +765,9 @@ operator</p>
 </div>
 
 ## slicing
+
+Suppose we want to remove the 10 highest values of body mass from our dataframe - we could do this with `slice`
+
 
 
 ```r
@@ -647,6 +794,9 @@ penguins_clean_split |>
 </div>
 
 
+`slice` keeps all rows for which you specify positive indices. Note that in R indexing starts with 1 and not with 0 as in most other programming languages. To make it more clear what rows slice keeps, let’s add row numbers to our data frame and slice some arbitrary rows:
+
+
 ```r
 penguins_clean_split |> 
   arrange(desc(body_mass_g)) |> 
@@ -663,6 +813,8 @@ penguins_clean_split |>
 |307        |PAL0708    |            17|Chinstrap |Pygoscelis antarctica |Anvers |Dream  |Adult, 1 Egg Stage |N71A1         |No                |2007-11-30 |             50.3|            20.0|               197|        3300|MALE   |        10.02019|       -24.54704|Nest never observed with full clutch. |
 
 </div>
+
+To remove specific rows, we can use negative indices. Suppose, we want to remove the first 340 rows from our data frame.
 
 
 ```r
@@ -723,6 +875,8 @@ penguins_clean_split |>
 
 ## groupwise slicing
 
+To apply these functions within different sub-categories, we have to use `group_by()`
+
 
 ```r
 penguins_clean_split |> 
@@ -752,10 +906,34 @@ penguins_clean_split |>
 
 ## bootstrapping with slice
 
+If we set the replace argument to TRUE in `slice()`, we will perform sampling with replacement. This means the same row of data can appear twice in our dataframe. 
+
+
+```r
+slice_sample(penguins_clean_split, 
+             prop = .5, 
+             replace = TRUE) |> 
+  duplicated() |> 
+  sum()
+```
+
+```
+## [1] 34
+```
+
+
+Why would we do this? This functionality allows us to create bootstraps from our data frame. Bootstrapping is a
+technique where a set of samples of the same size are drawn from a single original sample.
+
+Some values appear more than once because bootstrapping allows each value to be pulled multiple times from the original data set. Once you have your bootstraps, you can calculate metrics from them. For example, the mean value of each bootstrap. The underlying logic of this technique is that since the sample itself is from a population, the bootstraps act as proxies for other samples from that population. Now that we have created one bootstrap from our sample, we can create many. In the following code I have used map to create 100 bootstraps from my original sample:
+
 
 ```r
 set.seed(342)
-bootstraps <- map(1:100, ~slice_sample(penguins_clean_split, prop = .1, replace = TRUE))
+bootstraps <- map(1:100, 
+                  ~slice_sample(penguins_clean_split, 
+                                prop = .1, # 10% of dataframe
+                                replace = TRUE))
 
 bootstraps %>%
     map_dbl(~ mean(.$body_mass_g, na.rm = TRUE)) |> 
@@ -767,8 +945,7 @@ geom_histogram(fill = "grey80", color = "black")+
              linewidth = 2, colour = "red", linetype  ="dashed")
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" />
-
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Group work
@@ -847,26 +1024,30 @@ F-statistic: 224.5 on 5 and 336 DF,  p-value: < 2.2e-16
 
 However, there may be occasions where we wish to apply simple models to each subpopulation in turn:
 
+First we need to `nest()` our data - tibbles with nested dataframes can be manipulated using various functions and operations to perform tasks like filtering, summarizing, and visualization. Nested dataframes also facilitate operations on a per-group basis, which can be useful for group-wise analysis. 
+
+Next we create a new 
+
 
 ```r
-penguins_clean_split |> 
-  group_by(species) |> 
-  nest() |> 
-  mutate(model = map(data, ~ lm(culmen_depth_mm ~ culmen_length_mm, data = .))) |> 
-  mutate(tidy = map(model, broom::tidy)) |> 
-  unnest(tidy)
+penguins |> 
+    group_by(species) |> 
+    nest() |> 
+    mutate(model = map(data, ~ lm(culmen_depth_mm ~ culmen_length_mm, data = .) |> broom::tidy())) |> 
+    unnest(model)
 ```
-```
-A tibble:6 × 8
-Groups:species [3]
 
-Adelie	<tibble>	<S3: lm>	(Intercept)	11.4091245	1.33893250	
-Adelie	<tibble>	<S3: lm>	culmen_length_mm	0.1788343	0.03443569	
-Gentoo	<tibble>	<S3: lm>	(Intercept)	5.2510084	1.05480901	
-Gentoo	<tibble>	<S3: lm>	culmen_length_mm	0.2048443	0.02215802	
-Chinstrap	<tibble>	<S3: lm>	(Intercept)	7.5691401	1.55052928	
-Chinstrap	<tibble>	<S3: lm>	culmen_length_mm	0.2222117	0.03167825	
-6 rows | 1-6 of 8 columns
+```
+# A tibble: 6 × 7
+# Groups:   species [3]
+  species   data                term             estimate std.error statistic  p.value
+  <chr>     <list>              <chr>               <dbl>     <dbl>     <dbl>    <dbl>
+1 Adelie    <tibble [152 × 16]> (Intercept)        11.4      1.34        8.52 1.61e-14
+2 Adelie    <tibble [152 × 16]> culmen_length_mm    0.179    0.0344      5.19 6.67e- 7
+3 Gentoo    <tibble [124 × 16]> (Intercept)         5.25     1.05        4.98 2.15e- 6
+4 Gentoo    <tibble [124 × 16]> culmen_length_mm    0.205    0.0222      9.24 1.02e-15
+5 Chinstrap <tibble [68 × 16]>  (Intercept)         7.57     1.55        4.88 6.99e- 6
+6 Chinstrap <tibble [68 × 16]>  culmen_length_mm    0.222    0.0317      7.01 1.53e- 9
 
 ```
 
@@ -1073,6 +1254,7 @@ test_function <- function(select_var){
 
 test_function(select_var = species)
 ```
+
 ```
 Error: object 'species' not found
 
@@ -1340,9 +1522,9 @@ Write a `function` that uses filter to take any two of the penguin species then 
 
 
 
-<button id="displayTextunnamed-chunk-68" onclick="javascript:toggle('unnamed-chunk-68');">Show Solution</button>
+<button id="displayTextunnamed-chunk-69" onclick="javascript:toggle('unnamed-chunk-69');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-68" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-69" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 compare_species_plot <- function(data, species_1, species_2, feature) {
@@ -1360,14 +1542,14 @@ compare_species_plot <- function(data, species_1, species_2, feature) {
 compare_species_plot(penguins_clean_split, "Adelie", "Chinstrap", culmen_length_mm)
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-72-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-73-1.png" width="100%" style="display: block; margin: auto;" />
 </div></div></div>
 
 In the example below I have used `enquo` to enable conversion to character strings, this means all of the function arguments can be provided without "quotes". 
 
-<button id="displayTextunnamed-chunk-69" onclick="javascript:toggle('unnamed-chunk-69');">Show Solution</button>
+<button id="displayTextunnamed-chunk-70" onclick="javascript:toggle('unnamed-chunk-70');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-69" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-70" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 compare_species_plot <- function(data, species_1, species_2, feature) {

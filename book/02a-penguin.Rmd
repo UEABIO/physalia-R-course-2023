@@ -190,11 +190,11 @@ Now we can read in the data. To do this we will use the function `readr::read_cs
 ```{multCode}
 
 ``{r, eval = F}
-penguins <- read.csv ("data/penguins_raw.csv")
+penguins_raw <- read.csv ("data/penguins_raw.csv")
 
-attributes(penguins) # reads as data.frame
+attributes(penguins_raw) # reads as data.frame
 
-head(penguins) # check the data has loaded, prints first 10 rows of dataframe
+head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
 
 ``
 
@@ -202,11 +202,11 @@ head(penguins) # check the data has loaded, prints first 10 rows of dataframe
 
 ``{r, eval = F}
 # IMPORT DATA ----
-penguins <- read_csv ("data/penguins_raw.csv")
+penguins_raw <- read_csv ("data/penguins_raw.csv")
 
-attributes(penguins) # reads as tibble
+attributes(penguins_raw) # reads as tibble
 
-head(penguins) # check the data has loaded, prints first 10 rows of dataframe
+head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
 #__________________________----
 ``
 
@@ -238,9 +238,9 @@ library(lubridate) # make sure dates are processed properly
 #__________________________----
 
 # IMPORT DATA ----
-penguins <- read_csv ("data/penguins_raw.csv")
+penguins_raw <- read_csv ("data/penguins_raw.csv")
 
-head(penguins) # check the data has loaded, prints first 10 rows of dataframe
+head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
 #__________________________----
 
 ```
@@ -265,7 +265,7 @@ head(penguins) # check the data has loaded, prints first 10 rows of dataframe
 
 `r mcq(c(answer = "read_csv()", "read.csv()"))`
 
-**Question 5.** What format is the `penguins` data in?
+**Question 5.** What format is the `penguins_raw` data in?
 
 `r mcq(c("wide data", answer = "long data"))`
 
@@ -299,7 +299,7 @@ library(tidyverse)
 library(janitor)
 library(here)
 
-penguins <- read_csv(here("book", "files", "penguins_raw.csv"))
+penguins_raw <- read_csv(here("book", "files", "penguins_raw.csv"))
 ```
 
 In this chapter you will learn how to use tidyverse functions to data clean and wrangle: 
@@ -321,7 +321,7 @@ So we know our data is in R, and we know the columns and names have been importe
 ```{r, eval = F}
 # CHECK DATA----
 # check the data
-colnames(penguins)
+colnames(penguins_raw)
 #__________________________----
 ```
 
@@ -375,9 +375,9 @@ This dataframe  does not like these so let's correct these quickly. R is case-se
 # note we are using assign <- to overwrite the old version of penguins with a version that has updated names
 # this changes the data in our R workspace but NOT the original csv file
 
-penguins <- janitor::clean_names(penguins) # clean the column names
+penguins_clean <- janitor::clean_names(penguins_raw) # clean the column names
 
-colnames(penguins) # quickly check the new variable names
+colnames(penguins_clean) # quickly check the new variable names
 
 
 ```
@@ -390,9 +390,9 @@ The `clean_names` function quickly converts all variable names into snake case. 
 
 ``{r, eval= FALSE}
 
-names(penguins)[names(penguins) == "delta_15_n_o_oo"] <- "delta_15n"
+names(penguins)[names(penguins_clean) == "delta_15_n_o_oo"] <- "delta_15n"
 
-names(penguins)[names(penguins) == "delta_13_c_o_oo"] <- "delta_13c"
+names(penguins)[names(penguins_clean) == "delta_13_c_o_oo"] <- "delta_13c"
 ``
 
 ####
@@ -400,7 +400,7 @@ names(penguins)[names(penguins) == "delta_13_c_o_oo"] <- "delta_13c"
 ``{r, eval = T, warning = F, message = F}
 # shorten the variable names for N and C isotope blood samples
 
-penguins <- rename(penguins,
+penguins <- rename(penguins_clean,
          "delta_15n"="delta_15_n_o_oo",  # use rename from the dplyr package
          "delta_13c"="delta_13_c_o_oo")
 
@@ -1181,14 +1181,14 @@ str_replace_all(names(penguins), c("e"= "E"))
 ### More stringr
 
 ```{r, eval  = F}
-penguins %>% 
+penguins  |>  
   mutate(species=str_to_upper(species))
 # Capitalise all letters
 
 ```
 
 ```{r, eval  = F}
-penguins %>% 
+penguins |> 
   mutate(species=str_remove_all(species, "e"))
 # remove every character "e" from selected variables
 ```
@@ -1203,15 +1203,15 @@ df2 # make a test dataframe
 We can easily imagine a scenario where data is manually input, and trailing or leading spaces are left in. These are difficult to spot by eye - but problematic because as far as R is concerned these are different values. We can use the function `distinct` to return the names of all the different levels it can find in this dataframe.
 
 ```{r, eval  = F}
-df2 %>% 
+df2 |> 
   distinct()
 ```
 
 If we pipe the data throught the `str_trim` function to remove any gaps, then pipe this on to `distinct` again - by removing the whitespace, R now recognises just one level to this data. 
 
 ```{r, eval  = F}
-df2 %>% 
-  mutate(label=str_trim(label, side="both")) %>% 
+df2 |> 
+  mutate(label=str_trim(label, side="both")) |> 
   distinct()
 
 ```
@@ -1219,7 +1219,7 @@ df2 %>%
 A quick example of how to extract partial strings according to a pattern is to use `str_detect`. Combined with `filter` it is possible to subset a dataframe by searching for all the strings that match provided information, such as all the penguin IDs that start with "N1"
 
 ```{r, eval  = F}
-penguins %>% 
+penguins |> 
   filter(str_detect(individual_id, "N1"))
 
 ```
@@ -1237,7 +1237,7 @@ df
 ```
 
 ```{r}
-df %>% 
+df |> 
   separate(label, # name of variable
            c("treatment", "replicate"), # new column names
            sep="-") # the character to mark where the separation occurs
@@ -1447,6 +1447,19 @@ Factors will also be important when we build linear models a bit later. The refe
 ## Finished
 
 * Make sure you have **saved your script 💾**  and given it the filename "01_import_penguins_data.R" in the ["scripts" folder](#activity-1-organising-our-workspace).
+
+
+* Some parts of our script are *redundant* for the purposes of generating a clean dataframe, we need the `penguins` data in a tidy/rectangular format, checked for missing values, duplicated data and with clean column names. 
+
+* If we have that we can generate a .RDS file to save this dataframe for use in data insights scripts
+
+```{r, eval = F}
+
+saveRDS(penguins, file = "outputs/2024_11_01_penguin_clean.RDS")
+
+```
+
+
 
 * Does your workspace look like the below? 
 

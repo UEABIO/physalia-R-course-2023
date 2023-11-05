@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 16 Bonus: Simulation | Advancing in R</title>
+<title>Chapter 18 Bonus: Simulation | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="library(ggplot2) # Define a function to run the simulation for a given sample size and effect size simulate_difference &lt;- function(sample_size, effect_size) {   set.seed(123)     # Initialize a...">
+<meta name="description" content="A computer simulation (or “sim”) is an attempt to model a real-life or hypothetical situation on a computer so that it can be studied to see how the system works. By changing variables in the...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 16 Bonus: Simulation | Advancing in R">
+<meta property="og:title" content="Chapter 18 Bonus: Simulation | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/bonus-simulation.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="library(ggplot2) # Define a function to run the simulation for a given sample size and effect size simulate_difference &lt;- function(sample_size, effect_size) {   set.seed(123)     # Initialize a...">
+<meta property="og:description" content="A computer simulation (or “sim”) is an attempt to model a real-life or hypothetical situation on a computer so that it can be studied to see how the system works. By changing variables in the...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 16 Bonus: Simulation | Advancing in R">
-<meta name="twitter:description" content="library(ggplot2) # Define a function to run the simulation for a given sample size and effect size simulate_difference &lt;- function(sample_size, effect_size) {   set.seed(123)     # Initialize a...">
+<meta name="twitter:title" content="Chapter 18 Bonus: Simulation | Advancing in R">
+<meta name="twitter:description" content="A computer simulation (or “sim”) is an attempt to model a real-life or hypothetical situation on a computer so that it can be studied to see how the system works. By changing variables in the...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -121,53 +121,52 @@
 <li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
 <li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
 <li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
-<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
+<li class="book-part">Data Insights</li>
+<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">9</span> Data Insights part one</a></li>
+<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">10</span> Data insights part two</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">11</span> Basic ggplot</a></li>
 <li class="book-part">Functional Programming</li>
-<li><a class="" href="writing-functions.html"><span class="header-section-number">10</span> Writing Functions</a></li>
-<li><a class="" href="flow-control.html"><span class="header-section-number">11</span> Flow control</a></li>
-<li><a class="" href="simple-iteration.html"><span class="header-section-number">12</span> Simple iteration</a></li>
-<li><a class="" href="loops.html"><span class="header-section-number">13</span> Loops</a></li>
-<li><a class="" href="apply.html"><span class="header-section-number">14</span> Apply</a></li>
-<li><a class="" href="purrr.html"><span class="header-section-number">15</span> Purrr</a></li>
-<li><a class="active" href="bonus-simulation.html"><span class="header-section-number">16</span> Bonus: Simulation</a></li>
+<li><a class="" href="writing-functions.html"><span class="header-section-number">12</span> Writing Functions</a></li>
+<li><a class="" href="flow-control.html"><span class="header-section-number">13</span> Flow control</a></li>
+<li><a class="" href="simple-iteration.html"><span class="header-section-number">14</span> Simple iteration</a></li>
+<li><a class="" href="loops.html"><span class="header-section-number">15</span> Loops</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">16</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">17</span> Purrr</a></li>
+<li><a class="active" href="bonus-simulation.html"><span class="header-section-number">18</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">17</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">18</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">19</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">20</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">21</span> Applying functions across columns</a></li>
-<li><a class="" href="working-with-rows.html"><span class="header-section-number">22</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">23</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">24</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">25</span> Writing Functions in Tidyverse</a></li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">19</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">20</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">21</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">22</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">23</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">24</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">25</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">26</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">27</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="customisation-with-ggplot2.html"><span class="header-section-number">26</span> Customisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">27</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">28</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">29</span> Making tables with gt</a></li>
+<li><a class="" href="customisation-with-ggplot2.html"><span class="header-section-number">28</span> Customisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">29</span> Extensions for ggplot2</a></li>
+<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">30</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">31</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">30</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">31</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">32</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">33</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">34</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">35</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">36</span> Customising</a></li>
-<li><a class="" href="download.html"><span class="header-section-number">37</span> Download?</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">32</span> Getting to work with Shiny</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">33</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">34</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">35</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">36</span> Reactive</a></li>
+<li><a class="" href="shiny-dashboards.html"><span class="header-section-number">37</span> Shiny Dashboards</a></li>
 <li><a class="" href="sharing.html"><span class="header-section-number">38</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
 <li><a class="" href="rmarkdown.html"><span class="header-section-number">39</span> RMarkdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">40</span> Github</a></li>
+<li><a class="" href="github-1.html"><span class="header-section-number">40</span> Github</a></li>
 <li><a class="" href="NA.html">
 to upload commits
 to the remote repository.
 </a></li>
-<li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data.html"><span class="header-section-number">41</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql.html"><span class="header-section-number">42</span> write to sql</a></li>
-<li><a class="" href="querying-sql.html"><span class="header-section-number">43</span> querying sql</a></li>
+<li class="book-part">Working with big data</li>
+<li><a class="" href="reading-3.html"><span class="header-section-number">41</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">44</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">42</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
 
         <div class="book-extra">
@@ -175,11 +174,276 @@ to the remote repository.
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="bonus-simulation" class="section level1" number="16">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="bonus-simulation" class="section level1" number="18">
 <h1>
-<span class="header-section-number">16</span> Bonus: Simulation<a class="anchor" aria-label="anchor" href="#bonus-simulation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">18</span> Bonus: Simulation<a class="anchor" aria-label="anchor" href="#bonus-simulation"><i class="fas fa-link"></i></a>
 </h1>
-<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
+<p>A computer simulation (or “sim”) is an attempt to model a real-life or hypothetical situation on a computer so that it can be studied to see how the system works. By changing variables in the simulation, predictions may be made about the behavior of the system. It is a tool to virtually investigate the behavior of the system under study - <em>Wikipedia</em></p>
+<p>You can use computer simulations to:</p>
+<ul>
+<li>
+<strong>Test your statistical intuition or demonstrate mathematical properties you cannot easily anticipate</strong>
+<ul>
+<li><em>e.g. test whether when supposedly random data are generated, there is no more than 5% of significant effects for a variable in a model</em></li>
+</ul>
+</li>
+<li>
+<strong>Understand sampling theory, probability distributions or test whether you understand the underlying processes of your system</strong>
+<ul>
+<li><em>e.g. see whether simulated data drawn from specific distribution are comparable to real data</em></li>
+</ul>
+</li>
+<li>
+<strong>Perform power analyses</strong>
+<ul>
+<li><em>e.g. assess whether the sample size (within a replicate) is high enough to detect an effect simulated, in more than 80% of the cases</em></li>
+</ul>
+</li>
+<li>
+<strong>Perform bootstrapping to get a confidence interval around a parameter estimate</strong>
+<ul>
+<li><em>i.e. bootstrapping means to sample with replacement (i.e. all the original options to draw from are available at each draw) in an observed dataset. Doing this generates new 'simulated' datasets. With each of them, one can run the statistical analysis made on the observed dataset, saving each time the parameter estimate of interest. After doing this multiple time, you will obtain a confidence interval for the parameter of interest</em></li>
+</ul>
+</li>
+</ul>
+<div id="random-number-generators" class="section level2" number="18.1">
+<h2>
+<span class="header-section-number">18.1</span> Random number generators<a class="anchor" aria-label="anchor" href="#random-number-generators"><i class="fas fa-link"></i></a>
+</h2>
+<p>R contains several functions to generate random numbers.<br>
+Type <em><code>?function</code></em> in your console to get information on the function's arguments (i.e. the values that must be provided to obtain the function's result).</p>
+<p>The function<br>
+* <code>sample(x, n, replace=FALSE)</code> draws <code>n</code> values from a given vector <code>x</code> without replacement (by default) .</p>
+<p>Sampling without replacement means that when you repeatedly draw e.g. 1 item from a pool of items, any item selected during the first draw is not available for selection during the second draw, and the first and second selected items are not in the pool to select from during the third draw, etc. Sampling with replacement means that all the original options are available at each draw.</p>
+<p><strong>YOUR TURN:</strong><br>
+Sample 100 values between 3 and 103 with replacement.</p>
+<button id="displayTextunnamed-chunk-124" onclick="javascript:toggle('unnamed-chunk-124');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-124" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span><span class="op">:</span><span class="fl">103</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">100</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<p>The following functions draw <code>n</code> values from distributions with the specified parameters:</p>
+<ul>
+<li>
+<code>runif(n, min, max)</code> draws <code>n</code> values from a <em>uniform</em> distribution with the specified <code>min</code> and <code>max</code><br>
+</li>
+<li>
+<code>rpois(n, lambda)</code> draws <code>n</code> values from a <em>poisson</em> distribution with the specified <code>lambda</code><br>
+</li>
+<li>
+<code>rnorm(n, mean, sd)</code> draws <code>n</code> values from a <em>normal</em> distribution with the specified <code>mean</code> and <code>standard deviation</code><br>
+</li>
+<li>
+<code>rbinom(n, prob)</code> draws <code>n</code> values from a <em>binomial</em> distribution with the specified <code>probability</code>
+</li>
+</ul>
+<p><strong>YOUR TURN:</strong></p>
+<p>Draw 100 values from a normal distribution with a mean of 0 and a sd of 1.<br>
+Draw 50 values from a normal distribution with a mean of 10 and sd of 5.<br>
+Draw 1000 values from a poisson distribution with a lambda of 50.<br>
+Draw 30 values from a uniform distribution between 0 and 10.</p>
+<button id="displayTextunnamed-chunk-125" onclick="javascript:toggle('unnamed-chunk-125');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-125" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span> <span class="co"># if you sample from a normal distribution with a mean of 0 and a sd of 1, you do not need to provide them, they are the defaults</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>sd <span class="op">=</span> <span class="fl">5</span>, mean <span class="op">=</span> <span class="fl">10</span>, n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1000</span>, lambda <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div id="replication" class="section level2" number="18.2">
+<h2>
+<span class="header-section-number">18.2</span> Replication<a class="anchor" aria-label="anchor" href="#replication"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>replicate(10, mean(rnorm(100)))</code></p>
+<p>reads: 'draw 100 values from a normal distribution with a mean 0 and sd 1 (the default values), caclulate the mean of these 100 values, and do all that 10 times.</p>
+<p><strong>YOUR TURN:</strong></p>
+<p>Replicate 1000 times the mean of 10 values drawn from a unifrom distribution between 0 and 10.</p>
+<p>Make a histogram of your results.</p>
+<button id="displayTextunnamed-chunk-126" onclick="javascript:toggle('unnamed-chunk-126');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-126" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">10</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">10</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-152-1.png" width="100%" style="display: block; margin: auto;"></div>
+<pre><code>##    [1] 5.022564 6.486282 3.253483 5.283917 4.755306 4.764930 3.866803 5.239018
+##    [9] 4.753826 7.075335 3.680023 6.798563 3.957019 4.247940 6.775591 2.837982
+##   [17] 5.295009 3.686621 5.870210 5.437420 4.576551 4.563031 6.677120 4.485507
+##   [25] 4.789988 5.611675 5.183978 5.248748 5.848835 4.404809 5.406209 4.176004
+##   [33] 5.035896 2.922242 3.597870 4.394419 5.262358 4.839507 5.059226 2.804688
+##   [41] 3.274374 4.346020 5.455425 5.577012 3.414462 6.477011 5.717628 5.234262
+##   [49] 4.322808 4.945608 6.128692 4.798452 5.175659 3.420668 4.913093 5.566140
+##   [57] 5.526872 2.446137 5.714276 5.404742 4.269650 4.260459 6.685526 4.659467
+##   [65] 6.298490 3.771470 5.780282 4.165069 4.991805 4.695841 6.020834 4.972164
+##   [73] 5.655646 4.530329 6.492752 5.283539 3.233246 5.381650 4.816278 4.458618
+##   [81] 3.128824 3.316130 4.637443 4.933391 4.382108 3.994161 5.817086 5.172091
+##   [89] 4.122685 6.291550 4.900774 5.422067 3.278317 3.818427 3.516729 4.561131
+##   [97] 3.833623 5.345944 4.443836 6.331242 4.291593 6.137984 6.587903 4.577814
+##  [105] 3.968605 5.459617 5.117036 4.831082 3.678388 4.432208 5.408473 5.457825
+##  [113] 5.437065 3.392945 4.997982 5.385590 5.513795 4.482369 4.214285 4.898272
+##  [121] 6.337674 6.338884 5.655799 4.547818 4.848959 4.970893 5.166720 4.107493
+##  [129] 4.637972 5.511366 4.357717 3.588210 4.200698 5.483000 5.109306 5.212175
+##  [137] 5.000928 4.578330 4.543773 5.246863 4.334527 5.299436 4.380459 6.972335
+##  [145] 4.000025 4.328242 4.853380 6.611760 6.475513 3.599333 6.053279 5.184472
+##  [153] 6.755185 6.378926 4.407124 5.454748 5.656110 5.696439 4.852164 5.543577
+##  [161] 3.488294 4.347918 4.259363 4.239077 4.957006 6.874090 4.987367 6.021677
+##  [169] 6.439023 5.814456 5.168444 5.818203 6.251701 4.219189 4.696464 4.032730
+##  [177] 5.135669 4.700474 3.792755 5.154508 3.834076 5.510359 5.849556 4.960622
+##  [185] 7.643393 4.820671 4.486355 2.990379 3.832970 5.602645 4.890752 5.114310
+##  [193] 5.644748 4.746721 5.975542 4.457620 5.994648 5.457588 5.299128 5.335360
+##  [201] 6.253442 5.118188 6.347584 5.316206 4.356976 6.689561 6.158226 5.779996
+##  [209] 5.424961 3.888036 5.737416 4.972889 4.962940 5.037110 5.341259 5.677255
+##  [217] 5.524683 4.146624 4.796850 3.698592 5.884621 3.424715 5.180526 5.263211
+##  [225] 5.502682 4.996885 5.476823 5.515598 5.941130 4.657621 4.964112 4.600001
+##  [233] 5.312405 6.008348 3.925046 5.801917 4.887718 4.223887 4.918600 5.948642
+##  [241] 3.922495 4.846953 3.668805 5.448806 4.084024 4.092089 4.808482 5.821109
+##  [249] 4.645973 5.069394 3.124911 4.703016 4.912898 6.987999 5.474039 3.593206
+##  [257] 4.344517 4.784843 4.373300 4.877382 5.936433 4.121378 4.061315 5.307346
+##  [265] 4.290063 4.538581 5.196947 4.559459 4.919740 2.719258 3.360902 4.805378
+##  [273] 4.972203 6.129040 6.658414 4.379531 5.303017 6.558267 6.264228 6.330103
+##  [281] 5.889397 5.230562 4.912186 5.597881 4.335710 5.307087 2.771738 5.740053
+##  [289] 4.848271 4.583272 5.566355 6.274025 3.460113 3.989879 6.119412 5.507823
+##  [297] 4.170569 5.374978 4.832085 4.114509 6.904667 3.985031 4.564849 6.444838
+##  [305] 6.056518 4.764531 5.773518 5.610679 4.217949 4.423678 4.829778 5.053409
+##  [313] 3.538710 6.155165 5.219623 4.886845 5.091171 6.377816 5.361774 4.389324
+##  [321] 3.596758 4.056727 5.845501 6.043310 3.720966 4.992234 4.957711 5.777479
+##  [329] 5.222643 5.180983 4.825537 5.085617 5.333757 5.160768 5.613991 4.394451
+##  [337] 5.838129 4.858183 4.987331 4.228844 4.333418 6.024601 4.512163 7.121851
+##  [345] 4.040513 5.164738 4.684059 3.889018 6.436094 3.268003 6.238798 3.793290
+##  [353] 4.879440 4.925379 4.074747 7.293254 5.737862 6.573076 4.584073 5.391185
+##  [361] 4.513591 4.047224 6.529335 5.596854 5.911643 4.568881 4.789190 7.195398
+##  [369] 4.529265 5.260140 5.381012 3.776233 4.549277 3.923326 6.776042 6.410171
+##  [377] 5.817574 5.408104 3.454660 5.264210 6.142004 4.629579 5.848155 3.888124
+##  [385] 4.505167 4.762038 4.384839 6.687296 5.593423 3.371339 4.754222 4.475158
+##  [393] 4.058205 6.132182 3.762091 6.605192 5.058662 5.661752 4.260943 4.732634
+##  [401] 5.899245 2.418522 4.254824 5.794894 3.741285 3.954037 6.249746 4.065045
+##  [409] 6.239619 3.637826 4.851550 6.525624 4.663901 4.776547 5.949761 3.745710
+##  [417] 6.150586 4.329604 5.591971 4.325579 5.577559 4.831306 6.055880 4.632553
+##  [425] 4.409652 3.823465 5.396624 3.680689 3.894154 3.792094 6.207166 4.460473
+##  [433] 7.160660 4.953849 4.904341 6.051715 5.252297 5.155106 5.641283 4.840786
+##  [441] 5.856489 6.593380 3.999349 2.925233 4.976722 3.768126 5.405148 5.079269
+##  [449] 5.377654 5.183229 3.723001 7.522386 4.964582 4.681127 5.340233 6.213151
+##  [457] 4.335144 5.877440 6.304233 3.080169 4.196628 5.975024 6.076374 4.235550
+##  [465] 6.330351 5.269729 4.991324 3.494424 5.723659 3.863884 3.212754 4.886209
+##  [473] 5.076296 5.383685 4.020143 4.592111 5.747259 4.548136 5.047915 5.307762
+##  [481] 6.599579 5.200656 4.825474 4.313290 4.292569 5.814679 3.946238 6.089921
+##  [489] 5.816124 3.481063 4.124254 5.346080 4.657365 5.523479 3.740368 7.069931
+##  [497] 4.967588 3.477052 5.511224 4.943011 4.426105 4.669458 6.265252 3.725954
+##  [505] 5.144351 3.529225 4.726432 6.506925 4.224144 5.503032 5.802876 5.141766
+##  [513] 5.521000 5.347507 6.105181 4.120922 6.264361 4.603006 6.002986 4.267543
+##  [521] 3.494900 3.544516 4.514592 6.231351 5.091581 6.184747 5.058624 5.649067
+##  [529] 4.940839 5.430507 4.351146 6.750090 5.286820 3.846517 3.763481 5.805950
+##  [537] 6.479060 4.024770 4.810078 4.211945 5.908625 5.497130 4.785418 4.733634
+##  [545] 5.137353 5.137816 5.880050 5.639440 4.192313 5.100459 4.728568 3.157026
+##  [553] 7.114751 4.512679 6.013958 6.385092 2.769444 4.743656 4.203741 5.226889
+##  [561] 6.461973 5.912153 4.055229 3.771768 4.289329 4.707812 3.945387 6.166968
+##  [569] 5.171750 5.813106 3.393515 6.109910 4.583241 5.930594 4.218841 5.671123
+##  [577] 4.290922 5.714578 7.118112 6.650301 3.796101 4.553531 6.215018 5.661105
+##  [585] 5.495100 3.934162 4.892751 6.123624 4.505417 6.275858 3.425009 4.561485
+##  [593] 5.761921 5.002847 5.393943 5.758310 4.774768 2.878534 4.641835 5.671205
+##  [601] 6.065482 4.993765 5.202205 4.251069 5.752798 5.883912 4.978239 4.101216
+##  [609] 4.511276 5.789929 4.903575 4.885166 4.658623 5.516490 4.217965 4.355942
+##  [617] 4.985850 4.892947 5.850160 5.101741 5.258397 6.300844 4.382642 6.278133
+##  [625] 4.766710 4.763215 4.524970 5.060690 5.774283 3.682195 4.476021 4.449653
+##  [633] 4.406408 4.781796 5.264789 3.918565 4.823158 6.096700 4.080437 5.604444
+##  [641] 5.871325 4.011982 3.863019 2.924214 3.991509 2.853309 5.877184 3.929878
+##  [649] 5.163435 5.444099 6.367992 6.085062 5.618144 3.224080 4.758070 5.339940
+##  [657] 4.456895 5.614288 5.854394 6.015450 4.135173 5.166367 5.630513 4.017036
+##  [665] 4.506145 5.460817 5.140559 4.398100 4.726626 5.025259 4.793040 4.641496
+##  [673] 3.966768 4.271524 6.666937 5.701276 4.895784 4.417153 4.639484 3.732593
+##  [681] 6.798951 4.574856 4.479827 5.950770 4.063456 4.478808 5.192471 5.319516
+##  [689] 5.626374 5.436825 5.255614 5.336237 4.037924 5.805885 5.804251 2.777425
+##  [697] 4.692924 5.017625 4.904147 6.397664 5.074379 5.659205 5.197332 5.435390
+##  [705] 4.624594 6.120386 3.489217 4.785979 4.727884 5.871547 5.126601 5.291194
+##  [713] 5.269524 3.946627 4.788225 5.506121 5.104596 6.565479 3.848890 5.103925
+##  [721] 4.752267 5.224469 5.581277 5.406318 3.706684 5.837180 5.622541 3.065276
+##  [729] 2.752097 5.085500 4.388959 5.134163 5.985925 5.181973 5.936636 4.548416
+##  [737] 5.441322 4.647104 3.400332 5.617748 4.686364 6.114206 5.139537 4.473448
+##  [745] 5.253781 4.764039 5.975940 4.979730 5.598236 4.089780 4.359458 6.327619
+##  [753] 4.411183 5.256521 4.257731 4.487774 7.674157 5.082399 4.964086 4.620147
+##  [761] 6.981050 6.424662 4.423953 4.289838 4.149385 3.088167 3.839786 5.227148
+##  [769] 5.763999 4.935213 4.581951 4.626750 3.887332 3.588523 6.325464 5.296067
+##  [777] 3.089422 3.984396 5.260440 4.598770 4.830150 5.504993 5.272927 5.987281
+##  [785] 4.693982 5.162060 4.859042 4.764043 4.534831 5.850742 5.801094 4.963417
+##  [793] 4.052917 4.225261 4.175322 5.645488 5.174898 4.788914 4.573721 4.669259
+##  [801] 4.664292 5.917050 3.476753 5.868096 5.841412 5.508459 6.668313 5.877152
+##  [809] 5.512025 5.131615 5.145278 5.656402 5.007087 5.549316 4.369487 5.868928
+##  [817] 5.017408 6.351545 5.312804 6.048306 4.169279 3.934370 6.568975 4.256577
+##  [825] 3.678279 4.579586 6.681249 6.188609 5.176793 5.013702 4.235730 3.683964
+##  [833] 4.746324 5.238172 3.784551 5.289517 6.611561 6.177203 4.789028 4.421146
+##  [841] 4.229517 5.391776 4.693361 4.447140 5.941802 5.728762 3.913620 5.465753
+##  [849] 4.194589 5.773093 3.199920 6.036005 3.533122 4.161584 5.531247 4.268215
+##  [857] 6.132411 4.788292 4.654465 6.538839 3.924608 3.786910 4.441194 5.049618
+##  [865] 4.597614 5.523004 5.813452 4.811984 4.775297 3.523574 3.955356 3.579214
+##  [873] 4.309058 3.995424 4.706003 4.967713 5.310656 4.664916 6.602173 5.522549
+##  [881] 6.095434 4.100433 4.854216 6.854413 4.634543 5.821203 3.503136 5.579035
+##  [889] 6.093620 3.771406 5.651880 6.666601 5.918735 4.101409 4.929475 6.337194
+##  [897] 3.570386 4.569126 5.676536 4.462853 5.258050 4.337117 4.397111 7.080117
+##  [905] 5.486487 4.484210 6.395883 4.978454 3.575002 3.162496 6.463063 4.091877
+##  [913] 4.105762 4.273952 5.898072 5.660837 3.964643 4.627937 3.923019 5.169271
+##  [921] 6.159418 4.580243 6.320550 3.813068 5.152797 4.165234 6.724633 4.968945
+##  [929] 4.282690 4.548454 5.505616 3.334154 5.511689 4.416479 5.184462 5.851148
+##  [937] 5.152119 4.554992 4.860648 4.129359 5.834361 6.670298 6.397051 6.213793
+##  [945] 5.420808 4.030101 5.587434 4.782679 5.947798 5.439945 5.217701 4.439850
+##  [953] 5.040995 4.823152 5.009779 5.186755 5.059656 5.036404 3.174421 4.430825
+##  [961] 4.858046 4.941247 4.831080 3.953859 4.922107 5.864988 5.584510 4.135329
+##  [969] 5.829048 5.005010 5.928172 4.910473 5.504933 4.385466 5.287280 5.906283
+##  [977] 6.189572 4.615550 5.581284 6.542178 5.226069 4.613878 5.553299 6.014870
+##  [985] 6.197166 6.464980 3.111910 6.844987 4.103421 6.054986 5.919438 5.164148
+##  [993] 4.936537 6.093834 5.361409 4.853877 5.910566 5.842736 4.934678 3.522957</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="set-seed" class="section level2" number="18.3">
+<h2>
+<span class="header-section-number">18.3</span> Set seed<a class="anchor" aria-label="anchor" href="#set-seed"><i class="fas fa-link"></i></a>
+</h2>
+<p><code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code></p>
+<p>Computers in general, and R specifically, can, in fact, only provide pseudo random number generators.
+A pseudorandom number generator's number sequence is completely determined by its seed, i.e. a number used to initialize that sequence.</p>
+<p>Thus, if a pseudorandom number generator is reinitialized with the same seed, it will produce the same sequence of numbers. You can set the seed (with any arbitrary number) at the beginning of a script, and, if commands drawing random numbers are ran in the exact same order, they will provide the same output in subsequent runs.</p>
+<p>This is useful for sharing code and reproduce simulations, as well as for debugging code.</p>
+</div>
+<div id="sample-size" class="section level2" number="18.4">
+<h2>
+<span class="header-section-number">18.4</span> Sample size<a class="anchor" aria-label="anchor" href="#sample-size"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this example we are going to simulate some data for two groups - group 1 has a mean of 0 and an sd of 1, group 2 has a mean of whatever value we supply to <code>effect_size</code> and a sd of 1.</p>
+<p>By default this simulation is set to repeat an experiment where 30 samples are taken from each population and compared for a true difference. The experiment is repeated 100 times.</p>
+<p>The purpose of this simulation is to understand how the estimated difference in means varies across different random samples of data when the true effect size is known. It helps to assess the sampling variability and provides insights into the precision of the estimated difference. Additionally, it can be used to create a confidence interval to assess the uncertainty around the estimated effect.</p>
+<p>With this example we <strong>know</strong> the true difference, see what happens to our confidence intervals as we change the sample size, effect size and iterations:</p>
+<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Define a function to run the simulation for a given sample size and effect size</span></span>
@@ -234,8 +498,14 @@ to the remote repository.
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Estimated Difference"</span>, y <span class="op">=</span> <span class="st">"Density"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Density Histogram of Estimated Differences (Sample Size = 20)"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-127-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="power" class="section level2" number="18.5">
+<h2>
+<span class="header-section-number">18.5</span> Power<a class="anchor" aria-label="anchor" href="#power"><i class="fas fa-link"></i></a>
+</h2>
+<p>A useful application of simulations is to work out the power of a statistical test. Here we can calculate our statistical power of detection on a simulated dataset with a known effect-size:</p>
+<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define a function to run the simulation for a given sample size and effect size</span></span>
 <span><span class="va">simulate_power</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">sample_size</span>, <span class="va">effect_size</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
@@ -281,17 +551,18 @@ to the remote repository.
 <span></span>
 <span><span class="co"># Plot the power as a function of sample size</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sample_sizes</span>, <span class="va">simulation_results</span>, type <span class="op">=</span> <span class="st">"b"</span>, xlab <span class="op">=</span> <span class="st">"Sample Size"</span>, ylab <span class="op">=</span> <span class="st">"Power"</span>, main <span class="op">=</span> <span class="st">"Power vs. Sample Size"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-117-1.png" width="100%" style="display: block; margin: auto;"></div>
-<div id="further-reading" class="section level2" number="16.1">
+<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-128-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="further-reading" class="section level2" number="18.6">
 <h2>
-<span class="header-section-number">16.1</span> Further Reading:<a class="anchor" aria-label="anchor" href="#further-reading"><i class="fas fa-link"></i></a>
+<span class="header-section-number">18.6</span> Further Reading:<a class="anchor" aria-label="anchor" href="#further-reading"><i class="fas fa-link"></i></a>
 </h2>
 <p><a href="https://bookdown.org/ndphillips/YaRrr/generating-random-data.html" class="uri">https://bookdown.org/ndphillips/YaRrr/generating-random-data.html</a></p>
 <p>Simulations: <a href="https://rstudio-education.github.io/hopr/" class="uri">https://rstudio-education.github.io/hopr/</a></p>
 <p><a href="https://aosmith.rbind.io/2018/01/09/simulate-simulate-part1/#simulate-simulate-dance-to-the-music" class="uri">https://aosmith.rbind.io/2018/01/09/simulate-simulate-part1/#simulate-simulate-dance-to-the-music</a></p>
 <p><a href="https://aosmith.rbind.io/2019/07/22/automate-model-fitting-with-loops/" class="uri">https://aosmith.rbind.io/2019/07/22/automate-model-fitting-with-loops/</a></p>
 <p><a href="https://aosmith.rbind.io/2017/12/31/many-datasets/#list-all-files-to-read-in" class="uri">https://aosmith.rbind.io/2017/12/31/many-datasets/#list-all-files-to-read-in</a></p>
-<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## R version 4.3.1 (2023-06-16)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
@@ -522,13 +793,18 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="purrr.html"><span class="header-section-number">15</span> Purrr</a></div>
-<div class="next"><a href="reading-files-with-readr.html"><span class="header-section-number">17</span> Reading files with readr</a></div>
+<div class="prev"><a href="purrr.html"><span class="header-section-number">17</span> Purrr</a></div>
+<div class="next"><a href="reading-files-with-readr.html"><span class="header-section-number">19</span> Reading files with readr</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#bonus-simulation"><span class="header-section-number">16</span> Bonus: Simulation</a></li>
-<li><a class="nav-link" href="#further-reading"><span class="header-section-number">16.1</span> Further Reading:</a></li>
+<li><a class="nav-link" href="#bonus-simulation"><span class="header-section-number">18</span> Bonus: Simulation</a></li>
+<li><a class="nav-link" href="#random-number-generators"><span class="header-section-number">18.1</span> Random number generators</a></li>
+<li><a class="nav-link" href="#replication"><span class="header-section-number">18.2</span> Replication</a></li>
+<li><a class="nav-link" href="#set-seed"><span class="header-section-number">18.3</span> Set seed</a></li>
+<li><a class="nav-link" href="#sample-size"><span class="header-section-number">18.4</span> Sample size</a></li>
+<li><a class="nav-link" href="#power"><span class="header-section-number">18.5</span> Power</a></li>
+<li><a class="nav-link" href="#further-reading"><span class="header-section-number">18.6</span> Further Reading:</a></li>
 </ul>
 
       <div class="book-extra">
@@ -546,7 +822,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-04.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

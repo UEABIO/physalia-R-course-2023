@@ -315,7 +315,7 @@ This book was printed on `` `r Sys.Date()` ``
 
 When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead: 
 
-This book was printed on 2023-11-04
+This book was printed on 2023-11-05
 
 ### Running code {-}
 
@@ -356,7 +356,7 @@ more later</p></li>
 ## Exercises: Setting code chunks {-}
 
 
-**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select>
+**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select>
 
 
 <div class='webex-solution'><button>Explain This Answer</button>

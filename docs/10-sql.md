@@ -1,17 +1,25 @@
-# (PART\*) BONUS: Working with big data {.unnumbered}
+# (PART\*) Working with big data {.unnumbered}
 
 
-# Reading in data
-
-
+# Reading
 
 
 
 
-# write to sql
-
-# querying sql
+We did not cover the different approaches to working with really big data in R. Instead I have provided a list of extra reading and exercises that cover this in more depth, as well as introductions to using SQL with dplyr functions:
 
 
+https://www.r-bloggers.com/2020/09/the-fastest-way-to-read-and-writes-file-in-r/
 
+https://www.r-bloggers.com/2019/05/how-to-save-and-load-datasets-in-r-an-overview/
+
+http://www.sthda.com/english/wiki/saving-data-into-r-data-format-rds-and-rdata
+
+https://waterdata.usgs.gov/blog/formats/
+
+https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/
+
+https://bookdown.org/csgillespie/efficientR/preface.html
+
+https://github.com/sbreitbart/DataSci_for_Ecologists/blob/main/SQL_intro/SQL_intro.rmd
 

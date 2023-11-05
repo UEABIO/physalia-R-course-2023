@@ -181,21 +181,21 @@ Now we can read in the data. To do this we will use the function `readr::read_cs
 <div class="tab"><button class="tablinksunnamed-chunk-16 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-16', 'unnamed-chunk-16');">Base R</button><button class="tablinksunnamed-chunk-16" onclick="javascript:openCode(event, 'option2unnamed-chunk-16', 'unnamed-chunk-16');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
 
 ```r
-penguins <- read.csv ("data/penguins_raw.csv")
+penguins_raw <- read.csv ("data/penguins_raw.csv")
 
-attributes(penguins) # reads as data.frame
+attributes(penguins_raw) # reads as data.frame
 
-head(penguins) # check the data has loaded, prints first 10 rows of dataframe
+head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
 ```
 </div><div id="option2unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
 
 ```r
 # IMPORT DATA ----
-penguins <- read_csv ("data/penguins_raw.csv")
+penguins_raw <- read_csv ("data/penguins_raw.csv")
 
-attributes(penguins) # reads as tibble
+attributes(penguins_raw) # reads as tibble
 
-head(penguins) # check the data has loaded, prints first 10 rows of dataframe
+head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
 #__________________________----
 ```
 </div><script> javascript:hide('option2unnamed-chunk-16') </script>
@@ -231,9 +231,9 @@ library(lubridate) # make sure dates are processed properly
 #__________________________----
 
 # IMPORT DATA ----
-penguins <- read_csv ("data/penguins_raw.csv")
+penguins_raw <- read_csv ("data/penguins_raw.csv")
 
-head(penguins) # check the data has loaded, prints first 10 rows of dataframe
+head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
 #__________________________----
 ```
 
@@ -259,7 +259,7 @@ head(penguins) # check the data has loaded, prints first 10 rows of dataframe
 
 <select class='webex-select'><option value='blank'></option><option value='answer'>read_csv()</option><option value=''>read.csv()</option></select>
 
-**Question 5.** What format is the `penguins` data in?
+**Question 5.** What format is the `penguins_raw` data in?
 
 <select class='webex-select'><option value='blank'></option><option value=''>wide data</option><option value='answer'>long data</option></select>
 
@@ -309,7 +309,7 @@ So we know our data is in R, and we know the columns and names have been importe
 ```r
 # CHECK DATA----
 # check the data
-colnames(penguins)
+colnames(penguins_raw)
 #__________________________----
 ```
 
@@ -364,9 +364,9 @@ This dataframe  does not like these so let's correct these quickly. R is case-se
 # note we are using assign <- to overwrite the old version of penguins with a version that has updated names
 # this changes the data in our R workspace but NOT the original csv file
 
-penguins <- janitor::clean_names(penguins) # clean the column names
+penguins_clean <- janitor::clean_names(penguins_raw) # clean the column names
 
-colnames(penguins) # quickly check the new variable names
+colnames(penguins_clean) # quickly check the new variable names
 ```
 
 ```
@@ -385,16 +385,16 @@ The `clean_names` function quickly converts all variable names into snake case. 
 <div class="tab"><button class="tablinksunnamed-chunk-25 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-25', 'unnamed-chunk-25');">Base R</button><button class="tablinksunnamed-chunk-25" onclick="javascript:openCode(event, 'option2unnamed-chunk-25', 'unnamed-chunk-25');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-25" class="tabcontentunnamed-chunk-25">
 
 ```r
-names(penguins)[names(penguins) == "delta_15_n_o_oo"] <- "delta_15n"
+names(penguins)[names(penguins_clean) == "delta_15_n_o_oo"] <- "delta_15n"
 
-names(penguins)[names(penguins) == "delta_13_c_o_oo"] <- "delta_13c"
+names(penguins)[names(penguins_clean) == "delta_13_c_o_oo"] <- "delta_13c"
 ```
 </div><div id="option2unnamed-chunk-25" class="tabcontentunnamed-chunk-25">
 
 ```r
 # shorten the variable names for N and C isotope blood samples
 
-penguins <- rename(penguins,
+penguins <- rename(penguins_clean,
          "delta_15n"="delta_15_n_o_oo",  # use rename from the dplyr package
          "delta_13c"="delta_13_c_o_oo")
 ```
@@ -1206,14 +1206,14 @@ str_replace_all(names(penguins), c("e"= "E"))
 
 
 ```r
-penguins %>% 
+penguins  |>  
   mutate(species=str_to_upper(species))
 # Capitalise all letters
 ```
 
 
 ```r
-penguins %>% 
+penguins |> 
   mutate(species=str_remove_all(species, "e"))
 # remove every character "e" from selected variables
 ```
@@ -1230,7 +1230,7 @@ We can easily imagine a scenario where data is manually input, and trailing or l
 
 
 ```r
-df2 %>% 
+df2 |> 
   distinct()
 ```
 
@@ -1238,8 +1238,8 @@ If we pipe the data throught the `str_trim` function to remove any gaps, then pi
 
 
 ```r
-df2 %>% 
-  mutate(label=str_trim(label, side="both")) %>% 
+df2 |> 
+  mutate(label=str_trim(label, side="both")) |> 
   distinct()
 ```
 
@@ -1247,7 +1247,7 @@ A quick example of how to extract partial strings according to a pattern is to u
 
 
 ```r
-penguins %>% 
+penguins |> 
   filter(str_detect(individual_id, "N1"))
 ```
 
@@ -1289,7 +1289,7 @@ df
 
 
 ```r
-df %>% 
+df |> 
   separate(label, # name of variable
            c("treatment", "replicate"), # new column names
            sep="-") # the character to mark where the separation occurs
@@ -1356,7 +1356,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_RSKEWFGNZY'><label><input type="radio" autocomplete="off" name="radio_RSKEWFGNZY" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_RSKEWFGNZY" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_RSKEWFGNZY" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_RSKEWFGNZY" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_YFLOJBXKRT'><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -1527,16 +1527,28 @@ appropriate choice, and by changing this to an ordered
 
 * Make sure you have **saved your script 💾**  and given it the filename "01_import_penguins_data.R" in the ["scripts" folder](#activity-1-organising-our-workspace).
 
+
+* Some parts of our script are *redundant* for the purposes of generating a clean dataframe, we need the `penguins` data in a tidy/rectangular format, checked for missing values, duplicated data and with clean column names. 
+
+* If we have that we can generate a .RDS file to save this dataframe for use in data insights scripts
+
+
+```r
+saveRDS(penguins, file = "outputs/2024_11_01_penguin_clean.RDS")
+```
+
+
+
 * Does your workspace look like the below? 
 
 <div class="figure" style="text-align: center">
 <img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-99)My neat project layout</p>
+<p class="caption">(\#fig:unnamed-chunk-100)My neat project layout</p>
 </div>
 
 <div class="figure" style="text-align: center">
 <img src="images/r_script.png" alt="My scripts and file subdirectory" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-100)My scripts and file subdirectory</p>
+<p class="caption">(\#fig:unnamed-chunk-101)My scripts and file subdirectory</p>
 </div>
 
 ## Activity: Test yourself

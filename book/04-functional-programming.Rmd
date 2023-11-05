@@ -55,6 +55,19 @@ add_one <- function(x) {
 }
 ```
 
+```{block, type  ="info"}
+
+There is now a shortcut to writing functions in R `\(x)` that removes the need to call `function()` or use curly braces`{}`.
+
+In this tutorial I will use the older method for now, but briefly demonstrate the simpler syntax
+
+```
+
+```{r}
+
+add_one <- \(x) x + 1
+
+```
 
 ```{r}
 
@@ -1353,6 +1366,25 @@ Each time the mean is calculate for one column in df this is then stored as an e
 
 ## Speed
 
+We can wrap our function calls and iterations inside a few different functions to capture runspeed. 
+
+1. Use `system.time`
+
+```{r, eval = F}
+
+system.time(function)
+
+```
+
+2. Use `microbenchmark` - this add on package runs a default of 100 evaluations, and comes with a handy ggplot1 integration for autoplotting. 
+
+```{r, eval = F}
+
+mm <- microbenchmark(function)
+
+autplot(mm)
+```
+
 ### Initialise objects
 
 Pre-allocating the output with the appropriate length before the loop avoids reallocation of memory inside the loop, which can be inefficient for large data. For example:
@@ -1763,6 +1795,11 @@ A few more notes on syntax:
 
 * You can use `.x` (or simply `.`) within the `.f = function` as a placeholder for the `.x` value of that iteration
 
+```{r , echo=FALSE}
+
+knitr::include_graphics("images/map-step-1.png")
+
+```
 
 **The output of using` map()` is a list** - a list is an object class like a vector but whose elements can be of different classes. So, a list produced by `map()` could contain many data frames, or many vectors, many single values, or even many lists! There are alternative versions of `map()` explained below that produce other types of outputs (e.g. `map_dfr()` to produce a data frame, `map_chr()` to produce character vectors, and `map_dbl()` to produce numeric vectors).
 
@@ -1790,6 +1827,9 @@ map(df_list, mean)
 
 ```
 
+
+
+
 ## more maps
 
 `map()` always returns a list, which makes it the most general of the map family because you can put anything in a list. But it is inconvenient to return a list when a simpler data structure would do, so there are four more specific variants: `map_lgl()`, `map_int()`, `map_dbl()`, and `map_chr()`. Each returns an atomic vector of the specified type:
@@ -1802,6 +1842,12 @@ map(df_list, mean)
 |`map_chr()`| returns a character vector|
 |`map_df()`| returns a data frame/tibble|
 
+
+```{r , echo=FALSE}
+
+knitr::include_graphics("images/map_df.png")
+
+```
 
 ```{block, type = "info"}
 
@@ -1934,6 +1980,15 @@ plots$scatterplots[[1]]
 
 ```
 
+If we wish to see all of the plots at once we can use `purrr::walk` - this is another iteration function, where the primary output is "silent" - we do not wish to see outputs printed in the console. This is useful for functions like plot making or writing outputs to file. 
+
+```{r, eval = FALSE}
+
+walk(plots$scatterplot)
+
+```
+
+
 ```{block, type = "info"}
 
 gg objects are not the only type of objects that can be created using map() and mutate(). Another application of these two functions is fitting models to our data and storing the results in a new column. For example, we could use map() and mutate() to fit a linear regression model to the x and y columns and store the model output in a new column
@@ -1951,6 +2006,12 @@ plots$scatterplots |> wrap_plots()
 ## map2
 
 `map2` is a versatile function in the `purrr` package for R that allows you to iterate over **two** input vectors or lists in parallel, applying a specified function to pairs of corresponding elements. It's particularly useful when you need to perform operations that depend on elements from two separate input sources simultaneously, offering a powerful way to combine and process data in a pairwise manner.
+
+```{r , echo=FALSE}
+
+knitr::include_graphics("images/map2.png")
+
+```
 
 Here is a quick example building on our plot making function - where we are able to alter the colour of the plots according to a 
 
@@ -2046,7 +2107,126 @@ LPI data loops
 
 # Bonus: Simulation
 
+A computer simulation (or “sim”) is an attempt to model a real-life or hypothetical situation on a computer so that it can be studied to see how the system works. By changing variables in the simulation, predictions may be made about the behavior of the system. It is a tool to virtually investigate the behavior of the system under study - *Wikipedia*
 
+
+You can use computer simulations to: 
+
+* **Test your statistical intuition or demonstrate mathematical properties you cannot easily anticipate**  
+  * *e.g. test whether when supposedly random data are generated, there is no more than 5% of significant effects for a variable in a model*  
+
+
+* **Understand sampling theory, probability distributions or test whether you understand the underlying processes of your system**  
+  * *e.g. see whether simulated data drawn from specific distribution are comparable to real data*  
+
+
+* **Perform power analyses**
+  * *e.g. assess whether the sample size (within a replicate) is high enough to detect an effect simulated, in more than 80% of the cases*  
+
+
+* **Perform bootstrapping to get a confidence interval around a parameter estimate** 
+  * *i.e. bootstrapping means to sample with replacement (i.e. all the original options to draw from are available at each draw) in an observed dataset. Doing this generates new 'simulated' datasets. With each of them, one can run the statistical analysis made on the observed dataset, saving each time the parameter estimate of interest. After doing this multiple time, you will obtain a confidence interval for the parameter of interest*   
+  
+## Random number generators
+
+R contains several functions to generate random numbers.  
+Type *`?function`* in your console to get information on the function's arguments (i.e. the values that must be provided to obtain the function's result).  
+
+The function  
+* `sample(x, n, replace=FALSE)` draws `n` values from a given vector `x` without replacement (by default) . 
+
+Sampling without replacement means that when you repeatedly draw e.g. 1 item from a pool of items, any item selected during the first draw is not available for selection during the second draw, and the first and second selected items are not in the pool to select from during the third draw, etc. Sampling with replacement means that all the original options are available at each draw.  
+
+
+**YOUR TURN:**  
+Sample 100 values between 3 and 103 with replacement.    
+
+```{solution}
+
+``{r, eval = F}
+x <- 3:103
+sample(x, 100, replace = TRUE)
+
+``
+
+```
+
+
+The following functions draw `n` values from distributions with the specified parameters:
+
+* `runif(n, min, max)` draws `n` values from a *uniform* distribution with the specified `min` and `max`  
+* `rpois(n, lambda)` draws `n` values from a *poisson* distribution with the specified `lambda`  
+* `rnorm(n, mean, sd)` draws `n` values from a *normal* distribution with the specified `mean` and `standard deviation`  
+* `rbinom(n, prob)`	draws `n` values from a	*binomial* distribution with the specified `probability`  
+
+
+**YOUR TURN:**   
+
+Draw 100 values from a normal distribution with a mean of 0 and a sd of 1.  
+Draw 50 values from a normal distribution with a mean of 10 and sd of 5.  
+Draw 1000 values from a poisson distribution with a lambda of 50.  
+Draw 30 values from a uniform distribution between 0 and 10.  
+
+```{solution}
+
+``{r, eval = F}
+
+rnorm(n = 100, mean = 0, sd = 1)
+rnorm(100) # if you sample from a normal distribution with a mean of 0 and a sd of 1, you do not need to provide them, they are the defaults
+
+rnorm(sd = 5, mean = 10, n = 50)
+
+rpois(n = 1000, lambda = 50)
+
+runif(n = 30, min = 0, max = 10)
+
+``
+
+```
+
+## Replication
+
+`replicate(10, mean(rnorm(100)))`
+
+reads: 'draw 100 values from a normal distribution with a mean 0 and sd 1 (the default values), caclulate the mean of these 100 values, and do all that 10 times.
+
+**YOUR TURN:**   
+
+Replicate 1000 times the mean of 10 values drawn from a unifrom distribution between 0 and 10.
+
+Make a histogram of your results. 
+
+```{solution}
+
+``{r}
+replicate(1000, mean(runif(10, max = 10)))
+hist(replicate(1000, mean(runif(10, max = 10))))
+
+``
+
+```
+
+## Set seed
+
+`set.seed()`
+
+Computers in general, and R specifically, can, in fact, only provide pseudo random number generators.
+A pseudorandom number generator's number sequence is completely determined by its seed, i.e. a number used to initialize that sequence.
+
+Thus, if a pseudorandom number generator is reinitialized with the same seed, it will produce the same sequence of numbers. You can set the seed (with any arbitrary number) at the beginning of a script, and, if commands drawing random numbers are ran in the exact same order, they will provide the same output in subsequent runs.
+
+This is useful for sharing code and reproduce simulations, as well as for debugging code.
+
+
+## Sample size
+
+In this example we are going to simulate some data for two groups - group 1 has a mean of 0 and an sd of 1, group 2 has a mean of whatever value we supply to `effect_size` and a sd of 1. 
+
+By default this simulation is set to repeat an experiment where 30 samples are taken from each population and compared for a true difference. The experiment is repeated 100 times. 
+
+The purpose of this simulation is to understand how the estimated difference in means varies across different random samples of data when the true effect size is known. It helps to assess the sampling variability and provides insights into the precision of the estimated difference. Additionally, it can be used to create a confidence interval to assess the uncertainty around the estimated effect.
+
+With this example we **know** the true difference, see what happens to our confidence intervals as we change the sample size, effect size and iterations:
 
 ```{r}
 library(ggplot2)
@@ -2106,7 +2286,9 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
 
 ```
 
+## Power
 
+A useful application of simulations is to work out the power of a statistical test. Here we can calculate our statistical power of detection on a simulated dataset with a known effect-size: 
 
 ```{r}
 
