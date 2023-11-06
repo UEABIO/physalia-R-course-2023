@@ -11,17 +11,17 @@
 
 R is a programming language that you will write code in, and RStudio is an Integrated Development Environment (IDE) which makes working with R easier. Think of it as knowing English and using a plain text editor like NotePad to write a book versus using a word processor like Microsoft Word. You could do it, but it wouldn't look as good and it would be much harder without things like spell-checking and formatting. In a similar way, you can use R without R Studio but we wouldn't recommend it. The key thing to remember is that although you will do all of your work using RStudio for this course, you are actually using **two** pieces of software which means that from time-to-time, both of them may have separate updates.
 
-R and RStudio can be downloaded for free onto your [personal computers](https://www.rstudio.com/products/rstudio/)(see Appendices), but for convenience we will use a classroom space on **RStudio Cloud**.
+R and RStudio can be downloaded for free onto your [personal computers](https://www.rstudio.com/products/rstudio/)(see Appendices), but for convenience we will use a classroom space on **Posit cloud**.
 
-[RStudio Cloud](https://rstudio.cloud/) is a cloud-based service where we can log into remotely hosted servers that host our data analysis projects.
+[Posit cloud](https://rstudio.cloud/) is a cloud-based service where we can log into remotely hosted servers that host our data analysis projects.
 
-The advantage of using RStudio Cloud is that all the extra packages and functions you need for this course will already be installed. You can log-in to your workspace from any computer as long as you have an internet connection and remember you username and password. I can also "visit" your projects and help out when you get stuck, if they are hosted on RStudio Cloud.
+The advantage of using Posit cloud is that all the extra packages and functions you need for this course will already be installed. You can log-in to your workspace from any computer as long as you have an internet connection and remember you username and password. I can also "visit" your projects and help out when you get stuck, if they are hosted on Posit cloud.
 
 Eventually we will may also add extra tools like GitHub and RMarkdown for data reproducibility, literate and collaborative programming.
 
 By the end of this course I hope you will have the tools to confidently analyze real data, make informative and beautiful data visuals, and be able to analyze lots of different types of data.
 
-## Using RStudio Cloud
+## Using Posit cloud
 
 All of our sessions will run on cloud-based software. All you have to do is make a free account, and join our Workspace.
 
@@ -33,9 +33,9 @@ Once you are signed up - you will see that there are two spaces:
 
 Make sure you are working in the classroom workspace - so that I can distribute project work and 'visit' your projects if needed.
 
-RStudio Cloud works in exactly the same way as RStudio, but means you don't have to download any software. You can access the hosted cloud server and your projects through any browser connection (Chrome works best), from any computer.
+Posit cloud works in exactly the same way as RStudio, but means you don't have to download any software. You can access the hosted cloud server and your projects through any browser connection (Chrome works best), from any computer.
 
-Here is a good reference guide to [RStudio Cloud](https://rstudio.cloud/learn/guide#projects)
+Here is a good reference guide to [Posit cloud](https://rstudio.cloud/learn/guide#projects)
 
 ## Getting to know RStudio
 
@@ -110,7 +110,7 @@ occasionally make!</p>
 
 # R basics
 
-Go to RStudio Cloud and enter the Project labelled `Day One` - this will clone the project and provide you with your own project workspace.
+Go to Posit cloud and enter the Project labelled `Day One` - this will clone the project and provide you with your own project workspace.
 
 Follow the instructions below to get used to the R command line, and how R works as a language.
 
@@ -702,6 +702,40 @@ character_vector == "fruits"
 #[1]  TRUE FALSE FALSE
 ```
 
+### Operations on vectors
+
+We can run the same basic operations on vectors as we did on scalars
+
+
+```r
+x <- c(1,2,3)
+y <- c(2,3,4)
+
+# Operations will happen between vectors
+x*y
+```
+
+```
+## [1]  2  6 12
+```
+
+A very *super-wickedly*, **important**, concept: R likes to operate on vectors of the same length, so if it encounters two vectors of different lengths in a binary operation, it merely replicates (recycles) the smaller vector until it is the same length as the longest vector, then it does the operation.
+
+
+```r
+x <- c(1,2,3)
+y <- c(1,2)
+
+# Operations will happen between vectors
+x*y
+```
+```
+[1] 1 4 3
+
+Warning: longer object length is not a multiple of shorter object length[1] 1 4 3
+
+```
+
 ## Matrices
 
 Matrices can be thought of as vectors with an added dimension attribute. This dimension attribute is a two-element integer vector specifying the number of rows and columns, which defines the shape and structure of the matrix.
@@ -1067,33 +1101,6 @@ Important functions for understanding matrices and dataframes.
 | `str(x), summary(x)`               | Show the structure of the dataframe (i.e., dimensions and classes) and summary statistics. |
 
 
-## Error
-
-Things will go wrong eventually, they always do...
-
-R is *very* pedantic, even the smallest typo can result in failure and typos are impossilbe to avoid. So we will make mistakes. One type of mistake we will make is an **error**. The code fails to run. The most common causes for an error are:
-
--   typos
-
--   missing commas
-
--   missing brackets
-
-There's nothing wrong with making *lots* of errors. The trick is not to panic or get frustrated, but to read the error message and our script carefully and start to *debug* (more on this later)...
-
-... and sometimes we need to walk away and come back later!
-
-<div class="try">
-<p>Try typing the command <code>help()</code> into the R console, it
-should open a new tab on the bottom right.</p>
-<p>Put a function or package into the brackets to get help with a
-specific topic</p>
-</div>
-
-<div class="figure" style="text-align: center">
-<img src="images/Error.jpg" alt="R Error" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-67)courtesy of Allison Horst</p>
-</div>
 
 ## Functions
 
@@ -1281,8 +1288,36 @@ It can make your code more transparent and easier to understand, especially in c
 
 When troubleshooting issues or debugging code, specifying the package source of a function can help pinpoint problems and ensure that the correct function is being used.
 
+## Error
 
-## Activity 1
+Things will go wrong eventually, they always do...
+
+R is *very* pedantic, even the smallest typo can result in failure and typos are impossilbe to avoid. So we will make mistakes. One type of mistake we will make is an **error**. The code fails to run. The most common causes for an error are:
+
+-   typos
+
+-   missing commas
+
+-   missing brackets
+
+There's nothing wrong with making *lots* of errors. The trick is not to panic or get frustrated, but to read the error message and our script carefully and start to *debug* (more on this later)...
+
+... and sometimes we need to walk away and come back later!
+
+<div class="try">
+<p>Try typing the command <code>help()</code> into the R console, it
+should open a new tab on the bottom right.</p>
+<p>Put a function or package into the brackets to get help with a
+specific topic</p>
+</div>
+
+<div class="figure" style="text-align: center">
+<img src="images/Error.jpg" alt="R Error" width="80%" />
+<p class="caption">(\#fig:unnamed-chunk-82)courtesy of Allison Horst</p>
+</div>
+
+
+## Activity
 
 ### Complete this Quiz
 
@@ -1340,49 +1375,3 @@ a <- 5
 <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select>
 
 
-
-```r
-sessionInfo()
-```
-
-```
-## R version 4.3.1 (2023-06-16)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.6 LTS
-## 
-## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
-## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
-## 
-## locale:
-##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
-##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
-##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
-## 
-## time zone: UTC
-## tzcode source: system (glibc)
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] knitr_1.43         webexercises_1.1.0 glossary_1.0.0     lubridate_1.9.2   
-##  [5] forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2        purrr_1.0.1       
-##  [9] readr_2.1.4        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.2     
-## [13] tidyverse_2.0.0   
-## 
-## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
-##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
-##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    fansi_1.0.4       scales_1.2.1     
-## [17] codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1      
-## [21] munsell_0.5.0     withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
-## [25] tools_4.3.1       tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0 
-## [29] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   fs_1.6.2         
-## [33] pkgconfig_2.0.3   pillar_1.9.0      bslib_0.5.0       gtable_0.3.3     
-## [37] glue_1.6.2        highr_0.10        xfun_0.39         tidyselect_1.2.0 
-## [41] rstudioapi_0.15.0 htmltools_0.5.5   rmarkdown_2.23    compiler_4.3.1   
-## [45] downlit_0.4.3
-```

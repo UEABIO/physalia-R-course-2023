@@ -121,10 +121,10 @@
 <li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
 <li><a class="active" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
 <li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
 <li class="book-part">Data Insights</li>
-<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">9</span> Data Insights part one</a></li>
-<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">10</span> Data insights part two</a></li>
-<li><a class="" href="basic-ggplot.html"><span class="header-section-number">11</span> Basic ggplot</a></li>
+<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">10</span> Data Insights part one</a></li>
+<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">11</span> Data insights part two</a></li>
 <li class="book-part">Functional Programming</li>
 <li><a class="" href="writing-functions.html"><span class="header-section-number">12</span> Writing Functions</a></li>
 <li><a class="" href="flow-control.html"><span class="header-section-number">13</span> Flow control</a></li>
@@ -215,7 +215,7 @@ to the remote repository.
 R is case-sensitive so type everything EXACTLY as printed here
 </p>
 </div>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="st">"data"</span>,</span>
 <span>           showWarnings <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
@@ -287,7 +287,7 @@ Figure 7.3: Highlighted the buttons to upload files, and more options
 <span class="header-section-number">7.4.1</span> Read data from a url<a class="anchor" aria-label="anchor" href="#read-data-from-a-url"><i class="fas fa-link"></i></a>
 </h3>
 <p>It is also possible to use a url as a filepath</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/penguins_raw.csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -297,7 +297,7 @@ Figure 7.3: Highlighted the buttons to upload files, and more options
 </h2>
 <p>Let's now create a new R script file in which we will write instructions and store comments for manipulating data, developing tables and figures. Use the <code>File &gt; New Script</code> menu item and select an R Script.</p>
 <p>Add the following:</p>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#___________________________----</span></span>
 <span><span class="co"># SET UP ----</span></span>
 <span><span class="co">## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----</span></span>
@@ -306,7 +306,7 @@ Figure 7.3: Highlighted the buttons to upload files, and more options
 <span><span class="co">#__________________________----</span></span></code></pre></div>
 <p>Then load the following add-on package to the R script, just underneath these comments. Tidyverse isn't actually one package, but a bundle of many different packages that play well together - for example it <em>includes</em> <code>ggplot2</code> which we used in the last session, so we don't have to call that separately</p>
 <p>Add the following to your script:</p>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># PACKAGES ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span> <span class="co"># tidy data packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span> <span class="co"># cleans variable names</span></span>
@@ -341,17 +341,21 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span> <span class="op">(</span><span class="st">"data/penguins_raw.csv"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">penguins_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/penguins_raw.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># penguins_raw &lt;- read.csv(here("data", "penguins_raw.csv"))</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">penguins_raw</span><span class="op">)</span> <span class="co"># reads as data.frame</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">penguins_raw</span><span class="op">)</span> <span class="co"># check the data has loaded, prints first 10 rows of dataframe</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># IMPORT DATA ----</span></span>
 <span><span class="va">penguins_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span> <span class="op">(</span><span class="st">"data/penguins_raw.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># penguins_raw &lt;- read_csv(here("data", "penguins_raw.csv"))</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">penguins_raw</span><span class="op">)</span> <span class="co"># reads as tibble</span></span>
 <span></span>
@@ -375,7 +379,7 @@ names.
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#___________________________----</span></span>
 <span><span class="co"># SET UP ----</span></span>
 <span><span class="co">## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----</span></span>
@@ -653,7 +657,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-05.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

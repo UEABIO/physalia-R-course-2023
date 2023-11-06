@@ -1,7 +1,7 @@
 --- 
 title: "Advancing in R"
 author: "Philip T. Leftwich"
-date: "2023-11-05"
+date: "2023-11-06"
 subtitle: A guide for Biologists and Ecologists
 site: bookdown::bookdown_site
 documentclass: book
@@ -35,37 +35,70 @@ favicon: images/logos/favicon.ico
      alt="Data skills Logo" /></div>
 
 
-This course will introduce scientists and practitioners interested in applying statistical approaches in their daily routine using R as a working environment. Participants will be introduced into R and R Studio while learning how to perform common statistical analyses. After a short introduction on R and its principles, the focus will be on questions that could be addressed using common statistical analyses, both for descriptive statistics and for statistical inference.
+This course is designed for anyone with basic knowledge of R who is looking to enhance their skills and take their programming abilities to the next level. Each session in the course will be hands-on, providing you with practical examples to work through and apply the concepts you've learned, and lots of support to answer questions and overcome any challenges
 
 ## Learning outcomes
 
-1. Understand how to read, interpret and write scripts in R.
-
-2. Learn statistical tools to address common questions in research activities.
-
-3. An introduction to efficient, readable and reproducible analyses
-
-4. Being comfortable with using R when performing both descriptive and inferential statistics.
+1. A grounding in R
+2. Project based workflows
+3. Tidyverse for data wrangling
+4. Writing functions and running iterations
+5. Advanced tidyverse tricks
+6. GGplot for data visuals
+7. Making tables with gt
+8. Making reports with Rmarkdown
+9. Using Github
 
 
 ## Packages
 
+```
+## Core Packages:
+- tidyverse 2.0.0
+- palmerpenguins
+- here
+- janitor
+- skimr
 
-```r
-library(tidyverse)
-library(janitor)
-library(rstatix)
-library(performance)
-library(see)
-library(lmerTest)
-library(patchwork)
-library(broom.mixed)
-library(ggeffects)
-library(DHARMa)
-library(sjPlot)
-library(emmeans)
-library(report)
-library(MuMIn)
-library(GGally)
-library(colorBlindness)
+## Data Exploration:
+- GGally
+- skimr
+- dataxray
+
+## Optimizing Functions:
+- microbenchmark
+- testthat
+
+## Reproducible Reports:
+- rmarkdown
+- tinytex
+
+## Working with Tables:
+- gt
+- gtExtras
+
+## Add-ons for Working with ggplot:
+- ggbeeswarm
+- gghighlight
+- ggh4x
+- ggpubr
+- png
+- ggdensity
+- ggdist
+- ggbump
+- ggtext
+- ggalt
+- ggridges
+- geomtextpath
+- colorBlindness
+- patchwork
+
+## Working with Shiny:
+- shiny
+- bslib
+
+## Working with Github:
+- gitcreds
+- usethis
+
 ```

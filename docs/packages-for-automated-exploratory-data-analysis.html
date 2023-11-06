@@ -163,9 +163,9 @@
 <div id="skimr-for-automated-data-quality-checking" class="section level2" number="42.1">
 <h2><span class="header-section-number">42.1</span> Skimr for automated data quality checking</h2>
 <p>Skimr is my preferred R package for quickly assessing data quality, serving as my initial step in exploratory data analysis. Before proceeding with any other tasks, I rely on skimr to conduct a thorough data quality check.</p>
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb634-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;skimr&quot;</span>)</span>
-<span id="cb634-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb634-2" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code></pre></div>
-<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb635-1" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb637-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;skimr&quot;</span>)</span>
+<span id="cb637-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb637-2" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code></pre></div>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb638-1" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(penguins)</span></code></pre></div>
 <table>
 <caption><span id="tab:unnamed-chunk-5">Table 42.1: </span>Data summary</caption>
 <tbody>
@@ -582,60 +582,60 @@
 <p><code>GGally</code> is another invaluable tool in a researcher's toolkit. It seamlessly extends the capabilities of the widely used <code>ggplot2</code> package. With <code>GGally</code>, you can effortlessly create a variety of visualizations to explore and understand distributions and correlations among your variables. Its flexibility and ease of use make it a go-to choice for streamlining the process of creating insightful plots and charts for data analysis.</p>
 <div id="pairs" class="section level3" number="42.2.1">
 <h3><span class="header-section-number">42.2.1</span> pairs</h3>
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb636-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb636-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb636-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span> </span>
-<span id="cb636-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb636-3" tabindex="-1"></a>  <span class="fu">pairs</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb637-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb637-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb637-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb637-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb637-3" tabindex="-1"></a>  <span class="fu">pairs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb639-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb639-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb639-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span> </span>
+<span id="cb639-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb639-3" tabindex="-1"></a>  <span class="fu">pairs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb640-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb640-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb640-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb640-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb640-3" tabindex="-1"></a>  <span class="fu">pairs</span>()</span></code></pre></div>
 <p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ggally" class="section level3" number="42.2.2">
 <h3><span class="header-section-number">42.2.2</span> GGally</h3>
 <p>So far, we have only used the pairs function that comes together with the base installation of R. However, the ggplot2 and GGally packages provide an even more advanced pairs function, which is called <code>ggpairs()</code>. Let’s install and load the packages:</p>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb638-1" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code></pre></div>
-<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb639-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb639-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb639-2" tabindex="-1"></a>  <span class="fu">select</span>(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm, body_mass_g, sex) <span class="sc">|&gt;</span> </span>
-<span id="cb639-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb639-3" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code></pre></div>
-<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb640-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb640-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb640-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>, ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour =</span> species))</span></code></pre></div>
-<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb641-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb641-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb641-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">upper =</span> <span class="st">&quot;blank&quot;</span>)</span></code></pre></div>
-<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb641-1" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code></pre></div>
 <div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb642-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb642-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb642-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">columnLabels =</span> <span class="fu">c</span>(<span class="st">&quot;Bill length&quot;</span>, <span class="st">&quot;Bill depth&quot;</span>, <span class="st">&quot;Flipper length&quot;</span>, <span class="st">&quot;Body mass&quot;</span>, <span class="st">&quot;Sex&quot;</span>))</span></code></pre></div>
-<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<span id="cb642-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb642-2" tabindex="-1"></a>  <span class="fu">select</span>(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm, body_mass_g, sex) <span class="sc">|&gt;</span> </span>
+<span id="cb642-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb642-3" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb643-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb643-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb643-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;density&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;box_no_facet&quot;</span>),</span>
-<span id="cb643-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb643-3" tabindex="-1"></a>          <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;points&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;dot_no_facet&quot;</span>))</span></code></pre></div>
-<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<span id="cb643-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb643-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>, ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour =</span> species))</span></code></pre></div>
+<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb644-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb644-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb644-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;density&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;box_no_facet&quot;</span>),</span>
-<span id="cb644-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb644-3" tabindex="-1"></a>          <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;points&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;dot_no_facet&quot;</span>),</span>
-<span id="cb644-4"><a href="packages-for-automated-exploratory-data-analysis.html#cb644-4" tabindex="-1"></a>          ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour =</span> species))</span></code></pre></div>
-<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<span id="cb644-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb644-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">upper =</span> <span class="st">&quot;blank&quot;</span>)</span></code></pre></div>
+<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb645-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb645-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb645-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">axisLabels =</span> <span class="st">&quot;internal&quot;</span>)</span></code></pre></div>
+<span id="cb645-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb645-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">columnLabels =</span> <span class="fu">c</span>(<span class="st">&quot;Bill length&quot;</span>, <span class="st">&quot;Bill depth&quot;</span>, <span class="st">&quot;Flipper length&quot;</span>, <span class="st">&quot;Body mass&quot;</span>, <span class="st">&quot;Sex&quot;</span>))</span></code></pre></div>
+<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb646-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb646-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb646-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;density&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;box_no_facet&quot;</span>),</span>
+<span id="cb646-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb646-3" tabindex="-1"></a>          <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;points&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;dot_no_facet&quot;</span>))</span></code></pre></div>
+<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb647-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb647-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb647-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;density&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;box_no_facet&quot;</span>),</span>
+<span id="cb647-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb647-3" tabindex="-1"></a>          <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">&quot;points&quot;</span>, <span class="at">combo =</span> <span class="st">&quot;dot_no_facet&quot;</span>),</span>
+<span id="cb647-4"><a href="packages-for-automated-exploratory-data-analysis.html#cb647-4" tabindex="-1"></a>          ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour =</span> species))</span></code></pre></div>
+<p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb648-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb648-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb648-2" tabindex="-1"></a>  <span class="fu">ggpairs</span>(<span class="at">columns =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">axisLabels =</span> <span class="st">&quot;internal&quot;</span>)</span></code></pre></div>
 <p><img src="11-data-exploration-bonus_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="dataxray" class="section level2" number="42.3">
 <h2><span class="header-section-number">42.3</span> dataxray</h2>
 <p><code>dataxray</code> is a new R package that provides quick statistical summaries in an interactive table inside of the Rstudio Viewer Pane. To use this package we need to install from Github, which means we need the <code>devtools</code> package and <code>devtools::install_github()</code></p>
-<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb646-1" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
-<span id="cb646-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb646-2" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;agstn/dataxray&quot;)</span></span>
-<span id="cb646-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb646-3" tabindex="-1"></a><span class="fu">library</span>(dataxray)</span></code></pre></div>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb649-1" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb649-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb649-2" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;agstn/dataxray&quot;)</span></span>
+<span id="cb649-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb649-3" tabindex="-1"></a><span class="fu">library</span>(dataxray)</span></code></pre></div>
 <p><code>dataxray</code> emphasises an interactive exploration of the exploratory summaries. This goes beyond what <code>skimr</code> can do by adding an interactive exploration element to feature summaries. So if you like interactivity, then try <code>dataxray</code>.</p>
 <p>There are just two functions we require with this package</p>
 <ul>
 <li><p><code>dataxray::make_xray()</code> to convert the raw data to preformatted data for the reactable interactive table</p></li>
 <li><p><code>dataxray::view_xray()</code> to display the interactive exploratory table using the underlying reactable library.</p></li>
 </ul>
-<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb647-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb647-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb647-2" tabindex="-1"></a>  <span class="fu">make_xray</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb647-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb647-3" tabindex="-1"></a>  <span class="fu">view_xray</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb650-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb650-2"><a href="packages-for-automated-exploratory-data-analysis.html#cb650-2" tabindex="-1"></a>  <span class="fu">make_xray</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb650-3"><a href="packages-for-automated-exploratory-data-analysis.html#cb650-3" tabindex="-1"></a>  <span class="fu">view_xray</span>()</span></code></pre></div>
 <p>Now you can explore each column to see:</p>
 <ul>
 <li><p>Count and Percent Missing - How many NA values</p></li>
@@ -645,7 +645,7 @@
 <li><p>Expandable Groups - You can expand the groups to find out more information about the features</p></li>
 <li><p>Search Features - Use regex to search the name. Great if you have a lot of features (columns)</p></li>
 </ul>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb648-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="packages-for-automated-exploratory-data-analysis.html#cb651-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.3.1 (2023-06-16)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.6 LTS
@@ -954,7 +954,7 @@ $( document ).ready(function() {
   <div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-05.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

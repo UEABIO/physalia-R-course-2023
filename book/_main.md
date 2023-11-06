@@ -1,7 +1,7 @@
 --- 
 title: "Advancing in R"
 author: "Philip T. Leftwich"
-date: "2023-11-05"
+date: "2023-11-06"
 subtitle: A guide for Biologists and Ecologists
 site: bookdown::bookdown_site
 documentclass: book
@@ -35,39 +35,72 @@ favicon: images/logos/favicon.ico
      alt="Data skills Logo" /></div>
 
 
-This course will introduce scientists and practitioners interested in applying statistical approaches in their daily routine using R as a working environment. Participants will be introduced into R and R Studio while learning how to perform common statistical analyses. After a short introduction on R and its principles, the focus will be on questions that could be addressed using common statistical analyses, both for descriptive statistics and for statistical inference.
+This course is designed for anyone with basic knowledge of R who is looking to enhance their skills and take their programming abilities to the next level. Each session in the course will be hands-on, providing you with practical examples to work through and apply the concepts you've learned, and lots of support to answer questions and overcome any challenges
 
 ## Learning outcomes
 
-1. Understand how to read, interpret and write scripts in R.
-
-2. Learn statistical tools to address common questions in research activities.
-
-3. An introduction to efficient, readable and reproducible analyses
-
-4. Being comfortable with using R when performing both descriptive and inferential statistics.
+1. A grounding in R
+2. Project based workflows
+3. Tidyverse for data wrangling
+4. Writing functions and running iterations
+5. Advanced tidyverse tricks
+6. GGplot for data visuals
+7. Making tables with gt
+8. Making reports with Rmarkdown
+9. Using Github
 
 
 ## Packages
 
+```
+## Core Packages:
+- tidyverse 2.0.0
+- palmerpenguins
+- here
+- janitor
+- skimr
 
-```r
-library(tidyverse)
-library(janitor)
-library(rstatix)
-library(performance)
-library(see)
-library(lmerTest)
-library(patchwork)
-library(broom.mixed)
-library(ggeffects)
-library(DHARMa)
-library(sjPlot)
-library(emmeans)
-library(report)
-library(MuMIn)
-library(GGally)
-library(colorBlindness)
+## Data Exploration:
+- GGally
+- skimr
+- dataxray
+
+## Optimizing Functions:
+- microbenchmark
+- testthat
+
+## Reproducible Reports:
+- rmarkdown
+- tinytex
+
+## Working with Tables:
+- gt
+- gtExtras
+
+## Add-ons for Working with ggplot:
+- ggbeeswarm
+- gghighlight
+- ggh4x
+- ggpubr
+- png
+- ggdensity
+- ggdist
+- ggbump
+- ggtext
+- ggalt
+- ggridges
+- geomtextpath
+- colorBlindness
+- patchwork
+
+## Working with Shiny:
+- shiny
+- bslib
+
+## Working with Github:
+- gitcreds
+- usethis
+
 ```
 
 <!--chapter:end:index.Rmd-->
@@ -85,17 +118,17 @@ library(colorBlindness)
 
 R is a programming language that you will write code in, and RStudio is an Integrated Development Environment (IDE) which makes working with R easier. Think of it as knowing English and using a plain text editor like NotePad to write a book versus using a word processor like Microsoft Word. You could do it, but it wouldn't look as good and it would be much harder without things like spell-checking and formatting. In a similar way, you can use R without R Studio but we wouldn't recommend it. The key thing to remember is that although you will do all of your work using RStudio for this course, you are actually using **two** pieces of software which means that from time-to-time, both of them may have separate updates.
 
-R and RStudio can be downloaded for free onto your [personal computers](https://www.rstudio.com/products/rstudio/)(see Appendices), but for convenience we will use a classroom space on **RStudio Cloud**.
+R and RStudio can be downloaded for free onto your [personal computers](https://www.rstudio.com/products/rstudio/)(see Appendices), but for convenience we will use a classroom space on **Posit cloud**.
 
-[RStudio Cloud](https://rstudio.cloud/) is a cloud-based service where we can log into remotely hosted servers that host our data analysis projects.
+[Posit cloud](https://rstudio.cloud/) is a cloud-based service where we can log into remotely hosted servers that host our data analysis projects.
 
-The advantage of using RStudio Cloud is that all the extra packages and functions you need for this course will already be installed. You can log-in to your workspace from any computer as long as you have an internet connection and remember you username and password. I can also "visit" your projects and help out when you get stuck, if they are hosted on RStudio Cloud.
+The advantage of using Posit cloud is that all the extra packages and functions you need for this course will already be installed. You can log-in to your workspace from any computer as long as you have an internet connection and remember you username and password. I can also "visit" your projects and help out when you get stuck, if they are hosted on Posit cloud.
 
 Eventually we will may also add extra tools like GitHub and RMarkdown for data reproducibility, literate and collaborative programming.
 
 By the end of this course I hope you will have the tools to confidently analyze real data, make informative and beautiful data visuals, and be able to analyze lots of different types of data.
 
-## Using RStudio Cloud
+## Using Posit cloud
 
 All of our sessions will run on cloud-based software. All you have to do is make a free account, and join our Workspace.
 
@@ -107,9 +140,9 @@ Once you are signed up - you will see that there are two spaces:
 
 Make sure you are working in the classroom workspace - so that I can distribute project work and 'visit' your projects if needed.
 
-RStudio Cloud works in exactly the same way as RStudio, but means you don't have to download any software. You can access the hosted cloud server and your projects through any browser connection (Chrome works best), from any computer.
+Posit cloud works in exactly the same way as RStudio, but means you don't have to download any software. You can access the hosted cloud server and your projects through any browser connection (Chrome works best), from any computer.
 
-Here is a good reference guide to [RStudio Cloud](https://rstudio.cloud/learn/guide#projects)
+Here is a good reference guide to [Posit cloud](https://rstudio.cloud/learn/guide#projects)
 
 ## Getting to know RStudio
 
@@ -184,7 +217,7 @@ occasionally make!</p>
 
 # R basics
 
-Go to RStudio Cloud and enter the Project labelled `Day One` - this will clone the project and provide you with your own project workspace.
+Go to Posit cloud and enter the Project labelled `Day One` - this will clone the project and provide you with your own project workspace.
 
 Follow the instructions below to get used to the R command line, and how R works as a language.
 
@@ -776,6 +809,40 @@ character_vector == "fruits"
 #[1]  TRUE FALSE FALSE
 ```
 
+### Operations on vectors
+
+We can run the same basic operations on vectors as we did on scalars
+
+
+```r
+x <- c(1,2,3)
+y <- c(2,3,4)
+
+# Operations will happen between vectors
+x*y
+```
+
+```
+## [1]  2  6 12
+```
+
+A very *super-wickedly*, **important**, concept: R likes to operate on vectors of the same length, so if it encounters two vectors of different lengths in a binary operation, it merely replicates (recycles) the smaller vector until it is the same length as the longest vector, then it does the operation.
+
+
+```r
+x <- c(1,2,3)
+y <- c(1,2)
+
+# Operations will happen between vectors
+x*y
+```
+```
+[1] 1 4 3
+
+Warning: longer object length is not a multiple of shorter object length[1] 1 4 3
+
+```
+
 ## Matrices
 
 Matrices can be thought of as vectors with an added dimension attribute. This dimension attribute is a two-element integer vector specifying the number of rows and columns, which defines the shape and structure of the matrix.
@@ -1141,33 +1208,6 @@ Important functions for understanding matrices and dataframes.
 | `str(x), summary(x)`               | Show the structure of the dataframe (i.e., dimensions and classes) and summary statistics. |
 
 
-## Error
-
-Things will go wrong eventually, they always do...
-
-R is *very* pedantic, even the smallest typo can result in failure and typos are impossilbe to avoid. So we will make mistakes. One type of mistake we will make is an **error**. The code fails to run. The most common causes for an error are:
-
--   typos
-
--   missing commas
-
--   missing brackets
-
-There's nothing wrong with making *lots* of errors. The trick is not to panic or get frustrated, but to read the error message and our script carefully and start to *debug* (more on this later)...
-
-... and sometimes we need to walk away and come back later!
-
-<div class="try">
-<p>Try typing the command <code>help()</code> into the R console, it
-should open a new tab on the bottom right.</p>
-<p>Put a function or package into the brackets to get help with a
-specific topic</p>
-</div>
-
-<div class="figure" style="text-align: center">
-<img src="images/Error.jpg" alt="R Error" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-67)courtesy of Allison Horst</p>
-</div>
 
 ## Functions
 
@@ -1355,8 +1395,36 @@ It can make your code more transparent and easier to understand, especially in c
 
 When troubleshooting issues or debugging code, specifying the package source of a function can help pinpoint problems and ensure that the correct function is being used.
 
+## Error
 
-## Activity 1
+Things will go wrong eventually, they always do...
+
+R is *very* pedantic, even the smallest typo can result in failure and typos are impossilbe to avoid. So we will make mistakes. One type of mistake we will make is an **error**. The code fails to run. The most common causes for an error are:
+
+-   typos
+
+-   missing commas
+
+-   missing brackets
+
+There's nothing wrong with making *lots* of errors. The trick is not to panic or get frustrated, but to read the error message and our script carefully and start to *debug* (more on this later)...
+
+... and sometimes we need to walk away and come back later!
+
+<div class="try">
+<p>Try typing the command <code>help()</code> into the R console, it
+should open a new tab on the bottom right.</p>
+<p>Put a function or package into the brackets to get help with a
+specific topic</p>
+</div>
+
+<div class="figure" style="text-align: center">
+<img src="images/Error.jpg" alt="R Error" width="80%" />
+<p class="caption">(\#fig:unnamed-chunk-82)courtesy of Allison Horst</p>
+</div>
+
+
+## Activity
 
 ### Complete this Quiz
 
@@ -1414,52 +1482,6 @@ a <- 5
 <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select>
 
 
-
-```r
-sessionInfo()
-```
-
-```
-## R version 4.3.1 (2023-06-16)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.6 LTS
-## 
-## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
-## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
-## 
-## locale:
-##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
-##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
-##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
-## 
-## time zone: UTC
-## tzcode source: system (glibc)
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] knitr_1.43         webexercises_1.1.0 glossary_1.0.0     lubridate_1.9.2   
-##  [5] forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2        purrr_1.0.1       
-##  [9] readr_2.1.4        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.2     
-## [13] tidyverse_2.0.0   
-## 
-## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
-##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
-##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    fansi_1.0.4       scales_1.2.1     
-## [17] codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1      
-## [21] munsell_0.5.0     withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
-## [25] tools_4.3.1       tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0 
-## [29] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   fs_1.6.2         
-## [33] pkgconfig_2.0.3   pillar_1.9.0      bslib_0.5.0       gtable_0.3.3     
-## [37] glue_1.6.2        highr_0.10        xfun_0.39         tidyselect_1.2.0 
-## [41] rstudioapi_0.15.0 htmltools_0.5.5   rmarkdown_2.23    compiler_4.3.1   
-## [45] downlit_0.4.3
-```
 
 <!--chapter:end:01-intro-to-r.Rmd-->
 
@@ -2071,7 +2093,9 @@ Now we can read in the data. To do this we will use the function `readr::read_cs
 <div class="tab"><button class="tablinksunnamed-chunk-16 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-16', 'unnamed-chunk-16');">Base R</button><button class="tablinksunnamed-chunk-16" onclick="javascript:openCode(event, 'option2unnamed-chunk-16', 'unnamed-chunk-16');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-16" class="tabcontentunnamed-chunk-16">
 
 ```r
-penguins_raw <- read.csv ("data/penguins_raw.csv")
+penguins_raw <- read.csv("data/penguins_raw.csv")
+
+# penguins_raw <- read.csv(here("data", "penguins_raw.csv"))
 
 attributes(penguins_raw) # reads as data.frame
 
@@ -2082,6 +2106,8 @@ head(penguins_raw) # check the data has loaded, prints first 10 rows of datafram
 ```r
 # IMPORT DATA ----
 penguins_raw <- read_csv ("data/penguins_raw.csv")
+
+# penguins_raw <- read_csv(here("data", "penguins_raw.csv"))
 
 attributes(penguins_raw) # reads as tibble
 
@@ -3246,7 +3272,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_YFLOJBXKRT'><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_YKRMVWZDIE'><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -3417,6 +3443,72 @@ appropriate choice, and by changing this to an ordered
 
 * Make sure you have **saved your script 💾**  and given it the filename "01_import_penguins_data.R" in the ["scripts" folder](#activity-1-organising-our-workspace).
 
+* You have been playing with a lot of dplyr functions, think - what functions do I actually need to make sure I have a tidy and clean dataset with appropriate column names and formatted data?
+
+* We want : snake_case names, shorter isotope names, simpler species values and properly formatted date data with a new column for year.
+
+
+<div class='webex-solution'><button>Check your script</button>
+
+
+
+```r
+#___________________________----
+# SET UP ----
+## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----
+
+### Data first published in  Gorman, KB, TD Williams, and WR Fraser. 2014. “Ecological Sexual Dimorphism and Environmental Variability Within a Community of Antarctic Penguins (Genus Pygoscelis).” PLos One 9 (3): e90081. https://doi.org/10.1371/journal.pone.0090081. ----
+#__________________________----
+
+# PACKAGES ----
+library(tidyverse) # tidy data packages
+library(janitor) # cleans variable names
+#__________________________----
+# IMPORT DATA ----
+penguins_raw <- read_csv ("data/penguins_raw.csv")
+
+attributes(penguins_raw) # reads as tibble
+
+head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
+#__________________________----
+# CLEAN DATA ----
+
+# clean all variable names to snake_case using the clean_names function from the janitor package
+# note we are using assign <- to overwrite the old version of penguins with a version that has updated names
+# this changes the data in our R workspace but NOT the original csv file
+
+penguins_clean <- janitor::clean_names(penguins_raw) # clean the column names
+
+colnames(penguins_clean) # quickly check the new variable names
+
+# shorten the variable names for N and C isotope blood samples
+
+penguins <- rename(penguins_clean,
+         "delta_15n"="delta_15_n_o_oo",  # use rename from the dplyr package
+         "delta_13c"="delta_13_c_o_oo")
+
+# use mutate and case_when for a statement that conditionally changes the names of the values in a variable
+penguins <- penguins |> 
+  mutate(species = case_when(species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
+                             species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
+                             species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap"))
+
+# use lubridate to format date and extract the year
+penguins <- penguins |>
+  mutate(date_egg_proper = lubridate::dmy(date_egg))
+
+penguins <- penguins |> 
+  mutate(year = as.integer(lubridate::year(date_egg_proper)))
+
+# Export tidy dataframe for use in future sessions
+
+saveRDS(penguins, file = "outputs/2024_11_01_penguin_clean.RDS")
+```
+
+
+</div>
+
+
 
 * Some parts of our script are *redundant* for the purposes of generating a clean dataframe, we need the `penguins` data in a tidy/rectangular format, checked for missing values, duplicated data and with clean column names. 
 
@@ -3433,12 +3525,12 @@ saveRDS(penguins, file = "outputs/2024_11_01_penguin_clean.RDS")
 
 <div class="figure" style="text-align: center">
 <img src="images/project_penguin.png" alt="My neat project layout" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-100)My neat project layout</p>
+<p class="caption">(\#fig:unnamed-chunk-101)My neat project layout</p>
 </div>
 
 <div class="figure" style="text-align: center">
 <img src="images/r_script.png" alt="My scripts and file subdirectory" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-101)My scripts and file subdirectory</p>
+<p class="caption">(\#fig:unnamed-chunk-102)My scripts and file subdirectory</p>
 </div>
 
 ## Activity: Test yourself
@@ -3509,6 +3601,415 @@ penguins_filtered <- penguins |>
 
 
 <!--chapter:end:02a-penguin.Rmd-->
+
+# Basic ggplot
+
+
+
+
+
+
+
+## Intro to grammar
+
+
+The ggplot2 package is widely used and valued for its simple, consistent approach to making data visuals.
+
+The 'grammar of graphics' relates to the different components of a plot that function like different parts of linguistic grammar. For example, all plots require axes, so the x and y axes form one part of the ‘language’ of a plot. Similarly, all plots have data represented between the axes, often as points, lines or bars. The visual way that the data is represented forms another component of the grammar of graphics. Furthermore, the colour, shape or size of points and lines can be used to encode additional information in the plot. This information is usually clarified in a key, or legend, which can also be considered part of this ‘grammar’.
+
+The philosophy of ggplot is much better explained by the package author, Hadley Wickham (@R-ggplot2). For now, we just need to be aware that ggplots are constructed by specifying the different components that we want to display, based on underlying information in a data frame.
+
+<div class="figure" style="text-align: center">
+<img src="images/ambitious.png" alt="An example of what we can produce in ggplot" width="100%" />
+<p class="caption">(\#fig:ambitious-figure)An example of what we can produce in ggplot</p>
+</div>
+
+## Building a plot
+
+To start building the plot We are going to use the penguin data we have been working with previously. First we must specify the data frame that contains the relevant data for our plot. We can do this in two ways: 
+
+1) Here we are ‘sending the penguins data set into the ggplot function’:
+
+
+```r
+# Building a ggplot step by step ----
+## Render a plot background ----
+penguins %>% 
+  ggplot()
+```
+
+2) Here we are specifying the dataframe *within* the `ggplot()` function
+
+The output is identical
+
+
+```r
+ggplot(data = penguins)
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" />
+
+<div class="info">
+<p>Running this command will produce an empty grey panel. This is
+because we need to specify how different columns of the data frame
+should be represented in the plot.</p>
+</div>
+
+### Aesthetics - `aes()`
+
+We can call in different columns of data from any dataset based on their column names. Column names are given as ‘aesthetic’ elements to the ggplot function, and are wrapped in the aes() function.
+
+Because we want a scatter plot, each point will have an x and a y coordinate. We want the x axis to represent flipper length ( x = flipper_length_mm ), and the y axis to represent the body mass ( y = body_mass_g ).
+
+We give these specifications separated by a comma. Quotes are not required when giving variables within `aes()`.
+
+<div class="info">
+<p>Those interested in why quotes aren’t required can read about <a
+href="https://edwinth.github.io/blog/nse/">non-standard
+evaluation</a>.</p>
+</div>
+
+
+
+```r
+## Set axes ----
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
+
+So far we have the grid lines for our x and y axis. `ggplot()` knows the variables required for the plot, and thus the scale, but has no information about how to display the data points.
+
+## Geometric representations - geom()
+
+Given we want a scatter plot, we need to specify that the geometric representation of the data will be in point form, using geom_point(). [There are many geometric object types](https://ggplot2.tidyverse.org/reference/#geoms).
+
+<div class="figure" style="text-align: center">
+<img src="images/geoms.png" alt="geom shapes" width="100%" />
+<p class="caption">(\#fig:img-objects-enviro)geom shapes</p>
+</div>
+
+Here we are adding a layer (hence the + sign) of points to the plot. We can think of this as similar to e.g. Adobe Photoshop which uses layers of images that can be reordered and modified individually. Because we add to plots layer by layer **the order** of your geoms may be important for your final aesthetic design. 
+
+For ggplot, each layer will be added over the plot according to its position in the code. Below I first show the full breakdown of the components in a layer. Each layer requires information on
+
+* data
+* aesthetics
+* geometric type
+* any summary of the data
+* position
+
+
+```r
+## Add a geom ----
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  layer(                # layer inherits data and aesthetic arguments from previous
+    geom="point",       # draw point objects
+    stat="identity",    # each individual data point gets a geom (no summaries)
+    position=position_identity()) # data points are not moved in any way e.g. we could specify jitter or dodge if we want to avoid busy overlapping data
+```
+
+This is quite a complicate way to write new layers - and it is more usual to see a simpler more compact approach
+
+
+```r
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  geom_point() # geom_point function will always draw points, and unless specified otherwise the arguments for position and stat are both "identity".
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
+
+Now we have the scatter plot! Each row (except for two rows of missing data) in the penguins data set now has an x coordinate, a y coordinate, and a designated geometric representation (point).
+
+From this we can see that smaller penguins tend to have smaller flipper lengths.
+
+### %>% and +
+
+ggplot2, an early component of the tidyverse package, was written before the pipe was introduced. The + sign in ggplot2 functions in a similar way to the pipe in other functions in the tidyverse: by allowing code to be written from left to right.
+
+### Colour
+
+The colors of lines and points can be set directly using `colour="red"`, replacing “red” with a color name. The colors of filled objects, like bars, can be set using `fill="red"`.
+
+
+```r
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  geom_point(colour="red")
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
+
+However the current plot could be more informative if colour was used to convey information about the species of each penguin.
+
+In order to achieve this we need to use `aes()` again, and make the colour conditional upon a variable.
+
+Here, the `aes()` function containing the relevant column name, is given within the `geom_point()` function.
+
+<div class="warning">
+<p>A common mistake is to get confused about when to use (or not use)
+<code>aes()</code></p>
+<p>If specifying a fixed aesthetic e.g. red for everything it DOES NOT
+go inside <code>aes()</code> instead specify e.g. colour = “red” or
+shape =21.</p>
+<p>If you wish to modify an aethetic according to a variable in your
+data THEN it DOES go inside <code>aes()</code>
+e.g. <code>aes(colour = species)</code></p>
+</div>
+
+
+
+```r
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  geom_point(aes(colour=species))
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
+
+<div class="info">
+<p>You may (or may not) have noticed that the grammar of ggplot (and
+tidyverse in general) accepts British/Americanization for
+spelling!!!</p>
+</div>
+
+With data visualisations we can start to gain insights into our data very quickly, we can see that the Gentoo penguins tend to be both larger and have longer flippers
+
+<div class="info">
+<p>Add carriage returns (new lines) after each %&gt;% or + symbols.</p>
+<p>In most cases, R is blind to white space and new lines, so this is
+simply to make our code more readable, and allow us to add readable
+comments.</p>
+</div>
+
+### More layers
+
+We can see the relationship between body size and flipper length. But what if we want to model this relationship with a trend line? We can add another ‘layer’ to this plot, using a different geometric representation of the data. In this case a trend line, which is in fact a summary of the data rather than a representation of each point.
+
+The `geom_smooth()` function draws a trend line through the data. The default behaviour is to draw a local regression line (curve) through the points, however these can be hard to interpret. We want to add a straight line based on a linear model (‘lm’) of the relationship between x and y. 
+
+This is our **first** encounter with linear models in this course, but we will learn a lot more about them later on. 
+
+
+```r
+## Add a second geom ----
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g))+
+  geom_point(aes(colour=species))+
+  geom_smooth(method="lm",    #add another layer of data representation.
+              se=FALSE,
+              aes(colour=species)) # note layers inherit information from the top ggplot() function but not previous layers - if we want separate lines per species we need to either specify this again *or* move the color aesthetic to the top layer. 
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" />
+
+In the example above we may notice that we are assigning colour to the same variable (species) in both geometric layers. This means we have the option to simplify our code. Aesthetics set in the "top layer" of `ggplot()` are inherited by all subsequent layers.
+
+
+```r
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g,
+             colour=species))+ ### now colour is set here it will be inherited by ALL layers
+  geom_point()+
+  geom_smooth(method="lm",    #add another layer of data representation.
+              se=FALSE)
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+<div class="try">
+<p>Note - that the trend line is blocking out certain points, because it
+is the ‘top layer’ of the plot. The geom layers that appear early in the
+command are drawn first, and can be obscured by the geom layers that
+come after them.</p>
+<p>What happens if you switch the order of the geom_point() and
+geom_smooth() functions above? What do you notice about the trend
+line?</p>
+</div>
+
+## More plots
+
+### Jitter
+
+The `geom_jitter()` command adds some random scatter to the points which can reduce over-plotting. Compare these two plots:
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+## geom point
+
+ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
+  geom_point(aes(color = species),
+              alpha = 0.7, 
+              show.legend = FALSE) 
+
+## More geoms ----
+ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
+  geom_jitter(aes(color = species),
+              width = 0.1, # specifies the width, change this to change the range of scatter
+              alpha = 0.7, # specifies the amount of transparency in the points
+              show.legend = FALSE) # don't leave a legend in a plot, if it doesn't add value
+```
+
+### Boxplots
+
+Box plots, or ‘box & whisker plots’ are another essential tool for data analysis. Box plots summarize the distribution of a set of values by displaying the minimum and maximum values, the median (i.e. middle-ranked value), and the range of the middle 50% of values (inter-quartile range).
+The whisker line extending above and below the IQR box define Q3 + (1.5 x IQR), and Q1 - (1.5 x IQR) respectively. You can watch a short video to learn more about box plots [here](https://www.youtube.com/watch?v=fHLhBnmwUM0).
+
+<img src="images/boxplot.png" width="80%" style="display: block; margin: auto;" />
+
+To create a box plot from our data we use (no prizes here) `geom_boxplot()`
+
+
+```r
+ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
+  geom_boxplot(aes(fill = species),
+              alpha = 0.7, 
+              width = 0.5, # change width of boxplot
+              show.legend = FALSE)
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" />
+
+<div class="try">
+<p>Note that when specifying colour variables using <code>aes()</code>
+some geometric shapes support an internal colour “fill” and an external
+colour “colour”. Try changing the aes fill for colour in the code above,
+and note what happens.</p>
+</div>
+
+The points indicate outlier values [i.e., those greater than Q3 + (1.5 x IQR)].
+
+We can overlay a boxplot on the scatter plot for the entire dataset, to fully communicate both the raw and summary data. Here we reduce the width of the jitter points slightly.
+
+
+```r
+ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
+  geom_boxplot(aes(fill = species), # note fill is "inside" colour and colour is "edges" - try it for yourself
+              alpha = 0.2, # fainter boxes so the points "pop"
+              width = 0.5, # change width of boxplot
+              outlier.shape=NA)+
+  geom_jitter(aes(colour = species),
+                width=0.2)+
+  theme(legend.position = "none")
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+<div class="warning">
+<p>In the above example I switched from using show.legend=FALSE inside
+the geom layer to using theme(legend.position=“none”). Why? This is an
+example of reducing redundant code. I would have to specify
+show.legend=FALSE for every geom layer in my plot, but the theme
+function applies to every layer. Save code, save time, reduce
+errors!</p>
+</div>
+
+#### Grouped boxplot
+
+
+```r
+penguins |> 
+  drop_na(sex) |> 
+ggplot(aes(x = species, y = culmen_length_mm)) +
+  geom_boxplot(aes(fill = sex), 
+              width = 0.5) # change width of boxplot
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
+
+### Violin plots
+
+Violin plots display the distribution of a dataset and can be created by calling geom_violin(). They are so-called because the shape they make sometimes looks something like a violin. They are essentially sideways, mirrored density plots. Note that the below code is identical to the code used to draw the boxplots above, except for the call to `geom_violin()` rather than `geom_boxplot()`.
+
+
+
+```r
+penguins |> 
+  drop_na(sex) |> 
+ggplot(aes(x = species, y = culmen_length_mm)) +
+  geom_violin(aes(fill = sex),
+              width = 0.5)
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
+
+### Bar plots
+
+
+```r
+penguins |> 
+ggplot(aes(x = species)) +
+  geom_bar()
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+
+> If your dataset already has the counts that you want to plot, you can set stat="identity" inside of geom_bar() to use that number instead of counting rows.
+
+
+We could go for a stacked bar approach
+
+
+```r
+penguins |>  
+  ggplot(aes(x="",
+             fill=species))+ 
+  # specify fill = species to ensure colours are defined by species
+  geom_bar(position="fill")+ 
+  labs(x="",
+       y="")
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+
+This graph is OK but not great, the height of each section of the bar represents the relative proportions of each species in the dataset, but this type of chart becomes increasingly difficult to read as more categories are included. Colours become increasingly samey,and it is difficult to read where on the y-axis a category starts and stops, you then have to do some subtraction to work out the values.
+
+
+
+### Density and histogram
+
+The base statistic for `geom_histogram()` is count, and by default `geom_histogram()` divides the x-axis into 30 "bins" and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message "stat_bin() using bins = 30. Pick better value with binwidth". You can change this by either setting the number of bins (e.g., bins = 20) or the width of each bin (e.g., binwidth = 5) as an argument.
+
+
+```r
+penguins %>% 
+    ggplot(aes(x=culmen_length_mm, fill=species))+
+    geom_histogram(bins=50)
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+
+The layer system makes it easy to create new types of plots by adapting existing recipes. For example, rather than creating a histogram, we can create a smoothed density plot by calling geom_density() rather than geom_histogram(). The rest of the code remains identical.
+
+
+```r
+penguins |> 
+    ggplot(aes(x=culmen_length_mm, fill=species))+
+    geom_density(alpha = .775)
+```
+
+<img src="02b-basic-ggplot_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
+
+```r
+#Because the density plots are overlapping, we set alpha = 0.75 to make the geoms 75% transparent.
+```
+
+
+<!--chapter:end:02b-basic-ggplot.Rmd-->
 
 # (PART\*) Data Insights {.unnumbered}
 
@@ -3651,7 +4152,7 @@ penguins |>
   geom_bar(aes(x=species))
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
 
 This chart is ok - but can we make anything better?
 
@@ -3672,7 +4173,7 @@ penguins |>
   theme_minimal()
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
 
 This graph is OK *but not great*, the height of each section of the bar represents the relative proportions of each species in the dataset, but this type of chart becomes increasingly difficult to read as more categories are included. Colours become increasingly samey,and it is difficult to read where on the y-axis a category starts and stops, you then have to do some subtraction to work out the values. 
 
@@ -3699,7 +4200,7 @@ penguins |>
   theme_minimal()
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
 
 This is an example of a figure we might use in a report or paper. Having cleaned up the theme, added some simple colour, made sure our labels are clear and descriptive, ordered our categories in ascending frequency order, and included some simple text of percentages to aid readability. 
 
@@ -3752,7 +4253,7 @@ penguins |>
                  bins=10)
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
 
 <div class="try">
 <p>Change the value specified to the bins argument and observe how the
@@ -3842,7 +4343,7 @@ ggplot()+
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02b-penguin_files/figure-html/unnamed-chunk-17-1.png" alt="Red dashed line represents the mean, Black dashed line is the median value" width="100%" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-17-1.png" alt="Red dashed line represents the mean, Black dashed line is the median value" width="100%" />
 <p class="caption">(\#fig:unnamed-chunk-17)Red dashed line represents the mean, Black dashed line is the median value</p>
 </div>
 
@@ -3892,7 +4393,7 @@ ggplot()+
        y = "Count")
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" />
 
 We can also use the `stat_function` to add any distribution curve to a plot
 
@@ -3912,7 +4413,7 @@ ggplot()+
   })
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
   labs(x = "Body mass (g)",
@@ -3952,7 +4453,7 @@ ggplot(penguins, aes(sample = body_mass_g))+
   stat_qq_line()
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" />
 
 **How do we know how much deviation from an idealised distribution is ok?**
 
@@ -3963,7 +4464,7 @@ penguins |>
   car::qqPlot()
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```
 ## [1] 170 186
@@ -4077,7 +4578,7 @@ plot_3 <- penguin_body_mass_summary |>
 plot_1 + plot_2 + plot_3 
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-27-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-27-1.png" width="80%" style="display: block; margin: auto;" />
 
 We now have several compact representations of the body_mass_g including a histogram, boxplot and summary calculations. You can *and should* generate the same summaries for your other numeric variables. These tables and graphs provide the detail you need to understand the central tendency and dispersion of numeric variables. 
 
@@ -4155,7 +4656,7 @@ histogram_plot <- penguins |>
 jitter_plot/box_plot/histogram_plot
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-52-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-52-1.png" width="100%" style="display: block; margin: auto;" />
 
 So it is reasonable to think that perhaps either species or sex might affect body mass, and we can visualise this in a number of different ways. The last method, a density histogram, looks a little crowded now, so I will use the excellent `ggridges` package to help out
 </div></div></div>
@@ -4178,7 +4679,7 @@ ggplot(penguins, aes(x = body_mass_g, y = species)) +
                 alpha = 0.8)
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-53-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-53-1.png" width="100%" style="display: block; margin: auto;" />
 
 </div></div></div>
 
@@ -4202,7 +4703,7 @@ penguins |>
       |> car::qqPlot())
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-54-1.png" width="100%" style="display: block; margin: auto;" /><img src="02b-penguin_files/figure-html/unnamed-chunk-54-2.png" width="100%" style="display: block; margin: auto;" /><img src="02b-penguin_files/figure-html/unnamed-chunk-54-3.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-54-1.png" width="100%" style="display: block; margin: auto;" /><img src="02c-insights_files/figure-html/unnamed-chunk-54-2.png" width="100%" style="display: block; margin: auto;" /><img src="02c-insights_files/figure-html/unnamed-chunk-54-3.png" width="100%" style="display: block; margin: auto;" />
 
 ```
 ## [[1]]
@@ -4230,7 +4731,7 @@ penguins |>
                         bandwidth = 175)
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 # try playing with the bandwidth argument - this behaves similar to binning which you should be familiar with from using geom_histogram
@@ -4457,7 +4958,7 @@ length_depth_scatterplot
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02b-penguin_files/figure-html/unnamed-chunk-39-1.png" alt="A scatter plot of bill depth against bill length in mm" width="100%" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-39-1.png" alt="A scatter plot of bill depth against bill length in mm" width="100%" />
 <p class="caption">(\#fig:unnamed-chunk-39)A scatter plot of bill depth against bill length in mm</p>
 </div>
 
@@ -4496,7 +4997,7 @@ bill_length_marginal+length_depth_scatterplot+bill_depth_marginal+ # order of pl
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02b-penguin_files/figure-html/unnamed-chunk-40-1.png" alt="Using patchwork we can easily arrange extra plots to fit as marginals - these could be boxplots, histograms or density plots" width="100%" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-40-1.png" alt="Using patchwork we can easily arrange extra plots to fit as marginals - these could be boxplots, histograms or density plots" width="100%" />
 <p class="caption">(\#fig:unnamed-chunk-40)Using patchwork we can easily arrange extra plots to fit as marginals - these could be boxplots, histograms or density plots</p>
 </div>
 
@@ -4552,7 +5053,7 @@ penguins|>
   coord_flip()
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-42-1.png" width="100%" style="display: block; margin: auto;" />
 
 This is fine, but it looks a bit odd, because the bars expand to fill the available space on the category axis. Luckily there is an advanced version of the postion_dodge argument. 
 
@@ -4566,7 +5067,7 @@ penguins|>
   coord_flip()
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-43-1.png" width="100%" style="display: block; margin: auto;" />
 >Note the default for bar charts would have been a stacked option, but we have already seen how that can produce graphs that are difficult to read. 
 
 An alternative approach would be to look at the 'relative proportions' of each population in our overall dataset. Using the same methods as we used previously when looking at single variables. Let's add in a few aesthetic tweaks to improve the look. 
@@ -4596,7 +5097,7 @@ penguins |>
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02b-penguin_files/figure-html/unnamed-chunk-44-1.png" alt="A dodged barplot showing the numbers and relative proportions of data observations recorded by penguin species and location" width="100%" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-44-1.png" alt="A dodged barplot showing the numbers and relative proportions of data observations recorded by penguin species and location" width="100%" />
 <p class="caption">(\#fig:unnamed-chunk-44)A dodged barplot showing the numbers and relative proportions of data observations recorded by penguin species and location</p>
 </div>
 
@@ -4614,7 +5115,7 @@ penguins |>
          x= "Species")
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" />
 
 Histograms can also be used to explore associations between categorical and numerical variables, with overlapping histograms comparing distributions within categories and faceted histograms providing a structured view of how different categories impact numerical data distributions. These visualizations reveal patterns and variations, aiding in data analysis and hypothesis testing.
 
@@ -4630,7 +5131,7 @@ penguins |>
              ncol=1)
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-46-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-46-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Activity
 
@@ -4641,18 +5142,24 @@ Start thinking about more complex interactions. We wish to investigate the relat
 <div class='webex-solution'><button>Confounding variables</button>
 
 
+
 <img src="images/complexity.png" alt="Variables such as species or sex may directly or indirectly affect the relationship between body mass and beak length" width="80%" style="display: block; margin: auto;" />
 
 It is reasonable to think that perhaps either species or sex might affect the morphology of beaks directly - or that these might affect body mass (so that if there is a direct relationship between mass and beak length, there will also be an indirect relationship with sex or species).
 
 Failure to account for complex interactions can lead to misleading insights about your data. 
 
+
 ` r unhide()` 
+
+
 
 Once you have some parameters for investigation - investigate them visually and then check against some worked answers below: 
 
 
+
 <div class='webex-solution'><button>Solution</button>
+
 
 
 ### Simpson's Paradox
@@ -4660,7 +5167,7 @@ Once you have some parameters for investigation - investigate them visually and 
 Remember when we first correlated bill length and bill depth against each other we found an overall negative correlation of -0.22. However, this is because of a confounding variable we had not accounted for - species. 
 
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" />
 
 This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour. 
 
@@ -4685,7 +5192,7 @@ length_depth_scatterplot_2 <- ggplot(penguins, aes(x= culmen_length_mm,
 length_depth_scatterplot
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-49-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-49-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```r
 bill_depth_marginal_2 <- penguins |> 
@@ -4716,7 +5223,7 @@ bill_length_marginal_2+length_depth_scatterplot_2+bill_depth_marginal_2+ # order
   plot_layout(design=layout2) # uses the layout argument defined above to arrange the size and position of plots
 ```
 
-<img src="02b-penguin_files/figure-html/unnamed-chunk-49-2.png" width="100%" style="display: block; margin: auto;" />
+<img src="02c-insights_files/figure-html/unnamed-chunk-49-2.png" width="100%" style="display: block; margin: auto;" />
 
 We now clearly see a striking reversal of our previous trend, that in fact *within* each species of penguin there is an overall positive association between bill length and depth. 
 
@@ -4760,416 +5267,7 @@ Sometimes we may see a pattern in our data, but it has likely occurred due to ra
 That's it! Thank you for taking the time to get this far. Be kind to yourself if you found it difficult. You have done incredibly well.
 
 
-<!--chapter:end:02b-penguin.Rmd-->
-
-# Basic ggplot
-
-
-
-
-
-
-
-## Intro to grammar
-
-
-The ggplot2 package is widely used and valued for its simple, consistent approach to making data visuals.
-
-The 'grammar of graphics' relates to the different components of a plot that function like different parts of linguistic grammar. For example, all plots require axes, so the x and y axes form one part of the ‘language’ of a plot. Similarly, all plots have data represented between the axes, often as points, lines or bars. The visual way that the data is represented forms another component of the grammar of graphics. Furthermore, the colour, shape or size of points and lines can be used to encode additional information in the plot. This information is usually clarified in a key, or legend, which can also be considered part of this ‘grammar’.
-
-The philosophy of ggplot is much better explained by the package author, Hadley Wickham (@R-ggplot2). For now, we just need to be aware that ggplots are constructed by specifying the different components that we want to display, based on underlying information in a data frame.
-
-<div class="figure" style="text-align: center">
-<img src="images/ambitious.png" alt="An example of what we can produce in ggplot" width="100%" />
-<p class="caption">(\#fig:ambitious-figure)An example of what we can produce in ggplot</p>
-</div>
-
-## Building a plot
-
-To start building the plot We are going to use the penguin data we have been working with previously. First we must specify the data frame that contains the relevant data for our plot. We can do this in two ways: 
-
-1) Here we are ‘sending the penguins data set into the ggplot function’:
-
-
-```r
-# Building a ggplot step by step ----
-## Render a plot background ----
-penguins %>% 
-  ggplot()
-```
-
-2) Here we are specifying the dataframe *within* the `ggplot()` function
-
-The output is identical
-
-
-```r
-ggplot(data = penguins)
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" />
-
-<div class="info">
-<p>Running this command will produce an empty grey panel. This is
-because we need to specify how different columns of the data frame
-should be represented in the plot.</p>
-</div>
-
-### Aesthetics - `aes()`
-
-We can call in different columns of data from any dataset based on their column names. Column names are given as ‘aesthetic’ elements to the ggplot function, and are wrapped in the aes() function.
-
-Because we want a scatter plot, each point will have an x and a y coordinate. We want the x axis to represent flipper length ( x = flipper_length_mm ), and the y axis to represent the body mass ( y = body_mass_g ).
-
-We give these specifications separated by a comma. Quotes are not required when giving variables within `aes()`.
-
-<div class="info">
-<p>Those interested in why quotes aren’t required can read about <a
-href="https://edwinth.github.io/blog/nse/">non-standard
-evaluation</a>.</p>
-</div>
-
-
-
-```r
-## Set axes ----
-penguins %>% 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g))
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
-
-So far we have the grid lines for our x and y axis. `ggplot()` knows the variables required for the plot, and thus the scale, but has no information about how to display the data points.
-
-## Geometric representations - geom()
-
-Given we want a scatter plot, we need to specify that the geometric representation of the data will be in point form, using geom_point(). [There are many geometric object types](https://ggplot2.tidyverse.org/reference/#geoms).
-
-<div class="figure" style="text-align: center">
-<img src="images/geoms.png" alt="geom shapes" width="100%" />
-<p class="caption">(\#fig:img-objects-enviro)geom shapes</p>
-</div>
-
-Here we are adding a layer (hence the + sign) of points to the plot. We can think of this as similar to e.g. Adobe Photoshop which uses layers of images that can be reordered and modified individually. Because we add to plots layer by layer **the order** of your geoms may be important for your final aesthetic design. 
-
-For ggplot, each layer will be added over the plot according to its position in the code. Below I first show the full breakdown of the components in a layer. Each layer requires information on
-
-* data
-* aesthetics
-* geometric type
-* any summary of the data
-* position
-
-
-```r
-## Add a geom ----
-penguins %>% 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g))+
-  layer(                # layer inherits data and aesthetic arguments from previous
-    geom="point",       # draw point objects
-    stat="identity",    # each individual data point gets a geom (no summaries)
-    position=position_identity()) # data points are not moved in any way e.g. we could specify jitter or dodge if we want to avoid busy overlapping data
-```
-
-This is quite a complicate way to write new layers - and it is more usual to see a simpler more compact approach
-
-
-```r
-penguins %>% 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g))+
-  geom_point() # geom_point function will always draw points, and unless specified otherwise the arguments for position and stat are both "identity".
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
-
-Now we have the scatter plot! Each row (except for two rows of missing data) in the penguins data set now has an x coordinate, a y coordinate, and a designated geometric representation (point).
-
-From this we can see that smaller penguins tend to have smaller flipper lengths.
-
-### %>% and +
-
-ggplot2, an early component of the tidyverse package, was written before the pipe was introduced. The + sign in ggplot2 functions in a similar way to the pipe in other functions in the tidyverse: by allowing code to be written from left to right.
-
-### Colour
-
-The colors of lines and points can be set directly using `colour="red"`, replacing “red” with a color name. The colors of filled objects, like bars, can be set using `fill="red"`.
-
-
-```r
-penguins %>% 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g))+
-  geom_point(colour="red")
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
-
-However the current plot could be more informative if colour was used to convey information about the species of each penguin.
-
-In order to achieve this we need to use `aes()` again, and make the colour conditional upon a variable.
-
-Here, the `aes()` function containing the relevant column name, is given within the `geom_point()` function.
-
-<div class="warning">
-<p>A common mistake is to get confused about when to use (or not use)
-<code>aes()</code></p>
-<p>If specifying a fixed aesthetic e.g. red for everything it DOES NOT
-go inside <code>aes()</code> instead specify e.g. colour = “red” or
-shape =21.</p>
-<p>If you wish to modify an aethetic according to a variable in your
-data THEN it DOES go inside <code>aes()</code>
-e.g. <code>aes(colour = species)</code></p>
-</div>
-
-
-
-```r
-penguins %>% 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g))+
-  geom_point(aes(colour=species))
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
-
-<div class="info">
-<p>You may (or may not) have noticed that the grammar of ggplot (and
-tidyverse in general) accepts British/Americanization for
-spelling!!!</p>
-</div>
-
-With data visualisations we can start to gain insights into our data very quickly, we can see that the Gentoo penguins tend to be both larger and have longer flippers
-
-<div class="info">
-<p>Add carriage returns (new lines) after each %&gt;% or + symbols.</p>
-<p>In most cases, R is blind to white space and new lines, so this is
-simply to make our code more readable, and allow us to add readable
-comments.</p>
-</div>
-
-### More layers
-
-We can see the relationship between body size and flipper length. But what if we want to model this relationship with a trend line? We can add another ‘layer’ to this plot, using a different geometric representation of the data. In this case a trend line, which is in fact a summary of the data rather than a representation of each point.
-
-The `geom_smooth()` function draws a trend line through the data. The default behaviour is to draw a local regression line (curve) through the points, however these can be hard to interpret. We want to add a straight line based on a linear model (‘lm’) of the relationship between x and y. 
-
-This is our **first** encounter with linear models in this course, but we will learn a lot more about them later on. 
-
-
-```r
-## Add a second geom ----
-penguins %>% 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g))+
-  geom_point(aes(colour=species))+
-  geom_smooth(method="lm",    #add another layer of data representation.
-              se=FALSE,
-              aes(colour=species)) # note layers inherit information from the top ggplot() function but not previous layers - if we want separate lines per species we need to either specify this again *or* move the color aesthetic to the top layer. 
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" />
-
-In the example above we may notice that we are assigning colour to the same variable (species) in both geometric layers. This means we have the option to simplify our code. Aesthetics set in the "top layer" of `ggplot()` are inherited by all subsequent layers.
-
-
-```r
-penguins %>% 
-  ggplot(aes(x=flipper_length_mm, 
-             y = body_mass_g,
-             colour=species))+ ### now colour is set here it will be inherited by ALL layers
-  geom_point()+
-  geom_smooth(method="lm",    #add another layer of data representation.
-              se=FALSE)
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-<div class="try">
-<p>Note - that the trend line is blocking out certain points, because it
-is the ‘top layer’ of the plot. The geom layers that appear early in the
-command are drawn first, and can be obscured by the geom layers that
-come after them.</p>
-<p>What happens if you switch the order of the geom_point() and
-geom_smooth() functions above? What do you notice about the trend
-line?</p>
-</div>
-
-## More plots
-
-### Jitter
-
-The `geom_jitter()` command adds some random scatter to the points which can reduce over-plotting. Compare these two plots:
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-```r
-## geom point
-
-ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
-  geom_point(aes(color = species),
-              alpha = 0.7, 
-              show.legend = FALSE) 
-
-## More geoms ----
-ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
-  geom_jitter(aes(color = species),
-              width = 0.1, # specifies the width, change this to change the range of scatter
-              alpha = 0.7, # specifies the amount of transparency in the points
-              show.legend = FALSE) # don't leave a legend in a plot, if it doesn't add value
-```
-
-### Boxplots
-
-Box plots, or ‘box & whisker plots’ are another essential tool for data analysis. Box plots summarize the distribution of a set of values by displaying the minimum and maximum values, the median (i.e. middle-ranked value), and the range of the middle 50% of values (inter-quartile range).
-The whisker line extending above and below the IQR box define Q3 + (1.5 x IQR), and Q1 - (1.5 x IQR) respectively. You can watch a short video to learn more about box plots [here](https://www.youtube.com/watch?v=fHLhBnmwUM0).
-
-<img src="images/boxplot.png" width="80%" style="display: block; margin: auto;" />
-
-To create a box plot from our data we use (no prizes here) `geom_boxplot()`
-
-
-```r
-ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
-  geom_boxplot(aes(fill = species),
-              alpha = 0.7, 
-              width = 0.5, # change width of boxplot
-              show.legend = FALSE)
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" />
-
-<div class="try">
-<p>Note that when specifying colour variables using <code>aes()</code>
-some geometric shapes support an internal colour “fill” and an external
-colour “colour”. Try changing the aes fill for colour in the code above,
-and note what happens.</p>
-</div>
-
-The points indicate outlier values [i.e., those greater than Q3 + (1.5 x IQR)].
-
-We can overlay a boxplot on the scatter plot for the entire dataset, to fully communicate both the raw and summary data. Here we reduce the width of the jitter points slightly.
-
-
-```r
-ggplot(data = penguins, aes(x = species, y = culmen_length_mm)) +
-  geom_boxplot(aes(fill = species), # note fill is "inside" colour and colour is "edges" - try it for yourself
-              alpha = 0.2, # fainter boxes so the points "pop"
-              width = 0.5, # change width of boxplot
-              outlier.shape=NA)+
-  geom_jitter(aes(colour = species),
-                width=0.2)+
-  theme(legend.position = "none")
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" />
-
-
-<div class="warning">
-<p>In the above example I switched from using show.legend=FALSE inside
-the geom layer to using theme(legend.position=“none”). Why? This is an
-example of reducing redundant code. I would have to specify
-show.legend=FALSE for every geom layer in my plot, but the theme
-function applies to every layer. Save code, save time, reduce
-errors!</p>
-</div>
-
-#### Grouped boxplot
-
-
-```r
-penguins |> 
-  drop_na(sex) |> 
-ggplot(aes(x = species, y = culmen_length_mm)) +
-  geom_boxplot(aes(fill = sex), 
-              width = 0.5) # change width of boxplot
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" />
-
-### Violin plots
-
-Violin plots display the distribution of a dataset and can be created by calling geom_violin(). They are so-called because the shape they make sometimes looks something like a violin. They are essentially sideways, mirrored density plots. Note that the below code is identical to the code used to draw the boxplots above, except for the call to `geom_violin()` rather than `geom_boxplot()`.
-
-
-
-```r
-penguins |> 
-  drop_na(sex) |> 
-ggplot(aes(x = species, y = culmen_length_mm)) +
-  geom_violin(aes(fill = sex),
-              width = 0.5)
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" />
-
-### Bar plots
-
-
-```r
-penguins |> 
-ggplot(aes(x = species)) +
-  geom_bar()
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
-
-> If your dataset already has the counts that you want to plot, you can set stat="identity" inside of geom_bar() to use that number instead of counting rows.
-
-
-We could go for a stacked bar approach
-
-
-```r
-penguins |>  
-  ggplot(aes(x="",
-             fill=species))+ 
-  # specify fill = species to ensure colours are defined by species
-  geom_bar(position="fill")+ 
-  labs(x="",
-       y="")
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
-
-This graph is OK but not great, the height of each section of the bar represents the relative proportions of each species in the dataset, but this type of chart becomes increasingly difficult to read as more categories are included. Colours become increasingly samey,and it is difficult to read where on the y-axis a category starts and stops, you then have to do some subtraction to work out the values.
-
-
-
-### Density and histogram
-
-The base statistic for `geom_histogram()` is count, and by default `geom_histogram()` divides the x-axis into 30 "bins" and counts how many observations are in each bin and so the y-axis does not need to be specified. When you run the code to produce the histogram, you will get the message "stat_bin() using bins = 30. Pick better value with binwidth". You can change this by either setting the number of bins (e.g., bins = 20) or the width of each bin (e.g., binwidth = 5) as an argument.
-
-
-```r
-penguins %>% 
-    ggplot(aes(x=culmen_length_mm, fill=species))+
-    geom_histogram(bins=50)
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
-
-The layer system makes it easy to create new types of plots by adapting existing recipes. For example, rather than creating a histogram, we can create a smoothed density plot by calling geom_density() rather than geom_histogram(). The rest of the code remains identical.
-
-
-```r
-penguins |> 
-    ggplot(aes(x=culmen_length_mm, fill=species))+
-    geom_density(alpha = .775)
-```
-
-<img src="03-basic-ggplot_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
-
-```r
-#Because the density plots are overlapping, we set alpha = 0.75 to make the geoms 75% transparent.
-```
-
-
-<!--chapter:end:03-basic-ggplot.Rmd-->
+<!--chapter:end:02c-insights.Rmd-->
 
 # (PART\*) Functional Programming {.unnumbered}
 
@@ -24961,7 +25059,7 @@ This book was printed on `` `r Sys.Date()` ``
 
 When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead: 
 
-This book was printed on 2023-11-05
+This book was printed on 2023-11-06
 
 ### Running code {-}
 
@@ -25002,7 +25100,7 @@ more later</p></li>
 ## Exercises: Setting code chunks {-}
 
 
-**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select>
+**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select>
 
 
 <div class='webex-solution'><button>Explain This Answer</button>

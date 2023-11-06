@@ -121,10 +121,10 @@
 <li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
 <li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
 <li><a class="active" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
 <li class="book-part">Data Insights</li>
-<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">9</span> Data Insights part one</a></li>
-<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">10</span> Data insights part two</a></li>
-<li><a class="" href="basic-ggplot.html"><span class="header-section-number">11</span> Basic ggplot</a></li>
+<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">10</span> Data Insights part one</a></li>
+<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">11</span> Data insights part two</a></li>
 <li class="book-part">Functional Programming</li>
 <li><a class="" href="writing-functions.html"><span class="header-section-number">12</span> Writing Functions</a></li>
 <li><a class="" href="flow-control.html"><span class="header-section-number">13</span> Flow control</a></li>
@@ -191,7 +191,7 @@ to the remote repository.
 <h4>
 <span class="header-section-number">8.1.0.1</span> Add this to your script<a class="anchor" aria-label="anchor" href="#add-this-to-your-script"><i class="fas fa-link"></i></a>
 </h4>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># CHECK DATA----</span></span>
 <span><span class="co"># check the data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">penguins_raw</span><span class="op">)</span></span>
@@ -225,7 +225,7 @@ to the remote repository.
 <li><p>Some of the names contain brackets</p></li>
 </ul>
 <p>This dataframe does not like these so let's correct these quickly. R is case-sensitive and also doesn't like spaces or brackets in variable names</p>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># CLEAN DATA ----</span></span>
 <span></span>
 <span><span class="co"># clean all variable names to snake_case using the clean_names function from the janitor package</span></span>
@@ -256,13 +256,13 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-25" class="tabcontentunnamed-chunk-25">
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins_clean</span><span class="op">)</span> <span class="op">==</span> <span class="st">"delta_15_n_o_oo"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"delta_15n"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins_clean</span><span class="op">)</span> <span class="op">==</span> <span class="st">"delta_13_c_o_oo"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"delta_13c"</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-25" class="tabcontentunnamed-chunk-25">
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># shorten the variable names for N and C isotope blood samples</span></span>
 <span></span>
 <span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="va">penguins_clean</span>,</span>
@@ -290,11 +290,11 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-26" class="tabcontentunnamed-chunk-26">
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-26" class="tabcontentunnamed-chunk-26">
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-26') </script><p>We can see a dataset with 345 rows (including the headers) and 17 variables
@@ -318,14 +318,14 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
-<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span>, <span class="st">"Adelie"</span>,</span>
 <span>                          <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span>, <span class="st">"Gentoo"</span>,</span>
 <span>                                 <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span>, <span class="st">"Chinstrap"</span>,</span>
 <span>                                        <span class="va">penguins</span><span class="op">$</span><span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-27" class="tabcontentunnamed-chunk-27">
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># use mutate and case_when for a statement that conditionally changes the names of the values in a variable</span></span>
 <span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span> <span class="op">~</span> <span class="st">"Adelie"</span>,</span>
@@ -423,11 +423,11 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-30" class="tabcontentunnamed-chunk-30">
-<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"sex"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-30" class="tabcontentunnamed-chunk-30">
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># DPLYR VERBS ----</span></span>
 <span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>, <span class="co"># the data object</span></span>
@@ -443,18 +443,18 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-31" class="tabcontentunnamed-chunk-31">
-<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span><span class="op">[</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"study_name"</span>, <span class="st">"sample_number"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-31" class="tabcontentunnamed-chunk-31">
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>,</span>
 <span>       <span class="op">-</span><span class="va">study_name</span>, <span class="op">-</span><span class="va">sample_number</span><span class="op">)</span></span></code></pre></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-31') </script><p>Note that <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> does <strong>not</strong> change the original <code>penguins</code> tibble. It spits out the new tibble directly into your console.</p>
 <p>If you don't <strong>save</strong> this new tibble, it won't be stored. If you want to keep it, then you must create a new object.</p>
 <p>When you run this new code, you will not see anything in your console, but you will see a new object appear in your Environment pane.</p>
-<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>, </span>
 <span>       <span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span>, <span class="va">body_mass_g</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -473,10 +473,10 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="data-wrangling-with-dplyr.html#cb119-1" tabindex="-1"></a>filtered_penguins <span class="ot">&lt;-</span> new_penguins[new_penguins<span class="sc">$</span>species <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae"</span><span class="er">)</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="data-wrangling-with-dplyr.html#cb121-1" tabindex="-1"></a>filtered_penguins <span class="ot">&lt;-</span> new_penguins[new_penguins<span class="sc">$</span>species <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae"</span><span class="er">)</span>, ]</span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-33" class="tabcontentunnamed-chunk-33">
-<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-33') </script><p>We can use several different operators to assess the way in which we should filter our data that work the same in tidyverse or base R.</p>
@@ -552,10 +552,10 @@ in
 </tbody>
 </table></div>
 <p>If you wanted to select all the Penguin species except Adelies, you use 'not equals'.</p>
-<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">species</span> <span class="op">!=</span> <span class="st">"Adelie"</span><span class="op">)</span></span></code></pre></div>
 <p>This is the same as</p>
-<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Chinstrap"</span>, <span class="st">"Gentoo"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>You can include multiple expressions within <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> and it will pull out only those rows that evaluate to <code>TRUE</code> for all of your conditions.</p>
 <p>For example the below code will pull out only those observations of Adelie penguins where flipper length was measured as greater than 190mm.</p>
@@ -568,11 +568,11 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-37" class="tabcontentunnamed-chunk-37">
-<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_penguins</span><span class="op">[</span><span class="va">new_penguins</span><span class="op">$</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span> <span class="op">&amp;</span> <span class="va">new_penguins</span><span class="op">$</span><span class="va">flipper_length_mm</span> <span class="op">&gt;</span> <span class="fl">190</span>, <span class="op">]</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-37" class="tabcontentunnamed-chunk-37">
-<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span>, <span class="va">flipper_length_mm</span> <span class="op">&gt;</span> <span class="fl">190</span><span class="op">)</span></span></code></pre></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-37') </script>
@@ -591,19 +591,19 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-38" class="tabcontentunnamed-chunk-38">
-<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_penguins</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">new_penguins</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span>, <span class="op">]</span> <span class="co"># define columns to be arranged</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-38" class="tabcontentunnamed-chunk-38">
-<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-38') </script><p>The data is now arranged in alphabetical order by sex. So all of the observations of female penguins are listed before males.</p>
 <p>You can also reverse this with <code><a href="https://dplyr.tidyverse.org/reference/desc.html">desc()</a></code></p>
-<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>You can also sort by more than one column, what do you think the code below does?</p>
-<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>,</span>
 <span>        <span class="va">sex</span>,</span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span>,</span>
@@ -625,11 +625,11 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-41" class="tabcontentunnamed-chunk-41">
-<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_penguins</span><span class="op">$</span><span class="va">body_mass_kg</span> <span class="op">&lt;-</span> <span class="va">new_penguins</span><span class="op">$</span><span class="va">body_mass_g</span> <span class="op">/</span> <span class="fl">1000</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-41" class="tabcontentunnamed-chunk-41">
-<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">new_penguins</span>,</span>
 <span>                     body_mass_kg <span class="op">=</span> <span class="va">body_mass_g</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -642,15 +642,15 @@ Base R
 </h2>
 <div class="inline-figure"><img src="images/pipe_order.jpg" alt="Pipes make code more human readable" width="80%" style="display: block; margin: auto;"></div>
 <p>Pipes look like this: <code>|&gt;</code> Pipes allow you to send the output from one function straight into another function. Specifically, they send the result of the function before <code>|&gt;</code> to be the <strong>first</strong> argument of the function after <code>|&gt;</code>. As usual, it's easier to show, rather than tell so let's look at an example.</p>
-<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this example uses brackets to nest and order functions</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>, <span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span><span class="op">)</span>, <span class="va">sex</span> <span class="op">==</span> <span class="st">"MALE"</span><span class="op">)</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this example uses sequential R objects to make the code more readable</span></span>
 <span><span class="va">object_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">penguins</span>, <span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span><span class="op">)</span></span>
 <span><span class="va">object_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>.data <span class="op">=</span> <span class="va">object_1</span>, <span class="va">sex</span> <span class="op">==</span> <span class="st">"MALE"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">object_2</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this example is human readable without intermediate objects</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span>, <span class="va">flipper_length_mm</span><span class="op">)</span> <span class="op">|&gt;</span>  </span>
@@ -702,7 +702,7 @@ site</a> does a good job of explaining .
 <span class="header-section-number">8.5.1</span> Check for duplication<a class="anchor" aria-label="anchor" href="#check-for-duplication"><i class="fas fa-link"></i></a>
 </h3>
 <p>It is very easy when inputting data to make mistakes, copy something in twice for example, or if someone did a lot of copy-pasting to assemble a spreadsheet (yikes!). We can check this pretty quickly</p>
-<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># check for duplicate rows in the data</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># produces a list of TRUE/FALSE statements for duplicated or not</span></span>
@@ -710,11 +710,11 @@ site</a> does a good job of explaining .
 <pre><code>[1] 0</code></pre>
 <p>Great!</p>
 <p>If I did have duplications I could investigate further</p>
-<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check duplicated rows</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Keep only unduplicated data</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -724,7 +724,7 @@ site</a> does a good job of explaining .
 <span class="header-section-number">8.5.2</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can also explore our data for very obvious typos by checking for implausibly small or large values, this is a simple use of the <code>summarise</code> function.</p>
-<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># use summarise to make calculations</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>min<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, </span>
@@ -751,7 +751,7 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
-<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Things start to get more complicated with Base R</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">body_mass_g</span>, <span class="va">penguins</span><span class="op">$</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -760,7 +760,7 @@ Base R
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-53" class="tabcontentunnamed-chunk-53">
-<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># subsequent functions are perform "by group"</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>min<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, </span>
@@ -782,11 +782,11 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">penquins</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span> <span class="co"># only works on vectord</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-54" class="tabcontentunnamed-chunk-54">
-<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -797,7 +797,7 @@ Base R
 <span class="header-section-number">8.5.5</span> Missing values: NA<a class="anchor" aria-label="anchor" href="#missing-values-na"><i class="fas fa-link"></i></a>
 </h3>
 <p>There are multiple ways to check for missing values in our data</p>
-<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get a sum of how many observations are missing in our dataframe</span></span>
 <span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -809,7 +809,7 @@ Base R
 <h2>
 <span class="header-section-number">8.6</span> <code>Summary</code><a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># produce a summary of our data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
 <span><span class="co">#__________________________----</span></span></code></pre></div>
@@ -837,12 +837,12 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
-<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">individual_id</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-60" class="tabcontentunnamed-chunk-60">
-<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
@@ -870,14 +870,14 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
-<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># note aggregate doesn't have functionality to deal with missing data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">individual_id</span> <span class="op">~</span> <span class="va">species</span> <span class="op">+</span> <span class="va">sex</span>, </span>
 <span>          data <span class="op">=</span> <span class="va">penguins</span>, </span>
 <span>          FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
-<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -959,7 +959,7 @@ Count
 <li><p><code>sd</code> and <code>var</code> calculate standard deviation and variance of a numeric vector</p></li>
 </ul>
 <p>Using <code>summarise</code> we can calculate the mean flipper and bill lengths of our penguins:</p>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    mean_flipper_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -982,7 +982,7 @@ What happens when you try to produce calculations that include
 </p>
 </div>
 <p>We can use several functions in <code>summarise</code>. Which means we can string several calculations together in a single step, and generate more insights into our data.</p>
-<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="co"># number of rows of data</span></span>
 <span>            num_penguins <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span>, <span class="co"># number of unique individuals</span></span>
@@ -1010,7 +1010,7 @@ Solution
 <li><p>The <code>.cols</code> argument lets you select the columns you wish to apply functions to</p></li>
 <li><p>The <code>.fns</code> argument applies the required function to all of the selected columns.</p></li>
 </ul>
-<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Across ----</span></span>
 <span><span class="co"># The mean of ALL numeric columns in the data, where(is.numeric == TRUE) hunts for numeric columns</span></span>
 <span></span>
@@ -1019,7 +1019,7 @@ Solution
 <span>                   .fns <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The above example calculates the means of any &amp; all numeric variables in the dataset.</p>
 <p>The below example is a slightly complicated way of running the n_distinct for summarise. The <code>.cols()</code> looks for any column that contains the word "penguin" and then runs the <code><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct()</a></code>command on these</p>
-<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of distinct penguins, as only one column contains the word penguin</span></span>
 <span><span class="co"># the argument contains looks for columns that match a character expression</span></span>
 <span></span>
@@ -1034,7 +1034,7 @@ Solution
 </h3>
 <p>The <code>group_by</code> function provides the ability to separate our summary functions according to any subgroups we wish to make. The real magic happens when we pair this with <code>summarise</code> and <code>mutate</code>.</p>
 <p>In this example, by grouping on the individual penguin ids, then summarising by n - we can see how many times each penguin was monitored in the course of this study.</p>
-<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_stats</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>num<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1051,11 +1051,11 @@ dataframe itself looks unchanged.
 </h4>
 <p>What if we need to calculate by more than one variable at a time?
 No problem we can submit several arguments:</p>
-<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_grouped</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">species</span><span class="op">)</span></span></code></pre></div>
 <p>We can then calculate the mean flipper length of penguins in each of the six combinations</p>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_grouped</span> <span class="op">|&gt;</span> </span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_flipper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">flipper_length_mm</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Now the first row of our summary table shows us the mean flipper length (in mm) for female Adelie penguins. There are eight rows in total, six unique combinations and two rows where the sex of the penguins was not recorded(<code>NA</code>)</p>
@@ -1066,7 +1066,7 @@ No problem we can submit several arguments:</p>
 </h4>
 <p>So far we have only used <code>group_by</code> with the <code>summarise</code> function, but this doesn't always have to be the case.
 When <code>mutate</code> is used with <code>group_by</code>, the calculations occur by 'group'. Here's an example:</p>
-<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Using mutate and group_by ----</span></span>
 <span><span class="va">centered_penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">sex</span>, <span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -1090,7 +1090,7 @@ When <code>mutate</code> is used with <code>group_by</code>, the calculations oc
  1 Adelie  Torge~           39.1          18.7              181        3750
  2 Adelie  Torge~           39.5          17.4              186        3800
  3 Adelie  Torge~           40.3          18                195        3250</code></pre>
-<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run this command will remove the groups - but this is only saved if assigned BACK to an object</span></span>
 <span></span>
 <span><span class="va">centered_penguins</span> <span class="op">&lt;-</span> <span class="va">centered_penguins</span> <span class="op">|&gt;</span> </span>
@@ -1107,7 +1107,7 @@ When <code>mutate</code> is used with <code>group_by</code>, the calculations oc
 </h2>
 <p>Datasets often contain words, and we call these words "(character) strings".</p>
 <p>Often these aren't quite how we want them to be, but we can manipulate these as much as we like. Functions in the package <code>stringr</code>, are fantastic. And the number of different types of manipulations are endless!</p>
-<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Stringr ----</span></span>
 <span></span>
 <span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"e"</span><span class="op">=</span> <span class="st">"E"</span><span class="op">)</span><span class="op">)</span></span>
@@ -1116,29 +1116,29 @@ When <code>mutate</code> is used with <code>group_by</code>, the calculations oc
 <h3>
 <span class="header-section-number">8.8.1</span> More stringr<a class="anchor" aria-label="anchor" href="#more-stringr"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span>  <span class="op">|&gt;</span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species<span class="op">=</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># Capitalise all letters</span></span></code></pre></div>
-<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species<span class="op">=</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">species</span>, <span class="st">"e"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># remove every character "e" from selected variables</span></span></code></pre></div>
 <p>We can also trim leading or trailing empty spaces with <code>str_trim</code>. These are often problematic and difficult to spot e.g.</p>
-<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"penguin"</span>, <span class="st">" penguin"</span>, <span class="st">"penguin "</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="va">df2</span> <span class="co"># make a test dataframe</span></span></code></pre></div>
 <p>We can easily imagine a scenario where data is manually input, and trailing or leading spaces are left in. These are difficult to spot by eye - but problematic because as far as R is concerned these are different values. We can use the function <code>distinct</code> to return the names of all the different levels it can find in this dataframe.</p>
-<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If we pipe the data throught the <code>str_trim</code> function to remove any gaps, then pipe this on to <code>distinct</code> again - by removing the whitespace, R now recognises just one level to this data.</p>
-<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>label<span class="op">=</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_trim</a></span><span class="op">(</span><span class="va">label</span>, side<span class="op">=</span><span class="st">"both"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>A quick example of how to extract partial strings according to a pattern is to use <code>str_detect</code>. Combined with <code>filter</code> it is possible to subset a dataframe by searching for all the strings that match provided information, such as all the penguin IDs that start with "N1"</p>
-<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">individual_id</span>, <span class="st">"N1"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -1148,7 +1148,7 @@ When <code>mutate</code> is used with <code>group_by</code>, the calculations oc
 </h3>
 <p>Sometimes a string might contain two pieces of information in one. This does not confirm to our tidy data principles. But we can easily separate the information with <code><a href="https://tidyr.tidyverse.org/reference/separate.html">separate()</a></code> from the <code>tidyr</code> package.</p>
 <p>First we produce some made-up data</p>
-<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a-1"</span>, <span class="st">"a-2"</span>, <span class="st">"a-3"</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="co">#make a one column tibble</span></span>
 <span><span class="va">df</span></span></code></pre></div>
@@ -1178,7 +1178,7 @@ a-3
 </tbody>
 </table></div>
 </div>
-<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">label</span>, <span class="co"># name of variable</span></span>
 <span>           <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"treatment"</span>, <span class="st">"replicate"</span><span class="op">)</span>, <span class="co"># new column names</span></span>
@@ -1254,8 +1254,8 @@ Pay attention to warning and error messages
 <li>
 <strong>Question</strong> What is the appropriate function from the above to use on the <code>date_egg</code> variable?</li>
 </ul>
-<div id="radio_YFLOJBXKRT" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""><span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""><span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value=""><span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_YFLOJBXKRT" value="answer"><span>dmy()</span></label>
+<div id="radio_YKRMVWZDIE" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""><span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""><span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""><span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value="answer"><span>dmy()</span></label>
 </div>
 <button id="displayTextunnamed-chunk-86" onclick="javascript:toggle('unnamed-chunk-86');">
 Show Solution
@@ -1266,7 +1266,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_egg_proper <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="va">date_egg</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -1274,7 +1274,7 @@ Solution
 </div>
 <p>Here we use the <code>mutate</code> function from <code>dplyr</code> to create a <em>new variable</em> called <code>date_egg_proper</code> based on the output of converting the characters in <code>date_egg</code> to date format. The original variable is left intact, if we had specified the "new" variable was also called <code>date_egg</code> then it would have overwritten the original variable.</p>
 <p>Once we have established our date data, we are able to perform calculations. Such as the date range across which our data was collected.</p>
-<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>min_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">date_egg_proper</span><span class="op">)</span>,</span>
 <span>            max_date<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">date_egg_proper</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1283,7 +1283,7 @@ Solution
 <span class="header-section-number">8.9.0.1</span> Calculations with dates<a class="anchor" aria-label="anchor" href="#calculations-with-dates"><i class="fas fa-link"></i></a>
 </h4>
 <p>How many times was each penguin measured, and across what total time period?</p>
-<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>first_observation<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">date_egg_proper</span><span class="op">)</span>, </span>
@@ -1292,7 +1292,7 @@ Solution
 <span>            n<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Cool we can also convert intervals such as days into weeks, months or years with <code>dweeks(1)</code>, <code>dmonths(1)</code>, <code>dyears(1)</code>.</p>
 <p>As with all cool functions, you should check out the RStudio <a href="https://www.rstudio.com/resources/cheatsheets/">cheat sheet</a> for more information. Date type data is common in datasets, and learning to work with it is a useful skill.</p>
-<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">individual_id</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>first_observation<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">date_egg_proper</span><span class="op">)</span>, </span>
@@ -1301,7 +1301,7 @@ Solution
 <span>            n<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">study_duration_years</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Or extract the year from the date - let's do this now and update our dataframe</p>
-<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">date_egg_proper</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -1313,13 +1313,13 @@ Solution
 <p>In R, factors are a class of data that allow for <strong>ordered categories</strong> with a fixed set of acceptable values.</p>
 <p>Typically, you would convert a column from character or numeric class to a factor if you want to set an intrinsic order to the values (“levels”) so they can be displayed non-alphabetically in plots and tables, or for use in linear model analyses (more on this later).</p>
 <p>Another common use of factors is to standardise the legends of plots so they do not fluctuate if certain values are temporarily absent from the data.</p>
-<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>flipper_range <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">flipper_length_mm</span> <span class="op">&lt;=</span> <span class="fl">190</span> <span class="op">~</span> <span class="st">"small"</span>,</span>
 <span>                                   <span class="va">flipper_length_mm</span> <span class="op">&gt;</span><span class="fl">190</span> <span class="op">&amp;</span> <span class="va">flipper_length_mm</span> <span class="op">&lt;</span> <span class="fl">213</span> <span class="op">~</span> <span class="st">"medium"</span>,</span>
 <span>                                   <span class="va">flipper_length_mm</span> <span class="op">&gt;=</span> <span class="fl">213</span> <span class="op">~</span> <span class="st">"large"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>If we make a barplot, the order of the values on the x axis will typically be in alphabetical order for any character data</p>
-<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_range</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -1337,15 +1337,15 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-94" class="tabcontentunnamed-chunk-94">
-<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span><span class="op">$</span><span class="va">flipper_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">flipper_range</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-94" class="tabcontentunnamed-chunk-94">
-<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>flipper_range <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">flipper_range</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-94') </script><div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<script> javascript:hide('option2unnamed-chunk-94') </script><div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">flipper_range</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "large"  "medium" "small"</code></pre>
 <div class="tab">
@@ -1357,18 +1357,18 @@ Base R
 </button>
 </div>
 <div id="option1unnamed-chunk-96" class="tabcontentunnamed-chunk-96">
-<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span><span class="op">$</span><span class="va">flipper_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">$</span><span class="va">flipper_range</span>,</span>
 <span>                                  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="option2unnamed-chunk-96" class="tabcontentunnamed-chunk-96">
-<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Correct the code in your script with this version</span></span>
 <span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>flipper_range <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">flipper_range</span>, <span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <script> javascript:hide('option2unnamed-chunk-96') </script><p>Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels.</p>
-<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">flipper_range</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -1390,22 +1390,82 @@ appropriate choice, and by changing this to an ordered
 </h2>
 <ul>
 <li><p>Make sure you have <strong>saved your script 💾</strong> and given it the filename "01_import_penguins_data.R" in the <a href="penguin-project.html#activity-1-organising-our-workspace">"scripts" folder</a>.</p></li>
+<li><p>You have been playing with a lot of dplyr functions, think - what functions do I actually need to make sure I have a tidy and clean dataset with appropriate column names and formatted data?</p></li>
+<li><p>We want : snake_case names, shorter isotope names, simpler species values and properly formatted date data with a new column for year.</p></li>
+</ul>
+<div class="webex-solution">
+<button>
+Check your script
+</button>
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#___________________________----</span></span>
+<span><span class="co"># SET UP ----</span></span>
+<span><span class="co">## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----</span></span>
+<span></span>
+<span><span class="co">### Data first published in  Gorman, KB, TD Williams, and WR Fraser. 2014. “Ecological Sexual Dimorphism and Environmental Variability Within a Community of Antarctic Penguins (Genus Pygoscelis).” PLos One 9 (3): e90081. https://doi.org/10.1371/journal.pone.0090081. ----</span></span>
+<span><span class="co">#__________________________----</span></span>
+<span></span>
+<span><span class="co"># PACKAGES ----</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span> <span class="co"># tidy data packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span> <span class="co"># cleans variable names</span></span>
+<span><span class="co">#__________________________----</span></span>
+<span><span class="co"># IMPORT DATA ----</span></span>
+<span><span class="va">penguins_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span> <span class="op">(</span><span class="st">"data/penguins_raw.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">penguins_raw</span><span class="op">)</span> <span class="co"># reads as tibble</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">penguins_raw</span><span class="op">)</span> <span class="co"># check the data has loaded, prints first 10 rows of dataframe</span></span>
+<span><span class="co">#__________________________----</span></span>
+<span><span class="co"># CLEAN DATA ----</span></span>
+<span></span>
+<span><span class="co"># clean all variable names to snake_case using the clean_names function from the janitor package</span></span>
+<span><span class="co"># note we are using assign &lt;- to overwrite the old version of penguins with a version that has updated names</span></span>
+<span><span class="co"># this changes the data in our R workspace but NOT the original csv file</span></span>
+<span></span>
+<span><span class="va">penguins_clean</span> <span class="op">&lt;-</span> <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="va">penguins_raw</span><span class="op">)</span> <span class="co"># clean the column names</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">penguins_clean</span><span class="op">)</span> <span class="co"># quickly check the new variable names</span></span>
+<span></span>
+<span><span class="co"># shorten the variable names for N and C isotope blood samples</span></span>
+<span></span>
+<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="va">penguins_clean</span>,</span>
+<span>         <span class="st">"delta_15n"</span><span class="op">=</span><span class="st">"delta_15_n_o_oo"</span>,  <span class="co"># use rename from the dplyr package</span></span>
+<span>         <span class="st">"delta_13c"</span><span class="op">=</span><span class="st">"delta_13_c_o_oo"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># use mutate and case_when for a statement that conditionally changes the names of the values in a variable</span></span>
+<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span> <span class="op">~</span> <span class="st">"Adelie"</span>,</span>
+<span>                             <span class="va">species</span> <span class="op">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span> <span class="op">~</span> <span class="st">"Gentoo"</span>,</span>
+<span>                             <span class="va">species</span> <span class="op">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span> <span class="op">~</span> <span class="st">"Chinstrap"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># use lubridate to format date and extract the year</span></span>
+<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_egg_proper <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="va">date_egg</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">date_egg_proper</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Export tidy dataframe for use in future sessions</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">penguins</span>, file <span class="op">=</span> <span class="st">"outputs/2024_11_01_penguin_clean.RDS"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<ul>
 <li><p>Some parts of our script are <em>redundant</em> for the purposes of generating a clean dataframe, we need the <code>penguins</code> data in a tidy/rectangular format, checked for missing values, duplicated data and with clean column names.</p></li>
 <li><p>If we have that we can generate a .RDS file to save this dataframe for use in data insights scripts</p></li>
 </ul>
-<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">penguins</span>, file <span class="op">=</span> <span class="st">"outputs/2024_11_01_penguin_clean.RDS"</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Does your workspace look like the below?</li>
 </ul>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-100"></span>
+<span style="display:block;" id="fig:unnamed-chunk-101"></span>
 <img src="images/project_penguin.png" alt="My neat project layout" width="100%"><p class="caption">
 Figure 8.1: My neat project layout
 </p>
 </div>
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-101"></span>
+<span style="display:block;" id="fig:unnamed-chunk-102"></span>
 <img src="images/r_script.png" alt="My scripts and file subdirectory" width="100%"><p class="caption">
 Figure 8.2: My scripts and file subdirectory
 </p>
@@ -1430,7 +1490,7 @@ Figure 8.2: My scripts and file subdirectory
 <option value="">arrange()</option></select></p>
 <p><strong>Question 4.</strong> Which operator should I use to send the output from line of code into the next line? <input class="webex-solveme nospaces" size="2" data-answer='["|&gt;"]'></p>
 <p><strong>Question 5.</strong> What will be the outcome of the following line of code?</p>
-<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span><span class="op">)</span></span></code></pre></div>
 <p><select class="webex-select"><option value="blank"></option>
@@ -1441,7 +1501,7 @@ Figure 8.2: My scripts and file subdirectory
 Explain this answer
 </button>
 <p>Unless the output of a series of functions is "assigned" to an object using <code>&lt;-</code> it will not be saved, the results will be immediately printed. This code would have to be modified to the below in order to create a new filtered object <code>penguins_filtered</code></p>
-<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_filtered</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Adelie"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -1476,9 +1536,6 @@ Explain this answer
 
 </div>
 </div>
-
-
-
 
 <script>
 
@@ -1661,7 +1718,7 @@ $( document ).ready(function() {
 });
 </script><div class="chapter-nav">
 <div class="prev"><a href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></div>
-<div class="next"><a href="data-insights-part-one.html"><span class="header-section-number">9</span> Data Insights part one</a></div>
+<div class="next"><a href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -1720,7 +1777,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-05.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

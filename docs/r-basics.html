@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 2 R basics | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="Go to RStudio Cloud and enter the Project labelled Day One - this will clone the project and provide you with your own project workspace. Follow the instructions below to get used to the R command...">
+<meta name="description" content="Go to Posit cloud and enter the Project labelled Day One - this will clone the project and provide you with your own project workspace. Follow the instructions below to get used to the R command...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
 <meta property="og:title" content="Chapter 2 R basics | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/r-basics.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="Go to RStudio Cloud and enter the Project labelled Day One - this will clone the project and provide you with your own project workspace. Follow the instructions below to get used to the R command...">
+<meta property="og:description" content="Go to Posit cloud and enter the Project labelled Day One - this will clone the project and provide you with your own project workspace. Follow the instructions below to get used to the R command...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 2 R basics | Advancing in R">
-<meta name="twitter:description" content="Go to RStudio Cloud and enter the Project labelled Day One - this will clone the project and provide you with your own project workspace. Follow the instructions below to get used to the R command...">
+<meta name="twitter:description" content="Go to Posit cloud and enter the Project labelled Day One - this will clone the project and provide you with your own project workspace. Follow the instructions below to get used to the R command...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -121,10 +121,10 @@
 <li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
 <li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
 <li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
 <li class="book-part">Data Insights</li>
-<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">9</span> Data Insights part one</a></li>
-<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">10</span> Data insights part two</a></li>
-<li><a class="" href="basic-ggplot.html"><span class="header-section-number">11</span> Basic ggplot</a></li>
+<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">10</span> Data Insights part one</a></li>
+<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">11</span> Data insights part two</a></li>
 <li class="book-part">Functional Programming</li>
 <li><a class="" href="writing-functions.html"><span class="header-section-number">12</span> Writing Functions</a></li>
 <li><a class="" href="flow-control.html"><span class="header-section-number">13</span> Flow control</a></li>
@@ -178,7 +178,7 @@ to the remote repository.
 <h1>
 <span class="header-section-number">2</span> R basics<a class="anchor" aria-label="anchor" href="#r-basics"><i class="fas fa-link"></i></a>
 </h1>
-<p>Go to RStudio Cloud and enter the Project labelled <code>Day One</code> - this will clone the project and provide you with your own project workspace.</p>
+<p>Go to Posit cloud and enter the Project labelled <code>Day One</code> - this will clone the project and provide you with your own project workspace.</p>
 <p>Follow the instructions below to get used to the R command line, and how R works as a language.</p>
 <div id="your-first-r-command" class="section level2" number="2.1">
 <h2>
@@ -732,6 +732,30 @@ Solution
 <span><span class="va">character_vector</span> <span class="op">==</span> <span class="st">"fruits"</span></span>
 <span><span class="co">#[1]  TRUE FALSE FALSE</span></span></code></pre></div>
 </div>
+<div id="operations-on-vectors" class="section level3" number="2.6.3">
+<h3>
+<span class="header-section-number">2.6.3</span> Operations on vectors<a class="anchor" aria-label="anchor" href="#operations-on-vectors"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can run the same basic operations on vectors as we did on scalars</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Operations will happen between vectors</span></span>
+<span><span class="va">x</span><span class="op">*</span><span class="va">y</span></span></code></pre></div>
+<pre><code>## [1]  2  6 12</code></pre>
+<p>A very <em>super-wickedly</em>, <strong>important</strong>, concept: R likes to operate on vectors of the same length, so if it encounters two vectors of different lengths in a binary operation, it merely replicates (recycles) the smaller vector until it is the same length as the longest vector, then it does the operation.</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Operations will happen between vectors</span></span>
+<span><span class="va">x</span><span class="op">*</span><span class="va">y</span></span></code></pre></div>
+<pre><code>[1] 1 4 3
+
+Warning: longer object length is not a multiple of shorter object length[1] 1 4 3
+</code></pre>
+</div>
 </div>
 <div id="matrices" class="section level2" number="2.7">
 <h2>
@@ -746,13 +770,13 @@ of the same data type.
 </p>
 </div>
 <p>Matrices are constructed "columns-first" so entries start in the "upper left" and and run down columns.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> </span>
 <span><span class="va">m</span></span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6</code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $dim
 ## [1] 2 3</code></pre>
@@ -761,7 +785,7 @@ of the same data type.
 <li><p>Adding a <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> to existing vectors</p></li>
 <li><p>Column/row-binding vectors with <code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code> and <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code></p></li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
@@ -770,7 +794,7 @@ of the same data type.
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6</code></pre>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">3</span><span class="op">:</span><span class="fl">4</span></span>
 <span><span class="va">c</span> <span class="op">&lt;-</span> <span class="fl">5</span><span class="op">:</span><span class="fl">6</span></span>
@@ -781,7 +805,7 @@ of the same data type.
 ## [1,] 1 3 5
 ## [2,] 2 4 6</code></pre>
 <p>You will see how in this last operation column names were added to the matrix, we can add, change or remove column and rownames on a matrix with <code><a href="https://rdrr.io/r/base/colnames.html">colnames()</a></code> and <code><a href="https://rdrr.io/r/base/colnames.html">rownames()</a></code></p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>,<span class="st">"z"</span><span class="op">)</span></span>
 <span><span class="va">m</span></span></code></pre></div>
 <pre><code>##   a b c
@@ -794,7 +818,7 @@ of the same data type.
 </h2>
 <p>Lists are a versatile and fundamental data type in R. They set themselves apart from regular vectors by allowing you to store elements of different classes within the same list. This flexibility is what makes lists so powerful for various data structures and data manipulation tasks.</p>
 <p>You can create lists explicitly using the <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> function, which can take an arbitrary number of arguments. Lists, when combined with functions like the "apply" family, enable you to perform complex and versatile data manipulations and analyses in R. Lists are often used to represent heterogeneous data structures, such as datasets where different columns can have different data types and structures.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"apple"</span>, <span class="cn">TRUE</span> <span class="op">)</span></span>
 <span><span class="va">l</span></span></code></pre></div>
 <pre><code>## [[1]]
@@ -806,7 +830,7 @@ of the same data type.
 ## [[3]]
 ## [1] TRUE</code></pre>
 <p>We can also create empty lists of set lengths with the <code><a href="https://rdrr.io/r/base/vector.html">vector()</a></code> function, this can be useful for preallocating memory for iterations - as we will see later</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, length <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">l</span></span></code></pre></div>
 <pre><code>## [[1]]
@@ -818,7 +842,7 @@ of the same data type.
 ## [[3]]
 ## NULL</code></pre>
 <p>Lists can also have names</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple"</span>,<span class="st">"orange"</span>,<span class="st">"pear"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="dataframes" class="section level2" number="2.9">
@@ -837,7 +861,7 @@ of the same data type.
 </ul>
 <p>Data frames are a fundamental structure for managing tabular data in R. They excel in handling datasets with mixed data types and are essential for various data analysis and modeling tasks.</p>
 <p>To create a dataframe from vectors we use the <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> function</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="st">"index"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>,</span>
 <span>                     <span class="st">"sex"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m"</span>, <span class="st">"m"</span>, <span class="st">"m"</span>, <span class="st">"f"</span>, <span class="st">"f"</span><span class="op">)</span>,</span>
 <span>                     <span class="st">"age"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">99</span>, <span class="fl">46</span>, <span class="fl">23</span>, <span class="fl">54</span>, <span class="fl">23</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -850,22 +874,22 @@ default!
 </div>
 <p>However, as I’m sure you’ll discover, having R automatically convert your string data to factors can lead to lots of strange results. For example: if you have a factor of sex data, but then you want to add a new value called other, R will yell at you and return an error. I hate, hate, HATE when this happens. While there are very, very rare cases when I find factors useful, I almost always don’t want or need them. For this reason, I avoid them at all costs.</p>
 <p>To tell R to not convert your string columns to factors, you need to include the argument <code>stringsAsFactors = FALSE</code> when using functions such as <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code></p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">survey</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 'data.frame':    5 obs. of  3 variables:
 ##  $ index: num  1 2 3 4 5
 ##  $ sex  : chr  "m" "m" "m" "f" ...
 ##  $ age  : num  99 46 23 54 23</code></pre>
 <p>To access a specific column in a dataframe by name, you use the <code>$</code> operator in the form <code>df$name</code> where <code>df</code> is the name of the dataframe, and name is the name of the column you are interested in. This operation will then return the column you want as a vector.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey</span><span class="op">$</span><span class="va">sex</span></span></code></pre></div>
 <pre><code>## [1] "m" "m" "m" "f" "f"</code></pre>
 <p>Because the <code>$</code> operator returns a vector, you can easily calculate descriptive statistics on columns of a dataframe by applying your favorite vector function (like <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>).</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">survey</span><span class="op">$</span><span class="va">age</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 49</code></pre>
 <p>We can also use the <code>$</code> to add new vectors to a dataframe</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey</span><span class="op">$</span><span class="va">follow_up</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">T</span>,<span class="cn">F</span>,<span class="cn">T</span>,<span class="cn">F</span>,<span class="cn">F</span><span class="op">)</span></span>
 <span><span class="va">survey</span></span></code></pre></div>
 <div class="kable-table">
@@ -911,7 +935,7 @@ default!
 </table></div>
 </div>
 <p>Changing column names is easy with a combination of <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> and indexing</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">survey</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"ID"</span></span>
 <span></span>
 <span><span class="va">survey</span></span></code></pre></div>
@@ -979,7 +1003,7 @@ df[1:5, 2]
 df[[1,2]]
 </code></pre>
 <p>Or slice with <code>subset</code></p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey_slice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">survey</span>,</span>
 <span>      subset <span class="op">=</span> <span class="va">age</span> <span class="op">&lt;</span> <span class="fl">50</span> <span class="op">&amp;</span></span>
 <span>               <span class="va">sex</span> <span class="op">==</span> <span class="st">"m"</span><span class="op">)</span></span>
@@ -1031,11 +1055,11 @@ df[[1,2]]
 <li><p>Tibbles only print the first 10 rows and all the columns that fit on a screen. - Each column displays its data type</p></li>
 </ul>
 <p>The way we make tibbles is very similar to making dataframes</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="st">"index"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>,</span>
 <span>                     <span class="st">"sex"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m"</span>, <span class="st">"m"</span>, <span class="st">"m"</span>, <span class="st">"f"</span>, <span class="st">"f"</span><span class="op">)</span>,</span>
 <span>                     <span class="st">"age"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">99</span>, <span class="fl">46</span>, <span class="fl">23</span>, <span class="fl">54</span>, <span class="fl">23</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Some R functions for looking at tibbles and dataframes</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">survey_tibble</span>, n<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
@@ -1054,7 +1078,7 @@ df[[1,2]]
 <p>The behaviour of single [] indexing with tibbles is slightly different.</p>
 <p>In a dataframe [,1] extracts a single column as a vector, but with a tibble this conversion does not occur. Instead it returns as a tibble with a single column, not a vector.</p>
 <p>To extract a vector we must use:</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># pull function</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">survey_tibble</span>, <span class="va">sex</span><span class="op">)</span></span>
 <span></span>
@@ -1102,44 +1126,14 @@ df[[1,2]]
 </tbody>
 </table></div>
 </div>
-<div id="error" class="section level2" number="2.11">
+<div id="functions" class="section level2" number="2.11">
 <h2>
-<span class="header-section-number">2.11</span> Error<a class="anchor" aria-label="anchor" href="#error"><i class="fas fa-link"></i></a>
-</h2>
-<p>Things will go wrong eventually, they always do...</p>
-<p>R is <em>very</em> pedantic, even the smallest typo can result in failure and typos are impossilbe to avoid. So we will make mistakes. One type of mistake we will make is an <strong>error</strong>. The code fails to run. The most common causes for an error are:</p>
-<ul>
-<li><p>typos</p></li>
-<li><p>missing commas</p></li>
-<li><p>missing brackets</p></li>
-</ul>
-<p>There's nothing wrong with making <em>lots</em> of errors. The trick is not to panic or get frustrated, but to read the error message and our script carefully and start to <em>debug</em> (more on this later)...</p>
-<p>... and sometimes we need to walk away and come back later!</p>
-<div class="try">
-<p>
-Try typing the command <code><a href="https://rdrr.io/r/utils/help.html">help()</a></code> into the R console, it
-should open a new tab on the bottom right.
-</p>
-<p>
-Put a function or package into the brackets to get help with a
-specific topic
-</p>
-</div>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:unnamed-chunk-67"></span>
-<img src="images/Error.jpg" alt="R Error" width="80%"><p class="caption">
-Figure 2.3: courtesy of Allison Horst
-</p>
-</div>
-</div>
-<div id="functions" class="section level2" number="2.12">
-<h2>
-<span class="header-section-number">2.12</span> Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.11</span> Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
 </h2>
 <p>Functions are the tools of R. Each one helps us to do a different task.</p>
 <p>Take for example the function that we use to round a number to a certain number of digits - this function is called <code>round</code></p>
 <p>Here's an example:</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>x  <span class="op">=</span> <span class="fl">2.4326782647</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>We start the command with the function name <code>round</code>. The name is followed by parentheses <code>()</code>. Within these we place the <em>arguments</em> for the function, each of which is separated by a comma.</p>
 <p>The arguments:</p>
@@ -1153,10 +1147,10 @@ Figure 2.3: courtesy of Allison Horst
 Copy and paste the following code into the console.
 </p>
 </div>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/help.html">help</a></span><span class="op">(</span><span class="va">round</span><span class="op">)</span></span></code></pre></div>
 <p>The help documentation for <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>should appear in the bottom right help panel. In the usage section, we see that <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>takes the following form:</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
 <p>In the arguments section, there are explanations for each of the arguments. <code>x</code>is the number or vector where we wish to round values. <code>digits</code> is the number of decimal places to be used. In the description we can see that if no value is supplied for <code>digits</code> it will default to 0 or whole number rounding.</p>
 <p>Read the 'Details' section to find out what happens when rounding when the last digit is a 5.</p>
@@ -1166,18 +1160,18 @@ Copy and paste the following code into the console.
 Copy and paste the following code into the console.
 </p>
 </div>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>x  <span class="op">=</span> <span class="fl">2.4326782647</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Now we can change the additional arguments to produce a different set of numbers.</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>x  <span class="op">=</span> <span class="fl">2.4326782647</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 2.43</code></pre>
 <p>This time R has still rounded the number, but it has done so to a set number of 'decimal places'.</p>
 <p>Always remember to use the help documentation to help you understand what arguments a function requires.</p>
-<div id="storing-the-output-of-functions" class="section level3" number="2.12.1">
+<div id="storing-the-output-of-functions" class="section level3" number="2.11.1">
 <h3>
-<span class="header-section-number">2.12.1</span> Storing the output of functions<a class="anchor" aria-label="anchor" href="#storing-the-output-of-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.11.1</span> Storing the output of functions<a class="anchor" aria-label="anchor" href="#storing-the-output-of-functions"><i class="fas fa-link"></i></a>
 </h3>
 <p>What if we need the answer from a function in a later calculation. The answer is to use the assignment operator again <code>&lt;-</code>.</p>
 <p>In this example we assign values to two R objects that we can then call inside our R function <strong>as though we were putting numbers in directly</strong>.</p>
@@ -1186,7 +1180,7 @@ Copy and paste the following code into the console.
 Copy and paste the following code into the console.
 </p>
 </div>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">number_of_digits</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
 <span></span>
 <span><span class="va">my_number</span> <span class="op">&lt;-</span> <span class="fl">2.4326782647</span></span>
@@ -1201,19 +1195,19 @@ Solution
 <p>[1] 2.433</p>
 </div>
 </div>
-<div id="more-fun-with-functions" class="section level3" number="2.12.2">
+<div id="more-fun-with-functions" class="section level3" number="2.11.2">
 <h3>
-<span class="header-section-number">2.12.2</span> More fun with functions<a class="anchor" aria-label="anchor" href="#more-fun-with-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.11.2</span> More fun with functions<a class="anchor" aria-label="anchor" href="#more-fun-with-functions"><i class="fas fa-link"></i></a>
 </h3>
 <p>Copy and paste this:</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2.4326782647</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>Looks like we don't even <em>have</em> to give the names of arguments for a function to still work. This works because the function <code>round</code> expects us to give the number value first, and the argument for rounding digits second. <em>But</em> this assumes we know the expected ordering within a function, this might be the case for functions we use a lot. If you give arguments their proper names <em>then</em> you can actually introduce them in <strong>any order you want</strong>.</p>
 <p>Try this:</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span>, x  <span class="op">=</span> <span class="fl">2.4326782647</span><span class="op">)</span></span></code></pre></div>
 <p>But this gives a different answer</p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2.4326782647</span><span class="op">)</span></span></code></pre></div>
 <div class="warning">
 <p>
@@ -1223,27 +1217,27 @@ Remember naming arguments overrides the position defaults
 <p>How do we <strong>know</strong> the argument orders and defaults? Well we get to know how a lot of functions work through practice, but we can also use <code><a href="https://rdrr.io/r/utils/help.html">help()</a></code> .</p>
 </div>
 </div>
-<div id="packages-1" class="section level2" number="2.13">
+<div id="packages-1" class="section level2" number="2.12">
 <h2>
-<span class="header-section-number">2.13</span> Packages<a class="anchor" aria-label="anchor" href="#packages-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.12</span> Packages<a class="anchor" aria-label="anchor" href="#packages-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>When you install R you will have access to a range of functions including options for data wrangling and statistical analysis. The functions that are included in the default installation are typically referred to as <strong>Base R</strong> and there is a useful cheat sheet that shows many Base R functions <a href="%5Bhttps://www.rstudio.com/wp-content/uploads/2016/05/base-r.pdf">here</a></p>
 <p>However, the power of R is that it is extendable and open source - anyone can create a new <strong>package</strong> that extends the functions of R.</p>
 <p>An R package is a container for various things including functions and data. These make it easy to do very complicated protocols by using custom-built functions. Later we will see how we can write our own simple functions. Packages are a lot like new apps extending the functionality of what your phone can do.</p>
-<div id="loading-packages" class="section level3" number="2.13.1">
+<div id="loading-packages" class="section level3" number="2.12.1">
 <h3>
-<span class="header-section-number">2.13.1</span> Loading packages<a class="anchor" aria-label="anchor" href="#loading-packages"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.12.1</span> Loading packages<a class="anchor" aria-label="anchor" href="#loading-packages"><i class="fas fa-link"></i></a>
 </h3>
 <p>To use the functions from a package in our script they must be loaded <em>before</em> we call on the functions or data they contain. So the most sensible place to put library calls for packages is at the very <strong>top</strong> of our script.</p>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">package_name</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="calling-functions-from-packages" class="section level3" number="2.13.2">
+<div id="calling-functions-from-packages" class="section level3" number="2.12.2">
 <h3>
-<span class="header-section-number">2.13.2</span> Calling Functions from Packages<a class="anchor" aria-label="anchor" href="#calling-functions-from-packages"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.12.2</span> Calling Functions from Packages<a class="anchor" aria-label="anchor" href="#calling-functions-from-packages"><i class="fas fa-link"></i></a>
 </h3>
 <p>After loading a package, you can call its functions using either <code>function()</code> or the full <code>package_name::function_name()</code> syntax. This allows you to specify the package explicitly when using a particular function.</p>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dataframe</span>, <span class="va">condition</span><span class="op">)</span></span>
@@ -1267,9 +1261,39 @@ Remember naming arguments overrides the position defaults
 <p>When troubleshooting issues or debugging code, specifying the package source of a function can help pinpoint problems and ensure that the correct function is being used.</p>
 </div>
 </div>
-<div id="activity-1" class="section level2" number="2.14">
+<div id="error" class="section level2" number="2.13">
 <h2>
-<span class="header-section-number">2.14</span> Activity 1<a class="anchor" aria-label="anchor" href="#activity-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.13</span> Error<a class="anchor" aria-label="anchor" href="#error"><i class="fas fa-link"></i></a>
+</h2>
+<p>Things will go wrong eventually, they always do...</p>
+<p>R is <em>very</em> pedantic, even the smallest typo can result in failure and typos are impossilbe to avoid. So we will make mistakes. One type of mistake we will make is an <strong>error</strong>. The code fails to run. The most common causes for an error are:</p>
+<ul>
+<li><p>typos</p></li>
+<li><p>missing commas</p></li>
+<li><p>missing brackets</p></li>
+</ul>
+<p>There's nothing wrong with making <em>lots</em> of errors. The trick is not to panic or get frustrated, but to read the error message and our script carefully and start to <em>debug</em> (more on this later)...</p>
+<p>... and sometimes we need to walk away and come back later!</p>
+<div class="try">
+<p>
+Try typing the command <code><a href="https://rdrr.io/r/utils/help.html">help()</a></code> into the R console, it
+should open a new tab on the bottom right.
+</p>
+<p>
+Put a function or package into the brackets to get help with a
+specific topic
+</p>
+</div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-82"></span>
+<img src="images/Error.jpg" alt="R Error" width="80%"><p class="caption">
+Figure 2.3: courtesy of Allison Horst
+</p>
+</div>
+</div>
+<div id="activity" class="section level2" number="2.14">
+<h2>
+<span class="header-section-number">2.14</span> Activity<a class="anchor" aria-label="anchor" href="#activity"><i class="fas fa-link"></i></a>
 </h2>
 <div id="complete-this-quiz" class="section level3" number="2.14.1">
 <h3>
@@ -1292,7 +1316,7 @@ Solution
 <p><strong>Question 3.</strong> What symbol do I use if I want to <strong>assign</strong> a value or output of a function to an R object</p>
 <p><input class="webex-solveme nospaces" size="2" data-answer='["&lt;-"]'></p>
 <p><strong>Question 4.</strong> What is the value of <code>a</code> if I ran the following commands?</p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span>  <span class="fl">12</span><span class="op">*</span><span class="fl">2</span></span>
 <span></span>
 <span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></code></pre></div>
@@ -1315,47 +1339,6 @@ Solution
 <p><select class="webex-select"><option value="blank"></option>
 <option value="answer">TRUE</option>
 <option value="">FALSE</option></select></p>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## R version 4.3.1 (2023-06-16)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.6 LTS
-## 
-## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
-## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
-## 
-## locale:
-##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
-##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
-##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
-## 
-## time zone: UTC
-## tzcode source: system (glibc)
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] knitr_1.43         webexercises_1.1.0 glossary_1.0.0     lubridate_1.9.2   
-##  [5] forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2        purrr_1.0.1       
-##  [9] readr_2.1.4        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.2     
-## [13] tidyverse_2.0.0   
-## 
-## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
-##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
-##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    fansi_1.0.4       scales_1.2.1     
-## [17] codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1      
-## [21] munsell_0.5.0     withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
-## [25] tools_4.3.1       tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0 
-## [29] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   fs_1.6.2         
-## [33] pkgconfig_2.0.3   pillar_1.9.0      bslib_0.5.0       gtable_0.3.3     
-## [37] glue_1.6.2        highr_0.10        xfun_0.39         tidyselect_1.2.0 
-## [41] rstudioapi_0.15.0 htmltools_0.5.5   rmarkdown_2.23    compiler_4.3.1   
-## [45] downlit_0.4.3</code></pre>
 
 </div>
 </div>
@@ -1572,6 +1555,7 @@ $( document ).ready(function() {
 <a class="nav-link" href="#vectors"><span class="header-section-number">2.6</span> Vectors</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#coercion"><span class="header-section-number">2.6.1</span> Coercion</a></li>
 <li><a class="nav-link" href="#subsetting-vectors"><span class="header-section-number">2.6.2</span> Subsetting vectors</a></li>
+<li><a class="nav-link" href="#operations-on-vectors"><span class="header-section-number">2.6.3</span> Operations on vectors</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#matrices"><span class="header-section-number">2.7</span> Matrices</a></li>
@@ -1584,21 +1568,21 @@ $( document ).ready(function() {
 </ul>
 </li>
 <li><a class="nav-link" href="#matrix-dataframe-tibble-functions"><span class="header-section-number">2.10</span> Matrix, dataframe, tibble functions</a></li>
-<li><a class="nav-link" href="#error"><span class="header-section-number">2.11</span> Error</a></li>
 <li>
-<a class="nav-link" href="#functions"><span class="header-section-number">2.12</span> Functions</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#storing-the-output-of-functions"><span class="header-section-number">2.12.1</span> Storing the output of functions</a></li>
-<li><a class="nav-link" href="#more-fun-with-functions"><span class="header-section-number">2.12.2</span> More fun with functions</a></li>
+<a class="nav-link" href="#functions"><span class="header-section-number">2.11</span> Functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#storing-the-output-of-functions"><span class="header-section-number">2.11.1</span> Storing the output of functions</a></li>
+<li><a class="nav-link" href="#more-fun-with-functions"><span class="header-section-number">2.11.2</span> More fun with functions</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#packages-1"><span class="header-section-number">2.13</span> Packages</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#loading-packages"><span class="header-section-number">2.13.1</span> Loading packages</a></li>
-<li><a class="nav-link" href="#calling-functions-from-packages"><span class="header-section-number">2.13.2</span> Calling Functions from Packages</a></li>
+<a class="nav-link" href="#packages-1"><span class="header-section-number">2.12</span> Packages</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#loading-packages"><span class="header-section-number">2.12.1</span> Loading packages</a></li>
+<li><a class="nav-link" href="#calling-functions-from-packages"><span class="header-section-number">2.12.2</span> Calling Functions from Packages</a></li>
 </ul>
 </li>
+<li><a class="nav-link" href="#error"><span class="header-section-number">2.13</span> Error</a></li>
 <li>
-<a class="nav-link" href="#activity-1"><span class="header-section-number">2.14</span> Activity 1</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#complete-this-quiz"><span class="header-section-number">2.14.1</span> Complete this Quiz</a></li></ul>
+<a class="nav-link" href="#activity"><span class="header-section-number">2.14</span> Activity</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#complete-this-quiz"><span class="header-section-number">2.14.1</span> Complete this Quiz</a></li></ul>
 </li>
 </ul>
 
@@ -1617,7 +1601,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-05.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

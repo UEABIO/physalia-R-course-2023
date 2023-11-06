@@ -121,10 +121,10 @@
 <li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
 <li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
 <li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
 <li class="book-part">Data Insights</li>
-<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">9</span> Data Insights part one</a></li>
-<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">10</span> Data insights part two</a></li>
-<li><a class="" href="basic-ggplot.html"><span class="header-section-number">11</span> Basic ggplot</a></li>
+<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">10</span> Data Insights part one</a></li>
+<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">11</span> Data insights part two</a></li>
 <li class="book-part">Functional Programming</li>
 <li><a class="" href="writing-functions.html"><span class="header-section-number">12</span> Writing Functions</a></li>
 <li><a class="" href="flow-control.html"><span class="header-section-number">13</span> Flow control</a></li>
@@ -183,14 +183,14 @@ to the remote repository.
 <li><p>RStudio is a convenient interface which we will be using throughout the course in order to learn how to organise data, produce accurate data analyses &amp; data visualisations.</p></li>
 </ul>
 <p>R is a programming language that you will write code in, and RStudio is an Integrated Development Environment (IDE) which makes working with R easier. Think of it as knowing English and using a plain text editor like NotePad to write a book versus using a word processor like Microsoft Word. You could do it, but it wouldn't look as good and it would be much harder without things like spell-checking and formatting. In a similar way, you can use R without R Studio but we wouldn't recommend it. The key thing to remember is that although you will do all of your work using RStudio for this course, you are actually using <strong>two</strong> pieces of software which means that from time-to-time, both of them may have separate updates.</p>
-<p>R and RStudio can be downloaded for free onto your <a href="https://www.rstudio.com/products/rstudio/">personal computers</a>(see Appendices), but for convenience we will use a classroom space on <strong>RStudio Cloud</strong>.</p>
-<p><a href="https://rstudio.cloud/">RStudio Cloud</a> is a cloud-based service where we can log into remotely hosted servers that host our data analysis projects.</p>
-<p>The advantage of using RStudio Cloud is that all the extra packages and functions you need for this course will already be installed. You can log-in to your workspace from any computer as long as you have an internet connection and remember you username and password. I can also "visit" your projects and help out when you get stuck, if they are hosted on RStudio Cloud.</p>
+<p>R and RStudio can be downloaded for free onto your <a href="https://www.rstudio.com/products/rstudio/">personal computers</a>(see Appendices), but for convenience we will use a classroom space on <strong>Posit cloud</strong>.</p>
+<p><a href="https://rstudio.cloud/">Posit cloud</a> is a cloud-based service where we can log into remotely hosted servers that host our data analysis projects.</p>
+<p>The advantage of using Posit cloud is that all the extra packages and functions you need for this course will already be installed. You can log-in to your workspace from any computer as long as you have an internet connection and remember you username and password. I can also "visit" your projects and help out when you get stuck, if they are hosted on Posit cloud.</p>
 <p>Eventually we will may also add extra tools like GitHub and RMarkdown for data reproducibility, literate and collaborative programming.</p>
 <p>By the end of this course I hope you will have the tools to confidently analyze real data, make informative and beautiful data visuals, and be able to analyze lots of different types of data.</p>
-<div id="using-rstudio-cloud" class="section level2" number="1.1">
+<div id="using-posit-cloud" class="section level2" number="1.1">
 <h2>
-<span class="header-section-number">1.1</span> Using RStudio Cloud<a class="anchor" aria-label="anchor" href="#using-rstudio-cloud"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.1</span> Using Posit cloud<a class="anchor" aria-label="anchor" href="#using-posit-cloud"><i class="fas fa-link"></i></a>
 </h2>
 <p>All of our sessions will run on cloud-based software. All you have to do is make a free account, and join our Workspace.</p>
 <p>Once you are signed up - you will see that there are two spaces:</p>
@@ -199,8 +199,8 @@ to the remote repository.
 <li><p>Our shared classroom - educational licence (no limit)</p></li>
 </ul>
 <p>Make sure you are working in the classroom workspace - so that I can distribute project work and 'visit' your projects if needed.</p>
-<p>RStudio Cloud works in exactly the same way as RStudio, but means you don't have to download any software. You can access the hosted cloud server and your projects through any browser connection (Chrome works best), from any computer.</p>
-<p>Here is a good reference guide to <a href="https://rstudio.cloud/learn/guide#projects">RStudio Cloud</a></p>
+<p>Posit cloud works in exactly the same way as RStudio, but means you don't have to download any software. You can access the hosted cloud server and your projects through any browser connection (Chrome works best), from any computer.</p>
+<p>Here is a good reference guide to <a href="https://rstudio.cloud/learn/guide#projects">Posit cloud</a></p>
 </div>
 <div id="getting-to-know-rstudio" class="section level2" number="1.2">
 <h2>
@@ -468,7 +468,7 @@ $( document ).ready(function() {
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#introduction-to-r-and-rstudio"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
-<li><a class="nav-link" href="#using-rstudio-cloud"><span class="header-section-number">1.1</span> Using RStudio Cloud</a></li>
+<li><a class="nav-link" href="#using-posit-cloud"><span class="header-section-number">1.1</span> Using Posit cloud</a></li>
 <li>
 <a class="nav-link" href="#getting-to-know-rstudio"><span class="header-section-number">1.2</span> Getting to know RStudio</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#consoles-vs.-scripts"><span class="header-section-number">1.2.1</span> Consoles vs. scripts</a></li>
@@ -495,7 +495,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-05.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
