@@ -165,7 +165,7 @@ to upload commits
 to the remote repository.
 </a></li>
 <li class="book-part">Working with big data</li>
-<li><a class="" href="reading-3.html"><span class="header-section-number">42</span> Reading</a></li>
+<li><a class="" href="reading-4.html"><span class="header-section-number">42</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
 <li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
@@ -576,10 +576,67 @@ print(i)
 <p>See also <a href="https://bookdown.org/csgillespie/efficientR/programming.html#top-5-tips-for-efficient-programming" class="uri">https://bookdown.org/csgillespie/efficientR/programming.html#top-5-tips-for-efficient-programming</a></p>
 </div>
 </div>
-<div id="activity-3" class="section level2" number="16.4">
+<div id="exercise-1" class="section level2" number="16.4">
 <h2>
-<span class="header-section-number">16.4</span> Activity<a class="anchor" aria-label="anchor" href="#activity-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">16.4</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise-1"><i class="fas fa-link"></i></a>
 </h2>
+<p>This section for the workshop provides a real world example using iterations to create graphs of population trends from the <a href="https://www.livingplanetindex.org/">Living Planet Index</a> for a number of vertebrate species from 1970 to 2014.</p>
+<p>The data can be collected here:</p>
+<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download LPI data as csv</button>
+</a>
+<ol style="list-style-type: decimal">
+<li>Can you make four plots using lists and for loops? For this exercise can you make a list of four
+species based on the column <code>Common.Name</code>, House sparrow, Great tit, Corn bunting and Meadow pipit then loop down this to make four plots?</li>
+</ol>
+<button id="displayTextunnamed-chunk-94" onclick="javascript:toggle('unnamed-chunk-94');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-94" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="loops.html#cb365-1" tabindex="-1"></a><span class="co"># Method 1</span></span>
+<span id="cb365-2"><a href="loops.html#cb365-2" tabindex="-1"></a>species_to_filter <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"House sparrow"</span>, <span class="st">"Great tit"</span>, <span class="st">"Corn bunting"</span>, <span class="st">"Meadow pipit"</span>)</span>
+<span id="cb365-3"><a href="loops.html#cb365-3" tabindex="-1"></a></span>
+<span id="cb365-4"><a href="loops.html#cb365-4" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> <span class="fu">filter</span>(LPI_UK, Common.Name <span class="sc">%in%</span> species_to_filter)</span>
+<span id="cb365-5"><a href="loops.html#cb365-5" tabindex="-1"></a></span>
+<span id="cb365-6"><a href="loops.html#cb365-6" tabindex="-1"></a>sp_list <span class="ot">&lt;-</span> <span class="fu">split</span>(filtered_data, filtered_data<span class="sc">$</span>Common.Name)</span>
+<span id="cb365-7"><a href="loops.html#cb365-7" tabindex="-1"></a></span>
+<span id="cb365-8"><a href="loops.html#cb365-8" tabindex="-1"></a><span class="co"># Method 2</span></span>
+<span id="cb365-9"><a href="loops.html#cb365-9" tabindex="-1"></a></span>
+<span id="cb365-10"><a href="loops.html#cb365-10" tabindex="-1"></a></span>
+<span id="cb365-11"><a href="loops.html#cb365-11" tabindex="-1"></a></span>
+<span id="cb365-12"><a href="loops.html#cb365-12" tabindex="-1"></a>house_sparrow <span class="ot">&lt;-</span> <span class="fu">filter</span>(LPI_UK, Common.Name <span class="sc">==</span> <span class="st">"House sparrow"</span>)</span>
+<span id="cb365-13"><a href="loops.html#cb365-13" tabindex="-1"></a>great_tit <span class="ot">&lt;-</span> <span class="fu">filter</span>(LPI_UK, Common.Name <span class="sc">==</span> <span class="st">"Great tit"</span>)</span>
+<span id="cb365-14"><a href="loops.html#cb365-14" tabindex="-1"></a>corn_bunting <span class="ot">&lt;-</span> <span class="fu">filter</span>(LPI_UK, Common.Name <span class="sc">==</span> <span class="st">"Corn bunting"</span>)</span>
+<span id="cb365-15"><a href="loops.html#cb365-15" tabindex="-1"></a>meadow_pipit <span class="ot">&lt;-</span> <span class="fu">filter</span>(LPI_UK, Common.Name <span class="sc">==</span> <span class="st">"Meadow pipit"</span>)</span>
+<span id="cb365-16"><a href="loops.html#cb365-16" tabindex="-1"></a></span>
+<span id="cb365-17"><a href="loops.html#cb365-17" tabindex="-1"></a>sp_list <span class="ot">&lt;-</span> <span class="fu">list</span>(house_sparrow, great_tit, corn_bunting, meadow_pipit)</span>
+<span id="cb365-18"><a href="loops.html#cb365-18" tabindex="-1"></a></span>
+<span id="cb365-19"><a href="loops.html#cb365-19" tabindex="-1"></a></span>
+<span id="cb365-20"><a href="loops.html#cb365-20" tabindex="-1"></a>my_plots <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">length</span>(sp_list))</span>
+<span id="cb365-21"><a href="loops.html#cb365-21" tabindex="-1"></a></span>
+<span id="cb365-22"><a href="loops.html#cb365-22" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sp_list)) {                                    </span>
+<span id="cb365-23"><a href="loops.html#cb365-23" tabindex="-1"></a>  <span class="co"># For every item along the length of Sp_list we want R to perform the following functions</span></span>
+<span id="cb365-24"><a href="loops.html#cb365-24" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(sp_list[i])                               </span>
+<span id="cb365-25"><a href="loops.html#cb365-25" tabindex="-1"></a>  <span class="co"># Create a dataframe for each species</span></span>
+<span id="cb365-26"><a href="loops.html#cb365-26" tabindex="-1"></a>  sp.name <span class="ot">&lt;-</span> <span class="fu">unique</span>(data<span class="sc">$</span>Common.Name)                             </span>
+<span id="cb365-27"><a href="loops.html#cb365-27" tabindex="-1"></a>  <span class="co"># Create an object that holds the species name, so that we can title each graph</span></span>
+<span id="cb365-28"><a href="loops.html#cb365-28" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span> (<span class="at">x =</span> year, <span class="at">y =</span> abundance)) <span class="sc">+</span>               </span>
+<span id="cb365-29"><a href="loops.html#cb365-29" tabindex="-1"></a>    <span class="co"># Make the plots and add our customised theme</span></span>
+<span id="cb365-30"><a href="loops.html#cb365-30" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">"#00868B"</span>) <span class="sc">+</span>                              </span>
+<span id="cb365-31"><a href="loops.html#cb365-31" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">colour =</span> <span class="st">"#00868B"</span>, <span class="at">fill =</span> <span class="st">"#00868B"</span>) <span class="sc">+</span>        </span>
+<span id="cb365-32"><a href="loops.html#cb365-32" tabindex="-1"></a>    <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb365-33"><a href="loops.html#cb365-33" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Abundance</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">title =</span> sp.name)</span>
+<span id="cb365-34"><a href="loops.html#cb365-34" tabindex="-1"></a> </span>
+<span id="cb365-35"><a href="loops.html#cb365-35" tabindex="-1"></a>   <span class="co"># makes a list of all the plots generates</span></span>
+<span id="cb365-36"><a href="loops.html#cb365-36" tabindex="-1"></a>  my_plots[[i]] <span class="ot">&lt;-</span> plot </span></code></pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <script>
@@ -778,7 +835,7 @@ $( document ).ready(function() {
 <li><a class="nav-link" href="#do-as-little-as-possible-inside-a-loop"><span class="header-section-number">16.3.4</span> Do as little as possible inside a loop</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#activity-3"><span class="header-section-number">16.4</span> Activity</a></li>
+<li><a class="nav-link" href="#exercise-1"><span class="header-section-number">16.4</span> Exercise</a></li>
 </ul>
 
       <div class="book-extra">

@@ -1576,55 +1576,65 @@ compare_species_plot(penguins_clean_split, Adelie, Chinstrap, culmen_length_mm)
 </div></div></div>
 
 
-## Practice
+## Exercise
 
-Can you write your own custom function in tidyverse? 
+- Can you write your own custom function in tidyverse? If you have something from your own data or work - see if you can functionalise your flow?
 
 
+## Exercise 2. 
+
+This final section for the workshop provides a real world example using iterations to create graphs of population trends from the [Living Planet Index](https://www.livingplanetindex.org/) for a number of vertebrate species from 1970 to 2014. 
+
+The data can be collected here:
+
+
+```{=html}
+<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download LPI data as csv</button>
+</a>
+```
+
+1. Can you make four plots using data nesting and map functions? For this exercise we would like to filter the dataframe to House sparrow, Great tit, Corn bunting and Meadow pipit then nest this data and apply a map function to produce a scatter plot of year against abundance. Customise the plot as you see fit.
+
+
+<button id="displayTextunnamed-chunk-72" onclick="javascript:toggle('unnamed-chunk-72');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-72" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
-sessionInfo()
+nested_LPI <- LPI |> 
+  group_by(Common.Name) |> 
+  nest() |> 
+  filter(Common.Name %in% c("House sparrow", "Great tit", "Corn bunting", "Meadow pipit")) |> 
+     mutate(plots = map(data, ~ ggplot(., aes (x = year, y = abundance)) +              
+                            geom_point(size = 2, colour = "#00868B") +                                                
+                            geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +
+                            ggtitle(Common.Name)+
+                            labs(y = "Abundance\n", x = "")))
+
+
+  wrap_plots(nested_LPI$plots)
+```</div></div></div>
+
+
+2. Can you write this object to multiple dataframes based on "Common.Name". For this exercise we would like to read the entire dataframe, then produce four new .csv files one for each of House sparrow, Great tit, Corn bunting and Meadow pipit.
+
+<button id="displayTextunnamed-chunk-73" onclick="javascript:toggle('unnamed-chunk-73');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-73" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+LPI <- read_csv("https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv")
+
+LPI |> 
+  group_by(Common.Name) |> 
+  nest() |> 
+  filter(Common.Name %in% c("House sparrow", "Great tit", "Corn bunting", "Meadow pipit")) 
+
+walk2(nested$data, nested$Common.Name, ~ write_csv(.x, paste0(paste0("split_files/", .y , ".csv"))))
 ```
 
-```
-## R version 4.3.1 (2023-06-16)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.6 LTS
-## 
-## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
-## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
-## 
-## locale:
-##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
-##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
-##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
-## 
-## time zone: UTC
-## tzcode source: system (glibc)
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] janitor_2.2.0        palmerpenguins_0.1.1 knitr_1.43          
-##  [4] webexercises_1.1.0   glossary_1.0.0       lubridate_1.9.2     
-##  [7] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.2         
-## [10] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
-## [13] tibble_3.2.1         ggplot2_3.4.2        tidyverse_2.0.0     
-## 
-## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
-##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
-##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    fansi_1.0.4       scales_1.2.1     
-## [17] codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1      
-## [21] munsell_0.5.0     withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
-## [25] tools_4.3.1       tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0 
-## [29] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   snakecase_0.11.0 
-## [33] fs_1.6.2          pkgconfig_2.0.3   pillar_1.9.0      bslib_0.5.0      
-## [37] gtable_0.3.3      glue_1.6.2        highr_0.10        xfun_0.39        
-## [41] tidyselect_1.2.0  rstudioapi_0.15.0 farver_2.1.1      htmltools_0.5.5  
-## [45] labeling_0.4.2    rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
-```
+</div></div></div>
+
+
+

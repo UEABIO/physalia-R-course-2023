@@ -165,7 +165,7 @@ to upload commits
 to the remote repository.
 </a></li>
 <li class="book-part">Working with big data</li>
-<li><a class="" href="reading-3.html"><span class="header-section-number">42</span> Reading</a></li>
+<li><a class="" href="reading-4.html"><span class="header-section-number">42</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
 <li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
@@ -181,11 +181,11 @@ to the remote repository.
 </h1>
 <p>The goal here is to understand how to use tidy evaluation to write functions that incorporate <a href="https://tidyverse.tidyverse.org">tidyverse</a> functions e.g. (mutate, select, filter) etc.</p>
 <p>Below is an example of some code to select a variable:</p>
-<div class="sourceCode" id="cb472"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb473"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span></span></code></pre></div>
 <p>Put that exact working code into a function</p>
-<div class="sourceCode" id="cb473"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb474"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">select_var</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">select_var</span><span class="op">)</span></span>
@@ -228,7 +228,7 @@ commands
 <p>Data masking is a handy feature of tidyverse that makes it easier to program with dataframes. It allows you to reference columns wihout using <code>$</code>, whereas almost all base R functions use unmasked programming.</p>
 <p>However, this makes it harder to create functions</p>
 <p>Data masking is used by <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>. To check which type of tidy evaluation a function uses, check the help file.</p>
-<div class="sourceCode" id="cb475"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_filter_species</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">filter_var</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">penguins_clean_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="va">filter_var</span><span class="op">)</span></span>
@@ -257,7 +257,7 @@ commands
 ## $ delta_13_c_o_oo   &lt;dbl&gt; NA, -24.69454, -25.33302, NA, -25.32426, -25.29805, …
 ## $ comments          &lt;chr&gt; "Not enough blood for isotopes.", NA, NA, "Adult not…</code></pre>
 <p>By passing quoted arguments to the function, you can use it directly in the expression, and the function will evaluate it as if it were part of the data frame.</p>
-<div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_filter_general</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">filter_condition</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">penguins_clean_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">filter_condition</span><span class="op">)</span></span>
@@ -274,7 +274,7 @@ Backtrace:
  12. dplyr:::dplyr_internal_error(...)
 </code></pre>
 <p>However, we can avoid this by embracing the curly operators <code>{{.}}</code> this allows the data-masked argument to have its evaluation delayed until after the data frame columns are defined. With the <code>{{</code> operator you can tunnel data-variables (i.e. columns from the data frames) through arg-variables (function arguments).</p>
-<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb480"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_filter_general</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">filter_condition</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">penguins_clean_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">filter_condition</span><span class="op">}</span><span class="op">}</span><span class="op">)</span></span>
@@ -303,7 +303,7 @@ Backtrace:
 ## $ delta_13_c_o_oo   &lt;dbl&gt; NA, -24.69454, -25.33302, -25.32426, -25.29805, -25.…
 ## $ comments          &lt;chr&gt; "Not enough blood for isotopes.", NA, NA, NA, NA, "N…</code></pre>
 <p>Let's try another data-masked function</p>
-<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summary_table</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">var</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span><span class="va">var</span><span class="op">}</span><span class="op">}</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
@@ -329,7 +329,7 @@ Backtrace:
 </h3>
 <p>The <code>{{.}}</code> is a shortcut for <code>!!enquo(.)</code> Where <code><a href="https://rlang.r-lib.org/reference/enquo.html">rlang::enquo()</a></code> captures and quote an argument or an expression. The result of <code><a href="https://rlang.r-lib.org/reference/enquo.html">enquo()</a></code> is a <strong>quosure</strong>, which is a combination of the quoted expression and its associated environment.</p>
 <p><code>!!</code> This is the unquote operator. It's used to unquote or unsplice the contents of a quosure. In other words, it takes the quoted expression out of the quosure and evaluates it. We can see how this would work for one of our previous examples:</p>
-<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb483"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_filter_general</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">filter_condition</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">filter_quo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html">enquo</a></span><span class="op">(</span><span class="va">filter_condition</span><span class="op">)</span></span>
@@ -367,7 +367,7 @@ Backtrace:
 <span class="header-section-number">28.2</span> tidy-select<a class="anchor" aria-label="anchor" href="#tidy-select"><i class="fas fa-link"></i></a>
 </h2>
 <p>When using functions that use tidy-select, we put variable names in quotes and use th <code>all_of</code> and <code>any_of</code> functions.</p>
-<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb485"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_select_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span></span>
@@ -377,7 +377,7 @@ Backtrace:
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Error: object 'species' not found
 </code></pre>
-<div class="sourceCode" id="cb486"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_select_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span></span>
@@ -398,7 +398,7 @@ data %&gt;% select(all_of(select_variable))
 <li><p><code><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of()</a></code>: for strict selection. If any of the variables in the character vector is missing, an error is thrown</p></li>
 <li><p>Can also use <code>!all_of()</code> to select all variables not found in the character vector supplied to all_of()</p></li>
 </ul>
-<div class="sourceCode" id="cb488"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_select_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="va">select_variable</span><span class="op">)</span><span class="op">)</span></span>
@@ -432,7 +432,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">compare_species_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">species_1</span>, <span class="va">species_2</span>, <span class="va">feature</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    </span>
 <span>  <span class="va">filtered_data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span> </span>
@@ -460,7 +460,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">compare_species_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">species_1</span>, <span class="va">species_2</span>, <span class="va">feature</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    </span>
 <span>   </span>
@@ -485,53 +485,68 @@ Solution
 </div>
 </div>
 </div>
-<div id="practice-1" class="section level2" number="28.4">
+<div id="exercise-3" class="section level2" number="28.4">
 <h2>
-<span class="header-section-number">28.4</span> Practice<a class="anchor" aria-label="anchor" href="#practice-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">28.4</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise-3"><i class="fas fa-link"></i></a>
 </h2>
-<p>Can you write your own custom function in tidyverse?</p>
-<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## R version 4.3.1 (2023-06-16)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.6 LTS
-## 
-## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
-## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
-## 
-## locale:
-##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
-##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
-##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
-## 
-## time zone: UTC
-## tzcode source: system (glibc)
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] janitor_2.2.0        palmerpenguins_0.1.1 knitr_1.43          
-##  [4] webexercises_1.1.0   glossary_1.0.0       lubridate_1.9.2     
-##  [7] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.2         
-## [10] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
-## [13] tibble_3.2.1         ggplot2_3.4.2        tidyverse_2.0.0     
-## 
-## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
-##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
-##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    fansi_1.0.4       scales_1.2.1     
-## [17] codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1      
-## [21] munsell_0.5.0     withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
-## [25] tools_4.3.1       tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0 
-## [29] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   snakecase_0.11.0 
-## [33] fs_1.6.2          pkgconfig_2.0.3   pillar_1.9.0      bslib_0.5.0      
-## [37] gtable_0.3.3      glue_1.6.2        highr_0.10        xfun_0.39        
-## [41] tidyselect_1.2.0  rstudioapi_0.15.0 farver_2.1.1      htmltools_0.5.5  
-## [45] labeling_0.4.2    rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3</code></pre>
+<ul>
+<li>Can you write your own custom function in tidyverse? If you have something from your own data or work - see if you can functionalise your flow?</li>
+</ul>
+</div>
+<div id="exercise-2." class="section level2" number="28.5">
+<h2>
+<span class="header-section-number">28.5</span> Exercise 2.<a class="anchor" aria-label="anchor" href="#exercise-2."><i class="fas fa-link"></i></a>
+</h2>
+<p>This final section for the workshop provides a real world example using iterations to create graphs of population trends from the <a href="https://www.livingplanetindex.org/">Living Planet Index</a> for a number of vertebrate species from 1970 to 2014.</p>
+<p>The data can be collected here:</p>
+<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download LPI data as csv</button>
+</a>
+<ol style="list-style-type: decimal">
+<li>Can you make four plots using data nesting and map functions? For this exercise we would like to filter the dataframe to House sparrow, Great tit, Corn bunting and Meadow pipit then nest this data and apply a map function to produce a scatter plot of year against abundance. Customise the plot as you see fit.</li>
+</ol>
+<button id="displayTextunnamed-chunk-72" onclick="javascript:toggle('unnamed-chunk-72');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-72" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="writing-functions-in-tidyverse.html#cb493-1" tabindex="-1"></a>nested_LPI <span class="ot">&lt;-</span> LPI <span class="sc">|&gt;</span> </span>
+<span id="cb493-2"><a href="writing-functions-in-tidyverse.html#cb493-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Common.Name) <span class="sc">|&gt;</span> </span>
+<span id="cb493-3"><a href="writing-functions-in-tidyverse.html#cb493-3" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb493-4"><a href="writing-functions-in-tidyverse.html#cb493-4" tabindex="-1"></a>  <span class="fu">filter</span>(Common.Name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"House sparrow"</span>, <span class="st">"Great tit"</span>, <span class="st">"Corn bunting"</span>, <span class="st">"Meadow pipit"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb493-5"><a href="writing-functions-in-tidyverse.html#cb493-5" tabindex="-1"></a>     <span class="fu">mutate</span>(<span class="at">plots =</span> <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">ggplot</span>(., <span class="fu">aes</span> (<span class="at">x =</span> year, <span class="at">y =</span> abundance)) <span class="sc">+</span>              </span>
+<span id="cb493-6"><a href="writing-functions-in-tidyverse.html#cb493-6" tabindex="-1"></a>                            <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">"#00868B"</span>) <span class="sc">+</span>                                                </span>
+<span id="cb493-7"><a href="writing-functions-in-tidyverse.html#cb493-7" tabindex="-1"></a>                            <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">colour =</span> <span class="st">"#00868B"</span>, <span class="at">fill =</span> <span class="st">"#00868B"</span>) <span class="sc">+</span></span>
+<span id="cb493-8"><a href="writing-functions-in-tidyverse.html#cb493-8" tabindex="-1"></a>                            <span class="fu">ggtitle</span>(Common.Name)<span class="sc">+</span></span>
+<span id="cb493-9"><a href="writing-functions-in-tidyverse.html#cb493-9" tabindex="-1"></a>                            <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Abundance</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">x =</span> <span class="st">""</span>)))</span>
+<span id="cb493-10"><a href="writing-functions-in-tidyverse.html#cb493-10" tabindex="-1"></a></span>
+<span id="cb493-11"><a href="writing-functions-in-tidyverse.html#cb493-11" tabindex="-1"></a></span>
+<span id="cb493-12"><a href="writing-functions-in-tidyverse.html#cb493-12" tabindex="-1"></a>  <span class="fu">wrap_plots</span>(nested_LPI<span class="sc">$</span>plots)</span>
+<span id="cb493-13"><a href="writing-functions-in-tidyverse.html#cb493-13" tabindex="-1"></a><span class="st">```</span><span class="at">&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</span></span>
+<span id="cb493-14"><a href="writing-functions-in-tidyverse.html#cb493-14" tabindex="-1"></a></span>
+<span id="cb493-15"><a href="writing-functions-in-tidyverse.html#cb493-15" tabindex="-1"></a></span>
+<span id="cb493-16"><a href="writing-functions-in-tidyverse.html#cb493-16" tabindex="-1"></a><span class="at">2. Can you write this object to multiple dataframes based on "Common.Name". For this exercise we would like to read the entire dataframe, then produce four new .csv files one for each of House sparrow, Great tit, Corn bunting and Meadow pipit.</span></span>
+<span id="cb493-17"><a href="writing-functions-in-tidyverse.html#cb493-17" tabindex="-1"></a></span>
+<span id="cb493-18"><a href="writing-functions-in-tidyverse.html#cb493-18" tabindex="-1"></a><span class="at">&lt;button id="displayTextunnamed-chunk-73" onclick="javascript:toggle('unnamed-chunk-73');"&gt;Show Solution&lt;/button&gt;</span></span>
+<span id="cb493-19"><a href="writing-functions-in-tidyverse.html#cb493-19" tabindex="-1"></a></span>
+<span id="cb493-20"><a href="writing-functions-in-tidyverse.html#cb493-20" tabindex="-1"></a><span class="at">&lt;div id="toggleTextunnamed-chunk-73" style="display: none"&gt;&lt;div class="panel panel-default"&gt;&lt;div class="panel-heading panel-heading1"&gt; Solution &lt;/div&gt;&lt;div class="panel-body"&gt;</span></span>
+<span id="cb493-21"><a href="writing-functions-in-tidyverse.html#cb493-21" tabindex="-1"></a></span>
+<span id="cb493-22"><a href="writing-functions-in-tidyverse.html#cb493-22" tabindex="-1"></a><span class="st">```</span>r</span>
+<span id="cb493-23"><a href="writing-functions-in-tidyverse.html#cb493-23" tabindex="-1"></a>LPI <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv"</span>)</span>
+<span id="cb493-24"><a href="writing-functions-in-tidyverse.html#cb493-24" tabindex="-1"></a></span>
+<span id="cb493-25"><a href="writing-functions-in-tidyverse.html#cb493-25" tabindex="-1"></a>LPI <span class="sc">|&gt;</span> </span>
+<span id="cb493-26"><a href="writing-functions-in-tidyverse.html#cb493-26" tabindex="-1"></a>  <span class="fu">group_by</span>(Common.Name) <span class="sc">|&gt;</span> </span>
+<span id="cb493-27"><a href="writing-functions-in-tidyverse.html#cb493-27" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb493-28"><a href="writing-functions-in-tidyverse.html#cb493-28" tabindex="-1"></a>  <span class="fu">filter</span>(Common.Name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"House sparrow"</span>, <span class="st">"Great tit"</span>, <span class="st">"Corn bunting"</span>, <span class="st">"Meadow pipit"</span>)) </span>
+<span id="cb493-29"><a href="writing-functions-in-tidyverse.html#cb493-29" tabindex="-1"></a></span>
+<span id="cb493-30"><a href="writing-functions-in-tidyverse.html#cb493-30" tabindex="-1"></a><span class="fu">walk2</span>(nested<span class="sc">$</span>data, nested<span class="sc">$</span>Common.Name, <span class="sc">~</span> <span class="fu">write_csv</span>(.x, <span class="fu">paste0</span>(<span class="fu">paste0</span>(<span class="st">"split_files/"</span>, .y , <span class="st">".csv"</span>))))</span></code></pre></div>
+</div>
+</div>
+</div>
 
 </div>
 </div>
@@ -729,7 +744,8 @@ $( document ).ready(function() {
 </li>
 <li><a class="nav-link" href="#tidy-select"><span class="header-section-number">28.2</span> tidy-select</a></li>
 <li><a class="nav-link" href="#practice"><span class="header-section-number">28.3</span> Practice</a></li>
-<li><a class="nav-link" href="#practice-1"><span class="header-section-number">28.4</span> Practice</a></li>
+<li><a class="nav-link" href="#exercise-3"><span class="header-section-number">28.4</span> Exercise</a></li>
+<li><a class="nav-link" href="#exercise-2."><span class="header-section-number">28.5</span> Exercise 2.</a></li>
 </ul>
 
       <div class="book-extra">

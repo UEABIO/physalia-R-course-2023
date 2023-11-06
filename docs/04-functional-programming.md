@@ -1626,7 +1626,69 @@ The main tip is to *Get out of loop* as quickly as possible.
 See also https://bookdown.org/csgillespie/efficientR/programming.html#top-5-tips-for-efficient-programming
 
 
-## Activity
+
+## Exercise
+
+This section for the workshop provides a real world example using iterations to create graphs of population trends from the [Living Planet Index](https://www.livingplanetindex.org/) for a number of vertebrate species from 1970 to 2014. 
+
+The data can be collected here:
+
+
+```{=html}
+<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download LPI data as csv</button>
+</a>
+```
+
+1. Can you make four plots using lists and for loops? For this exercise can you make a list of four
+species based on the column `Common.Name`, House sparrow, Great tit, Corn bunting and Meadow pipit then loop down this to make four plots? 
+
+<button id="displayTextunnamed-chunk-94" onclick="javascript:toggle('unnamed-chunk-94');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-94" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+# Method 1
+species_to_filter <- c("House sparrow", "Great tit", "Corn bunting", "Meadow pipit")
+
+filtered_data <- filter(LPI_UK, Common.Name %in% species_to_filter)
+
+sp_list <- split(filtered_data, filtered_data$Common.Name)
+
+# Method 2
+
+
+
+house_sparrow <- filter(LPI_UK, Common.Name == "House sparrow")
+great_tit <- filter(LPI_UK, Common.Name == "Great tit")
+corn_bunting <- filter(LPI_UK, Common.Name == "Corn bunting")
+meadow_pipit <- filter(LPI_UK, Common.Name == "Meadow pipit")
+
+sp_list <- list(house_sparrow, great_tit, corn_bunting, meadow_pipit)
+
+
+my_plots <- list(length(sp_list))
+
+for (i in 1:length(sp_list)) {                                    
+  # For every item along the length of Sp_list we want R to perform the following functions
+  data <- as.data.frame(sp_list[i])                               
+  # Create a dataframe for each species
+  sp.name <- unique(data$Common.Name)                             
+  # Create an object that holds the species name, so that we can title each graph
+  plot <- ggplot(data, aes (x = year, y = abundance)) +               
+    # Make the plots and add our customised theme
+    geom_point(size = 2, colour = "#00868B") +                              
+    geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +        
+    theme_classic() +
+    labs(y = "Abundance\n", x = "", title = sp.name)
+ 
+   # makes a list of all the plots generates
+  my_plots[[i]] <- plot 
+```
+</div></div></div>
+
+
+
 
 # Apply
 
@@ -1855,9 +1917,9 @@ apply(df, MARGIN = 1, mean)
 Make a function that converts values with a normal distribution into their z scores </div></div>
 
 
-<button id="displayTextunnamed-chunk-101" onclick="javascript:toggle('unnamed-chunk-101');">Show Solution</button>
+<button id="displayTextunnamed-chunk-103" onclick="javascript:toggle('unnamed-chunk-103');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-101" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-103" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 z_score <- function(x) {
@@ -1870,9 +1932,9 @@ z_score <- function(x) {
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Choose the appropriate apply function to calculate a matrix of z-scores for the dataframe `df` </div></div>
 
-<button id="displayTextunnamed-chunk-103" onclick="javascript:toggle('unnamed-chunk-103');">Show Solution</button>
+<button id="displayTextunnamed-chunk-105" onclick="javascript:toggle('unnamed-chunk-105');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-103" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-105" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 apply(df, MARGIN = 2,  z_score)
 </div></div></div>
@@ -1904,19 +1966,19 @@ Basic `map()` will *always* return a `list`, other variants return different dat
 
 ## Example
 
-<div class="tab"><button class="tablinksunnamed-chunk-105 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-105', 'unnamed-chunk-105');">Base R</button><button class="tablinksunnamed-chunk-105" onclick="javascript:openCode(event, 'option2unnamed-chunk-105', 'unnamed-chunk-105');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
+<div class="tab"><button class="tablinksunnamed-chunk-107 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-107', 'unnamed-chunk-107');">Base R</button><button class="tablinksunnamed-chunk-107" onclick="javascript:openCode(event, 'option2unnamed-chunk-107', 'unnamed-chunk-107');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-107" class="tabcontentunnamed-chunk-107">
 
 ```r
 lapply(df_list, mean)
 ```
-</div><div id="option2unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
+</div><div id="option2unnamed-chunk-107" class="tabcontentunnamed-chunk-107">
 
 ```r
 map(.x = df_list, .f = mean)
 
 map(df_list, mean)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-105') </script>
+</div><script> javascript:hide('option2unnamed-chunk-107') </script>
 
 
 
@@ -2099,7 +2161,7 @@ library(patchwork)
 plots$scatterplots |> wrap_plots()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-118-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-120-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## map2
 
@@ -2129,7 +2191,7 @@ plots$scatterplots |>
     wrap_plots(... = _, guides = "collect")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-120-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-122-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### Running different summary functions on each nested dataframe
 
@@ -2190,9 +2252,9 @@ result$summaries
 In the previous chapter with apply we wrote the `z_score()` function, can you apply this using map to our `df` tibble? </div></div>
 
 
-<button id="displayTextunnamed-chunk-123" onclick="javascript:toggle('unnamed-chunk-123');">Show Solution</button>
+<button id="displayTextunnamed-chunk-125" onclick="javascript:toggle('unnamed-chunk-125');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-123" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-125" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 map_df(.x = df, 
@@ -2208,12 +2270,17 @@ df %>%
 
 
 
-<div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
-
-LPI data loops
- </div></div>
 
 
+## Reading
+
+If you would like to practice more `map()` then check out [this blogpost](https://www.rebeccabarter.com/blog/2019-08-19_purrr/#simplest-usage-repeated-looping-with-map)
+
+Below are some links you may find useful
+
+* [RStudio education cheat sheet for purr](https://www.rstudio.com/resources/cheatsheets/)
+
+* [R4DS - intro to programming](https://r4ds.had.co.nz/program-intro.html)
 
 # Bonus: Simulation
 
@@ -2251,9 +2318,9 @@ Sampling without replacement means that when you repeatedly draw e.g. 1 item fro
 **YOUR TURN:**  
 Sample 100 values between 3 and 103 with replacement.    
 
-<button id="displayTextunnamed-chunk-125" onclick="javascript:toggle('unnamed-chunk-125');">Show Solution</button>
+<button id="displayTextunnamed-chunk-126" onclick="javascript:toggle('unnamed-chunk-126');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-125" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-126" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 x <- 3:103
@@ -2277,9 +2344,9 @@ Draw 50 values from a normal distribution with a mean of 10 and sd of 5.
 Draw 1000 values from a poisson distribution with a lambda of 50.  
 Draw 30 values from a uniform distribution between 0 and 10.  
 
-<button id="displayTextunnamed-chunk-126" onclick="javascript:toggle('unnamed-chunk-126');">Show Solution</button>
+<button id="displayTextunnamed-chunk-127" onclick="javascript:toggle('unnamed-chunk-127');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-126" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-127" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 rnorm(n = 100, mean = 0, sd = 1)
@@ -2305,16 +2372,16 @@ Replicate 1000 times the mean of 10 values drawn from a unifrom distribution bet
 
 Make a histogram of your results. 
 
-<button id="displayTextunnamed-chunk-127" onclick="javascript:toggle('unnamed-chunk-127');">Show Solution</button>
+<button id="displayTextunnamed-chunk-128" onclick="javascript:toggle('unnamed-chunk-128');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-127" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-128" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 replicate(1000, mean(runif(10, max = 10)))
 hist(replicate(1000, mean(runif(10, max = 10))))
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-149-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-140-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```
 ##    [1] 5.022564 6.486282 3.253483 5.283917 4.755306 4.764930 3.866803 5.239018
@@ -2525,7 +2592,7 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
     theme_minimal()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-128-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-129-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Power
 
@@ -2580,7 +2647,7 @@ simulation_results <- map_dbl(sample_sizes, simulate_power, effect_size)
 plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = "Power", main = "Power vs. Sample Size")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-129-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-130-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -2634,19 +2701,18 @@ sessionInfo()
 ## [16] ggplot2_3.4.2         tidyverse_2.0.0      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] gtable_0.3.3      xfun_0.39         bslib_0.5.0       tzdb_0.4.0       
-##  [5] vctrs_0.6.3       tools_4.3.1       generics_0.1.3    fansi_1.0.4      
-##  [9] highr_0.10        pkgconfig_2.0.3   desc_1.4.2        lifecycle_1.0.3  
-## [13] compiler_4.3.1    farver_2.1.1      brio_1.1.3        munsell_0.5.0    
-## [17] codetools_0.2-19  htmltools_0.5.5   sass_0.4.6        yaml_2.3.7       
-## [21] pillar_1.9.0      jquerylib_0.1.4   cachem_1.0.8      tidyselect_1.2.0 
-## [25] digest_0.6.33     stringi_1.7.12    bookdown_0.34     labeling_0.4.2   
-## [29] rprojroot_2.0.3   fastmap_1.1.1     grid_4.3.1        colorspace_2.1-0 
-## [33] cli_3.6.1         magrittr_2.0.3    utf8_1.2.3        broom_1.0.5      
-## [37] withr_2.5.0       backports_1.4.1   waldo_0.5.1       scales_1.2.1     
-## [41] timechange_0.2.0  rmarkdown_2.23    hms_1.1.3         memoise_2.0.1    
-## [45] evaluate_0.21     rlang_1.1.1       downlit_0.4.3     glue_1.6.2       
-## [49] xml2_1.3.5        pkgload_1.3.2.1   rstudioapi_0.15.0 jsonlite_1.8.7   
-## [53] R6_2.5.1          fs_1.6.2
+##  [1] sass_0.4.6         utf8_1.2.3         generics_0.1.3     xml2_1.3.5        
+##  [5] stringi_1.7.12     hms_1.1.3          digest_0.6.33      magrittr_2.0.3    
+##  [9] evaluate_0.21      grid_4.3.1         timechange_0.2.0   bookdown_0.34     
+## [13] fastmap_1.1.1      jsonlite_1.8.7     backports_1.4.1    brio_1.1.3        
+## [17] fansi_1.0.4        scales_1.2.1       codetools_0.2-19   jquerylib_0.1.4   
+## [21] cli_3.6.1          rlang_1.1.1        munsell_0.5.0      withr_2.5.0       
+## [25] cachem_1.0.8       yaml_2.3.7         tools_4.3.1        tzdb_0.4.0        
+## [29] memoise_2.0.1      colorspace_2.1-0   bsplus_0.1.4       broom_1.0.5       
+## [33] vctrs_0.6.3        R6_2.5.1           lifecycle_1.0.3    fs_1.6.2          
+## [37] downloadthis_0.3.2 pkgconfig_2.0.3    pillar_1.9.0       bslib_0.5.0       
+## [41] gtable_0.3.3       glue_1.6.2         highr_0.10         xfun_0.39         
+## [45] tidyselect_1.2.0   rstudioapi_0.15.0  farver_2.1.1       htmltools_0.5.5   
+## [49] labeling_0.4.2     rmarkdown_2.23     compiler_4.3.1     downlit_0.4.3
 ```
 

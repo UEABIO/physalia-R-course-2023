@@ -1251,13 +1251,70 @@ compare_species_plot(penguins_clean_split, Adelie, Chinstrap, culmen_length_mm)
 ```
 
 
-## Practice
+## Exercise
 
-Can you write your own custom function in tidyverse? 
+- Can you write your own custom function in tidyverse? If you have something from your own data or work - see if you can functionalise your flow?
 
 
-```{r}
+## Exercise 2. 
 
-sessionInfo()
+This final section for the workshop provides a real world example using iterations to create graphs of population trends from the [Living Planet Index](https://www.livingplanetindex.org/) for a number of vertebrate species from 1970 to 2014. 
+
+The data can be collected here:
+
+```{r, eval = TRUE, echo = FALSE}
+downloadthis::download_link(
+  link = "https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv",
+  button_label = "Download LPI data as csv",
+  button_type = "success",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+1. Can you make four plots using data nesting and map functions? For this exercise we would like to filter the dataframe to House sparrow, Great tit, Corn bunting and Meadow pipit then nest this data and apply a map function to produce a scatter plot of year against abundance. Customise the plot as you see fit.
+
+
+```{solution}
+``{r, eval = FALSE}
+
+nested_LPI <- LPI |> 
+  group_by(Common.Name) |> 
+  nest() |> 
+  filter(Common.Name %in% c("House sparrow", "Great tit", "Corn bunting", "Meadow pipit")) |> 
+     mutate(plots = map(data, ~ ggplot(., aes (x = year, y = abundance)) +              
+                            geom_point(size = 2, colour = "#00868B") +                                                
+                            geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +
+                            ggtitle(Common.Name)+
+                            labs(y = "Abundance\n", x = "")))
+
+
+  wrap_plots(nested_LPI$plots)
+
+``
+```
+
+
+2. Can you write this object to multiple dataframes based on "Common.Name". For this exercise we would like to read the entire dataframe, then produce four new .csv files one for each of House sparrow, Great tit, Corn bunting and Meadow pipit.
+
+```{solution}
+
+``{r, eval = FALSE}
+
+LPI <- read_csv("https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv")
+
+LPI |> 
+  group_by(Common.Name) |> 
+  nest() |> 
+  filter(Common.Name %in% c("House sparrow", "Great tit", "Corn bunting", "Meadow pipit")) 
+
+walk2(nested$data, nested$Common.Name, ~ write_csv(.x, paste0(paste0("split_files/", .y , ".csv"))))
+
+``
+
 
 ```
+
+
+

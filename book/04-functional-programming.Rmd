@@ -1583,7 +1583,74 @@ The main tip is to *Get out of loop* as quickly as possible.
 See also https://bookdown.org/csgillespie/efficientR/programming.html#top-5-tips-for-efficient-programming
 
 
-## Activity
+
+## Exercise
+
+This section for the workshop provides a real world example using iterations to create graphs of population trends from the [Living Planet Index](https://www.livingplanetindex.org/) for a number of vertebrate species from 1970 to 2014. 
+
+The data can be collected here:
+
+```{r, eval = TRUE, echo = FALSE}
+downloadthis::download_link(
+  link = "https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv",
+  button_label = "Download LPI data as csv",
+  button_type = "success",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+1. Can you make four plots using lists and for loops? For this exercise can you make a list of four
+species based on the column `Common.Name`, House sparrow, Great tit, Corn bunting and Meadow pipit then loop down this to make four plots? 
+
+```{solution}
+
+``{r, eval =FALSE }
+
+# Method 1
+species_to_filter <- c("House sparrow", "Great tit", "Corn bunting", "Meadow pipit")
+
+filtered_data <- filter(LPI_UK, Common.Name %in% species_to_filter)
+
+sp_list <- split(filtered_data, filtered_data$Common.Name)
+
+# Method 2
+
+
+
+house_sparrow <- filter(LPI_UK, Common.Name == "House sparrow")
+great_tit <- filter(LPI_UK, Common.Name == "Great tit")
+corn_bunting <- filter(LPI_UK, Common.Name == "Corn bunting")
+meadow_pipit <- filter(LPI_UK, Common.Name == "Meadow pipit")
+
+sp_list <- list(house_sparrow, great_tit, corn_bunting, meadow_pipit)
+
+
+my_plots <- list(length(sp_list))
+
+for (i in 1:length(sp_list)) {                                    
+  # For every item along the length of Sp_list we want R to perform the following functions
+  data <- as.data.frame(sp_list[i])                               
+  # Create a dataframe for each species
+  sp.name <- unique(data$Common.Name)                             
+  # Create an object that holds the species name, so that we can title each graph
+  plot <- ggplot(data, aes (x = year, y = abundance)) +               
+    # Make the plots and add our customised theme
+    geom_point(size = 2, colour = "#00868B") +                              
+    geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +        
+    theme_classic() +
+    labs(y = "Abundance\n", x = "", title = sp.name)
+ 
+   # makes a list of all the plots generates
+  my_plots[[i]] <- plot 
+
+``
+
+```
+
+
+
 
 # Apply
 
@@ -2120,13 +2187,17 @@ df %>%
 
 
 
-```{task}
-
-LPI data loops
-
-```
 
 
+## Reading
+
+If you would like to practice more `map()` then check out [this blogpost](https://www.rebeccabarter.com/blog/2019-08-19_purrr/#simplest-usage-repeated-looping-with-map)
+
+Below are some links you may find useful
+
+* [RStudio education cheat sheet for purr](https://www.rstudio.com/resources/cheatsheets/)
+
+* [R4DS - intro to programming](https://r4ds.had.co.nz/program-intro.html)
 
 # Bonus: Simulation
 

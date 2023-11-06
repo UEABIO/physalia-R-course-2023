@@ -224,7 +224,7 @@ initialise-objects
 simple-datatypes
 visualise-speed
 do-as-little-as-possible-inside-a-loop
-activity-3
+exercise-1
 apply
 lapply
 run-lapply-with-additional-arguments
@@ -233,7 +233,7 @@ using-existing-functions-in-lapply
 sapply
 apply-1
 summary-of-apply-functions
-exercise-1
+exercise-2
 purrr
 example
 more-maps
@@ -244,6 +244,7 @@ map-with-nested-dataframes
 map2
 running-different-summary-functions-on-each-nested-dataframe
 exercises-1
+reading-1
 bonus-simulation
 random-number-generators
 replication
@@ -292,7 +293,8 @@ data-masking
 alternative-to
 tidy-select
 practice
-practice-1
+exercise-3
+exercise-2.
 customisation-with-ggplot2
 colours
 choosing-and-using-colour-palettes
@@ -345,7 +347,7 @@ use-appropriate-colour
 heatmap
 data-visualisations
 conclusion
-reading-1
+reading-2
 getting-to-work-with-shiny
 image
 using-the-demo-app
@@ -361,7 +363,7 @@ checkboxinput
 radiobuttons
 dateinput
 fileinput
-exercise-2
+exercise-4
 outputs
 text-1
 plots
@@ -372,7 +374,7 @@ reactive
 observable
 shiny-dashboards
 themable-dashboards
-reading-2
+reading-3
 sharing
 shiny-apps
 github
@@ -398,7 +400,7 @@ see-changes
 a-couple-of-general-tips
 beautify-your-profile
 glossary-github
-reading-3
+reading-4
 packages-for-automated-exploratory-data-analysis
 skimr-for-automated-data-quality-checking
 how-skimr-works
