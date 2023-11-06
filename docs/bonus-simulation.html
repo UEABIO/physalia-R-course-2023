@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 18 Bonus: Simulation | Advancing in R</title>
+<title>Chapter 19 Bonus: Simulation | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="A computer simulation (or “sim”) is an attempt to model a real-life or hypothetical situation on a computer so that it can be studied to see how the system works. By changing variables in the...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 18 Bonus: Simulation | Advancing in R">
+<meta property="og:title" content="Chapter 19 Bonus: Simulation | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/bonus-simulation.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="A computer simulation (or “sim”) is an attempt to model a real-life or hypothetical situation on a computer so that it can be studied to see how the system works. By changing variables in the...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 18 Bonus: Simulation | Advancing in R">
+<meta name="twitter:title" content="Chapter 19 Bonus: Simulation | Advancing in R">
 <meta name="twitter:description" content="A computer simulation (or “sim”) is an attempt to model a real-life or hypothetical situation on a computer so that it can be studied to see how the system works. By changing variables in the...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -121,52 +121,53 @@
 <li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
 <li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
 <li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
-<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
+<li><a class="" href="data-reshaping.html"><span class="header-section-number">9</span> Data reshaping</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">10</span> Basic ggplot</a></li>
 <li class="book-part">Data Insights</li>
-<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">10</span> Data Insights part one</a></li>
-<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">11</span> Data insights part two</a></li>
+<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">11</span> Data Insights part one</a></li>
+<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">12</span> Data insights part two</a></li>
 <li class="book-part">Functional Programming</li>
-<li><a class="" href="writing-functions.html"><span class="header-section-number">12</span> Writing Functions</a></li>
-<li><a class="" href="flow-control.html"><span class="header-section-number">13</span> Flow control</a></li>
-<li><a class="" href="simple-iteration.html"><span class="header-section-number">14</span> Simple iteration</a></li>
-<li><a class="" href="loops.html"><span class="header-section-number">15</span> Loops</a></li>
-<li><a class="" href="apply.html"><span class="header-section-number">16</span> Apply</a></li>
-<li><a class="" href="purrr.html"><span class="header-section-number">17</span> Purrr</a></li>
-<li><a class="active" href="bonus-simulation.html"><span class="header-section-number">18</span> Bonus: Simulation</a></li>
+<li><a class="" href="writing-functions.html"><span class="header-section-number">13</span> Writing Functions</a></li>
+<li><a class="" href="flow-control.html"><span class="header-section-number">14</span> Flow control</a></li>
+<li><a class="" href="simple-iteration.html"><span class="header-section-number">15</span> Simple iteration</a></li>
+<li><a class="" href="loops.html"><span class="header-section-number">16</span> Loops</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">17</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">18</span> Purrr</a></li>
+<li><a class="active" href="bonus-simulation.html"><span class="header-section-number">19</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">19</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">20</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">21</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">22</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">23</span> Applying functions across columns</a></li>
-<li><a class="" href="working-with-rows.html"><span class="header-section-number">24</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">25</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">26</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">27</span> Writing Functions in Tidyverse</a></li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">20</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">21</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">22</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">23</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">24</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">25</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">26</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">27</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">28</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="customisation-with-ggplot2.html"><span class="header-section-number">28</span> Customisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">29</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">30</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">31</span> Making tables with gt</a></li>
+<li><a class="" href="customisation-with-ggplot2.html"><span class="header-section-number">29</span> Customisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">30</span> Extensions for ggplot2</a></li>
+<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">31</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">32</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">32</span> Getting to work with Shiny</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">33</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">34</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">35</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">36</span> Reactive</a></li>
-<li><a class="" href="shiny-dashboards.html"><span class="header-section-number">37</span> Shiny Dashboards</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">38</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">33</span> Getting to work with Shiny</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">34</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">35</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">36</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">37</span> Reactive</a></li>
+<li><a class="" href="shiny-dashboards.html"><span class="header-section-number">38</span> Shiny Dashboards</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">39</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="rmarkdown.html"><span class="header-section-number">39</span> RMarkdown</a></li>
-<li><a class="" href="github-1.html"><span class="header-section-number">40</span> Github</a></li>
+<li><a class="" href="rmarkdown.html"><span class="header-section-number">40</span> RMarkdown</a></li>
+<li><a class="" href="github-1.html"><span class="header-section-number">41</span> Github</a></li>
 <li><a class="" href="NA.html">
 to upload commits
 to the remote repository.
 </a></li>
 <li class="book-part">Working with big data</li>
-<li><a class="" href="reading-3.html"><span class="header-section-number">41</span> Reading</a></li>
+<li><a class="" href="reading-3.html"><span class="header-section-number">42</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">42</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
 
         <div class="book-extra">
@@ -174,9 +175,9 @@ to the remote repository.
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="bonus-simulation" class="section level1" number="18">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="bonus-simulation" class="section level1" number="19">
 <h1>
-<span class="header-section-number">18</span> Bonus: Simulation<a class="anchor" aria-label="anchor" href="#bonus-simulation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">19</span> Bonus: Simulation<a class="anchor" aria-label="anchor" href="#bonus-simulation"><i class="fas fa-link"></i></a>
 </h1>
 <p>A computer simulation (or “sim”) is an attempt to model a real-life or hypothetical situation on a computer so that it can be studied to see how the system works. By changing variables in the simulation, predictions may be made about the behavior of the system. It is a tool to virtually investigate the behavior of the system under study - <em>Wikipedia</em></p>
 <p>You can use computer simulations to:</p>
@@ -206,9 +207,9 @@ to the remote repository.
 </ul>
 </li>
 </ul>
-<div id="random-number-generators" class="section level2" number="18.1">
+<div id="random-number-generators" class="section level2" number="19.1">
 <h2>
-<span class="header-section-number">18.1</span> Random number generators<a class="anchor" aria-label="anchor" href="#random-number-generators"><i class="fas fa-link"></i></a>
+<span class="header-section-number">19.1</span> Random number generators<a class="anchor" aria-label="anchor" href="#random-number-generators"><i class="fas fa-link"></i></a>
 </h2>
 <p>R contains several functions to generate random numbers.<br>
 Type <em><code>?function</code></em> in your console to get information on the function's arguments (i.e. the values that must be provided to obtain the function's result).</p>
@@ -217,16 +218,16 @@ Type <em><code>?function</code></em> in your console to get information on the f
 <p>Sampling without replacement means that when you repeatedly draw e.g. 1 item from a pool of items, any item selected during the first draw is not available for selection during the second draw, and the first and second selected items are not in the pool to select from during the third draw, etc. Sampling with replacement means that all the original options are available at each draw.</p>
 <p><strong>YOUR TURN:</strong><br>
 Sample 100 values between 3 and 103 with replacement.</p>
-<button id="displayTextunnamed-chunk-124" onclick="javascript:toggle('unnamed-chunk-124');">
+<button id="displayTextunnamed-chunk-125" onclick="javascript:toggle('unnamed-chunk-125');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-124" style="display: none">
+<div id="toggleTextunnamed-chunk-125" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span><span class="op">:</span><span class="fl">103</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">100</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -252,16 +253,16 @@ Solution
 Draw 50 values from a normal distribution with a mean of 10 and sd of 5.<br>
 Draw 1000 values from a poisson distribution with a lambda of 50.<br>
 Draw 30 values from a uniform distribution between 0 and 10.</p>
-<button id="displayTextunnamed-chunk-125" onclick="javascript:toggle('unnamed-chunk-125');">
+<button id="displayTextunnamed-chunk-126" onclick="javascript:toggle('unnamed-chunk-126');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-125" style="display: none">
+<div id="toggleTextunnamed-chunk-126" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span> <span class="co"># if you sample from a normal distribution with a mean of 0 and a sd of 1, you do not need to provide them, they are the defaults</span></span>
 <span></span>
@@ -274,28 +275,28 @@ Solution
 </div>
 </div>
 </div>
-<div id="replication" class="section level2" number="18.2">
+<div id="replication" class="section level2" number="19.2">
 <h2>
-<span class="header-section-number">18.2</span> Replication<a class="anchor" aria-label="anchor" href="#replication"><i class="fas fa-link"></i></a>
+<span class="header-section-number">19.2</span> Replication<a class="anchor" aria-label="anchor" href="#replication"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>replicate(10, mean(rnorm(100)))</code></p>
 <p>reads: 'draw 100 values from a normal distribution with a mean 0 and sd 1 (the default values), caclulate the mean of these 100 values, and do all that 10 times.</p>
 <p><strong>YOUR TURN:</strong></p>
 <p>Replicate 1000 times the mean of 10 values drawn from a unifrom distribution between 0 and 10.</p>
 <p>Make a histogram of your results.</p>
-<button id="displayTextunnamed-chunk-126" onclick="javascript:toggle('unnamed-chunk-126');">
+<button id="displayTextunnamed-chunk-127" onclick="javascript:toggle('unnamed-chunk-127');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-126" style="display: none">
+<div id="toggleTextunnamed-chunk-127" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">10</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">10</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-152-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-149-1.png" width="100%" style="display: block; margin: auto;"></div>
 <pre><code>##    [1] 5.022564 6.486282 3.253483 5.283917 4.755306 4.764930 3.866803 5.239018
 ##    [9] 4.753826 7.075335 3.680023 6.798563 3.957019 4.247940 6.775591 2.837982
 ##   [17] 5.295009 3.686621 5.870210 5.437420 4.576551 4.563031 6.677120 4.485507
@@ -425,9 +426,9 @@ Solution
 </div>
 </div>
 </div>
-<div id="set-seed" class="section level2" number="18.3">
+<div id="set-seed" class="section level2" number="19.3">
 <h2>
-<span class="header-section-number">18.3</span> Set seed<a class="anchor" aria-label="anchor" href="#set-seed"><i class="fas fa-link"></i></a>
+<span class="header-section-number">19.3</span> Set seed<a class="anchor" aria-label="anchor" href="#set-seed"><i class="fas fa-link"></i></a>
 </h2>
 <p><code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code></p>
 <p>Computers in general, and R specifically, can, in fact, only provide pseudo random number generators.
@@ -435,15 +436,15 @@ A pseudorandom number generator's number sequence is completely determined by it
 <p>Thus, if a pseudorandom number generator is reinitialized with the same seed, it will produce the same sequence of numbers. You can set the seed (with any arbitrary number) at the beginning of a script, and, if commands drawing random numbers are ran in the exact same order, they will provide the same output in subsequent runs.</p>
 <p>This is useful for sharing code and reproduce simulations, as well as for debugging code.</p>
 </div>
-<div id="sample-size" class="section level2" number="18.4">
+<div id="sample-size" class="section level2" number="19.4">
 <h2>
-<span class="header-section-number">18.4</span> Sample size<a class="anchor" aria-label="anchor" href="#sample-size"><i class="fas fa-link"></i></a>
+<span class="header-section-number">19.4</span> Sample size<a class="anchor" aria-label="anchor" href="#sample-size"><i class="fas fa-link"></i></a>
 </h2>
 <p>In this example we are going to simulate some data for two groups - group 1 has a mean of 0 and an sd of 1, group 2 has a mean of whatever value we supply to <code>effect_size</code> and a sd of 1.</p>
 <p>By default this simulation is set to repeat an experiment where 30 samples are taken from each population and compared for a true difference. The experiment is repeated 100 times.</p>
 <p>The purpose of this simulation is to understand how the estimated difference in means varies across different random samples of data when the true effect size is known. It helps to assess the sampling variability and provides insights into the precision of the estimated difference. Additionally, it can be used to create a confidence interval to assess the uncertainty around the estimated effect.</p>
 <p>With this example we <strong>know</strong> the true difference, see what happens to our confidence intervals as we change the sample size, effect size and iterations:</p>
-<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Define a function to run the simulation for a given sample size and effect size</span></span>
@@ -498,14 +499,14 @@ A pseudorandom number generator's number sequence is completely determined by it
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Estimated Difference"</span>, y <span class="op">=</span> <span class="st">"Density"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Density Histogram of Estimated Differences (Sample Size = 20)"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-127-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-128-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
-<div id="power" class="section level2" number="18.5">
+<div id="power" class="section level2" number="19.5">
 <h2>
-<span class="header-section-number">18.5</span> Power<a class="anchor" aria-label="anchor" href="#power"><i class="fas fa-link"></i></a>
+<span class="header-section-number">19.5</span> Power<a class="anchor" aria-label="anchor" href="#power"><i class="fas fa-link"></i></a>
 </h2>
 <p>A useful application of simulations is to work out the power of a statistical test. Here we can calculate our statistical power of detection on a simulated dataset with a known effect-size:</p>
-<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define a function to run the simulation for a given sample size and effect size</span></span>
 <span><span class="va">simulate_power</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">sample_size</span>, <span class="va">effect_size</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
@@ -551,18 +552,18 @@ A pseudorandom number generator's number sequence is completely determined by it
 <span></span>
 <span><span class="co"># Plot the power as a function of sample size</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sample_sizes</span>, <span class="va">simulation_results</span>, type <span class="op">=</span> <span class="st">"b"</span>, xlab <span class="op">=</span> <span class="st">"Sample Size"</span>, ylab <span class="op">=</span> <span class="st">"Power"</span>, main <span class="op">=</span> <span class="st">"Power vs. Sample Size"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-128-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-129-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
-<div id="further-reading" class="section level2" number="18.6">
+<div id="further-reading" class="section level2" number="19.6">
 <h2>
-<span class="header-section-number">18.6</span> Further Reading:<a class="anchor" aria-label="anchor" href="#further-reading"><i class="fas fa-link"></i></a>
+<span class="header-section-number">19.6</span> Further Reading:<a class="anchor" aria-label="anchor" href="#further-reading"><i class="fas fa-link"></i></a>
 </h2>
 <p><a href="https://bookdown.org/ndphillips/YaRrr/generating-random-data.html" class="uri">https://bookdown.org/ndphillips/YaRrr/generating-random-data.html</a></p>
 <p>Simulations: <a href="https://rstudio-education.github.io/hopr/" class="uri">https://rstudio-education.github.io/hopr/</a></p>
 <p><a href="https://aosmith.rbind.io/2018/01/09/simulate-simulate-part1/#simulate-simulate-dance-to-the-music" class="uri">https://aosmith.rbind.io/2018/01/09/simulate-simulate-part1/#simulate-simulate-dance-to-the-music</a></p>
 <p><a href="https://aosmith.rbind.io/2019/07/22/automate-model-fitting-with-loops/" class="uri">https://aosmith.rbind.io/2019/07/22/automate-model-fitting-with-loops/</a></p>
 <p><a href="https://aosmith.rbind.io/2017/12/31/many-datasets/#list-all-files-to-read-in" class="uri">https://aosmith.rbind.io/2017/12/31/many-datasets/#list-all-files-to-read-in</a></p>
-<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## R version 4.3.1 (2023-06-16)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
@@ -793,18 +794,18 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="purrr.html"><span class="header-section-number">17</span> Purrr</a></div>
-<div class="next"><a href="reading-files-with-readr.html"><span class="header-section-number">19</span> Reading files with readr</a></div>
+<div class="prev"><a href="purrr.html"><span class="header-section-number">18</span> Purrr</a></div>
+<div class="next"><a href="reading-files-with-readr.html"><span class="header-section-number">20</span> Reading files with readr</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#bonus-simulation"><span class="header-section-number">18</span> Bonus: Simulation</a></li>
-<li><a class="nav-link" href="#random-number-generators"><span class="header-section-number">18.1</span> Random number generators</a></li>
-<li><a class="nav-link" href="#replication"><span class="header-section-number">18.2</span> Replication</a></li>
-<li><a class="nav-link" href="#set-seed"><span class="header-section-number">18.3</span> Set seed</a></li>
-<li><a class="nav-link" href="#sample-size"><span class="header-section-number">18.4</span> Sample size</a></li>
-<li><a class="nav-link" href="#power"><span class="header-section-number">18.5</span> Power</a></li>
-<li><a class="nav-link" href="#further-reading"><span class="header-section-number">18.6</span> Further Reading:</a></li>
+<li><a class="nav-link" href="#bonus-simulation"><span class="header-section-number">19</span> Bonus: Simulation</a></li>
+<li><a class="nav-link" href="#random-number-generators"><span class="header-section-number">19.1</span> Random number generators</a></li>
+<li><a class="nav-link" href="#replication"><span class="header-section-number">19.2</span> Replication</a></li>
+<li><a class="nav-link" href="#set-seed"><span class="header-section-number">19.3</span> Set seed</a></li>
+<li><a class="nav-link" href="#sample-size"><span class="header-section-number">19.4</span> Sample size</a></li>
+<li><a class="nav-link" href="#power"><span class="header-section-number">19.5</span> Power</a></li>
+<li><a class="nav-link" href="#further-reading"><span class="header-section-number">19.6</span> Further Reading:</a></li>
 </ul>
 
       <div class="book-extra">

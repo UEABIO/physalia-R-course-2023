@@ -9,6 +9,7 @@ fig:unnamed-chunk-11
 tab:unnamed-chunk-34
 fig:unnamed-chunk-101
 fig:unnamed-chunk-102
+fig:img-pivot
 fig:ambitious-figure
 fig:img-objects-enviro
 fig:unnamed-chunk-17
@@ -134,6 +135,14 @@ calculations-with-dates
 factors
 finished
 activity-test-yourself-1
+data-reshaping
+using-pivot-functions
+overwrite-the-original-object
+create-a-new-r-object
+join-functions
+left-join
+right-join
+full-join
 basic-ggplot
 intro-to-grammar
 building-a-plot

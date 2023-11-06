@@ -3272,7 +3272,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_YKRMVWZDIE'><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_XBMYNVRCVT'><label><input type="radio" autocomplete="off" name="radio_XBMYNVRCVT" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_XBMYNVRCVT" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_XBMYNVRCVT" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_XBMYNVRCVT" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -3599,6 +3599,291 @@ penguins_filtered <- penguins |>
 
 
 
+
+# Data reshaping
+
+While neither *wide* or *long* data is more correct than the other, we will work with *long* data as it is clearer how many distinct types of variables there are in our data *and* the tools we will be using from the `tidyverse` are designed to work with *long* data.
+
+## Using `pivot` functions
+
+There are functions found as part of the `tidyverse` that can help us to reshape data. 
+
+* `tidyr::pivot_wider()` - from *long* to *wide* format
+
+* `tidyr::pivot_longer()` - from *wide* to *long* format
+
+
+```r
+ country <- c("x", "y", "z")
+ yr1960 <-  c(10, 20, 30)
+ yr1970 <-  c(13, 23, 33)
+ yr2010 <-  c(15, 25, 35)
+
+country_data <- tibble(country, yr1960, yr1970, yr2010)
+country_data
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> country </th>
+   <th style="text-align:right;"> yr1960 </th>
+   <th style="text-align:right;"> yr1970 </th>
+   <th style="text-align:right;"> yr2010 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 15 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> y </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> z </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 35 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+
+
+
+```r
+pivot_longer(data = country_data,
+             cols = yr1960:yr2010,
+             names_to = "year",
+             names_prefix = "yr",
+             values_to = "metric")
+```
+
+<div class="figure" style="text-align: center">
+<img src="images/tidyr_pivot.png" alt="Reshaping data with pivot" width="100%" />
+<p class="caption">(\#fig:img-pivot)Reshaping data with pivot</p>
+</div>
+
+
+To *save* these changes to your data format, you must assign this to an object, and you have two options
+
+* Use the same name as the original R object, this will *overwrite* the original with the new format
+
+* Use a *new* name for the reformatted data both R objects will exist in your Environment
+
+Neither is more *correct* than the other but be aware of what you are doing.
+
+
+### Overwrite the original object 
+
+
+```r
+country_data <- pivot_longer(data = country_data,
+             cols = yr1960:yr2010,
+             names_to = "year",
+             names_prefix = "yr",
+             values_to = "metric")
+```
+
+### Create a new r object
+
+
+```r
+long_country_data <- pivot_longer(data = country_data,
+             cols = yr1960:yr2010,
+             names_to = "year",
+             names_prefix = "yr",
+             values_to = "metric")
+```
+
+## Join functions
+
+Frequently, analysis of data will require merging these separately managed tables back together. There are multiple ways to join the observations in two tables, based on how the rows of one table are merged with the rows of the other.
+
+When conceptualizing merges, one can think of two tables, one on the left and one on the right. The most common (and often useful) join is when you merge the subset of rows that have matches in both the left table and the right table: this is called an INNER JOIN. Other types of join are possible as well. 
+
+- A LEFT JOIN takes all of the rows from the left table, and merges on the data from matching rows in the right table. Keys that don’t match from the left table are still provided with a missing value (NA) from the right table. 
+
+- A RIGHT JOIN is the same, except that all of the rows from the right table are included with matching data from the left, or a missing value. 
+
+- Finally, a FULL JOIN includes all data from all rows in both tables, and includes missing values wherever necessary.
+
+
+<img src="images/join-diagrams.png" width="100%" style="display: block; margin: auto;" />
+
+
+### Left join
+
+
+```r
+# Create tibbles df_primary and df_secondary
+df_primary <- tibble(
+  ID = c("A", "B", "C", "D", "F"),
+  y = c(5, 5, 8, 0, 9)
+)
+
+df_secondary <- tibble(
+  ID = c("A", "B", "C", "D", "E"),
+  z = c(30, 21, 22, 25, 29)
+)
+```
+
+
+```r
+left_join(df_primary, df_secondary, by ='ID')
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> ID </th>
+   <th style="text-align:right;"> y </th>
+   <th style="text-align:right;"> z </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> D </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> F </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+### Right join
+
+
+```r
+right_join(df_primary, df_secondary, by = 'ID')
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> ID </th>
+   <th style="text-align:right;"> y </th>
+   <th style="text-align:right;"> z </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> D </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> E </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 29 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+### Full join
+
+
+```r
+full_join(df_primary, df_secondary, by = 'ID')
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> ID </th>
+   <th style="text-align:right;"> y </th>
+   <th style="text-align:right;"> z </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> D </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> F </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> E </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 29 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
 
 <!--chapter:end:02a-penguin.Rmd-->
 
@@ -5278,11 +5563,6 @@ That's it! Thank you for taking the time to get this far. Be kind to yourself if
 
 
 
-Good simple intro: https://github.com/tomjemmett/nhs-r_conf_21-fp_workshop
-
-https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/
-
-https://bookdown.org/rdpeng/rprogdatascience/control-structures.html
 
 ## Structuring a function
 
@@ -5861,6 +6141,32 @@ While you are in debug mode you can call the individual objects in your function
 
 Once we are done with debugging it is important to turn the debug mode off - close the interactive page and run `undebug(function_name)` so that the debugging panel doesn't reopen the next time you launch your function. 
 
+
+```r
+make_sum <- function(a,b){
+  c <- a+b
+  return(c)
+}
+
+debug(make_sum)
+
+make_sum(a = 5, b =2)
+
+undebug(make_sum)
+```
+
+While in debugging mode, you can use various commands to inspect and control the debugging process. Here are some common debugging commands:
+
+- n or next: Step to the next line of the function.
+
+- c or continue: Continue execution until the function returns.
+
+- Q or quit: Quit debugging and return to the R console.
+
+- where: Show the call stack to see where you are in the function.
+
+- print(var_name): Print the value of a variable.
+
 #### flow
 
 `flow` is a great package for helping to understand code structures - it visualizes a chart diagram of the functional architecture.
@@ -5894,9 +6200,9 @@ triangle_number <- function(x) {
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Run `testthat()` to make sure this function works for multiple inputs </div></div>
 
-<button id="displayTextunnamed-chunk-45" onclick="javascript:toggle('unnamed-chunk-45');">Show Solution</button>
+<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-45" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-46" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 test_that("it works as expected", {
@@ -5924,9 +6230,9 @@ test_that("it works as expected", {
 ```
 
 
-<button id="displayTextunnamed-chunk-48" onclick="javascript:toggle('unnamed-chunk-48');">Show Solution</button>
+<button id="displayTextunnamed-chunk-49" onclick="javascript:toggle('unnamed-chunk-49');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-48" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-49" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # the output is a named list
@@ -6158,9 +6464,9 @@ For `p = "a"` there is a warning but perhaps not a very intuitive one.
 We can make our own custom/specific warnings, try this and run it with the arguments above again! 
 
 
-<button id="displayTextunnamed-chunk-61" onclick="javascript:toggle('unnamed-chunk-61');">Show Solution</button>
+<button id="displayTextunnamed-chunk-62" onclick="javascript:toggle('unnamed-chunk-62');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-61" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-61 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-61', 'unnamed-chunk-61');">Base R</button><button class="tablinksunnamed-chunk-61" onclick="javascript:openCode(event, 'option2unnamed-chunk-61', 'unnamed-chunk-61');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
+<div id="toggleTextunnamed-chunk-62" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-62 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-62', 'unnamed-chunk-62');">Base R</button><button class="tablinksunnamed-chunk-62" onclick="javascript:openCode(event, 'option2unnamed-chunk-62', 'unnamed-chunk-62');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
 
 ```r
  report_p <- function(p, digits = 3) {
@@ -6175,7 +6481,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
      return(reported)
  }
 ```
- </div><div id="option2unnamed-chunk-61" class="tabcontentunnamed-chunk-61">
+ </div><div id="option2unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
  
  
  ```r
@@ -6193,7 +6499,7 @@ We can make our own custom/specific warnings, try this and run it with the argum
     return(result)
  }
  ```
- </div><script> javascript:hide('option2unnamed-chunk-61') </script></div></div></div>
+ </div><script> javascript:hide('option2unnamed-chunk-62') </script></div></div></div>
 
 
 ## Activities
@@ -6203,9 +6509,9 @@ We'll create a function that calculates the GC content of a DNA sequence, and th
 
 > Hint`stringr` and associated functions will be very helpful here
 
-<button id="displayTextunnamed-chunk-62" onclick="javascript:toggle('unnamed-chunk-62');">Show Solution</button>
+<button id="displayTextunnamed-chunk-63" onclick="javascript:toggle('unnamed-chunk-63');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-62" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-62 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-62', 'unnamed-chunk-62');">Base R</button><button class="tablinksunnamed-chunk-62" onclick="javascript:openCode(event, 'option2unnamed-chunk-62', 'unnamed-chunk-62');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
+<div id="toggleTextunnamed-chunk-63" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-63 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-63', 'unnamed-chunk-63');">Base R</button><button class="tablinksunnamed-chunk-63" onclick="javascript:openCode(event, 'option2unnamed-chunk-63', 'unnamed-chunk-63');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -6240,7 +6546,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-62" class="tabcontentunnamed-chunk-62">
+</div><div id="option2unnamed-chunk-63" class="tabcontentunnamed-chunk-63">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -6274,24 +6580,26 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-62') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-63') </script></div></div></div>
 
 Exercise 2: Document the Function
-Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.
 
-<button id="displayTextunnamed-chunk-63" onclick="javascript:toggle('unnamed-chunk-63');">Show Solution</button>
+Add documentation to the factorial function with comments. Include a description, inputs, outputs and examples.
 
-<div id="toggleTextunnamed-chunk-63" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<button id="displayTextunnamed-chunk-64" onclick="javascript:toggle('unnamed-chunk-64');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-64" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 
 </div></div></div>
 
 Exercise 3: Test the Function
+
 Create a test script that uses test_that to check if the function returns the correct GC percentage and melting temps
 
-<button id="displayTextunnamed-chunk-64" onclick="javascript:toggle('unnamed-chunk-64');">Show Solution</button>
+<button id="displayTextunnamed-chunk-65" onclick="javascript:toggle('unnamed-chunk-65');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-64" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-65" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 test_that("gc_content function tests", {
@@ -6308,11 +6616,12 @@ test_that("gc_content function tests", {
 </div></div></div>
 
 Exercise 4: Handle Errors
+
 You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?
 
-<button id="displayTextunnamed-chunk-65" onclick="javascript:toggle('unnamed-chunk-65');">Show Solution</button>
+<button id="displayTextunnamed-chunk-66" onclick="javascript:toggle('unnamed-chunk-66');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-65" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-65 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-65', 'unnamed-chunk-65');">Base R</button><button class="tablinksunnamed-chunk-65" onclick="javascript:openCode(event, 'option2unnamed-chunk-65', 'unnamed-chunk-65');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-65" class="tabcontentunnamed-chunk-65">
+<div id="toggleTextunnamed-chunk-66" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-66 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-66', 'unnamed-chunk-66');">Base R</button><button class="tablinksunnamed-chunk-66" onclick="javascript:openCode(event, 'option2unnamed-chunk-66', 'unnamed-chunk-66');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-66" class="tabcontentunnamed-chunk-66">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -6351,7 +6660,7 @@ gc_content <- function(dna_sequence) {
   return(dna_content)
 }
 ```
-</div><div id="option2unnamed-chunk-65" class="tabcontentunnamed-chunk-65">
+</div><div id="option2unnamed-chunk-66" class="tabcontentunnamed-chunk-66">
 
 ```r
 gc_content <- function(dna_sequence) {
@@ -6389,9 +6698,7 @@ if (!str_detect(dna_sequence, "^[ATCG]+$")) stop("Invalid DNA sequence. Only A, 
   return(dna_content)
 }
 ```
-</div><script> javascript:hide('option2unnamed-chunk-65') </script></div></div></div>
-
-
+</div><script> javascript:hide('option2unnamed-chunk-66') </script></div></div></div>
 
 
 # Simple iteration
@@ -6450,9 +6757,9 @@ What do you think will happen if you set both times to 3 and each to 2?
 rep(c("Adelie", "Gentoo", "Chinstrap"), times = 2, each = 3)
 ```
 
-<button id="displayTextunnamed-chunk-70" onclick="javascript:toggle('unnamed-chunk-70');">Show Solution</button>
+<button id="displayTextunnamed-chunk-71" onclick="javascript:toggle('unnamed-chunk-71');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-70" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-71" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```
 ##  [1] "Adelie"    "Adelie"    "Adelie"    "Gentoo"    "Gentoo"    "Gentoo"   
@@ -6530,12 +6837,12 @@ replicate(3, # times to replicate function
 ```
 
 ```
-##            [,1]       [,2]      [,3]
-## [1,]  3.2064000  0.3634067 1.0614246
-## [2,]  1.8743519  1.2374685 1.0781874
-## [3,]  3.2270798  0.1645341 1.1358529
-## [4,] -0.3266705 -1.3798490 0.7526762
-## [5,]  1.7417151  2.1590005 1.9911489
+##             [,1]       [,2]      [,3]
+## [1,]  0.15777458  1.4633883 0.3409807
+## [2,]  1.32342825 -0.4650372 2.3607988
+## [3,]  1.66379826  0.9914023 0.1729935
+## [4,]  1.77568409 -0.7147539 1.3281941
+## [5,] -0.03470096  1.6855677 1.1956467
 ```
 
 https://www.r-bloggers.com/2023/07/the-replicate-function-in-r/
@@ -6854,7 +7161,7 @@ Unit: milliseconds
 autoplot(mbm)
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-91-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-92-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -7104,9 +7411,9 @@ apply(df, MARGIN = 1, mean)
 Make a function that converts values with a normal distribution into their z scores </div></div>
 
 
-<button id="displayTextunnamed-chunk-100" onclick="javascript:toggle('unnamed-chunk-100');">Show Solution</button>
+<button id="displayTextunnamed-chunk-101" onclick="javascript:toggle('unnamed-chunk-101');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-100" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-101" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 z_score <- function(x) {
@@ -7119,9 +7426,9 @@ z_score <- function(x) {
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Choose the appropriate apply function to calculate a matrix of z-scores for the dataframe `df` </div></div>
 
-<button id="displayTextunnamed-chunk-102" onclick="javascript:toggle('unnamed-chunk-102');">Show Solution</button>
+<button id="displayTextunnamed-chunk-103" onclick="javascript:toggle('unnamed-chunk-103');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-102" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-103" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 apply(df, MARGIN = 2,  z_score)
 </div></div></div>
@@ -7153,19 +7460,19 @@ Basic `map()` will *always* return a `list`, other variants return different dat
 
 ## Example
 
-<div class="tab"><button class="tablinksunnamed-chunk-104 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-104', 'unnamed-chunk-104');">Base R</button><button class="tablinksunnamed-chunk-104" onclick="javascript:openCode(event, 'option2unnamed-chunk-104', 'unnamed-chunk-104');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-104" class="tabcontentunnamed-chunk-104">
+<div class="tab"><button class="tablinksunnamed-chunk-105 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-105', 'unnamed-chunk-105');">Base R</button><button class="tablinksunnamed-chunk-105" onclick="javascript:openCode(event, 'option2unnamed-chunk-105', 'unnamed-chunk-105');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
 
 ```r
 lapply(df_list, mean)
 ```
-</div><div id="option2unnamed-chunk-104" class="tabcontentunnamed-chunk-104">
+</div><div id="option2unnamed-chunk-105" class="tabcontentunnamed-chunk-105">
 
 ```r
 map(.x = df_list, .f = mean)
 
 map(df_list, mean)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-104') </script>
+</div><script> javascript:hide('option2unnamed-chunk-105') </script>
 
 
 
@@ -7348,7 +7655,7 @@ library(patchwork)
 plots$scatterplots |> wrap_plots()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-117-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-118-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## map2
 
@@ -7378,7 +7685,7 @@ plots$scatterplots |>
     wrap_plots(... = _, guides = "collect")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-119-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-120-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### Running different summary functions on each nested dataframe
 
@@ -7439,9 +7746,9 @@ result$summaries
 In the previous chapter with apply we wrote the `z_score()` function, can you apply this using map to our `df` tibble? </div></div>
 
 
-<button id="displayTextunnamed-chunk-122" onclick="javascript:toggle('unnamed-chunk-122');">Show Solution</button>
+<button id="displayTextunnamed-chunk-123" onclick="javascript:toggle('unnamed-chunk-123');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-122" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-123" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 map_df(.x = df, 
@@ -7500,9 +7807,9 @@ Sampling without replacement means that when you repeatedly draw e.g. 1 item fro
 **YOUR TURN:**  
 Sample 100 values between 3 and 103 with replacement.    
 
-<button id="displayTextunnamed-chunk-124" onclick="javascript:toggle('unnamed-chunk-124');">Show Solution</button>
+<button id="displayTextunnamed-chunk-125" onclick="javascript:toggle('unnamed-chunk-125');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-124" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-125" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 x <- 3:103
@@ -7526,9 +7833,9 @@ Draw 50 values from a normal distribution with a mean of 10 and sd of 5.
 Draw 1000 values from a poisson distribution with a lambda of 50.  
 Draw 30 values from a uniform distribution between 0 and 10.  
 
-<button id="displayTextunnamed-chunk-125" onclick="javascript:toggle('unnamed-chunk-125');">Show Solution</button>
+<button id="displayTextunnamed-chunk-126" onclick="javascript:toggle('unnamed-chunk-126');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-125" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-126" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 rnorm(n = 100, mean = 0, sd = 1)
@@ -7554,16 +7861,16 @@ Replicate 1000 times the mean of 10 values drawn from a unifrom distribution bet
 
 Make a histogram of your results. 
 
-<button id="displayTextunnamed-chunk-126" onclick="javascript:toggle('unnamed-chunk-126');">Show Solution</button>
+<button id="displayTextunnamed-chunk-127" onclick="javascript:toggle('unnamed-chunk-127');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-126" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-127" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 replicate(1000, mean(runif(10, max = 10)))
 hist(replicate(1000, mean(runif(10, max = 10))))
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-152-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-149-1.png" width="100%" style="display: block; margin: auto;" />
 
 ```
 ##    [1] 5.022564 6.486282 3.253483 5.283917 4.755306 4.764930 3.866803 5.239018
@@ -7774,7 +8081,7 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
     theme_minimal()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-127-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-128-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Power
 
@@ -7829,7 +8136,7 @@ simulation_results <- map_dbl(sample_sizes, simulate_power, effect_size)
 plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = "Power", main = "Power vs. Sample Size")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-128-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-129-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 
@@ -8854,7 +9161,7 @@ geom_histogram(fill = "grey80", color = "black")+
 
 # Group work
 
-The R4DS book demonstrates how functions can be used to run multiple models simultaneously. This technique is valuable for extracting meaningful insights from your data. A well-known example of this approach involves the Gapminder dataset. We will cover a brief version here: 
+The [R4DS](https://r4ds.had.co.nz/many-models.html) book demonstrates how functions can be used to run multiple models simultaneously. This technique is valuable for extracting meaningful insights from your data.
 
 To find out how well culmen length can predict culmen depth we build a linear regression model.
 
@@ -8930,7 +9237,7 @@ However, there may be occasions where we wish to apply simple models to each sub
 
 First we need to `nest()` our data - tibbles with nested dataframes can be manipulated using various functions and operations to perform tasks like filtering, summarizing, and visualization. Nested dataframes also facilitate operations on a per-group basis, which can be useful for group-wise analysis. 
 
-Next we create a new 
+1. First we create a new nested dataframe 2. Then we run a model function (passing this through `broom::tidy()` to get a tibble friendly output) inside mutate. This will create a new column with nested tibbles in it. We then unnest the model to extract the terms for each Intercept and slope. 
 
 
 ```r

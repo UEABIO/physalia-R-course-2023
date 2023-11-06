@@ -11,11 +11,6 @@ library(palmerpenguins)
 
 ```
 
-Good simple intro: https://github.com/tomjemmett/nhs-r_conf_21-fp_workshop
-
-https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/
-
-https://bookdown.org/rdpeng/rprogdatascience/control-structures.html
 
 ## Structuring a function
 
@@ -573,6 +568,33 @@ knitr::include_graphics("images/debug_flow_1_zoom.gif")
 
 Once we are done with debugging it is important to turn the debug mode off - close the interactive page and run `undebug(function_name)` so that the debugging panel doesn't reopen the next time you launch your function. 
 
+```{r, eval = F}
+
+make_sum <- function(a,b){
+  c <- a+b
+  return(c)
+}
+
+debug(make_sum)
+
+make_sum(a = 5, b =2)
+
+undebug(make_sum)
+
+```
+
+While in debugging mode, you can use various commands to inspect and control the debugging process. Here are some common debugging commands:
+
+- n or next: Step to the next line of the function.
+
+- c or continue: Continue execution until the function returns.
+
+- Q or quit: Quit debugging and return to the R console.
+
+- where: Show the call stack to see where you are in the function.
+
+- print(var_name): Print the value of a variable.
+
 #### flow
 
 `flow` is a great package for helping to understand code structures - it visualizes a chart diagram of the functional architecture.
@@ -1003,7 +1025,8 @@ gc_content <- function(dna_sequence) {
 ```
 
 Exercise 2: Document the Function
-Add documentation to the factorial function using roxygen2-style comments. Include a title, description, arguments, and examples.
+
+Add documentation to the factorial function with comments. Include a description, inputs, outputs and examples.
 
 ```{solution}
 
@@ -1014,6 +1037,7 @@ Add documentation to the factorial function using roxygen2-style comments. Inclu
 ```
 
 Exercise 3: Test the Function
+
 Create a test script that uses test_that to check if the function returns the correct GC percentage and melting temps
 
 ```{solution}
@@ -1032,6 +1056,7 @@ test_that("gc_content function tests", {
 ```
 
 Exercise 4: Handle Errors
+
 You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?
 
 ```{solution, multCode = T}
@@ -1118,8 +1143,6 @@ if (!str_detect(dna_sequence, "^[ATCG]+$")) stop("Invalid DNA sequence. Only A, 
 ``
 
 ```
-
-
 
 
 # Simple iteration

@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 35 Outputs | Advancing in R</title>
+<title>Chapter 36 Outputs | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
 <meta name="description" content="# Packages ---- library(shiny)    # Essential for running any Shiny app library(tidyverse) library(palmerpenguins)  # The source of your data # Load the data penguins &lt;- as_tibble(penguins) # ui.R...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 35 Outputs | Advancing in R">
+<meta property="og:title" content="Chapter 36 Outputs | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/outputs.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <meta property="og:description" content="# Packages ---- library(shiny)    # Essential for running any Shiny app library(tidyverse) library(palmerpenguins)  # The source of your data # Load the data penguins &lt;- as_tibble(penguins) # ui.R...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 35 Outputs | Advancing in R">
+<meta name="twitter:title" content="Chapter 36 Outputs | Advancing in R">
 <meta name="twitter:description" content="# Packages ---- library(shiny)    # Essential for running any Shiny app library(tidyverse) library(palmerpenguins)  # The source of your data # Load the data penguins &lt;- as_tibble(penguins) # ui.R...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -121,52 +121,53 @@
 <li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
 <li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
 <li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
-<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
+<li><a class="" href="data-reshaping.html"><span class="header-section-number">9</span> Data reshaping</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">10</span> Basic ggplot</a></li>
 <li class="book-part">Data Insights</li>
-<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">10</span> Data Insights part one</a></li>
-<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">11</span> Data insights part two</a></li>
+<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">11</span> Data Insights part one</a></li>
+<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">12</span> Data insights part two</a></li>
 <li class="book-part">Functional Programming</li>
-<li><a class="" href="writing-functions.html"><span class="header-section-number">12</span> Writing Functions</a></li>
-<li><a class="" href="flow-control.html"><span class="header-section-number">13</span> Flow control</a></li>
-<li><a class="" href="simple-iteration.html"><span class="header-section-number">14</span> Simple iteration</a></li>
-<li><a class="" href="loops.html"><span class="header-section-number">15</span> Loops</a></li>
-<li><a class="" href="apply.html"><span class="header-section-number">16</span> Apply</a></li>
-<li><a class="" href="purrr.html"><span class="header-section-number">17</span> Purrr</a></li>
-<li><a class="" href="bonus-simulation.html"><span class="header-section-number">18</span> Bonus: Simulation</a></li>
+<li><a class="" href="writing-functions.html"><span class="header-section-number">13</span> Writing Functions</a></li>
+<li><a class="" href="flow-control.html"><span class="header-section-number">14</span> Flow control</a></li>
+<li><a class="" href="simple-iteration.html"><span class="header-section-number">15</span> Simple iteration</a></li>
+<li><a class="" href="loops.html"><span class="header-section-number">16</span> Loops</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">17</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">18</span> Purrr</a></li>
+<li><a class="" href="bonus-simulation.html"><span class="header-section-number">19</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">19</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">20</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">21</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">22</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">23</span> Applying functions across columns</a></li>
-<li><a class="" href="working-with-rows.html"><span class="header-section-number">24</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">25</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">26</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">27</span> Writing Functions in Tidyverse</a></li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">20</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">21</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">22</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">23</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">24</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">25</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">26</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">27</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">28</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="customisation-with-ggplot2.html"><span class="header-section-number">28</span> Customisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">29</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">30</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">31</span> Making tables with gt</a></li>
+<li><a class="" href="customisation-with-ggplot2.html"><span class="header-section-number">29</span> Customisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">30</span> Extensions for ggplot2</a></li>
+<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">31</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">32</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">32</span> Getting to work with Shiny</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">33</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">34</span> Inputs</a></li>
-<li><a class="active" href="outputs.html"><span class="header-section-number">35</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">36</span> Reactive</a></li>
-<li><a class="" href="shiny-dashboards.html"><span class="header-section-number">37</span> Shiny Dashboards</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">38</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">33</span> Getting to work with Shiny</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">34</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">35</span> Inputs</a></li>
+<li><a class="active" href="outputs.html"><span class="header-section-number">36</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">37</span> Reactive</a></li>
+<li><a class="" href="shiny-dashboards.html"><span class="header-section-number">38</span> Shiny Dashboards</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">39</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="rmarkdown.html"><span class="header-section-number">39</span> RMarkdown</a></li>
-<li><a class="" href="github-1.html"><span class="header-section-number">40</span> Github</a></li>
+<li><a class="" href="rmarkdown.html"><span class="header-section-number">40</span> RMarkdown</a></li>
+<li><a class="" href="github-1.html"><span class="header-section-number">41</span> Github</a></li>
 <li><a class="" href="NA.html">
 to upload commits
 to the remote repository.
 </a></li>
 <li class="book-part">Working with big data</li>
-<li><a class="" href="reading-3.html"><span class="header-section-number">41</span> Reading</a></li>
+<li><a class="" href="reading-3.html"><span class="header-section-number">42</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">42</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
 
         <div class="book-extra">
@@ -174,11 +175,11 @@ to the remote repository.
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="outputs" class="section level1" number="35">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="outputs" class="section level1" number="36">
 <h1>
-<span class="header-section-number">35</span> Outputs<a class="anchor" aria-label="anchor" href="#outputs"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36</span> Outputs<a class="anchor" aria-label="anchor" href="#outputs"><i class="fas fa-link"></i></a>
 </h1>
-<div class="sourceCode" id="cb584"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -264,22 +265,22 @@ to the remote repository.
 <span></span>
 <span><span class="co"># Run the app ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<div id="text-1" class="section level2" number="35.1">
+<div id="text-1" class="section level2" number="36.1">
 <h2>
-<span class="header-section-number">35.1</span> Text<a class="anchor" aria-label="anchor" href="#text-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.1</span> Text<a class="anchor" aria-label="anchor" href="#text-1"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>func("textOutput")</code> defaults to text inside a generic <code>&lt;span&gt;</code> or <code>&lt;div&gt;</code>.</p>
-<div class="sourceCode" id="cb585"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"demo_text"</span>, container <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="va">h3</span><span class="op">)</span></span></code></pre></div>
 <p><code>func("renderText")</code> replaces the text of the linked element with its returned string.</p>
-<div class="sourceCode" id="cb586"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb595"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the server function</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Figure 1."</span>, <span class="va">input</span><span class="op">$</span><span class="va">species</span>, <span class="va">input</span><span class="op">$</span><span class="va">text</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>If you use <code>func("verbatimTextOutput")</code> in the UI (no change to the render function), it will show the output in a fixed-width font. This can be good for code or text you want the user to copy.</p>
-<div class="sourceCode" id="cb587"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"demo_verbatim"</span><span class="op">)</span></span>
 <span></span>
@@ -296,12 +297,12 @@ to the remote repository.
 <span>  <span class="va">code</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="plots" class="section level2" number="35.2">
+<div id="plots" class="section level2" number="36.2">
 <h2>
-<span class="header-section-number">35.2</span> Plots<a class="anchor" aria-label="anchor" href="#plots"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.2</span> Plots<a class="anchor" aria-label="anchor" href="#plots"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>func("plotOutput")</code> displays plots made with the <code>base R</code> plotting functions (e.g., <code>"plot"</code>, <code>hist</code>) or <code>ggplot2</code> functions.</p>
-<div class="sourceCode" id="cb588"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb597"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"demo_plot"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, height<span class="op">=</span><span class="st">"300px"</span><span class="op">)</span></span></code></pre></div>
 <p>What is the default value for <code>width</code>?<br><select class="webex-select"><option value="blank"></option>
@@ -316,7 +317,7 @@ to the remote repository.
 <option value="">400</option>
 <option value="">5in</option>
 <option value="">7in</option></select></p>
-<div class="sourceCode" id="cb589"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb598"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the server function</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="va">penguins_filtered</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -334,16 +335,16 @@ you need to use <code>y = .data[[input<span class="math inline">\(y]]&lt;/code&g
 </p>
 </div>
 </div>
-<div id="images" class="section level2" number="35.3">
+<div id="images" class="section level2" number="36.3">
 <h2>
-<span class="header-section-number">35.3</span> Images<a class="anchor" aria-label="anchor" href="#images"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.3</span> Images<a class="anchor" aria-label="anchor" href="#images"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>imageOutput</code> takes the same arguments as <code>plotOutput</code>. You can leave <code>width</code> and <code>height</code> as their defaults if you are going to set those values in the render function.</p>
-<div class="sourceCode" id="cb590"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">imageOutput</a></span><span class="op">(</span><span class="st">"demo_image"</span><span class="op">)</span></span></code></pre></div>
 <p><code>renderImage</code> needs to return a named list with at least an <code>src</code> with the image path. You can also set the <code>width</code> and <code>height</code> (numeric values are in pixels), <code>class</code> and <code>alt</code> (the alt-text for screen readers).</p>
-<div class="sourceCode" id="cb591"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb600"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the server function</span></span>
 <span><span class="va">output</span><span class="op">$</span><span class="va">demo_image</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderImage.html">renderImage</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>src <span class="op">=</span> <span class="st">"images/penguin.jpg"</span>,</span>
@@ -361,16 +362,16 @@ you’re referencing a file you previously saved.
 </p>
 </div>
 </div>
-<div id="data-tables" class="section level2" number="35.4">
+<div id="data-tables" class="section level2" number="36.4">
 <h2>
-<span class="header-section-number">35.4</span> Data Tables<a class="anchor" aria-label="anchor" href="#data-tables"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.4</span> Data Tables<a class="anchor" aria-label="anchor" href="#data-tables"><i class="fas fa-link"></i></a>
 </h2>
 <p>Display a table using <code>tableOutput</code>.</p>
-<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb601"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"demo_table"</span><span class="op">)</span></span></code></pre></div>
 <p>This is paired with <code><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">DT::renderDataTable</a></code>, which makes a table out of any data frame it returns.</p>
-<div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb602"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the server function</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_table</span> <span class="op">&lt;-</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">renderDataTable</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>   <span class="va">penguins</span>  <span class="op">|&gt;</span> </span>
@@ -392,9 +393,9 @@ same options.
 </p>
 </div>
 </div>
-<div id="emphasis" class="section level2" number="35.5">
+<div id="emphasis" class="section level2" number="36.5">
 <h2>
-<span class="header-section-number">35.5</span> Emphasis<a class="anchor" aria-label="anchor" href="#emphasis"><i class="fas fa-link"></i></a>
+<span class="header-section-number">36.5</span> Emphasis<a class="anchor" aria-label="anchor" href="#emphasis"><i class="fas fa-link"></i></a>
 </h2>
 <p>We can use basic HTML to start customising appearance and emphasis - later we will use the <code>bslib</code> package to give us lots of easy customisation:</p>
 <pre><code>  
@@ -419,7 +420,7 @@ p("p creates a paragraph of text."),
         span("groups of words", style = "color:blue"),
         "that appear inside a paragraph."),
 </code></pre>
-<div class="sourceCode" id="cb595"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -681,17 +682,17 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="inputs.html"><span class="header-section-number">34</span> Inputs</a></div>
-<div class="next"><a href="reactive.html"><span class="header-section-number">36</span> Reactive</a></div>
+<div class="prev"><a href="inputs.html"><span class="header-section-number">35</span> Inputs</a></div>
+<div class="next"><a href="reactive.html"><span class="header-section-number">37</span> Reactive</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#outputs"><span class="header-section-number">35</span> Outputs</a></li>
-<li><a class="nav-link" href="#text-1"><span class="header-section-number">35.1</span> Text</a></li>
-<li><a class="nav-link" href="#plots"><span class="header-section-number">35.2</span> Plots</a></li>
-<li><a class="nav-link" href="#images"><span class="header-section-number">35.3</span> Images</a></li>
-<li><a class="nav-link" href="#data-tables"><span class="header-section-number">35.4</span> Data Tables</a></li>
-<li><a class="nav-link" href="#emphasis"><span class="header-section-number">35.5</span> Emphasis</a></li>
+<li><a class="nav-link" href="#outputs"><span class="header-section-number">36</span> Outputs</a></li>
+<li><a class="nav-link" href="#text-1"><span class="header-section-number">36.1</span> Text</a></li>
+<li><a class="nav-link" href="#plots"><span class="header-section-number">36.2</span> Plots</a></li>
+<li><a class="nav-link" href="#images"><span class="header-section-number">36.3</span> Images</a></li>
+<li><a class="nav-link" href="#data-tables"><span class="header-section-number">36.4</span> Data Tables</a></li>
+<li><a class="nav-link" href="#emphasis"><span class="header-section-number">36.5</span> Emphasis</a></li>
 </ul>
 
       <div class="book-extra">

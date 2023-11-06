@@ -800,7 +800,7 @@ geom_histogram(fill = "grey80", color = "black")+
 
 # Group work
 
-The R4DS book demonstrates how functions can be used to run multiple models simultaneously. This technique is valuable for extracting meaningful insights from your data. A well-known example of this approach involves the Gapminder dataset. We will cover a brief version here: 
+The [R4DS](https://r4ds.had.co.nz/many-models.html) book demonstrates how functions can be used to run multiple models simultaneously. This technique is valuable for extracting meaningful insights from your data.
 
 To find out how well culmen length can predict culmen depth we build a linear regression model.
 
@@ -855,7 +855,7 @@ However, there may be occasions where we wish to apply simple models to each sub
 
 First we need to `nest()` our data - tibbles with nested dataframes can be manipulated using various functions and operations to perform tasks like filtering, summarizing, and visualization. Nested dataframes also facilitate operations on a per-group basis, which can be useful for group-wise analysis. 
 
-Next we create a new 
+1. First we create a new nested dataframe 2. Then we run a model function (passing this through `broom::tidy()` to get a tibble friendly output) inside mutate. This will create a new column with nested tibbles in it. We then unnest the model to extract the terms for each Intercept and slope. 
 
 ```{r, eval = F}
 penguins |> 

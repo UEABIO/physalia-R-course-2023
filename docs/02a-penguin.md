@@ -1360,7 +1360,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_YKRMVWZDIE'><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_YKRMVWZDIE" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_XBMYNVRCVT'><label><input type="radio" autocomplete="off" name="radio_XBMYNVRCVT" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_XBMYNVRCVT" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_XBMYNVRCVT" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_XBMYNVRCVT" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -1687,3 +1687,288 @@ penguins_filtered <- penguins |>
 
 
 
+
+# Data reshaping
+
+While neither *wide* or *long* data is more correct than the other, we will work with *long* data as it is clearer how many distinct types of variables there are in our data *and* the tools we will be using from the `tidyverse` are designed to work with *long* data.
+
+## Using `pivot` functions
+
+There are functions found as part of the `tidyverse` that can help us to reshape data. 
+
+* `tidyr::pivot_wider()` - from *long* to *wide* format
+
+* `tidyr::pivot_longer()` - from *wide* to *long* format
+
+
+```r
+ country <- c("x", "y", "z")
+ yr1960 <-  c(10, 20, 30)
+ yr1970 <-  c(13, 23, 33)
+ yr2010 <-  c(15, 25, 35)
+
+country_data <- tibble(country, yr1960, yr1970, yr2010)
+country_data
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> country </th>
+   <th style="text-align:right;"> yr1960 </th>
+   <th style="text-align:right;"> yr1970 </th>
+   <th style="text-align:right;"> yr2010 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> x </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 15 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> y </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> z </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 35 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+
+
+
+```r
+pivot_longer(data = country_data,
+             cols = yr1960:yr2010,
+             names_to = "year",
+             names_prefix = "yr",
+             values_to = "metric")
+```
+
+<div class="figure" style="text-align: center">
+<img src="images/tidyr_pivot.png" alt="Reshaping data with pivot" width="100%" />
+<p class="caption">(\#fig:img-pivot)Reshaping data with pivot</p>
+</div>
+
+
+To *save* these changes to your data format, you must assign this to an object, and you have two options
+
+* Use the same name as the original R object, this will *overwrite* the original with the new format
+
+* Use a *new* name for the reformatted data both R objects will exist in your Environment
+
+Neither is more *correct* than the other but be aware of what you are doing.
+
+
+### Overwrite the original object 
+
+
+```r
+country_data <- pivot_longer(data = country_data,
+             cols = yr1960:yr2010,
+             names_to = "year",
+             names_prefix = "yr",
+             values_to = "metric")
+```
+
+### Create a new r object
+
+
+```r
+long_country_data <- pivot_longer(data = country_data,
+             cols = yr1960:yr2010,
+             names_to = "year",
+             names_prefix = "yr",
+             values_to = "metric")
+```
+
+## Join functions
+
+Frequently, analysis of data will require merging these separately managed tables back together. There are multiple ways to join the observations in two tables, based on how the rows of one table are merged with the rows of the other.
+
+When conceptualizing merges, one can think of two tables, one on the left and one on the right. The most common (and often useful) join is when you merge the subset of rows that have matches in both the left table and the right table: this is called an INNER JOIN. Other types of join are possible as well. 
+
+- A LEFT JOIN takes all of the rows from the left table, and merges on the data from matching rows in the right table. Keys that don’t match from the left table are still provided with a missing value (NA) from the right table. 
+
+- A RIGHT JOIN is the same, except that all of the rows from the right table are included with matching data from the left, or a missing value. 
+
+- Finally, a FULL JOIN includes all data from all rows in both tables, and includes missing values wherever necessary.
+
+
+<img src="images/join-diagrams.png" width="100%" style="display: block; margin: auto;" />
+
+
+### Left join
+
+
+```r
+# Create tibbles df_primary and df_secondary
+df_primary <- tibble(
+  ID = c("A", "B", "C", "D", "F"),
+  y = c(5, 5, 8, 0, 9)
+)
+
+df_secondary <- tibble(
+  ID = c("A", "B", "C", "D", "E"),
+  z = c(30, 21, 22, 25, 29)
+)
+```
+
+
+```r
+left_join(df_primary, df_secondary, by ='ID')
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> ID </th>
+   <th style="text-align:right;"> y </th>
+   <th style="text-align:right;"> z </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> D </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> F </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+### Right join
+
+
+```r
+right_join(df_primary, df_secondary, by = 'ID')
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> ID </th>
+   <th style="text-align:right;"> y </th>
+   <th style="text-align:right;"> z </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> D </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> E </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 29 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+
+### Full join
+
+
+```r
+full_join(df_primary, df_secondary, by = 'ID')
+```
+
+<div class="kable-table">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> ID </th>
+   <th style="text-align:right;"> y </th>
+   <th style="text-align:right;"> z </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> A </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> D </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> F </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> E </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 29 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>

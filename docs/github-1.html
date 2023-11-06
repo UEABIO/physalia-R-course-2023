@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 40 Github | Advancing in R</title>
+<title>Chapter 41 Github | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="40.1 Let's Git it started Git is a version control system. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects -...">
+<meta name="description" content="41.1 Let's Git it started Git is a version control system. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects -...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 40 Github | Advancing in R">
+<meta property="og:title" content="Chapter 41 Github | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/github-1.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="40.1 Let's Git it started Git is a version control system. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects -...">
+<meta property="og:description" content="41.1 Let's Git it started Git is a version control system. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects -...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 40 Github | Advancing in R">
-<meta name="twitter:description" content="40.1 Let's Git it started Git is a version control system. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects -...">
+<meta name="twitter:title" content="Chapter 41 Github | Advancing in R">
+<meta name="twitter:description" content="41.1 Let's Git it started Git is a version control system. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects -...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -121,52 +121,53 @@
 <li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
 <li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
 <li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
-<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
+<li><a class="" href="data-reshaping.html"><span class="header-section-number">9</span> Data reshaping</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">10</span> Basic ggplot</a></li>
 <li class="book-part">Data Insights</li>
-<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">10</span> Data Insights part one</a></li>
-<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">11</span> Data insights part two</a></li>
+<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">11</span> Data Insights part one</a></li>
+<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">12</span> Data insights part two</a></li>
 <li class="book-part">Functional Programming</li>
-<li><a class="" href="writing-functions.html"><span class="header-section-number">12</span> Writing Functions</a></li>
-<li><a class="" href="flow-control.html"><span class="header-section-number">13</span> Flow control</a></li>
-<li><a class="" href="simple-iteration.html"><span class="header-section-number">14</span> Simple iteration</a></li>
-<li><a class="" href="loops.html"><span class="header-section-number">15</span> Loops</a></li>
-<li><a class="" href="apply.html"><span class="header-section-number">16</span> Apply</a></li>
-<li><a class="" href="purrr.html"><span class="header-section-number">17</span> Purrr</a></li>
-<li><a class="" href="bonus-simulation.html"><span class="header-section-number">18</span> Bonus: Simulation</a></li>
+<li><a class="" href="writing-functions.html"><span class="header-section-number">13</span> Writing Functions</a></li>
+<li><a class="" href="flow-control.html"><span class="header-section-number">14</span> Flow control</a></li>
+<li><a class="" href="simple-iteration.html"><span class="header-section-number">15</span> Simple iteration</a></li>
+<li><a class="" href="loops.html"><span class="header-section-number">16</span> Loops</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">17</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">18</span> Purrr</a></li>
+<li><a class="" href="bonus-simulation.html"><span class="header-section-number">19</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">19</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">20</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">21</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">22</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">23</span> Applying functions across columns</a></li>
-<li><a class="" href="working-with-rows.html"><span class="header-section-number">24</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">25</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">26</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">27</span> Writing Functions in Tidyverse</a></li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">20</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">21</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">22</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">23</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">24</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">25</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">26</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">27</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">28</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="customisation-with-ggplot2.html"><span class="header-section-number">28</span> Customisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">29</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">30</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">31</span> Making tables with gt</a></li>
+<li><a class="" href="customisation-with-ggplot2.html"><span class="header-section-number">29</span> Customisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">30</span> Extensions for ggplot2</a></li>
+<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">31</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">32</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">32</span> Getting to work with Shiny</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">33</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">34</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">35</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">36</span> Reactive</a></li>
-<li><a class="" href="shiny-dashboards.html"><span class="header-section-number">37</span> Shiny Dashboards</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">38</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">33</span> Getting to work with Shiny</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">34</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">35</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">36</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">37</span> Reactive</a></li>
+<li><a class="" href="shiny-dashboards.html"><span class="header-section-number">38</span> Shiny Dashboards</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">39</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="rmarkdown.html"><span class="header-section-number">39</span> RMarkdown</a></li>
-<li><a class="active" href="github-1.html"><span class="header-section-number">40</span> Github</a></li>
+<li><a class="" href="rmarkdown.html"><span class="header-section-number">40</span> RMarkdown</a></li>
+<li><a class="active" href="github-1.html"><span class="header-section-number">41</span> Github</a></li>
 <li><a class="" href="NA.html">
 to upload commits
 to the remote repository.
 </a></li>
 <li class="book-part">Working with big data</li>
-<li><a class="" href="reading-3.html"><span class="header-section-number">41</span> Reading</a></li>
+<li><a class="" href="reading-3.html"><span class="header-section-number">42</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">42</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
 
         <div class="book-extra">
@@ -174,13 +175,13 @@ to the remote repository.
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="github-1" class="section level1" number="40">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="github-1" class="section level1" number="41">
 <h1>
-<span class="header-section-number">40</span> Github<a class="anchor" aria-label="anchor" href="#github-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41</span> Github<a class="anchor" aria-label="anchor" href="#github-1"><i class="fas fa-link"></i></a>
 </h1>
-<div id="lets-git-it-started" class="section level2" number="40.1">
+<div id="lets-git-it-started" class="section level2" number="41.1">
 <h2>
-<span class="header-section-number">40.1</span> Let's Git it started<a class="anchor" aria-label="anchor" href="#lets-git-it-started"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.1</span> Let's Git it started<a class="anchor" aria-label="anchor" href="#lets-git-it-started"><i class="fas fa-link"></i></a>
 </h2>
 <p>Git is a <strong>version control system</strong>. Originally built to help groups of developers work collaboratively on big software projects. It helps us manage our RStudio projects - with tracked changes.</p>
 <p>Git and GitHub are a big part of the data science community. We can use GitHub in a number of ways</p>
@@ -203,9 +204,9 @@ to the remote repository.
 <p>If you work alone, git is great to track changes and recover previous version of your files. You can also use a remote repository to have a back up and share your work.</p>
 <p>If you work as a team you can take advantage of all the above and also use version control as a tool to collaborate and organize the various versions of the same file present in the multiple computers you and they use.</p>
 </div>
-<div id="what-is-version-control" class="section level2" number="40.2">
+<div id="what-is-version-control" class="section level2" number="41.2">
 <h2>
-<span class="header-section-number">40.2</span> What is version control?<a class="anchor" aria-label="anchor" href="#what-is-version-control"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.2</span> What is version control?<a class="anchor" aria-label="anchor" href="#what-is-version-control"><i class="fas fa-link"></i></a>
 </h2>
 <p>Let’s imagine that we have a git repository. When you create a new file as part of the repository (or repo), that file is untracked. This means that git will ignore the file and any change you make to it <em>until you add it to the repo</em>. At that point the file is <strong>staged</strong> and ready to get into the repository. To do that you do a <strong>commit</strong> and save that version of the file to the repo. This workflow <code>modify --&gt; add --&gt; commit</code> will repeat every time you want to save a version of the file. It's a good idea to commit every time you end a task or objective in your project.</p>
 <div class="inline-figure"><img src="images/git_stage.png" width="100%" style="display: block; margin: auto;"></div>
@@ -222,9 +223,9 @@ staging area.”
 </p>
 </div>
 </div>
-<div id="remote-repositories" class="section level2" number="40.3">
+<div id="remote-repositories" class="section level2" number="41.3">
 <h2>
-<span class="header-section-number">40.3</span> Remote repositories<a class="anchor" aria-label="anchor" href="#remote-repositories"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.3</span> Remote repositories<a class="anchor" aria-label="anchor" href="#remote-repositories"><i class="fas fa-link"></i></a>
 </h2>
 <p>What we explained before is the local workflow. This is when the repo lives in your computer and that’s it. But you can also connect the local repository with a remote repository. For this workshop we are going to use GitHub to host remote repositories, but there are other options you can explore, such as GitLab.</p>
 <p>Let’s imagine we have a local repository, we made some commits and we want to send those changes to the remote repository (we’ll how to create the remote repository later). For that we push the commits to the remote repository and the two repos are “up to date”.</p>
@@ -248,9 +249,9 @@ git pull
 </p>
 </div>
 </div>
-<div id="git-introductions" class="section level2" number="40.4">
+<div id="git-introductions" class="section level2" number="41.4">
 <h2>
-<span class="header-section-number">40.4</span> Git introductions<a class="anchor" aria-label="anchor" href="#git-introductions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.4</span> Git introductions<a class="anchor" aria-label="anchor" href="#git-introductions"><i class="fas fa-link"></i></a>
 </h2>
 <p>Before you create your first repository you need to make sure that git and RStudio are friends and that git knows you. That means you have:</p>
 <ul>
@@ -265,7 +266,7 @@ to the git installation.
 </p>
 </div>
 <p>You can now introduce yourself to Github with the <code>usethis</code> package</p>
-<div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org">usethis</a></span><span class="op">)</span> </span>
 <span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git_config.html">use_git_config</a></span><span class="op">(</span>user.name  <span class="op">=</span> <span class="st">"Jane Doe"</span>,</span>
 <span>               user.email <span class="op">=</span> <span class="st">"jane@example.org"</span><span class="op">)</span></span></code></pre></div>
@@ -280,14 +281,14 @@ git config –global user.email ’<a href="mailto:jane@example.com" class="emai
 </div>
 <p>You will also need a Personal Access Token (PAT), Github has started using these <em>in lieu</em> of passwords.</p>
 <p>Create a PAT with</p>
-<div class="sourceCode" id="cb633"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb642"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/github-token.html">create_github_token</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This will likely open a new window allowing you to create a token. Do now close this window, as you will need to copy the token to your clipboard. Then run this other command:</p>
-<div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html">gitcreds_set</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This will ask you for your access token. Go to the previous window, copy the token, paste it on your console and press enter.</p>
 <p>Finally, to check that everything’s ok with this command.</p>
-<div class="sourceCode" id="cb635"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb644"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/github-token.html">gh_token_help</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Irritatingly the PAT seems to be forgotten on linux systems very quickly, which is what Posit Cloud is hosted on:</p>
 <p>A simple solution to this problem is to ask git to store information in the cache for just a teeny tiny little bit longer. Instead of having the cache expire after the default 900 seconds, maybe set it to expire after 10 million seconds. That way, you’ll only have to refresh the cache using gitcreds::gitcreds_set() once every four months instead of four times an hour. Implementing this solution requires only one line of code at the terminal:</p>
@@ -296,14 +297,14 @@ git config --global credential.helper 'cache --timeout=10000000'
 </code></pre>
 <p>Thanks to <a href="https://blog.djnavarro.net/posts/2021-08-08_git-credential-helpers/" class="uri">https://blog.djnavarro.net/posts/2021-08-08_git-credential-helpers/</a> for this bit of information!</p>
 </div>
-<div id="create-a-new-repository" class="section level2" number="40.5">
+<div id="create-a-new-repository" class="section level2" number="41.5">
 <h2>
-<span class="header-section-number">40.5</span> Create a new repository<a class="anchor" aria-label="anchor" href="#create-a-new-repository"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.5</span> Create a new repository<a class="anchor" aria-label="anchor" href="#create-a-new-repository"><i class="fas fa-link"></i></a>
 </h2>
 <p>There are many ways to start a new repository, the easiest is <em>Github first</em></p>
-<div id="create-an-online-repository." class="section level3" number="40.5.1">
+<div id="create-an-online-repository." class="section level3" number="41.5.1">
 <h3>
-<span class="header-section-number">40.5.1</span> 1. Create an online repository.<a class="anchor" aria-label="anchor" href="#create-an-online-repository."><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.5.1</span> 1. Create an online repository.<a class="anchor" aria-label="anchor" href="#create-an-online-repository."><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li><p>Go to github.com and log in.</p></li>
@@ -319,9 +320,9 @@ git config --global credential.helper 'cache --timeout=10000000'
 </ul>
 <p>Before going back to RStudio, copy the url for the repository.</p>
 </div>
-<div id="section" class="section level3" number="40.5.2">
+<div id="section" class="section level3" number="41.5.2">
 <h3>
-<span class="header-section-number">40.5.2</span> 2.<a class="anchor" aria-label="anchor" href="#section"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.5.2</span> 2.<a class="anchor" aria-label="anchor" href="#section"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li><p>File &gt; New Project &gt; Version Control &gt; Git. In the “repository URL” paste the URL of your new GitHub repository</p></li>
@@ -341,9 +342,9 @@ in Rstudio to check it is not being tracked.
 </p>
 </div>
 </div>
-<div id="local-changes" class="section level3" number="40.5.3">
+<div id="local-changes" class="section level3" number="41.5.3">
 <h3>
-<span class="header-section-number">40.5.3</span> Local changes<a class="anchor" aria-label="anchor" href="#local-changes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.5.3</span> Local changes<a class="anchor" aria-label="anchor" href="#local-changes"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li><p>Create a new .Rmd file</p></li>
@@ -356,15 +357,15 @@ in Rstudio to check it is not being tracked.
 <p><strong>Now Push</strong> - push your commits to the remote repository. You won't see any changes on Github until you push those commits.</p>
 </div>
 </div>
-<div id="remote-changes" class="section level2" number="40.6">
+<div id="remote-changes" class="section level2" number="41.6">
 <h2>
-<span class="header-section-number">40.6</span> Remote changes<a class="anchor" aria-label="anchor" href="#remote-changes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.6</span> Remote changes<a class="anchor" aria-label="anchor" href="#remote-changes"><i class="fas fa-link"></i></a>
 </h2>
 <p>Let's head back to GitHub now. If you refresh the page, now you’ll see the files you committed just now. Let’s click on “Commits” to see the history of the repository. From this view, you can explore the repository at the “state” of each commit and look at the file differences.</p>
 <p>Now, we can try to make changes here at github.com</p>
-<div id="create-a-readme" class="section level3" number="40.6.1">
+<div id="create-a-readme" class="section level3" number="41.6.1">
 <h3>
-<span class="header-section-number">40.6.1</span> Create a README<a class="anchor" aria-label="anchor" href="#create-a-readme"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.6.1</span> Create a README<a class="anchor" aria-label="anchor" href="#create-a-readme"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li><p>On the main page, click on the green bottom that says “Add a README”.</p></li>
@@ -377,9 +378,9 @@ in Rstudio to check it is not being tracked.
 <p>Now we should head to the GitPane in RStudio and select the blue "Pull" button. The README should appear in your files.</p>
 </div>
 </div>
-<div id="collaborating-on-a-repo" class="section level2" number="40.7">
+<div id="collaborating-on-a-repo" class="section level2" number="41.7">
 <h2>
-<span class="header-section-number">40.7</span> Collaborating on a repo<a class="anchor" aria-label="anchor" href="#collaborating-on-a-repo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.7</span> Collaborating on a repo<a class="anchor" aria-label="anchor" href="#collaborating-on-a-repo"><i class="fas fa-link"></i></a>
 </h2>
 <p>When collaborating on a project you can find yourself in one of two scenarios</p>
 <ul>
@@ -388,18 +389,18 @@ in Rstudio to check it is not being tracked.
 </ul>
 <p>The first situation is the most common when working together with an team on a long term project. You can clone the repo following the these same instructions and use the same workflow as before. When you try to push your changes to the remote repository, GitHub will check if you have the rights to modify the repo. The only difference between this and working on your own is that you need to <strong>communicate well so that two people are not working on the same thing</strong>. Otherwise this will lead to <strong>merge conflicts</strong>.</p>
 <p>The second situation is common when contributing to strangers' projects, such as fixing bugs in open source packages. In this case, you need to first fork the repository, which creates a remote repository linked to your GitHub account to which you will have complete access. Now you work in this fork using the normal workflow: modify, add, commit and push. But for your changes to integrate into the original repository, you need to create a pull request (or PR). This will let the owner of the original repo that you made some changes that you think should be merged. The owner can then accept, reject or ask for modifications. Once they accept your Pull Request, your modifications will be safe in the original repository.</p>
-<div id="working-with-an-external-collaborator" class="section level3" number="40.7.1">
+<div id="working-with-an-external-collaborator" class="section level3" number="41.7.1">
 <h3>
-<span class="header-section-number">40.7.1</span> Working with an external collaborator<a class="anchor" aria-label="anchor" href="#working-with-an-external-collaborator"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.7.1</span> Working with an external collaborator<a class="anchor" aria-label="anchor" href="#working-with-an-external-collaborator"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>1.</strong> Go to <a href="https://github.com/">github.com</a> and log in (you need your own account - for sign up with your uea.ac.uk e-mail)</p>
 <p><strong>2.</strong> In the Search bar, look for repo <strong>Philip-Leftwich/5023Y-Happy-Git</strong></p>
 <p><strong>3.</strong> Click on the repo name, and look at the existing repo structure</p>
 <p><strong>4.</strong> <strong>FORK</strong> the repo</p>
 </div>
-<div id="what-the-hell-is-a-fork" class="section level3" number="40.7.2">
+<div id="what-the-hell-is-a-fork" class="section level3" number="41.7.2">
 <h3>
-<span class="header-section-number">40.7.2</span> What the hell is a fork?<a class="anchor" aria-label="anchor" href="#what-the-hell-is-a-fork"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.7.2</span> What the hell is a fork?<a class="anchor" aria-label="anchor" href="#what-the-hell-is-a-fork"><i class="fas fa-link"></i></a>
 </h3>
 <div class="inline-figure"><img src="images/fork.png" width="100%" style="display: block; margin: auto;"></div>
 <p>A fork is when you generate a <em>personal</em> copy of another user's <a href="github-1.html#glossary-github">repository</a>.</p>
@@ -415,9 +416,9 @@ in Rstudio to check it is not being tracked.
 <p>Push - "Pushes" your changes from the local repo to the remote repo on GitHub, <a href="#push">(push)</a></p>
 <p><strong>11.</strong> On GitHub, refresh and see that files are updated. Cool! Now you’ve used something someone else has created, customized it, and saved your updated version.</p>
 </div>
-<div id="make-a-pull-request" class="section level3" number="40.7.3">
+<div id="make-a-pull-request" class="section level3" number="41.7.3">
 <h3>
-<span class="header-section-number">40.7.3</span> Make a pull request<a class="anchor" aria-label="anchor" href="#make-a-pull-request"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.7.3</span> Make a pull request<a class="anchor" aria-label="anchor" href="#make-a-pull-request"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>1.</strong> Go to your repo in GitHub, you will see that you made the last commit and a message about being ahead of my project:</p>
 <p><strong>2.</strong> Click on “Open pull request”.</p>
@@ -426,9 +427,9 @@ in Rstudio to check it is not being tracked.
 <p>The owner/s of the repo will receive an email. They can review the pull request, comment on it and eventually accept the contribution. When that happen the changes you made will appear in their repo.</p>
 </div>
 </div>
-<div id="see-changes" class="section level2" number="40.8">
+<div id="see-changes" class="section level2" number="41.8">
 <h2>
-<span class="header-section-number">40.8</span> See changes<a class="anchor" aria-label="anchor" href="#see-changes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.8</span> See changes<a class="anchor" aria-label="anchor" href="#see-changes"><i class="fas fa-link"></i></a>
 </h2>
 <p>The first and most immediate benefit of using GitHub with your RStudio Project is seeing the changes you have made since your last commit.</p>
 <p>The RStudio Git pane lists every file that’s been added, modified or deleted. The icon describes the change:</p>
@@ -449,9 +450,9 @@ in Rstudio to check it is not being tracked.
 <div class="inline-figure"><img src="images/git-diff-window.png" width="100%" style="display: block; margin: auto;"></div>
 <p>The background colours tells you whether the text has been added (green) or removed (red). (If you’re colourblind you can use the line numbers in the two columns at the far left as a guide).</p>
 </div>
-<div id="a-couple-of-general-tips" class="section level2" number="40.9">
+<div id="a-couple-of-general-tips" class="section level2" number="41.9">
 <h2>
-<span class="header-section-number">40.9</span> A couple of general tips:<a class="anchor" aria-label="anchor" href="#a-couple-of-general-tips"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.9</span> A couple of general tips:<a class="anchor" aria-label="anchor" href="#a-couple-of-general-tips"><i class="fas fa-link"></i></a>
 </h2>
 <div class="note">
 <ul>
@@ -479,15 +480,15 @@ copy</strong> of your project.
 </ul>
 </div>
 </div>
-<div id="beautify-your-profile" class="section level2" number="40.10">
+<div id="beautify-your-profile" class="section level2" number="41.10">
 <h2>
-<span class="header-section-number">40.10</span> Beautify your profile<a class="anchor" aria-label="anchor" href="#beautify-your-profile"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.10</span> Beautify your profile<a class="anchor" aria-label="anchor" href="#beautify-your-profile"><i class="fas fa-link"></i></a>
 </h2>
 <p><a href="https://dev.to/ruppysuppy/beautify-your-github-profile-like-a-pro-5093" class="uri">https://dev.to/ruppysuppy/beautify-your-github-profile-like-a-pro-5093</a></p>
 </div>
-<div id="glossary-github" class="section level2" number="40.11">
+<div id="glossary-github" class="section level2" number="41.11">
 <h2>
-<span class="header-section-number">40.11</span> Glossary-GitHub<a class="anchor" aria-label="anchor" href="#glossary-github"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.11</span> Glossary-GitHub<a class="anchor" aria-label="anchor" href="#glossary-github"><i class="fas fa-link"></i></a>
 </h2>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr>
@@ -794,7 +795,7 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="rmarkdown.html"><span class="header-section-number">39</span> RMarkdown</a></div>
+<div class="prev"><a href="rmarkdown.html"><span class="header-section-number">40</span> RMarkdown</a></div>
 <div class="next"><a href="NA.html">
 to upload commits
 to the remote repository.
@@ -802,10 +803,10 @@ to the remote repository.
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#github-1"><span class="header-section-number">40</span> Github</a></li>
-<li><a class="nav-link" href="#lets-git-it-started"><span class="header-section-number">40.1</span> Let's Git it started</a></li>
-<li><a class="nav-link" href="#what-is-version-control"><span class="header-section-number">40.2</span> What is version control?</a></li>
-<li><a class="nav-link" href="#remote-repositories"><span class="header-section-number">40.3</span> Remote repositories</a></li>
+<li><a class="nav-link" href="#github-1"><span class="header-section-number">41</span> Github</a></li>
+<li><a class="nav-link" href="#lets-git-it-started"><span class="header-section-number">41.1</span> Let's Git it started</a></li>
+<li><a class="nav-link" href="#what-is-version-control"><span class="header-section-number">41.2</span> What is version control?</a></li>
+<li><a class="nav-link" href="#remote-repositories"><span class="header-section-number">41.3</span> Remote repositories</a></li>
 </ul>
 
       <div class="book-extra">

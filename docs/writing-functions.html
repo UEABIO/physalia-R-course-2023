@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 12 Writing Functions | Advancing in R</title>
+<title>Chapter 13 Writing Functions | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="Good simple intro: https://github.com/tomjemmett/nhs-r_conf_21-fp_workshop https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/...">
+<meta name="description" content="13.1 Structuring a function R makes it easy to create user defined functions by using function(). Here is how it works: # this is an example function my_function_name &lt;- function(my_args) {  #...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 12 Writing Functions | Advancing in R">
+<meta property="og:title" content="Chapter 13 Writing Functions | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/writing-functions.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="Good simple intro: https://github.com/tomjemmett/nhs-r_conf_21-fp_workshop https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/...">
+<meta property="og:description" content="13.1 Structuring a function R makes it easy to create user defined functions by using function(). Here is how it works: # this is an example function my_function_name &lt;- function(my_args) {  #...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 12 Writing Functions | Advancing in R">
-<meta name="twitter:description" content="Good simple intro: https://github.com/tomjemmett/nhs-r_conf_21-fp_workshop https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/...">
+<meta name="twitter:title" content="Chapter 13 Writing Functions | Advancing in R">
+<meta name="twitter:description" content="13.1 Structuring a function R makes it easy to create user defined functions by using function(). Here is how it works: # this is an example function my_function_name &lt;- function(my_args) {  #...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -121,52 +121,53 @@
 <li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
 <li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
 <li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
-<li><a class="" href="basic-ggplot.html"><span class="header-section-number">9</span> Basic ggplot</a></li>
+<li><a class="" href="data-reshaping.html"><span class="header-section-number">9</span> Data reshaping</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">10</span> Basic ggplot</a></li>
 <li class="book-part">Data Insights</li>
-<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">10</span> Data Insights part one</a></li>
-<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">11</span> Data insights part two</a></li>
+<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">11</span> Data Insights part one</a></li>
+<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">12</span> Data insights part two</a></li>
 <li class="book-part">Functional Programming</li>
-<li><a class="active" href="writing-functions.html"><span class="header-section-number">12</span> Writing Functions</a></li>
-<li><a class="" href="flow-control.html"><span class="header-section-number">13</span> Flow control</a></li>
-<li><a class="" href="simple-iteration.html"><span class="header-section-number">14</span> Simple iteration</a></li>
-<li><a class="" href="loops.html"><span class="header-section-number">15</span> Loops</a></li>
-<li><a class="" href="apply.html"><span class="header-section-number">16</span> Apply</a></li>
-<li><a class="" href="purrr.html"><span class="header-section-number">17</span> Purrr</a></li>
-<li><a class="" href="bonus-simulation.html"><span class="header-section-number">18</span> Bonus: Simulation</a></li>
+<li><a class="active" href="writing-functions.html"><span class="header-section-number">13</span> Writing Functions</a></li>
+<li><a class="" href="flow-control.html"><span class="header-section-number">14</span> Flow control</a></li>
+<li><a class="" href="simple-iteration.html"><span class="header-section-number">15</span> Simple iteration</a></li>
+<li><a class="" href="loops.html"><span class="header-section-number">16</span> Loops</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">17</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">18</span> Purrr</a></li>
+<li><a class="" href="bonus-simulation.html"><span class="header-section-number">19</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">19</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">20</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">21</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">22</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">23</span> Applying functions across columns</a></li>
-<li><a class="" href="working-with-rows.html"><span class="header-section-number">24</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">25</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">26</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">27</span> Writing Functions in Tidyverse</a></li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">20</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">21</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">22</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">23</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">24</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">25</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">26</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">27</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">28</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="customisation-with-ggplot2.html"><span class="header-section-number">28</span> Customisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">29</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">30</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">31</span> Making tables with gt</a></li>
+<li><a class="" href="customisation-with-ggplot2.html"><span class="header-section-number">29</span> Customisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">30</span> Extensions for ggplot2</a></li>
+<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">31</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">32</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">32</span> Getting to work with Shiny</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">33</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">34</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">35</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">36</span> Reactive</a></li>
-<li><a class="" href="shiny-dashboards.html"><span class="header-section-number">37</span> Shiny Dashboards</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">38</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">33</span> Getting to work with Shiny</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">34</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">35</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">36</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">37</span> Reactive</a></li>
+<li><a class="" href="shiny-dashboards.html"><span class="header-section-number">38</span> Shiny Dashboards</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">39</span> Sharing</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="rmarkdown.html"><span class="header-section-number">39</span> RMarkdown</a></li>
-<li><a class="" href="github-1.html"><span class="header-section-number">40</span> Github</a></li>
+<li><a class="" href="rmarkdown.html"><span class="header-section-number">40</span> RMarkdown</a></li>
+<li><a class="" href="github-1.html"><span class="header-section-number">41</span> Github</a></li>
 <li><a class="" href="NA.html">
 to upload commits
 to the remote repository.
 </a></li>
 <li class="book-part">Working with big data</li>
-<li><a class="" href="reading-3.html"><span class="header-section-number">41</span> Reading</a></li>
+<li><a class="" href="reading-3.html"><span class="header-section-number">42</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">42</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
 
         <div class="book-extra">
@@ -174,19 +175,16 @@ to the remote repository.
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="writing-functions" class="section level1" number="12">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="writing-functions" class="section level1" number="13">
 <h1>
-<span class="header-section-number">12</span> Writing Functions<a class="anchor" aria-label="anchor" href="#writing-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13</span> Writing Functions<a class="anchor" aria-label="anchor" href="#writing-functions"><i class="fas fa-link"></i></a>
 </h1>
-<p>Good simple intro: <a href="https://github.com/tomjemmett/nhs-r_conf_21-fp_workshop" class="uri">https://github.com/tomjemmett/nhs-r_conf_21-fp_workshop</a></p>
-<p><a href="https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/" class="uri">https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/</a></p>
-<p><a href="https://bookdown.org/rdpeng/rprogdatascience/control-structures.html" class="uri">https://bookdown.org/rdpeng/rprogdatascience/control-structures.html</a></p>
-<div id="structuring-a-function" class="section level2" number="12.1">
+<div id="structuring-a-function" class="section level2" number="13.1">
 <h2>
-<span class="header-section-number">12.1</span> Structuring a function<a class="anchor" aria-label="anchor" href="#structuring-a-function"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1</span> Structuring a function<a class="anchor" aria-label="anchor" href="#structuring-a-function"><i class="fas fa-link"></i></a>
 </h2>
 <p>R makes it easy to create user defined functions by using <code>function()</code>. Here is how it works:</p>
-<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this is an example function</span></span>
 <span><span class="va">my_function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">my_args</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># document your function here</span></span>
@@ -202,12 +200,12 @@ to the remote repository.
 <li><p>Next, put all the code you want your function to execute inside curly brackets like this: <code>function(my_args) {code to run}</code></p></li>
 <li><p>Use <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> to specify what you want to your function to output once it is done running the code.</p></li>
 </ul>
-<div id="activity-understand-the-function" class="section level3" number="12.1.1">
+<div id="activity-understand-the-function" class="section level3" number="13.1.1">
 <h3>
-<span class="header-section-number">12.1.1</span> Activity: Understand the function<a class="anchor" aria-label="anchor" href="#activity-understand-the-function"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.1.1</span> Activity: Understand the function<a class="anchor" aria-label="anchor" href="#activity-understand-the-function"><i class="fas fa-link"></i></a>
 </h3>
 <p>Here is a very simple function. Can you guess what it does?</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">add_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
@@ -222,21 +220,21 @@ In this tutorial I will use the older method for now, but briefly
 demonstrate the simpler syntax
 </p>
 </div>
-<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">add_one</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
-<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">add_one</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 11</code></pre>
 <p>What value did you get when running the function above? <input class="webex-solveme nospaces" size="2" data-answer='["11"]'></p>
 <p>Now try applying your function to this vector:</p>
-<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">number_series</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <p>You should see it worked on <em>each element</em> inside the vector. This emphasises that R is a vector based language (it will by default apply functions on all elements in an object).</p>
 </div>
 </div>
-<div id="function-environments" class="section level2" number="12.2">
+<div id="function-environments" class="section level2" number="13.2">
 <h2>
-<span class="header-section-number">12.2</span> Function environments<a class="anchor" aria-label="anchor" href="#function-environments"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.2</span> Function environments<a class="anchor" aria-label="anchor" href="#function-environments"><i class="fas fa-link"></i></a>
 </h2>
 <p>When a function is evaluated, it creates it's own environment. All of the arguments that are passed to the function,
 along with any variables created in the function are stored in this new environment.</p>
@@ -244,7 +242,7 @@ along with any variables created in the function are stored in this new environm
 global environment. Variables that are created in the function's environment aren't visible from the global environment
 though.</p>
 <p>If we reassign a variable in a function it will take a copy of that variable rather than mutating the value in the global environment. If we want to update <code>x</code> in the global environment we need to use the <code>&lt;&lt;-</code> operator.</p>
-<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># x has a value of 1 in the global environment</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span> </span>
 <span></span>
@@ -278,7 +276,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fahr_to_kelvin</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fahr</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
 <span>  <span class="va">kelvin</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="va">fahr</span> <span class="op">-</span> <span class="fl">32</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fl">5</span> <span class="op">/</span> <span class="fl">9</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">273.15</span></span>
@@ -306,7 +304,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fahr_to_kelvin_celsius</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fahr</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
 <span>  <span class="va">celsius</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="va">fahr</span> <span class="op">-</span> <span class="fl">32</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fl">5</span> <span class="op">/</span> <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span>
@@ -341,12 +339,12 @@ a separate script to the rest of your analysis. Write functions in a
 separate script and use source(“scripts/functions.R”)
 </p>
 </div>
-<div id="argument-defaults" class="section level3" number="12.2.1">
+<div id="argument-defaults" class="section level3" number="13.2.1">
 <h3>
-<span class="header-section-number">12.2.1</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.2.1</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults"><i class="fas fa-link"></i></a>
 </h3>
 <p>This is an example of a very simple function that just prints the string "Hello World" whenever you type the function <code>say_hello()</code></p>
-<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">say_hello</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Hello World"</span><span class="op">)</span> </span>
 <span><span class="op">}</span></span>
@@ -354,9 +352,9 @@ separate script and use source(“scripts/functions.R”)
 <span><span class="fu">say_hello</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "Hello World"</code></pre>
 </div>
-<div id="activity-understanding-arguments" class="section level3" number="12.2.2">
+<div id="activity-understanding-arguments" class="section level3" number="13.2.2">
 <h3>
-<span class="header-section-number">12.2.2</span> Activity: Understanding arguments<a class="anchor" aria-label="anchor" href="#activity-understanding-arguments"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.2.2</span> Activity: Understanding arguments<a class="anchor" aria-label="anchor" href="#activity-understanding-arguments"><i class="fas fa-link"></i></a>
 </h3>
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -381,7 +379,7 @@ Error in say_hello( or something similar, this function has not been set with an
 </div>
 </div>
 <p>Now lets try a similar function, but we include an argument:</p>
-<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">say_morning</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Good morning"</span>, <span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -406,18 +404,18 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="writing-functions.html#cb264-1" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">paste</span>(<span class="st">"Good morning"</span>, x) <span class="sc">:</span> </span>
-<span id="cb264-2"><a href="writing-functions.html#cb264-2" tabindex="-1"></a>  argument <span class="st">"x"</span> is missing, with no default</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="writing-functions.html#cb272-1" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">paste</span>(<span class="st">"Good morning"</span>, x) <span class="sc">:</span> </span>
+<span id="cb272-2"><a href="writing-functions.html#cb272-2" tabindex="-1"></a>  argument <span class="st">"x"</span> is missing, with no default</span></code></pre></div>
 </div>
 </div>
 </div>
 <p>So that was an example where we included an argument for our function. But now it requires a value be provided in order to work.</p>
-<div id="argument-defaults-1" class="section level4" number="12.2.2.1">
+<div id="argument-defaults-1" class="section level4" number="13.2.2.1">
 <h4>
-<span class="header-section-number">12.2.2.1</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.2.2.1</span> Argument defaults<a class="anchor" aria-label="anchor" href="#argument-defaults-1"><i class="fas fa-link"></i></a>
 </h4>
 <p>However, you are probably used to the idea that many functions have "default" values for arguments, and we can easily set these.</p>
-<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">say_morning_default</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span> <span class="op">=</span> <span class="st">"you"</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Good morning"</span>, <span class="va">name</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -433,17 +431,17 @@ should still be able to changed when running the function. Try it!
 </div>
 </div>
 </div>
-<div id="wrapper-functions" class="section level2" number="12.3">
+<div id="wrapper-functions" class="section level2" number="13.3">
 <h2>
-<span class="header-section-number">12.3</span> Wrapper functions<a class="anchor" aria-label="anchor" href="#wrapper-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.3</span> Wrapper functions<a class="anchor" aria-label="anchor" href="#wrapper-functions"><i class="fas fa-link"></i></a>
 </h2>
 <p>Wrapper functions in R are a powerful tool for simplifying and customizing the use of existing functions. These functions act as intermediaries between the user and the underlying function, allowing you to add additional functionality, handle errors, or make the function more user-friendly. They are especially useful when you want to streamline repetitive tasks, create more intuitive interfaces, or modify the behavior of built-in functions without altering their source code. In this brief introduction, we'll explore the concept of wrapper functions, their benefits, and how to create and use them effectively in R.</p>
-<div id="default-values" class="section level3" number="12.3.1">
+<div id="default-values" class="section level3" number="13.3.1">
 <h3>
-<span class="header-section-number">12.3.1</span> Default values<a class="anchor" aria-label="anchor" href="#default-values"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.3.1</span> Default values<a class="anchor" aria-label="anchor" href="#default-values"><i class="fas fa-link"></i></a>
 </h3>
 <p>ou can create a wrapper function that calls an existing function with default argument values to simplify its usage. For instance, if you frequently use the <code>mean</code> function with a specific argument, you can create a wrapper like this:</p>
-<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
@@ -463,21 +461,21 @@ Solution
 </div>
 </div>
 <p>If we want to be able to allow users to specify their own values for <code>na.rm = T</code> then we need to modify the wrapper function</p>
-<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>With this modification, users can provide their own value for the na.rm argument when calling my_mean. For example:</p>
-<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">my_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="co"># By default, NA values are removed</span></span>
 <span><span class="fu">my_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># NA values are not removed</span></span></code></pre></div>
 <pre><code>## [1] 2.333333
 ## [1] NA</code></pre>
 <p>This modification makes the na.rm argument in the my_mean function flexible and allows users to override the default behavior when needed.</p>
 </div>
-<div id="using-..." class="section level3" number="12.3.2">
+<div id="using-..." class="section level3" number="13.3.2">
 <h3>
-<span class="header-section-number">12.3.2</span> Using "..."<a class="anchor" aria-label="anchor" href="#using-..."><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.3.2</span> Using "..."<a class="anchor" aria-label="anchor" href="#using-..."><i class="fas fa-link"></i></a>
 </h3>
 <p>You can allow the user to access the original arguments of mean() by using the <code>...</code> (ellipsis) argument in your wrapper function.</p>
 <p>In R the ellipse, ..., is used by functions for one of two things.</p>
@@ -486,16 +484,16 @@ Solution
 <li><p>or to pass arguments through to some underlying function, as in ?print().</p></li>
 </ul>
 <p>The <code>...</code> argument allows you to pass additional arguments directly to the underlying function. Here's how you can modify the <code>my_mean</code> function to maintain the flexibility of the mean() function's arguments:</p>
-<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">...</span>, na.rm <span class="op">=</span> <span class="va">na.rm</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Now we can pass arguments directly to mean, and we have a version that by default removes <code>NA</code> from our dataframe (but can be overidden if necessary)</p>
-<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">my_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 2.333333</code></pre>
 <p>And we can pass any additional arguments found in mean to our new function e.g. trim</p>
-<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">my_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span>, trim <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <div class="warning">
@@ -513,9 +511,9 @@ context, no … to look in” error that you encountered.
 </div>
 </div>
 </div>
-<div id="documenting-functions" class="section level2" number="12.4">
+<div id="documenting-functions" class="section level2" number="13.4">
 <h2>
-<span class="header-section-number">12.4</span> Documenting functions<a class="anchor" aria-label="anchor" href="#documenting-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.4</span> Documenting functions<a class="anchor" aria-label="anchor" href="#documenting-functions"><i class="fas fa-link"></i></a>
 </h2>
 <p>It is important to document your functions to:</p>
 <ul>
@@ -530,7 +528,7 @@ context, no … to look in” error that you encountered.
 <li><p>What does the function return, and what kind of object is it?</p></li>
 </ul>
 <p>Like this:</p>
-<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb285"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Function: fahr_to_kelvin_celsius</span></span>
 <span><span class="co"># Description: Converts a temperature in degrees Fahrenheit to degrees Celsius and Kelvin.</span></span>
 <span><span class="co">#</span></span>
@@ -577,9 +575,9 @@ if you aspire to write packages in R! <a href="https://r-pkgs.org/">R
 packages 2nd Edition</a>
 </p>
 </div>
-<div id="exercise" class="section level3" number="12.4.1">
+<div id="exercise" class="section level3" number="13.4.1">
 <h3>
-<span class="header-section-number">12.4.1</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.4.1</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise"><i class="fas fa-link"></i></a>
 </h3>
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -589,7 +587,7 @@ Task
 Here is a custom script to print model diagnostics when running a linear model. Can you comment out this code to document it properly?
 </div>
 </div>
-<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_lm</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
 <span> </span>
 <span>  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">formula</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
@@ -620,7 +618,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Function: my_lm</span></span>
 <span><span class="co"># Description: Fit a linear regression model and provide summary statistics and diagnostic plots.</span></span>
 <span><span class="co">#</span></span>
@@ -671,16 +669,16 @@ Solution
 </div>
 </div>
 </div>
-<div id="checking-functions" class="section level2" number="12.5">
+<div id="checking-functions" class="section level2" number="13.5">
 <h2>
-<span class="header-section-number">12.5</span> Checking functions<a class="anchor" aria-label="anchor" href="#checking-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.5</span> Checking functions<a class="anchor" aria-label="anchor" href="#checking-functions"><i class="fas fa-link"></i></a>
 </h2>
-<div id="print" class="section level3" number="12.5.1">
+<div id="print" class="section level3" number="13.5.1">
 <h3>
-<span class="header-section-number">12.5.1</span> print<a class="anchor" aria-label="anchor" href="#print"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.5.1</span> print<a class="anchor" aria-label="anchor" href="#print"><i class="fas fa-link"></i></a>
 </h3>
 <p>One simple and easy way to keep on top of your functions, and understand what they are doing is to use lots of print statements.</p>
-<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># This edited function will now remind the user what the input value was</span></span>
 <span></span>
 <span><span class="va">fahr_to_kelvin_celsius</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">fahr</span><span class="op">)</span> <span class="op">{</span></span>
@@ -698,9 +696,9 @@ Solution
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">temps</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<div id="testthat" class="section level3" number="12.5.2">
+<div id="testthat" class="section level3" number="13.5.2">
 <h3>
-<span class="header-section-number">12.5.2</span> testthat<a class="anchor" aria-label="anchor" href="#testthat"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.5.2</span> testthat<a class="anchor" aria-label="anchor" href="#testthat"><i class="fas fa-link"></i></a>
 </h3>
 <p>Pure Functions:
 A pure function is a concept in programming that describes a function with the following characteristics:</p>
@@ -709,15 +707,15 @@ It has no side effects, meaning it doesn't modify external state or variables.
 It relies only on its input parameters to generate output.
 In R, pure functions are essential for creating clean and predictable code. They are often used in functional programming to perform operations on data without causing unexpected side effects.</p>
 <p>When our function is pure, we can run expectation tests using the <code>testthat</code> package:</p>
-<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"it works as expected"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">fahr_to_kelvin</span><span class="op">(</span><span class="fl">92</span><span class="op">)</span>, <span class="fl">306.483</span>, tolerance<span class="op">=</span><span class="fl">1e-2</span><span class="op">)</span>  </span>
 <span>   </span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="debugging" class="section level3" number="12.5.3">
+<div id="debugging" class="section level3" number="13.5.3">
 <h3>
-<span class="header-section-number">12.5.3</span> debugging<a class="anchor" aria-label="anchor" href="#debugging"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.5.3</span> debugging<a class="anchor" aria-label="anchor" href="#debugging"><i class="fas fa-link"></i></a>
 </h3>
 <p>For more complex functions, we may need to go digging! Here there are three basic commands:</p>
 <ul>
@@ -729,12 +727,31 @@ In R, pure functions are essential for creating clean and predictable code. They
 While you are in debug mode you can call the individual objects in your function, and run the commands line by line:</p>
 <div class="inline-figure"><img src="images/debug_flow_1_zoom.gif" width="100%" style="display: block; margin: auto;"></div>
 <p>Once we are done with debugging it is important to turn the debug mode off - close the interactive page and run <code>undebug(function_name)</code> so that the debugging panel doesn't reopen the next time you launch your function.</p>
-<div id="flow" class="section level4" number="12.5.3.1">
+<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">make_sum</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">c</span> <span class="op">&lt;-</span> <span class="va">a</span><span class="op">+</span><span class="va">b</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/debug.html">debug</a></span><span class="op">(</span><span class="va">make_sum</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">make_sum</span><span class="op">(</span>a <span class="op">=</span> <span class="fl">5</span>, b <span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/debug.html">undebug</a></span><span class="op">(</span><span class="va">make_sum</span><span class="op">)</span></span></code></pre></div>
+<p>While in debugging mode, you can use various commands to inspect and control the debugging process. Here are some common debugging commands:</p>
+<ul>
+<li><p>n or next: Step to the next line of the function.</p></li>
+<li><p>c or continue: Continue execution until the function returns.</p></li>
+<li><p>Q or quit: Quit debugging and return to the R console.</p></li>
+<li><p>where: Show the call stack to see where you are in the function.</p></li>
+<li><p>print(var_name): Print the value of a variable.</p></li>
+</ul>
+<div id="flow" class="section level4" number="13.5.3.1">
 <h4>
-<span class="header-section-number">12.5.3.1</span> flow<a class="anchor" aria-label="anchor" href="#flow"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.5.3.1</span> flow<a class="anchor" aria-label="anchor" href="#flow"><i class="fas fa-link"></i></a>
 </h4>
 <p><code>flow</code> is a great package for helping to understand code structures - it visualizes a chart diagram of the functional architecture.</p>
-<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/moodymudskipper/flow">flow</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://moodymudskipper.github.io/flow/reference/flow_view.html">flow_run</a></span><span class="op">(</span><span class="fu">fahr_to_kelvin_celsius</span><span class="op">(</span><span class="fl">92</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -742,14 +759,14 @@ While you are in debug mode you can call the individual objects in your function
 </div>
 </div>
 </div>
-<div id="exercises" class="section level2" number="12.6">
+<div id="exercises" class="section level2" number="13.6">
 <h2>
-<span class="header-section-number">12.6</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises"><i class="fas fa-link"></i></a>
+<span class="header-section-number">13.6</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises"><i class="fas fa-link"></i></a>
 </h2>
 <p>This function is designed to calculate the <a href="https://en.wikipedia.org/wiki/Triangular_number">triangular numbers</a></p>
 <div class="inline-figure"><img src="images/First_six_triangular_numbers.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Let's build it and check that it works:</p>
-<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://testthat.r-lib.org">testthat</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">triangle_number</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
@@ -763,16 +780,16 @@ Task
 Run <code>testthat()</code> to make sure this function works for multiple inputs
 </div>
 </div>
-<button id="displayTextunnamed-chunk-45" onclick="javascript:toggle('unnamed-chunk-45');">
+<button id="displayTextunnamed-chunk-46" onclick="javascript:toggle('unnamed-chunk-46');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-45" style="display: none">
+<div id="toggleTextunnamed-chunk-46" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"it works as expected"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">triangle_number</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,  <span class="fl">1</span><span class="op">)</span>  </span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">triangle_number</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>,  <span class="fl">3</span><span class="op">)</span>  </span>
@@ -792,21 +809,21 @@ Task
 This test fails, can you work out why?
 </div>
 </div>
-<div class="sourceCode" id="cb285"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"it works as expected"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">fahr_to_kelvin_celsius</span><span class="op">(</span><span class="fl">92</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">33</span>, <span class="fl">306</span><span class="op">)</span>, tolerance <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  </span>
 <span>    </span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<button id="displayTextunnamed-chunk-48" onclick="javascript:toggle('unnamed-chunk-48');">
+<button id="displayTextunnamed-chunk-49" onclick="javascript:toggle('unnamed-chunk-49');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-48" style="display: none">
+<div id="toggleTextunnamed-chunk-49" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the output is a named list</span></span>
 <span><span class="va">named_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>celsius <span class="op">=</span> <span class="fl">33.3</span>, kelvin <span class="op">=</span> <span class="fl">306.4</span><span class="op">)</span></span>
 <span></span>
@@ -1001,38 +1018,38 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="data-insights-part-two.html"><span class="header-section-number">11</span> Data insights part two</a></div>
-<div class="next"><a href="flow-control.html"><span class="header-section-number">13</span> Flow control</a></div>
+<div class="prev"><a href="data-insights-part-two.html"><span class="header-section-number">12</span> Data insights part two</a></div>
+<div class="next"><a href="flow-control.html"><span class="header-section-number">14</span> Flow control</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#writing-functions"><span class="header-section-number">12</span> Writing Functions</a></li>
+<li><a class="nav-link" href="#writing-functions"><span class="header-section-number">13</span> Writing Functions</a></li>
 <li>
-<a class="nav-link" href="#structuring-a-function"><span class="header-section-number">12.1</span> Structuring a function</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#activity-understand-the-function"><span class="header-section-number">12.1.1</span> Activity: Understand the function</a></li></ul>
+<a class="nav-link" href="#structuring-a-function"><span class="header-section-number">13.1</span> Structuring a function</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#activity-understand-the-function"><span class="header-section-number">13.1.1</span> Activity: Understand the function</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#function-environments"><span class="header-section-number">12.2</span> Function environments</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#argument-defaults"><span class="header-section-number">12.2.1</span> Argument defaults</a></li>
-<li><a class="nav-link" href="#activity-understanding-arguments"><span class="header-section-number">12.2.2</span> Activity: Understanding arguments</a></li>
+<a class="nav-link" href="#function-environments"><span class="header-section-number">13.2</span> Function environments</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#argument-defaults"><span class="header-section-number">13.2.1</span> Argument defaults</a></li>
+<li><a class="nav-link" href="#activity-understanding-arguments"><span class="header-section-number">13.2.2</span> Activity: Understanding arguments</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#wrapper-functions"><span class="header-section-number">12.3</span> Wrapper functions</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#default-values"><span class="header-section-number">12.3.1</span> Default values</a></li>
-<li><a class="nav-link" href="#using-..."><span class="header-section-number">12.3.2</span> Using "..."</a></li>
+<a class="nav-link" href="#wrapper-functions"><span class="header-section-number">13.3</span> Wrapper functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#default-values"><span class="header-section-number">13.3.1</span> Default values</a></li>
+<li><a class="nav-link" href="#using-..."><span class="header-section-number">13.3.2</span> Using "..."</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#documenting-functions"><span class="header-section-number">12.4</span> Documenting functions</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#exercise"><span class="header-section-number">12.4.1</span> Exercise</a></li></ul>
+<a class="nav-link" href="#documenting-functions"><span class="header-section-number">13.4</span> Documenting functions</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#exercise"><span class="header-section-number">13.4.1</span> Exercise</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#checking-functions"><span class="header-section-number">12.5</span> Checking functions</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#print"><span class="header-section-number">12.5.1</span> print</a></li>
-<li><a class="nav-link" href="#testthat"><span class="header-section-number">12.5.2</span> testthat</a></li>
-<li><a class="nav-link" href="#debugging"><span class="header-section-number">12.5.3</span> debugging</a></li>
+<a class="nav-link" href="#checking-functions"><span class="header-section-number">13.5</span> Checking functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#print"><span class="header-section-number">13.5.1</span> print</a></li>
+<li><a class="nav-link" href="#testthat"><span class="header-section-number">13.5.2</span> testthat</a></li>
+<li><a class="nav-link" href="#debugging"><span class="header-section-number">13.5.3</span> debugging</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#exercises"><span class="header-section-number">12.6</span> Exercises</a></li>
+<li><a class="nav-link" href="#exercises"><span class="header-section-number">13.6</span> Exercises</a></li>
 </ul>
 
       <div class="book-extra">
