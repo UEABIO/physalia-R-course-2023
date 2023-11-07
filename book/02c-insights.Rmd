@@ -927,6 +927,7 @@ penguins |>
 Start thinking about more complex interactions. We wish to investigate the relationship between body mass and beak length. What other variables should we consider?
 
 
+
 `r hide("Confounding variables")`
 
 
@@ -949,8 +950,6 @@ Once you have some parameters for investigation - investigate them visually and 
 `r hide("Solution")`
 
 
-### Simpson's Paradox
-
 Remember when we first correlated bill length and bill depth against each other we found an overall negative correlation of -0.22. However, this is because of a confounding variable we had not accounted for - species. 
 
 
@@ -961,7 +960,7 @@ bill_length_marginal+(length_depth_scatterplot+geom_smooth(method="lm", se=FALSE
 
 ```
 
-This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour. 
+What we have demonstrated is an example of [**Simpson's Paradox**](https://en.wikipedia.org/wiki/Simpson%27s_paradox). This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour. 
 
 ```{r, eval =TRUE}
 

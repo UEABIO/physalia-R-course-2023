@@ -567,13 +567,9 @@ Confounding variables
 <button>
 Solution
 </button>
-<div id="simpsons-paradox" class="section level3" number="12.4.1">
-<h3>
-<span class="header-section-number">12.4.1</span> Simpson's Paradox<a class="anchor" aria-label="anchor" href="#simpsons-paradox"><i class="fas fa-link"></i></a>
-</h3>
 <p>Remember when we first correlated bill length and bill depth against each other we found an overall negative correlation of -0.22. However, this is because of a confounding variable we had not accounted for - species.</p>
 <div class="inline-figure"><img src="02c-insights_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;"></div>
-<p>This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour.</p>
+<p>What we have demonstrated is an example of <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox"><strong>Simpson's Paradox</strong></a>. This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour.</p>
 <div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">colours</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cyan"</span>,</span>
 <span>             <span class="st">"darkorange"</span>,</span>
@@ -689,7 +685,6 @@ Solution
 </table></div>
 </div>
 <p>We now see that the correlation values for all three species is &gt;0.22 - indicating these associations are much closer than previously estimated.</p>
-</div>
 </div>
 </div>
 <div id="summing-up" class="section level2" number="12.5">
@@ -905,9 +900,7 @@ $( document ).ready(function() {
 </li>
 <li><a class="nav-link" href="#associations-between-categorical-variables"><span class="header-section-number">12.2</span> Associations between categorical variables</a></li>
 <li><a class="nav-link" href="#associations-between-categorical-numerical-variables"><span class="header-section-number">12.3</span> Associations between Categorical-numerical variables</a></li>
-<li>
-<a class="nav-link" href="#activity-2"><span class="header-section-number">12.4</span> Activity</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#simpsons-paradox"><span class="header-section-number">12.4.1</span> Simpson's Paradox</a></li></ul>
-</li>
+<li><a class="nav-link" href="#activity-2"><span class="header-section-number">12.4</span> Activity</a></li>
 <li><a class="nav-link" href="#summing-up"><span class="header-section-number">12.5</span> Summing up</a></li>
 </ul>
 
@@ -924,7 +917,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-06.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

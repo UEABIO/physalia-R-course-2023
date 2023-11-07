@@ -1,7 +1,7 @@
 --- 
 title: "Advancing in R"
 author: "Philip T. Leftwich"
-date: "2023-11-06"
+date: "2023-11-07"
 subtitle: A guide for Biologists and Ecologists
 site: bookdown::bookdown_site
 documentclass: book
@@ -3272,7 +3272,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_EDSKIVSGJY'><label><input type="radio" autocomplete="off" name="radio_EDSKIVSGJY" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_EDSKIVSGJY" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_EDSKIVSGJY" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_EDSKIVSGJY" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_LJIPWJNHMI'><label><input type="radio" autocomplete="off" name="radio_LJIPWJNHMI" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_LJIPWJNHMI" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_LJIPWJNHMI" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_LJIPWJNHMI" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -5424,6 +5424,7 @@ Start thinking about more complex interactions. We wish to investigate the relat
 
 
 
+
 <div class='webex-solution'><button>Confounding variables</button>
 
 
@@ -5447,14 +5448,12 @@ Once you have some parameters for investigation - investigate them visually and 
 
 
 
-### Simpson's Paradox
-
 Remember when we first correlated bill length and bill depth against each other we found an overall negative correlation of -0.22. However, this is because of a confounding variable we had not accounted for - species. 
 
 
 <img src="02c-insights_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" />
 
-This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour. 
+What we have demonstrated is an example of [**Simpson's Paradox**](https://en.wikipedia.org/wiki/Simpson%27s_paradox). This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour. 
 
 
 ```r
@@ -6235,7 +6234,7 @@ test_that("it works as expected", {
 <div id="toggleTextunnamed-chunk-49" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
-# the output is a named list
+# the output is a named list, so these must be supplied with the test
 named_list <- list(celsius = 33.3, kelvin = 306.4)
 
 
@@ -25442,7 +25441,7 @@ This book was printed on `` `r Sys.Date()` ``
 
 When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead: 
 
-This book was printed on 2023-11-06
+This book was printed on 2023-11-07
 
 ### Running code {-}
 
@@ -25483,7 +25482,7 @@ more later</p></li>
 ## Exercises: Setting code chunks {-}
 
 
-**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select>
+**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select>
 
 
 <div class='webex-solution'><button>Explain This Answer</button>

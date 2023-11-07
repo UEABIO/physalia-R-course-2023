@@ -671,7 +671,8 @@ test_that("it works as expected", {
 ```{solution}
 
 ``{r, eval = F}
-# the output is a named list
+
+# the output is a named list, so these must be supplied with the test
 named_list <- list(celsius = 33.3, kelvin = 306.4)
 
 

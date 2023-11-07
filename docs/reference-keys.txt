@@ -187,7 +187,6 @@ graphical-summaries-between-numeric-variables
 associations-between-categorical-variables
 associations-between-categorical-numerical-variables
 activity-2
-simpsons-paradox
 summing-up
 writing-functions
 structuring-a-function

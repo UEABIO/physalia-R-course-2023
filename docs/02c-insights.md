@@ -1126,6 +1126,7 @@ Start thinking about more complex interactions. We wish to investigate the relat
 
 
 
+
 <div class='webex-solution'><button>Confounding variables</button>
 
 
@@ -1149,14 +1150,12 @@ Once you have some parameters for investigation - investigate them visually and 
 
 
 
-### Simpson's Paradox
-
 Remember when we first correlated bill length and bill depth against each other we found an overall negative correlation of -0.22. However, this is because of a confounding variable we had not accounted for - species. 
 
 
 <img src="02c-insights_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" />
 
-This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour. 
+What we have demonstrated is an example of [**Simpson's Paradox**](https://en.wikipedia.org/wiki/Simpson%27s_paradox). This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour. 
 
 
 ```r

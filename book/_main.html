@@ -2917,8 +2917,8 @@ Pay attention to warning and error messages
 <ul>
 <li><strong>Question</strong> What is the appropriate function from the above to use on the <code>date_egg</code> variable?</li>
 </ul>
-<div id="radio_EDSKIVSGJY" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_EDSKIVSGJY" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_EDSKIVSGJY" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_EDSKIVSGJY" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_EDSKIVSGJY" value="answer"></input> <span>dmy()</span></label>
+<div id="radio_LJIPWJNHMI" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LJIPWJNHMI" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_LJIPWJNHMI" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_LJIPWJNHMI" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_LJIPWJNHMI" value="answer"></input> <span>dmy()</span></label>
 </div>
 <button id="displayTextunnamed-chunk-86" onclick="javascript:toggle(&#39;unnamed-chunk-86&#39;);">
 Show Solution
@@ -4976,11 +4976,9 @@ Confounding variables
 <button>
 Solution
 </button>
-<div id="simpsons-paradox" class="section level3" number="12.4.1">
-<h3><span class="header-section-number">12.4.1</span> Simpson's Paradox</h3>
 <p>Remember when we first correlated bill length and bill depth against each other we found an overall negative correlation of -0.22. However, this is because of a confounding variable we had not accounted for - species.</p>
 <p><img src="02c-insights_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour.</p>
+<p>What we have demonstrated is an example of <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox"><strong>Simpson's Paradox</strong></a>. This is another example of why carefully studying your data - and carefully considering those variables which are likely to affect each other are studied or controlled for. It is an entirely reasonable hypothesis that different penguin species might have different bill shapes that might make an overall trend misleading. We can easily check the effect of a categoricial variable on our two numeric variables by assigning the aesthetic colour.</p>
 <div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="#cb255-1" tabindex="-1"></a>colours <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cyan&quot;</span>,</span>
 <span id="cb255-2"><a href="#cb255-2" tabindex="-1"></a>             <span class="st">&quot;darkorange&quot;</span>,</span>
 <span id="cb255-3"><a href="#cb255-3" tabindex="-1"></a>             <span class="st">&quot;purple&quot;</span>)</span>
@@ -5095,7 +5093,6 @@ Solution
 </table>
 </div>
 <p>We now see that the correlation values for all three species is &gt;0.22 - indicating these associations are much closer than previously estimated.</p>
-</div>
 </div>
 </div>
 <div id="summing-up" class="section level2" number="12.5">
@@ -5696,7 +5693,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="#cb295-1" tabindex="-1"></a><span class="co"># the output is a named list</span></span>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="#cb295-1" tabindex="-1"></a><span class="co"># the output is a named list, so these must be supplied with the test</span></span>
 <span id="cb295-2"><a href="#cb295-2" tabindex="-1"></a>named_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">celsius =</span> <span class="fl">33.3</span>, <span class="at">kelvin =</span> <span class="fl">306.4</span>)</span>
 <span id="cb295-3"><a href="#cb295-3" tabindex="-1"></a></span>
 <span id="cb295-4"><a href="#cb295-4" tabindex="-1"></a></span>
@@ -24815,7 +24812,7 @@ want them printed next to each other (pair with out.width = c(“33%”,
 <p>You can also include minimal R code within back-ticks. Within the back-ticks, begin the code with “r” and a space, so RStudio knows to evaluate the code as R code. See the example below.</p>
 <p>This book was printed on <code>`r Sys.Date()`</code></p>
 <p>When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead:</p>
-<p>This book was printed on 2023-11-06</p>
+<p>This book was printed on 2023-11-07</p>
 </div>
 <div id="running-code" class="section level3 unnumbered">
 <h3 class="unnumbered">Running code</h3>
@@ -24865,7 +24862,7 @@ more later
 </div>
 <div id="exercises-setting-code-chunks" class="section level2 unnumbered">
 <h2 class="unnumbered">Exercises: Setting code chunks</h2>
-<p><strong>Question 1.</strong> The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select></p>
+<p><strong>Question 1.</strong> The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select></p>
 <div class="webex-solution">
 <button>
 Explain This Answer
@@ -26913,7 +26910,7 @@ $( document ).ready(function() {
   <div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-06.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -679,7 +679,7 @@ test_that("it works as expected", {
 <div id="toggleTextunnamed-chunk-49" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
-# the output is a named list
+# the output is a named list, so these must be supplied with the test
 named_list <- list(celsius = 33.3, kelvin = 306.4)
 
 
