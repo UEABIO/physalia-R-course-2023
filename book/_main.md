@@ -3272,7 +3272,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_OBFYWTQQUD'><label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_JWTJZBVUHP'><label><input type="radio" autocomplete="off" name="radio_JWTJZBVUHP" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_JWTJZBVUHP" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_JWTJZBVUHP" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_JWTJZBVUHP" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -7304,12 +7304,11 @@ meadow_pipit <- filter(LPI_UK, Common.Name == "Meadow pipit")
 
 sp_list <- list(house_sparrow, great_tit, corn_bunting, meadow_pipit)
 
-
-my_plots <- list(length(sp_list))
+my_list <- vector("list", length = 4)
 
 for (i in 1:length(sp_list)) {                                    
   # For every item along the length of Sp_list we want R to perform the following functions
-  data <- as.data.frame(sp_list[i])                               
+  data <- as.data.frame(sp_list[[i]])                               
   # Create a dataframe for each species
   sp.name <- unique(data$Common.Name)                             
   # Create an object that holds the species name, so that we can title each graph
@@ -7322,6 +7321,7 @@ for (i in 1:length(sp_list)) {
  
    # makes a list of all the plots generates
   my_plots[[i]] <- plot 
+}
 ```
 </div></div></div>
 
@@ -7834,7 +7834,7 @@ If we wish to see all of the plots at once we can use `purrr::walk` - this is an
 
 
 ```r
-walk(plots_df$scatterplot, ~print(.x))
+walk(plots_df$scatterplots, ~print(.x))
 ```
 
 
@@ -10128,13 +10128,16 @@ You can pick your own sets of colours and assign them to a categorical variable.
 ```r
 ## Custom colours ----
 
-penguin_colours <- c("darkolivegreen4", "darkorchid3", "goldenrod1")
+pal <- c(
+  "Adelie" = "#FF8C00", 
+  "Chinstrap" = "#A034F0", 
+  "Gentoo" = "#159090")
 
 penguins |> 
   ggplot(aes(x=flipper_length_mm, 
              y = body_mass_g))+
   geom_point(aes(colour=species))+
-  scale_color_manual(values=penguin_colours)+
+  scale_color_manual(values=pal)+
   theme_minimal()
 ```
 
@@ -10665,13 +10668,15 @@ pal <- c(
   "Gentoo" = "#159090")
 
 penguins |> 
-  ggplot(aes(x = species,
-             y = body_mass_g,
-             fill = species,
-             colour = species))+
-  geom_violin(alpha = 0.2)+
-  geom_boxplot(width = 0.2,
-               alpha = 0.6)+
+  ggplot(aes(x = species, y = body_mass_g, color = species, fill = species)) +
+      geom_boxplot(aes(fill = species),
+               colour = "black",
+        width = .5,
+        outlier.shape = NA,
+        alpha = .7)+
+  geom_jitter(width =.2,
+              shape = 21,
+              colour = "white")+
   scale_fill_manual(values = pal)+
   scale_colour_manual(values = pal)+
   theme_classic()+
@@ -10680,7 +10685,7 @@ penguins |>
     x = "",
     y = "Body mass (g)",
     title = "Body mass of brush-tailed penguins",
-    subtitle = "Box and violin plot of body mass by species")
+    subtitle = "Box and jitter plot of body mass by species")
 ```
 
 
@@ -25635,7 +25640,7 @@ more later</p></li>
 ## Exercises: Setting code chunks {-}
 
 
-**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select>
+**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select>
 
 
 <div class='webex-solution'><button>Explain This Answer</button>

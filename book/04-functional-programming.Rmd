@@ -1702,12 +1702,11 @@ meadow_pipit <- filter(LPI_UK, Common.Name == "Meadow pipit")
 
 sp_list <- list(house_sparrow, great_tit, corn_bunting, meadow_pipit)
 
-
-my_plots <- list(length(sp_list))
+my_list <- vector("list", length = 4)
 
 for (i in 1:length(sp_list)) {                                    
   # For every item along the length of Sp_list we want R to perform the following functions
-  data <- as.data.frame(sp_list[i])                               
+  data <- as.data.frame(sp_list[[i]])                               
   # Create a dataframe for each species
   sp.name <- unique(data$Common.Name)                             
   # Create an object that holds the species name, so that we can title each graph
@@ -1720,7 +1719,7 @@ for (i in 1:length(sp_list)) {
  
    # makes a list of all the plots generates
   my_plots[[i]] <- plot 
-
+}
 ``
 
 ```
@@ -2197,7 +2196,7 @@ If we wish to see all of the plots at once we can use `purrr::walk` - this is an
 
 ```{r, eval = FALSE}
 
-walk(plots_df$scatterplot, ~print(.x))
+walk(plots_df$scatterplots, ~print(.x))
 
 ```
 

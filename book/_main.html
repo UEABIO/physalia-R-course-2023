@@ -2917,8 +2917,8 @@ Pay attention to warning and error messages
 <ul>
 <li><strong>Question</strong> What is the appropriate function from the above to use on the <code>date_egg</code> variable?</li>
 </ul>
-<div id="radio_OBFYWTQQUD" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value="answer"></input> <span>dmy()</span></label>
+<div id="radio_JWTJZBVUHP" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_JWTJZBVUHP" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_JWTJZBVUHP" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_JWTJZBVUHP" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_JWTJZBVUHP" value="answer"></input> <span>dmy()</span></label>
 </div>
 <button id="displayTextunnamed-chunk-86" onclick="javascript:toggle(&#39;unnamed-chunk-86&#39;);">
 Show Solution
@@ -6667,24 +6667,24 @@ Solution
 <span id="cb367-16"><a href="#cb367-16" tabindex="-1"></a></span>
 <span id="cb367-17"><a href="#cb367-17" tabindex="-1"></a>sp_list <span class="ot">&lt;-</span> <span class="fu">list</span>(house_sparrow, great_tit, corn_bunting, meadow_pipit)</span>
 <span id="cb367-18"><a href="#cb367-18" tabindex="-1"></a></span>
-<span id="cb367-19"><a href="#cb367-19" tabindex="-1"></a></span>
-<span id="cb367-20"><a href="#cb367-20" tabindex="-1"></a>my_plots <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">length</span>(sp_list))</span>
-<span id="cb367-21"><a href="#cb367-21" tabindex="-1"></a></span>
-<span id="cb367-22"><a href="#cb367-22" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sp_list)) {                                    </span>
-<span id="cb367-23"><a href="#cb367-23" tabindex="-1"></a>  <span class="co"># For every item along the length of Sp_list we want R to perform the following functions</span></span>
-<span id="cb367-24"><a href="#cb367-24" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(sp_list[i])                               </span>
-<span id="cb367-25"><a href="#cb367-25" tabindex="-1"></a>  <span class="co"># Create a dataframe for each species</span></span>
-<span id="cb367-26"><a href="#cb367-26" tabindex="-1"></a>  sp.name <span class="ot">&lt;-</span> <span class="fu">unique</span>(data<span class="sc">$</span>Common.Name)                             </span>
-<span id="cb367-27"><a href="#cb367-27" tabindex="-1"></a>  <span class="co"># Create an object that holds the species name, so that we can title each graph</span></span>
-<span id="cb367-28"><a href="#cb367-28" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span> (<span class="at">x =</span> year, <span class="at">y =</span> abundance)) <span class="sc">+</span>               </span>
-<span id="cb367-29"><a href="#cb367-29" tabindex="-1"></a>    <span class="co"># Make the plots and add our customised theme</span></span>
-<span id="cb367-30"><a href="#cb367-30" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;#00868B&quot;</span>) <span class="sc">+</span>                              </span>
-<span id="cb367-31"><a href="#cb367-31" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">colour =</span> <span class="st">&quot;#00868B&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#00868B&quot;</span>) <span class="sc">+</span>        </span>
-<span id="cb367-32"><a href="#cb367-32" tabindex="-1"></a>    <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb367-33"><a href="#cb367-33" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Abundance</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">title =</span> sp.name)</span>
-<span id="cb367-34"><a href="#cb367-34" tabindex="-1"></a> </span>
-<span id="cb367-35"><a href="#cb367-35" tabindex="-1"></a>   <span class="co"># makes a list of all the plots generates</span></span>
-<span id="cb367-36"><a href="#cb367-36" tabindex="-1"></a>  my_plots[[i]] <span class="ot">&lt;-</span> plot </span></code></pre></div>
+<span id="cb367-19"><a href="#cb367-19" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="at">length =</span> <span class="dv">4</span>)</span>
+<span id="cb367-20"><a href="#cb367-20" tabindex="-1"></a></span>
+<span id="cb367-21"><a href="#cb367-21" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sp_list)) {                                    </span>
+<span id="cb367-22"><a href="#cb367-22" tabindex="-1"></a>  <span class="co"># For every item along the length of Sp_list we want R to perform the following functions</span></span>
+<span id="cb367-23"><a href="#cb367-23" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(sp_list[[i]])                               </span>
+<span id="cb367-24"><a href="#cb367-24" tabindex="-1"></a>  <span class="co"># Create a dataframe for each species</span></span>
+<span id="cb367-25"><a href="#cb367-25" tabindex="-1"></a>  sp.name <span class="ot">&lt;-</span> <span class="fu">unique</span>(data<span class="sc">$</span>Common.Name)                             </span>
+<span id="cb367-26"><a href="#cb367-26" tabindex="-1"></a>  <span class="co"># Create an object that holds the species name, so that we can title each graph</span></span>
+<span id="cb367-27"><a href="#cb367-27" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span> (<span class="at">x =</span> year, <span class="at">y =</span> abundance)) <span class="sc">+</span>               </span>
+<span id="cb367-28"><a href="#cb367-28" tabindex="-1"></a>    <span class="co"># Make the plots and add our customised theme</span></span>
+<span id="cb367-29"><a href="#cb367-29" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;#00868B&quot;</span>) <span class="sc">+</span>                              </span>
+<span id="cb367-30"><a href="#cb367-30" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">colour =</span> <span class="st">&quot;#00868B&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#00868B&quot;</span>) <span class="sc">+</span>        </span>
+<span id="cb367-31"><a href="#cb367-31" tabindex="-1"></a>    <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb367-32"><a href="#cb367-32" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Abundance</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">title =</span> sp.name)</span>
+<span id="cb367-33"><a href="#cb367-33" tabindex="-1"></a> </span>
+<span id="cb367-34"><a href="#cb367-34" tabindex="-1"></a>   <span class="co"># makes a list of all the plots generates</span></span>
+<span id="cb367-35"><a href="#cb367-35" tabindex="-1"></a>  my_plots[[i]] <span class="ot">&lt;-</span> plot </span>
+<span id="cb367-36"><a href="#cb367-36" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -7178,7 +7178,7 @@ cleaning script or run readRDS on the file you made
 <span id="cb393-3"><a href="#cb393-3" tabindex="-1"></a>plots_df<span class="sc">$</span>scatterplots[[<span class="dv">1</span>]]</span></code></pre></div>
 <p><img src="04-functional-programming_files/figure-html/unnamed-chunk-123-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>If we wish to see all of the plots at once we can use <code>purrr::walk</code> - this is another iteration function, where the primary output is "silent" - we do not wish to see outputs printed in the console. This is useful for functions like plot making or writing outputs to file.</p>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="#cb394-1" tabindex="-1"></a><span class="fu">walk</span>(plots_df<span class="sc">$</span>scatterplot, <span class="sc">~</span><span class="fu">print</span>(.x))</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="#cb394-1" tabindex="-1"></a><span class="fu">walk</span>(plots_df<span class="sc">$</span>scatterplots, <span class="sc">~</span><span class="fu">print</span>(.x))</span></code></pre></div>
 <div class="info">
 <p>
 gg objects are not the only type of objects that can be created using
@@ -9994,14 +9994,17 @@ assigned to variables.</p>
 <p>You can pick your own sets of colours and assign them to a categorical variable. The number of specified colours <strong>has</strong> to match the number of categories. You can use a wide number of preset colour <a href="https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/">names</a> or you can use <a href="https://www.datanovia.com/en/blog/awesome-list-of-hexadecimal-colors-you-should-have/">hexadecimals</a>.</p>
 <div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="#cb504-1" tabindex="-1"></a><span class="do">## Custom colours ----</span></span>
 <span id="cb504-2"><a href="#cb504-2" tabindex="-1"></a></span>
-<span id="cb504-3"><a href="#cb504-3" tabindex="-1"></a>penguin_colours <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;darkolivegreen4&quot;</span>, <span class="st">&quot;darkorchid3&quot;</span>, <span class="st">&quot;goldenrod1&quot;</span>)</span>
-<span id="cb504-4"><a href="#cb504-4" tabindex="-1"></a></span>
-<span id="cb504-5"><a href="#cb504-5" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb504-6"><a href="#cb504-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flipper_length_mm, </span>
-<span id="cb504-7"><a href="#cb504-7" tabindex="-1"></a>             <span class="at">y =</span> body_mass_g))<span class="sc">+</span></span>
-<span id="cb504-8"><a href="#cb504-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span>species))<span class="sc">+</span></span>
-<span id="cb504-9"><a href="#cb504-9" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>penguin_colours)<span class="sc">+</span></span>
-<span id="cb504-10"><a href="#cb504-10" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<span id="cb504-3"><a href="#cb504-3" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb504-4"><a href="#cb504-4" tabindex="-1"></a>  <span class="st">&quot;Adelie&quot;</span> <span class="ot">=</span> <span class="st">&quot;#FF8C00&quot;</span>, </span>
+<span id="cb504-5"><a href="#cb504-5" tabindex="-1"></a>  <span class="st">&quot;Chinstrap&quot;</span> <span class="ot">=</span> <span class="st">&quot;#A034F0&quot;</span>, </span>
+<span id="cb504-6"><a href="#cb504-6" tabindex="-1"></a>  <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;#159090&quot;</span>)</span>
+<span id="cb504-7"><a href="#cb504-7" tabindex="-1"></a></span>
+<span id="cb504-8"><a href="#cb504-8" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb504-9"><a href="#cb504-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>flipper_length_mm, </span>
+<span id="cb504-10"><a href="#cb504-10" tabindex="-1"></a>             <span class="at">y =</span> body_mass_g))<span class="sc">+</span></span>
+<span id="cb504-11"><a href="#cb504-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span>species))<span class="sc">+</span></span>
+<span id="cb504-12"><a href="#cb504-12" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>pal)<span class="sc">+</span></span>
+<span id="cb504-13"><a href="#cb504-13" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>You can also use a range of inbuilt colour palettes:</p>
 <div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="#cb505-1" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
@@ -10398,22 +10401,24 @@ Solution
 <span id="cb528-4"><a href="#cb528-4" tabindex="-1"></a>  <span class="st">&quot;Gentoo&quot;</span> <span class="ot">=</span> <span class="st">&quot;#159090&quot;</span>)</span>
 <span id="cb528-5"><a href="#cb528-5" tabindex="-1"></a></span>
 <span id="cb528-6"><a href="#cb528-6" tabindex="-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb528-7"><a href="#cb528-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
-<span id="cb528-8"><a href="#cb528-8" tabindex="-1"></a>             <span class="at">y =</span> body_mass_g,</span>
-<span id="cb528-9"><a href="#cb528-9" tabindex="-1"></a>             <span class="at">fill =</span> species,</span>
-<span id="cb528-10"><a href="#cb528-10" tabindex="-1"></a>             <span class="at">colour =</span> species))<span class="sc">+</span></span>
-<span id="cb528-11"><a href="#cb528-11" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>)<span class="sc">+</span></span>
-<span id="cb528-12"><a href="#cb528-12" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.2</span>,</span>
-<span id="cb528-13"><a href="#cb528-13" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.6</span>)<span class="sc">+</span></span>
-<span id="cb528-14"><a href="#cb528-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
-<span id="cb528-15"><a href="#cb528-15" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
-<span id="cb528-16"><a href="#cb528-16" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
-<span id="cb528-17"><a href="#cb528-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
-<span id="cb528-18"><a href="#cb528-18" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb528-19"><a href="#cb528-19" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb528-20"><a href="#cb528-20" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Body mass (g)&quot;</span>,</span>
-<span id="cb528-21"><a href="#cb528-21" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Body mass of brush-tailed penguins&quot;</span>,</span>
-<span id="cb528-22"><a href="#cb528-22" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Box and violin plot of body mass by species&quot;</span>)</span></code></pre></div>
+<span id="cb528-7"><a href="#cb528-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">y =</span> body_mass_g, <span class="at">color =</span> species, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb528-8"><a href="#cb528-8" tabindex="-1"></a>      <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> species),</span>
+<span id="cb528-9"><a href="#cb528-9" tabindex="-1"></a>               <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb528-10"><a href="#cb528-10" tabindex="-1"></a>        <span class="at">width =</span> .<span class="dv">5</span>,</span>
+<span id="cb528-11"><a href="#cb528-11" tabindex="-1"></a>        <span class="at">outlier.shape =</span> <span class="cn">NA</span>,</span>
+<span id="cb528-12"><a href="#cb528-12" tabindex="-1"></a>        <span class="at">alpha =</span> .<span class="dv">7</span>)<span class="sc">+</span></span>
+<span id="cb528-13"><a href="#cb528-13" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span>.<span class="dv">2</span>,</span>
+<span id="cb528-14"><a href="#cb528-14" tabindex="-1"></a>              <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb528-15"><a href="#cb528-15" tabindex="-1"></a>              <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
+<span id="cb528-16"><a href="#cb528-16" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
+<span id="cb528-17"><a href="#cb528-17" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)<span class="sc">+</span></span>
+<span id="cb528-18"><a href="#cb528-18" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb528-19"><a href="#cb528-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb528-20"><a href="#cb528-20" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb528-21"><a href="#cb528-21" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb528-22"><a href="#cb528-22" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Body mass (g)&quot;</span>,</span>
+<span id="cb528-23"><a href="#cb528-23" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Body mass of brush-tailed penguins&quot;</span>,</span>
+<span id="cb528-24"><a href="#cb528-24" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Box and jitter plot of body mass by species&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="saving" class="section level2" number="29.8">
@@ -25000,7 +25005,7 @@ more later
 </div>
 <div id="exercises-setting-code-chunks" class="section level2 unnumbered">
 <h2 class="unnumbered">Exercises: Setting code chunks</h2>
-<p><strong>Question 1.</strong> The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select></p>
+<p><strong>Question 1.</strong> The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select></p>
 <div class="webex-solution">
 <button>
 Explain This Answer

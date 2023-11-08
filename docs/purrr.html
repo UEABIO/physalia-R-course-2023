@@ -444,7 +444,7 @@ cleaning script or run readRDS on the file you made
 <div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-123-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>If we wish to see all of the plots at once we can use <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::walk</a></code> - this is another iteration function, where the primary output is "silent" - we do not wish to see outputs printed in the console. This is useful for functions like plot making or writing outputs to file.</p>
 <div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span><span class="op">(</span><span class="va">plots_df</span><span class="op">$</span><span class="va">scatterplot</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span><span class="op">(</span><span class="va">plots_df</span><span class="op">$</span><span class="va">scatterplots</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="info">
 <p>
 gg objects are not the only type of objects that can be created using
