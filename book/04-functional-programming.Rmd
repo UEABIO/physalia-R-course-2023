@@ -1921,7 +1921,11 @@ Make a function that converts values with a normal distribution into their z sco
 
 [Z-scores](https://en.wikipedia.org/wiki/Standard_score)
 
-$z = {{x - \mu}\over{\sigma}}$
+$$
+
+z = {{x - \mu}\over{\sigma}}
+
+$$
 
 
 ```{solution}
@@ -1997,7 +2001,6 @@ map(df_list, mean)
 ``
 
 ```
-
 
 
 
@@ -2122,6 +2125,15 @@ map_dbl(df_list, mean, na.rm = T)
 ## map with nested dataframes
 
 Nested data frames in tibbles, a data structure in R, allow you to store complex and structured data within a single column of a tibble. This feature is particularly useful when dealing with hierarchical or nested data, such as lists, data frames, or even other tibbles.
+
+```{block, type = "warning"}
+
+To use the penguins data you need to load it. 
+Either run your cleaning script or run readRDS on the file you made
+
+```
+
+
 
 Nested data frames in `tibbles` can be particularly useful when working with map functions, like `purrr::map()`to apply a function to elements within each nested structure. 
 

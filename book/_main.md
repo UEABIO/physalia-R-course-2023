@@ -3272,7 +3272,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_ROREPIJFKK'><label><input type="radio" autocomplete="off" name="radio_ROREPIJFKK" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_ROREPIJFKK" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_ROREPIJFKK" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_ROREPIJFKK" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_NVWFMPOGOW'><label><input type="radio" autocomplete="off" name="radio_NVWFMPOGOW" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_NVWFMPOGOW" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_NVWFMPOGOW" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_NVWFMPOGOW" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -7557,7 +7557,11 @@ Make a function that converts values with a normal distribution into their z sco
 
 [Z-scores](https://en.wikipedia.org/wiki/Standard_score)
 
-$z = {{x - \mu}\over{\sigma}}$
+$$
+
+z = {{x - \mu}\over{\sigma}}
+
+$$
 
 
 <button id="displayTextunnamed-chunk-104" onclick="javascript:toggle('unnamed-chunk-104');">Show Solution</button>
@@ -7622,7 +7626,6 @@ map(.x = df_list, .f = mean)
 map(df_list, mean)
 ```
 </div><script> javascript:hide('option2unnamed-chunk-108') </script>
-
 
 
 
@@ -7753,6 +7756,13 @@ map_dbl(df_list, mean, na.rm = T)
 
 Nested data frames in tibbles, a data structure in R, allow you to store complex and structured data within a single column of a tibble. This feature is particularly useful when dealing with hierarchical or nested data, such as lists, data frames, or even other tibbles.
 
+<div class="warning">
+<p>To use the penguins data you need to load it. Either run your
+cleaning script or run readRDS on the file you made</p>
+</div>
+
+
+
 Nested data frames in `tibbles` can be particularly useful when working with map functions, like `purrr::map()`to apply a function to elements within each nested structure. 
 
 First we use the `nest()` function and select how we want to nest our data
@@ -7820,7 +7830,7 @@ plots_df[[1,4]]
 plots_df$scatterplots[[1]]
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-121-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-122-1.png" width="100%" style="display: block; margin: auto;" />
 
 If we wish to see all of the plots at once we can use `purrr::walk` - this is another iteration function, where the primary output is "silent" - we do not wish to see outputs printed in the console. This is useful for functions like plot making or writing outputs to file. 
 
@@ -7847,7 +7857,7 @@ library(patchwork)
 plots_df$scatterplots |> wrap_plots()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-124-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-125-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## map2
 
@@ -7877,7 +7887,7 @@ plots_df$scatterplots |>
     wrap_plots(... = _, guides = "collect")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-126-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-127-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### Running different summary functions on each nested dataframe
 
@@ -7938,9 +7948,9 @@ result$summaries
 In the previous chapter with apply we wrote the `z_score()` function, can you apply this using map to our `df` tibble? </div></div>
 
 
-<button id="displayTextunnamed-chunk-129" onclick="javascript:toggle('unnamed-chunk-129');">Show Solution</button>
+<button id="displayTextunnamed-chunk-130" onclick="javascript:toggle('unnamed-chunk-130');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-129" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-130" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 map_df(.x = df, 
@@ -8004,9 +8014,9 @@ Sampling without replacement means that when you repeatedly draw e.g. 1 item fro
 **YOUR TURN:**  
 Sample 100 values between 3 and 103 with replacement.    
 
-<button id="displayTextunnamed-chunk-130" onclick="javascript:toggle('unnamed-chunk-130');">Show Solution</button>
+<button id="displayTextunnamed-chunk-131" onclick="javascript:toggle('unnamed-chunk-131');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-130" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-131" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 x <- 3:103
@@ -8030,9 +8040,9 @@ Draw 50 values from a normal distribution with a mean of 10 and sd of 5.
 Draw 1000 values from a poisson distribution with a lambda of 50.  
 Draw 30 values from a uniform distribution between 0 and 10.  
 
-<button id="displayTextunnamed-chunk-131" onclick="javascript:toggle('unnamed-chunk-131');">Show Solution</button>
+<button id="displayTextunnamed-chunk-132" onclick="javascript:toggle('unnamed-chunk-132');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-131" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-132" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 rnorm(n = 100, mean = 0, sd = 1)
@@ -8058,9 +8068,9 @@ Replicate 1000 times the mean of 10 values drawn from a unifrom distribution bet
 
 Make a histogram of your results. 
 
-<button id="displayTextunnamed-chunk-132" onclick="javascript:toggle('unnamed-chunk-132');">Show Solution</button>
+<button id="displayTextunnamed-chunk-133" onclick="javascript:toggle('unnamed-chunk-133');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-132" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-132 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-132', 'unnamed-chunk-132');">Base R</button><button class="tablinksunnamed-chunk-132" onclick="javascript:openCode(event, 'option2unnamed-chunk-132', 'unnamed-chunk-132');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-132" class="tabcontentunnamed-chunk-132">
+<div id="toggleTextunnamed-chunk-133" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-133 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-133', 'unnamed-chunk-133');">Base R</button><button class="tablinksunnamed-chunk-133" onclick="javascript:openCode(event, 'option2unnamed-chunk-133', 'unnamed-chunk-133');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-133" class="tabcontentunnamed-chunk-133">
 
 ```r
 set.seed(42) 
@@ -8069,8 +8079,8 @@ set.seed(42)
 hist(replicate(1000, mean(runif(10, max = 10))))
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-153-1.png" width="100%" style="display: block; margin: auto;" />
-</div><div id="option2unnamed-chunk-132" class="tabcontentunnamed-chunk-132">
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-144-1.png" width="100%" style="display: block; margin: auto;" />
+</div><div id="option2unnamed-chunk-133" class="tabcontentunnamed-chunk-133">
 
 ```r
 set.seed(42) 
@@ -8084,9 +8094,9 @@ ggplot(aes(x = means)) +
   labs(title = "Histogram of Means", x = "Mean Value", y = "Frequency")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-154-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-145-1.png" width="100%" style="display: block; margin: auto;" />
 
-</div><script> javascript:hide('option2unnamed-chunk-132') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-133') </script></div></div></div>
 
 ## Set seed
 
@@ -8169,7 +8179,7 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
     theme_minimal()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-133-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-134-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Exercise
@@ -8292,7 +8302,7 @@ simulation_results <- map_dbl(sample_sizes, simulate_power, effect_size)
 plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = "Power", main = "Power vs. Sample Size")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-137-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-138-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Exercise
 
@@ -8351,19 +8361,19 @@ sessionInfo()
 ## [16] ggplot2_3.4.2         tidyverse_2.0.0      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6         utf8_1.2.3         generics_0.1.3     xml2_1.3.5        
-##  [5] stringi_1.7.12     hms_1.1.3          digest_0.6.33      magrittr_2.0.3    
-##  [9] evaluate_0.21      grid_4.3.1         timechange_0.2.0   bookdown_0.34     
-## [13] fastmap_1.1.1      jsonlite_1.8.7     backports_1.4.1    brio_1.1.3        
-## [17] fansi_1.0.4        scales_1.2.1       codetools_0.2-19   jquerylib_0.1.4   
-## [21] cli_3.6.1          rlang_1.1.1        munsell_0.5.0      withr_2.5.0       
-## [25] cachem_1.0.8       yaml_2.3.7         tools_4.3.1        tzdb_0.4.0        
-## [29] memoise_2.0.1      colorspace_2.1-0   bsplus_0.1.4       broom_1.0.5       
-## [33] vctrs_0.6.3        R6_2.5.1           lifecycle_1.0.3    fs_1.6.2          
-## [37] downloadthis_0.3.2 pkgconfig_2.0.3    pillar_1.9.0       bslib_0.5.0       
-## [41] gtable_0.3.3       glue_1.6.2         highr_0.10         xfun_0.39         
-## [45] tidyselect_1.2.0   rstudioapi_0.15.0  farver_2.1.1       htmltools_0.5.5   
-## [49] labeling_0.4.2     rmarkdown_2.23     compiler_4.3.1     downlit_0.4.3
+##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
+##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
+##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
+## [13] fastmap_1.1.1     jsonlite_1.8.7    backports_1.4.1   brio_1.1.3       
+## [17] fansi_1.0.4       scales_1.2.1      codetools_0.2-19  jquerylib_0.1.4  
+## [21] cli_3.6.1         rlang_1.1.1       munsell_0.5.0     withr_2.5.0      
+## [25] cachem_1.0.8      yaml_2.3.7        tools_4.3.1       tzdb_0.4.0       
+## [29] memoise_2.0.1     colorspace_2.1-0  broom_1.0.5       vctrs_0.6.3      
+## [33] R6_2.5.1          lifecycle_1.0.3   fs_1.6.2          pkgconfig_2.0.3  
+## [37] pillar_1.9.0      bslib_0.5.0       gtable_0.3.3      glue_1.6.2       
+## [41] highr_0.10        xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
+## [45] farver_2.1.1      htmltools_0.5.5   labeling_0.4.2    rmarkdown_2.23   
+## [49] compiler_4.3.1    downlit_0.4.3
 ```
 
 
