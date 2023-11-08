@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 14 Flow control | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="https://modern-rstats.eu/defining-your-own-functions.html#control-flow https://bookdown.org/rdpeng/rprogdatascience/control-structures.html Imagine you want a variable to be equal to a certain...">
+<meta name="description" content="Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical problem that requires the if and else construct. For instance: a &lt;- 4 b &lt;- 5 if (a &gt; b) {  f &lt;-...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
 <meta property="og:title" content="Chapter 14 Flow control | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/flow-control.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="https://modern-rstats.eu/defining-your-own-functions.html#control-flow https://bookdown.org/rdpeng/rprogdatascience/control-structures.html Imagine you want a variable to be equal to a certain...">
+<meta property="og:description" content="Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical problem that requires the if and else construct. For instance: a &lt;- 4 b &lt;- 5 if (a &gt; b) {  f &lt;-...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 14 Flow control | Advancing in R">
-<meta name="twitter:description" content="https://modern-rstats.eu/defining-your-own-functions.html#control-flow https://bookdown.org/rdpeng/rprogdatascience/control-structures.html Imagine you want a variable to be equal to a certain...">
+<meta name="twitter:description" content="Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical problem that requires the if and else construct. For instance: a &lt;- 4 b &lt;- 5 if (a &gt; b) {  f &lt;-...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -179,8 +179,6 @@ to the remote repository.
 <h1>
 <span class="header-section-number">14</span> Flow control<a class="anchor" aria-label="anchor" href="#flow-control"><i class="fas fa-link"></i></a>
 </h1>
-<p><a href="https://modern-rstats.eu/defining-your-own-functions.html#control-flow" class="uri">https://modern-rstats.eu/defining-your-own-functions.html#control-flow</a></p>
-<p><a href="https://bookdown.org/rdpeng/rprogdatascience/control-structures.html" class="uri">https://bookdown.org/rdpeng/rprogdatascience/control-structures.html</a></p>
 <p>Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical problem that requires the <code>if</code> and <code>else</code> construct. For instance:</p>
 <div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
@@ -360,10 +358,10 @@ Base R
 <span> <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"p must be a number"</span><span class="op">)</span></span>
 <span> </span>
 <span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
-<span>       <span class="va">p</span> <span class="op">&lt;=</span> <span class="fl">0</span> <span class="op">~</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot be less than or equal to 0"</span><span class="op">)</span>,</span>
-<span>       <span class="va">p</span> <span class="op">&gt;=</span> <span class="fl">1</span> <span class="op">~</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html">warning</a></span><span class="op">(</span><span class="st">"p-values cannot be greater than or equal to 1"</span><span class="op">)</span>,</span>
+<span>       <span class="va">p</span> <span class="op">&lt;=</span> <span class="fl">0</span> <span class="op">~</span> <span class="st">"p-values cannot be less than or equal to 0"</span>,</span>
+<span>       <span class="va">p</span> <span class="op">&gt;=</span> <span class="fl">1</span> <span class="op">~</span> <span class="st">"p-values cannot be greater than or equal to 1"</span>,</span>
 <span>       <span class="va">p</span> <span class="op">&lt;</span> <span class="fl">0.001</span> <span class="op">~</span> <span class="st">"p &lt; 0.001"</span>,</span>
-<span>       <span class="cn">TRUE</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span><span class="op">)</span></span>
+<span>       .default <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">digits</span><span class="op">)</span><span class="op">)</span></span>
 <span>   <span class="op">)</span></span>
 <span>   </span>
 <span>   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span>
@@ -379,10 +377,19 @@ Base R
 <span class="header-section-number">14.3</span> Activities<a class="anchor" aria-label="anchor" href="#activities"><i class="fas fa-link"></i></a>
 </h2>
 <p>Exercise 1: Write a Simple Function
-We'll create a function that calculates the GC content of a DNA sequence, and the result melting temperature of the sequence and returns both in a list. GC content is the percentage of the DNA molecule's nitrogenous bases that are either guanine (G) or cytosine (C). This is a common metric used in molecular biology and genetics to analyze DNA sequences. Each GC base addes 4 degrees to melting temp while each AT base adds 2 degrees.</p>
+We'll create a function that calculates the GC content of a DNA sequence, and the result melting temperature of the sequence and returns both in a list.</p>
+<p>GC content is the percentage of the DNA molecule's nitrogenous bases that are either guanine (G) or cytosine (C).</p>
+<p>This is a common metric used in molecular biology and genetics to analyze DNA sequences. Each GC base addes 4 degrees to melting temp while each AT base adds 2 degrees.</p>
 <blockquote>
-<p>Hint<code>stringr</code> and associated functions will be very helpful here</p>
+<p>Hint <code>stringr</code> and associated functions will be very helpful here</p>
 </blockquote>
+<div class="webex-solution">
+<button>
+stringr functions
+</button>
+<p><code>str_count</code> can let you selectively add letters in a vector</p>
+<p><code>str_length</code> can let you count the characters in a vector</p>
+</div>
 <button id="displayTextunnamed-chunk-63" onclick="javascript:toggle('unnamed-chunk-63');">
 Show Solution
 </button>
@@ -407,7 +414,6 @@ Base R
 <span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
 <span>  </span>
 <span> </span>
-<span>  </span>
 <span>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
 <span> <span class="va">gc_positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gregexpr</a></span><span class="op">(</span><span class="st">"[GC]"</span>, <span class="va">dna_sequence</span><span class="op">)</span><span class="op">)</span></span>
 <span> <span class="va">gc_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">gc_positions</span><span class="op">)</span></span>
@@ -482,7 +488,56 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Function: gc_content</span></span>
+<span><span class="co"># Description: calculates the GC (Guanine-Cytosine) content and the melting temperature of a given DNA sequence. </span></span>
+<span><span class="co">#</span></span>
+<span><span class="co"># Input:</span></span>
+<span><span class="co">#   dna_sequence: A character string representing the DNA sequence for which you want to calculate GC content and melting temperature.   </span></span>
+<span><span class="co">#   The function is case-insensitive, meaning it can handle mixed-case input. The sequence should consist of valid DNA bases (A, T, C, G).</span></span>
+<span><span class="co">#</span></span>
+<span><span class="co"># Output:</span></span>
+<span><span class="co">#   A named list containing two elements:</span></span>
+<span><span class="co">#   - "GC Percentage" (numeric): The calculated GC content as a percentage, rounded to two decimal places.</span></span>
+<span><span class="co">#   - "Melting temp (celsius)" (numeric): The estimated melting temperature of the input DNA sequence in degrees Celsi</span></span>
+<span><span class="co">#</span></span>
+<span><span class="co"># Example Output:</span></span>
+<span><span class="co">#   If you call gc_content("ATGCGTAGCT")</span></span>
+<span><span class="co">#   $`GC Percentage`</span></span>
+<span><span class="co">#   [1] 50</span></span>
+<span><span class="co">#  $`Melting temp (celsius)`</span></span>
+<span><span class="co">#  [1] 30</span></span>
+<span></span>
+<span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
+<span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
+<span>  </span>
+<span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate the number of GC bases (C and G) in the sequence</span></span>
+<span>  <span class="va">gc_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">dna_sequence</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"G"</span>, <span class="st">"C"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate the total number of bases in the sequence</span></span>
+<span>  <span class="va">total_bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate the GC content as a percentage</span></span>
+<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span> <span class="op">/</span> <span class="va">total_bases</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  </span>
+<span>  <span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>   <span class="co"># Calculate AT numbers</span></span>
+<span>  <span class="va">at_count</span> <span class="op">&lt;-</span> <span class="va">total_bases</span> <span class="op">-</span> <span class="va">gc_count</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate melting temp of sequence</span></span>
+<span>  <span class="va">melt_temp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">gc_count</span><span class="op">*</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">at_count</span><span class="op">*</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="va">dna_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">gc_percentage</span>, <span class="va">melt_temp</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GC Percentage"</span>, <span class="st">"Melting temp (celsius)"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -497,7 +552,7 @@ Show Solution
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"gc_content function tests"</span>, <span class="op">{</span></span>
 <span>    <span class="co"># Test valid input and GC content calculation</span></span>
 <span>    <span class="va">dna_seq1</span> <span class="op">&lt;-</span> <span class="st">"ATGCGTAGCT"</span></span>
@@ -510,25 +565,33 @@ Solution
 </div>
 <p>Exercise 4: Handle Errors</p>
 <p>You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?</p>
-<button id="displayTextunnamed-chunk-66" onclick="javascript:toggle('unnamed-chunk-66');">
+<div class="webex-solution">
+<button>
+regex help
+</button>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="flow-control.html#cb324-1" tabindex="-1"></a><span class="co"># this is the regular expression to detect ATCG</span></span>
+<span id="cb324-2"><a href="flow-control.html#cb324-2" tabindex="-1"></a></span>
+<span id="cb324-3"><a href="flow-control.html#cb324-3" tabindex="-1"></a><span class="fu">str_detect</span>(dna_sequence, <span class="st">"^[ATCG]+$"</span>)<span class="er">)</span> </span></code></pre></div>
+</div>
+<button id="displayTextunnamed-chunk-67" onclick="javascript:toggle('unnamed-chunk-67');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-66" style="display: none">
+<div id="toggleTextunnamed-chunk-67" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
 <div class="tab">
-<button class="tablinksunnamed-chunk-66 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-66', 'unnamed-chunk-66');">
+<button class="tablinksunnamed-chunk-67 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-67', 'unnamed-chunk-67');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-66" onclick="javascript:openCode(event, 'option2unnamed-chunk-66', 'unnamed-chunk-66');">
+<button class="tablinksunnamed-chunk-67" onclick="javascript:openCode(event, 'option2unnamed-chunk-67', 'unnamed-chunk-67');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-66" class="tabcontentunnamed-chunk-66">
-<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<div id="option1unnamed-chunk-67" class="tabcontentunnamed-chunk-67">
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
 <span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
@@ -565,8 +628,8 @@ Base R
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<div id="option2unnamed-chunk-66" class="tabcontentunnamed-chunk-66">
-<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
+<div id="option2unnamed-chunk-67" class="tabcontentunnamed-chunk-67">
+<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gc_content</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Convert the input sequence to uppercase to handle mixed-case input</span></span>
 <span>  <span class="va">dna_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper</a></span><span class="op">(</span><span class="va">dna_sequence</span><span class="op">)</span></span>
@@ -602,7 +665,7 @@ Base R
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dna_content</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-66') </script>
+<script> javascript:hide('option2unnamed-chunk-67') </script>
 </div>
 </div>
 </div>
@@ -816,7 +879,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-07.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

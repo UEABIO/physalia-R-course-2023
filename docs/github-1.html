@@ -266,7 +266,7 @@ to the git installation.
 </p>
 </div>
 <p>You can now introduce yourself to Github with the <code>usethis</code> package</p>
-<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb648"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org">usethis</a></span><span class="op">)</span> </span>
 <span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git_config.html">use_git_config</a></span><span class="op">(</span>user.name  <span class="op">=</span> <span class="st">"Jane Doe"</span>,</span>
 <span>               user.email <span class="op">=</span> <span class="st">"jane@example.org"</span><span class="op">)</span></span></code></pre></div>
@@ -281,14 +281,14 @@ git config –global user.email ’<a href="mailto:jane@example.com" class="emai
 </div>
 <p>You will also need a Personal Access Token (PAT), Github has started using these <em>in lieu</em> of passwords.</p>
 <p>Create a PAT with</p>
-<div class="sourceCode" id="cb642"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb649"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/github-token.html">create_github_token</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This will likely open a new window allowing you to create a token. Do now close this window, as you will need to copy the token to your clipboard. Then run this other command:</p>
-<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb650"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html">gitcreds_set</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This will ask you for your access token. Go to the previous window, copy the token, paste it on your console and press enter.</p>
 <p>Finally, to check that everything’s ok with this command.</p>
-<div class="sourceCode" id="cb644"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb651"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/github-token.html">gh_token_help</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Irritatingly the PAT seems to be forgotten on linux systems very quickly, which is what Posit Cloud is hosted on:</p>
 <p>A simple solution to this problem is to ask git to store information in the cache for just a teeny tiny little bit longer. Instead of having the cache expire after the default 900 seconds, maybe set it to expire after 10 million seconds. That way, you’ll only have to refresh the cache using gitcreds::gitcreds_set() once every four months instead of four times an hour. Implementing this solution requires only one line of code at the terminal:</p>
@@ -484,7 +484,15 @@ copy</strong> of your project.
 <h2>
 <span class="header-section-number">41.10</span> Beautify your profile<a class="anchor" aria-label="anchor" href="#beautify-your-profile"><i class="fas fa-link"></i></a>
 </h2>
+<p>You can share information about yourself with the community on GitHub.com by creating a profile README. GitHub shows your profile README at the top of your profile page.</p>
+<p>You decide what information to include in your profile README, so you have full control over how you present yourself on GitHub. Here are some examples of information that visitors may find interesting, fun, or useful in your profile README.</p>
+<p>An "About me" section that describes your work and interests</p>
+<p>Contributions you're proud of, and context about those contributions</p>
+<p>Guidance for getting help in communities where you're involved</p>
+<div class="inline-figure"><img src="images/profile-with-readme.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Handy links:</p>
 <p><a href="https://dev.to/ruppysuppy/beautify-your-github-profile-like-a-pro-5093" class="uri">https://dev.to/ruppysuppy/beautify-your-github-profile-like-a-pro-5093</a></p>
+<p><a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme" class="uri">https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme</a></p>
 </div>
 <div id="glossary-github" class="section level2" number="41.11">
 <h2>
@@ -824,7 +832,7 @@ to the remote repository.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-07.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

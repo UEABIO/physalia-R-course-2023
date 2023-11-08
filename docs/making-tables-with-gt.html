@@ -186,13 +186,11 @@ to the remote repository.
 Naturally, to put these ideas into practice, we'll utilize the fantastic penguins dataset from <code>palmerpenguins</code> since I have a preference for penguins.</p></li>
 </ol>
 <p>For these tutorials we will use the <code>gt</code> package and helpers provided by <code>gtExtras</code>.</p>
-<div class="sourceCode" id="cb541"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb548"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jthomasmock/gtExtras">gtExtras</a></span><span class="op">)</span></span></code></pre></div>
 <p>Let's use this dataset to tally the penguins. These counts will provide us with a straightforward dataset to use for practicing table construction.</p>
-<div class="sourceCode" id="cb542"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb549"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -425,7 +423,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 </table></div>
 </div>
 <p>In a real table, the data might be restructured for better readability. While there's nothing inherently wrong with the long (i.e., containing many rows) data format, this format is excellent for data analysis. However, in a table intended for human readers, rather than machines, you'd likely opt for a wider format.</p>
-<div class="sourceCode" id="cb543"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">&lt;-</span> <span class="va">penguin_counts</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">sex</span><span class="op">)</span>,</span>
@@ -566,7 +564,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 <span class="header-section-number">32.0.1</span> Avoid vertical lines<a class="anchor" aria-label="anchor" href="#avoid-vertical-lines"><i class="fas fa-link"></i></a>
 </h3>
 <p>Vertical lines can make our data look cramped. Fortunately, it appears that <code>gt</code> adheres to this principle by default. Hence, all we need to do is supply our dataset, <code>penguin_counts_wider</code>, to the <code><a href="https://gt.rstudio.com/reference/gt.html">gt()</a></code> function.</p>
-<div class="sourceCode" id="cb544"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb551"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div id="rrvodgwgmp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -1120,7 +1118,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 <span class="header-section-number">32.0.2</span> Use better column names and make them stand out<a class="anchor" aria-label="anchor" href="#use-better-column-names-and-make-them-stand-out"><i class="fas fa-link"></i></a>
 </h3>
 <p>To modify the column names, you can employ the "layer" named cols_layer(). Similar to how {ggplot2} operates with layers, {gt} follows a similar approach. To make any adjustments to the table, you simply transfer it from one layer to the next, which can be done conveniently through piping. With this understanding, we can label the columns just as we did previously.</p>
-<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html">cols_label</a></span><span class="op">(</span></span>
@@ -1679,7 +1677,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 </table></div>
 </div>
 <p>However, labeling the columns in this manner may not be the most effective approach. Let's explore an alternative method. First, we can create what are known as "spanners," which are merged columns. These can be generated using <code><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner()</a></code> layers, with one layer dedicated to each spanner.</p>
-<div class="sourceCode" id="cb546"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb553"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html">cols_label</a></span><span class="op">(</span></span>
@@ -2271,14 +2269,14 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 </ol>
 <p>First, we no longer need the species labels in the actual column names, as the spanners already provide that information. To update the column names, we can employ a handy trick that will save us from tedious typing.</p>
 <p>Begin by creating a named vector that establishes a connection between the original column names, which include species labels, and the desired column names that exclude those labels. For example:</p>
-<div class="sourceCode" id="cb547"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">desired_colnames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">penguin_counts_wider</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="st">"(Adelie|Gentoo|Chinstrap)_"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_title</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">desired_colnames</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguin_counts_wider</span><span class="op">)</span></span></code></pre></div>
 <p>With this named vector in place, proceed to rename the columns using it in the .list argument in <code><a href="https://gt.rstudio.com/reference/cols_label.html">cols_label()</a></code></p>
-<div class="sourceCode" id="cb548"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb555"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html">cols_label</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">desired_colnames</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -2854,7 +2852,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 </table></div>
 </div>
 <p>Finally we should add a title to our table. We can do this with <code><a href="https://gt.rstudio.com/reference/tab_header.html">tab_header()</a></code></p>
-<div class="sourceCode" id="cb549"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb556"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html">cols_label</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">desired_colnames</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -3440,7 +3438,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 </table></div>
 </div>
 <p>We could if we wanted wrap this into a simple function - as the headers and titles will not change across this tutorial:</p>
-<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">labels_and_title</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">gt_tbl</span><span class="op">)</span><span class="op">{</span></span>
 <span> <span class="va">gt_tbl</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op">(</span></span>
@@ -4043,7 +4041,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 </ul>
 <p>These default alignments are well-established conventions in table formatting and help readers quickly interpret and work with tabular data. They follow a balance between readability, aesthetics, and the nature of the data being presented.</p>
 <p>Island is currently coded as a factor, we could recoded this in our data, or we can use the <code><a href="https://gt.rstudio.com/reference/cols_align.html">cols_align()</a></code> layer:</p>
-<div class="sourceCode" id="cb551"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb558"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html">cols_label</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">desired_colnames</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -4623,7 +4621,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 <span class="header-section-number">32.0.4</span> Avoid repetitive information<a class="anchor" aria-label="anchor" href="#avoid-repetitive-information"><i class="fas fa-link"></i></a>
 </h3>
 <p>Removing repetitive columns and using additional rows to group data can indeed enhance the readability of a table. In the context of the <code>gt</code> package, achieving this is straightforward. Here's how you can do it:</p>
-<div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    island <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span>, </span>
@@ -5196,7 +5194,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 </table></div>
 </div>
 <p>But an island label could be nice. The easiest way to add that to the group names is via string manipulation before gt() is called.</p>
-<div class="sourceCode" id="cb553"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    island <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span>, </span>
@@ -5775,7 +5773,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 <span class="header-section-number">32.0.5</span> Remove missing numbers<a class="anchor" aria-label="anchor" href="#remove-missing-numbers"><i class="fas fa-link"></i></a>
 </h3>
 <p>If we want to remove zeroes from our table, we could use <code>dplyr</code> functions</p>
-<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>        island <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span>, </span>
@@ -6350,7 +6348,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 </table></div>
 </div>
 <p>Or we can accomplish the same thing by adding a <code><a href="https://gt.rstudio.com/reference/sub_zero.html">sub_zero()</a></code> layer</p>
-<div class="sourceCode" id="cb555"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    island <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span>, </span>
@@ -6930,7 +6928,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 <span class="header-section-number">32.0.6</span> Add summaries<a class="anchor" aria-label="anchor" href="#add-summaries"><i class="fas fa-link"></i></a>
 </h3>
 <p>If we think it is necessary we could even add some summaries to the tables with <code><a href="https://gt.rstudio.com/reference/summary_rows.html">summary_rows()</a></code></p>
-<div class="sourceCode" id="cb556"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    island <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span>, </span>
@@ -7574,7 +7572,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 </h3>
 <p>With the additional information incorporated into the table, it has grown in length, which may not be ideal. To address this, we can make the table more concise by decreasing the row heights.</p>
 <p>To achieve this, we can adjust the so-called <code>data_row.padding</code> to 2 pixels. You can accomplish this using the <code><a href="https://gt.rstudio.com/reference/tab_options.html">tab_options()</a></code> function, which is a central layer for styling the table. Similarly, there are padding options available for summary_row and row_group. While we're at it, it's a good idea to enhance the table's appearance by applying a predefined theme using <code><a href="https://gt.rstudio.com/reference/opt_stylize.html">opt_stylize()</a></code>.</p>
-<div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    island <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span>, </span>
@@ -8836,16 +8834,16 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 </tbody>
 </table></div>
 </div>
-<button id="displayTextunnamed-chunk-79" onclick="javascript:toggle('unnamed-chunk-79');">
+<button id="displayTextunnamed-chunk-80" onclick="javascript:toggle('unnamed-chunk-80');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-79" style="display: none">
+<div id="toggleTextunnamed-chunk-80" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
-<div class="sourceCode" id="cb558"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    island <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span>, </span>
@@ -8885,7 +8883,7 @@ Solution
 <span class="header-section-number">32.0.8</span> Use appropriate colour<a class="anchor" aria-label="anchor" href="#use-appropriate-colour"><i class="fas fa-link"></i></a>
 </h3>
 <p>So far, our table hasn’t used any color. We’ll add some now to highlight outlier values.</p>
-<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb566"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    island <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span>, </span>
@@ -9538,7 +9536,7 @@ Solution
 </tbody>
 </table></div>
 </div>
-<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb567"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    island <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span>, </span>
@@ -10815,7 +10813,7 @@ Solution
 <span class="header-section-number">32.0.9</span> Heatmap<a class="anchor" aria-label="anchor" href="#heatmap"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can add a heatmap to our cells to more clearly show the differences. This will require us to set a colour palette and apply a conditional colouring using <code><a href="https://gt.rstudio.com/reference/data_color.html">data_color()</a></code></p>
-<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb568"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_counts_wider</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    island <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">island</span><span class="op">)</span>, </span>
@@ -11470,7 +11468,7 @@ Solution
 </h3>
 <p>In this chapter, we’re going to learn how to add fancy elements like plots, icon and images to <code>gt</code> tables.</p>
 <p>You can actually add any ggplot you want to your table. For example, we could look at our penguins from the last chapter again. Here’s a table about their weight and its distribution (visualized with a violin plot.)</p>
-<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb569"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">filtered_penguins</span> <span class="op">&lt;-</span> <span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html">penguins</a></span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -12448,7 +12446,7 @@ Solution
 </table></div>
 </div>
 <p>Next, let us write a function plot_violin_species(my_species) that depends on a penguin species and creates one violin plot.</p>
-<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb570"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_density_species</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">my_species</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">full_range</span> <span class="op">&lt;-</span> <span class="va">filtered_penguins</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">body_mass_g</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -12465,10 +12463,10 @@ Solution
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="va">full_range</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">plot_density_species</span><span class="op">(</span><span class="st">'Adelie'</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-86-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="06-ggplot-principles_files/figure-html/unnamed-chunk-87-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Notice that I have set the coordinate system of the plot to the full range of the data (regardless of the species). This part is important. Without this trick, the three plots would not share a common x-axis.</p>
 <p>Ok, so now we have a function that creates the desired plots. Time to apply it to our table. For this to work, we need an additional column that we can target. So we use <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> to add a new column, then <code><a href="https://gt.rstudio.com/reference/text_transform.html">text_transform()</a></code> to turn this column into images, and finally <code>.fn</code> argument can be supplied with our function iterated over each species with <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>.</p>
-<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguin_weights</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Distribution <span class="op">=</span> <span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -12980,7 +12978,7 @@ Solution
 <p>“Ten Guidelines for Better Tables” by Jon Schwabish (Journal of Benefit-Cost Analysis, 2020), <a href="https://doi.org/10.1017/bca.2020.11" class="uri">https://doi.org/10.1017/bca.2020.11</a></p>
 <p>“10+ Guidelines for Better Tables in R” by Tom Mock (2020), <a href="https://themockup.blog/posts/2020-09-04-10-table-rules-in-r/" class="uri">https://themockup.blog/posts/2020-09-04-10-table-rules-in-r/</a></p>
 <p>“Creating beautiful tables in R with {gt}” by Albert Rapp (2022), <a href="https://gt.albert-rapp.de/" class="uri">https://gt.albert-rapp.de/</a></p>
-<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb572"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## R version 4.3.1 (2023-06-16)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
@@ -13016,40 +13014,36 @@ Solution
 ## [31] tibble_3.2.1         ggplot2_3.4.2        tidyverse_2.0.0     
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] RColorBrewer_1.1-3       rstudioapi_0.15.0        jsonlite_1.8.7          
-##   [4] magrittr_2.0.3           farver_2.1.1             rmarkdown_2.23          
-##   [7] ragg_1.2.5               fs_1.6.2                 vctrs_0.6.3             
-##  [10] memoise_2.0.1            paletteer_1.5.0          base64enc_0.1-3         
-##  [13] rstatix_0.7.2            htmltools_0.5.5          distributional_0.3.2    
-##  [16] broom_1.0.5              gridGraphics_0.5-1       proj4_1.0-13            
-##  [19] sass_0.4.6               KernSmooth_2.23-21       bslib_0.5.0             
-##  [22] fontawesome_0.5.1        cachem_1.0.8             commonmark_1.9.0        
-##  [25] lifecycle_1.0.3          pkgconfig_2.0.3          Matrix_1.6-0            
-##  [28] R6_2.5.1                 fastmap_1.1.1            rnaturalearthhires_0.2.1
-##  [31] snakecase_0.11.0         digest_0.6.33            colorspace_2.1-0        
-##  [34] rematch2_2.1.2           rprojroot_2.0.3          textshaping_0.3.6       
-##  [37] labeling_0.4.2           fansi_1.0.4              timechange_0.2.0        
-##  [40] httr_1.4.6               polyclip_1.10-6          abind_1.4-5             
-##  [43] mgcv_1.8-42              compiler_4.3.1           here_1.0.1              
-##  [46] proxy_0.4-27             withr_2.5.0              backports_1.4.1         
-##  [49] carData_3.0-5            DBI_1.1.3                highr_0.10              
-##  [52] ggforce_0.4.1            Rttf2pt1_1.3.12          maps_3.4.1              
-##  [55] ggsignif_0.6.4           MASS_7.3-60              classInt_0.4-10         
-##  [58] tools_4.3.1              units_0.8-4              vipor_0.4.5             
-##  [61] beeswarm_0.4.0           extrafontdb_1.0          glue_1.6.2              
-##  [64] quadprog_1.5-8           nlme_3.1-162             gridtext_0.1.5          
-##  [67] grid_4.3.1               generics_0.1.3           isoband_0.2.7           
-##  [70] gtable_0.3.3             tzdb_0.4.0               class_7.3-22            
-##  [73] hms_1.1.3                sp_2.1-1                 xml2_1.3.5              
-##  [76] car_3.1-2                utf8_1.2.3               pillar_1.9.0            
-##  [79] markdown_1.7             splines_4.3.1            tweenr_2.0.2            
-##  [82] lattice_0.21-8           tidyselect_1.2.0         downlit_0.4.3           
-##  [85] bookdown_0.34            xfun_0.39                stringi_1.7.12          
-##  [88] yaml_2.3.7               evaluate_0.21            codetools_0.2-19        
-##  [91] extrafont_0.19           cli_3.6.1                ash_1.0-15              
-##  [94] systemfonts_1.0.4        munsell_0.5.0            jquerylib_0.1.4         
-##  [97] Rcpp_1.0.11              viridisLite_0.4.2        scales_1.2.1            
-## [100] e1071_1.7-13             rlang_1.1.1              cowplot_1.1.1</code></pre>
+##  [1] DBI_1.1.3            rematch2_2.1.2       rlang_1.1.1         
+##  [4] magrittr_2.0.3       snakecase_0.11.0     e1071_1.7-13        
+##  [7] compiler_4.3.1       systemfonts_1.0.4    vctrs_0.6.3         
+## [10] maps_3.4.1           pkgconfig_2.0.3      fastmap_1.1.1       
+## [13] backports_1.4.1      fontawesome_0.5.1    utf8_1.2.3          
+## [16] rmarkdown_2.23       markdown_1.7         tzdb_0.4.0          
+## [19] ragg_1.2.5           xfun_0.39            cachem_1.0.8        
+## [22] ash_1.0-15           jsonlite_1.8.7       highr_0.10          
+## [25] broom_1.0.5          R6_2.5.1             bslib_0.5.0         
+## [28] stringi_1.7.12       RColorBrewer_1.1-3   car_3.1-2           
+## [31] extrafontdb_1.0      jquerylib_0.1.4      Rcpp_1.0.11         
+## [34] bookdown_0.34        base64enc_0.1-3      extrafont_0.19      
+## [37] timechange_0.2.0     tidyselect_1.2.0     rstudioapi_0.15.0   
+## [40] abind_1.4-5          yaml_2.3.7           codetools_0.2-19    
+## [43] lattice_0.21-8       withr_2.5.0          evaluate_0.21       
+## [46] gridGraphics_0.5-1   units_0.8-4          proxy_0.4-27        
+## [49] xml2_1.3.5           pillar_1.9.0         carData_3.0-5       
+## [52] KernSmooth_2.23-21   distributional_0.3.2 generics_0.1.3      
+## [55] sp_2.1-1             paletteer_1.5.0      hms_1.1.3           
+## [58] commonmark_1.9.0     munsell_0.5.0        scales_1.2.1        
+## [61] class_7.3-22         glue_1.6.2           tools_4.3.1         
+## [64] ggsignif_0.6.4       fs_1.6.2             cowplot_1.1.1       
+## [67] grid_4.3.1           Rttf2pt1_1.3.12      colorspace_2.1-0    
+## [70] beeswarm_0.4.0       vipor_0.4.5          cli_3.6.1           
+## [73] textshaping_0.3.6    proj4_1.0-13         fansi_1.0.4         
+## [76] downlit_0.4.3        gtable_0.3.3         rstatix_0.7.2       
+## [79] sass_0.4.6           digest_0.6.33        classInt_0.4-10     
+## [82] farver_2.1.1         memoise_2.0.1        htmltools_0.5.5     
+## [85] lifecycle_1.0.3      httr_1.4.6           gridtext_0.1.5      
+## [88] MASS_7.3-60</code></pre>
 
 </div>
 </div>
@@ -13274,7 +13268,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-07.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

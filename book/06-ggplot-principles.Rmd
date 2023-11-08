@@ -1230,9 +1230,16 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 
 For these tutorials we will use the `gt` package and helpers provided by `gtExtras`.
 
-```{r}
+```{r, echo = F}
 rm(list = ls())
 library(palmerpenguins)
+library(gt)
+library(gtExtras)
+
+```
+
+```{r, eval = F}
+
 library(gt)
 library(gtExtras)
 

@@ -140,6 +140,71 @@ csv_files_list_files[str_detect(csv_files_list_files, pattern = "[24]\\.csv$")]
 
 ```
 
+
+## Exercise
+
+This final section for the workshop provides a real world example using iterations to create graphs of population trends from the [Living Planet Index](https://www.livingplanetindex.org/) for a number of vertebrate species from 1970 to 2014. 
+
+The data can be collected here:
+
+
+```{=html}
+<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download LPI data as csv</button>
+</a>
+```
+
+
+**1. Can you make four plots using data nesting and map functions?** 
+
+For this exercise we would like to filter the dataframe to House sparrow, Great tit, Corn bunting and Meadow pipit then nest this data and apply a map function to produce a scatter plot of year against abundance. Customise the plot as you see fit.
+
+
+<button id="displayTextunnamed-chunk-12" onclick="javascript:toggle('unnamed-chunk-12');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-12" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+nested_LPI <- LPI |> 
+  group_by(Common.Name) |> 
+  nest() |> 
+  filter(Common.Name %in% c("House sparrow", "Great tit", "Corn bunting", "Meadow pipit")) |> 
+     mutate(plots = map(data, ~ ggplot(., aes (x = year, y = abundance)) +              
+                            geom_point(size = 2, colour = "#00868B") +                                                
+                            geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +
+                            ggtitle(Common.Name)+
+                            labs(y = "Abundance\n", x = "")))
+
+
+  wrap_plots(nested_LPI$plots)
+```
+</div></div></div>
+
+
+
+**2. Can you write this object to multiple dataframes based on "Common.Name".**
+
+For this exercise we would like to read the entire dataframe, then produce four new .csv files one for each of House sparrow, Great tit, Corn bunting and Meadow pipit.
+
+<button id="displayTextunnamed-chunk-13" onclick="javascript:toggle('unnamed-chunk-13');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-13" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+LPI <- read_csv("https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv")
+
+LPI |> 
+  group_by(Common.Name) |> 
+  nest() |> 
+  filter(Common.Name %in% c("House sparrow", "Great tit", "Corn bunting", "Meadow pipit")) 
+
+walk2(nested$data, nested$Common.Name, ~ write_csv(.x, paste0(paste0("split_files/", .y , ".csv"))))
+```
+
+</div></div></div>
+
+
+
 # Working across columns
 
 In this section we will go through the following functions:
@@ -540,7 +605,7 @@ penguins_clean_split |>
   coord_flip()
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
 
 With the function `fct_infreq` we can change the order according to how frequently each level occurs
 
@@ -553,7 +618,7 @@ penguins_clean_split |>
   coord_flip()
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 The `fct_rev()` function in R is used to reverse the order of levels in a factor variable. It is particularly useful for changing the order of factor levels when you want to display data in a reversed or descending order.
@@ -567,7 +632,7 @@ penguins_clean_split |>
   coord_flip()
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;" />
 
 The `fct_reorder` function allows us to order the levels based on another continuous variable
 
@@ -588,7 +653,7 @@ penguins_clean_split |>
               alpha = .4)
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Applying functions across columns
@@ -918,7 +983,7 @@ slice_sample(penguins_clean_split,
 ```
 
 ```
-## [1] 34
+## [1] 35
 ```
 
 
@@ -945,7 +1010,7 @@ geom_histogram(fill = "grey80", color = "black")+
              linewidth = 2, colour = "red", linetype  ="dashed")
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 # Group work
@@ -1522,9 +1587,9 @@ Write a `function` that uses filter to take any two of the penguin species then 
 
 
 
-<button id="displayTextunnamed-chunk-69" onclick="javascript:toggle('unnamed-chunk-69');">Show Solution</button>
+<button id="displayTextunnamed-chunk-72" onclick="javascript:toggle('unnamed-chunk-72');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-69" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-72" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 compare_species_plot <- function(data, species_1, species_2, feature) {
@@ -1542,14 +1607,14 @@ compare_species_plot <- function(data, species_1, species_2, feature) {
 compare_species_plot(penguins_clean_split, "Adelie", "Chinstrap", culmen_length_mm)
 ```
 
-<img src="05-tidyverse_files/figure-html/unnamed-chunk-73-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-77-1.png" width="100%" style="display: block; margin: auto;" />
 </div></div></div>
 
 In the example below I have used `enquo` to enable conversion to character strings, this means all of the function arguments can be provided without "quotes". 
 
-<button id="displayTextunnamed-chunk-70" onclick="javascript:toggle('unnamed-chunk-70');">Show Solution</button>
+<button id="displayTextunnamed-chunk-73" onclick="javascript:toggle('unnamed-chunk-73');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-70" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-73" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 compare_species_plot <- function(data, species_1, species_2, feature) {
@@ -1580,61 +1645,6 @@ compare_species_plot(penguins_clean_split, Adelie, Chinstrap, culmen_length_mm)
 
 - Can you write your own custom function in tidyverse? If you have something from your own data or work - see if you can functionalise your flow?
 
-
-## Exercise 2. 
-
-This final section for the workshop provides a real world example using iterations to create graphs of population trends from the [Living Planet Index](https://www.livingplanetindex.org/) for a number of vertebrate species from 1970 to 2014. 
-
-The data can be collected here:
-
-
-```{=html}
-<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv">
-<button class="btn btn-success"><i class="fa fa-save"></i> Download LPI data as csv</button>
-</a>
-```
-
-1. Can you make four plots using data nesting and map functions? For this exercise we would like to filter the dataframe to House sparrow, Great tit, Corn bunting and Meadow pipit then nest this data and apply a map function to produce a scatter plot of year against abundance. Customise the plot as you see fit.
-
-
-<button id="displayTextunnamed-chunk-72" onclick="javascript:toggle('unnamed-chunk-72');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-72" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
-
-```r
-nested_LPI <- LPI |> 
-  group_by(Common.Name) |> 
-  nest() |> 
-  filter(Common.Name %in% c("House sparrow", "Great tit", "Corn bunting", "Meadow pipit")) |> 
-     mutate(plots = map(data, ~ ggplot(., aes (x = year, y = abundance)) +              
-                            geom_point(size = 2, colour = "#00868B") +                                                
-                            geom_smooth(method = lm, colour = "#00868B", fill = "#00868B") +
-                            ggtitle(Common.Name)+
-                            labs(y = "Abundance\n", x = "")))
-
-
-  wrap_plots(nested_LPI$plots)
-```</div></div></div>
-
-
-2. Can you write this object to multiple dataframes based on "Common.Name". For this exercise we would like to read the entire dataframe, then produce four new .csv files one for each of House sparrow, Great tit, Corn bunting and Meadow pipit.
-
-<button id="displayTextunnamed-chunk-73" onclick="javascript:toggle('unnamed-chunk-73');">Show Solution</button>
-
-<div id="toggleTextunnamed-chunk-73" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
-
-```r
-LPI <- read_csv("https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/LPI_data_loops.csv")
-
-LPI |> 
-  group_by(Common.Name) |> 
-  nest() |> 
-  filter(Common.Name %in% c("House sparrow", "Great tit", "Corn bunting", "Meadow pipit")) 
-
-walk2(nested$data, nested$Common.Name, ~ write_csv(.x, paste0(paste0("split_files/", .y , ".csv"))))
-```
-
-</div></div></div>
 
 
 

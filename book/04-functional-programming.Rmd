@@ -694,10 +694,6 @@ Test passed 😀
 
 # Flow control
 
-https://modern-rstats.eu/defining-your-own-functions.html#control-flow
-
-https://bookdown.org/rdpeng/rprogdatascience/control-structures.html
-
 Imagine you want a variable to be equal to a certain value if a condition is met. This is a typical problem that requires the `if` and `else` construct. For instance:
 
 ```{r}
@@ -927,10 +923,10 @@ report_p <- function(p, digits = 3) {
   if (!is.numeric(p)) stop("p must be a number")
   
     result <- case_when(
-        p <= 0 ~ warning("p-values cannot be less than or equal to 0"),
-        p >= 1 ~ warning("p-values cannot be greater than or equal to 1"),
+        p <= 0 ~ "p-values cannot be less than or equal to 0",
+        p >= 1 ~ "p-values cannot be greater than or equal to 1",
         p < 0.001 ~ "p < 0.001",
-        TRUE ~ paste("p =", round(p, digits))
+        .default = paste("p =", round(p, digits))
     )
     
     return(result)
@@ -944,9 +940,24 @@ report_p <- function(p, digits = 3) {
 ## Activities
 
 Exercise 1: Write a Simple Function
-We'll create a function that calculates the GC content of a DNA sequence, and the result melting temperature of the sequence and returns both in a list. GC content is the percentage of the DNA molecule's nitrogenous bases that are either guanine (G) or cytosine (C). This is a common metric used in molecular biology and genetics to analyze DNA sequences. Each GC base addes 4 degrees to melting temp while each AT base adds 2 degrees. 
+We'll create a function that calculates the GC content of a DNA sequence, and the result melting temperature of the sequence and returns both in a list. 
 
-> Hint`stringr` and associated functions will be very helpful here
+GC content is the percentage of the DNA molecule's nitrogenous bases that are either guanine (G) or cytosine (C). 
+
+This is a common metric used in molecular biology and genetics to analyze DNA sequences. Each GC base addes 4 degrees to melting temp while each AT base adds 2 degrees. 
+
+> Hint `stringr` and associated functions will be very helpful here
+
+
+`r hide("stringr functions")`
+
+`str_count` can let you selectively add letters in a vector
+
+`str_length` can let you count the characters in a vector
+
+`r unhide()`
+
+
 
 ```{solution, multCode = T}
 
@@ -957,7 +968,6 @@ gc_content <- function(dna_sequence) {
   dna_sequence <- toupper(dna_sequence)
   
  
-  
   # Calculate the number of GC bases (C and G) in the sequence
  gc_positions <- unlist(gregexpr("[GC]", dna_sequence))
  gc_count <- length(gc_positions)
@@ -1032,6 +1042,55 @@ Add documentation to the factorial function with comments. Include a description
 ```{solution}
 
 ``{r}
+# Function: gc_content
+# Description: calculates the GC (Guanine-Cytosine) content and the melting temperature of a given DNA sequence. 
+#
+# Input:
+#   dna_sequence: A character string representing the DNA sequence for which you want to calculate GC content and melting temperature.   
+#   The function is case-insensitive, meaning it can handle mixed-case input. The sequence should consist of valid DNA bases (A, T, C, G).
+#
+# Output:
+#   A named list containing two elements:
+#   - "GC Percentage" (numeric): The calculated GC content as a percentage, rounded to two decimal places.
+#   - "Melting temp (celsius)" (numeric): The estimated melting temperature of the input DNA sequence in degrees Celsi
+#
+# Example Output:
+#   If you call gc_content("ATGCGTAGCT")
+#   $`GC Percentage`
+#   [1] 50
+#  $`Melting temp (celsius)`
+#  [1] 30
+
+gc_content <- function(dna_sequence) {
+  # Convert the input sequence to uppercase to handle mixed-case input
+  dna_sequence <- str_to_upper(dna_sequence)
+  
+
+  
+  # Calculate the number of GC bases (C and G) in the sequence
+  gc_count <- sum(str_count(dna_sequence %in% c("G", "C")))
+  
+  # Calculate the total number of bases in the sequence
+  total_bases <- str_length(dna_sequence)
+  
+  # Calculate the GC content as a percentage
+  gc_percentage <- (gc_count / total_bases) * 100
+  
+  gc_percentage <- round(gc_percentage, 2)
+  
+   # Calculate AT numbers
+  at_count <- total_bases - gc_count
+  
+  # Calculate melting temp of sequence
+  melt_temp <- (gc_count*4) + (at_count*2)
+  
+  
+  dna_content <- list(gc_percentage, melt_temp)
+  names(dna_content) <- c("GC Percentage", "Melting temp (celsius)")
+  
+  
+  return(dna_content)
+}
 
 ``
 
@@ -1059,6 +1118,20 @@ test_that("gc_content function tests", {
 Exercise 4: Handle Errors
 
 You can optionally modify the gc_content function to handle errors such as when the input contains non-DNA characters, or warnings if the the length exceeds 30nt?
+
+`r hide("regex help")`
+
+```{r, eval = FALSE}
+
+# this is the regular expression to detect ATCG
+
+str_detect(dna_sequence, "^[ATCG]+$")) 
+
+```
+
+`r unhide()`
+
+
 
 ```{solution, multCode = T}
 
@@ -1252,6 +1325,8 @@ replicate(3, # times to replicate function
 ```
 
 https://www.r-bloggers.com/2023/07/the-replicate-function-in-r/
+
+> Note the default behaviour for replicate is simplify = TRUE, where it will return the most compact data structure it can. When you set simplfy = FALSE it will return a list. 
 
 # Loops
 
@@ -1844,6 +1919,11 @@ Make a function that converts values with a normal distribution into their z sco
 ```
 
 
+[Z-scores](https://en.wikipedia.org/wiki/Standard_score)
+
+$z = {{x - \mu}\over{\sigma}}$
+
+
 ```{solution}
 
 ``{r}
@@ -2041,19 +2121,41 @@ map_dbl(df_list, mean, na.rm = T)
 
 ## map with nested dataframes
 
+Nested data frames in tibbles, a data structure in R, allow you to store complex and structured data within a single column of a tibble. This feature is particularly useful when dealing with hierarchical or nested data, such as lists, data frames, or even other tibbles.
+
+Nested data frames in `tibbles` can be particularly useful when working with map functions, like `purrr::map()`to apply a function to elements within each nested structure. 
+
+First we use the `nest()` function and select how we want to nest our data
 
 ```{r}
 
 nested_penguins <- penguins |> 
   nest(data = -species)
 
+nested_penguins
+
+```
+
+We can run iterative functions on these lists - such as generating new dataframes and adding them to new columns. Here we wish to keep only those penguins who are larger than the average for their species body weight.
+
+> Note at this stage we are replicating iteration that can be achieved by using `group_by()` actions.
+
+```{r}
 nested_heavy_penguins <- penguins |> 
     nest(data = -species) |> 
   mutate(new_data = map(data, ~ .x 
-                        |> filter(body_mass_g > 3000))
+                        |> filter(body_mass_g > mean(body_mass_g, na.rm = T)))
          )
 
-plots <- nested_heavy_penguins |> 
+nested_heavy_penguins
+
+```
+
+We can now produce individual plots for each nested dataframe:
+
+```{r}
+
+plots_df <- nested_heavy_penguins |> 
     mutate(scatterplots = map(new_data, ~ 
             ggplot(data = .x, aes(x = body_mass_g, y = flipper_length_mm)) +
                 geom_point()
@@ -2062,12 +2164,18 @@ plots <- nested_heavy_penguins |>
 
 ```
 
-Plots can now be called in a number of ways
+Plots can now be called in a number of ways:
 
 ```{r, eval = FALSE}
-plots[[1,4]]
+plots_df[[1,4]]
 
-plots$scatterplots[[1]]
+plots_df$scatterplots[[1]]
+
+```
+
+```{r, echo = F}
+
+plots_df$scatterplots[[1]]
 
 ```
 
@@ -2075,7 +2183,7 @@ If we wish to see all of the plots at once we can use `purrr::walk` - this is an
 
 ```{r, eval = FALSE}
 
-walk(plots$scatterplot)
+walk(plots_df$scatterplot)
 
 ```
 
@@ -2090,7 +2198,7 @@ To view all the plots together, we can use the `patchwork::wrap_plots()` functio
 
 ```{r}
 library(patchwork)
-plots$scatterplots |> wrap_plots()
+plots_df$scatterplots |> wrap_plots()
 
 ```
 
@@ -2114,15 +2222,15 @@ pal <- c(
   "Gentoo" = "#159090")
 
 
-plots <- nested_heavy_penguins |> 
+plots_df <- nested_heavy_penguins |> 
     mutate(scatterplots = map2(.x = new_data, .y = pal, ~ 
             ggplot(data = .x, aes(x = body_mass_g, y = flipper_length_mm, colour = .y)) +
-                geom_point() +
-              scale_colour_identity()
+            geom_point() +
+            scale_colour_identity()
         ))
 
 
-plots$scatterplots |> 
+plots_df$scatterplots |> 
     wrap_plots(... = _, guides = "collect")
 
 
@@ -2158,6 +2266,7 @@ result <- nested_penguins %>%
     mutate(summaries = map2(data, summary_functions, ~ .y(.x)))
 
 result$summaries
+
 ```
 
 
@@ -2188,8 +2297,6 @@ df %>%
 
 
 
-
-
 ## Reading
 
 If you would like to practice more `map()` then check out [this blogpost](https://www.rebeccabarter.com/blog/2019-08-19_purrr/#simplest-usage-repeated-looping-with-map)
@@ -2199,6 +2306,7 @@ Below are some links you may find useful
 * [RStudio education cheat sheet for purr](https://www.rstudio.com/resources/cheatsheets/)
 
 * [R4DS - intro to programming](https://r4ds.had.co.nz/program-intro.html)
+
 
 # Bonus: Simulation
 
@@ -2228,7 +2336,8 @@ R contains several functions to generate random numbers.
 Type *`?function`* in your console to get information on the function's arguments (i.e. the values that must be provided to obtain the function's result).  
 
 The function  
-* `sample(x, n, replace=FALSE)` draws `n` values from a given vector `x` without replacement (by default) . 
+
+ `sample(x, n, replace=FALSE)` draws `n` values from a given vector `x` without replacement (by default).
 
 Sampling without replacement means that when you repeatedly draw e.g. 1 item from a pool of items, any item selected during the first draw is not available for selection during the second draw, and the first and second selected items are not in the pool to select from during the third draw, etc. Sampling with replacement means that all the original options are available at each draw.  
 
@@ -2291,13 +2400,31 @@ Replicate 1000 times the mean of 10 values drawn from a unifrom distribution bet
 
 Make a histogram of your results. 
 
-```{solution}
+```{solution, multCode = T}
 
 ``{r}
-replicate(1000, mean(runif(10, max = 10)))
+set.seed(42) 
+
+# replicate(1000, mean(runif(10, max = 10)))
 hist(replicate(1000, mean(runif(10, max = 10))))
 
 ``
+
+####
+
+``{r}
+set.seed(42) 
+
+means <- replicate(1000, mean(runif(10, max = 10)))
+
+means |> 
+  as_tibble() |> 
+ggplot(aes(x = means)) +
+  geom_histogram(binwidth = 0.2, fill = "lightblue", color = "black") +
+  labs(title = "Histogram of Means", x = "Mean Value", y = "Frequency")
+
+``
+
 
 ```
 
@@ -2319,7 +2446,7 @@ In this example we are going to simulate some data for two groups - group 1 has 
 
 By default this simulation is set to repeat an experiment where 30 samples are taken from each population and compared for a true difference. The experiment is repeated 100 times. 
 
-The purpose of this simulation is to understand how the estimated difference in means varies across different random samples of data when the true effect size is known. It helps to assess the sampling variability and provides insights into the precision of the estimated difference. Additionally, it can be used to create a confidence interval to assess the uncertainty around the estimated effect.
+The purpose of this simulation is to understand how the estimated difference in means varies across different random samples of data when the true effect size is known. It helps to assess the sampling variability and provides insights into the precision of the estimated difference. Additionally, it can be used to create a confidence interval to assess the uncertainty around the estimated effect. And determine the power of our experiments.
 
 With this example we **know** the true difference, see what happens to our confidence intervals as we change the sample size, effect size and iterations:
 
@@ -2377,16 +2504,82 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
     geom_vline(aes(xintercept = upper_percentile), color = "blue") +
     labs(x = "Estimated Difference", y = "Density") +
     ggtitle(paste("Density Histogram of Estimated Differences (Sample Size = 20)")) +
+    scale_x_continuous(limits = c(0, 2), breaks = c(0,0.5,1,1.5,2))+
     theme_minimal()
 
 ```
 
+
+## Exercise
+
+Testing your R might, can you simplify or speed up the simulation above?
+
+`r hide ("Solutions")`
+
+```{r, eval = F}
+ set.seed(123)
+two_group_fun <- function(sample_size = 30, effect_size = .8){
+        group1 <- rnorm(sample_size, mean = 0, sd = 1)
+        group2 <- rnorm(sample_size, mean = effect_size, sd = 1)
+        
+        # Create a data frame for the two groups
+        data_df <- data.frame(Group = rep(c("Group1", "Group2"), each = sample_size),
+                              Value = c(group1, group2))
+        
+        # Fit a linear model to estimate the difference in means
+        lm_model <- lm(Value ~ Group, data = data_df) 
+        estimated_difference <- coef(lm_model)[2]
+}
+
+sim <- replicate(100, two_group_fun()) |> 
+  as_tibble()
+
+ggplot(sim, aes(x = value)) +
+    geom_histogram(binwidth = 0.05, fill = "lightblue", color = "black") +
+    geom_vline(aes(xintercept = mean_difference), color = "red", linetype = "dashed") +
+    geom_vline(aes(xintercept = lower_percentile), color = "blue") +
+    geom_vline(aes(xintercept = upper_percentile), color = "blue") +
+    labs(x = "Estimated Difference", y = "Density") +
+    ggtitle(paste("Density Histogram of Estimated Differences (Sample Size = 20)")) +
+    scale_x_continuous(limits = c(0, 2), breaks = c(0,0.5,1,1.5,2))+
+    theme_minimal()
+
+```
+
+
+```{r, eval = F}
+ set.seed(123)
+
+two_group_fun_opt <- function(sample_size = 30, effect_size = .8){
+   group1 <- rnorm(sample_size, mean = 0, sd = 1)
+    group2 <- rnorm(sample_size, mean = effect_size, sd = 1)
+
+    # Fit a linear model to estimate the difference in means avoid making a dataframe
+    lm_model <- lm(c(group1, group2) ~ rep(c("Group1", "Group2"), each = sample_size))
+    estimated_difference <- coef(lm_model)[2]
+}
+
+sim <- replicate(100, two_group_fun_opt()) |> 
+  as_tibble()
+
+```
+
+```{r, eval=TRUE, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/benchmark_sim.png")
+```
+
+
+`r unhide()`
+
+
+
+
+
 ## Power
 
-A useful application of simulations is to work out the power of a statistical test. Here we can calculate our statistical power of detection on a simulated dataset with a known effect-size: 
+A useful application of simulations is to work out the power of a statistical test. Here we can flip the simulation to more specifically focus on calculating our statistical power of detection on a simulated dataset with a known effect-size: 
 
 ```{r}
-
 
 # Define a function to run the simulation for a given sample size and effect size
 simulate_power <- function(sample_size, effect_size) {
@@ -2436,6 +2629,11 @@ plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = 
 
 ```
 
+## Exercise
+
+Can you optimise the iterations to get stable predictions of power?
+
+Alter the parameters of effect, size sample size and iterations.
 
 
 

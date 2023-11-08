@@ -1252,9 +1252,9 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 For these tutorials we will use the `gt` package and helpers provided by `gtExtras`.
 
 
+
+
 ```r
-rm(list = ls())
-library(palmerpenguins)
 library(gt)
 library(gtExtras)
 ```
@@ -9473,9 +9473,9 @@ Try and implement this, then check below the code fold for the answer
 </div>
 ```
 
-<button id="displayTextunnamed-chunk-79" onclick="javascript:toggle('unnamed-chunk-79');">Show Solution</button>
+<button id="displayTextunnamed-chunk-80" onclick="javascript:toggle('unnamed-chunk-80');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-79" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-80" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 penguin_counts_wider |> 
@@ -13018,7 +13018,7 @@ plot_density_species <- function(my_species) {
 plot_density_species('Adelie')
 ```
 
-<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-86-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="06-ggplot-principles_files/figure-html/unnamed-chunk-87-1.png" width="100%" style="display: block; margin: auto;" />
 
 Notice that I have set the coordinate system of the plot to the full range of the data (regardless of the species). This part is important. Without this trick, the three plots would not share a common x-axis. 
 
@@ -13581,39 +13581,35 @@ sessionInfo()
 ## [31] tibble_3.2.1         ggplot2_3.4.2        tidyverse_2.0.0     
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] RColorBrewer_1.1-3       rstudioapi_0.15.0        jsonlite_1.8.7          
-##   [4] magrittr_2.0.3           farver_2.1.1             rmarkdown_2.23          
-##   [7] ragg_1.2.5               fs_1.6.2                 vctrs_0.6.3             
-##  [10] memoise_2.0.1            paletteer_1.5.0          base64enc_0.1-3         
-##  [13] rstatix_0.7.2            htmltools_0.5.5          distributional_0.3.2    
-##  [16] broom_1.0.5              gridGraphics_0.5-1       proj4_1.0-13            
-##  [19] sass_0.4.6               KernSmooth_2.23-21       bslib_0.5.0             
-##  [22] fontawesome_0.5.1        cachem_1.0.8             commonmark_1.9.0        
-##  [25] lifecycle_1.0.3          pkgconfig_2.0.3          Matrix_1.6-0            
-##  [28] R6_2.5.1                 fastmap_1.1.1            rnaturalearthhires_0.2.1
-##  [31] snakecase_0.11.0         digest_0.6.33            colorspace_2.1-0        
-##  [34] rematch2_2.1.2           rprojroot_2.0.3          textshaping_0.3.6       
-##  [37] labeling_0.4.2           fansi_1.0.4              timechange_0.2.0        
-##  [40] httr_1.4.6               polyclip_1.10-6          abind_1.4-5             
-##  [43] mgcv_1.8-42              compiler_4.3.1           here_1.0.1              
-##  [46] proxy_0.4-27             withr_2.5.0              backports_1.4.1         
-##  [49] carData_3.0-5            DBI_1.1.3                highr_0.10              
-##  [52] ggforce_0.4.1            Rttf2pt1_1.3.12          maps_3.4.1              
-##  [55] ggsignif_0.6.4           MASS_7.3-60              classInt_0.4-10         
-##  [58] tools_4.3.1              units_0.8-4              vipor_0.4.5             
-##  [61] beeswarm_0.4.0           extrafontdb_1.0          glue_1.6.2              
-##  [64] quadprog_1.5-8           nlme_3.1-162             gridtext_0.1.5          
-##  [67] grid_4.3.1               generics_0.1.3           isoband_0.2.7           
-##  [70] gtable_0.3.3             tzdb_0.4.0               class_7.3-22            
-##  [73] hms_1.1.3                sp_2.1-1                 xml2_1.3.5              
-##  [76] car_3.1-2                utf8_1.2.3               pillar_1.9.0            
-##  [79] markdown_1.7             splines_4.3.1            tweenr_2.0.2            
-##  [82] lattice_0.21-8           tidyselect_1.2.0         downlit_0.4.3           
-##  [85] bookdown_0.34            xfun_0.39                stringi_1.7.12          
-##  [88] yaml_2.3.7               evaluate_0.21            codetools_0.2-19        
-##  [91] extrafont_0.19           cli_3.6.1                ash_1.0-15              
-##  [94] systemfonts_1.0.4        munsell_0.5.0            jquerylib_0.1.4         
-##  [97] Rcpp_1.0.11              viridisLite_0.4.2        scales_1.2.1            
-## [100] e1071_1.7-13             rlang_1.1.1              cowplot_1.1.1
+##  [1] DBI_1.1.3            rematch2_2.1.2       rlang_1.1.1         
+##  [4] magrittr_2.0.3       snakecase_0.11.0     e1071_1.7-13        
+##  [7] compiler_4.3.1       systemfonts_1.0.4    vctrs_0.6.3         
+## [10] maps_3.4.1           pkgconfig_2.0.3      fastmap_1.1.1       
+## [13] backports_1.4.1      fontawesome_0.5.1    utf8_1.2.3          
+## [16] rmarkdown_2.23       markdown_1.7         tzdb_0.4.0          
+## [19] ragg_1.2.5           xfun_0.39            cachem_1.0.8        
+## [22] ash_1.0-15           jsonlite_1.8.7       highr_0.10          
+## [25] broom_1.0.5          R6_2.5.1             bslib_0.5.0         
+## [28] stringi_1.7.12       RColorBrewer_1.1-3   car_3.1-2           
+## [31] extrafontdb_1.0      jquerylib_0.1.4      Rcpp_1.0.11         
+## [34] bookdown_0.34        base64enc_0.1-3      extrafont_0.19      
+## [37] timechange_0.2.0     tidyselect_1.2.0     rstudioapi_0.15.0   
+## [40] abind_1.4-5          yaml_2.3.7           codetools_0.2-19    
+## [43] lattice_0.21-8       withr_2.5.0          evaluate_0.21       
+## [46] gridGraphics_0.5-1   units_0.8-4          proxy_0.4-27        
+## [49] xml2_1.3.5           pillar_1.9.0         carData_3.0-5       
+## [52] KernSmooth_2.23-21   distributional_0.3.2 generics_0.1.3      
+## [55] sp_2.1-1             paletteer_1.5.0      hms_1.1.3           
+## [58] commonmark_1.9.0     munsell_0.5.0        scales_1.2.1        
+## [61] class_7.3-22         glue_1.6.2           tools_4.3.1         
+## [64] ggsignif_0.6.4       fs_1.6.2             cowplot_1.1.1       
+## [67] grid_4.3.1           Rttf2pt1_1.3.12      colorspace_2.1-0    
+## [70] beeswarm_0.4.0       vipor_0.4.5          cli_3.6.1           
+## [73] textshaping_0.3.6    proj4_1.0-13         fansi_1.0.4         
+## [76] downlit_0.4.3        gtable_0.3.3         rstatix_0.7.2       
+## [79] sass_0.4.6           digest_0.6.33        classInt_0.4-10     
+## [82] farver_2.1.1         memoise_2.0.1        htmltools_0.5.5     
+## [85] lifecycle_1.0.3      httr_1.4.6           gridtext_0.1.5      
+## [88] MASS_7.3-60
 ```
 

@@ -249,7 +249,9 @@ random-number-generators
 replication
 set-seed
 sample-size
+exercise-3
 power
+exercise-4
 further-reading
 reading-files-with-readr
 cleaning-column-names
@@ -258,6 +260,7 @@ reading-multiple-files
 create-a-vector-of-file-paths
 read-multiple-files
 selecting-files
+exercise-5
 working-across-columns
 select-the-last-column
 selecting-columns-based-on-string
@@ -292,8 +295,7 @@ data-masking
 alternative-to
 tidy-select
 practice
-exercise-3
-exercise-2.
+exercise-6
 customisation-with-ggplot2
 colours
 choosing-and-using-colour-palettes
@@ -362,7 +364,7 @@ checkboxinput
 radiobuttons
 dateinput
 fileinput
-exercise-4
+exercise-7
 outputs
 text-1
 plots
