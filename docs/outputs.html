@@ -179,7 +179,7 @@ to the remote repository.
 <h1>
 <span class="header-section-number">36</span> Outputs<a class="anchor" aria-label="anchor" href="#outputs"><i class="fas fa-link"></i></a>
 </h1>
-<div class="sourceCode" id="cb602"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -270,17 +270,17 @@ to the remote repository.
 <span class="header-section-number">36.1</span> Text<a class="anchor" aria-label="anchor" href="#text-1"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>func("textOutput")</code> defaults to text inside a generic <code>&lt;span&gt;</code> or <code>&lt;div&gt;</code>.</p>
-<div class="sourceCode" id="cb603"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb600"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"demo_text"</span>, container <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="va">h3</span><span class="op">)</span></span></code></pre></div>
 <p><code>func("renderText")</code> replaces the text of the linked element with its returned string.</p>
-<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb601"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the server function</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Figure 1."</span>, <span class="va">input</span><span class="op">$</span><span class="va">species</span>, <span class="va">input</span><span class="op">$</span><span class="va">text</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>If you use <code>func("verbatimTextOutput")</code> in the UI (no change to the render function), it will show the output in a fixed-width font. This can be good for code or text you want the user to copy.</p>
-<div class="sourceCode" id="cb605"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb602"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"demo_verbatim"</span><span class="op">)</span></span>
 <span></span>
@@ -302,7 +302,7 @@ to the remote repository.
 <span class="header-section-number">36.2</span> Plots<a class="anchor" aria-label="anchor" href="#plots"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>func("plotOutput")</code> displays plots made with the <code>base R</code> plotting functions (e.g., <code>"plot"</code>, <code>hist</code>) or <code>ggplot2</code> functions.</p>
-<div class="sourceCode" id="cb606"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb603"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"demo_plot"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, height<span class="op">=</span><span class="st">"300px"</span><span class="op">)</span></span></code></pre></div>
 <p>What is the default value for <code>width</code>?<br><select class="webex-select"><option value="blank"></option>
@@ -317,7 +317,7 @@ to the remote repository.
 <option value="">400</option>
 <option value="">5in</option>
 <option value="">7in</option></select></p>
-<div class="sourceCode" id="cb607"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the server function</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="va">penguins_filtered</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span></span>
@@ -340,11 +340,11 @@ you need to use <code>y = .data[[input<span class="math inline">\(y]]&lt;/code&g
 <span class="header-section-number">36.3</span> Images<a class="anchor" aria-label="anchor" href="#images"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>imageOutput</code> takes the same arguments as <code>plotOutput</code>. You can leave <code>width</code> and <code>height</code> as their defaults if you are going to set those values in the render function.</p>
-<div class="sourceCode" id="cb608"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb605"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">imageOutput</a></span><span class="op">(</span><span class="st">"demo_image"</span><span class="op">)</span></span></code></pre></div>
 <p><code>renderImage</code> needs to return a named list with at least an <code>src</code> with the image path. You can also set the <code>width</code> and <code>height</code> (numeric values are in pixels), <code>class</code> and <code>alt</code> (the alt-text for screen readers).</p>
-<div class="sourceCode" id="cb609"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb606"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the server function</span></span>
 <span><span class="va">output</span><span class="op">$</span><span class="va">demo_image</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderImage.html">renderImage</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>src <span class="op">=</span> <span class="st">"images/penguin.jpg"</span>,</span>
@@ -367,11 +367,11 @@ you’re referencing a file you previously saved.
 <span class="header-section-number">36.4</span> Data Tables<a class="anchor" aria-label="anchor" href="#data-tables"><i class="fas fa-link"></i></a>
 </h2>
 <p>Display a table using <code>tableOutput</code>.</p>
-<div class="sourceCode" id="cb610"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb607"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"demo_table"</span><span class="op">)</span></span></code></pre></div>
 <p>This is paired with <code><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">DT::renderDataTable</a></code>, which makes a table out of any data frame it returns.</p>
-<div class="sourceCode" id="cb611"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb608"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the server function</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_table</span> <span class="op">&lt;-</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">renderDataTable</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>   <span class="va">penguins</span>  <span class="op">|&gt;</span> </span>
@@ -420,7 +420,7 @@ p("p creates a paragraph of text."),
         span("groups of words", style = "color:blue"),
         "that appear inside a paragraph."),
 </code></pre>
-<div class="sourceCode" id="cb613"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb610"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>

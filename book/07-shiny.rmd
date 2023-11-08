@@ -562,17 +562,8 @@ As you proceed, you can add more details to your `server.R` to handle these inpu
 
 ## Exercise 
 
-**1. Create an interface that gets people to enter their name, date of birth and select what type of cake they want from a selection OF -** 
 
-- Chocolate
-
-- Sponge
-
-- Red Velvet
-
-- Cheesecake
-
-**2. Save a separate file with the progress on our penguins app**
+**1. Save a separate file with the progress on our penguins app**
 
 # Outputs
 

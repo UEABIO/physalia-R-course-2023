@@ -1140,7 +1140,7 @@ Use effective data visualization principles, such as avoiding misleading scales,
 It is often the case that we start to default to a particular 'style' for our figures, or you may be making several similar figures within a research paper. Creating custom functions can extend to making our own custom ggplot themes. You have probably already used theme variants such as `theme_bw()`, `theme_void()`, `theme_minimal()` - these are incredibly useful, but you might find you still wish to make consistent changes. 
 
 
-```{r, eval=F}
+```{r}
 plot <- penguins |> 
   drop_na(sex) |> 
 ggplot(aes(x = species, y = culmen_length_mm, fill = species)) +
@@ -1176,7 +1176,7 @@ theme() + theme_classic() # will not work as intended
 
 ```
 
-```{r, eval=F}
+```{r, eval=T}
 
 # custom theme sets defaults for font and size, but these can be changed without changing the function
 theme_custom <- function(base_size=12, base_family="serif"){
@@ -1194,9 +1194,10 @@ theme(
     size=rel(1),
     family=base_family),
   # specify position for y axis title
-  axis.title.y=element_text(margin = margin(r = 10, l= 10)),
+  axis.title.y=element_text(angle = 90,
+                            margin = margin(r = 10, l= 10)),
   # specify position for x axis title
-  axis.title.x = element_text(margin = margin( t = 10, b = 10)),
+  axis.title.x = element_text(margin = margin(t = 10, b = 10)),
   # set major y grid lines
   panel.grid.major.y = element_line(colour="gray", size=0.5),
   # add axis lines
@@ -1216,7 +1217,7 @@ With this function set, I can now use it for as many figures as I wish. To use i
 
 I could then easily use `source("custom_theme_function.R")` to make this available to any scripts I was using. 
 
-```{r, eval=F, fig.width = 7}
+```{r, fig.width = 7}
 plot+
   ggtitle("Comparison of bill lengths\n by species in Palmer Penguins")+
   labs(x = "",
@@ -1238,8 +1239,7 @@ Naturally, to put these ideas into practice, we'll utilize the fantastic penguin
 For these tutorials we will use the `gt` package and helpers provided by `gtExtras`.
 
 ```{r, echo = F}
-rm(list = ls())
-library(palmerpenguins)
+
 library(gt)
 library(gtExtras)
 
@@ -1259,8 +1259,8 @@ Let's use this dataset to tally the penguins. These counts will provide us with 
 
 penguin_counts <- penguins |> 
   drop_na(sex) |> 
-  janitor::clean_names() |> 
   mutate(year = as.character(year)) |> 
+  mutate(sex = str_to_lower(sex)) |> 
   group_by(species, island, sex, year) |> 
   summarise(n = n(), .groups = "drop")
 
@@ -1739,46 +1739,6 @@ penguin_counts_wider |>
   
 ```
 
-```{r}
-
-penguin_counts_wider |> 
-  mutate(
-    island = as.character(island), 
-    year = as.numeric(year),
-    island = paste0('Island: ', island)
-  ) |> 
-  # mutate integers
-    mutate(across(.cols = where(is.integer), .fns = ~ifelse(.x <= 0, NA, . ))) |> 
-  gt(groupname_col = 'island', rowname_col = 'year') |> 
-  cols_label(.list = desired_colnames) |> 
-  labels_and_title()  |> 
-  #change function
-  sub_missing(missing_text = '-')|>
-   summary_rows(
-    groups = everything(),
-    fns = list(
-      "Mean" = ~mean(., na.rm = T),
-      "Total" = ~sum(.)
-    ),
-    formatter = fmt_number,
-    decimals = 0,
-    # new option here
-    missing_text = "-"
-  ) |> 
-    tab_options(
-    data_row.padding = px(2),
-    summary_row.padding = px(3), 
-    row_group.padding = px(4)    
-  ) |> 
-    tab_style(style = cell_text(color = "orange",
-                              weight = "bold"),
-            locations = cells_body(
-              columns = 3,
-             rows = which(penguin_counts_wider[,3] == max(penguin_counts_wider[,3])))
-            ) 
-
-```
-
 
 
 If we repeat this code for each column, we generate the result shown below
@@ -1891,7 +1851,7 @@ penguin_counts_wider |>
     summary_row.padding = px(3), 
     row_group.padding = px(4)    
   ) |> 
-data_color(colors = c(c("#FEF0D9", "#990000")))
+data_color(colors = c("#FEF0D9", "#990000"), domain = c(0,30))
 
 ```
 
@@ -1976,9 +1936,11 @@ penguin_weights |>
 ```
 
 
-Next, let us write a function plot_violin_species(my_species) that depends on a penguin species and creates one violin plot.
+Next write a function `plot_violin_species(my_species)` that depends on a penguin species and creates one violin plot.
 
-```{r}
+```{solution}
+
+``{r}
 plot_density_species <- function(my_species) {
   full_range <- filtered_penguins |>
     pull(body_mass_g) |>
@@ -1994,7 +1956,8 @@ plot_density_species <- function(my_species) {
     labs(x = element_blank(), y = element_blank()) +
     coord_cartesian(xlim = full_range)
 }
-plot_density_species('Adelie')
+plot_density_species("Adelie")
+``
 
 ```
 
@@ -2039,9 +2002,4 @@ Consult the following resources to learn about table design principles and how t
 “Creating beautiful tables in R with {gt}” by Albert Rapp (2022), https://gt.albert-rapp.de/
 
 
-```{r}
-
-sessionInfo()
-
-```
 

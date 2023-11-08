@@ -180,7 +180,7 @@ to the remote repository.
 <span class="header-section-number">35</span> Inputs<a class="anchor" aria-label="anchor" href="#inputs"><i class="fas fa-link"></i></a>
 </h1>
 <p>Now that you have the basic structure of your Shiny app, you can start adding input and output elements to make it interactive. This example app includes four input widgets: a <code>selectInput</code> for genotype, another <code>selectInput</code> for histogram color, a <code>sliderInput</code> for the number of bins, and a <code>textInput</code> for arbitrary text. These widgets provide information on how to display a histogram and its accompanying table. In the example app, all these widgets are placed in the <code>sidebarPanel</code>. Here's how you can incorporate these widgets into your app:</p>
-<div class="sourceCode" id="cb591"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb588"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -235,7 +235,7 @@ to the remote repository.
 <span class="header-section-number">35.0.1</span> textInput<a class="anchor" aria-label="anchor" href="#textinput"><i class="fas fa-link"></i></a>
 </h3>
 <p><code>textInput</code> creates a one-line box for short text input. The first <code>argument</code>, <code>inputId</code> (the argument name is usually omitted), needs to be a unique string that you cannot use for another input or output in this app.</p>
-<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb589"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">demo_text</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textInput.html">textInput</a></span><span class="op">(</span><span class="st">"demo_text"</span>, </span>
 <span>            label <span class="op">=</span> <span class="st">"Name"</span>, </span>
@@ -255,7 +255,7 @@ Experiment with the values of <code>arg("label")</code>,
 <span class="header-section-number">35.0.2</span> textAreaInput<a class="anchor" aria-label="anchor" href="#textareainput"><i class="fas fa-link"></i></a>
 </h3>
 <p><code>func("textAreaInput")</code> creates a multi-line box for longer text input.</p>
-<div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb590"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">demo_textarea</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textAreaInput.html">textAreaInput</a></span><span class="op">(</span><span class="st">"demo_textarea"</span>, </span>
 <span>                label <span class="op">=</span> <span class="st">"Biography"</span>, </span>
@@ -274,7 +274,7 @@ Experiment with the values of <code>arg("label")</code>,
 <span class="header-section-number">35.0.3</span> selectInput<a class="anchor" aria-label="anchor" href="#selectinput"><i class="fas fa-link"></i></a>
 </h3>
 <p><code>func("selectInput")</code> creates a drop-down menu. Set the first <code>arg("choice")</code> to <code>""</code> to default to <code>NA</code>. If your choices are a named <code>"list"</code> or <code>"vector"</code>, the names are what is shown and the values are what is recorded. If the choices aren't named, the displayed and recorded values are the same.</p>
-<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb591"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">demo_select</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"demo_select"</span>, </span>
 <span>              label <span class="op">=</span> <span class="st">"Do you like Shiny?"</span>, </span>
@@ -284,7 +284,7 @@ Experiment with the values of <code>arg("label")</code>,
 <span>              selected <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>              width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span></span></code></pre></div>
 <p>If you set <code>arg("multiple")</code> to <code>dt(TRUE)</code>, you can also make a select where users can choose multiple options.</p>
-<div class="sourceCode" id="cb595"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">genders</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> <span class="co"># no blank needed</span></span>
 <span>  <span class="st">"Non-binary"</span> <span class="op">=</span> <span class="st">"nb"</span>,</span>
 <span>  <span class="st">"Male"</span> <span class="op">=</span> <span class="st">"m"</span>,</span>
@@ -306,7 +306,7 @@ Experiment with the values of <code>arg("label")</code>,
 <span class="header-section-number">35.0.4</span> checkboxGroupInput<a class="anchor" aria-label="anchor" href="#checkboxgroupinput"><i class="fas fa-link"></i></a>
 </h3>
 <p>However, this interface almost always looks better with <code>func("checkboxGroupInput")</code>.</p>
-<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">demo_cbgi</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/checkboxGroupInput.html">checkboxGroupInput</a></span><span class="op">(</span><span class="st">"demo_cbgi"</span>,</span>
 <span>                     label <span class="op">=</span> <span class="st">"Gender)"</span>,</span>
@@ -323,12 +323,12 @@ Experiment with the values of <code>arg("label")</code>,
 <span class="header-section-number">35.0.5</span> checkboxInput<a class="anchor" aria-label="anchor" href="#checkboxinput"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can also make a single checkbox with <code>func("checkboxInput")</code>. The <code>arg("value")</code> is <code>dt(TRUE)</code> when checked and <code>dt(FALSE)</code> when not.</p>
-<div class="sourceCode" id="cb597"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">demo_cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/checkboxInput.html">checkboxInput</a></span><span class="op">(</span><span class="st">"demo_cb"</span>,</span>
 <span>                         label <span class="op">=</span> <span class="st">"I love R"</span>,</span>
 <span>                         value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><code>func("sliderInput")</code> allows you to choose numbers between a <code>arg("min")</code> and <code>arg("max")</code> value.</p>
-<div class="sourceCode" id="cb598"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb595"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">demo_slider</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"demo_slider"</span>,</span>
 <span>                           label <span class="op">=</span> <span class="st">"Age"</span>,</span>
 <span>                           min <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -349,7 +349,7 @@ What happens if you change <code>arg("value")</code> or
 <span class="header-section-number">35.0.6</span> radioButtons<a class="anchor" aria-label="anchor" href="#radiobuttons"><i class="fas fa-link"></i></a>
 </h3>
 <p>If you want users to only be able to choose one option and there are a small number of short options, <code>func("radioButton")</code> is a good interface.</p>
-<div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">demo_radio</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"demo_radio"</span>,</span>
 <span>                           label <span class="op">=</span> <span class="st">"Choose one"</span>,</span>
 <span>                           choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cats"</span>, <span class="st">"Dogs"</span><span class="op">)</span>,</span>
@@ -368,7 +368,7 @@ Radio buttons default to selecting the first item unless you set
 <span class="header-section-number">35.0.7</span> dateInput<a class="anchor" aria-label="anchor" href="#dateinput"><i class="fas fa-link"></i></a>
 </h3>
 <p>I find the date interface a little clunky, but...</p>
-<div class="sourceCode" id="cb600"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb597"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">demo_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/dateInput.html">dateInput</a></span><span class="op">(</span><span class="st">"demo_date"</span>,</span>
 <span>                       label <span class="op">=</span> <span class="st">"What is your birth date?"</span>,</span>
 <span>                       min <span class="op">=</span> <span class="st">"1900-01-01"</span>,</span>
@@ -392,7 +392,7 @@ because it sorts into chronological order.
 <span class="header-section-number">35.0.8</span> fileInput<a class="anchor" aria-label="anchor" href="#fileinput"><i class="fas fa-link"></i></a>
 </h3>
 <p>Users can upload one or more files with <code>func("fileInput")</code>. The argument <code>arg("accept")</code> lets you limit this to certain file types, but some browsers can bypass this requirement, so it's not fool-proof.</p>
-<div class="sourceCode" id="cb601"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb598"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">demo_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fileInput.html">fileInput</a></span><span class="op">(</span><span class="st">"demo_file"</span>,</span>
 <span>                       label <span class="op">=</span> <span class="st">"Upload a data table"</span>,</span>
 <span>                       multiple <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -412,14 +412,7 @@ because it sorts into chronological order.
 <h2>
 <span class="header-section-number">35.1</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise-7"><i class="fas fa-link"></i></a>
 </h2>
-<p><strong>1. Create an interface that gets people to enter their name, date of birth and select what type of cake they want from a selection OF -</strong></p>
-<ul>
-<li><p>Chocolate</p></li>
-<li><p>Sponge</p></li>
-<li><p>Red Velvet</p></li>
-<li><p>Cheesecake</p></li>
-</ul>
-<p><strong>2. Save a separate file with the progress on our penguins app</strong></p>
+<p><strong>1. Save a separate file with the progress on our penguins app</strong></p>
 </div>
 </div>
 <script>
