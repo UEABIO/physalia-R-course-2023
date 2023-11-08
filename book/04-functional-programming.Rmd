@@ -1921,11 +1921,13 @@ Make a function that converts values with a normal distribution into their z sco
 
 [Z-scores](https://en.wikipedia.org/wiki/Standard_score)
 
-$$
 
-z = {{x - \mu}\over{\sigma}}
 
-$$
+```{r , echo=FALSE, out.width = "50%"}
+
+knitr::include_graphics("images/z-score.png")
+
+```
 
 
 ```{solution}

@@ -2002,16 +2002,14 @@ Make a function that converts values with a normal distribution into their z sco
 
 [Z-scores](https://en.wikipedia.org/wiki/Standard_score)
 
-$$
-
-z = {{x - \mu}\over{\sigma}}
-
-$$
 
 
-<button id="displayTextunnamed-chunk-104" onclick="javascript:toggle('unnamed-chunk-104');">Show Solution</button>
+<img src="images/z-score.png" width="50%" style="display: block; margin: auto;" />
 
-<div id="toggleTextunnamed-chunk-104" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+<button id="displayTextunnamed-chunk-105" onclick="javascript:toggle('unnamed-chunk-105');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-105" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 z_score <- function(x) {
@@ -2024,9 +2022,9 @@ z_score <- function(x) {
 <div class="panel panel-default"><div class="panel-heading"> Task </div><div class="panel-body"> 
 Choose the appropriate apply function to calculate a matrix of z-scores for the dataframe `df` </div></div>
 
-<button id="displayTextunnamed-chunk-106" onclick="javascript:toggle('unnamed-chunk-106');">Show Solution</button>
+<button id="displayTextunnamed-chunk-107" onclick="javascript:toggle('unnamed-chunk-107');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-106" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-107" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 apply(df, MARGIN = 2,  z_score)
 </div></div></div>
@@ -2058,19 +2056,19 @@ Basic `map()` will *always* return a `list`, other variants return different dat
 
 ## Example
 
-<div class="tab"><button class="tablinksunnamed-chunk-108 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-108', 'unnamed-chunk-108');">Base R</button><button class="tablinksunnamed-chunk-108" onclick="javascript:openCode(event, 'option2unnamed-chunk-108', 'unnamed-chunk-108');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-108" class="tabcontentunnamed-chunk-108">
+<div class="tab"><button class="tablinksunnamed-chunk-109 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-109', 'unnamed-chunk-109');">Base R</button><button class="tablinksunnamed-chunk-109" onclick="javascript:openCode(event, 'option2unnamed-chunk-109', 'unnamed-chunk-109');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-109" class="tabcontentunnamed-chunk-109">
 
 ```r
 lapply(df_list, mean)
 ```
-</div><div id="option2unnamed-chunk-108" class="tabcontentunnamed-chunk-108">
+</div><div id="option2unnamed-chunk-109" class="tabcontentunnamed-chunk-109">
 
 ```r
 map(.x = df_list, .f = mean)
 
 map(df_list, mean)
 ```
-</div><script> javascript:hide('option2unnamed-chunk-108') </script>
+</div><script> javascript:hide('option2unnamed-chunk-109') </script>
 
 
 
@@ -2275,7 +2273,7 @@ plots_df[[1,4]]
 plots_df$scatterplots[[1]]
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-122-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-123-1.png" width="100%" style="display: block; margin: auto;" />
 
 If we wish to see all of the plots at once we can use `purrr::walk` - this is another iteration function, where the primary output is "silent" - we do not wish to see outputs printed in the console. This is useful for functions like plot making or writing outputs to file. 
 
@@ -2302,7 +2300,7 @@ library(patchwork)
 plots_df$scatterplots |> wrap_plots()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-125-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-126-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## map2
 
@@ -2332,7 +2330,7 @@ plots_df$scatterplots |>
     wrap_plots(... = _, guides = "collect")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-127-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-128-1.png" width="100%" style="display: block; margin: auto;" />
 
 ### Running different summary functions on each nested dataframe
 
@@ -2393,9 +2391,9 @@ result$summaries
 In the previous chapter with apply we wrote the `z_score()` function, can you apply this using map to our `df` tibble? </div></div>
 
 
-<button id="displayTextunnamed-chunk-130" onclick="javascript:toggle('unnamed-chunk-130');">Show Solution</button>
+<button id="displayTextunnamed-chunk-131" onclick="javascript:toggle('unnamed-chunk-131');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-130" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-131" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 map_df(.x = df, 
@@ -2459,9 +2457,9 @@ Sampling without replacement means that when you repeatedly draw e.g. 1 item fro
 **YOUR TURN:**  
 Sample 100 values between 3 and 103 with replacement.    
 
-<button id="displayTextunnamed-chunk-131" onclick="javascript:toggle('unnamed-chunk-131');">Show Solution</button>
+<button id="displayTextunnamed-chunk-132" onclick="javascript:toggle('unnamed-chunk-132');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-131" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-132" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 x <- 3:103
@@ -2485,9 +2483,9 @@ Draw 50 values from a normal distribution with a mean of 10 and sd of 5.
 Draw 1000 values from a poisson distribution with a lambda of 50.  
 Draw 30 values from a uniform distribution between 0 and 10.  
 
-<button id="displayTextunnamed-chunk-132" onclick="javascript:toggle('unnamed-chunk-132');">Show Solution</button>
+<button id="displayTextunnamed-chunk-133" onclick="javascript:toggle('unnamed-chunk-133');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-132" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-133" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 rnorm(n = 100, mean = 0, sd = 1)
@@ -2513,9 +2511,9 @@ Replicate 1000 times the mean of 10 values drawn from a unifrom distribution bet
 
 Make a histogram of your results. 
 
-<button id="displayTextunnamed-chunk-133" onclick="javascript:toggle('unnamed-chunk-133');">Show Solution</button>
+<button id="displayTextunnamed-chunk-134" onclick="javascript:toggle('unnamed-chunk-134');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-133" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-133 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-133', 'unnamed-chunk-133');">Base R</button><button class="tablinksunnamed-chunk-133" onclick="javascript:openCode(event, 'option2unnamed-chunk-133', 'unnamed-chunk-133');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-133" class="tabcontentunnamed-chunk-133">
+<div id="toggleTextunnamed-chunk-134" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body"><div class="tab"><button class="tablinksunnamed-chunk-134 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-134', 'unnamed-chunk-134');">Base R</button><button class="tablinksunnamed-chunk-134" onclick="javascript:openCode(event, 'option2unnamed-chunk-134', 'unnamed-chunk-134');"><tt>tidyverse</tt></button></div><div id="option1unnamed-chunk-134" class="tabcontentunnamed-chunk-134">
 
 ```r
 set.seed(42) 
@@ -2524,8 +2522,8 @@ set.seed(42)
 hist(replicate(1000, mean(runif(10, max = 10))))
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-144-1.png" width="100%" style="display: block; margin: auto;" />
-</div><div id="option2unnamed-chunk-133" class="tabcontentunnamed-chunk-133">
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-148-1.png" width="100%" style="display: block; margin: auto;" />
+</div><div id="option2unnamed-chunk-134" class="tabcontentunnamed-chunk-134">
 
 ```r
 set.seed(42) 
@@ -2539,9 +2537,9 @@ ggplot(aes(x = means)) +
   labs(title = "Histogram of Means", x = "Mean Value", y = "Frequency")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-145-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-149-1.png" width="100%" style="display: block; margin: auto;" />
 
-</div><script> javascript:hide('option2unnamed-chunk-133') </script></div></div></div>
+</div><script> javascript:hide('option2unnamed-chunk-134') </script></div></div></div>
 
 ## Set seed
 
@@ -2624,7 +2622,7 @@ ggplot(simulation_results, aes(x = Simulated_Difference)) +
     theme_minimal()
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-134-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-135-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ## Exercise
@@ -2747,7 +2745,7 @@ simulation_results <- map_dbl(sample_sizes, simulate_power, effect_size)
 plot(sample_sizes, simulation_results, type = "b", xlab = "Sample Size", ylab = "Power", main = "Power vs. Sample Size")
 ```
 
-<img src="04-functional-programming_files/figure-html/unnamed-chunk-138-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="04-functional-programming_files/figure-html/unnamed-chunk-139-1.png" width="100%" style="display: block; margin: auto;" />
 
 ## Exercise
 

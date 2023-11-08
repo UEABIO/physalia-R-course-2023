@@ -218,10 +218,10 @@ Type <em><code>?function</code></em> in your console to get information on the f
 <p>Sampling without replacement means that when you repeatedly draw e.g. 1 item from a pool of items, any item selected during the first draw is not available for selection during the second draw, and the first and second selected items are not in the pool to select from during the third draw, etc. Sampling with replacement means that all the original options are available at each draw.</p>
 <p><strong>YOUR TURN:</strong><br>
 Sample 100 values between 3 and 103 with replacement.</p>
-<button id="displayTextunnamed-chunk-131" onclick="javascript:toggle('unnamed-chunk-131');">
+<button id="displayTextunnamed-chunk-132" onclick="javascript:toggle('unnamed-chunk-132');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-131" style="display: none">
+<div id="toggleTextunnamed-chunk-132" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
@@ -253,10 +253,10 @@ Solution
 Draw 50 values from a normal distribution with a mean of 10 and sd of 5.<br>
 Draw 1000 values from a poisson distribution with a lambda of 50.<br>
 Draw 30 values from a uniform distribution between 0 and 10.</p>
-<button id="displayTextunnamed-chunk-132" onclick="javascript:toggle('unnamed-chunk-132');">
+<button id="displayTextunnamed-chunk-133" onclick="javascript:toggle('unnamed-chunk-133');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-132" style="display: none">
+<div id="toggleTextunnamed-chunk-133" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
@@ -284,32 +284,32 @@ Solution
 <p><strong>YOUR TURN:</strong></p>
 <p>Replicate 1000 times the mean of 10 values drawn from a unifrom distribution between 0 and 10.</p>
 <p>Make a histogram of your results.</p>
-<button id="displayTextunnamed-chunk-133" onclick="javascript:toggle('unnamed-chunk-133');">
+<button id="displayTextunnamed-chunk-134" onclick="javascript:toggle('unnamed-chunk-134');">
 Show Solution
 </button>
-<div id="toggleTextunnamed-chunk-133" style="display: none">
+<div id="toggleTextunnamed-chunk-134" style="display: none">
 <div class="panel panel-default">
 <div class="panel-heading panel-heading1">
 Solution
 </div>
 <div class="panel-body">
 <div class="tab">
-<button class="tablinksunnamed-chunk-133 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-133', 'unnamed-chunk-133');">
+<button class="tablinksunnamed-chunk-134 active" onclick="javascript:openCode(event, 'option1unnamed-chunk-134', 'unnamed-chunk-134');">
 Base R
 </button>
-<button class="tablinksunnamed-chunk-133" onclick="javascript:openCode(event, 'option2unnamed-chunk-133', 'unnamed-chunk-133');">
+<button class="tablinksunnamed-chunk-134" onclick="javascript:openCode(event, 'option2unnamed-chunk-134', 'unnamed-chunk-134');">
 <tt>tidyverse</tt>
 </button>
 </div>
-<div id="option1unnamed-chunk-133" class="tabcontentunnamed-chunk-133">
+<div id="option1unnamed-chunk-134" class="tabcontentunnamed-chunk-134">
 <div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="co"># replicate(1000, mean(runif(10, max = 10)))</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">10</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-144-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-148-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
-<div id="option2unnamed-chunk-133" class="tabcontentunnamed-chunk-133">
+<div id="option2unnamed-chunk-134" class="tabcontentunnamed-chunk-134">
 <div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span> </span>
 <span></span>
@@ -320,9 +320,9 @@ Base R
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">means</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.2</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Means"</span>, x <span class="op">=</span> <span class="st">"Mean Value"</span>, y <span class="op">=</span> <span class="st">"Frequency"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-145-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-149-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
-<script> javascript:hide('option2unnamed-chunk-133') </script>
+<script> javascript:hide('option2unnamed-chunk-134') </script>
 </div>
 </div>
 </div>
@@ -401,7 +401,7 @@ A pseudorandom number generator's number sequence is completely determined by it
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Density Histogram of Estimated Differences (Sample Size = 20)"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.5</span>,<span class="fl">1</span>,<span class="fl">1.5</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-134-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-135-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 <div id="exercise-3" class="section level2" number="19.5">
 <h2>
@@ -507,7 +507,7 @@ Solutions
 <span></span>
 <span><span class="co"># Plot the power as a function of sample size</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sample_sizes</span>, <span class="va">simulation_results</span>, type <span class="op">=</span> <span class="st">"b"</span>, xlab <span class="op">=</span> <span class="st">"Sample Size"</span>, ylab <span class="op">=</span> <span class="st">"Power"</span>, main <span class="op">=</span> <span class="st">"Power vs. Sample Size"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-138-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="04-functional-programming_files/figure-html/unnamed-chunk-139-1.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
 <div id="exercise-4" class="section level2" number="19.7">
 <h2>
