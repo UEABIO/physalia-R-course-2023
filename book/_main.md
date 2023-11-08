@@ -3272,7 +3272,7 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
 
-<div class='webex-radiogroup' id='radio_VCBUAMVXHD'><label><input type="radio" autocomplete="off" name="radio_VCBUAMVXHD" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_VCBUAMVXHD" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_VCBUAMVXHD" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_VCBUAMVXHD" value="answer"></input> <span>dmy()</span></label></div>
+<div class='webex-radiogroup' id='radio_OBFYWTQQUD'><label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value=""></input> <span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value=""></input> <span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value=""></input> <span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_OBFYWTQQUD" value="answer"></input> <span>dmy()</span></label></div>
 
 
 
@@ -7834,7 +7834,7 @@ If we wish to see all of the plots at once we can use `purrr::walk` - this is an
 
 
 ```r
-walk(plots_df$scatterplot)
+walk(plots_df$scatterplot, ~print(.x))
 ```
 
 
@@ -9989,7 +9989,7 @@ compare_species_plot(penguins_clean_split, "Adelie", "Chinstrap", culmen_length_
 <img src="05-tidyverse_files/figure-html/unnamed-chunk-77-1.png" width="100%" style="display: block; margin: auto;" />
 </div></div></div>
 
-In the example below I have used `enquo` to enable conversion to character strings, this means all of the function arguments can be provided without "quotes". 
+Try substituting in `quo_name(enquo(filter_condition))`. To return a character string that represents your filter condition. In the example below I have used `quo_name(enquo())` to enable conversion to character strings, this means all of the function arguments can be provided without "quotes". 
 
 <button id="displayTextunnamed-chunk-73" onclick="javascript:toggle('unnamed-chunk-73');">Show Solution</button>
 
@@ -10022,7 +10022,51 @@ compare_species_plot(penguins_clean_split, Adelie, Chinstrap, culmen_length_mm)
 
 ## Exercise
 
-- Can you write your own custom function in tidyverse? If you have something from your own data or work - see if you can functionalise your flow?
+
+**1.Practice tidy evaluation** I want to produce a function that allows unquoted arguments and produces a barplot of the number of penguins recorded by species. In this instance I am going to start with a function where I can filter the penguins according to one variable and fill the columns according to another variable e.g. filter by year and colour by island to get a year-by-year abundance chart
+
+Try and write a specific example first:
+
+<button id="displayTextunnamed-chunk-74" onclick="javascript:toggle('unnamed-chunk-74');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-74" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+penguins|> 
+  filter(year == 2007) |> 
+  ggplot(aes(x=species, fill=island))+
+  geom_bar(position=position_dodge2(preserve="single"))+
+  coord_flip()
+```
+
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-77-1.png" width="100%" style="display: block; margin: auto;" />
+
+</div></div></div>
+
+
+Then abstract this and use bare (unquoted) values in your arguments
+
+<button id="displayTextunnamed-chunk-75" onclick="javascript:toggle('unnamed-chunk-75');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-75" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+plot_count <- function(filter_condition, colour_variable){
+penguins|> 
+  filter({{filter_condition}}) |> 
+  ggplot(aes(x=species, fill={{colour_variable}}))+
+  geom_bar(position=position_dodge2(preserve="single"))+
+  coord_flip()
+}
+
+plot_count(year == 2007 , colour_variable = island)
+```
+
+<img src="05-tidyverse_files/figure-html/unnamed-chunk-78-1.png" width="100%" style="display: block; margin: auto;" />
+</div></div></div>
+
+
+**2. Write your own custom function** Can you write your own custom function in tidyverse? If you have something from your own data or work - see if you can functionalise your flow?
 
 
 
@@ -25591,7 +25635,7 @@ more later</p></li>
 ## Exercises: Setting code chunks {-}
 
 
-**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select>
+**Question 1.** The global option for this document is set to show the R code used to render chunks <select class='webex-select'><option value='blank'></option><option value=''>FALSE</option><option value='answer'>TRUE</option></select>
 
 
 <div class='webex-solution'><button>Explain This Answer</button>

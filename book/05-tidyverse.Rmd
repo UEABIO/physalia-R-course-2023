@@ -1290,7 +1290,7 @@ compare_species_plot(penguins_clean_split, "Adelie", "Chinstrap", culmen_length_
 
 ```
 
-In the example below I have used `enquo` to enable conversion to character strings, this means all of the function arguments can be provided without "quotes". 
+Try substituting in `quo_name(enquo(filter_condition))`. To return a character string that represents your filter condition. In the example below I have used `quo_name(enquo())` to enable conversion to character strings, this means all of the function arguments can be provided without "quotes". 
 
 ```{solution}
 
@@ -1324,7 +1324,47 @@ compare_species_plot(penguins_clean_split, Adelie, Chinstrap, culmen_length_mm)
 
 ## Exercise
 
-- Can you write your own custom function in tidyverse? If you have something from your own data or work - see if you can functionalise your flow?
+
+**1.Practice tidy evaluation** I want to produce a function that allows unquoted arguments and produces a barplot of the number of penguins recorded by species. In this instance I am going to start with a function where I can filter the penguins according to one variable and fill the columns according to another variable e.g. filter by year and colour by island to get a year-by-year abundance chart
+
+Try and write a specific example first:
+
+```{solution}
+
+
+``{r}
+penguins|> 
+  filter(year == 2007) |> 
+  ggplot(aes(x=species, fill=island))+
+  geom_bar(position=position_dodge2(preserve="single"))+
+  coord_flip()
+``
+
+
+```
+
+
+Then abstract this and use bare (unquoted) values in your arguments
+
+```{solution}
+
+``{r}
+plot_count <- function(filter_condition, colour_variable){
+penguins|> 
+  filter({{filter_condition}}) |> 
+  ggplot(aes(x=species, fill={{colour_variable}}))+
+  geom_bar(position=position_dodge2(preserve="single"))+
+  coord_flip()
+}
+
+plot_count(year == 2007 , colour_variable = island)
+
+``
+
+```
+
+
+**2. Write your own custom function** Can you write your own custom function in tidyverse? If you have something from your own data or work - see if you can functionalise your flow?
 
 
 

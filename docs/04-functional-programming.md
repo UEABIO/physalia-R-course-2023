@@ -2279,7 +2279,7 @@ If we wish to see all of the plots at once we can use `purrr::walk` - this is an
 
 
 ```r
-walk(plots_df$scatterplot)
+walk(plots_df$scatterplot, ~print(.x))
 ```
 
 
