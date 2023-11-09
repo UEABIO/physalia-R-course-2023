@@ -1139,10 +1139,12 @@ Run this code. Which things are now updated by the plot button?
 
 It provides a flexible way to create a consistent and visually appealing design for your Shiny applications without having to write extensive CSS code.
 
-You can use `bslib` functions like `bs_theme()`, to define and apply custom styles to your Shiny app.
+You can use `bslib` functions like `bs_theme()`, to define and apply custom styles to your Shiny app. But there's no accounting for taste...
 
 
-<iframe height="400" width="100%" frameborder="no" src="https://philip-leftwich.shinyapps.io/penguin_demo"> </iframe>
+<img src="images/my_dashboard.png" width="100%" style="display: block; margin: auto;" />
+
+(https://philip-leftwich.shinyapps.io/penguin_demo")
 
 
 
@@ -1562,7 +1564,7 @@ thematic::thematic_shiny()
 shinyApp(ui = ui, server = server)
 ```
 
-<img src="07-shiny_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="07-shiny_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ### Reading
@@ -1625,19 +1627,22 @@ sessionInfo()
 ## [16] tidyverse_2.0.0     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
-##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
-##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    promises_1.2.0.1  fansi_1.0.4      
-## [17] scales_1.2.1      codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1        
-## [21] rlang_1.1.1       ellipsis_0.3.2    munsell_0.5.0     withr_2.5.0      
-## [25] cachem_1.0.8      yaml_2.3.7        tools_4.3.1       tzdb_0.4.0       
-## [29] memoise_2.0.1     colorspace_2.1-0  httpuv_1.6.11     mime_0.12        
-## [33] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   fs_1.6.2         
-## [37] pkgconfig_2.0.3   later_1.3.1       pillar_1.9.0      gtable_0.3.3     
-## [41] Rcpp_1.0.11       glue_1.6.2        highr_0.10        xfun_0.39        
-## [45] tidyselect_1.2.0  rstudioapi_0.15.0 xtable_1.8-4      htmltools_0.5.5  
-## [49] rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
+##  [1] gtable_0.3.3      xfun_0.39         htmlwidgets_1.6.2 processx_3.8.2   
+##  [5] lattice_0.21-8    callr_3.7.3       tzdb_0.4.0        ps_1.7.5         
+##  [9] crosstalk_1.2.0   vctrs_0.6.3       tools_4.3.1       generics_0.1.3   
+## [13] fansi_1.0.4       highr_0.10        pkgconfig_2.0.3   webshot_0.5.5    
+## [17] lifecycle_1.0.3   compiler_4.3.1    textshaping_0.3.6 munsell_0.5.0    
+## [21] codetools_0.2-19  httpuv_1.6.11     htmltools_0.5.5   sass_0.4.6       
+## [25] yaml_2.3.7        pillar_1.9.0      later_1.3.1       jquerylib_0.1.4  
+## [29] thematic_0.1.3    ellipsis_0.3.2    DT_0.30           cachem_1.0.8     
+## [33] mime_0.12         tidyselect_1.2.0  digest_0.6.33     stringi_1.7.12   
+## [37] bookdown_0.34     fastmap_1.1.1     grid_4.3.1        colorspace_2.1-0 
+## [41] cli_3.6.1         magrittr_2.0.3    bsicons_0.1.1     utf8_1.2.3       
+## [45] withr_2.5.0       scales_1.2.1      promises_1.2.0.1  timechange_0.2.0 
+## [49] rmarkdown_2.23    ragg_1.2.5        hms_1.1.3         memoise_2.0.1    
+## [53] evaluate_0.21     rlang_1.1.1       downlit_0.4.3     Rcpp_1.0.11      
+## [57] xtable_1.8-4      glue_1.6.2        xml2_1.3.5        rstudioapi_0.15.0
+## [61] jsonlite_1.8.7    R6_2.5.1          systemfonts_1.0.4 fs_1.6.2
 ```
 
 ## Github

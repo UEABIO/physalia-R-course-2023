@@ -1147,10 +1147,16 @@ Run this code. Which things are now updated by the plot button?
 
 It provides a flexible way to create a consistent and visually appealing design for your Shiny applications without having to write extensive CSS code.
 
-You can use `bslib` functions like `bs_theme()`, to define and apply custom styles to your Shiny app.
+You can use `bslib` functions like `bs_theme()`, to define and apply custom styles to your Shiny app. But there's no accounting for taste...
 
 
-<iframe height="400" width="100%" frameborder="no" src="https://philip-leftwich.shinyapps.io/penguin_demo"> </iframe>
+```{r , echo=FALSE}
+
+knitr::include_graphics("images/my_dashboard.png")
+
+```
+
+(https://philip-leftwich.shinyapps.io/penguin_demo")
 
 
 ```{r, eval = FALSE}
