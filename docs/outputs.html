@@ -160,12 +160,8 @@
 <li class="book-part">Literate Programming and Reproducibility</li>
 <li><a class="" href="rmarkdown.html"><span class="header-section-number">40</span> RMarkdown</a></li>
 <li><a class="" href="github-1.html"><span class="header-section-number">41</span> Github</a></li>
-<li><a class="" href="NA.html">
-to upload commits
-to the remote repository.
-</a></li>
 <li class="book-part">Working with big data</li>
-<li><a class="" href="reading-4.html"><span class="header-section-number">42</span> Reading</a></li>
+<li><a class="" href="reading-5.html"><span class="header-section-number">42</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
 <li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
@@ -186,17 +182,17 @@ to the remote repository.
 <h2>
 <span class="header-section-number">36.1</span> Text<a class="anchor" aria-label="anchor" href="#text-1"><i class="fas fa-link"></i></a>
 </h2>
-<p><code>func("textOutput")</code> defaults to text inside a generic <code>&lt;span&gt;</code> or <code>&lt;div&gt;</code>.</p>
+<p><code>textOutput</code> defaults to text inside a generic <code>&lt;span&gt;</code> or <code>&lt;div&gt;</code>.</p>
 <div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"demo_text"</span>, container <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="va">h3</span><span class="op">)</span></span></code></pre></div>
-<p><code>func("renderText")</code> replaces the text of the linked element with its returned string.</p>
+<p><code>renderText</code> replaces the text of the linked element with its returned string.</p>
 <div class="sourceCode" id="cb605"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the server function</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">demo_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Figure 1."</span>, <span class="va">input</span><span class="op">$</span><span class="va">species</span>, <span class="va">input</span><span class="op">$</span><span class="va">text</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>If you use <code>func("verbatimTextOutput")</code> in the UI (no change to the render function), it will show the output in a fixed-width font. This can be good for code or text you want the user to copy.</p>
+<p>If you use <code>verbatimTextOutput</code> in the UI (no change to the render function), it will show the output in a fixed-width font. This can be good for code or text you want the user to copy.</p>
 <div class="sourceCode" id="cb606"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"demo_verbatim"</span><span class="op">)</span></span>
@@ -218,7 +214,7 @@ to the remote repository.
 <h2>
 <span class="header-section-number">36.2</span> Plots<a class="anchor" aria-label="anchor" href="#plots"><i class="fas fa-link"></i></a>
 </h2>
-<p><code>func("plotOutput")</code> displays plots made with the <code>base R</code> plotting functions (e.g., <code>"plot"</code>, <code>hist</code>) or <code>ggplot2</code> functions.</p>
+<p><code>plotOutput</code> displays plots made with the <code>base R</code> plotting functions (e.g., <code>"plot"</code>, <code>hist</code>) or <code>ggplot2</code> functions.</p>
 <div class="sourceCode" id="cb607"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in the UI function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"demo_plot"</span>, width <span class="op">=</span> <span class="st">"500px"</span>, height<span class="op">=</span><span class="st">"300px"</span><span class="op">)</span></span></code></pre></div>

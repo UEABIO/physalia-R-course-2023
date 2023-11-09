@@ -378,7 +378,7 @@ demo_text <-
 
 ### textAreaInput
 
-`func("textAreaInput")` creates a multi-line box for longer text input.
+`"textAreaInput"` creates a multi-line box for longer text input.
 
 
 ```r
@@ -397,7 +397,7 @@ What is the `arg("inputId")` of the widget above?
 
 ### selectInput
 
-`func("selectInput")` creates a drop-down menu. Set the first ` arg("choice")` to `""` to default to `NA`. If your choices are a named `"list"` or `"vector"`, the names are what is shown and the values are what is recorded. If the choices aren't named, the displayed and recorded values are the same.
+`selectInput` creates a drop-down menu. Set the first ` arg("choice")` to `""` to default to `NA`. If your choices are a named `"list"` or `"vector"`, the names are what is shown and the values are what is recorded. If the choices aren't named, the displayed and recorded values are the same.
 
 
 ```r
@@ -434,7 +434,7 @@ demo_select_multi <-
 
 ### checkboxGroupInput
 
-However, this interface almost always looks better with ` func("checkboxGroupInput")`. 
+However, this interface almost always looks better with ` checkboxGroupInput`. 
 
 
 ```r
@@ -451,7 +451,7 @@ How can you get the checkboxes to display horizontally instead of vertically?
 
 ### checkboxInput
 
-You can also make a single checkbox with ` func("checkboxInput")`. The ` arg("value")` is ` dt(TRUE)` when checked and ` dt(FALSE)` when not.
+You can also make a single checkbox with `checkboxInput`. The `value` is ` dt(TRUE)` when checked and ` dt(FALSE)` when not.
 
 
 ```r
@@ -460,7 +460,7 @@ demo_cb <- checkboxInput("demo_cb",
                          value = TRUE)
 ```
 
-` func("sliderInput")` allows you to choose numbers between a ` arg("min")` and ` arg("max")` value.
+` sliderInput` allows you to choose numbers between a `min` and `max` value.
 
 
 ```r
@@ -482,7 +482,7 @@ demo_slider <- sliderInput("demo_slider",
 
 ### radioButtons
 
-If you want users to only be able to choose one option and there are a small number of short options, ` func("radioButton")` is a good interface. 
+If you want users to only be able to choose one option and there are a small number of short options, ` radioButton` is a good interface. 
 
 
 ```r
@@ -524,7 +524,7 @@ What would you set ` arg("format")` to in order to display dates like "Sunday Ju
 
 ### fileInput
 
-Users can upload one or more files with ` func("fileInput")`. The argument ` arg("accept")` lets you limit this to certain file types, but some browsers can bypass this requirement, so it's not fool-proof.
+Users can upload one or more files with ` fileInput`. The argument `accept` lets you limit this to certain file types, but some browsers can bypass this requirement, so it's not fool-proof.
 
 
 ```r
@@ -562,7 +562,7 @@ Output are ways that the Shiny app can dynamically display information to the us
 
 ## Text
 
-` func("textOutput")` defaults to text inside a generic `<span>` or `<div>`.
+`textOutput` defaults to text inside a generic `<span>` or `<div>`.
 
 
 ```r
@@ -570,7 +570,7 @@ Output are ways that the Shiny app can dynamically display information to the us
 textOutput("demo_text", container = tags$h3)
 ```
 
-`func("renderText")` replaces the text of the linked element with its returned string.
+`renderText` replaces the text of the linked element with its returned string.
 
 
 ```r
@@ -580,7 +580,7 @@ textOutput("demo_text", container = tags$h3)
   })
 ```
 
-If you use ` func("verbatimTextOutput")` in the UI (no change to the render function), it will show the output in a fixed-width font. This can be good for code or text you want the user to copy.
+If you use `verbatimTextOutput` in the UI (no change to the render function), it will show the output in a fixed-width font. This can be good for code or text you want the user to copy.
 
 
 ```r
@@ -604,7 +604,7 @@ verbatimTextOutput("demo_verbatim")
 
 ## Plots
 
-`func("plotOutput")` displays plots made with the `base R` plotting functions (e.g., `"plot"`, `hist`) or `ggplot2` functions.
+`plotOutput` displays plots made with the `base R` plotting functions (e.g., `"plot"`, `hist`) or `ggplot2` functions.
 
 
 ```r
@@ -1142,7 +1142,7 @@ It provides a flexible way to create a consistent and visually appealing design 
 You can use `bslib` functions like `bs_theme()`, to define and apply custom styles to your Shiny app.
 
 
-<iframe height="400" width="100%" frameborder="no" src="http://philip-leftwich.shinyapps.io/penguin_demo"> </iframe>
+<iframe height="400" width="100%" frameborder="no" src="https://philip-leftwich.shinyapps.io/penguin_demo"> </iframe>
 
 
 
@@ -1582,11 +1582,11 @@ The easiest way to share your apps is with (https://shinyapps.io)
 2. Go to the **`Publishing`** tab 
 3. Click the **`Connect`** button and choose ShinyApps.io
 4. Click on the link to [go to your account](https://www.shinyapps.io/){target="_blank"}
-5. Click the **`Sign Up`** button and **`Sign up with GitHub`** 
+5. Click the **`Sign Up`** button
 6. You should now be in your shinyapps.io dashboard; click on your name in the upper right and choose **`Tokens`**
 7. Add a token
-8. Click **`Show`** next to the token and copy the text to the clipboard
-    ![](images/saio_secret.png){width="100%"}
+8. Click **`Show secret`** next to the token and copy the text to the clipboard
+<img src="images/tokens2.png" width="100%" style="display: block; margin: auto;" />
 9. Go back to RStudio and paste the text in the box and click **`Connect Account`**
 10. Make sure the box next to "Enable publishing..." is ticked, click **`Apply`**, and close the options window
 
@@ -1625,22 +1625,19 @@ sessionInfo()
 ## [16] tidyverse_2.0.0     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] gtable_0.3.3      xfun_0.39         htmlwidgets_1.6.2 processx_3.8.2   
-##  [5] lattice_0.21-8    callr_3.7.3       tzdb_0.4.0        ps_1.7.5         
-##  [9] crosstalk_1.2.0   vctrs_0.6.3       tools_4.3.1       generics_0.1.3   
-## [13] fansi_1.0.4       highr_0.10        pkgconfig_2.0.3   webshot_0.5.5    
-## [17] lifecycle_1.0.3   compiler_4.3.1    textshaping_0.3.6 munsell_0.5.0    
-## [21] codetools_0.2-19  httpuv_1.6.11     htmltools_0.5.5   sass_0.4.6       
-## [25] yaml_2.3.7        pillar_1.9.0      later_1.3.1       jquerylib_0.1.4  
-## [29] thematic_0.1.3    ellipsis_0.3.2    DT_0.30           cachem_1.0.8     
-## [33] mime_0.12         tidyselect_1.2.0  digest_0.6.33     stringi_1.7.12   
-## [37] bookdown_0.34     fastmap_1.1.1     grid_4.3.1        colorspace_2.1-0 
-## [41] cli_3.6.1         magrittr_2.0.3    bsicons_0.1.1     utf8_1.2.3       
-## [45] withr_2.5.0       scales_1.2.1      promises_1.2.0.1  timechange_0.2.0 
-## [49] rmarkdown_2.23    ragg_1.2.5        hms_1.1.3         memoise_2.0.1    
-## [53] evaluate_0.21     rlang_1.1.1       downlit_0.4.3     Rcpp_1.0.11      
-## [57] xtable_1.8-4      glue_1.6.2        xml2_1.3.5        rstudioapi_0.15.0
-## [61] jsonlite_1.8.7    R6_2.5.1          systemfonts_1.0.4 fs_1.6.2
+##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
+##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
+##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
+## [13] fastmap_1.1.1     jsonlite_1.8.7    promises_1.2.0.1  fansi_1.0.4      
+## [17] scales_1.2.1      codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1        
+## [21] rlang_1.1.1       ellipsis_0.3.2    munsell_0.5.0     withr_2.5.0      
+## [25] cachem_1.0.8      yaml_2.3.7        tools_4.3.1       tzdb_0.4.0       
+## [29] memoise_2.0.1     colorspace_2.1-0  httpuv_1.6.11     mime_0.12        
+## [33] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   fs_1.6.2         
+## [37] pkgconfig_2.0.3   later_1.3.1       pillar_1.9.0      gtable_0.3.3     
+## [41] Rcpp_1.0.11       glue_1.6.2        highr_0.10        xfun_0.39        
+## [45] tidyselect_1.2.0  rstudioapi_0.15.0 xtable_1.8-4      htmltools_0.5.5  
+## [49] rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
 ```
 
 ## Github

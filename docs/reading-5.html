@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 23 Factors | Advancing in R</title>
+<title>Chapter 42 Reading | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content="23.1 Anonymising factors Sometimes you want to make your data completely anonymous so that other people can’t see sensitive information. Or because you wish to blind you own analyses we can do...">
+<meta name="description" content="We did not cover the different approaches to working with really big data in R. Instead I have provided a list of extra reading and exercises that cover this in more depth, as well as...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 23 Factors | Advancing in R">
+<meta property="og:title" content="Chapter 42 Reading | Advancing in R">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/factors-1.html">
+<meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/reading-5.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content="23.1 Anonymising factors Sometimes you want to make your data completely anonymous so that other people can’t see sensitive information. Or because you wish to blind you own analyses we can do...">
+<meta property="og:description" content="We did not cover the different approaches to working with really big data in R. Instead I have provided a list of extra reading and exercises that cover this in more depth, as well as...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 23 Factors | Advancing in R">
-<meta name="twitter:description" content="23.1 Anonymising factors Sometimes you want to make your data completely anonymous so that other people can’t see sensitive information. Or because you wish to blind you own analyses we can do...">
+<meta name="twitter:title" content="Chapter 42 Reading | Advancing in R">
+<meta name="twitter:description" content="We did not cover the different approaches to working with really big data in R. Instead I have provided a list of extra reading and exercises that cover this in more depth, as well as...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -138,7 +138,7 @@
 <li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">20</span> Reading files with readr</a></li>
 <li><a class="" href="working-across-columns.html"><span class="header-section-number">21</span> Working across columns</a></li>
 <li><a class="" href="modifying-variables.html"><span class="header-section-number">22</span> Modifying variables</a></li>
-<li><a class="active" href="factors-1.html"><span class="header-section-number">23</span> Factors</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">23</span> Factors</a></li>
 <li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">24</span> Applying functions across columns</a></li>
 <li><a class="" href="working-with-rows.html"><span class="header-section-number">25</span> Working with rows</a></li>
 <li><a class="" href="group-work.html"><span class="header-section-number">26</span> Group work</a></li>
@@ -161,7 +161,7 @@
 <li><a class="" href="rmarkdown.html"><span class="header-section-number">40</span> RMarkdown</a></li>
 <li><a class="" href="github-1.html"><span class="header-section-number">41</span> Github</a></li>
 <li class="book-part">Working with big data</li>
-<li><a class="" href="reading-5.html"><span class="header-section-number">42</span> Reading</a></li>
+<li><a class="active" href="reading-5.html"><span class="header-section-number">42</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
 <li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
@@ -171,79 +171,23 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="factors-1" class="section level1" number="23">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="reading-5" class="section level1" number="42">
 <h1>
-<span class="header-section-number">23</span> Factors<a class="anchor" aria-label="anchor" href="#factors-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">42</span> Reading<a class="anchor" aria-label="anchor" href="#reading-5"><i class="fas fa-link"></i></a>
 </h1>
-<div id="anonymising-factors" class="section level2" number="23.1">
-<h2>
-<span class="header-section-number">23.1</span> Anonymising factors<a class="anchor" aria-label="anchor" href="#anonymising-factors"><i class="fas fa-link"></i></a>
-</h2>
-<p>Sometimes you want to make your data completely anonymous so that other people can’t see sensitive information. Or because you wish to blind you own analyses we can do this with <code><a href="https://forcats.tidyverse.org/reference/fct_anon.html">forcats::fct_anon</a></code></p>
-<div class="sourceCode" id="cb445"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_anon.html">fct_anon</a></span><span class="op">(</span><span class="va">species</span>,</span>
-<span>         prefix <span class="op">=</span> <span class="st">"species_"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>We did not cover the different approaches to working with really big data in R. Instead I have provided a list of extra reading and exercises that cover this in more depth, as well as introductions to using SQL with dplyr functions:</p>
+<p><a href="https://www.r-bloggers.com/2020/09/the-fastest-way-to-read-and-writes-file-in-r/" class="uri">https://www.r-bloggers.com/2020/09/the-fastest-way-to-read-and-writes-file-in-r/</a></p>
+<p><a href="https://www.r-bloggers.com/2019/05/how-to-save-and-load-datasets-in-r-an-overview/" class="uri">https://www.r-bloggers.com/2019/05/how-to-save-and-load-datasets-in-r-an-overview/</a></p>
+<p><a href="http://www.sthda.com/english/wiki/saving-data-into-r-data-format-rds-and-rdata" class="uri">http://www.sthda.com/english/wiki/saving-data-into-r-data-format-rds-and-rdata</a></p>
+<p><a href="https://waterdata.usgs.gov/blog/formats/" class="uri">https://waterdata.usgs.gov/blog/formats/</a></p>
+<p><a href="https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/" class="uri">https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/</a></p>
+<p><a href="https://bookdown.org/csgillespie/efficientR/preface.html" class="uri">https://bookdown.org/csgillespie/efficientR/preface.html</a></p>
+<p><a href="https://github.com/sbreitbart/DataSci_for_Ecologists/blob/main/SQL_intro/SQL_intro.rmd" class="uri">https://github.com/sbreitbart/DataSci_for_Ecologists/blob/main/SQL_intro/SQL_intro.rmd</a></p>
+
 </div>
-<div id="lump-factors" class="section level2" number="23.2">
-<h2>
-<span class="header-section-number">23.2</span> Lump factors<a class="anchor" aria-label="anchor" href="#lump-factors"><i class="fas fa-link"></i></a>
-</h2>
-<p><code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_min()</a></code> is a function from the <code>forcats</code> package in R, which is used to lump or group together levels of a categorical variable in a way that keeps the most common levels intact while grouping the less common levels into an "Other" or "Miscellaneous" category.</p>
-<p>In this example, any species not represented by at least 150 observations, will be lumped into an "Other" category:</p>
-<div class="sourceCode" id="cb446"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>body_size <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_min</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html">as_factor</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span>, <span class="fl">150</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">body_size</span>,</span>
-<span>         y <span class="op">=</span> <span class="va">flipper_length_mm</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div id="ordering-factors" class="section level2" number="23.3">
-<h2>
-<span class="header-section-number">23.3</span> Ordering factors<a class="anchor" aria-label="anchor" href="#ordering-factors"><i class="fas fa-link"></i></a>
-</h2>
-<p>With the <code>fct_relevel</code> function we can set factors and apply a specified level at the same time:</p>
-<div class="sourceCode" id="cb447"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">species</span>, <span class="st">"Adelie"</span>, <span class="st">"Chinstrap"</span>, <span class="st">"Gentoo"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-tidyverse_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;"></div>
-<p>With the function <code>fct_infreq</code> we can change the order according to how frequently each level occurs</p>
-<div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-tidyverse_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;"></div>
-<p>The <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev()</a></code> function in R is used to reverse the order of levels in a factor variable. It is particularly useful for changing the order of factor levels when you want to display data in a reversed or descending order.</p>
-<div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html">as_factor</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-tidyverse_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;"></div>
-<p>The <code>fct_reorder</code> function allows us to order the levels based on another continuous variable</p>
-<div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html">as_factor</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>           <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">body_mass_g</span>,</span>
-<span>                       .fun <span class="op">=</span> <span class="va">median</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="co"># by default the levels are ordered by the median values of the continuous variable</span></span>
-<span>  <span class="co"># mean, min and max can all be included here</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>,</span>
-<span>             y <span class="op">=</span> <span class="va">body_mass_g</span>,</span>
-<span>             colour <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>,</span>
-<span>               outlier.shape <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span>,</span>
-<span>              alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-tidyverse_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;"></div>
-</div>
-</div>
+
+
+
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -424,21 +368,16 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="modifying-variables.html"><span class="header-section-number">22</span> Modifying variables</a></div>
-<div class="next"><a href="applying-functions-across-columns.html"><span class="header-section-number">24</span> Applying functions across columns</a></div>
+<div class="prev"><a href="github-1.html"><span class="header-section-number">41</span> Github</a></div>
+<div class="next"><a href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#factors-1"><span class="header-section-number">23</span> Factors</a></li>
-<li><a class="nav-link" href="#anonymising-factors"><span class="header-section-number">23.1</span> Anonymising factors</a></li>
-<li><a class="nav-link" href="#lump-factors"><span class="header-section-number">23.2</span> Lump factors</a></li>
-<li><a class="nav-link" href="#ordering-factors"><span class="header-section-number">23.3</span> Ordering factors</a></li>
-</ul>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#reading-5"><span class="header-section-number">42</span> Reading</a></li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/05-tidyverse.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/05-tidyverse.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/10-sql.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/10-sql.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

@@ -160,12 +160,8 @@
 <li class="book-part">Literate Programming and Reproducibility</li>
 <li><a class="active" href="rmarkdown.html"><span class="header-section-number">40</span> RMarkdown</a></li>
 <li><a class="" href="github-1.html"><span class="header-section-number">41</span> Github</a></li>
-<li><a class="" href="NA.html">
-to upload commits
-to the remote repository.
-</a></li>
 <li class="book-part">Working with big data</li>
-<li><a class="" href="reading-4.html"><span class="header-section-number">42</span> Reading</a></li>
+<li><a class="" href="reading-5.html"><span class="header-section-number">42</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
 <li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
@@ -1262,8 +1258,8 @@ then you can call objects made externally - in this case a penguin plot
 <h2>Activity: Test yourself<a class="anchor" aria-label="anchor" href="#activity-test-yourself-2"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
-<li><p>Make any summary figure you want from the penguins data with <code>ggplot</code></p></li>
-<li><p>Make a summary table with <code>summarise</code> and make it beautiful with <code>kableExtra</code> or <code><a href="https://gt.rstudio.com/reference/gt.html">gt()</a></code></p></li>
+<li><p>Make any summary figure you want from the penguins (or any other) data with <code>ggplot</code></p></li>
+<li><p>Make a summary table with <code>summarise</code> and make it beautiful with <code><a href="https://gt.rstudio.com/reference/gt.html">gt()</a></code></p></li>
 <li><p>Write a few sentences explaining what you are presenting</p></li>
 <li><p>Knit the report to <strong>html</strong></p></li>
 <li><p>Use chunk options to optimise your figure layout and text and make it so that raw code and rendered outputs are visible. An example of literate programming</p></li>
@@ -1352,14 +1348,27 @@ my_table &lt;- table(mtcars$cyl)</code></pre>
 <h2>Quarto<a class="anchor" aria-label="anchor" href="#quarto"><i class="fas fa-link"></i></a>
 </h2>
 <p>The visual editor was a precursor to a new type of publishing tool - Quarto. this tool takes what R Markdown has done for R and extends it to other languages, including Python, Julia, and Observable JS. As I write this book, Quarto is gaining traction. Luckily, the concepts you’ve learned in this chapter apply to Quarto as well. Quarto documents have a YAML section, code chunks, and Markdown text. You can export Quarto documents to HTML, PDF, and Word. However, R Markdown and Quarto documents have some syntactic differences.</p>
+</div>
+<div id="extended-outputs" class="section level2" number="40.1">
+<h2>
+<span class="header-section-number">40.1</span> Extended outputs<a class="anchor" aria-label="anchor" href="#extended-outputs"><i class="fas fa-link"></i></a>
+</h2>
+<p>Rmarkdown and Quarto can produce a vast number of different file ouputs including:</p>
+<ul>
+<li><p>Slides - xaringan or reveal.js</p></li>
+<li><p>Dashboards</p></li>
+<li><p>Websites</p></li>
+<li><p>E-books</p></li>
+<li><p>Journal papers</p></li>
+</ul>
+<p>I recommend the reading list below for expanding your abilities with reproducible documents:</p>
 <div id="further-reading-guides-and-tips" class="section level3 unnumbered">
 <h3>Further Reading, Guides and tips<a class="anchor" aria-label="anchor" href="#further-reading-guides-and-tips"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li><p><a href="https://www.rstudio.com/resources/cheatsheets/">R Cheat Sheets</a></p></li>
-<li><p><span class="citation">Xie (<a href="packages-for-automated-exploratory-data-analysis.html#ref-xie2015">2015</a>)</span> Dynamic documents with Rmarkdown</p></li>
+<li><p><strong>Rmarkdown: The Definitive Guide</strong> <a href="https://bookdown.org/yihui/rmarkdown/" class="uri">https://bookdown.org/yihui/rmarkdown/</a></p></li>
 </ul>
-<p><em>The fully comprehensive guide</em></p>
 <p>(<a href="https://rmarkdown.rstudio.com/articles_intro.html" class="uri">https://rmarkdown.rstudio.com/articles_intro.html</a>)</p>
 <p>(<a href="https://rmarkdown.rstudio.com/authoring_quick_tour.html" class="uri">https://rmarkdown.rstudio.com/authoring_quick_tour.html</a>)</p>
 <ul>
@@ -1602,8 +1611,9 @@ $( document ).ready(function() {
 </ul>
 </li>
 <li><a class="nav-link" href="#visual-editor">Visual editor</a></li>
+<li><a class="nav-link" href="#quarto">Quarto</a></li>
 <li>
-<a class="nav-link" href="#quarto">Quarto</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#further-reading-guides-and-tips">Further Reading, Guides and tips</a></li></ul>
+<a class="nav-link" href="#extended-outputs"><span class="header-section-number">40.1</span> Extended outputs</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#further-reading-guides-and-tips">Further Reading, Guides and tips</a></li></ul>
 </li>
 </ul>
 

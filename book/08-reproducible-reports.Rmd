@@ -720,9 +720,9 @@ source("scripts/penguins.R")
 
 ## Activity: Test yourself {-}
 
-* Make any summary figure you want from the penguins data with `ggplot`
+* Make any summary figure you want from the penguins (or any other) data with `ggplot`
 
-* Make a summary table with `summarise` and make it beautiful with `kableExtra` or `gt()`
+* Make a summary table with `summarise` and make it beautiful with `gt()`
 
 * Write a few sentences explaining what you are presenting
 
@@ -819,13 +819,28 @@ You can switch between modes with a button push, try it out!
 The visual editor was a precursor to a new type of publishing tool - Quarto. this tool takes what R Markdown has done for R and extends it to other languages, including Python, Julia, and Observable JS. As I write this book, Quarto is gaining traction. Luckily, the concepts you’ve learned in this chapter apply to Quarto as well. Quarto documents have a YAML section, code chunks, and Markdown text. You can export Quarto documents to HTML, PDF, and Word. However, R Markdown and Quarto documents have some syntactic differences. 
 
 
+## Extended outputs
+
+Rmarkdown and Quarto can produce a vast number of different file ouputs including:
+
+* Slides - xaringan or reveal.js
+
+* Dashboards
+
+* Websites
+
+* E-books
+
+* Journal papers
+
+I recommend the reading list below for expanding your abilities with reproducible documents: 
+
+
 ### Further Reading, Guides and tips {-}
 
 * [R Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
 
-* @xie2015 Dynamic documents with Rmarkdown
-
-*The fully comprehensive guide*
+* **Rmarkdown: The Definitive Guide** https://bookdown.org/yihui/rmarkdown/
 
 (https://rmarkdown.rstudio.com/articles_intro.html)
 

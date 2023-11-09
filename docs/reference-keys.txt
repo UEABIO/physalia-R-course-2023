@@ -386,6 +386,7 @@ github
 in-an-r-package
 further-reading-1
 rmarkdown
+extended-outputs
 github-1
 lets-git-it-started
 what-is-version-control
@@ -404,8 +405,11 @@ make-a-pull-request
 see-changes
 a-couple-of-general-tips
 beautify-your-profile
+get-a-doi-from-your-github-project
 glossary-github
 reading-4
+bonus-exercise
+reading-5
 packages-for-automated-exploratory-data-analysis
 skimr-for-automated-data-quality-checking
 how-skimr-works

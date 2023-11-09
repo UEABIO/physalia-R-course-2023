@@ -64,12 +64,9 @@ If a team-mate changes a file and pushes the changes it to the remote repository
 And if you want to try the command line:
 
 <div class="info">
-<h1 id="to-upload-commits-to-the-remote-repository.">to upload commits
-to the remote repository.</h1>
+<p>to upload commits to the remote repository.</p>
 <p>git push</p>
-<h1
-id="to-download-commits-from-the-remote-repository-to-the-local-repo.">to
-download commits from the remote repository to the local repo.</h1>
+<p>to download commits from the remote repository to the local repo.</p>
 <p>git pull</p>
 </div>
 
@@ -366,6 +363,14 @@ https://dev.to/ruppysuppy/beautify-your-github-profile-like-a-pro-5093
 
 https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme
 
+
+## Get a DOI from your Github project
+
+With a well organised and contained analysis project made into a repository on Github it becomes a one-click button process to generate a permanent DOI through repositories such as [Zenodo](https://zenodo.org/) or [Figshare](https://figshare.com/). A great payoff for having spent the time organising your projects from the beginning! 
+
+<img src="images/zenodo-badge.png" width="100%" style="display: block; margin: auto;" />
+
+
 ## Glossary-GitHub
 
 <table>
@@ -432,11 +437,15 @@ https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-gith
 </table>
 
 
-Reading
+## Reading
 
 *  [Happy Git](https://happygitwithr.com/)
 
+## BONUS EXERCISE
 
+This is a great exercise in practising dealing with merge conflicts when collaborating. To complete this exercise you will need a partner
+
+https://learning.nceas.ucsb.edu/2023-04-coreR/session_10.html
 
 
 

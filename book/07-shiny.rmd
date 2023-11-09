@@ -409,7 +409,7 @@ Experiment with the values of ` arg("label")`, ` arg("value")`, ` arg("width")`,
 
 ### textAreaInput
 
-`func("textAreaInput")` creates a multi-line box for longer text input.
+`"textAreaInput"` creates a multi-line box for longer text input.
 
 ```{r, eval = F}
 demo_textarea <- 
@@ -427,7 +427,7 @@ What is the `arg("inputId")` of the widget above?
 
 ### selectInput
 
-`func("selectInput")` creates a drop-down menu. Set the first ` arg("choice")` to `""` to default to `NA`. If your choices are a named `"list"` or `"vector"`, the names are what is shown and the values are what is recorded. If the choices aren't named, the displayed and recorded values are the same.
+`selectInput` creates a drop-down menu. Set the first ` arg("choice")` to `""` to default to `NA`. If your choices are a named `"list"` or `"vector"`, the names are what is shown and the values are what is recorded. If the choices aren't named, the displayed and recorded values are the same.
 
 ```{r, eval = FALSE}
 demo_select <- 
@@ -462,7 +462,7 @@ demo_select_multi <-
 
 ### checkboxGroupInput
 
-However, this interface almost always looks better with ` func("checkboxGroupInput")`. 
+However, this interface almost always looks better with ` checkboxGroupInput`. 
 
 ```{r, eval = FALSE}
 demo_cbgi <-
@@ -478,7 +478,7 @@ How can you get the checkboxes to display horizontally instead of vertically?
 
 ### checkboxInput
 
-You can also make a single checkbox with ` func("checkboxInput")`. The ` arg("value")` is ` dt(TRUE)` when checked and ` dt(FALSE)` when not.
+You can also make a single checkbox with `checkboxInput`. The `value` is ` dt(TRUE)` when checked and ` dt(FALSE)` when not.
 
 ```{r, eval = FALSE}
 demo_cb <- checkboxInput("demo_cb",
@@ -486,7 +486,7 @@ demo_cb <- checkboxInput("demo_cb",
                          value = TRUE)
 ```
 
-` func("sliderInput")` allows you to choose numbers between a ` arg("min")` and ` arg("max")` value.
+` sliderInput` allows you to choose numbers between a `min` and `max` value.
 
 ```{r, eval = FALSE}
 demo_slider <- sliderInput("demo_slider",
@@ -505,7 +505,7 @@ What happens if you change ` arg("value")` or ` arg("step")`? Try changing ` arg
 
 ### radioButtons
 
-If you want users to only be able to choose one option and there are a small number of short options, ` func("radioButton")` is a good interface. 
+If you want users to only be able to choose one option and there are a small number of short options, ` radioButton` is a good interface. 
 
 ```{r, eval = FALSE}
 demo_radio <- radioButtons("demo_radio",
@@ -542,7 +542,7 @@ What would you set ` arg("format")` to in order to display dates like "Sunday Ju
 
 ### fileInput
 
-Users can upload one or more files with ` func("fileInput")`. The argument ` arg("accept")` lets you limit this to certain file types, but some browsers can bypass this requirement, so it's not fool-proof.
+Users can upload one or more files with ` fileInput`. The argument `accept` lets you limit this to certain file types, but some browsers can bypass this requirement, so it's not fool-proof.
 
 ```{r, eval = FALSE}
 demo_file <- fileInput("demo_file",
@@ -579,14 +579,14 @@ Output are ways that the Shiny app can dynamically display information to the us
 
 ## Text
 
-` func("textOutput")` defaults to text inside a generic `<span>` or `<div>`.
+`textOutput` defaults to text inside a generic `<span>` or `<div>`.
 
 ```{r, eval = FALSE}
 # in the UI function
 textOutput("demo_text", container = tags$h3)
 ```
 
-`func("renderText")` replaces the text of the linked element with its returned string.
+`renderText` replaces the text of the linked element with its returned string.
 
 ```{r, eval = FALSE}
 # in the server function
@@ -595,7 +595,7 @@ textOutput("demo_text", container = tags$h3)
   })
 ```
 
-If you use ` func("verbatimTextOutput")` in the UI (no change to the render function), it will show the output in a fixed-width font. This can be good for code or text you want the user to copy.
+If you use `verbatimTextOutput` in the UI (no change to the render function), it will show the output in a fixed-width font. This can be good for code or text you want the user to copy.
 
 ```{r, eval = FALSE}
 # in the UI function
@@ -618,7 +618,7 @@ verbatimTextOutput("demo_verbatim")
 
 ## Plots
 
-`func("plotOutput")` displays plots made with the `base R` plotting functions (e.g., `"plot"`, `hist`) or `ggplot2` functions.
+`plotOutput` displays plots made with the `base R` plotting functions (e.g., `"plot"`, `hist`) or `ggplot2` functions.
 
 ```{r, eval = FALSE}
 # in the UI function
@@ -1150,7 +1150,7 @@ It provides a flexible way to create a consistent and visually appealing design 
 You can use `bslib` functions like `bs_theme()`, to define and apply custom styles to your Shiny app.
 
 
-<iframe height="400" width="100%" frameborder="no" src="http://philip-leftwich.shinyapps.io/penguin_demo"> </iframe>
+<iframe height="400" width="100%" frameborder="no" src="https://philip-leftwich.shinyapps.io/penguin_demo"> </iframe>
 
 
 ```{r, eval = FALSE}
@@ -1594,11 +1594,15 @@ The easiest way to share your apps is with (https://shinyapps.io)
 2. Go to the **`Publishing`** tab 
 3. Click the **`Connect`** button and choose ShinyApps.io
 4. Click on the link to [go to your account](https://www.shinyapps.io/){target="_blank"}
-5. Click the **`Sign Up`** button and **`Sign up with GitHub`** 
+5. Click the **`Sign Up`** button
 6. You should now be in your shinyapps.io dashboard; click on your name in the upper right and choose **`Tokens`**
 7. Add a token
-8. Click **`Show`** next to the token and copy the text to the clipboard
-    ![](images/saio_secret.png){width="100%"}
+8. Click **`Show secret`** next to the token and copy the text to the clipboard
+```{r , echo=FALSE}
+
+knitr::include_graphics("images/tokens2.png")
+
+```
 9. Go back to RStudio and paste the text in the box and click **`Connect Account`**
 10. Make sure the box next to "Enable publishing..." is ticked, click **`Apply`**, and close the options window
 
