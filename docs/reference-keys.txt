@@ -332,6 +332,7 @@ text
 ggforce
 textpaths
 ggtext
+scales
 maps
 layouts-and-compositions
 activity-create-a-publication-style-multi-panel-figure
@@ -340,6 +341,7 @@ making-tables-with-gt
 avoid-vertical-lines
 use-better-column-names-and-make-them-stand-out
 alignment
+move-columns-around
 avoid-repetitive-information
 remove-missing-numbers
 add-summaries

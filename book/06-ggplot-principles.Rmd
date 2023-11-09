@@ -18,6 +18,12 @@ Up until now, we've created basic plots with the default visual style. Before we
 
 You can customize the appearance of elements within a specific plot element, through aesthetic mapping, or by adding extra layers using the plus sign (+). In this section, we'll focus on the most common and easy-to-implement customizations, like changing colors, including axis labels, and applying different themes to your plots.
 
+```{block, type = "info"}
+
+You will need your cleaned penguins dataframe from Day One.
+
+```
+
 ## Colours
 
 There are two main differences when it comes to colors in `ggplot2`. Both arguments, color and fill, can be specified as single color or
@@ -477,14 +483,14 @@ p1 <- penguins |>
   ggplot(aes(x=flipper_length_mm, 
              y = culmen_length_mm))+
   geom_point(aes(colour=species))+
-  scale_color_manual(values=penguin_colours)+
+  scale_color_manual(values=pal)+
   theme_minimal()
 
 p2 <- penguins |> 
   ggplot(aes(x=culmen_depth_mm, 
              y = culmen_length_mm))+
   geom_point(aes(colour=species))+
-  scale_color_manual(values=penguin_colours)+
+  scale_color_manual(values=pal)+
   theme_minimal()
 
 p3 <- penguins |>     
@@ -947,6 +953,7 @@ penguins |>
 
 library(ggtext)
 
+
 penguins |> 
   mutate(species = fct_relevel(species, "Chinstrap", "Gentoo", "Adelie")) |> 
   group_by(species) |> 
@@ -966,16 +973,110 @@ ggplot(aes(x = species,
          'There are almost half the observations on <br> <span style = "color:#A034F0">Chinstrap</span> penguins,  as there are <br> on <span style = "color:#FF8C00">Adelie</span> and <span style ="color:#159090">Gentoo</span>penguins'
        ))+
   scale_fill_manual(
-    # when reordering levels - be careful about keeping colours consistent
-    values = c("#FF8C00", "#159090", "#A034F0"))+
+    # when reordering levels - be careful about keeping colours consistent!!! May need manually sorting
+    values = pal)+
   coord_flip()+
   scale_y_continuous(limits = c(0, 200))+
   theme(legend.position = "none",
         axis.text.y = element_text(
-      color = c("#FF8C00", "#159090", "#A034F0")),
+      color = c( "#A034F0", "#159090", "#FF8C00")),
       plot.title = element_markdown())
 
 ```
+
+
+### scales
+
+The `scales`package provides much of the infrastructure that underlies ggplot2’s scales, and using it allow you to customize the transformations, breaks, and labels used by ggplot2. It is particularly good at providing sensible labels apply transformations such as a log scale. 
+
+```{r}
+library(scales)
+
+penguins |>  
+    ggplot(aes(x = culmen_length_mm, 
+               y = species,
+               fill = species)) +
+  geom_density_ridges() + # use hjust and vjust to position text
+  scale_fill_manual(values = pal) +
+  scale_colour_manual(values = pal)+
+  theme(legend.position = "none") +
+  scale_x_continuous(labels = label_number(
+    scale_cut = cut_si("mm")))+
+  labs( x = "Bill length",
+        y = "Species")
+
+```
+
+Here is a good example of the `scales` package in action.
+
+The distribution of GDP per capita in the `gapminder` dataset is heavily skewed, with most countries reporting less than $10,000. As a result, the scatterplot makes an upside-down L shape. Try sticking a regression line on that and you’ll get in trouble.
+
+```{r}
+library(gapminder)
+gapminder |> 
+  filter(year == 2007) |> 
+ggplot(aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point() +
+  guides(color = "none") +
+  labs(title = "GDP per capita",
+       subtitle = "GDP per capita raw values")
+
+```
+
+Fit this onto a log scale (R's standard log function is the natural log). And we get a straighter line but some ugly axis labels.
+
+```{r}
+
+gapminder |> 
+  filter(year == 2007) |> 
+ggplot(aes(x = log(gdpPercap), y = lifeExp, color = continent)) +
+  geom_point() +
+  guides(color = "none") +
+  labs(title = "GDP per capita, natural log (base e)",
+       subtitle = "GDP per capita logged manually")
+
+
+```
+
+GGplot has a `scale_x/y_log10` scale but this applues the wrong transformation to our data - in this particular example there is little difference in the range of values when using a `log10` vs `log` transformation (as we will see in a moment).
+
+```{r}
+
+gapminder |> 
+  filter(year == 2007) |> 
+ggplot(aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point() +
+  guides(color = "none") +
+  labs(title = "GDP per capita, log (base 10)",
+       subtitle = "GDP per capita logged with scale") +
+  scale_x_log10()
+
+```
+
+But we can set whatever custom transformation we wish
+
+
+```{r}
+
+log_natural <- trans_new(
+  name = "logn",
+  transform = function(x) log(x),
+  inverse = function(x) exp(x),
+  breaks = log_breaks()
+)
+
+gapminder |> 
+  filter(year == 2007) |> 
+ggplot(aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point() +
+  guides(color = "none") +
+  labs(title = "GDP per capita, natural log (base e)",
+       subtitle = "GDP per capita logged manually") +
+  scale_x_continuous(trans = log_natural,
+                     labels = label_dollar(accuracy = 1))
+
+```
+
 
 
 ## Maps
@@ -1236,7 +1337,13 @@ In this chapter, we will accomplish two main objectives:
 2. Apply these principles using the `gt` package.
 Naturally, to put these ideas into practice, we'll utilize the fantastic penguins dataset from `palmerpenguins` since I have a preference for penguins.
 
+PROS: Why `gt`? Has a grammar of tables, like `ggplot2`, supports HTML, Latex and RTF, followstidyverse conventions.
+
+CONS: Still quite new, syntax is changing and developing. 
+
 For these tutorials we will use the `gt` package and helpers provided by `gtExtras`.
+
+To follow along when you run a section of code, look for the output in the **Viewer Pane**
 
 ```{r, echo = F}
 
@@ -1252,8 +1359,7 @@ library(gtExtras)
 
 ```
 
-Let's use this dataset to tally the penguins. These counts will provide us with a straightforward dataset to use for practicing table construction.
-
+Let's use this dataset to tally the penguins. These counts will provide us with a straightforward dataset to use for practicing table construction. You will need your cleaned penguins dataframe from Day One.
 
 ```{r}
 
@@ -1313,7 +1419,11 @@ penguin_counts_wider |>
 
 ### Use better column names and make them stand out
 
-To modify the column names, you can employ the "layer" named cols_layer(). Similar to how {ggplot2} operates with layers, {gt} follows a similar approach. To make any adjustments to the table, you simply transfer it from one layer to the next, which can be done conveniently through piping. With this understanding, we can label the columns just as we did previously.
+The [`cols_*()` functions](https://gt.rstudio.com/reference/index.html#section-modify-columns) allow for modifications of entire columns.
+
+We can control the column labels, cell alignment, column width and placement plus can combine multiple columns with `cols_*()` functions.
+
+To modify the column names, you can employ the "layer" named `cols_layer()`. Similar to how {ggplot2} operates with layers, {gt} follows a similar approach. To make any adjustments to the table, you simply transfer it from one layer to the next, which can be done conveniently through piping. With this understanding, we can label the columns just as we did previously.
 
 ```{r}
 penguin_counts_wider |> 
@@ -1331,7 +1441,11 @@ penguin_counts_wider |>
 
 ```
 
-However, labeling the columns in this manner may not be the most effective approach. Let's explore an alternative method. First, we can create what are known as "spanners," which are merged columns. These can be generated using `tab_spanner()` layers, with one layer dedicated to each spanner.
+However, labeling the columns in this manner may not be the most effective approach. Let's explore an alternative method. First, we can create what are known as "spanners," which are merged columns. 
+
+We can modify the look of table parts more generally with [tab_*()] functions 
+
+Here we can generate column spanners with `tab_spanner()` layers, with one layer dedicated to each spanner. You can also control text formatting of labels with Markdown or HTML syntax. This can be used on any text in a **gt** table. Here I have applied some `md` to put my spanners in **bold**.
 
 ```{r}
 penguin_counts_wider |> 
@@ -1433,7 +1547,6 @@ penguin_counts_wider |>
 
 We could if we wanted wrap this into a simple function - as the headers and titles will not change across this tutorial:
 
-
 ```{r}
 labels_and_title <- function(gt_tbl){
  gt_tbl |> 
@@ -1465,7 +1578,9 @@ penguin_counts_wider |>
 
 ### Alignment
 
-the gt() function aligns the columns differently based on the data types present in the corresponding data frame or tibble. This is because different data types are typically formatted and aligned differently to improve the visual representation of the table. Here's why these default alignments make sense:
+Align all text within a column using `cols_align()`. Most commonly we left-align text with varying length and right-align numbers.
+
+Here's why these default alignments make sense:
 
 - Numbers to the Right: Numeric values, such as counts, are usually aligned to the right because this aligns the decimal points and makes it easier to compare and perform calculations with numbers. It also allows for neat alignment of digits, which is particularly important when working with large datasets.
 
@@ -1475,7 +1590,7 @@ the gt() function aligns the columns differently based on the data types present
 
 These default alignments are well-established conventions in table formatting and help readers quickly interpret and work with tabular data. They follow a balance between readability, aesthetics, and the nature of the data being presented.
 
-Island is currently coded as a factor, we could recoded this in our data, or we can use the `cols_align()` layer:
+Island is currently coded as a factor, we could recode this in our data, or we can use the `cols_align()` layer:
 
 ```{r}
 
@@ -1487,12 +1602,30 @@ penguin_counts_wider |>
   cols_align(
     align = 'left', 
     columns = where(is.factor)
-  )
+  ) 
 ```
+
+### Move columns around
+
+Move columns to the start or end or wherever you like with `cols_move_*()` functions
+
+```{r}
+penguin_counts_wider |> 
+  gt() |> 
+  cols_label(.list = desired_colnames) |> 
+  labels_and_title()  |> 
+  cols_align(align = 'right', columns = 'year') |> 
+  cols_align(
+    align = 'left', 
+    columns = where(is.factor)
+  ) |> 
+  cols_move_to_start(columns = vars(year))
+```
+
 
 ### Avoid repetitive information
 
-Removing repetitive columns and using additional rows to group data can indeed enhance the readability of a table. In the context of the `gt` package, achieving this is straightforward. Here's how you can do it:
+Removing repetitive columns and using additional rows to group data can indeed enhance the readability of a table. In the context of the `gt` package, achieving this is straightforward. Here's how you can do it with `group_name_col()` Specifying which group to use and which columns to apply this grouping to:
 
 ```{r}
 penguin_counts_wider |> 
@@ -1506,7 +1639,7 @@ penguin_counts_wider |>
 
 ```
 
-But an island label could be nice. The easiest way to add that to the group names is via string manipulation before gt() is called.
+But an island label could be nice. The easiest way to add that to the group names is via string manipulation before `gt()` is called.
 
 ```{r}
 penguin_counts_wider |> 
@@ -1558,7 +1691,8 @@ penguin_counts_wider |>
 
 ### Add summaries
 
-If we think it is necessary we could even add some summaries to the tables with `summary_rows()`
+If we think it is necessary we could even add some summaries to the tables with `summary_rows()`.
+Sub-zero doesn't seem to work in the summaries, so we have to include a workaround:
 
 ```{r}
 penguin_counts_wider |> 
@@ -1573,13 +1707,13 @@ penguin_counts_wider |>
   sub_zero(zero_text = '-')|>
    summary_rows(
     groups = everything(),
-    fns = list(
-      "Mean" = ~mean(., na.rm = T),
-      "Total" = ~sum(., na.rm = T)
+   fns = list(
+      "Mean" = ~na_if(mean(., na.rm = TRUE), 0),
+      "Total" = ~na_if(sum(., na.rm = TRUE), 0)
     ),
-    formatter = fmt_number,
-    decimals = 0
-  )
+    fmt = list(~fmt_number(., decimals = 0)),
+    missing_text = "-")
+  
 
 ```
 
@@ -1587,7 +1721,7 @@ penguin_counts_wider |>
 
 With the additional information incorporated into the table, it has grown in length, which may not be ideal. To address this, we can make the table more concise by decreasing the row heights. 
 
-To achieve this, we can adjust the so-called `data_row.padding` to 2 pixels. You can accomplish this using the `tab_options()` function, which is a central layer for styling the table. Similarly, there are padding options available for summary_row and row_group. While we're at it, it's a good idea to enhance the table's appearance by applying a predefined theme using `opt_stylize()`.
+To achieve this, we can adjust the so-called `data_row.padding` to 2 pixels. You can accomplish this using the `tab_options()` function, which is a central layer for styling the table. Similarly, there are padding options available for `summary_row` and `row_group`. While we're at it, it's a good idea to enhance the table's appearance by applying a predefined theme using `opt_stylize()`.
 
 ```{r}
 penguin_counts_wider |> 
@@ -1602,13 +1736,12 @@ penguin_counts_wider |>
   sub_zero(zero_text = '-')|>
    summary_rows(
     groups = everything(),
-    fns = list(
-      "Mean" = ~mean(., na.rm = T),
-      "Total" = ~sum(., na.rm = T)
+   fns = list(
+      "Mean" = ~na_if(mean(., na.rm = TRUE), 0),
+      "Total" = ~na_if(sum(., na.rm = TRUE), 0)
     ),
-    formatter = fmt_number,
-    decimals = 0
-  ) |> 
+    fmt = list(~fmt_number(., decimals = 0)),
+    missing_text = "-") |> 
     tab_options(
     data_row.padding = px(2),
     summary_row.padding = px(3), # A bit more padding for summaries
@@ -1618,82 +1751,6 @@ penguin_counts_wider |>
 
 ```
 
-To address the inconsistency in how zeroes are displayed in summary rows, we'll handle missing values more effectively. Instead of replacing all NAs with zeros, we'll let them remain as NAs and use `sub_missing()` to replace them with a hyphen '-'. In the `summary_rows()` function, we can then specify missing_text = "-"
-
-Try and implement this, then check below the code fold for the answer
-
-```{r, echo = F}
-penguin_counts_wider |> 
-  mutate(
-    island = as.character(island), 
-    year = as.numeric(year),
-    island = paste0('Island: ', island)
-  ) |> 
-  # mutate integers
-    mutate(across(.cols = where(is.integer), .fns = ~ifelse(.x <= 0, NA, . ))) |> 
-  gt(groupname_col = 'island', rowname_col = 'year') |> 
-  cols_label(.list = desired_colnames) |> 
-  labels_and_title()  |> 
-  #change function
-  sub_missing(missing_text = '-')|>
-   summary_rows(
-    groups = everything(),
-    fns = list(
-      "Mean" = ~mean(., na.rm = T),
-      "Total" = ~sum(.)
-    ),
-    formatter = fmt_number,
-    decimals = 0,
-    # new option here
-    missing_text = "-"
-  ) |> 
-    tab_options(
-    data_row.padding = px(2),
-    summary_row.padding = px(3), 
-    row_group.padding = px(4)    
-  ) |> 
-  opt_stylize(style = 6, color = 'gray')
-
-```
-
-```{solution}
-
-``{r, eval = F}
-
-penguin_counts_wider |> 
-  mutate(
-    island = as.character(island), 
-    year = as.numeric(year),
-    island = paste0('Island: ', island)
-  ) |> 
-  # mutate integers
-    mutate(across(.cols = where(is.integer), .fns = ~ifelse(.x <= 0, NA, . ))) |> 
-  gt(groupname_col = 'island', rowname_col = 'year') |> 
-  cols_label(.list = desired_colnames) |> 
-  labels_and_title()  |> 
-  #change function
-  sub_missing(missing_text = '-')|>
-   summary_rows(
-    groups = everything(),
-    fns = list(
-      "Mean" = ~mean(., na.rm = T),
-      "Total" = ~sum(.)
-    ),
-    formatter = fmt_number,
-    decimals = 0,
-    # new option here
-    missing_text = "-"
-  ) |> 
-    tab_options(
-    data_row.padding = px(2),
-    summary_row.padding = px(3), 
-    row_group.padding = px(4)    
-  ) |> 
-  opt_stylize(style = 6, color = 'gray')
-
-``
-
-```
 
 
 ### Use appropriate colour
@@ -1707,29 +1764,23 @@ penguin_counts_wider |>
     year = as.numeric(year),
     island = paste0('Island: ', island)
   ) |> 
-  # mutate integers
-    mutate(across(.cols = where(is.integer), .fns = ~ifelse(.x <= 0, NA, . ))) |> 
   gt(groupname_col = 'island', rowname_col = 'year') |> 
   cols_label(.list = desired_colnames) |> 
   labels_and_title()  |> 
-  #change function
-  sub_missing(missing_text = '-')|>
+  sub_zero(zero_text = '-')|>
    summary_rows(
     groups = everything(),
-    fns = list(
-      "Mean" = ~mean(., na.rm = T),
-      "Total" = ~sum(.)
+   fns = list(
+      "Mean" = ~na_if(mean(., na.rm = TRUE), 0),
+      "Total" = ~na_if(sum(., na.rm = TRUE), 0)
     ),
-    formatter = fmt_number,
-    decimals = 0,
-    # new option here
-    missing_text = "-"
-  ) |> 
+    fmt = list(~fmt_number(., decimals = 0)),
+    missing_text = "-") |> 
     tab_options(
     data_row.padding = px(2),
-    summary_row.padding = px(3), 
-    row_group.padding = px(4)    
-  ) |> 
+    summary_row.padding = px(3), # A bit more padding for summaries
+    row_group.padding = px(4)    # And even more for our groups
+   )|> 
     tab_style(style = cell_text(color = "orange",
                               weight = "bold"),
             locations = cells_body(
@@ -1752,29 +1803,23 @@ penguin_counts_wider |>
     year = as.numeric(year),
     island = paste0('Island: ', island)
   ) |> 
-  # mutate integers
-    mutate(across(.cols = where(is.integer), .fns = ~ifelse(.x <= 0, NA, . ))) |> 
   gt(groupname_col = 'island', rowname_col = 'year') |> 
   cols_label(.list = desired_colnames) |> 
   labels_and_title()  |> 
-  #change function
-  sub_missing(missing_text = '-')|>
+  sub_zero(zero_text = '-')|>
    summary_rows(
     groups = everything(),
-    fns = list(
-      "Mean" = ~mean(., na.rm = T),
-      "Total" = ~sum(.)
+   fns = list(
+      "Mean" = ~na_if(mean(., na.rm = TRUE), 0),
+      "Total" = ~na_if(sum(., na.rm = TRUE), 0)
     ),
-    formatter = fmt_number,
-    decimals = 0,
-    # new option here
-    missing_text = "-"
-  ) |> 
+    fmt = list(~fmt_number(., decimals = 0)),
+    missing_text = "-") |> 
     tab_options(
     data_row.padding = px(2),
-    summary_row.padding = px(3), 
-    row_group.padding = px(4)    
-  ) |> 
+    summary_row.padding = px(3), # A bit more padding for summaries
+    row_group.padding = px(4)    # And even more for our groups
+   )|>  
     tab_style(style = cell_text(color = "orange",
                               weight = "bold"),
             locations = cells_body(
@@ -1828,30 +1873,24 @@ penguin_counts_wider |>
     year = as.numeric(year),
     island = paste0('Island: ', island)
   ) |> 
-  # mutate integers
-    mutate(across(.cols = where(is.integer), .fns = ~ifelse(.x <= 0, NA, . ))) |> 
   gt(groupname_col = 'island', rowname_col = 'year') |> 
   cols_label(.list = desired_colnames) |> 
   labels_and_title()  |> 
-  #change function
-  sub_missing(missing_text = '-')|>
+  sub_zero(zero_text = '-')|>
    summary_rows(
     groups = everything(),
-    fns = list(
-      "Mean" = ~mean(., na.rm = T),
-      "Total" = ~sum(.)
+   fns = list(
+      "Mean" = ~na_if(mean(., na.rm = TRUE), 0),
+      "Total" = ~na_if(sum(., na.rm = TRUE), 0)
     ),
-    formatter = fmt_number,
-    decimals = 0,
-    # new option here
-    missing_text = "-"
-  ) |> 
+    fmt = list(~fmt_number(., decimals = 0)),
+    missing_text = "-") |> 
     tab_options(
     data_row.padding = px(2),
-    summary_row.padding = px(3), 
-    row_group.padding = px(4)    
-  ) |> 
-data_color(colors = c("#FEF0D9", "#990000"), domain = c(0,30))
+    summary_row.padding = px(3), # A bit more padding for summaries
+    row_group.padding = px(4)    # And even more for our groups
+   )|>  
+data_color(palette = c("#FEF0D9", "#990000"), domain = c(0,30))
 
 ```
 
@@ -1995,11 +2034,11 @@ Later you’ll learn how to create reports using R Markdown, which can integrate
 
 Consult the following resources to learn about table design principles and how to make high-quality tables with the gt package:
 
+["gt package intro"](https://gt.rstudio.com/articles/gt.html)
+
 “Ten Guidelines for Better Tables” by Jon Schwabish (Journal of Benefit-Cost Analysis, 2020), https://doi.org/10.1017/bca.2020.11
 
 “10+ Guidelines for Better Tables in R” by Tom Mock (2020), https://themockup.blog/posts/2020-09-04-10-table-rules-in-r/
-
-“Creating beautiful tables in R with {gt}” by Albert Rapp (2022), https://gt.albert-rapp.de/
 
 
 
