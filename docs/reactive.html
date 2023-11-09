@@ -181,7 +181,7 @@ to the remote repository.
 </h1>
 <p>Reactivity is how Shiny determines which code in server() gets to run when. Some types of objects, such as the input object or objects made by <code><a href="https://rdrr.io/pkg/shiny/man/reactiveValues.html">reactiveValues()</a></code>, can trigger some types of functions to run whenever they change.</p>
 <p>In the example below if you move the data filtering outside of <code><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot()</a></code>, you'll get an error message like "Can't access reactive value outside of reactive consumer." This means that the input values can only be read inside certain functions, like <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive()</a></code>, <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent()</a></code>, or a render function like <code><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot()</a></code>.</p>
-<div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb615"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -268,7 +268,7 @@ Caused by error in `input$species`:
 ℹ Do you need to wrap inside reactive() or observe()?
 </code></pre>
 <p>However, we can put the data filtering inside <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive()</a></code>. This means that whenever an input inside that function changes, the code will run and update the value of <code><a href="https://rdrr.io/r/utils/data.html">data()</a></code>. This can be useful if you need to recalculate the data table each time the inputs change, and then use it in more than one function.</p>
-<div class="sourceCode" id="cb618"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb617"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -360,7 +360,7 @@ Caused by error in `input$species`:
 </h2>
 <p>What if you only want to update things when an update button is clicked, and not whenever the user changes an option?</p>
 <p><code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent()</a></code>. This function runs the code whenever the value of the first argument changes. If there are reactive values inside the function, they won't trigger the code to run when they change.</p>
-<div class="sourceCode" id="cb619"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb618"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Packages ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span>       <span class="co"># Essential for running any Shiny app</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -451,7 +451,12 @@ Caused by error in `input$species`:
 <span></span>
 <span><span class="co"># Run the app ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<p>Q. Which things are now updated by the plot button?</p>
+</div>
+<div id="exercise-9" class="section level2" number="37.2">
+<h2>
+<span class="header-section-number">37.2</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise-9"><i class="fas fa-link"></i></a>
+</h2>
+<p>Run this code. Which things are now updated by the plot button?</p>
 </div>
 </div>
 <script>
@@ -641,6 +646,7 @@ $( document ).ready(function() {
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#reactive"><span class="header-section-number">37</span> Reactive</a></li>
 <li><a class="nav-link" href="#observable"><span class="header-section-number">37.1</span> Observable</a></li>
+<li><a class="nav-link" href="#exercise-9"><span class="header-section-number">37.2</span> Exercise</a></li>
 </ul>
 
       <div class="book-extra">

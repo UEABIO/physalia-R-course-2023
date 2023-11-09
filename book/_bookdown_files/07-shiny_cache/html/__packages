@@ -11,3 +11,6 @@ lubridate
 glossary
 webexercises
 knitr
+shiny
+palmerpenguins
+bslib

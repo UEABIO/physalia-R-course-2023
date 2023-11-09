@@ -352,7 +352,6 @@ data-visualisations
 conclusion
 reading-2
 getting-to-work-with-shiny
-image
 using-the-demo-app
 run-the-app
 modify-the-demo-app
@@ -373,10 +372,13 @@ plots
 images
 data-tables
 emphasis
+exercise-8
 reactive
 observable
+exercise-9
 shiny-dashboards
 themable-dashboards
+updating-your-theme
 reading-3
 sharing
 shiny-apps

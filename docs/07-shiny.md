@@ -12,7 +12,7 @@ At its core, Shiny is essentially an R package, similar to dplyr or ggplot2. How
 To illustrate, let's take a look at an example of a basic Shiny app that we will recreate in today's tutorial
 
 
-## IMAGE
+<img src="images/01_hello.png" width="100%" style="display: block; margin: auto;" />
 
 Shiny apps are useful for several purposes:
 
@@ -259,9 +259,9 @@ shinyApp(ui = ui, server = server)
 
 To create your own Shiny app, you should remove any example code generated automatically when you created app.R and replace it with the structure provided above. Check that your final app.R script resembles the following:
 
-<button id="displayTextunnamed-chunk-23" onclick="javascript:toggle('unnamed-chunk-23');">Show Solution</button>
+<button id="displayTextunnamed-chunk-24" onclick="javascript:toggle('unnamed-chunk-24');">Show Solution</button>
 
-<div id="toggleTextunnamed-chunk-23" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+<div id="toggleTextunnamed-chunk-24" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # Packages ----
@@ -550,98 +550,15 @@ As you proceed, you can add more details to your `server.R` to handle these inpu
 ## Exercise 
 
 
-**1. Save a separate file with the progress on our penguins app**
+**1. Save a file with the progress on our penguins app using the code at the start of the chapter**
 
 # Outputs
 
-
-```r
-# Packages ----
-library(shiny)       # Essential for running any Shiny app
-library(tidyverse)
-library(palmerpenguins)    # The source of your data
-
-# Load the data
-penguins <- as_tibble(penguins)
-
-# ui.R ----
-ui <- fluidPage(
-  sidebarLayout(
-     sidebarPanel(
-       
-      demo_sp <- selectInput(inputId = "species",  # Give the input a name "genotype"
-                  label = "1. Select species",  # Give the input a label to be displayed in the app
-                  choices = c("Adelie" = "Adelie", "Chinstrap" = "Chinstrap", "Gentoo" = "Gentoo"), selected = "Adelie"),  # Create the choices that can be selected. e.g. Display "Adelie" and link to value "Adelie"
-      
-      demo_select <- selectInput(inputId = "colour", 
-                  label = "2. Select histogram colour", 
-                  choices = c("blue","green","red","purple","grey"), selected = "grey"),
-      
-      demo_slide <- sliderInput(inputId = "bin", 
-                  label = "3. Select number of histogram bins", 
-                  min=1, max=25, value= c(10)),
-      demo_text <- textAreaInput(inputId = "text", 
-                label = "4. Enter some text to be displayed",
-                rows = 5,
-                placeholder = "Enter some information here")
-    ),
-    
-    mainPanel(
-      # Output elements go here
-        textOutput("demo_text"),
-        plotOutput("demo_plot", width = "500px", height="300px"),
-        
-        DT::dataTableOutput("demo_table",
-                    width = "50%",
-                    height = "auto"),
-        verbatimTextOutput("demo_verbatim")
-    )
-  )
-)
-# server.R ----
-
- 
-server <- function(input, output) {
-   # Your server logic will be defined here
-  output$demo_text <- renderText({
-    paste("Figure 1.", input$species, input$text)
-  })
-  
-  output$demo_plot <- renderPlot({
-    penguins_filtered <- penguins |>
-      filter(species == input$species)
-    
-    ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
-      geom_histogram(fill = input$colour, show.legend = FALSE, bins = input$bin) +
-      labs(fill = "Color") +
-      theme_minimal()
-  })
-  
-  output$demo_table <- DT::renderDataTable({
-   penguins  |> 
-      filter(species == input$species) |> 
-    summarise(flipper_length_mm = quantile(flipper_length_mm, c(0.25, 0.5, 0.75), na.rm = T), quantile = c(0.25, 0.5, 0.75))
-})
-  
-  output$demo_verbatim <- renderText({
-  code <-
-    paste0("penguins_filtered <- penguins %>%
-      filter(species == '", input$species,"')
-    
-    ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
-      geom_histogram(fill = '", input$colour, "', show.legend = FALSE, bins = ", input$bin, ") +
-      theme_minimal()")
-  
-  code
-})
-  
-}
+Output are ways that the Shiny app can dynamically display information to the user. In the user interface (UI), you create outputs with IDs that you reference in an associated rendering function inside the server function. Check out this outputs demo from the R team at Glasgow, then have a look at the different functions in the text below...
 
 
+<iframe height="400" width="100%" frameborder="no" src="https://shiny.psy.gla.ac.uk/debruine/output_demo/"> </iframe>
 
-# Run the app ----
-shinyApp(ui = ui, server = server)
-```
 
 ## Text
 
@@ -822,6 +739,17 @@ p("p creates a paragraph of text."),
 
 ```
 
+## Exercise
+
+Complete our app by adding the appropriate outputs to our file:
+
+<img src="images/demo-app-simple.png" width="100%" style="display: block; margin: auto;" />
+
+
+
+<button id="displayTextunnamed-chunk-54" onclick="javascript:toggle('unnamed-chunk-54');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-54" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
 
 ```r
 # Packages ----
@@ -904,6 +832,7 @@ output$demo_text <- renderText({
 # Run the app ----
 shinyApp(ui = ui, server = server)
 ```
+</div></div></div>
 
 
 # Reactive
@@ -1198,7 +1127,10 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 ```
 
-Q. Which things are now updated by the plot button?
+
+## Exercise
+
+Run this code. Which things are now updated by the plot button?
 
 
 # Shiny Dashboards
@@ -1208,6 +1140,10 @@ Q. Which things are now updated by the plot button?
 It provides a flexible way to create a consistent and visually appealing design for your Shiny applications without having to write extensive CSS code.
 
 You can use `bslib` functions like `bs_theme()`, to define and apply custom styles to your Shiny app.
+
+
+<iframe height="400" width="100%" frameborder="no" src="http://philip-leftwich.shinyapps.io/penguin_demo"> </iframe>
+
 
 
 ```r
@@ -1225,12 +1161,12 @@ means <- penguins |>
   group_by(species) |> 
   summarise(mean = round(mean(flipper_length_mm, na.rm = T), 2))
 
-# Turn on thematic for theme-matched plots
-thematic::thematic_shiny(font = "auto")
-theme_set(theme_bw(base_size = 16))
+
+theme <- bs_theme()
 
 # ui.R ----
 ui <- page_sidebar(
+  theme = bs_theme(),
   title = "Penguins flipper dashboard",
   sidebar = sidebar(
       demo_sp <- selectInput(inputId = "species",  # Give the input a name "genotype"
@@ -1344,7 +1280,7 @@ shinyApp(ui = ui, server = server)
 
 ### Themable Dashboards
 
-Adding the `bstheme()` function to the server adds real time theme changes to dashboards. 
+Adding the `bsthemer()` function to the **server** adds real time theme changes to dashboards. Play with the parameters and you should see updated bstheme code being produced in your console. Make a note of this and you can add this directly to `bs_theme()` to pick a permanent style! 
 
 
 
@@ -1358,18 +1294,11 @@ library(bslib)
 # Load the data
 penguins <- as_tibble(penguins)
 
-# Turn on thematic for theme-matched plots
-thematic::thematic_shiny(font = "auto")
-theme_set(theme_bw(base_size = 16))
-
 # Calculate column means for the value boxes
 means <- penguins |> 
   group_by(species) |> 
   summarise(mean = round(mean(flipper_length_mm, na.rm = T), 2))
 
-# Turn on thematic for theme-matched plots
-thematic::thematic_shiny(font = "auto")
-theme_set(theme_bw(base_size = 16))
 
 # ui.R ----
 ui <- page_sidebar(
@@ -1440,8 +1369,11 @@ ui <- page_sidebar(
  
 
 server <- function(input, output) {
-    bs_themer()
+  # run this get dynamic theme tools  
+  bs_themer()
 
+# Turn on thematic for theme-matched plots
+thematic::thematic_shiny(font = "auto")
 
   observeEvent(input$update, {
     
@@ -1465,7 +1397,6 @@ server <- function(input, output) {
         ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
         geom_histogram(fill = colour, colour = "black", show.legend = FALSE, bins = bins) +
         labs(fill = "Color") +
-        theme_minimal(base_size = 16)
     })
 
     output$demo_table <- DT::renderDataTable({
@@ -1482,6 +1413,156 @@ server <- function(input, output) {
 # Run the app ----
 shinyApp(ui = ui, server = server)
 ```
+
+
+### Updating your theme
+
+You can now update your `bstheme()` and remove the `bsthemer` dynamic interaction line. If you have extensively modified your app - you can add `thematic::thematic_shiny()` to your server so that your plots will be autothemed to the settings of your app. 
+
+
+```r
+# Packages ----
+library(shiny)       # Essential for running any Shiny app
+library(tidyverse)
+library(palmerpenguins)    # The source of your data
+library(bslib)
+
+# Load the data
+penguins <- as_tibble(penguins)
+
+
+
+custom_theme <- bs_theme(
+  # Controls the default grayscale palette
+  bg = "#202123", fg = "#B8BCC2",
+  # Controls the accent (e.g., hyperlink, button, etc) colors
+  primary = "#EA80FC", secondary = "#48DAC6",
+  base_font = c("Grandstander", "sans-serif"),
+  code_font = c("Courier", "monospace"),
+  heading_font = "'Helvetica Neue', Helvetica, sans-serif",
+  # Can also add lower-level customization
+  "input-border-color" = "#EA80FC"
+)
+
+# Calculate column means for the value boxes
+means <- penguins |> 
+  group_by(species) |> 
+  summarise(mean = round(mean(flipper_length_mm, na.rm = T), 2))
+
+# ui.R ----
+ui <- page_sidebar(
+  theme = custom_theme,
+  title = "Penguins flipper dashboard",
+  sidebar = sidebar(
+      demo_sp <- selectInput(inputId = "species",  # Give the input a name "genotype"
+                  label = "1. Select species",  # Give the input a label to be displayed in the app
+                  choices = c("Adelie" = "Adelie", "Chinstrap" = "Chinstrap", "Gentoo" = "Gentoo"), selected = "Adelie"),  # Create the choices that can be selected. e.g. Display "Adelie" and link to value "Adelie"
+      demo_select <- selectInput(inputId = "colour", 
+                  label = "2. Select histogram colour", 
+                  choices = c("blue","green","red","purple","grey"), selected = "grey"),
+      demo_slide <- sliderInput(inputId = "bin", 
+                  label = "3. Select number of histogram bins", 
+                  min=1, max=25, value= c(10)),
+      demo_text <- textAreaInput(inputId = "text", 
+                label = "4. Enter some text to be displayed",
+                rows = 5,
+                placeholder = "Enter some information here"),
+      demo_button <- actionButton("update", "Plot")
+    )
+  ,
+   layout_columns(
+    fill = FALSE,
+    value_box(
+      title = "Adelie Flipper Length",
+      value = scales::unit_format(unit = "mm")(means[[1,2]]),
+      showcase = bsicons::bs_icon("align-bottom"),
+   
+    ),
+    value_box(
+      title = "Chinstrap Flipper",
+      value = scales::unit_format(unit = "mm")(means[[2,2]]),
+      showcase = bsicons::bs_icon("align-center"),
+     
+    ),
+ value_box(
+      title = "Gentoo Flipper Length",
+      value = scales::unit_format(unit = "mm")(means[[3,2]]),
+      showcase = bsicons::bs_icon("align-top"),
+     
+    )
+  ),
+    
+    tags$ul(
+    tags$strong(textOutput("demo_sp")),
+    textOutput("demo_text")),
+ 
+      # Output elements go here
+      layout_columns(
+    card(
+      full_screen = TRUE,
+      card_header("Plot"),
+      plotOutput("demo_plot")
+    ),
+    card(
+      full_screen = TRUE,
+      card_header("Table"),
+      DT::dataTableOutput("demo_table",
+                    width = "100%",
+                    height = "auto")
+    )  
+)
+)
+  
+
+# server.R ----
+
+ 
+
+server <- function(input, output) {
+  
+# Turn on thematic for theme-matched plots
+thematic::thematic_shiny()
+
+  observeEvent(input$update, {
+    
+    penguins_filtered <- penguins |>
+      filter(species == input$species)
+    
+     bins <- input$bin
+     
+     colour <- input$colour
+ 
+
+    output$demo_sp <- renderText({
+      paste("Figure 1.", input$species)
+    })
+
+    output$demo_text <- renderText({
+      (input$text)
+    })
+
+    output$demo_plot <- renderPlot({
+        ggplot(penguins_filtered, aes(x = flipper_length_mm)) +
+        geom_histogram(fill = colour, colour = "black", show.legend = FALSE, bins = bins) +
+        labs(fill = "Color") 
+    })
+
+    output$demo_table <- DT::renderDataTable({
+      penguins_filtered |> 
+        summarise(flipper_length_mm = quantile(flipper_length_mm, c(0.25, 0.5, 0.75), na.rm = T), quantile = c(0.25, 0.5, 0.75))
+    })
+  })
+  
+}
+
+
+
+
+# Run the app ----
+shinyApp(ui = ui, server = server)
+```
+
+<img src="07-shiny_files/figure-html/unnamed-chunk-60-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ### Reading
@@ -1536,23 +1617,30 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] knitr_1.43         webexercises_1.1.0 glossary_1.0.0     lubridate_1.9.2   
-##  [5] forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2        purrr_1.0.1       
-##  [9] readr_2.1.4        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.2     
-## [13] tidyverse_2.0.0   
+##  [1] bslib_0.5.0          palmerpenguins_0.1.1 shiny_1.7.4.1       
+##  [4] knitr_1.43           webexercises_1.1.0   glossary_1.0.0      
+##  [7] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
+## [10] dplyr_1.1.2          purrr_1.0.1          readr_2.1.4         
+## [13] tidyr_1.3.0          tibble_3.2.1         ggplot2_3.4.2       
+## [16] tidyverse_2.0.0     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
-##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
-##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    fansi_1.0.4       scales_1.2.1     
-## [17] jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1       munsell_0.5.0    
-## [21] withr_2.5.0       cachem_1.0.8      yaml_2.3.7        tools_4.3.1      
-## [25] tzdb_0.4.0        memoise_2.0.1     colorspace_2.1-0  vctrs_0.6.3      
-## [29] R6_2.5.1          lifecycle_1.0.3   fs_1.6.2          pkgconfig_2.0.3  
-## [33] pillar_1.9.0      bslib_0.5.0       gtable_0.3.3      glue_1.6.2       
-## [37] xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0 htmltools_0.5.5  
-## [41] rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
+##  [1] gtable_0.3.3      xfun_0.39         htmlwidgets_1.6.2 processx_3.8.2   
+##  [5] lattice_0.21-8    callr_3.7.3       tzdb_0.4.0        ps_1.7.5         
+##  [9] crosstalk_1.2.0   vctrs_0.6.3       tools_4.3.1       generics_0.1.3   
+## [13] fansi_1.0.4       highr_0.10        pkgconfig_2.0.3   webshot_0.5.5    
+## [17] lifecycle_1.0.3   compiler_4.3.1    textshaping_0.3.6 munsell_0.5.0    
+## [21] codetools_0.2-19  httpuv_1.6.11     htmltools_0.5.5   sass_0.4.6       
+## [25] yaml_2.3.7        pillar_1.9.0      later_1.3.1       jquerylib_0.1.4  
+## [29] thematic_0.1.3    ellipsis_0.3.2    DT_0.30           cachem_1.0.8     
+## [33] mime_0.12         tidyselect_1.2.0  digest_0.6.33     stringi_1.7.12   
+## [37] bookdown_0.34     fastmap_1.1.1     grid_4.3.1        colorspace_2.1-0 
+## [41] cli_3.6.1         magrittr_2.0.3    bsicons_0.1.1     utf8_1.2.3       
+## [45] withr_2.5.0       scales_1.2.1      promises_1.2.0.1  timechange_0.2.0 
+## [49] rmarkdown_2.23    ragg_1.2.5        hms_1.1.3         memoise_2.0.1    
+## [53] evaluate_0.21     rlang_1.1.1       downlit_0.4.3     Rcpp_1.0.11      
+## [57] xtable_1.8-4      glue_1.6.2        xml2_1.3.5        rstudioapi_0.15.0
+## [61] jsonlite_1.8.7    R6_2.5.1          systemfonts_1.0.4 fs_1.6.2
 ```
 
 ## Github
@@ -1567,7 +1655,6 @@ You can put your app in a custom R package to make it even easier for people to 
 
 - https://shiny.posit.co/blog/posts/bslib-dashboards/
 
-- https://mastering-shiny.org/action-dynamic.html
-
+- https://mastering-shiny.org/
 
 - https://www.jumpingrivers.com/blog/r-shiny-customising-shinydashboard/#:~:text=The%20main%20way%20of%20including,css%20by%20convention.
