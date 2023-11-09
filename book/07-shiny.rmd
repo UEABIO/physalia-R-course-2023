@@ -240,7 +240,7 @@ Re-run your app and see if you can change the data and x-axis label with your ne
 
 # Make our own App
 
-Now that you've seen a basic Shiny app in actin, let's return to the beginning and  create our own app.R file. A basic app.R consists of five key parts:
+Now that you've seen a basic Shiny app in action, let's return to the beginning and  create our own app.R file. A basic app.R consists of five key parts:
 
 **Package Loading:** At the top of the script, load any necessary R packages for your app to function. `shiny` is a requirement, but you can add others like `dplyr` or `ggplot2` as needed. If any packages are missing, you'll encounter an error, so ensure that you have them installed.
 
@@ -1436,7 +1436,7 @@ shinyApp(ui = ui, server = server)
 
 You can now update your `bstheme()` and remove the `bsthemer` dynamic interaction line. If you have extensively modified your app - you can add `thematic::thematic_shiny()` to your server so that your plots will be autothemed to the settings of your app. 
 
-```{r}
+```{r, eval = F}
 
 # Packages ----
 library(shiny)       # Essential for running any Shiny app
