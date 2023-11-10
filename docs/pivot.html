@@ -157,13 +157,14 @@
 <li><a class="" href="reactive.html"><span class="header-section-number">37</span> Reactive</a></li>
 <li><a class="" href="shiny-dashboards.html"><span class="header-section-number">38</span> Shiny Dashboards</a></li>
 <li><a class="" href="sharing.html"><span class="header-section-number">39</span> Sharing</a></li>
+<li><a class="" href="modules.html"><span class="header-section-number">40</span> Modules</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="rmarkdown.html"><span class="header-section-number">40</span> RMarkdown</a></li>
-<li><a class="" href="github-1.html"><span class="header-section-number">41</span> Github</a></li>
+<li><a class="" href="rmarkdown.html"><span class="header-section-number">41</span> RMarkdown</a></li>
+<li><a class="" href="github-1.html"><span class="header-section-number">42</span> Github</a></li>
 <li class="book-part">Working with big data</li>
-<li><a class="" href="reading-5.html"><span class="header-section-number">42</span> Reading</a></li>
+<li><a class="" href="reading-5.html"><span class="header-section-number">43</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">44</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
 
         <div class="book-extra">
@@ -189,7 +190,7 @@ another:
 type of observation unit is a table
 </p>
 </div>
-<div class="sourceCode" id="cb475"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb474"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wk1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">wk2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">wk3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">0</span><span class="op">)</span></span>
@@ -198,7 +199,7 @@ type of observation unit is a table
 <span><span class="va">peng_obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">penguin_id</span>, <span class="va">wk1</span>,<span class="va">wk2</span>,<span class="va">wk3</span><span class="op">)</span></span></code></pre></div>
 <p>This data is untidy because a value that measures the same underlying attribute (number of observations) is split across three columns. Here wk1,wk2 and wk3 represent the underlying variable of observations split across three weeks.</p>
 <p>We can use pivot to create a tidy representation of the data</p>
-<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb475"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">peng_obs</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="st">"wk1"</span><span class="op">:</span><span class="st">"wk3"</span>,</span>
@@ -277,7 +278,7 @@ type of observation unit is a table
 </table></div>
 </div>
 <p>We can tidy this dataframe further by removing the "wk" prefix:</p>
-<div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">peng_obs</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="st">"wk1"</span><span class="op">:</span><span class="st">"wk3"</span>,</span>
@@ -362,7 +363,7 @@ Note that the week column is still being treated as a character
 string. using <code>names_transform</code> we can fix this
 </p>
 </div>
-<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">peng_obs</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="st">"wk1"</span><span class="op">:</span><span class="st">"wk3"</span>,</span>
@@ -464,7 +465,7 @@ names_from.</p></li>
 <h2>
 <span class="header-section-number">27.3</span> pivot wider for summary tables<a class="anchor" aria-label="anchor" href="#pivot-wider-for-summary-tables"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">island</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -504,7 +505,7 @@ names_from.</p></li>
 </tbody>
 </table></div>
 </div>
-<div class="sourceCode" id="cb480"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_clean_split</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">island</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">body_mass_g</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -744,7 +745,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-09.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-10.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

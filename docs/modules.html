@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 34 Modules | Advancing in R</title>
+<title>Chapter 40 Modules | Advancing in R</title>
 <meta name="author" content="Philip T. Leftwich">
-<meta name="description" content='If you find yourself making nearly identical glossary("UI", "UIs") or server functions over and over in the same app, you might benefit from modules. This is a way to define a pattern to use...'>
+<meta name="description" content="Currently, all the logic for your R Shiny app is concentrated within a single app.R file. However, there's a more effective approach that you're about to discover. In addition how do you structure...">
 <meta name="generator" content="bookdown 0.34 with bs4_book()">
-<meta property="og:title" content="Chapter 34 Modules | Advancing in R">
+<meta property="og:title" content="Chapter 40 Modules | Advancing in R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ueabio.github.io/physalia-R-course-2023/modules.html">
 <meta property="og:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
-<meta property="og:description" content='If you find yourself making nearly identical glossary("UI", "UIs") or server functions over and over in the same app, you might benefit from modules. This is a way to define a pattern to use...'>
+<meta property="og:description" content="Currently, all the logic for your R Shiny app is concentrated within a single app.R file. However, there's a more effective approach that you're about to discover. In addition how do you structure...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 34 Modules | Advancing in R">
-<meta name="twitter:description" content='If you find yourself making nearly identical glossary("UI", "UIs") or server functions over and over in the same app, you might benefit from modules. This is a way to define a pattern to use...'>
+<meta name="twitter:title" content="Chapter 40 Modules | Advancing in R">
+<meta name="twitter:description" content="Currently, all the logic for your R Shiny app is concentrated within a single app.R file. However, there's a more effective approach that you're about to discover. In addition how do you structure...">
 <meta name="twitter:image" content="https://ueabio.github.io/physalia-R-course-2023/images/logos/twitter_card.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -114,60 +114,57 @@
 <li class="book-part">Get Started in R</li>
 <li><a class="" href="introduction-to-r-and-rstudio.html"><span class="header-section-number">1</span> Introduction to R and RStudio</a></li>
 <li><a class="" href="r-basics.html"><span class="header-section-number">2</span> R basics</a></li>
-<li class="book-part">Exploring Data</li>
-<li><a class="" href="loading-data.html"><span class="header-section-number">3</span> Loading data</a></li>
-<li><a class="" href="data-wrangling-part-one.html"><span class="header-section-number">4</span> Data wrangling part one</a></li>
-<li><a class="" href="data-wrangling-part-two.html"><span class="header-section-number">5</span> Data wrangling part two</a></li>
-<li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">6</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li class="book-part">Organising workflows</li>
+<li><a class="" href="project-oriented-workflows.html"><span class="header-section-number">3</span> Project-oriented workflows</a></li>
+<li><a class="" href="basic-importexport.html"><span class="header-section-number">4</span> Basic Import/Export</a></li>
+<li><a class="" href="scripts.html"><span class="header-section-number">5</span> Scripts</a></li>
+<li><a class="" href="naming-things.html"><span class="header-section-number">6</span> Naming things</a></li>
+<li><a class="" href="penguin-project.html"><span class="header-section-number">7</span> Penguin project</a></li>
+<li><a class="" href="data-wrangling-with-dplyr.html"><span class="header-section-number">8</span> Data wrangling with dplyr</a></li>
+<li><a class="" href="data-reshaping.html"><span class="header-section-number">9</span> Data reshaping</a></li>
+<li><a class="" href="basic-ggplot.html"><span class="header-section-number">10</span> Basic ggplot</a></li>
+<li class="book-part">Data Insights</li>
+<li><a class="" href="data-insights-part-one.html"><span class="header-section-number">11</span> Data Insights part one</a></li>
+<li><a class="" href="data-insights-part-two.html"><span class="header-section-number">12</span> Data insights part two</a></li>
 <li class="book-part">Functional Programming</li>
-<li><a class="" href="writing-functions.html"><span class="header-section-number">7</span> Writing Functions</a></li>
-<li><a class="" href="flow-control.html"><span class="header-section-number">8</span> Flow control</a></li>
-<li><a class="" href="simple-iteration.html"><span class="header-section-number">9</span> Simple iteration</a></li>
-<li><a class="" href="loops.html"><span class="header-section-number">10</span> Loops</a></li>
-<li><a class="" href="apply.html"><span class="header-section-number">11</span> Apply</a></li>
-<li><a class="" href="purrr.html"><span class="header-section-number">12</span> Purrr</a></li>
-<li><a class="" href="bonus-simulation.html"><span class="header-section-number">13</span> Bonus: Simulation</a></li>
+<li><a class="" href="writing-functions.html"><span class="header-section-number">13</span> Writing Functions</a></li>
+<li><a class="" href="flow-control.html"><span class="header-section-number">14</span> Flow control</a></li>
+<li><a class="" href="simple-iteration.html"><span class="header-section-number">15</span> Simple iteration</a></li>
+<li><a class="" href="loops.html"><span class="header-section-number">16</span> Loops</a></li>
+<li><a class="" href="apply.html"><span class="header-section-number">17</span> Apply</a></li>
+<li><a class="" href="purrr.html"><span class="header-section-number">18</span> Purrr</a></li>
+<li><a class="" href="bonus-simulation.html"><span class="header-section-number">19</span> Bonus: Simulation</a></li>
 <li class="book-part">Getting the most out of tidyverse</li>
-<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">14</span> Reading files with readr</a></li>
-<li><a class="" href="working-across-columns.html"><span class="header-section-number">15</span> Working across columns</a></li>
-<li><a class="" href="modifying-variables.html"><span class="header-section-number">16</span> Modifying variables</a></li>
-<li><a class="" href="factors-1.html"><span class="header-section-number">17</span> Factors</a></li>
-<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">18</span> Applying functions across columns</a></li>
-<li><a class="" href="working-with-rows.html"><span class="header-section-number">19</span> Working with rows</a></li>
-<li><a class="" href="group-work.html"><span class="header-section-number">20</span> Group work</a></li>
-<li><a class="" href="pivot.html"><span class="header-section-number">21</span> Pivot</a></li>
-<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">22</span> Writing Functions in Tidyverse</a></li>
+<li><a class="" href="reading-files-with-readr.html"><span class="header-section-number">20</span> Reading files with readr</a></li>
+<li><a class="" href="working-across-columns.html"><span class="header-section-number">21</span> Working across columns</a></li>
+<li><a class="" href="modifying-variables.html"><span class="header-section-number">22</span> Modifying variables</a></li>
+<li><a class="" href="factors-1.html"><span class="header-section-number">23</span> Factors</a></li>
+<li><a class="" href="applying-functions-across-columns.html"><span class="header-section-number">24</span> Applying functions across columns</a></li>
+<li><a class="" href="working-with-rows.html"><span class="header-section-number">25</span> Working with rows</a></li>
+<li><a class="" href="group-work.html"><span class="header-section-number">26</span> Group work</a></li>
+<li><a class="" href="pivot.html"><span class="header-section-number">27</span> Pivot</a></li>
+<li><a class="" href="writing-functions-in-tidyverse.html"><span class="header-section-number">28</span> Writing Functions in Tidyverse</a></li>
 <li class="book-part">Data Presentation</li>
-<li><a class="" href="data-visualisation-with-ggplot2.html"><span class="header-section-number">23</span> Data visualisation with ggplot2</a></li>
-<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">24</span> Extensions for ggplot2</a></li>
-<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">25</span> Custom ggplot themes</a></li>
-<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">26</span> Making tables with gt</a></li>
+<li><a class="" href="customisation-with-ggplot2.html"><span class="header-section-number">29</span> Customisation with ggplot2</a></li>
+<li><a class="" href="extensions-for-ggplot2.html"><span class="header-section-number">30</span> Extensions for ggplot2</a></li>
+<li><a class="" href="custom-ggplot-themes.html"><span class="header-section-number">31</span> Custom ggplot themes</a></li>
+<li><a class="" href="making-tables-with-gt.html"><span class="header-section-number">32</span> Making tables with gt</a></li>
 <li class="book-part">Introduction to Shiny</li>
-<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">27</span> Getting to work with Shiny</a></li>
-<li><a class="" href="layout.html"><span class="header-section-number">28</span> Layout</a></li>
-<li><a class="" href="make-our-own-app.html"><span class="header-section-number">29</span> Make our own App</a></li>
-<li><a class="" href="inputs.html"><span class="header-section-number">30</span> Inputs</a></li>
-<li><a class="" href="outputs.html"><span class="header-section-number">31</span> Outputs</a></li>
-<li><a class="" href="reactive.html"><span class="header-section-number">32</span> Reactive</a></li>
-<li><a class="" href="customising.html"><span class="header-section-number">33</span> Customising</a></li>
-<li><a class="active" href="modules.html"><span class="header-section-number">34</span> Modules</a></li>
-<li><a class="" href="sharing.html"><span class="header-section-number">35</span> Sharing</a></li>
+<li><a class="" href="getting-to-work-with-shiny.html"><span class="header-section-number">33</span> Getting to work with Shiny</a></li>
+<li><a class="" href="make-our-own-app.html"><span class="header-section-number">34</span> Make our own App</a></li>
+<li><a class="" href="inputs.html"><span class="header-section-number">35</span> Inputs</a></li>
+<li><a class="" href="outputs.html"><span class="header-section-number">36</span> Outputs</a></li>
+<li><a class="" href="reactive.html"><span class="header-section-number">37</span> Reactive</a></li>
+<li><a class="" href="shiny-dashboards.html"><span class="header-section-number">38</span> Shiny Dashboards</a></li>
+<li><a class="" href="sharing.html"><span class="header-section-number">39</span> Sharing</a></li>
+<li><a class="active" href="modules.html"><span class="header-section-number">40</span> Modules</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="markdown.html"><span class="header-section-number">36</span> Markdown</a></li>
-<li><a class="" href="github.html"><span class="header-section-number">37</span> Github</a></li>
-<li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data.html"><span class="header-section-number">38</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql.html"><span class="header-section-number">39</span> write to sql</a></li>
-<li><a class="" href="querying-sql.html"><span class="header-section-number">40</span> querying sql</a></li>
-<li class="book-part">BONUS: Working with big data</li>
-<li><a class="" href="reading-in-data-1.html"><span class="header-section-number">41</span> Reading in data</a></li>
-<li><a class="" href="write-to-sql-1.html"><span class="header-section-number">42</span> write to sql</a></li>
-<li><a class="" href="querying-sql-1.html"><span class="header-section-number">43</span> querying sql</a></li>
-<li><a class="" href="iteration.html"><span class="header-section-number">44</span> Iteration</a></li>
-<li><a class="" href="startingR.html"><span class="header-section-number">45</span> Starting up R</a></li>
-<li><a class="" href="session-1-foundations-of-programming-in-r.html"><span class="header-section-number">46</span> Session 1: Foundations of Programming in R</a></li>
-<li><a class="" href="r-basics-1.html"><span class="header-section-number">47</span> R Basics</a></li>
+<li><a class="" href="rmarkdown.html"><span class="header-section-number">41</span> RMarkdown</a></li>
+<li><a class="" href="github-1.html"><span class="header-section-number">42</span> Github</a></li>
+<li class="book-part">Working with big data</li>
+<li><a class="" href="reading-5.html"><span class="header-section-number">43</span> Reading</a></li>
+<li class="book-part">BONUS: Automated Exploratory Analysis</li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">44</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
 
         <div class="book-extra">
@@ -175,17 +172,18 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="modules" class="section level1" number="34">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="modules" class="section level1" number="40">
 <h1>
-<span class="header-section-number">34</span> Modules<a class="anchor" aria-label="anchor" href="#modules"><i class="fas fa-link"></i></a>
+<span class="header-section-number">40</span> Modules<a class="anchor" aria-label="anchor" href="#modules"><i class="fas fa-link"></i></a>
 </h1>
-<p>If you find yourself making nearly identical <code>glossary("UI", "UIs")</code> or server functions over and over in the same app, you might benefit from modules. This is a way to define a pattern to use repeatedly.</p>
-<div id="modularizing-the-ui" class="section level2" number="34.1">
-<h2>
-<span class="header-section-number">34.1</span> Modularizing the UI<a class="anchor" aria-label="anchor" href="#modularizing-the-ui"><i class="fas fa-link"></i></a>
-</h2>
-<p>The two tabPanels below follow nearly identical patterns. You can often identify a place where modules might be useful when you use a naming convention like <code>dt("{base}_{type}")</code> for the <code>arg("id")</code>s.</p>
-<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
+<p>Currently, all the logic for your R Shiny app is concentrated within a single app.R file. However, there's a more effective approach that you're about to discover. In addition how do you structure your code when there are a lot of similar processes?</p>
+<p>R Shiny modules offer a way to break down your code into small, reusable components. This allows you to manage and organize your R scripts more efficiently. By integrating various modules into your app.R, you can create a code base that looks professional and is easy to maintain.</p>
+<p>While some may view R Shiny modules as an advanced concept, they don't have to be intimidating. Although they might initially challenge even seasoned R programmers, there are plenty of straightforward aspects to explore.</p>
+<p>Check out the modularised app you will make here (<a href="https://philip-leftwich.shinyapps.io/shiny-modules/" class="uri">https://philip-leftwich.shinyapps.io/shiny-modules/</a>)</p>
+<p>In essence, if you have a grasp of R Shiny fundamentals and can write R functions, you possess the prerequisites to delve into the realm of R Shiny modules.</p>
+<p>In this example we are going to use functions to rewrite an app that use very similar functions to generate plots and tables for two datasets:</p>
+<p>In this first example chunk of code we see what we would do if we wanted to set our <strong>UI</strong> to accept two inputs on two separate tab separated pages:</p>
+<div class="sourceCode" id="cb621"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
 <span>  <span class="st">"iris"</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"iris_dv"</span>, <span class="st">"DV"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>,</span>
@@ -195,13 +193,13 @@
 <span></span>
 <span><span class="va">penguins_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
 <span>  <span class="st">"penguins"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"penguins_dv"</span>, <span class="st">"DV"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bill_length_mm"</span>, <span class="st">"bill_depth_mm"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"penguins_dv"</span>, <span class="st">"DV"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"penguins_plot"</span><span class="op">)</span>,</span>
 <span>  <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">dataTableOutput</a></span><span class="op">(</span><span class="st">"penguins_table"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The first step in modularising your code is to make a function that creates the UIs above from the base ID and any other changing aspects. In the example above, the choices are different for each <code>func("selectInput")</code>, so we'll make a function that has the arguments <code>arg("id")</code> and <code>arg("choices")</code>.</p>
-<p>The first line of a UI module function is always <code>ns &lt;- NS(id)</code>, which creates a shorthand way to add the base id to the id type. So instead of the <code>func("selectInput")</code>'s name being <code>dt("iris_dv")</code> or <code>dt("mtcars_dv")</code>, we set it as <code>func("ns", "dv")</code>. All ids need to use <code>func("ns")</code> to add the namespace to their ID.</p>
-<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
+<p>To modularize your code, start by creating a function that generates the mentioned UIs based on the base ID and other dynamic aspects. In the given example, since the choices vary for each <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code>, a function with id and choices as arguments will be created.</p>
+<p>The initial line of a UI module function always begins with <code>ns &lt;- NS(id)</code>, establishing a convenient way to include the base id in the id type. This ensures that instead of naming the <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> as "iris_dv" or "penguins_dv," (<em>dependent variable</em>, we designate it as <code>ns(dv)</code>. It's essential for all ids to utilize <code>ns()</code> to incorporate the <em>namespace</em> into their IDs.</p>
+<div class="sourceCode" id="cb622"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tabPanelUI</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">choices</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span>    </span>
@@ -212,17 +210,16 @@
 <span>        <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">dataTableOutput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>Now, you can replace two tabPanel definitions with just the following code.</p>
-<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
+<p>Now, you can replace two tabPanel definitions with just the following code:</p>
+<div class="sourceCode" id="cb623"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris_tab</span> <span class="op">&lt;-</span> <span class="fu">tabPanelUI</span><span class="op">(</span><span class="st">"iris"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="va">penguins_tab</span> <span class="op">&lt;-</span> <span class="fu">tabPanelUI</span><span class="op">(</span><span class="st">"penguins"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bill_length_mm"</span>, <span class="st">"bill_depth_mm"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div id="modularizing-server-functions" class="section level2" number="34.2">
+<span><span class="va">penguins_tab</span> <span class="op">&lt;-</span> <span class="fu">tabPanelUI</span><span class="op">(</span><span class="st">"penguins"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">penguins</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div id="modularising-the-server-functions" class="section level2" number="40.1">
 <h2>
-<span class="header-section-number">34.2</span> Modularizing server functions<a class="anchor" aria-label="anchor" href="#modularizing-server-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">40.1</span> Modularising the server functions<a class="anchor" aria-label="anchor" href="#modularising-the-server-functions"><i class="fas fa-link"></i></a>
 </h2>
-<p>In our original code, we have four functions that create the two output tables and two output plots, but these are also largely redundant.</p>
-<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
+<p>Here we have four functions that create the two output tables and two output plots, but these are also largely redundant - as we can see that basically we want the same plot and table, just running on different data:</p>
+<div class="sourceCode" id="cb624"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">output</span><span class="op">$</span><span class="va">iris_table</span> <span class="op">&lt;-</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">renderDataTable</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="va">iris</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
@@ -240,26 +237,71 @@
 <span><span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">output</span><span class="op">$</span><span class="va">penguins_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>   </span>
-<span>   </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">penguins</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">species</span>, </span>
 <span>                     y <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="va">input</span><span class="op">$</span><span class="va">penguins_dv</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>                     fill <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_d</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>The second step to modularising code is creating a server function. You can put all the functions the relate to the inputs and outputs in the UI function here, so we will include one to make the output table and one to make the output plot.</p>
-<p>The server function takes the base id as the first argument, and then any arguments you need to specify things that change between base implementations. Above, the tables show different data and the plots use different groupings for the x axis and fill, so we'll add arguments for <code>arg("data")</code> and <code>arg("group_by")</code>.</p>
-<p>A server function <strong>always</strong> contains <code><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer()</a></code> set up like below.</p>
-<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
+<p>The next stage in code modularization involves establishing a server function. In this function, you can consolidate all the functions related to inputs and outputs from the UI function. For instance, in our case, we'll incorporate functions to generate both the output table and the output plot.</p>
+<p>The server function requires the base id as its initial argument, followed by any additional arguments necessary to specify variations between base implementations. In the previous example, where tables display diverse data and plots utilize distinct groupings for the x-axis and fill, we'll introduce arguments for data and group_by.</p>
+<p>A standard server function always includes <code><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer()</a></code> configured as illustrated below.</p>
+<div class="sourceCode" id="cb625"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tabPanelServer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span>, <span class="va">group_by</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="co"># code ...</span></span>
+<span>        <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">renderDataTable</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>            <span class="va">data</span></span>
+<span>        <span class="op">}</span><span class="op">)</span></span>
+<span>        </span>
+<span>        <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>            <span class="co"># handle non-string groupings</span></span>
+<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="va">group_by</span><span class="op">]</span><span class="op">]</span>, </span>
+<span>                             y <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="va">input</span><span class="op">$</span><span class="va">dv</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>                             fill <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="va">group_by</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_d</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>        <span class="op">}</span><span class="op">)</span></span>
 <span>    <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>No you can copy in one set of server functions above, remove the base name (e.g., "iris_" or "mtcars_") from and inputs or outputs, and replace specific instances of the data or grouping columns with <code>data</code> and <code>group_by</code>.</p>
-<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tabPanelServer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span>, <span class="va">group_by</span><span class="op">)</span> <span class="op">{</span></span>
+<p>Now, you can take one of the set of server functions above, remove the base name (like "iris_" or "penguins_") from both inputs and outputs, and replace any specific references to data or grouping columns with generic terms such as 'data' and 'group_by'.</p>
+<div class="sourceCode" id="cb626"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"iris"</span>, data <span class="op">=</span> <span class="va">iris</span>, group_by <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span>
+<span><span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"penguins"</span>, data <span class="op">=</span> <span class="va">penguins</span>, group_by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="exercise-10" class="section level2" number="40.2">
+<h2>
+<span class="header-section-number">40.2</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise-10"><i class="fas fa-link"></i></a>
+</h2>
+<p>Can you work through the steps above to produce a set of shiny modules in you app.R file?</p>
+<button id="displayTextunnamed-chunk-69" onclick="javascript:toggle('unnamed-chunk-69');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-69" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb627"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/bslib/">bslib</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># modules ----</span></span>
+<span></span>
+<span><span class="va">tabPanelUI</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">choices</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    </span>
+<span>    <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
+<span>        <span class="va">id</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"dv"</span><span class="op">)</span>, <span class="st">"DV"</span>, choices <span class="op">=</span> <span class="va">choices</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">dataTableOutput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">tabPanelServer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span>, <span class="va">group_by</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">renderDataTable</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>            <span class="va">data</span></span>
@@ -272,186 +314,160 @@
 <span>                             y <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="va">input</span><span class="op">$</span><span class="va">dv</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>                             fill <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="va">group_by</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_d</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_d</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span>
 <span>        <span class="op">}</span><span class="op">)</span></span>
 <span>    <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<div class="warning">
-<p>
-In the original code, the grouping variables were unquoted, but it’s
-tricky to pass unquoted variable names to custom functions, and we
-already know how to refer to columns by a character object using
-<code>.data[[char_obj]]</code>.
-</p>
-<p>
-The grouping column <code>Species</code> in <code>iris</code> is
-already a factor, but recasting it as a factor won’t hurt, and is
-required for the <code>mtcars</code> grouping column
-<code>vs</code>.
-</p>
-</div>
-<p>Now, you can replace the four functions inside the server function with these two lines of code.</p>
-<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"iris"</span>, data <span class="op">=</span> <span class="va">iris</span>, group_by <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span>
-<span><span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"penguins"</span>, data <span class="op">=</span> <span class="va">penguins</span>, group_by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></code></pre></div>
-<p>Our example only reduced our code by 4 lines, but it can save a lot of time, effort, and debugging on projects with many similar modules. For example, if you want to change the plots in your app to use a different geom, now you only have to change one function instead of two.</p>
-</div>
-<div id="resources-modules" class="section level2" number="34.3">
-<h2>
-<span class="header-section-number">34.3</span> Further Resources<a class="anchor" aria-label="anchor" href="#resources-modules"><i class="fas fa-link"></i></a>
-</h2>
-<ul>
-<li><a href="https://mastering-shiny.org/scaling-modules.html" target="_blank">Mastering Shiny: Modules</a></li>
-<li><a href="https://shiny.rstudio.com/articles/modules.html" target="_blank">Modularizing Shiny app code</a></li>
-<li>
-<a href="https://www.rstudio.com/resources/shiny-dev-con/modules/" target="_blank">How to use Shiny Modules</a> (video)</li>
-</ul>
-</div>
-<div id="exercises-modules" class="section level2" number="34.4">
-<h2>
-<span class="header-section-number">34.4</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-modules"><i class="fas fa-link"></i></a>
-</h2>
-<div id="repeat-example" class="section level3 unnumbered">
-<h3>Repeat Example<a class="anchor" aria-label="anchor" href="#repeat-example"><i class="fas fa-link"></i></a>
-</h3>
-<p>Try to implement the code above on your own.</p>
-<ul>
-<li>Clone "no_modules_demo" <code>shinyintro::clone("no_modules_demo")</code>
-</li>
-<li>Run the app and see how it works</li>
-<li>Create the UI module function and use it to replace <code>iris_tab</code> and <code>mtcars_tab</code>
-</li>
-<li>Create the server function and use it to replace the server functions</li>
-</ul>
-</div>
-<div id="new-instance" class="section level3 unnumbered">
-<h3>New Instance<a class="anchor" aria-label="anchor" href="#new-instance"><i class="fas fa-link"></i></a>
-</h3>
-<p>Add a new tab called "diamonds" that visualises the <code>diamonds</code> dataset. Choose the columns you want as choices in the <code>func("selectInput")</code> and the grouping column.</p>
-<div class="webex-solution">
-<button>
-UI Solution
-</button>
-<p>You can choose any of the numeric columns for the choices.</p>
-<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">diamonds_tab</span> <span class="op">&lt;-</span> <span class="fu">tabPanelUI</span><span class="op">(</span><span class="st">"diamonds"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"carat"</span>, <span class="st">"depth"</span>, <span class="st">"table"</span>, <span class="st">"price"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="webex-solution">
-<button>
-Server Solution
-</button>
-<p>You can group by any of the categorical columns: cut, color, or clarity.</p>
-<div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"diamonds"</span>, data <span class="op">=</span> <span class="va">diamonds</span>, group_by <span class="op">=</span> <span class="st">"cut"</span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div id="altering-modules" class="section level3 unnumbered">
-<h3>Altering modules<a class="anchor" aria-label="anchor" href="#altering-modules"><i class="fas fa-link"></i></a>
-</h3>
-<ul>
-<li>Add another <code>func("selectInput")</code> to the UI that allows the user to select the grouping variable. (<code>iris</code> only has one possibility, but <code>mtcars</code> and <code>diamonds</code> should have several)</li>
-</ul>
-<div class="webex-solution">
-<button>
-UI Solution
-</button>
-<p>You need to add a new <code>func("selectInput")</code> to the <code>func("tabPanel")</code>. Remember to use <code>func("ns")</code> for the id. The choices for this select will also differ by data set, so you need to add <code>arg("group_choices")</code> to the arguments of this function.</p>
-<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tabPanelUI</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">choices</span>, <span class="va">group_choices</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
-<span>    </span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
-<span>        <span class="va">id</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"dv"</span><span class="op">)</span>, <span class="st">"DV"</span>, choices <span class="op">=</span> <span class="va">choices</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"group_by"</span><span class="op">)</span>, <span class="st">"Group By"</span>, choices <span class="op">=</span> <span class="va">group_choices</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>        <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">dataTableOutput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-</div>
-<ul>
-<li>Update the plot function to use the value of this new input instead of "Species", "vs", and whatever you chose for <code>diamonds</code>.</li>
-</ul>
-<div class="webex-solution">
-<button>
-Server Solution
-</button>
-<p>You no longer need <code>group_by</code> in the arguments for this function because you are getting that info from an input.</p>
-<p>Instead of changing <code>arg("group_by")</code> to <code>input$group_by</code> in three places in the code below, I just added the line <code>group_by &lt;- input$group_by</code> at the top of <code>func("moduleServer")</code>.</p>
-<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tabPanelServer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">group_by</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">group_by</span></span>
-<span>      </span>
-<span>        <span class="co"># rest of the code is the same ...</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-</div>
-</div>
-<div id="new-module" class="section level3 unnumbered">
-<h3>New module<a class="anchor" aria-label="anchor" href="#new-module"><i class="fas fa-link"></i></a>
-</h3>
-<p>There is a <code>func("fluidRow")</code> before the <code>func("tabsetPanel")</code> in the ui that contains three <code>func("infoBoxOutput")</code> and three <code>func("renderInfoBoxOutput")</code> functions in the server function.</p>
-<p>Modularise the info boxes and their associated server functions.</p>
-<div class="webex-solution">
-<button>
-UI Function
-</button>
-<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">infoBoxUI</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">width</span> <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span></span>
-<span>    <span class="fu">infoBoxOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"box"</span><span class="op">)</span>, <span class="va">width</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-</div>
-<div class="webex-solution">
-<button>
-Server Function
-</button>
-<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">infoBoxServer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">title</span>, <span class="va">fmt</span>, <span class="va">icon</span>, <span class="va">color</span> <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">output</span><span class="op">$</span><span class="va">box</span> <span class="op">&lt;-</span> <span class="fu">renderInfoBox</span><span class="op">(</span><span class="op">{</span></span>
-<span>            <span class="fu">infoBox</span><span class="op">(</span>title <span class="op">=</span> <span class="va">title</span>,</span>
-<span>                    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">fmt</span><span class="op">)</span>,</span>
-<span>                    icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html">icon</a></span><span class="op">(</span><span class="va">icon</span><span class="op">)</span>,</span>
-<span>                    color <span class="op">=</span> <span class="va">color</span><span class="op">)</span></span>
-<span>        <span class="op">}</span><span class="op">)</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-</div>
-<div class="webex-solution">
-<button>
-UI Code
-</button>
-<p>In the <code>ui</code>, replace the <code>func("fluidRow")</code> with this:</p>
-<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow</a></span><span class="op">(</span></span>
-<span>    <span class="fu">infoBoxUI</span><span class="op">(</span><span class="st">"day"</span><span class="op">)</span>,</span>
-<span>    <span class="fu">infoBoxUI</span><span class="op">(</span><span class="st">"month"</span><span class="op">)</span>,</span>
-<span>    <span class="fu">infoBoxUI</span><span class="op">(</span><span class="st">"year"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="webex-solution">
-<button>
-Server Code
-</button>
-<p>In <code>func("server")</code>, replace the three <code>func("renderInfoBox")</code> with this:</p>
-<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">infoBoxServer</span><span class="op">(</span><span class="st">"year"</span>, <span class="st">"Year"</span>, <span class="st">"%Y"</span>, <span class="st">"calendar"</span><span class="op">)</span></span>
-<span><span class="fu">infoBoxServer</span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"Month"</span>, <span class="st">"%m"</span>, <span class="st">"calendar-alt"</span><span class="op">)</span></span>
-<span><span class="fu">infoBoxServer</span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"Day"</span>, <span class="st">"%d"</span>, <span class="st">"calendar-day"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># UI-----</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bslib/man/page.html">page_navbar</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/bslib/man/nav-items.html">nav_panel</a></span><span class="op">(</span><span class="st">"Iris data"</span>, <span class="fu">tabPanelUI</span><span class="op">(</span><span class="st">"iris"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/bslib/man/nav-items.html">nav_panel</a></span><span class="op">(</span><span class="st">"Penguins data"</span>, <span class="fu">tabPanelUI</span><span class="op">(</span><span class="st">"penguins"</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">penguins</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># server ----</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"penguins"</span>, data <span class="op">=</span> <span class="va">penguins</span>, group_by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span>
+<span>    <span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"iris"</span>, data <span class="op">=</span> <span class="va">iris</span>, group_by <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span>
+<span><span class="op">}</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
-<div id="your-app-modules" class="section level2" number="34.5">
+</div>
+<div id="separating-files" class="section level2" number="40.3">
 <h2>
-<span class="header-section-number">34.5</span> Your app<a class="anchor" aria-label="anchor" href="#your-app-modules"><i class="fas fa-link"></i></a>
+<span class="header-section-number">40.3</span> Separating files<a class="anchor" aria-label="anchor" href="#separating-files"><i class="fas fa-link"></i></a>
 </h2>
-<p>What you could modularise in your custom app?
-# Download?</p>
+<p>We now have streamlined modular code in our Shiny app, but we can go further. The <code>app.R</code> needs to contain the structure for the <strong>UI</strong> and the <strong>server</strong> but functions defined in your code can be put into a separate file and imported with <code>source("mod-code.R")</code> or whatever you have called your file.</p>
+<blockquote>
+<p>Shiny apps work in a similar way to Rmarkdown files in that the working directory is by default the location of your app.R file - so sort your filepaths accordingly.</p>
+</blockquote>
+<p>This might seem like an unnecessary step at this stage - but once your apps get more complicated - partitioning your funcitons will make changing and debugging much easier.</p>
+<p>See below for the containers for the</p>
+<div id="app.r-file" class="section level3" number="40.3.1">
+<h3>
+<span class="header-section-number">40.3.1</span> app.r file<a class="anchor" aria-label="anchor" href="#app.r-file"><i class="fas fa-link"></i></a>
+</h3>
+<button id="displayTextunnamed-chunk-70" onclick="javascript:toggle('unnamed-chunk-70');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-70" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb628"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/">shiny</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/bslib/">bslib</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"mod-code.R"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">tabPanelUI</span> <span class="op">&lt;-</span> <span class="va">id_choice</span></span>
+<span></span>
+<span><span class="va">tabPanelServer</span> <span class="op">&lt;-</span> <span class="va">plot_table_function</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># UI-----</span></span>
+<span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bslib/man/page.html">page_navbar</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/bslib/man/nav-items.html">nav_panel</a></span><span class="op">(</span><span class="st">"Iris data"</span>, <span class="fu">tabPanelUI</span><span class="op">(</span><span class="st">"iris"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/bslib/man/nav-items.html">nav_panel</a></span><span class="op">(</span><span class="st">"Penguins data"</span>, <span class="fu">tabPanelUI</span><span class="op">(</span><span class="st">"penguins"</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># server ----</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"penguins"</span>, data <span class="op">=</span> <span class="va">penguins</span>, group_by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span>
+<span>  <span class="fu">tabPanelServer</span><span class="op">(</span><span class="st">"iris"</span>, data <span class="op">=</span> <span class="va">iris</span>, group_by <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span>
+<span><span class="op">}</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
+</div>
+</div>
+<div id="mod-code-script" class="section level3" number="40.3.2">
+<h3>
+<span class="header-section-number">40.3.2</span> mod-code script<a class="anchor" aria-label="anchor" href="#mod-code-script"><i class="fas fa-link"></i></a>
+</h3>
+<button id="displayTextunnamed-chunk-71" onclick="javascript:toggle('unnamed-chunk-71');">
+Show Solution
+</button>
+<div id="toggleTextunnamed-chunk-71" style="display: none">
+<div class="panel panel-default">
+<div class="panel-heading panel-heading1">
+Solution
+</div>
+<div class="panel-body">
+<div class="sourceCode" id="cb629"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># functions ====</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span>        </span>
+<span></span>
+<span><span class="co"># data wrangling ====</span></span>
+<span></span>
+<span><span class="va">iris</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Species <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_title</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># define modules ====</span></span>
+<span></span>
+<span><span class="va">id_choice</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">choices</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
+<span>    <span class="va">id</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"dv"</span><span class="op">)</span>, <span class="st">"DV"</span>, choices <span class="op">=</span> <span class="va">choices</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">dataTableOutput</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># server function modules ====</span></span>
+<span></span>
+<span><span class="va">plot_table_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span>, <span class="va">group_by</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">renderDataTable</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>      <span class="va">data</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>      <span class="va">data</span><span class="op">[[</span><span class="va">group_by</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">[[</span><span class="va">group_by</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="va">group_by</span><span class="op">]</span><span class="op">]</span>, </span>
+<span>                       y <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="va">input</span><span class="op">$</span><span class="va">dv</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>                       fill <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="va">group_by</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_d</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span><span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">9</span>, <span class="fl">0</span>, <span class="fl">9</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x<span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>    </span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -632,30 +648,26 @@ $( document ).ready(function() {
   );
 });
 </script><div class="chapter-nav">
-<div class="prev"><a href="customising.html"><span class="header-section-number">33</span> Customising</a></div>
-<div class="next"><a href="sharing.html"><span class="header-section-number">35</span> Sharing</a></div>
+<div class="prev"><a href="sharing.html"><span class="header-section-number">39</span> Sharing</a></div>
+<div class="next"><a href="rmarkdown.html"><span class="header-section-number">41</span> RMarkdown</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#modules"><span class="header-section-number">34</span> Modules</a></li>
-<li><a class="nav-link" href="#modularizing-the-ui"><span class="header-section-number">34.1</span> Modularizing the UI</a></li>
-<li><a class="nav-link" href="#modularizing-server-functions"><span class="header-section-number">34.2</span> Modularizing server functions</a></li>
-<li><a class="nav-link" href="#resources-modules"><span class="header-section-number">34.3</span> Further Resources</a></li>
+<li><a class="nav-link" href="#modules"><span class="header-section-number">40</span> Modules</a></li>
+<li><a class="nav-link" href="#modularising-the-server-functions"><span class="header-section-number">40.1</span> Modularising the server functions</a></li>
+<li><a class="nav-link" href="#exercise-10"><span class="header-section-number">40.2</span> Exercise</a></li>
 <li>
-<a class="nav-link" href="#exercises-modules"><span class="header-section-number">34.4</span> Exercises</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#repeat-example">Repeat Example</a></li>
-<li><a class="nav-link" href="#new-instance">New Instance</a></li>
-<li><a class="nav-link" href="#altering-modules">Altering modules</a></li>
-<li><a class="nav-link" href="#new-module">New module</a></li>
+<a class="nav-link" href="#separating-files"><span class="header-section-number">40.3</span> Separating files</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#app.r-file"><span class="header-section-number">40.3.1</span> app.r file</a></li>
+<li><a class="nav-link" href="#mod-code-script"><span class="header-section-number">40.3.2</span> mod-code script</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#your-app-modules"><span class="header-section-number">34.5</span> Your app</a></li>
 </ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/06-shiny.rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/06-shiny.rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/UEABIO/physalia-intro-stats-2023/blob/main/book/07-shiny.rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/UEABIO/physalia-intro-stats-2023/edit/main/book/07-shiny.rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -667,7 +679,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-10-29.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-10.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

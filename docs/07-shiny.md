@@ -209,7 +209,7 @@ Re-run your app and see if you can change the data and x-axis label with your ne
 
 # Make our own App
 
-Now that you've seen a basic Shiny app in actin, let's return to the beginning and  create our own app.R file. A basic app.R consists of five key parts:
+Now that you've seen a basic Shiny app in action, let's return to the beginning and  create our own app.R file. A basic app.R consists of five key parts:
 
 **Package Loading:** At the top of the script, load any necessary R packages for your app to function. `shiny` is a requirement, but you can add others like `dplyr` or `ggplot2` as needed. If any packages are missing, you'll encounter an error, so ensure that you have them installed.
 
@@ -1590,56 +1590,6 @@ The easiest way to share your apps is with (https://shinyapps.io)
 9. Go back to RStudio and paste the text in the box and click **`Connect Account`**
 10. Make sure the box next to "Enable publishing..." is ticked, click **`Apply`**, and close the options window
 
-
-```r
-sessionInfo()
-```
-
-```
-## R version 4.3.1 (2023-06-16)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.6 LTS
-## 
-## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
-## LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
-## 
-## locale:
-##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
-##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
-##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
-## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
-## 
-## time zone: UTC
-## tzcode source: system (glibc)
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] bslib_0.5.0          palmerpenguins_0.1.1 shiny_1.7.4.1       
-##  [4] knitr_1.43           webexercises_1.1.0   glossary_1.0.0      
-##  [7] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
-## [10] dplyr_1.1.2          purrr_1.0.1          readr_2.1.4         
-## [13] tidyr_1.3.0          tibble_3.2.1         ggplot2_3.4.2       
-## [16] tidyverse_2.0.0     
-## 
-## loaded via a namespace (and not attached):
-##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    xml2_1.3.5       
-##  [5] stringi_1.7.12    hms_1.1.3         digest_0.6.33     magrittr_2.0.3   
-##  [9] evaluate_0.21     grid_4.3.1        timechange_0.2.0  bookdown_0.34    
-## [13] fastmap_1.1.1     jsonlite_1.8.7    promises_1.2.0.1  fansi_1.0.4      
-## [17] scales_1.2.1      codetools_0.2-19  jquerylib_0.1.4   cli_3.6.1        
-## [21] rlang_1.1.1       ellipsis_0.3.2    munsell_0.5.0     withr_2.5.0      
-## [25] cachem_1.0.8      yaml_2.3.7        tools_4.3.1       tzdb_0.4.0       
-## [29] memoise_2.0.1     colorspace_2.1-0  httpuv_1.6.11     mime_0.12        
-## [33] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   fs_1.6.2         
-## [37] pkgconfig_2.0.3   later_1.3.1       pillar_1.9.0      gtable_0.3.3     
-## [41] Rcpp_1.0.11       glue_1.6.2        highr_0.10        xfun_0.39        
-## [45] tidyselect_1.2.0  rstudioapi_0.15.0 xtable_1.8-4      htmltools_0.5.5  
-## [49] rmarkdown_2.23    compiler_4.3.1    downlit_0.4.3
-```
-
 ## Github
 
 GitHub is a great place to organise and share your code using version control. You can also use it to host Shiny app code for others to download and run on their own computer. You can share your ShinyApp in the same way you would share any R project. 
@@ -1655,3 +1605,306 @@ You can put your app in a custom R package to make it even easier for people to 
 - https://mastering-shiny.org/
 
 - https://www.jumpingrivers.com/blog/r-shiny-customising-shinydashboard/#:~:text=The%20main%20way%20of%20including,css%20by%20convention.
+
+
+# Modules
+
+Currently, all the logic for your R Shiny app is concentrated within a single app.R file. However, there's a more effective approach that you're about to discover. In addition how do you structure your code when there are a lot of similar processes?
+
+R Shiny modules offer a way to break down your code into small, reusable components. This allows you to manage and organize your R scripts more efficiently. By integrating various modules into your app.R, you can create a code base that looks professional and is easy to maintain.
+
+While some may view R Shiny modules as an advanced concept, they don't have to be intimidating. Although they might initially challenge even seasoned R programmers, there are plenty of straightforward aspects to explore.
+
+Check out the modularised app you will make here (https://philip-leftwich.shinyapps.io/shiny-modules/)
+
+In essence, if you have a grasp of R Shiny fundamentals and can write R functions, you possess the prerequisites to delve into the realm of R Shiny modules.
+
+In this example we are going to use functions to rewrite an app that use very similar functions to generate plots and tables for two datasets: 
+
+In this first example chunk of code we see what we would do if we wanted to set our **UI** to accept two inputs on two separate tab separated pages: 
+
+
+```r
+iris_tab <- tabPanel(
+  "iris",
+  selectInput("iris_dv", "DV", choices = names(iris)[1:4]),
+  plotOutput("iris_plot"),
+  DT::dataTableOutput("iris_table")
+)
+
+penguins_tab <- tabPanel(
+  "penguins",
+  selectInput("penguins_dv", "DV", choices = names(penguins)[3:6]),
+  plotOutput("penguins_plot"),
+  DT::dataTableOutput("penguins_table")
+)
+```
+
+To modularize your code, start by creating a function that generates the mentioned UIs based on the base ID and other dynamic aspects. In the given example, since the choices vary for each `selectInput()`, a function with id and choices as arguments will be created.
+
+The initial line of a UI module function always begins with `ns <- NS(id)`, establishing a convenient way to include the base id in the id type. This ensures that instead of naming the `selectInput()` as "iris_dv" or "penguins_dv," (*dependent variable*, we designate it as `ns(dv)`. It's essential for all ids to utilize `ns()` to incorporate the *namespace* into their IDs.
+
+
+```r
+tabPanelUI <- function(id, choices) {
+    ns <- NS(id)
+    
+    tabPanel(
+        id,
+        selectInput(ns("dv"), "DV", choices = choices),
+        plotOutput(ns("plot")),
+        DT::dataTableOutput(ns("table"))
+    )
+}
+```
+
+Now, you can replace two tabPanel definitions with just the following code:
+
+
+```r
+iris_tab <- tabPanelUI("iris", names(iris)[1:4])
+penguins_tab <- tabPanelUI("penguins", names(select(penguins, where(is.numeric))))
+```
+
+
+## Modularising the server functions
+
+
+Here we have four functions that create the two output tables and two output plots, but these are also largely redundant - as we can see that basically we want the same plot and table, just running on different data: 
+
+
+```r
+output$iris_table <- DT::renderDataTable({
+    iris
+})
+
+output$iris_plot <- renderPlot({
+    ggplot(iris, aes(x = Species, 
+                     y = .data[[input$iris_dv]],
+                     fill = Species)) +
+        geom_violin(alpha = 0.5, show.legend = FALSE) +
+        scale_fill_viridis_d()
+})
+
+output$penguins_table <- DT::renderDataTable({
+    penguins
+})
+
+output$penguins_plot <- renderPlot({
+    ggplot(penguins, aes(x = species, 
+                     y = .data[[input$penguins_dv]],
+                     fill = species)) +
+        geom_violin(alpha = 0.5, show.legend = FALSE) +
+        scale_fill_viridis_d()
+})
+```
+
+
+The next stage in code modularization involves establishing a server function. In this function, you can consolidate all the functions related to inputs and outputs from the UI function. For instance, in our case, we'll incorporate functions to generate both the output table and the output plot.
+
+The server function requires the base id as its initial argument, followed by any additional arguments necessary to specify variations between base implementations. In the previous example, where tables display diverse data and plots utilize distinct groupings for the x-axis and fill, we'll introduce arguments for data and group_by.
+
+A standard server function always includes `moduleServer()` configured as illustrated below.
+
+
+```r
+tabPanelServer <- function(id, data, group_by) {
+    moduleServer(id, function(input, output, session) {
+        output$table <- DT::renderDataTable({
+            data
+        })
+        
+        output$plot <- renderPlot({
+            # handle non-string groupings
+            ggplot(data, aes(x = .data[[group_by]], 
+                             y = .data[[input$dv]],
+                             fill = .data[[group_by]])) +
+                geom_violin(alpha = 0.5, show.legend = FALSE) +
+                scale_fill_viridis_d()
+        })
+    })
+}
+```
+
+Now, you can take one of the set of server functions above, remove the base name (like "iris_" or "penguins_") from both inputs and outputs, and replace any specific references to data or grouping columns with generic terms such as 'data' and 'group_by'.
+
+
+```r
+tabPanelServer("iris", data = iris, group_by = "Species")
+tabPanelServer("penguins", data = penguins, group_by = "species")
+```
+
+## Exercise
+
+Can you work through the steps above to produce a set of shiny modules in you app.R file?
+
+<button id="displayTextunnamed-chunk-69" onclick="javascript:toggle('unnamed-chunk-69');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-69" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+library(shiny)
+library(bslib)
+library(palmerpenguins)
+
+# modules ----
+
+tabPanelUI <- function(id, choices) {
+    
+    ns <- NS(id)
+    
+    tabPanel(
+        id,
+        selectInput(ns("dv"), "DV", choices = choices),
+        plotOutput(ns("plot")),
+        DT::dataTableOutput(ns("table"))
+    )
+}
+
+tabPanelServer <- function(id, data, group_by) {
+    moduleServer(id, function(input, output, session) {
+        output$table <- DT::renderDataTable({
+            data
+        })
+        
+        output$plot <- renderPlot({
+            # handle non-string groupings
+            data[[group_by]] <- factor(data[[group_by]])
+            ggplot(data, aes(x = .data[[group_by]], 
+                             y = .data[[input$dv]],
+                             fill = .data[[group_by]])) +
+                geom_violin(alpha = 0.5, show.legend = FALSE) +
+                scale_fill_viridis_d()+
+              coord_flip()+
+              theme_minimal(base_size = 18)
+        })
+    })
+}
+
+# UI-----
+
+ui <- page_navbar(
+    nav_panel("Iris data", tabPanelUI("iris", names(iris)[1:4])),
+    nav_panel("Penguins data", tabPanelUI("penguins",names(select(penguins, where(is.numeric)))))
+  )
+
+
+# server ----
+server <- function(input, output, session) {
+    tabPanelServer("penguins", data = penguins, group_by = "species")
+    tabPanelServer("iris", data = iris, group_by = "Species")
+} 
+
+shinyApp(ui, server)
+```
+</div></div></div>
+
+
+## Separating files
+
+We now have streamlined modular code in our Shiny app, but we can go further. The `app.R` needs to contain the structure for the **UI** and the **server** but functions defined in your code can be put into a separate file and imported with `source("mod-code.R")` or whatever you have called your file. 
+
+> Shiny apps work in a similar way to Rmarkdown files in that the working directory is by default the location of your app.R file - so sort your filepaths accordingly. 
+
+This might seem like an unnecessary step at this stage - but once your apps get more complicated - partitioning your funcitons will make changing and debugging much easier.
+
+See below for the containers for the
+
+### app.r file
+
+<button id="displayTextunnamed-chunk-70" onclick="javascript:toggle('unnamed-chunk-70');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-70" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+library(shiny)
+library(bslib)
+source("mod-code.R")
+
+
+tabPanelUI <- id_choice
+
+tabPanelServer <- plot_table_function
+
+
+# UI-----
+
+
+ui <- page_navbar(
+  nav_panel("Iris data", tabPanelUI("iris", names(iris)[1:4])),
+  nav_panel("Penguins data", tabPanelUI("penguins",names(penguins)[3:6]))
+)
+
+
+# server ----
+server <- function(input, output, session) {
+  tabPanelServer("penguins", data = penguins, group_by = "species")
+  tabPanelServer("iris", data = iris, group_by = "Species")
+} 
+
+shinyApp(ui, server)
+```
+</div></div></div>
+
+
+### mod-code script
+
+<button id="displayTextunnamed-chunk-71" onclick="javascript:toggle('unnamed-chunk-71');">Show Solution</button>
+
+<div id="toggleTextunnamed-chunk-71" style="display: none"><div class="panel panel-default"><div class="panel-heading panel-heading1"> Solution </div><div class="panel-body">
+
+```r
+# functions ====
+
+library(palmerpenguins)
+library(dplyr)
+library(ggplot2)
+library(stringr)        
+
+# data wrangling ====
+
+iris <- iris |> 
+  mutate(Species = str_to_title(Species))
+
+# define modules ====
+
+id_choice <- function(id, choices) {
+  
+  ns <- NS(id)
+  
+  tabPanel(
+    id,
+    selectInput(ns("dv"), "DV", choices = choices),
+    plotOutput(ns("plot")),
+    DT::dataTableOutput(ns("table"))
+  )
+}
+
+
+# server function modules ====
+
+plot_table_function <- function(id, data, group_by) {
+  moduleServer(id, function(input, output, session) {
+    output$table <- DT::renderDataTable({
+      data
+    })
+    
+    output$plot <- renderPlot({
+      data[[group_by]] <- factor(data[[group_by]])
+      ggplot(data, aes(x = .data[[group_by]], 
+                       y = .data[[input$dv]],
+                       fill = .data[[group_by]])) +
+        geom_violin(alpha = 0.5, show.legend = FALSE) +
+        scale_fill_viridis_d()+
+        coord_flip()+
+        theme_minimal(base_size = 18)+
+        theme(plot.margin = margin(0, 9, 0, 9, "cm"))+
+        labs(x= "")
+    })
+    
+  })
+}
+```
+</div></div></div>
+
+

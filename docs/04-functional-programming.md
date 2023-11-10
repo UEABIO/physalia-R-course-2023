@@ -2341,17 +2341,17 @@ When working with nested data frames, `map2` provides the capability to apply di
 summary_functions <- list(
     Adelie <- function(data) {
         summarise(data, 
-                  mean_bill_length = mean(bill_length_mm, na.rm = T),
+                  mean_bill_length = mean(culmen_length_mm, na.rm = T),
                   mean_flipper_length = mean(flipper_length_mm, na.rm = T))
     },
     Chinstrap <- function(data) {
         summarise(data,
-                  max_bill_length = max(bill_length_mm, na.rm = T),
+                  max_bill_length = max(culmen_length_mm, na.rm = T),
                   max_flipper_length = max(flipper_length_mm, na.rm = T))
     },
     Gentoo <- function(data) {
         summarise(data,
-                  min_bill_length = min(bill_length_mm, na.rm = T),
+                  min_bill_length = min(culmen_length_mm, na.rm = T),
                   min_flipper_length = min(flipper_length_mm, na.rm = T))
     }
 )
@@ -2361,26 +2361,6 @@ result <- nested_penguins %>%
     mutate(summaries = map2(data, summary_functions, ~ .y(.x)))
 
 result$summaries
-```
-
-```
-## [[1]]
-## # A tibble: 1 × 2
-##   mean_bill_length mean_flipper_length
-##              <dbl>               <dbl>
-## 1             38.8                190.
-## 
-## [[2]]
-## # A tibble: 1 × 2
-##   max_bill_length max_flipper_length
-##             <dbl>              <int>
-## 1            59.6                231
-## 
-## [[3]]
-## # A tibble: 1 × 2
-##   min_bill_length min_flipper_length
-##             <dbl>              <int>
-## 1            40.9                178
 ```
 
 

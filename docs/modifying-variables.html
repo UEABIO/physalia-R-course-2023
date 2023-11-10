@@ -157,13 +157,14 @@
 <li><a class="" href="reactive.html"><span class="header-section-number">37</span> Reactive</a></li>
 <li><a class="" href="shiny-dashboards.html"><span class="header-section-number">38</span> Shiny Dashboards</a></li>
 <li><a class="" href="sharing.html"><span class="header-section-number">39</span> Sharing</a></li>
+<li><a class="" href="modules.html"><span class="header-section-number">40</span> Modules</a></li>
 <li class="book-part">Literate Programming and Reproducibility</li>
-<li><a class="" href="rmarkdown.html"><span class="header-section-number">40</span> RMarkdown</a></li>
-<li><a class="" href="github-1.html"><span class="header-section-number">41</span> Github</a></li>
+<li><a class="" href="rmarkdown.html"><span class="header-section-number">41</span> RMarkdown</a></li>
+<li><a class="" href="github-1.html"><span class="header-section-number">42</span> Github</a></li>
 <li class="book-part">Working with big data</li>
-<li><a class="" href="reading-5.html"><span class="header-section-number">42</span> Reading</a></li>
+<li><a class="" href="reading-5.html"><span class="header-section-number">43</span> Reading</a></li>
 <li class="book-part">BONUS: Automated Exploratory Analysis</li>
-<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">43</span> Packages for Automated Exploratory Data Analysis</a></li>
+<li><a class="" href="packages-for-automated-exploratory-data-analysis.html"><span class="header-section-number">44</span> Packages for Automated Exploratory Data Analysis</a></li>
 </ul>
 
         <div class="book-extra">
@@ -192,7 +193,7 @@ frame. You could use joins to do this, but could you do it with less code and mo
 efficiently?</p></li>
 </ul>
 <p>In this example, we have created a new variable body_mass_intervals that is calculated from the variable body_mass_g. We also used the name argument to give the count column a more descriptive name.</p>
-<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_clean</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span>body_mass_intervals <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">cut_width</a></span><span class="op">(</span><span class="va">body_mass_g</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="kable-table">
@@ -356,7 +357,7 @@ efficiently?</p></li>
 <span class="header-section-number">22.2</span> extract<a class="anchor" aria-label="anchor" href="#extract"><i class="fas fa-link"></i></a>
 </h2>
 <p>This code is using the <code>separate</code> function from the <code>tidyr</code> package to split the "species" column in the penguins_clean data frame into two separate columns: "species" and "full_latin_name." The separation is based on a specific delimiter, which is an opening parenthesis <code>(</code>.</p>
-<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_clean</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">species</span>,</span>
 <span>          into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"full_latin_name"</span><span class="op">)</span>,</span>
@@ -364,7 +365,7 @@ efficiently?</p></li>
 <span>          <span class="op">)</span></span></code></pre></div>
 <p>This approach reaches its limits quite quickly - note here it has left an ugly <code>)</code> on the end of the second column. There are also issues when we lack a clear separator to distinguish the columns we want to create. For these use cases we have extract.</p>
 <p>Now suppose you want to separate the common names and latin names of the species variable by regex:</p>
-<div class="sourceCode" id="cb443"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">penguins_clean_split</span> <span class="op">&lt;-</span> <span class="va">penguins_clean</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">species</span>,</span>
 <span>          into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"full_latin_name"</span><span class="op">)</span>,</span>
@@ -598,7 +599,7 @@ $( document ).ready(function() {
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-09.</p>
+    <p>"<strong>Advancing in R</strong>: A guide for Biologists and Ecologists" was written by Philip T. Leftwich. It was last built on 2023-11-10.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

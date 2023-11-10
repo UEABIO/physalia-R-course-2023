@@ -385,6 +385,12 @@ shiny-apps
 github
 in-an-r-package
 further-reading-1
+modules
+modularising-the-server-functions
+exercise-10
+separating-files
+app.r-file
+mod-code-script
 rmarkdown
 extended-outputs
 github-1

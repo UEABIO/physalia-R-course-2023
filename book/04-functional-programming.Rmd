@@ -7,8 +7,8 @@
 
 ```{r, include = FALSE}
 library(microbenchmark)
-library(palmerpenguins)
-
+#library(palmerpenguins)
+load(here::here("book", "files", "chapter5.RData"))
 ```
 
 
@@ -2254,22 +2254,22 @@ plots_df$scatterplots |>
 
 When working with nested data frames, `map2` provides the capability to apply distinct functions to each nested data frame, making it a versatile tool for performing customized and specialized operations on grouped data. This flexibility is distinct from simple operations with `group_by()`, as it allows you to tailor your computations to the unique characteristics of each subgroup within your nested data structure.
 
-```{r}
+```{r, eval = F}
 
 summary_functions <- list(
     Adelie <- function(data) {
         summarise(data, 
-                  mean_bill_length = mean(bill_length_mm, na.rm = T),
+                  mean_bill_length = mean(culmen_length_mm, na.rm = T),
                   mean_flipper_length = mean(flipper_length_mm, na.rm = T))
     },
     Chinstrap <- function(data) {
         summarise(data,
-                  max_bill_length = max(bill_length_mm, na.rm = T),
+                  max_bill_length = max(culmen_length_mm, na.rm = T),
                   max_flipper_length = max(flipper_length_mm, na.rm = T))
     },
     Gentoo <- function(data) {
         summarise(data,
-                  min_bill_length = min(bill_length_mm, na.rm = T),
+                  min_bill_length = min(culmen_length_mm, na.rm = T),
                   min_flipper_length = min(flipper_length_mm, na.rm = T))
     }
 )
